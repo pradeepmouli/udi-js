@@ -1,4 +1,5 @@
-import { ISY, ISYDevice, Family } from '../../ISY';
+import { ISYDevice, Family } from '../../ISY';
+import { ISY } from '../../ISY.1';
 import { InsteonRelayDevice } from './InsteonRelayDevice';
 export declare class InsteonOnOffOutletDevice extends InsteonRelayDevice {
     outlet1: InsteonRelayDevice;

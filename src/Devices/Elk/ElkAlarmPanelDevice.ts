@@ -9,6 +9,10 @@ import { ElkAlarmSensorDevice } from './ElkAlarmSensorDevice';
 
 //
 export class ELKAlarmPanelDevice extends ISYDevice<Family.Elk> {
+	[x: string]: any;
+	setFromAreaUpdate(nodes: any) {
+		throw new Error('Method not implemented.');
+	}
 
 	public alarmTripState: AlarmTripState;
 	public alarmState: AlarmState;

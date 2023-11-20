@@ -3,6 +3,7 @@ import { ISY } from '../../ISY';
 import { ISYDevice } from '../ISYDevice';
 import { AlarmSensorPhysicalState, AlarmSensorLogicalState } from './ElkAlarmPanelDevice';
 export declare class ElkAlarmSensorDevice extends ISYDevice<Family.Elk> {
+    [x: string]: any;
     area: number;
     zone: string;
     deviceFriendlyName: string;

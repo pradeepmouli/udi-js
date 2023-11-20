@@ -1,8 +1,7 @@
 import { InsteonDimmableDevice } from './InsteonDimmableDevice';
 declare const InsteonKeypadDimmerDevice_base: {
     new (...args: any[]): {
-        [x: string]: any;
-        addChild(childDevice: import("../ISYDevice").ISYDevice<import("../../Families").Family.Insteon>): void;
+        addChild(childDevice: ISYDevice<import("../../Families").Family.Insteon>): void;
         convertFrom(value: any, uom: number): any;
         convertTo(value: any, uom: number): any;
         sendBeep(level?: number): Promise<any>;
@@ -19,17 +18,24 @@ declare const InsteonKeypadDimmerDevice_base: {
         readonly formatted: any;
         readonly uom: any;
         readonly pending: any;
+        readonly local: any;
         hidden: boolean;
         location: string;
+        _enabled: any;
+        productName: string;
+        model: string;
+        modelNumber: string;
+        version: string;
         addLink(isyScene: import("../../ISYScene").ISYScene): void;
         readonly parentDevice: import("../ISYDevice").ISYDevice<import("../../Families").Family.Insteon>;
         refreshProperty(propertyName: string): Promise<any>;
         updateProperty(propertyName: string, value: string): Promise<any>;
+        public: any;
         sendCommand(command: any, ...parameters: any[]): Promise<any>;
         refresh(): Promise<any>;
         handleControlTrigger(controlName: any): boolean;
         handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
-        readonly isy: import("../../ISY").ISY;
+        readonly isy: ISY;
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;
@@ -44,9 +50,10 @@ declare const InsteonKeypadDimmerDevice_base: {
         nodeType: number;
         readonly baseDisplayName: string;
         propsInitialized: boolean;
-        logger: (msg: any) => void;
+        logger: (msg: any, level?: "ERROR" | "WARN" | "DEBUG" | "INFO", ...meta: any[]) => import("winston").Logger;
         lastChanged: Date;
         enabled: boolean;
+        baseName: any;
         on(event: "PropertyChanged" | "ControlTriggered", listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any) | ((controlName: string) => any)): any;
         emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): boolean;
         handleEvent(event: any): boolean;

@@ -11,7 +11,7 @@ import { ISYScene } from '../ISYScene';
 import { NodeEvent } from '../Events/NodeEvent';
 
 export class ISYDevice<T extends Family> extends ISYNode {
-	public family: T;
+	declare public family: T;
 
 	public readonly typeCode: string;
 	public readonly deviceClass: any;
@@ -25,8 +25,15 @@ export class ISYDevice<T extends Family> extends ISYNode {
 	public readonly formatted: any[string] = {};
 	public readonly uom: any[string] = {};
 	public readonly pending: any[string] = {};
+	public readonly local: any[string] = {};
 	public hidden: boolean = false;
-	public location: string;
+	
+	public _enabled: any;
+	productName: string;
+	model: string;
+	modelNumber: string;
+	version: string;
+	isDimmable: boolean;
 
 	constructor(isy: ISY, node: { family: any; type?: string; enabled: any; deviceClass?: any; pnode?: any; property?: any; flag?: any; nodeDefId?: string; address?: any; name?: string; parent?: any; ELK_ID?: string; }) {
 		super(isy, node);
@@ -54,7 +61,7 @@ export class ISYDevice<T extends Family> extends ISYNode {
 		}
 		if (Array.isArray(node.property)) {
 			for (const prop of node.property) {
-				this[prop.id] = this.convertFrom(prop.value, prop.uom);
+				this.local[prop.id] = this.convertFrom(prop.value, prop.uom);
 				this.formatted[prop.id] = prop.formatted;
 				this.uom[prop.id] = prop.uom;
 				this.logger(
@@ -64,7 +71,7 @@ export class ISYDevice<T extends Family> extends ISYNode {
 				);
 			}
 		} else if (node.property) {
-			this[node.property.id] = this.convertFrom(
+			this.local[node.property.id] = this.convertFrom(
 				node.property.value,
 				node.property.uom
 			);
@@ -127,10 +134,12 @@ export class ISYDevice<T extends Family> extends ISYNode {
 		return this.isy
 			.sendISYCommand(`nodes/${this.address}/set/${propertyName}/${val}`)
 			.then((p) => {
-				this[propertyName] = value;
+				this.local[propertyName] = value;
 				this.pending[propertyName] = null;
 			});
 	}
+
+	public 
 
 	public async sendCommand(command, ...parameters: any[]): Promise<any> {
 		return this.isy.sendNodeCommand(this, command, ...parameters);
@@ -144,7 +153,7 @@ export class ISYDevice<T extends Family> extends ISYNode {
 
 		if (Array.isArray(node.property)) {
 			for (const prop of node.property) {
-				device[prop.id] = prop.value;
+				device.local[prop.id] = prop.value;
 				device.formatted[prop.id] = prop.formatted;
 				device.uom[prop.id] = prop.uom;
 				device.logger(
@@ -154,7 +163,7 @@ export class ISYDevice<T extends Family> extends ISYNode {
 				);
 			}
 		} else if (node.property) {
-			device[node.property.id] = node.property.value;
+			device.local[node.property.id] = node.property.value;
 			device.formatted[node.property.id] = node.property.formatted;
 			device.uom[node.property.id] = node.property.uom;
 			device.logger(
@@ -179,14 +188,14 @@ export class ISYDevice<T extends Family> extends ISYNode {
 				this.uom[propertyName]
 			);
 
-			if (this[propertyName] !== val) {
+			if (this.local[propertyName] !== val) {
 
 				this.logger(
 					`Property ${
 					Controls[propertyName].label
 					} (${propertyName}) updated to: ${val} (${formattedValue})`
 				);
-				this[propertyName] = val;
+				this.local[propertyName] = val;
 				this.formatted[propertyName] = formattedValue;
 				this.lastChanged = new Date();
 				changed = true;
@@ -215,8 +224,8 @@ export type Constructor<T> = new (...args: any[]) => T;
 
 export const ISYBinaryStateDevice = <K extends Family, T extends Constructor<ISYDevice<K>>>(Base: T) => {
 	return class extends Base {
-		 get state(): boolean {
-			return this.ST > 0;
+		get state(): Promise<boolean> {
+			return this.refreshProperty('ST').then(p => p  > 0);
 		}
 	};
 };
@@ -225,16 +234,16 @@ export const ISYUpdateableBinaryStateDevice = <K extends Family,T extends Constr
 	Base: T
 ) => {
 	return class extends Base {
-		get state(): boolean {
-
-			return this.ST > 0;
+		get state(): Promise<boolean> {
+			return this.refreshProperty('ST').then(p => p  > 0);
 		}
 
+
 		public async updateState(state: boolean): Promise<any> {
-			if (state !== this.state || this.pending.ST > 0 !== this.state) {
+			if (state !== await this.state || this.pending.ST > 0 !== await this.state) {
 				this.pending.ST = state ? States.On : States.Off;
 				return this.sendCommand(state ? Commands.On : Commands.Off).then((p) => {
-					this.ST = this.pending.ST;
+					//this.local.ST = this.pending.ST;
 					this.pending.ST = null;
 				});
 			}
@@ -243,10 +252,12 @@ export const ISYUpdateableBinaryStateDevice = <K extends Family,T extends Constr
 	};
 };
 
+
+
 export const ISYLevelDevice = <T extends Constructor<ISYDevice<any>>>(base: T) =>
 	class extends base {
 		get level(): number {
-			return this.ST;
+			return this.local.ST;
 		}
 	};
 
@@ -255,11 +266,11 @@ export const ISYLevelDevice = <T extends Constructor<ISYDevice<any>>>(base: T) =
 export const ISYUpdateableLevelDevice = <T extends Constructor<ISYDevice<any>>>(base: T) =>
 	class extends base {
 		get level(): number {
-			return this.ST;
+			return this.local.ST;
 		}
 
 		public async updateLevel(level: number): Promise<any> {
-			if (level != this.ST && level !== (this.pending.ST ?? this.ST)) {
+			if (level != this.local.ST && level !== (this.pending.ST ?? this.local.ST)) {
 
 				this.pending.ST = level;
 				if (level > 0) {
@@ -267,12 +278,12 @@ export const ISYUpdateableLevelDevice = <T extends Constructor<ISYDevice<any>>>(
 						Commands.On,
 						this.convertTo(level, this.uom.ST)
 					).then((p) => {
-						this.ST = this.pending.ST;
+						//this.local.ST = this.pending.ST; *Wait to receive propertu update from subscription
 						this.pending.ST = null;
 					});
 				} else {
 					return this.sendCommand(Commands.Off).then((p) => {
-						this.ST = this.pending.ST;
+						//this.local.ST = this.pending.ST; *Wait to receive propertu update from subscription
 						this.pending.ST = null;
 					});
 				}

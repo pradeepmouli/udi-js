@@ -7,6 +7,7 @@ import { InsteonKeypadButtonDevice } from './InsteonKeypadDevice';
 import { InsteonRelayDevice } from './InsteonRelayDevice';
 
 export const InsteonLampDevice = <T extends Constructor<InsteonBaseDevice>>(IB: T) => (class extends IB {
+			declare isDimmable: boolean;
 
 			constructor(...args: any[]) {
 				super(args[0], args[1]);
@@ -17,6 +18,7 @@ export const InsteonLampDevice = <T extends Constructor<InsteonBaseDevice>>(IB: 
 
 // tslint:disable-next-line: variable-name
 export const InsteonSwitchDevice = <T extends Constructor<InsteonBaseDevice>>(IB: T) => (class extends IB {
+	declare isDimmable: boolean;
 
 	constructor (...args: any[]) {
 		super(args[0], args[1]);

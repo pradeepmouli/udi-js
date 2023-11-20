@@ -1,4 +1,4 @@
-import { ISY } from '../../ISY';
+import { ISY } from '../../ISY.1';
 import { InsteonBaseDevice } from './InsteonBaseDevice';
 export declare class InsteonThermostatDevice extends InsteonBaseDevice {
     constructor(isy: ISY, deviceNode: {

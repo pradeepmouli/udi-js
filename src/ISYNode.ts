@@ -4,6 +4,7 @@ import { isNullOrUndefined } from 'util';
 import { Family } from './Families';
 import { Categories, Controls, ISY, NodeType } from './ISY';
 import { PropertyChangedEventEmitter } from './Utils';
+import { LogMethod, Logform, Logger, debug } from 'winston';
 
 
 export class ISYNode extends EventEmitter implements PropertyChangedEventEmitter {
@@ -12,7 +13,7 @@ export class ISYNode extends EventEmitter implements PropertyChangedEventEmitter
 	public readonly flag: any;
 	public readonly nodeDefId: string;
 	public readonly address: string;
-	[x: string]: any;
+	// [x: string]: any;
 	public name: string;
 	public displayName: string;
 	public spokenName: string;
@@ -26,9 +27,11 @@ export class ISYNode extends EventEmitter implements PropertyChangedEventEmitter
 	public nodeType: number;
 	public readonly baseDisplayName: string;
 	public propsInitialized: boolean;
-	public logger: (msg: any) => void;
+	public logger: (( msg: any, level?: "ERROR" | "WARN" | "DEBUG" | "INFO", ...meta: any[]) => Logger);
 	public lastChanged: Date;
 	public enabled: boolean;
+	baseName: any;
+	family: Family;
 	constructor (isy: ISY, node: { flag?: any; nodeDefId?: string; address?: string; name?: string; family?: Family; parent?: any; enabled: boolean; ELK_ID?: string; }) {
 		super();
 		this.isy = isy;
@@ -54,25 +57,27 @@ export class ISYNode extends EventEmitter implements PropertyChangedEventEmitter
 		if (this.parentType === NodeType.Folder) {
 
 			this.folder = isy.folderMap.get(this.parent._);
-			isy.logger(`${this.name} this node is in folder ${this.folder}`);
-			this.logger = (msg) => {
-				return isy.logger(`${this.folder} ${this.name} (${this.address}): ${msg}`);
+			isy.logger.info(`${this.name} this node is in folder ${this.folder}`);
+			this.logger = (level: 'ERROR'|'WARN'|'DEBUG'|'INFO' = 'DEBUG',msg : any, ...meta: any[]) => {
+				 isy.logger.log(level,`${this.folder} ${this.name} (${this.address}): ${msg}`);
+				 return isy.logger;
 			};
 
 			this.displayName = `${this.folder} ${this.baseName}`;
 		}
 		else {
 			this.displayName = this.baseDisplayName;
-			this.logger = (msg) => {
-				return isy.logger(`${this.name} (${this.address}): ${msg}`);
-			};
+			this.logger = (msg : any, level: 'ERROR'|'WARN'|'DEBUG'|'INFO' = 'DEBUG',...meta: any[]) => {
+				isy.logger.log(level,`$${this.name} (${this.address}): ${msg}`);
+				return isy.logger;
+		   };
 		}
 
 		this.logger(this.nodeDefId);
 		this.lastChanged = new Date();
 	}
 
-	public handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean {
+	 handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean {
 		this.lastChanged = new Date();
 
 		return true;

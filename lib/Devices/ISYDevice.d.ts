@@ -1,5 +1,5 @@
 import { Family } from '../Families';
-import { ISY } from '../ISY';
+import { ISY } from '../ISY.1';
 import { ISYNode } from '../ISYNode';
 import { ISYScene } from '../ISYScene';
 export declare class ISYDevice<T extends Family> extends ISYNode {
@@ -16,8 +16,14 @@ export declare class ISYDevice<T extends Family> extends ISYNode {
     readonly formatted: any[string];
     readonly uom: any[string];
     readonly pending: any[string];
+    readonly local: any[string];
     hidden: boolean;
     location: string;
+    _enabled: any;
+    productName: string;
+    model: string;
+    modelNumber: string;
+    version: string;
     constructor(isy: ISY, node: {
         family: any;
         type?: string;
@@ -39,16 +45,16 @@ export declare class ISYDevice<T extends Family> extends ISYNode {
     get parentDevice(): ISYDevice<T>;
     refreshProperty(propertyName: string): Promise<any>;
     updateProperty(propertyName: string, value: string): Promise<any>;
+    public: any;
     sendCommand(command: any, ...parameters: any[]): Promise<any>;
     refresh(): Promise<any>;
     handleControlTrigger(controlName: any): boolean;
     handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
 }
-export declare type Constructor<T> = new (...args: any[]) => T;
+export type Constructor<T> = new (...args: any[]) => T;
 export declare const ISYBinaryStateDevice: <K extends Family, T extends Constructor<ISYDevice<K>>>(Base: T) => {
     new (...args: any[]): {
-        [x: string]: any;
-        readonly state: boolean;
+        readonly state: Promise<boolean>;
         family: K;
         readonly typeCode: string;
         readonly deviceClass: any;
@@ -62,8 +68,14 @@ export declare const ISYBinaryStateDevice: <K extends Family, T extends Construc
         readonly formatted: any[string];
         readonly uom: any[string];
         readonly pending: any[string];
+        readonly local: any[string];
         hidden: boolean;
         location: string;
+        _enabled: any;
+        productName: string;
+        model: string;
+        modelNumber: string;
+        version: string;
         convertTo(value: any, uom: number): any;
         convertFrom(value: any, uom: number): any;
         addLink(isyScene: ISYScene): void;
@@ -71,6 +83,7 @@ export declare const ISYBinaryStateDevice: <K extends Family, T extends Construc
         readonly parentDevice: ISYDevice<K>;
         refreshProperty(propertyName: string): Promise<any>;
         updateProperty(propertyName: string, value: string): Promise<any>;
+        public: any;
         sendCommand(command: any, ...parameters: any[]): Promise<any>;
         refresh(): Promise<any>;
         handleControlTrigger(controlName: any): boolean;
@@ -90,9 +103,10 @@ export declare const ISYBinaryStateDevice: <K extends Family, T extends Construc
         nodeType: number;
         readonly baseDisplayName: string;
         propsInitialized: boolean;
-        logger: (msg: any) => void;
+        logger: (msg: any, level?: "ERROR" | "WARN" | "DEBUG" | "INFO", ...meta: any[]) => import("winston").Logger;
         lastChanged: Date;
         enabled: boolean;
+        baseName: any;
         on(event: "PropertyChanged" | "ControlTriggered", listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any) | ((controlName: string) => any)): any;
         emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): boolean;
         handleEvent(event: any): boolean;
@@ -116,7 +130,6 @@ export declare const ISYBinaryStateDevice: <K extends Family, T extends Construc
 } & T;
 export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extends Constructor<ISYDevice<K>>>(Base: T) => {
     new (...args: any[]): {
-        [x: string]: any;
         readonly state: boolean;
         updateState(state: boolean): Promise<any>;
         family: K;
@@ -132,8 +145,14 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extend
         readonly formatted: any[string];
         readonly uom: any[string];
         readonly pending: any[string];
+        readonly local: any[string];
         hidden: boolean;
         location: string;
+        _enabled: any;
+        productName: string;
+        model: string;
+        modelNumber: string;
+        version: string;
         convertTo(value: any, uom: number): any;
         convertFrom(value: any, uom: number): any;
         addLink(isyScene: ISYScene): void;
@@ -141,6 +160,7 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extend
         readonly parentDevice: ISYDevice<K>;
         refreshProperty(propertyName: string): Promise<any>;
         updateProperty(propertyName: string, value: string): Promise<any>;
+        public: any;
         sendCommand(command: any, ...parameters: any[]): Promise<any>;
         refresh(): Promise<any>;
         handleControlTrigger(controlName: any): boolean;
@@ -160,9 +180,10 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extend
         nodeType: number;
         readonly baseDisplayName: string;
         propsInitialized: boolean;
-        logger: (msg: any) => void;
+        logger: (msg: any, level?: "ERROR" | "WARN" | "DEBUG" | "INFO", ...meta: any[]) => import("winston").Logger;
         lastChanged: Date;
         enabled: boolean;
+        baseName: any;
         on(event: "PropertyChanged" | "ControlTriggered", listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any) | ((controlName: string) => any)): any;
         emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): boolean;
         handleEvent(event: any): boolean;
@@ -186,7 +207,6 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extend
 } & T;
 export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(base: T) => {
     new (...args: any[]): {
-        [x: string]: any;
         readonly level: number;
         family: any;
         readonly typeCode: string;
@@ -201,8 +221,14 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(bas
         readonly formatted: any[string];
         readonly uom: any[string];
         readonly pending: any[string];
+        readonly local: any[string];
         hidden: boolean;
         location: string;
+        _enabled: any;
+        productName: string;
+        model: string;
+        modelNumber: string;
+        version: string;
         convertTo(value: any, uom: number): any;
         convertFrom(value: any, uom: number): any;
         addLink(isyScene: ISYScene): void;
@@ -210,6 +236,7 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(bas
         readonly parentDevice: ISYDevice<any>;
         refreshProperty(propertyName: string): Promise<any>;
         updateProperty(propertyName: string, value: string): Promise<any>;
+        public: any;
         sendCommand(command: any, ...parameters: any[]): Promise<any>;
         refresh(): Promise<any>;
         handleControlTrigger(controlName: any): boolean;
@@ -229,9 +256,10 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(bas
         nodeType: number;
         readonly baseDisplayName: string;
         propsInitialized: boolean;
-        logger: (msg: any) => void;
+        logger: (msg: any, level?: "ERROR" | "WARN" | "DEBUG" | "INFO", ...meta: any[]) => import("winston").Logger;
         lastChanged: Date;
         enabled: boolean;
+        baseName: any;
         on(event: "PropertyChanged" | "ControlTriggered", listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any) | ((controlName: string) => any)): any;
         emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): boolean;
         handleEvent(event: any): boolean;
@@ -255,7 +283,6 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(bas
 } & T;
 export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDevice<any>>>(base: T) => {
     new (...args: any[]): {
-        [x: string]: any;
         readonly level: number;
         updateLevel(level: number): Promise<any>;
         family: any;
@@ -271,8 +298,14 @@ export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDevice<
         readonly formatted: any[string];
         readonly uom: any[string];
         readonly pending: any[string];
+        readonly local: any[string];
         hidden: boolean;
         location: string;
+        _enabled: any;
+        productName: string;
+        model: string;
+        modelNumber: string;
+        version: string;
         convertTo(value: any, uom: number): any;
         convertFrom(value: any, uom: number): any;
         addLink(isyScene: ISYScene): void;
@@ -280,6 +313,7 @@ export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDevice<
         readonly parentDevice: ISYDevice<any>;
         refreshProperty(propertyName: string): Promise<any>;
         updateProperty(propertyName: string, value: string): Promise<any>;
+        public: any;
         sendCommand(command: any, ...parameters: any[]): Promise<any>;
         refresh(): Promise<any>;
         handleControlTrigger(controlName: any): boolean;
@@ -299,9 +333,10 @@ export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDevice<
         nodeType: number;
         readonly baseDisplayName: string;
         propsInitialized: boolean;
-        logger: (msg: any) => void;
+        logger: (msg: any, level?: "ERROR" | "WARN" | "DEBUG" | "INFO", ...meta: any[]) => import("winston").Logger;
         lastChanged: Date;
         enabled: boolean;
+        baseName: any;
         on(event: "PropertyChanged" | "ControlTriggered", listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any) | ((controlName: string) => any)): any;
         emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): boolean;
         handleEvent(event: any): boolean;

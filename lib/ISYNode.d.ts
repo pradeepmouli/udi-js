@@ -3,12 +3,12 @@ import { EventEmitter } from 'events';
 import { Family } from './Families';
 import { ISY, NodeType } from './ISY';
 import { PropertyChangedEventEmitter } from './Utils';
+import { Logger } from 'winston';
 export declare class ISYNode extends EventEmitter implements PropertyChangedEventEmitter {
     readonly isy: ISY;
     readonly flag: any;
     readonly nodeDefId: string;
     readonly address: string;
-    [x: string]: any;
     name: string;
     displayName: string;
     spokenName: string;
@@ -21,9 +21,11 @@ export declare class ISYNode extends EventEmitter implements PropertyChangedEven
     nodeType: number;
     readonly baseDisplayName: string;
     propsInitialized: boolean;
-    logger: (msg: any) => void;
+    logger: ((msg: any, level?: "ERROR" | "WARN" | "DEBUG" | "INFO", ...meta: any[]) => Logger);
     lastChanged: Date;
     enabled: boolean;
+    baseName: any;
+    family: Family;
     constructor(isy: ISY, node: {
         flag?: any;
         nodeDefId?: string;

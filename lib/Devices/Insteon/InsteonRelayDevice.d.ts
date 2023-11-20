@@ -1,8 +1,7 @@
-import { ISY } from '../../ISY';
+import { ISY } from '../../ISY.1';
 import { InsteonBaseDevice } from './InsteonBaseDevice';
 declare const InsteonRelayDevice_base: {
     new (...args: any[]): {
-        [x: string]: any;
         readonly state: boolean;
         updateState(state: boolean): Promise<any>;
         family: import("../../Families").Family;
@@ -18,8 +17,14 @@ declare const InsteonRelayDevice_base: {
         readonly formatted: any;
         readonly uom: any;
         readonly pending: any;
+        readonly local: any;
         hidden: boolean;
         location: string;
+        _enabled: any;
+        productName: string;
+        model: string;
+        modelNumber: string;
+        version: string;
         convertTo(value: any, uom: number): any;
         convertFrom(value: any, uom: number): any;
         addLink(isyScene: import("../../ISYScene").ISYScene): void;
@@ -27,6 +32,7 @@ declare const InsteonRelayDevice_base: {
         readonly parentDevice: import("../ISYDevice").ISYDevice<import("../../Families").Family>;
         refreshProperty(propertyName: string): Promise<any>;
         updateProperty(propertyName: string, value: string): Promise<any>;
+        public: any;
         sendCommand(command: any, ...parameters: any[]): Promise<any>;
         refresh(): Promise<any>;
         handleControlTrigger(controlName: any): boolean;
@@ -46,9 +52,10 @@ declare const InsteonRelayDevice_base: {
         nodeType: number;
         readonly baseDisplayName: string;
         propsInitialized: boolean;
-        logger: (msg: any) => void;
+        logger: (msg: any, level?: "ERROR" | "WARN" | "DEBUG" | "INFO", ...meta: any[]) => import("winston").Logger;
         lastChanged: Date;
         enabled: boolean;
+        baseName: any;
         on(event: "PropertyChanged" | "ControlTriggered", listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any) | ((controlName: string) => any)): any;
         emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): boolean;
         handleEvent(event: any): boolean;
@@ -85,7 +92,8 @@ export declare class InsteonRelayDevice extends InsteonRelayDevice_base {
         parent?: any;
         ELK_ID?: string;
     });
-    get isOn(): boolean;
+    get isOn(): Promise<boolean>;
+    set isOn(value: boolean);
     updateIsOn(isOn: boolean): Promise<any>;
 }
 export {};

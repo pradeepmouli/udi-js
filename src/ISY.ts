@@ -1,6 +1,8 @@
 import { Client } from 'faye-websocket';
 import { writeFile } from 'fs';
-import { get, parsers } from 'restler-base';
+import { get,parsers } from 'restler-base';
+import  axios from 'axios';
+
 import { Parser } from 'xml2js';
 import { parseBooleans, parseNumbers } from 'xml2js/lib/processors';
 import { XmlDocument } from 'xmldoc';
@@ -37,6 +39,7 @@ import { InsteonSmokeSensorDevice } from './Devices/Insteon/InsteonSmokeSensorDe
 import { InsteonDimmerOutletDevice } from './Devices/Insteon/InsteonDimmerOutletDevice';
 import { InsteonKeypadButtonDevice } from './Devices/Insteon/InsteonKeypadDevice';
 import { EventEmitter } from 'events';
+import { Logger } from 'winston';
 
 export {
 	ISYScene,
@@ -114,23 +117,25 @@ export class ISY extends EventEmitter {
 	public readonly displayNameFormat: string;
 	public guardianTimer: any;
 	public elkAlarmPanel: ELKAlarmPanelDevice;
-	public logger: LoggerLike;
+	public logger: Logger;
 	public lastActivity: any;
 	public model: any;
 	public serverVersion: any;
 	public readonly storagePath: string;
 	constructor (
-		config: { host: string, username: string, password: string, elkEnabled?: boolean, useHttps?: boolean, debugLoggingEnabled?: boolean; displayNameFormat?: string; }, logger: LoggerLike, storagePath?: string) {
+		config: { host: string, username: string, password: string, elkEnabled?: boolean, useHttps?: boolean, displayNameFormat?: string; }, logger: Logger, storagePath?: string) {
 		super();
 		this.storagePath = storagePath ?? './';
 		this.displayNameFormat = config.displayNameFormat ?? '${location ?? folder} ${spokenName ?? name}';
 		this.address = config.host;
 		this.logger = logger;
+		axios : 
+		
 		this.credentials = {
 			username: config.username,
 			password: config.password
 		};
-
+		
 		this.restlerOptions = {
 			username: this.credentials.username,
 			password: this.credentials.password,
@@ -149,8 +154,7 @@ export class ISY extends EventEmitter {
 		this.wsprotocol = 'ws';
 		this.elkEnabled = config.elkEnabled ?? false;
 
-		this.debugLoggingEnabled =
-			config.debugLoggingEnabled ?? false;
+		
 
 		this.guardianTimer = null;
 		if (this.elkEnabled) {
@@ -171,12 +175,12 @@ export class ISY extends EventEmitter {
 
 	public async callISY(url: string): Promise<any> {
 		url = `${this.protocol}://${this.address}/rest/${url}/`;
-		this.logger(`Sending request: ${url}`);
+		this.logger.info(`Sending request: ${url}`);
 		try {
 			const response = await getAsync(url, this.restlerOptions);
 
 			if (this.checkForFailure(response)) {
-				// this.logger(`Error calling ISY: ${JSON.stringify(response)}`);
+				// this.logger.info(`Error calling ISY: ${JSON.stringify(response)}`);
 				throw new Error(`Error calling ISY: ${JSON.stringify(response)}`);
 			} else {
 				return response;
@@ -190,7 +194,7 @@ export class ISY extends EventEmitter {
 	public nodeChangedHandler(node: ELKAlarmPanelDevice | ElkAlarmSensorDevice, propertyName = null) {
 		const that = this;
 		if (this.nodesLoaded) {
-			// this.logger(`Node: ${node.address} changed`);
+			// this.logger.info(`Node: ${node.address} changed`);
 			// if (this.changeCallback !== undefined && this.changeCallback !== null) {
 			// t//his.changeCallback(that, node, propertyName);
 			// }
@@ -205,7 +209,7 @@ export class ISY extends EventEmitter {
 		try {
 			const result = await this.callISY('nodes');
 
-			writeFile(this.storagePath + '/ISYNodesDump.json', JSON.stringify(result), this.logger);
+			writeFile(this.storagePath + '/ISYNodesDump.json', JSON.stringify(result), this.logger.error);
 
 			await this.loadFolders(result).catch(p => this.logger.error('Error Loading Folders', p));
 			await this.loadDevices(result).catch(p => this.logger.error('Error Loading Devices', p));
@@ -218,10 +222,10 @@ export class ISY extends EventEmitter {
 	}
 
 	public async loadFolders(result: { nodes: { folder: any; }; }) {
-		this.logger('Loading Folders');
+		this.logger.info('Loading Folders');
 		if (result?.nodes?.folder) {
 			for (const folder of result.nodes.folder) {
-				this.logger(`Loading: ${JSON.stringify(folder)}`);
+				this.logger.info(`Loading: ${JSON.stringify(folder)}`);
 				this.folderMap.set(folder.address, folder.name);
 			}
 		}
@@ -229,7 +233,7 @@ export class ISY extends EventEmitter {
 
 	public async loadScenes(result: { nodes: { group: any; }; }) {
 
-		this.logger('Loading Scenes');
+		this.logger.info('Loading Scenes');
 		for (const scene of result.nodes.group) {
 			if (scene.name === 'ISY' || scene.name === 'Auto DR') {
 				continue;
@@ -240,7 +244,7 @@ export class ISY extends EventEmitter {
 				await newScene.refreshNotes();
 
 			} catch (e) {
-				this.logger('No notes found.');
+				this.logger.info('No notes found.');
 			}
 			this.sceneList.set(newScene.address, newScene);
 		}
@@ -251,7 +255,7 @@ export class ISY extends EventEmitter {
 
 	public async loadDevices(obj: { nodes: { node: any; }; }) {
 
-		this.logger('Loading Devices');
+		this.logger.info('Loading Devices');
 		for (const device of obj.nodes.node) {
 			if (!this.deviceMap.has(device.pnode)) {
 				const address = device.address;
@@ -264,7 +268,7 @@ export class ISY extends EventEmitter {
 			let newDevice: ISYDevice<any> = null;
 
 			// let deviceTypeInfo = this.isyTypeToTypeName(device.type, device.address);
-			// this.logger(JSON.stringify(deviceTypeInfo));
+			// this.logger.info(JSON.stringify(deviceTypeInfo));
 
 			const enabled = Boolean(device.enabled);
 			const d = DeviceFactory.getDeviceDetails(device);
@@ -292,7 +296,7 @@ export class ISY extends EventEmitter {
 						await newDevice.refreshNotes();
 
 					} catch (e) {
-						this.logger('No notes found.');
+						this.logger.info('No notes found.');
 					}
 
 					// if (!newDevice.hidden) {
@@ -305,11 +309,11 @@ export class ISY extends EventEmitter {
 				}
 				this.deviceList.set(newDevice.address, newDevice);
 			} else {
-				this.logger(`Ignoring disabled device: ${device.name}`);
+				this.logger.info(`Ignoring disabled device: ${device.name}`);
 			}
 		}
 
-		this.logger(`Devices: ${this.deviceList.size} added.`);
+		this.logger.info(`Devices: ${this.deviceList.size} added.`);
 
 
 	}
@@ -383,7 +387,7 @@ export class ISY extends EventEmitter {
 		const timeNow = new Date();
 
 		if (Number(timeNow) - Number(this.lastActivity) > 60000) {
-			this.logger(
+			this.logger.info(
 				'Guardian: Detected no activity in more then 60 seconds. Reinitializing web sockets'
 			);
 			this.initializeWebSocket();
@@ -391,7 +395,7 @@ export class ISY extends EventEmitter {
 	}
 
 	public variableChangedHandler(variable: { id: string; type: string; }) {
-		this.logger(`Variable:${variable.id} (${variable.type}) changed`);
+		this.logger.info(`Variable:${variable.id} (${variable.type}) changed`);
 
 	}
 
@@ -414,19 +418,19 @@ export class ISY extends EventEmitter {
 		try {
 			const result = await this.callISY('config');
 			if (this.debugLoggingEnabled) {
-				writeFile(this.storagePath +'/ISYConfigDump.json', JSON.stringify(result), this.logger);
+				writeFile(this.storagePath +'/ISYConfigDump.json', JSON.stringify(result), this.logger.error);
 			}
 
 			const controls = result.configuration.controls;
 			this.model = result.configuration.deviceSpecs.model;
 			this.serverVersion = result.configuration.app_version;
 			// TODO: Check Installed Features
-			// this.logger(result.configuration);
+			// this.logger.info(result.configuration);
 			if (controls !== undefined) {
-				// this.logger(controls.control);
+				// this.logger.info(controls.control);
 				// var arr = new Array(controls.control);
 				for (const ctl of controls.control) {
-					// this.logger(ctl);
+					// this.logger.info(ctl);
 					Controls[ctl.name] = ctl;
 				}
 			}
@@ -480,10 +484,10 @@ export class ISY extends EventEmitter {
 			const that = this;
 			const result = await that.callISY('status');
 			if (that.debugLoggingEnabled) {
-				writeFile(that.storagePath + '/ISYStatusDump.json', JSON.stringify(result), this.logger);
+				writeFile(that.storagePath + '/ISYStatusDump.json', JSON.stringify(result), this.logger.error);
 			}
 			for (const node of result.nodes.node) {
-				this.logger(node);
+				this.logger.debug(node);
 				let device = that.getDevice(node.id);
 				if (device !== null && device !== undefined) {
 					let child = device.children.find(p => p.address === node.id);
@@ -494,7 +498,7 @@ export class ISY extends EventEmitter {
 				}
 				if (Array.isArray(node.property)) {
 					for (let prop of node.property) {
-						device[prop.id] = device.convertFrom(prop.value, prop.uom);
+						device.local[prop.id] = device.convertFrom(prop.value, prop.uom);
 						device.formatted[prop.id] = prop.formatted;
 						device.uom[prop.id] = prop.uom;
 						device.logger(
@@ -542,7 +546,7 @@ export class ISY extends EventEmitter {
 						options
 					).on('complete', (result: { message: string; }, response: any) => {
 						if (that.checkForFailure(response)) {
-							that.logger('Error loading from elk: ' + result.message);
+							that.logger.info('Error loading from elk: ' + result.message);
 							throw new Error(
 								'Unable to contact the ELK to get the topology'
 							);
@@ -553,7 +557,7 @@ export class ISY extends EventEmitter {
 								options
 							).on('complete', (result: { message: string; }, response: any) => {
 								if (that.checkForFailure(response)) {
-									that.logger(`Error:${result.message}`);
+									that.logger.info(`Error:${result.message}`);
 									throw new Error(
 										'Unable to get the status from the elk'
 									);
@@ -648,9 +652,9 @@ export class ISY extends EventEmitter {
 					} else {
 						if(stringControl === EventType.NodeChanged)
 						{
-							this.logger(`Received Node Change Event: ${JSON.stringify(evt)}. These are currently unsupported.`);
+							this.logger.info(`Received Node Change Event: ${JSON.stringify(evt)}. These are currently unsupported.`);
 						}
-						this.logger(`Unhandled ${EventType[Number(stringControl)]} Event: ${JSON.stringify(evt)}`);
+						this.logger.info(`Unhandled ${EventType[Number(stringControl)]} Event: ${JSON.stringify(evt)}`);
 					}
 
 					break;
@@ -662,7 +666,7 @@ export class ISY extends EventEmitter {
 		const that = this;
 		const auth =
 			`Basic ${new Buffer(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
-		that.logger(
+		that.logger.info(
 			`Connecting to: ${this.wsprotocol}://${this.address}/rest/subscribe`
 		);
 		this.webSocket = new Client(
@@ -684,19 +688,19 @@ export class ISY extends EventEmitter {
 				that.handleWebSocketMessage(event);
 			})
 			.on('error', (err: string, response: any) => {
-				that.logger(`Websocket subscription error: ${err}`);
+				that.logger.info(`Websocket subscription error: ${err}`);
 				/// throw new Error('Error calling ISY' + err);
 			})
 			.on('fail', (data: string, response: any) => {
-				that.logger(`Websocket subscription failure: ${data}`);
+				that.logger.info(`Websocket subscription failure: ${data}`);
 				throw new Error('Failed calling ISY');
 			})
 			.on('abort', () => {
-				that.logger('Websocket subscription aborted.');
+				that.logger.info('Websocket subscription aborted.');
 				throw new Error('Call to ISY was aborted');
 			})
 			.on('timeout', (ms: string) => {
-				that.logger(
+				that.logger.info(
 					`Websocket subscription timed out after ${ms} milliseconds.`
 				);
 				throw new Error('Timeout contacting ISY');
@@ -729,7 +733,7 @@ export class ISY extends EventEmitter {
 
 	public async  sendISYCommand(path: string): Promise<any> {
 		// const uriToUse = `${this.protocol}://${this.address}/rest/${path}`;
-		this.logger(`Sending command...${path}`);
+		this.logger.info(`Sending command...${path}`);
 
 		return this.callISY(path);
 	}
@@ -747,7 +751,7 @@ export class ISY extends EventEmitter {
 		) {
 			uriToUse += `/${parameters.join('/')}`;
 		}
-		this.logger(`${node.name}: sending ${command} command: ${uriToUse}`);
+		this.logger.info(`${node.name}: sending ${command} command: ${uriToUse}`);
 		return this.callISY(uriToUse);
 	}
 
@@ -755,13 +759,13 @@ export class ISY extends EventEmitter {
 		const uriToUse = `${this.protocol}://${
 			this.address
 			}/rest/vars/get/${type}/${id}`;
-		this.logger(`Sending ISY command...${uriToUse}`);
+		this.logger.info(`Sending ISY command...${uriToUse}`);
 
 		return this.callISY(uriToUse).then((p) => handleResult(p.val, p.init));
 	}
 	public async sendSetVariable(id: any, type: any, value: any, handleResult: { (success: any): void; (arg0: boolean): void; (arg0: boolean): void; }) {
 		const uriToUse = `/rest/vars/set/${type}/${id}/${value}`;
-		this.logger(`Sending ISY command...${uriToUse}`);
+		this.logger.info(`Sending ISY command...${uriToUse}`);
 
 		return this.callISY(uriToUse);
 	}

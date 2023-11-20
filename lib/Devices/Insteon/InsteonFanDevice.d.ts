@@ -1,11 +1,10 @@
 import { Family } from '../../Families';
-import { ISY } from '../../ISY';
+import { ISY } from '../../ISY.1';
 import { ISYDevice } from '../ISYDevice';
 import { InsteonBaseDevice } from './InsteonBaseDevice';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice';
 declare const InsteonFanMotorDevice_base: {
     new (...args: any[]): {
-        [x: string]: any;
         readonly level: number;
         updateLevel(level: number): Promise<any>;
         family: any;
@@ -21,8 +20,14 @@ declare const InsteonFanMotorDevice_base: {
         readonly formatted: any;
         readonly uom: any;
         readonly pending: any;
+        readonly local: any;
         hidden: boolean;
         location: string;
+        _enabled: any;
+        productName: string;
+        model: string;
+        modelNumber: string;
+        version: string;
         convertTo(value: any, uom: number): any;
         convertFrom(value: any, uom: number): any;
         addLink(isyScene: import("../../ISYScene").ISYScene): void;
@@ -30,6 +35,7 @@ declare const InsteonFanMotorDevice_base: {
         readonly parentDevice: ISYDevice<any>;
         refreshProperty(propertyName: string): Promise<any>;
         updateProperty(propertyName: string, value: string): Promise<any>;
+        public: any;
         sendCommand(command: any, ...parameters: any[]): Promise<any>;
         refresh(): Promise<any>;
         handleControlTrigger(controlName: any): boolean;
@@ -49,9 +55,10 @@ declare const InsteonFanMotorDevice_base: {
         nodeType: number;
         readonly baseDisplayName: string;
         propsInitialized: boolean;
-        logger: (msg: any) => void;
+        logger: (msg: any, level?: "ERROR" | "WARN" | "DEBUG" | "INFO", ...meta: any[]) => import("winston").Logger;
         lastChanged: Date;
         enabled: boolean;
+        baseName: any;
         on(event: "PropertyChanged" | "ControlTriggered", listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any) | ((controlName: string) => any)): any;
         emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): boolean;
         handleEvent(event: any): boolean;
@@ -74,7 +81,6 @@ declare const InsteonFanMotorDevice_base: {
     };
 } & {
     new (...args: any[]): {
-        [x: string]: any;
         readonly state: boolean;
         updateState(state: boolean): Promise<any>;
         family: Family;
@@ -90,8 +96,14 @@ declare const InsteonFanMotorDevice_base: {
         readonly formatted: any;
         readonly uom: any;
         readonly pending: any;
+        readonly local: any;
         hidden: boolean;
         location: string;
+        _enabled: any;
+        productName: string;
+        model: string;
+        modelNumber: string;
+        version: string;
         convertTo(value: any, uom: number): any;
         convertFrom(value: any, uom: number): any;
         addLink(isyScene: import("../../ISYScene").ISYScene): void;
@@ -99,6 +111,7 @@ declare const InsteonFanMotorDevice_base: {
         readonly parentDevice: ISYDevice<Family>;
         refreshProperty(propertyName: string): Promise<any>;
         updateProperty(propertyName: string, value: string): Promise<any>;
+        public: any;
         sendCommand(command: any, ...parameters: any[]): Promise<any>;
         refresh(): Promise<any>;
         handleControlTrigger(controlName: any): boolean;
@@ -118,9 +131,10 @@ declare const InsteonFanMotorDevice_base: {
         nodeType: number;
         readonly baseDisplayName: string;
         propsInitialized: boolean;
-        logger: (msg: any) => void;
+        logger: (msg: any, level?: "ERROR" | "WARN" | "DEBUG" | "INFO", ...meta: any[]) => import("winston").Logger;
         lastChanged: Date;
         enabled: boolean;
+        baseName: any;
         on(event: "PropertyChanged" | "ControlTriggered", listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any) | ((controlName: string) => any)): any;
         emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): boolean;
         handleEvent(event: any): boolean;

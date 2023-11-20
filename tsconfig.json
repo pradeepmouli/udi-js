@@ -1,10 +1,9 @@
 {
     "compileOnSave": true,
     "compilerOptions": {
-        "target": "es2018",
-        "module": "commonjs",
+        "target": "ES2022",
+        "module": "CommonJS",
         "rootDir": "src",
-        "noImplicitUseStrict": true,
         "lib":[
             "ES2018",
             "ES2017",
@@ -19,9 +18,12 @@
         "declarationDir": "lib",
         "resolveJsonModule": true
     },
+    "watchOptions": {
+        "excludeDirectories": ["**/node_modules", "_build", "temp/*"]
+      },
     "exclude": [
         "./lib/*",
-        "./node_modules/*",
+        "**/node_modules",
         "./test/*"
     ]
 }

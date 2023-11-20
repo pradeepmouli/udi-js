@@ -1,10 +1,9 @@
-import { Family, InsteonBaseDevice, ISY, ISYDevice } from '../../ISY';
-import { Insteon } from '../../Families';
+import { Family, InsteonBaseDevice } from '../../ISY';
+import { ISY } from '../../ISY.1';
 import { Constructor } from '../ISYDevice';
 import { InsteonRelayDevice } from './InsteonRelayDevice';
 export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice>>(IB: T) => {
     new (...args: any[]): {
-        [x: string]: any;
         convertFrom(value: any, uom: number): any;
         convertTo(value: any, uom: number): any;
         sendBeep(level?: number): Promise<any>;
@@ -15,19 +14,26 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         readonly category: number;
         readonly subCategory: number;
         readonly type: any;
-        _parentDevice: ISYDevice<Family.Insteon>;
-        readonly children: ISYDevice<Family.Insteon>[];
+        _parentDevice: import("../ISYDevice").ISYDevice<Family.Insteon>;
+        readonly children: import("../ISYDevice").ISYDevice<Family.Insteon>[];
         readonly scenes: import("../../ISYScene").ISYScene[];
         readonly formatted: any;
         readonly uom: any;
         readonly pending: any;
+        readonly local: any;
         hidden: boolean;
         location: string;
+        _enabled: any;
+        productName: string;
+        model: string;
+        modelNumber: string;
+        version: string;
         addLink(isyScene: import("../../ISYScene").ISYScene): void;
-        addChild(childDevice: ISYDevice<Family.Insteon>): void;
-        readonly parentDevice: ISYDevice<Family.Insteon>;
+        addChild(childDevice: import("../ISYDevice").ISYDevice<Family.Insteon>): void;
+        readonly parentDevice: import("../ISYDevice").ISYDevice<Family.Insteon>;
         refreshProperty(propertyName: string): Promise<any>;
         updateProperty(propertyName: string, value: string): Promise<any>;
+        public: any;
         sendCommand(command: any, ...parameters: any[]): Promise<any>;
         refresh(): Promise<any>;
         handleControlTrigger(controlName: any): boolean;
@@ -47,9 +53,10 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         nodeType: number;
         readonly baseDisplayName: string;
         propsInitialized: boolean;
-        logger: (msg: any) => void;
+        logger: (msg: any, level?: "ERROR" | "WARN" | "DEBUG" | "INFO", ...meta: any[]) => import("winston").Logger;
         lastChanged: Date;
         enabled: boolean;
+        baseName: any;
         on(event: "PropertyChanged" | "ControlTriggered", listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any) | ((controlName: string) => any)): any;
         emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): boolean;
         handleEvent(event: any): boolean;
@@ -73,7 +80,6 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
 } & T;
 export declare const InsteonSwitchDevice: <T extends Constructor<InsteonBaseDevice>>(IB: T) => {
     new (...args: any[]): {
-        [x: string]: any;
         convertFrom(value: any, uom: number): any;
         convertTo(value: any, uom: number): any;
         sendBeep(level?: number): Promise<any>;
@@ -84,19 +90,26 @@ export declare const InsteonSwitchDevice: <T extends Constructor<InsteonBaseDevi
         readonly category: number;
         readonly subCategory: number;
         readonly type: any;
-        _parentDevice: ISYDevice<Family.Insteon>;
-        readonly children: ISYDevice<Family.Insteon>[];
+        _parentDevice: import("../ISYDevice").ISYDevice<Family.Insteon>;
+        readonly children: import("../ISYDevice").ISYDevice<Family.Insteon>[];
         readonly scenes: import("../../ISYScene").ISYScene[];
         readonly formatted: any;
         readonly uom: any;
         readonly pending: any;
+        readonly local: any;
         hidden: boolean;
         location: string;
+        _enabled: any;
+        productName: string;
+        model: string;
+        modelNumber: string;
+        version: string;
         addLink(isyScene: import("../../ISYScene").ISYScene): void;
-        addChild(childDevice: ISYDevice<Family.Insteon>): void;
-        readonly parentDevice: ISYDevice<Family.Insteon>;
+        addChild(childDevice: import("../ISYDevice").ISYDevice<Family.Insteon>): void;
+        readonly parentDevice: import("../ISYDevice").ISYDevice<Family.Insteon>;
         refreshProperty(propertyName: string): Promise<any>;
         updateProperty(propertyName: string, value: string): Promise<any>;
+        public: any;
         sendCommand(command: any, ...parameters: any[]): Promise<any>;
         refresh(): Promise<any>;
         handleControlTrigger(controlName: any): boolean;
@@ -116,9 +129,10 @@ export declare const InsteonSwitchDevice: <T extends Constructor<InsteonBaseDevi
         nodeType: number;
         readonly baseDisplayName: string;
         propsInitialized: boolean;
-        logger: (msg: any) => void;
+        logger: (msg: any, level?: "ERROR" | "WARN" | "DEBUG" | "INFO", ...meta: any[]) => import("winston").Logger;
         lastChanged: Date;
         enabled: boolean;
+        baseName: any;
         on(event: "PropertyChanged" | "ControlTriggered", listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any) | ((controlName: string) => any)): any;
         emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): boolean;
         handleEvent(event: any): boolean;
@@ -142,7 +156,6 @@ export declare const InsteonSwitchDevice: <T extends Constructor<InsteonBaseDevi
 } & T;
 export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB: T) => {
     new (...args: any[]): {
-        [x: string]: any;
         addChild(childDevice: ISYDevice<Family.Insteon>): void;
         convertFrom(value: any, uom: number): any;
         convertTo(value: any, uom: number): any;
@@ -154,18 +167,25 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         readonly category: number;
         readonly subCategory: number;
         readonly type: any;
-        _parentDevice: ISYDevice<Family.Insteon>;
-        readonly children: ISYDevice<Family.Insteon>[];
+        _parentDevice: import("../ISYDevice").ISYDevice<Family.Insteon>;
+        readonly children: import("../ISYDevice").ISYDevice<Family.Insteon>[];
         readonly scenes: import("../../ISYScene").ISYScene[];
         readonly formatted: any;
         readonly uom: any;
         readonly pending: any;
+        readonly local: any;
         hidden: boolean;
         location: string;
+        _enabled: any;
+        productName: string;
+        model: string;
+        modelNumber: string;
+        version: string;
         addLink(isyScene: import("../../ISYScene").ISYScene): void;
-        readonly parentDevice: ISYDevice<Family.Insteon>;
+        readonly parentDevice: import("../ISYDevice").ISYDevice<Family.Insteon>;
         refreshProperty(propertyName: string): Promise<any>;
         updateProperty(propertyName: string, value: string): Promise<any>;
+        public: any;
         sendCommand(command: any, ...parameters: any[]): Promise<any>;
         refresh(): Promise<any>;
         handleControlTrigger(controlName: any): boolean;
@@ -185,9 +205,10 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         nodeType: number;
         readonly baseDisplayName: string;
         propsInitialized: boolean;
-        logger: (msg: any) => void;
+        logger: (msg: any, level?: "ERROR" | "WARN" | "DEBUG" | "INFO", ...meta: any[]) => import("winston").Logger;
         lastChanged: Date;
         enabled: boolean;
+        baseName: any;
         on(event: "PropertyChanged" | "ControlTriggered", listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any) | ((controlName: string) => any)): any;
         emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): boolean;
         handleEvent(event: any): boolean;

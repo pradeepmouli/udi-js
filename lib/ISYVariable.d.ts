@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { EventEmitter } from 'events';
-import { ISY } from './ISY';
+import { ISY } from './ISY.1';
 import { VariableType } from './ISYConstants';
 export declare class ISYVariable extends EventEmitter {
     isy: ISY;

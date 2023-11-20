@@ -1,9 +1,13 @@
 import { get } from 'restler-base';
+import axios, { AxiosRequestConfig } from 'axios';
+
 
 import * as log4js from '@log4js-node/log4js-api';
+import { Logger}from 'winston'
 
 import { Categories } from './Categories';
 import { EventEmitter } from 'events';
+import { Axios } from 'axios';
 
 
 
@@ -23,10 +27,12 @@ export function byteToDegree(value) {
 
 let lastrequest = Promise.resolve();
 
-export async function getAsync(url: string, options: any): Promise<any> {
+export async function getAsync(url: string, options: AxiosRequestConfig): Promise<any> {
+	
 	const p = new Promise<any>((resolve, reject) => {
+	
 	 console.log('Calling: ' + url);
-
+		
 		get(url, options)
 			.on('complete', (result: any) => {
 				resolve(result);
@@ -65,9 +71,11 @@ export enum Family {
 export interface LoggerLike extends Partial<log4js.Logger> {
 	prefix?: string;
 	(msg: any): void;
-	default(msg: any): void;
+	//default(msg: any): void;
 
 }
+
+
 
 export interface PropertyChangedEventEmitter extends EventEmitter
 {

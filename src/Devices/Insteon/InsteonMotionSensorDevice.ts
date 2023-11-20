@@ -3,6 +3,7 @@ import { Commands } from '../../ISYConstants';
 import { InsteonBaseDevice } from './InsteonBaseDevice';
 
 export class InsteonMotionSensorDevice extends InsteonBaseDevice {
+	private _isMotionDetected: boolean;
 	constructor (isy: ISY, deviceNode: { family: any; type?: string; enabled: any; deviceClass?: any; pnode?: any; property?: any; flag?: any; nodeDefId?: string; address?: string; name?: string; parent?: any; ELK_ID?: string; }) {
 		super(isy, deviceNode);
 		this._isMotionDetected = false;

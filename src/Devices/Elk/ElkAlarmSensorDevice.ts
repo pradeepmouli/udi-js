@@ -6,6 +6,7 @@ import { AlarmSensorPhysicalState, AlarmSensorLogicalState } from './ElkAlarmPan
 // ELKAlarmSensor
 //
 export class ElkAlarmSensorDevice extends ISYDevice<Family.Elk> {
+	[x: string]: any;
 	public area: number;
 	public zone: string;
 	public deviceFriendlyName: string;

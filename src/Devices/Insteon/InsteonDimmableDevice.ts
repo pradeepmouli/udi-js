@@ -3,6 +3,7 @@ import { ISYUpdateableLevelDevice } from '../ISYDevice';
 import { InsteonRelayDevice } from './InsteonRelayDevice';
 
 export class InsteonDimmableDevice extends ISYUpdateableLevelDevice(InsteonRelayDevice) {
+	
 	constructor (isy: ISY, node: any) {
 		super(isy, node);
 		this.isDimmable = true;

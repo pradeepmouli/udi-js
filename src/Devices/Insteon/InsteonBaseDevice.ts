@@ -10,7 +10,7 @@ export class InsteonBaseDevice extends ISYDevice<Family.Insteon> {
 		super(isy, deviceNode);
 		this.family = Family.Insteon;
 		//// this.productName = InsteonNLS.getDeviceDescription(String.fromCharCode(category,device,version));
-		this.childDevices = {};
+		//his.childDevices = {};
 	}
 	public convertFrom(value: any, uom: number): any {
 		switch (uom) {

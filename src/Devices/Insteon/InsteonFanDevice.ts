@@ -42,7 +42,7 @@ export class InsteonFanDevice extends InsteonBaseDevice {
 	}
 
 	public handleEvent(event: { control?: string; data?: any; node?: any; }): boolean {
-		this.isy.logger(JSON.stringify(event));
+		this.logger(JSON.stringify(event));
 		const child = this.children.find((p) => p.address === event.node);
 		if (child !== undefined) {
 			return child.handleEvent(event);

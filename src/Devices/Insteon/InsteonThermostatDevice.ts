@@ -7,25 +7,25 @@ export class InsteonThermostatDevice extends InsteonBaseDevice {
 		super(isy, deviceNode);
 	}
 	get currentTemperature() {
-		return this.ST;
+		return this.local.ST;
 	}
 	get coolSetPoint() {
-		return this[Props.Climate.CoolSetPoint];
+		return this.local[Props.Climate.CoolSetPoint];
 	}
 	get heatSetPoint() {
-		return this[Props.Climate.HeatSetPoint];
+		return this.local[Props.Climate.HeatSetPoint];
 	}
 	get mode() {
-		return this[Props.Climate.Mode];
+		return this.local[Props.Climate.Mode];
 	}
 	get operatingMode() {
-		return this[Props.Climate.OperatingMode];
+		return this.local[Props.Climate.OperatingMode];
 	}
 	get fanMode() {
-		return this[Props.Climate.FanMode];
+		return this.local[Props.Climate.FanMode];
 	}
 	get humidity() {
-		return this[Props.Climate.Humidity];
+		return this.local[Props.Climate.Humidity];
 	}
 	public async updateCoolSetPoint(value: string) {
 		return this.updateProperty(Props.Climate.CoolSetPoint, value);

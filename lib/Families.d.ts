@@ -15,4 +15,4 @@ export declare enum Family {
 export interface Insteon {
     family: Family.Insteon;
 }
-export declare type t = EventType.NodeChanged | EventType.PropertyChanged | EventType.ZWave | EventType.ZigBee;
+export type t = EventType.NodeChanged | EventType.PropertyChanged | EventType.ZWave | EventType.ZigBee;

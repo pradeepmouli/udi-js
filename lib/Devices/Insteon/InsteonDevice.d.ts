@@ -1,9 +1,10 @@
-import { Family, InsteonBaseDevice } from '../../ISY';
-import { ISY } from '../../ISY.1';
+import { Family, InsteonBaseDevice, ISY, ISYDevice } from '../../ISY';
+import { Insteon } from '../../Families';
 import { Constructor } from '../ISYDevice';
 import { InsteonRelayDevice } from './InsteonRelayDevice';
 export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice>>(IB: T) => {
     new (...args: any[]): {
+        isDimmable: boolean;
         convertFrom(value: any, uom: number): any;
         convertTo(value: any, uom: number): any;
         sendBeep(level?: number): Promise<any>;
@@ -14,23 +15,22 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         readonly category: number;
         readonly subCategory: number;
         readonly type: any;
-        _parentDevice: import("../ISYDevice").ISYDevice<Family.Insteon>;
-        readonly children: import("../ISYDevice").ISYDevice<Family.Insteon>[];
+        _parentDevice: ISYDevice<Family.Insteon>;
+        readonly children: ISYDevice<Family.Insteon>[];
         readonly scenes: import("../../ISYScene").ISYScene[];
         readonly formatted: any;
         readonly uom: any;
         readonly pending: any;
         readonly local: any;
         hidden: boolean;
-        location: string;
         _enabled: any;
         productName: string;
         model: string;
         modelNumber: string;
         version: string;
         addLink(isyScene: import("../../ISYScene").ISYScene): void;
-        addChild(childDevice: import("../ISYDevice").ISYDevice<Family.Insteon>): void;
-        readonly parentDevice: import("../ISYDevice").ISYDevice<Family.Insteon>;
+        addChild(childDevice: ISYDevice<Family.Insteon>): void;
+        readonly parentDevice: ISYDevice<Family.Insteon>;
         refreshProperty(propertyName: string): Promise<any>;
         updateProperty(propertyName: string, value: string): Promise<any>;
         public: any;
@@ -45,6 +45,7 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         name: string;
         displayName: string;
         spokenName: string;
+        location: string;
         isLoad: boolean;
         folder: string;
         parent: any;
@@ -65,8 +66,6 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         getNotes(): Promise<any>;
         addListener(event: string | symbol, listener: (...args: any[]) => void): any;
         once(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): any;
         off(event: string | symbol, listener: (...args: any[]) => void): any;
         removeAllListeners(event?: string | symbol): any;
@@ -74,12 +73,15 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         getMaxListeners(): number;
         listeners(event: string | symbol): Function[];
         rawListeners(event: string | symbol): Function[];
-        eventNames(): (string | symbol)[];
         listenerCount(type: string | symbol): number;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        eventNames(): (string | symbol)[];
     };
 } & T;
 export declare const InsteonSwitchDevice: <T extends Constructor<InsteonBaseDevice>>(IB: T) => {
     new (...args: any[]): {
+        isDimmable: boolean;
         convertFrom(value: any, uom: number): any;
         convertTo(value: any, uom: number): any;
         sendBeep(level?: number): Promise<any>;
@@ -90,23 +92,22 @@ export declare const InsteonSwitchDevice: <T extends Constructor<InsteonBaseDevi
         readonly category: number;
         readonly subCategory: number;
         readonly type: any;
-        _parentDevice: import("../ISYDevice").ISYDevice<Family.Insteon>;
-        readonly children: import("../ISYDevice").ISYDevice<Family.Insteon>[];
+        _parentDevice: ISYDevice<Family.Insteon>;
+        readonly children: ISYDevice<Family.Insteon>[];
         readonly scenes: import("../../ISYScene").ISYScene[];
         readonly formatted: any;
         readonly uom: any;
         readonly pending: any;
         readonly local: any;
         hidden: boolean;
-        location: string;
         _enabled: any;
         productName: string;
         model: string;
         modelNumber: string;
         version: string;
         addLink(isyScene: import("../../ISYScene").ISYScene): void;
-        addChild(childDevice: import("../ISYDevice").ISYDevice<Family.Insteon>): void;
-        readonly parentDevice: import("../ISYDevice").ISYDevice<Family.Insteon>;
+        addChild(childDevice: ISYDevice<Family.Insteon>): void;
+        readonly parentDevice: ISYDevice<Family.Insteon>;
         refreshProperty(propertyName: string): Promise<any>;
         updateProperty(propertyName: string, value: string): Promise<any>;
         public: any;
@@ -121,6 +122,7 @@ export declare const InsteonSwitchDevice: <T extends Constructor<InsteonBaseDevi
         name: string;
         displayName: string;
         spokenName: string;
+        location: string;
         isLoad: boolean;
         folder: string;
         parent: any;
@@ -141,8 +143,6 @@ export declare const InsteonSwitchDevice: <T extends Constructor<InsteonBaseDevi
         getNotes(): Promise<any>;
         addListener(event: string | symbol, listener: (...args: any[]) => void): any;
         once(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): any;
         off(event: string | symbol, listener: (...args: any[]) => void): any;
         removeAllListeners(event?: string | symbol): any;
@@ -150,8 +150,10 @@ export declare const InsteonSwitchDevice: <T extends Constructor<InsteonBaseDevi
         getMaxListeners(): number;
         listeners(event: string | symbol): Function[];
         rawListeners(event: string | symbol): Function[];
-        eventNames(): (string | symbol)[];
         listenerCount(type: string | symbol): number;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        eventNames(): (string | symbol)[];
     };
 } & T;
 export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB: T) => {
@@ -167,22 +169,22 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         readonly category: number;
         readonly subCategory: number;
         readonly type: any;
-        _parentDevice: import("../ISYDevice").ISYDevice<Family.Insteon>;
-        readonly children: import("../ISYDevice").ISYDevice<Family.Insteon>[];
+        _parentDevice: ISYDevice<Family.Insteon>;
+        readonly children: ISYDevice<Family.Insteon>[];
         readonly scenes: import("../../ISYScene").ISYScene[];
         readonly formatted: any;
         readonly uom: any;
         readonly pending: any;
         readonly local: any;
         hidden: boolean;
-        location: string;
         _enabled: any;
         productName: string;
         model: string;
         modelNumber: string;
         version: string;
+        isDimmable: boolean;
         addLink(isyScene: import("../../ISYScene").ISYScene): void;
-        readonly parentDevice: import("../ISYDevice").ISYDevice<Family.Insteon>;
+        readonly parentDevice: ISYDevice<Family.Insteon>;
         refreshProperty(propertyName: string): Promise<any>;
         updateProperty(propertyName: string, value: string): Promise<any>;
         public: any;
@@ -197,6 +199,7 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         name: string;
         displayName: string;
         spokenName: string;
+        location: string;
         isLoad: boolean;
         folder: string;
         parent: any;
@@ -217,8 +220,6 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         getNotes(): Promise<any>;
         addListener(event: string | symbol, listener: (...args: any[]) => void): any;
         once(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): any;
         off(event: string | symbol, listener: (...args: any[]) => void): any;
         removeAllListeners(event?: string | symbol): any;
@@ -226,8 +227,10 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         getMaxListeners(): number;
         listeners(event: string | symbol): Function[];
         rawListeners(event: string | symbol): Function[];
-        eventNames(): (string | symbol)[];
         listenerCount(type: string | symbol): number;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        eventNames(): (string | symbol)[];
     };
 } & T;
 export declare class InsteonOutletDevice extends InsteonRelayDevice {

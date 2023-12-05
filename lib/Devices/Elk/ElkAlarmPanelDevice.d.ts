@@ -1,7 +1,8 @@
 import { Family } from '../../Families';
-import { ISY } from '../../ISY.1';
+import { ISY } from '../../ISY';
 import { ISYDevice } from '../ISYDevice';
 export declare class ELKAlarmPanelDevice extends ISYDevice<Family.Elk> {
+    [x: string]: any;
     setFromAreaUpdate(nodes: any): void;
     alarmTripState: AlarmTripState;
     alarmState: AlarmState;

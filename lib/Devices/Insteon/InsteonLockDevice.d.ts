@@ -1,8 +1,8 @@
-import { ISY } from '../../ISY.1';
+import { ISY } from '../../ISY';
 import { InsteonBaseDevice } from './InsteonBaseDevice';
 declare const InsteonLockDevice_base: {
     new (...args: any[]): {
-        readonly state: boolean;
+        readonly state: Promise<boolean>;
         updateState(state: boolean): Promise<any>;
         family: import("../../Families").Family;
         readonly typeCode: string;
@@ -19,12 +19,12 @@ declare const InsteonLockDevice_base: {
         readonly pending: any;
         readonly local: any;
         hidden: boolean;
-        location: string;
         _enabled: any;
         productName: string;
         model: string;
         modelNumber: string;
         version: string;
+        isDimmable: boolean;
         convertTo(value: any, uom: number): any;
         convertFrom(value: any, uom: number): any;
         addLink(isyScene: import("../../ISYScene").ISYScene): void;
@@ -44,6 +44,7 @@ declare const InsteonLockDevice_base: {
         name: string;
         displayName: string;
         spokenName: string;
+        location: string;
         isLoad: boolean;
         folder: string;
         parent: any;
@@ -64,8 +65,6 @@ declare const InsteonLockDevice_base: {
         getNotes(): Promise<any>;
         addListener(event: string | symbol, listener: (...args: any[]) => void): any;
         once(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): any;
         off(event: string | symbol, listener: (...args: any[]) => void): any;
         removeAllListeners(event?: string | symbol): any;
@@ -73,14 +72,16 @@ declare const InsteonLockDevice_base: {
         getMaxListeners(): number;
         listeners(event: string | symbol): Function[];
         rawListeners(event: string | symbol): Function[];
-        eventNames(): (string | symbol)[];
         listenerCount(type: string | symbol): number;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        eventNames(): (string | symbol)[];
     };
 } & typeof InsteonBaseDevice;
 export declare class InsteonLockDevice extends InsteonLockDevice_base {
     constructor(isy: ISY, deviceNode: any);
     sendLockCommand(lockState: any, resultHandler: any): void;
-    get isLocked(): boolean;
+    get isLocked(): Promise<boolean>;
     updateIsLocked(isLocked: boolean): Promise<any>;
     sendNonSecureLockCommand(lockState: any): Promise<any>;
     sendSecureLockCommand(lockState: any): Promise<any>;

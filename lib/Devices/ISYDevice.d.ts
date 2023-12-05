@@ -1,5 +1,5 @@
 import { Family } from '../Families';
-import { ISY } from '../ISY.1';
+import { ISY } from '../ISY';
 import { ISYNode } from '../ISYNode';
 import { ISYScene } from '../ISYScene';
 export declare class ISYDevice<T extends Family> extends ISYNode {
@@ -18,12 +18,12 @@ export declare class ISYDevice<T extends Family> extends ISYNode {
     readonly pending: any[string];
     readonly local: any[string];
     hidden: boolean;
-    location: string;
     _enabled: any;
     productName: string;
     model: string;
     modelNumber: string;
     version: string;
+    isDimmable: boolean;
     constructor(isy: ISY, node: {
         family: any;
         type?: string;
@@ -70,12 +70,12 @@ export declare const ISYBinaryStateDevice: <K extends Family, T extends Construc
         readonly pending: any[string];
         readonly local: any[string];
         hidden: boolean;
-        location: string;
         _enabled: any;
         productName: string;
         model: string;
         modelNumber: string;
         version: string;
+        isDimmable: boolean;
         convertTo(value: any, uom: number): any;
         convertFrom(value: any, uom: number): any;
         addLink(isyScene: ISYScene): void;
@@ -95,6 +95,7 @@ export declare const ISYBinaryStateDevice: <K extends Family, T extends Construc
         name: string;
         displayName: string;
         spokenName: string;
+        location: string;
         isLoad: boolean;
         folder: string;
         parent: any;
@@ -115,8 +116,6 @@ export declare const ISYBinaryStateDevice: <K extends Family, T extends Construc
         getNotes(): Promise<any>;
         addListener(event: string | symbol, listener: (...args: any[]) => void): any;
         once(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): any;
         off(event: string | symbol, listener: (...args: any[]) => void): any;
         removeAllListeners(event?: string | symbol): any;
@@ -124,13 +123,15 @@ export declare const ISYBinaryStateDevice: <K extends Family, T extends Construc
         getMaxListeners(): number;
         listeners(event: string | symbol): Function[];
         rawListeners(event: string | symbol): Function[];
-        eventNames(): (string | symbol)[];
         listenerCount(type: string | symbol): number;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        eventNames(): (string | symbol)[];
     };
 } & T;
 export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extends Constructor<ISYDevice<K>>>(Base: T) => {
     new (...args: any[]): {
-        readonly state: boolean;
+        readonly state: Promise<boolean>;
         updateState(state: boolean): Promise<any>;
         family: K;
         readonly typeCode: string;
@@ -147,12 +148,12 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extend
         readonly pending: any[string];
         readonly local: any[string];
         hidden: boolean;
-        location: string;
         _enabled: any;
         productName: string;
         model: string;
         modelNumber: string;
         version: string;
+        isDimmable: boolean;
         convertTo(value: any, uom: number): any;
         convertFrom(value: any, uom: number): any;
         addLink(isyScene: ISYScene): void;
@@ -172,6 +173,7 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extend
         name: string;
         displayName: string;
         spokenName: string;
+        location: string;
         isLoad: boolean;
         folder: string;
         parent: any;
@@ -192,8 +194,6 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extend
         getNotes(): Promise<any>;
         addListener(event: string | symbol, listener: (...args: any[]) => void): any;
         once(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): any;
         off(event: string | symbol, listener: (...args: any[]) => void): any;
         removeAllListeners(event?: string | symbol): any;
@@ -201,8 +201,10 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extend
         getMaxListeners(): number;
         listeners(event: string | symbol): Function[];
         rawListeners(event: string | symbol): Function[];
-        eventNames(): (string | symbol)[];
         listenerCount(type: string | symbol): number;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        eventNames(): (string | symbol)[];
     };
 } & T;
 export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(base: T) => {
@@ -223,12 +225,12 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(bas
         readonly pending: any[string];
         readonly local: any[string];
         hidden: boolean;
-        location: string;
         _enabled: any;
         productName: string;
         model: string;
         modelNumber: string;
         version: string;
+        isDimmable: boolean;
         convertTo(value: any, uom: number): any;
         convertFrom(value: any, uom: number): any;
         addLink(isyScene: ISYScene): void;
@@ -248,6 +250,7 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(bas
         name: string;
         displayName: string;
         spokenName: string;
+        location: string;
         isLoad: boolean;
         folder: string;
         parent: any;
@@ -268,8 +271,6 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(bas
         getNotes(): Promise<any>;
         addListener(event: string | symbol, listener: (...args: any[]) => void): any;
         once(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): any;
         off(event: string | symbol, listener: (...args: any[]) => void): any;
         removeAllListeners(event?: string | symbol): any;
@@ -277,8 +278,10 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(bas
         getMaxListeners(): number;
         listeners(event: string | symbol): Function[];
         rawListeners(event: string | symbol): Function[];
-        eventNames(): (string | symbol)[];
         listenerCount(type: string | symbol): number;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        eventNames(): (string | symbol)[];
     };
 } & T;
 export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDevice<any>>>(base: T) => {
@@ -300,12 +303,12 @@ export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDevice<
         readonly pending: any[string];
         readonly local: any[string];
         hidden: boolean;
-        location: string;
         _enabled: any;
         productName: string;
         model: string;
         modelNumber: string;
         version: string;
+        isDimmable: boolean;
         convertTo(value: any, uom: number): any;
         convertFrom(value: any, uom: number): any;
         addLink(isyScene: ISYScene): void;
@@ -325,6 +328,7 @@ export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDevice<
         name: string;
         displayName: string;
         spokenName: string;
+        location: string;
         isLoad: boolean;
         folder: string;
         parent: any;
@@ -345,8 +349,6 @@ export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDevice<
         getNotes(): Promise<any>;
         addListener(event: string | symbol, listener: (...args: any[]) => void): any;
         once(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): any;
         off(event: string | symbol, listener: (...args: any[]) => void): any;
         removeAllListeners(event?: string | symbol): any;
@@ -354,7 +356,9 @@ export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDevice<
         getMaxListeners(): number;
         listeners(event: string | symbol): Function[];
         rawListeners(event: string | symbol): Function[];
-        eventNames(): (string | symbol)[];
         listenerCount(type: string | symbol): number;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        eventNames(): (string | symbol)[];
     };
 } & T;

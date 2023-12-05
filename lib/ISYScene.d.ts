@@ -1,6 +1,5 @@
 import { Family } from './Families';
-import { ISYDevice } from './ISY';
-import { ISY } from './ISY.1';
+import { ISY, ISYDevice } from './ISY';
 import { ISYNode } from './ISYNode';
 export declare class ISYScene extends ISYNode {
     type: string;

@@ -1,7 +1,7 @@
 import { InsteonRelayDevice } from './InsteonRelayDevice';
 declare const InsteonKeypadRelayDevice_base: {
     new (...args: any[]): {
-        addChild(childDevice: ISYDevice<import("../../Families").Family.Insteon>): void;
+        addChild(childDevice: import("../ISYDevice").ISYDevice<import("../../Families").Family.Insteon>): void;
         convertFrom(value: any, uom: number): any;
         convertTo(value: any, uom: number): any;
         sendBeep(level?: number): Promise<any>;
@@ -20,12 +20,12 @@ declare const InsteonKeypadRelayDevice_base: {
         readonly pending: any;
         readonly local: any;
         hidden: boolean;
-        location: string;
         _enabled: any;
         productName: string;
         model: string;
         modelNumber: string;
         version: string;
+        isDimmable: boolean;
         addLink(isyScene: import("../../ISYScene").ISYScene): void;
         readonly parentDevice: import("../ISYDevice").ISYDevice<import("../../Families").Family.Insteon>;
         refreshProperty(propertyName: string): Promise<any>;
@@ -35,13 +35,14 @@ declare const InsteonKeypadRelayDevice_base: {
         refresh(): Promise<any>;
         handleControlTrigger(controlName: any): boolean;
         handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
-        readonly isy: ISY;
+        readonly isy: import("../../ISY").ISY;
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;
         name: string;
         displayName: string;
         spokenName: string;
+        location: string;
         isLoad: boolean;
         folder: string;
         parent: any;
@@ -62,8 +63,6 @@ declare const InsteonKeypadRelayDevice_base: {
         getNotes(): Promise<any>;
         addListener(event: string | symbol, listener: (...args: any[]) => void): any;
         once(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
         removeListener(event: string | symbol, listener: (...args: any[]) => void): any;
         off(event: string | symbol, listener: (...args: any[]) => void): any;
         removeAllListeners(event?: string | symbol): any;
@@ -71,8 +70,10 @@ declare const InsteonKeypadRelayDevice_base: {
         getMaxListeners(): number;
         listeners(event: string | symbol): Function[];
         rawListeners(event: string | symbol): Function[];
-        eventNames(): (string | symbol)[];
         listenerCount(type: string | symbol): number;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): any;
+        eventNames(): (string | symbol)[];
     };
 } & typeof InsteonRelayDevice;
 export declare class InsteonKeypadRelayDevice extends InsteonKeypadRelayDevice_base {

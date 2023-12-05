@@ -11,8 +11,8 @@ new/package.json
 new/scratch.js
 new/test/testsuite.js
 .DS_Store
-node_modules/*
-lib/*
+node_modules/
+lib/
 ISYNodeInfo.xml
 ISYNodes.json
 ISYNodes.xml

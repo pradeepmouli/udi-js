@@ -1,13 +1,13 @@
 import { Client } from 'faye-websocket';
 import { writeFile } from 'fs';
 import { get,parsers } from 'restler-base';
-import  axios from 'axios';
+
 
 import { Parser } from 'xml2js';
 import { parseBooleans, parseNumbers } from 'xml2js/lib/processors';
 import { XmlDocument } from 'xmldoc';
 
-
+import axios, { AxiosRequestConfig } from 'axios';
 import { Categories } from './Categories';
 import { DeviceFactory } from './Devices/DeviceFactory';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice';
@@ -122,6 +122,7 @@ export class ISY extends EventEmitter {
 	public model: any;
 	public serverVersion: any;
 	public readonly storagePath: string;
+	
 	constructor (
 		config: { host: string, username: string, password: string, elkEnabled?: boolean, useHttps?: boolean, displayNameFormat?: string; }, logger: Logger, storagePath?: string) {
 		super();
@@ -177,8 +178,8 @@ export class ISY extends EventEmitter {
 		url = `${this.protocol}://${this.address}/rest/${url}/`;
 		this.logger.info(`Sending request: ${url}`);
 		try {
-			const response = await getAsync(url, this.restlerOptions);
-
+			const xml = await axios.get(url,{auth: {username: this.credentials.username, password: this.credentials.password}});
+			const response = await parser.parseStringPromise(xml.data);
 			if (this.checkForFailure(response)) {
 				// this.logger.info(`Error calling ISY: ${JSON.stringify(response)}`);
 				throw new Error(`Error calling ISY: ${JSON.stringify(response)}`);

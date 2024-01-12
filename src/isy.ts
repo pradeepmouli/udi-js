@@ -1,6 +1,6 @@
 import { Client } from 'faye-websocket';
 import { writeFile } from 'fs';
-import { get, parsers } from 'restler-base';
+import { parsers } from 'restler-base';
 import { Parser } from 'xml2js';
 import { parseBooleans, parseNumbers } from 'xml2js/lib/processors';
 import { XmlDocument } from 'xmldoc';

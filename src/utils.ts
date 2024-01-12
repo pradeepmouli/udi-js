@@ -73,7 +73,7 @@ export interface LoggerLike extends Partial<log4js.Logger> {
 
 }
 
-export interface PropertyChangedEventEmitter extends EventEmitter<Events.PropertyChanged>
+export interface PropertyChangedEventEmitter extends EventEmitter<EventType.PropertyChanged>
 {
 	on(event:'PropertyChanged', listener: (propertyName : string, newValue: any, oldValue: any, formattedValue: string) => void) : this;
 

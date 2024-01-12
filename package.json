@@ -13,28 +13,33 @@
     },
     "keywords": [
         "isy",
-        "universal devies",
+        "universal devices",
         "insteon",
         "elk",
         "ZWave"
     ],
     "main": "./lib/ISY.js",
     "devDependencies": {
-        "@types/node": "^10.17.15",
+        "@types/node": "^10.17.24",
         "@types/xml2js": "^0.4.5",
         "@types/xmldoc": "^1.1.4",
         "babel-preset-env": "^1.7.0",
         "fake-isy-994i": "",
+        "js-ini": "^1.2.0",
         "mocha": "",
-        "typescript": "^3.9.3"
+        "ts-node": "^8.10.2",
+        "typescript": "^3.9.5"
     },
     "dependencies": {
         "@log4js-node/log4js-api": "^1.0.2",
-        "faye-websocket": "",
+        "faye-websocket": "^0.11.3",
+        "mocha": "^7.2.0",
+        "p-queue": "^6.6.1",
         "restler": "^3.4.0",
         "restler-base": "^3.4.6",
         "xml2js": "^0.4.23",
-        "xmldoc": "^1.1.2"
+        "xmldoc": "^1.1.2",
+        "xsd2ts": "^0.3.6"
     },
     "bugs": {
         "url": "https://github.com/pradeepmouli/isy-js/issues"

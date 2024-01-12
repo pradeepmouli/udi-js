@@ -12,7 +12,7 @@
     },
     "keywords": [
         "isy",
-        "universal devies",
+        "universal devices",
         "insteon",
         "elk",
         "ZWave"
@@ -26,7 +26,9 @@
     },
     "dependencies": {
         "@log4js-node/log4js-api": "^1.0.2",
-        "faye-websocket": "",
+        "faye-websocket": "^0.11.3",
+        "mocha": "^7.2.0",
+        "p-queue": "^6.6.1",
         "restler": "^3.4.0",
         "restler-base": "^3.4.6",
         "xml2js": "0.6.2",

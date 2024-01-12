@@ -20,3 +20,5 @@ ISYNodes.xml
 .jshintrc
 .eslintrc*
 ISYNodesDump.json
+dist/
+types/

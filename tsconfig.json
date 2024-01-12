@@ -2,27 +2,19 @@
     "compileOnSave": true,
     "compilerOptions": {
         "target": "ES2022",
-        "module": "CommonJS",
+        "module": "Node16",
         "rootDir": "src",
-        "lib":[
-            "ES2018",
-            "ES2017",
-            "ES2016",
-            "ES2015",
-            "ES6",
-            "ES5"
-        ],
         //"allowJs": true,
-        "outDir": "lib",
+        "outDir": "dist",
         "declaration": true,
-        "declarationDir": "lib",
+        "declarationDir": "types",
         "resolveJsonModule": true
     },
     "watchOptions": {
         "excludeDirectories": ["**/node_modules", "_build", "temp/*"]
       },
     "exclude": [
-        "./lib/*",
+        "./dist/*",
         "**/node_modules",
         "./test/*"
     ]

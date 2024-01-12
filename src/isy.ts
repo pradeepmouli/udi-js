@@ -26,7 +26,7 @@ import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevi
 import { ISYDevice } from './Devices/ISYDevice';
 import { Family } from './Families';
 import { EventType } from "./Events/EventType";
-import {  NodeType, Props, States, VariableType } from './ISYConstants';
+import { NodeType, Props, States, VariableType } from './ISYConstants';
 import { ISYNode } from './ISYNode';
 import * as ProductInfoData from './isyproductinfo.json';
 import { ISYScene } from './ISYScene';
@@ -77,7 +77,7 @@ const parser = new Parser({
 	mergeAttrs: true,
 
 	attrValueProcessors: [parseBooleans, parseNumbers],
-	valueProcessors: [(a,b) => parseNumbers(a), (a,b) => parseBooleans(a)]
+	valueProcessors: [(a, b) => parseNumbers(a), (a, b) => parseBooleans(a)]
 });
 
 export let Controls = {};
@@ -279,8 +279,7 @@ export class ISY extends EventEmitter {
 			if (enabled) {
 				if (newDevice === null) {
 					this.logger.warn(
-						`Device type resolution failed for ${device.name} with type: ${device.type} and nodedef: ${
-						device.nodeDefId}`
+						`Device type resolution failed for ${device.name} with type: ${device.type} and nodedef: ${device.nodeDefId}`
 					);
 					newDevice = new ISYDevice(this, device);
 				}
@@ -314,54 +313,63 @@ export class ISY extends EventEmitter {
 
 	}
 
-	public loadElkNodes(result: any) {
-		const document = new XmlDocument(result);
-		const nodes = document
-			.childNamed('areas')
-			.childNamed('area')
-			.childrenNamed('zone');
-		for (let index = 0; index < nodes.length; index++) {
-			const id = nodes[index].attr.id;
-			const name = nodes[index].attr.name;
-			const alarmDef = nodes[index].attr.alarmDef;
-			const newDevice = new ElkAlarmSensorDevice(
-				this,
-				name,
-				1,
-				id /*TODO: Handle CO Sensor vs. Door/Window Sensor */
-			);
-			this.zoneMap[newDevice.zone] = newDevice;
+	public async loadElkNodes() {
+		try {
+			const result = await this.callISY('elk/get/topology');
+			const document = new XmlDocument(result);
+			const nodes = document
+				.childNamed('areas')
+				.childNamed('area')
+				.childrenNamed('zone');
+			for (let index = 0; index < nodes.length; index++) {
+				const id = nodes[index].attr.id;
+				const name = nodes[index].attr.name;
+				const alarmDef = nodes[index].attr.alarmDef;
+				const newDevice = new ElkAlarmSensorDevice(
+					this,
+					name,
+					1,
+					id /*TODO: Handle CO Sensor vs. Door/Window Sensor */
+				);
+				this.zoneMap[newDevice.zone] = newDevice;
+			}
+			return;
+		} catch (e) {
+			throw new Error(`Error loading elk nodes: ${(e as Error).message}`);
 		}
 	}
 
-	public loadElkInitialStatus(result: any) {
-		const p = new Parser({
-			explicitArray: false,
-			mergeAttrs: true
-		});
-		p.parseString(result, (err: any, res: { ae: any; ze: any; }) => {
-			if (err) {
-				throw err;
-			}
-
-			for (const nodes of res.ae) {
-				this.elkAlarmPanel.setFromAreaUpdate(nodes);
-			}
-			for (const nodes of res.ze) {
-				const id = nodes.zone;
-				const zoneDevice = this.zoneMap[id];
-				if (zoneDevice !== null) {
-					zoneDevice.setFromZoneUpdate(nodes);
-					if (
-						this.deviceList[zoneDevice.address] === null &&
-						zoneDevice.isPresent()
-					) {
-						this.deviceList[zoneDevice.address] = zoneDevice;
-						// this.deviceIndex[zoneDevice.address] = zoneDevice;
+	public async loadElkInitialStatus() {
+		try {
+			await this.callISY('elk/get/status').then(
+				(x: { err: any, res: { ae: any; ze: any; }; }) => {
+					if (x.err) {
+						throw x.err;
 					}
-				}
-			}
-		});
+
+					for (const nodes of x.res.ae) {
+						this.elkAlarmPanel.setFromAreaUpdate(nodes);
+					}
+					for (const nodes of x.res.ze) {
+						const id = nodes.zone;
+						const zoneDevice = this.zoneMap[id];
+						if (zoneDevice !== null) {
+							zoneDevice.setFromZoneUpdate(nodes);
+							if (
+								this.deviceList[zoneDevice.address] === null &&
+								zoneDevice.isPresent()
+							) {
+								this.deviceList[zoneDevice.address] = zoneDevice;
+								// this.deviceIndex[zoneDevice.address] = zoneDevice;
+							}
+						}
+					}
+				});
+		}
+		catch(e)
+		{
+			throw new Error(`Error loading elk status: ${(e as Error).message}`);
+		}
 	}
 
 	public finishInitialize(success: boolean, initializeCompleted: () => void) {
@@ -414,7 +422,7 @@ export class ISY extends EventEmitter {
 		try {
 			const result = await this.callISY('config');
 			if (this.debugLoggingEnabled) {
-				writeFile(this.storagePath +'/ISYConfigDump.json', JSON.stringify(result), this.logger);
+				writeFile(this.storagePath + '/ISYConfigDump.json', JSON.stringify(result), this.logger);
 			}
 
 			const controls = result.configuration.controls;
@@ -498,8 +506,7 @@ export class ISY extends EventEmitter {
 						device.formatted[prop.id] = prop.formatted;
 						device.uom[prop.id] = prop.uom;
 						device.logger(
-							`Property ${Controls[prop.id].label} (${prop.id}) initialized to: ${
-							device[prop.id]
+							`Property ${Controls[prop.id].label} (${prop.id}) initialized to: ${device[prop.id]
 							} (${device.formatted[prop.id]})`
 						);
 					}
@@ -511,10 +518,8 @@ export class ISY extends EventEmitter {
 					device.formatted[node.property.id] = node.property.formatted;
 					device.uom[node.property.id] = node.property.uom;
 					device.logger(
-						`Property ${Controls[node.property.id].label} (${
-						node.property.id
-						}) initialized to: ${device[node.property.id]} (${
-						device.formatted[node.property.id]
+						`Property ${Controls[node.property.id].label} (${node.property.id
+						}) initialized to: ${device[node.property.id]} (${device.formatted[node.property.id]
 						})`
 					);
 				}
@@ -533,42 +538,16 @@ export class ISY extends EventEmitter {
 		try {
 			await this.loadConfig();
 			await this.loadNodes();
+			await this.refreshStatuses();
+			if(this.elkEnabled)
+			{
+				await this.loadElkNodes();
+				await this.loadElkInitialStatus();
+			}
 			await this.loadVariables(VariableType.Integer);
 			await this.loadVariables(VariableType.State);
-			await this.refreshStatuses().then(() => {
-				if (this.elkEnabled) {
-					get(
-						`${this.protocol}://${that.address}/rest/elk/get/topology`,
-						options
-					).on('complete', (result: { message: string; }, response: any) => {
-						if (that.checkForFailure(response)) {
-							that.logger('Error loading from elk: ' + result.message);
-							throw new Error(
-								'Unable to contact the ELK to get the topology'
-							);
-						} else {
-							that.loadElkNodes(result);
-							get(
-								`${that.protocol}://${that.address}/rest/elk/get/status`,
-								options
-							).on('complete', (result: { message: string; }, response: any) => {
-								if (that.checkForFailure(response)) {
-									that.logger(`Error:${result.message}`);
-									throw new Error(
-										'Unable to get the status from the elk'
-									);
-								} else {
-									that.loadElkInitialStatus(result);
-									that.finishInitialize(true, initializeCompleted);
-								}
-							});
-						}
-					});
-				} else {
-					that.finishInitialize(true, initializeCompleted);
-				}
 
-			});
+
 		} catch (e) {
 			this.logger.error(`Error initializing ISY: ${JSON.stringify(e)}`);
 
@@ -581,7 +560,7 @@ export class ISY extends EventEmitter {
 
 	}
 
-	public async  handleInitializeError(step: string, reason: any): Promise<any> {
+	public async handleInitializeError(step: string, reason: any): Promise<any> {
 		this.logger.error(`Error initializing ISY (${step}): ${JSON.stringify(reason)}`);
 		return Promise.reject(reason);
 	}
@@ -646,8 +625,7 @@ export class ISY extends EventEmitter {
 							this.logger.warn(`${EventType[stringControl]} Event for Unidentified Device: ${JSON.stringify(evt)}`);
 						}
 					} else {
-						if(stringControl === EventType.NodeChanged)
-						{
+						if (stringControl === EventType.NodeChanged) {
 							this.logger(`Received Node Change Event: ${JSON.stringify(evt)}. These are currently unsupported.`);
 						}
 						this.logger(`Unhandled ${EventType[Number(stringControl)]} Event: ${JSON.stringify(evt)}`);
@@ -727,7 +705,7 @@ export class ISY extends EventEmitter {
 		return this.sceneList[address];
 	}
 
-	public async  sendISYCommand(path: string): Promise<any> {
+	public async sendISYCommand(path: string): Promise<any> {
 		// const uriToUse = `${this.protocol}://${this.address}/rest/${path}`;
 		this.logger(`Sending command...${path}`);
 
@@ -752,8 +730,7 @@ export class ISY extends EventEmitter {
 	}
 
 	public async sendGetVariable(id: any, type: any, handleResult: (arg0: number, arg1: number) => void) {
-		const uriToUse = `${this.protocol}://${
-			this.address
+		const uriToUse = `${this.protocol}://${this.address
 			}/rest/vars/get/${type}/${id}`;
 		this.logger(`Sending ISY command...${uriToUse}`);
 

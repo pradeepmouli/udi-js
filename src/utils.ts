@@ -3,11 +3,14 @@ import { get } from 'restler-base';
 import * as log4js from '@log4js-node/log4js-api';
 
 import { Categories } from './Categories';
-import { EventEmitter } from 'events';
+import { EventEmitter as BaseEventEmitter } from 'events';
+
 
 
 
 //import { get } from 'http';
+import { EventType } from './Events/EventType';
+import PriorityQueue from 'p-queue/dist/priority-queue';
 
 export function byteToPct(value) {
 	return Math.round((value * 100) / 255);
@@ -22,6 +25,8 @@ export function byteToDegree(value) {
 }
 
 let lastrequest = Promise.resolve();
+
+let queue: PriorityQueue = new PriorityQueue();
 
 export async function getAsync(url: string, options: any): Promise<any> {
 	const p = new Promise<any>((resolve, reject) => {
@@ -50,8 +55,7 @@ export async function getAsync(url: string, options: any): Promise<any> {
 	try
 	{
 		await lastrequest;
-	}
-	finally
+	} finally
 	{
 		return p;
 	}
@@ -69,9 +73,14 @@ export interface LoggerLike extends Partial<log4js.Logger> {
 
 }
 
-export interface PropertyChangedEventEmitter extends EventEmitter
+export interface PropertyChangedEventEmitter extends EventEmitter<Events.PropertyChanged>
 {
 	on(event:'PropertyChanged', listener: (propertyName : string, newValue: any, oldValue: any, formattedValue: string) => void) : this;
+
+}
+
+export class EventEmitter<T extends EventType> extends BaseEventEmitter
+{
 
 }
 

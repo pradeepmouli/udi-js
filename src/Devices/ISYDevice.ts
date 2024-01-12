@@ -259,7 +259,7 @@ export const ISYUpdateableLevelDevice = <T extends Constructor<ISYDevice<any>>>(
 		}
 
 		public async updateLevel(level: number): Promise<any> {
-			if (level != this.ST && level !== (this.pending.ST ?? this.ST)) {
+			if (level !== this.ST && level !== (this.pending.ST ?? this.ST)) {
 
 				this.pending.ST = level;
 				if (level > 0) {

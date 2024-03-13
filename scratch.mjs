@@ -1,31 +1,32 @@
 // File for scratch testing. Will be removed in the future at is for my own internal purposes
 
-var ISY = require('./isy');
-var ISYDevice = require('./isydevice');
+import winston, { config } from 'winston';
+import { ISY } from './lib/ISY.js'
+import { Logger } from 'winston';
 
 function handleInitialized() {
-	var deviceList = isy.getDeviceList();
+	var deviceList = isy.deviceList;
     console.log("Device count: "+deviceList.length);
-	if(deviceList == null) {
-		console.log("No device list returned!");
-	} else {
-		console.log("Got device list. Device count: "+deviceList.length);
-		for(var index = 0; index < deviceList.length; index++ ) {
-			console.log("Device: "+deviceList[index].name+", "+deviceList[index].deviceType+", "+deviceList[index].address+", "+deviceList[index].deviceFriendlyName);
-		}
-	}
-	var fanDevice = isy.getDevice('14 A8 BC 2');
-	var fanSpeed = fanDevice.getCurrentFanState();
-	console.log('Current fan speed '+fanSpeed);
-	fanDevice.sendFanCommand(fanDevice.FAN_LEVEL_MEDIUM, function() {});
-	setTimeout(function() {
-		console.log('Fan state (should be medium): '+fanDevice.getCurrentFanState());
-		fanDevice.sendFanCommand(fanDevice.FAN_LEVEL_HIGH, function() {});
-		setTimeout(function() {
-			console.log('Fan state (should be high): '+fanDevice.getCurrentFanState());
-			fanDevice.sendFanCommand((fanDevice.FAN_OFF), function() {});
-		}, 4000)
-	},4000);
+	// if(deviceList == null) {
+	// 	console.log("No device list returned!");
+	// } else {
+	// 	console.log("Got device list. Device count: "+deviceList.length);
+	// 	for(var index = 0; index < deviceList.length; index++ ) {
+	// 		console.log("Device: "+deviceList[index].name+", "+deviceList[index].deviceType+", "+deviceList[index].address+", "+deviceList[index].deviceFriendlyName);
+	// 	}
+	// }
+	// var fanDevice = isy.getDevice('14 A8 BC 2');
+	// var fanSpeed = fanDevice.getCurrentFanState();
+	// console.log('Current fan speed '+fanSpeed);
+	// fanDevice.sendFanCommand(fanDevice.FAN_LEVEL_MEDIUM, function() {});
+	// setTimeout(function() {
+	// 	console.log('Fan state (should be medium): '+fanDevice.getCurrentFanState());
+	// 	fanDevice.sendFanCommand(fanDevice.FAN_LEVEL_HIGH, function() {});
+	// 	setTimeout(function() {
+	// 		console.log('Fan state (should be high): '+fanDevice.getCurrentFanState());
+	// 		fanDevice.sendFanCommand((fanDevice.FAN_OFF), function() {});
+	// 	}, 4000)
+	// },4000);
     //runBasicSceneTest(deviceList);
 }
 
@@ -59,9 +60,19 @@ function handleChanged(isy, device) {
 }
 
 //var isy = new ISY.ISY('10.0.1.19', 'admin', 'password', true, handleChanged, false, true,true);
-var isy = new ISY.ISY('127.0.0.1:3000', 'admin', 'password', true, handleChanged, false, true,true);
+  var logger = winston.createLogger();      
+if (process.env.NODE_ENV !== 'production') {
+	logger.level = "debug";
+	logger.add(new winston.transports.Console({
+	  format: winston.format.simple(),
+	}));
+  } 
 
-isy.initialize(handleInitialized);
+var isy = new ISY({host:'localhost:8080', username: 'admin', password:'qazWSX12',useHttps:false},logger);
+isy.debugLoggingEnabled = true;
+isy.logger = logger;
+
+isy.initialize().then((p) => handleInitialized());
 console.log('initialize completed');
 
 

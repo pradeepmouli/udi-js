@@ -13,6 +13,9 @@ new/test/testsuite.js
 .DS_Store
 node_modules/
 lib/
+dist/
+ISY*Dump.json
+ISYStatusDump.json
 ISYNodeInfo.xml
 ISYNodes.json
 ISYNodes.xml

@@ -9,7 +9,7 @@ export class InsteonMotionSensorDevice extends InsteonBaseDevice {
 		this._isMotionDetected = false;
 	}
 
-	public handleControlTrigger(controlName: string) {
+	public override handleControlTrigger(controlName: string) {
 
 			if (controlName === Commands.On) {
 				this.logger('Motion detected.');

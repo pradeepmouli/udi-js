@@ -43,7 +43,7 @@ export class ELKAlarmPanelDevice extends ISYDevice<Family.Elk> {
 			.lastChanged = new Date();
 	}
 
-	public async sendCommand(command: string): Promise<any> {
+	public override async sendCommand(command: string): Promise<any> {
 
 		return this.isy.sendISYCommand(`elk/area/${this.area}/cmd/${command}`);
 
@@ -71,7 +71,7 @@ export class ELKAlarmPanelDevice extends ISYDevice<Family.Elk> {
 	public getAlarmMode() {
 		return this.alarmMode;
 	}
-	public handleEvent(event: { control?: string; data?: any; node?: any; eventInfo?: any; }) {
+	public override handleEvent(event: { control?: string; data?: any; node?: any; eventInfo?: any; }) {
 		const areaUpdate = event.eventInfo.ae;
 		const areaId = areaUpdate.attr.area;
 		const updateType = areaUpdate.attr.type;

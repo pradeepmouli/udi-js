@@ -3,36 +3,40 @@
     "description": "Node.js wrapper for ISY interface including websockets for change notifications. Fork of isy-js by Rod Toll. Designed to be used in a node.js application.",
     "license": "MIT",
     "version": "0.6.0-beta",
+    "type": "commonjs",
     "author": {
         "name": "Pradeep Mouli"
     },
     "scripts": {
         "test": "mocha",
-        "prepublishOnly": "tsc"
+        "build": "rimraf ./dist/* && rimraf ./types/* && tsc -p ./tsconfig.json --declaration"
     },
     "keywords": [
         "isy",
-        "universal devies",
+        "universal devices",
         "insteon",
         "elk",
         "ZWave"
     ],
-    "main": "./lib/ISY.js",
+    "main": "./dist/ISY.js",
     "devDependencies": {
         "@types/node": "18.18.2",
         "@types/xml2js": "",
         "@types/xmldoc": "",
-        "mocha": ""
+        "mocha": "",
+        "rimraf": "^5.0.5"
     },
     "dependencies": {
         "@log4js-node/log4js-api": "^1.0.2",
-        "faye-websocket": "",
+        "axios": "^1.4.0",
+        "faye-websocket": "^0.11.3",
+        "mocha": "^7.2.0",
+        "p-queue": "^6.6.1",
         "restler": "^3.4.0",
         "restler-base": "^3.4.6",
+        "winston": "^3.11.0",
         "xml2js": "0.6.2",
-        "xmldoc": "",
-        "winston":"^3.11.0",
-        "axios":"^1.4.0"
+        "xmldoc": ""
     },
     "bugs": {
         "url": "https://github.com/pradeepmouli/isy-js/issues"

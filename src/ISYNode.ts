@@ -27,7 +27,7 @@ export class ISYNode extends EventEmitter implements PropertyChangedEventEmitter
 	public nodeType: number;
 	public readonly baseDisplayName: string;
 	public propsInitialized: boolean;
-	public logger: (( msg: any, level?: "ERROR" | "WARN" | "DEBUG" | "INFO", ...meta: any[]) => Logger);
+	public logger: (( msg: any, level?: 'error'|'warn'|'debug'|'info', ...meta: any[]) => Logger);
 	public lastChanged: Date;
 	public enabled: boolean;
 	baseName: any;
@@ -58,7 +58,7 @@ export class ISYNode extends EventEmitter implements PropertyChangedEventEmitter
 
 			this.folder = isy.folderMap.get(this.parent._);
 			isy.logger.info(`${this.name} this node is in folder ${this.folder}`);
-			this.logger = (level: 'ERROR'|'WARN'|'DEBUG'|'INFO' = 'DEBUG',msg : any, ...meta: any[]) => {
+			this.logger = (msg : any,level: 'error'|'warn'|'debug'|'info' = 'debug' , ...meta: any[]) => {
 				 isy.logger.log(level,`${this.folder} ${this.name} (${this.address}): ${msg}`);
 				 return isy.logger;
 			};
@@ -67,7 +67,7 @@ export class ISYNode extends EventEmitter implements PropertyChangedEventEmitter
 		}
 		else {
 			this.displayName = this.baseDisplayName;
-			this.logger = (msg : any, level: 'ERROR'|'WARN'|'DEBUG'|'INFO' = 'DEBUG',...meta: any[]) => {
+			this.logger = (msg : any, level: 'error'|'warn'|'debug'|'info' = 'debug',...meta: any[]) => {
 				isy.logger.log(level,`$${this.name} (${this.address}): ${msg}`);
 				return isy.logger;
 		   };
@@ -89,12 +89,12 @@ export class ISYNode extends EventEmitter implements PropertyChangedEventEmitter
 		return true;
 	}
 
-	public on(event: 'PropertyChanged'|'ControlTriggered', listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any)|((controlName: string) => any)): this {
+	public override on(event: 'PropertyChanged'|'ControlTriggered', listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any)|((controlName: string) => any)): this {
 		super.on(event, listener);
 		return this;
 	}
 
-	public emit(event: 'PropertyChanged'|'ControlTriggered', propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string) {
+	public override emit(event: 'PropertyChanged'|'ControlTriggered', propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string) {
 		if('PropertyChanged')
 			return super.emit(event, propertyName, newValue, oldValue, formattedValue);
 		else if('ControlTriggered')

@@ -66,7 +66,7 @@ export class ISYDevice<T extends Family> extends ISYNode {
 				this.uom[prop.id] = prop.uom;
 				this.logger(
 					`Property ${Controls[prop.id].label} (${prop.id}) initialized to: ${
-					this[prop.id]
+					this.local[prop.id]
 					} (${this.formatted[prop.id]})`
 				);
 			}
@@ -80,7 +80,7 @@ export class ISYDevice<T extends Family> extends ISYNode {
 			this.logger(
 				`Property ${Controls[node.property.id].label} (${
 				node.property.id
-				}) initialized to: ${this[node.property.id]} (${
+				}) initialized to: ${this.local[node.property.id]} (${
 				this.formatted[node.property.id]
 				})`
 			);
@@ -175,13 +175,13 @@ export class ISYDevice<T extends Family> extends ISYNode {
 
 
 
-	public handleControlTrigger(controlName) {
+	public override handleControlTrigger(controlName) {
 		return this.emit('ControlTriggered', controlName);
 	}
 
-	public handlePropertyChange(propertyName: string, value: any, formattedValue: string) {
+	public override handlePropertyChange(propertyName: string, value: any, formattedValue: string) {
 		let changed = false;
-		const priorVal = this[propertyName];
+		const priorVal = this.local[propertyName];
 		try {
 			const val = this.convertFrom(
 				value,

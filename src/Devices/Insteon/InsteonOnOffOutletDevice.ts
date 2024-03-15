@@ -13,7 +13,7 @@ export class InsteonOnOffOutletDevice extends InsteonRelayDevice {
 		super.addChild(this.outlet1);
 
 	}
-	public addChild(childDevice: ISYDevice<Family.Insteon>) {
+	public override addChild(childDevice: ISYDevice<Family.Insteon>) {
 		super.addChild(childDevice);
 		this.outlet2 = childDevice as InsteonRelayDevice;
 		this.outlet2.on('PropertyChanged', (p, v, f) => this.handlePropertyChange("outlet2." + p, v, f));

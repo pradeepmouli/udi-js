@@ -1,5 +1,6 @@
 import { Family, Insteon } from '../../Families';
 import { ISY } from '../../ISY';
+import { UnitOfMeasure as UOM } from '../../UOM';
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils';
 import { ISYDevice } from '../ISYDevice';
 
@@ -12,11 +13,11 @@ export class InsteonBaseDevice extends ISYDevice<Family.Insteon> {
 		//// this.productName = InsteonNLS.getDeviceDescription(String.fromCharCode(category,device,version));
 		//his.childDevices = {};
 	}
-	public convertFrom(value: any, uom: number): any {
+	public override convertFrom(value: any, uom: UOM): any {
 		switch (uom) {
-			case 101:
+			case UOM.DegreeX2:
 				return byteToDegree(value);
-			case 100:
+			case UOM.LevelFrom0To255:
 				return byteToPct(value);
 			case 17:
 				return value / 10;
@@ -24,7 +25,7 @@ export class InsteonBaseDevice extends ISYDevice<Family.Insteon> {
 				return super.convertFrom(value, uom);
 		}
 	}
-	public convertTo(value: any, uom: number): any {
+	public override convertTo(value: any, uom: number): any {
 		const nuom = super.convertTo(value, uom);
 		switch (uom) {
 			case 101:

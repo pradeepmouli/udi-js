@@ -29,7 +29,7 @@ export const InsteonSwitchDevice = <T extends Constructor<InsteonBaseDevice>>(IB
 
 export const KeypadDevice = <T extends Constructor<InsteonBaseDevice>>(IB: T) => (class extends IB {
 
-	public addChild(childDevice: ISYDevice<Family.Insteon>)
+	public override addChild(childDevice: ISYDevice<Family.Insteon>)
 	{
 		super.addChild(childDevice);
 	}

@@ -41,7 +41,7 @@ export class InsteonFanDevice extends InsteonBaseDevice {
 		this.addChild(this.light);
 	}
 
-	public handleEvent(event: { control?: string; data?: any; node?: any; }): boolean {
+	public override handleEvent(event: { control?: string; data?: any; node?: any; }): boolean {
 		this.logger(JSON.stringify(event));
 		const child = this.children.find((p) => p.address === event.node);
 		if (child !== undefined) {
@@ -50,7 +50,7 @@ export class InsteonFanDevice extends InsteonBaseDevice {
 		return false;
 	}
 
-	public addChild(childDevice: ISYDevice<Family.Insteon>) {
+	public override addChild(childDevice: ISYDevice<Family.Insteon>) {
 		super.addChild(childDevice);
 		if (childDevice instanceof InsteonFanMotorDevice) {
 			this.logger('Fan Motor Found');

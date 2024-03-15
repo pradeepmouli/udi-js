@@ -30,7 +30,7 @@ export class ElkAlarmSensorDevice extends ISYDevice<Family.Elk> {
 		this.logicalState = AlarmSensorLogicalState.NORMAL;
 		this.lastChanged = new Date();
 	}
-	public async sendCommand(command: string): Promise<any> {
+	public override async sendCommand(command: string): Promise<any> {
 		return this.isy.sendISYCommand(`elk/zone/${this.zone}/cmd/${command}`);
 	}
 	public async sendBypassToggleCommand() {
@@ -59,7 +59,7 @@ export class ElkAlarmSensorDevice extends ISYDevice<Family.Elk> {
 			return false;
 		}
 	}
-	public handleEvent(event: {
+	public override handleEvent(event: {
 		control?: string;
 		data?: any;
 		node?: any;

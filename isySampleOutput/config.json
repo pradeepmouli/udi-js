@@ -73,7 +73,8 @@ export interface $ {
 
 e
     "configuration": {
-        "deviceSpecs": [{
+    "deviceSpecs": [
+        {
             "make": [
                 "Universal Devices Inc."
             ],
@@ -101,27 +102,36 @@ e
             "baseProtocolOptional": [
                 "false"
             ]
-        }],
-        "upnpSpecs": [{
-            "upnpDevice": [{
-                "utype": [
-                    "X_Insteon_Lighting_Device"
-                ],
-                "version": [
-                    "1"
-                ]
-            }],
-            "upnpService": [{
-                "utype": [
-                    "X_Insteon_Lighting_Service"
-                ],
-                "version": [
-                    "1"
-                ]
-            }]
-        }],
-        "controls": [{
-            "control": [{
+        }
+    ],
+    "upnpSpecs": [
+        {
+            "upnpDevice": [
+                {
+                    "utype": [
+                        "X_Insteon_Lighting_Device"
+                    ],
+                    "version": [
+                        "1"
+                    ]
+                }
+            ],
+            "upnpService": [
+                {
+                    "utype": [
+                        "X_Insteon_Lighting_Service"
+                    ],
+                    "version": [
+                        "1"
+                    ]
+                }
+            ]
+        }
+    ],
+    "controls": [
+        {
+            "control": [
+                {
                     "name": [
                         "QUERY"
                     ],
@@ -377,25 +387,28 @@ e
                     "isNumeric": [
                         "false"
                     ],
-                    "actions": [{
-                        "action": [{
-                                "name": [
-                                    "7"
-                                ],
-                                "label": [
-                                    "On"
-                                ]
-                            },
-                            {
-                                "name": [
-                                    "8"
-                                ],
-                                "label": [
-                                    "Auto"
-                                ]
-                            }
-                        ]
-                    }]
+                    "actions": [
+                        {
+                            "action": [
+                                {
+                                    "name": [
+                                        "7"
+                                    ],
+                                    "label": [
+                                        "On"
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        "8"
+                                    ],
+                                    "label": [
+                                        "Auto"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "name": [
@@ -429,73 +442,76 @@ e
                     "isNumeric": [
                         "false"
                     ],
-                    "actions": [{
-                        "action": [{
-                                "name": [
-                                    "0"
-                                ],
-                                "label": [
-                                    "Off"
-                                ]
-                            },
-                            {
-                                "name": [
-                                    "1"
-                                ],
-                                "label": [
-                                    "Heat"
-                                ]
-                            },
-                            {
-                                "name": [
-                                    "2"
-                                ],
-                                "label": [
-                                    "Cool"
-                                ]
-                            },
-                            {
-                                "name": [
-                                    "3"
-                                ],
-                                "label": [
-                                    "Auto"
-                                ]
-                            },
-                            {
-                                "name": [
-                                    "4"
-                                ],
-                                "label": [
-                                    "Fan"
-                                ]
-                            },
-                            {
-                                "name": [
-                                    "5"
-                                ],
-                                "label": [
-                                    "Program Auto"
-                                ]
-                            },
-                            {
-                                "name": [
-                                    "6"
-                                ],
-                                "label": [
-                                    "Program Heat"
-                                ]
-                            },
-                            {
-                                "name": [
-                                    "7"
-                                ],
-                                "label": [
-                                    "Program Cool"
-                                ]
-                            }
-                        ]
-                    }]
+                    "actions": [
+                        {
+                            "action": [
+                                {
+                                    "name": [
+                                        "0"
+                                    ],
+                                    "label": [
+                                        "Off"
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        "1"
+                                    ],
+                                    "label": [
+                                        "Heat"
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        "2"
+                                    ],
+                                    "label": [
+                                        "Cool"
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        "3"
+                                    ],
+                                    "label": [
+                                        "Auto"
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        "4"
+                                    ],
+                                    "label": [
+                                        "Fan"
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        "5"
+                                    ],
+                                    "label": [
+                                        "Program Auto"
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        "6"
+                                    ],
+                                    "label": [
+                                        "Program Heat"
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        "7"
+                                    ],
+                                    "label": [
+                                        "Program Cool"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "name": [
@@ -513,33 +529,36 @@ e
                     "isNumeric": [
                         "false"
                     ],
-                    "actions": [{
-                        "action": [{
-                                "name": [
-                                    "0"
-                                ],
-                                "label": [
-                                    "Hold"
-                                ]
-                            },
-                            {
-                                "name": [
-                                    "1"
-                                ],
-                                "label": [
-                                    "Run"
-                                ]
-                            },
-                            {
-                                "name": [
-                                    "2"
-                                ],
-                                "label": [
-                                    "Away"
-                                ]
-                            }
-                        ]
-                    }]
+                    "actions": [
+                        {
+                            "action": [
+                                {
+                                    "name": [
+                                        "0"
+                                    ],
+                                    "label": [
+                                        "Hold"
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        "1"
+                                    ],
+                                    "label": [
+                                        "Run"
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        "2"
+                                    ],
+                                    "label": [
+                                        "Away"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "name": [
@@ -577,33 +596,36 @@ e
                     "isNumeric": [
                         "false"
                     ],
-                    "actions": [{
-                        "action": [{
-                                "name": [
-                                    "0"
-                                ],
-                                "label": [
-                                    "Off"
-                                ]
-                            },
-                            {
-                                "name": [
-                                    "1"
-                                ],
-                                "label": [
-                                    "Heat On"
-                                ]
-                            },
-                            {
-                                "name": [
-                                    "2"
-                                ],
-                                "label": [
-                                    "Cool On"
-                                ]
-                            }
-                        ]
-                    }]
+                    "actions": [
+                        {
+                            "action": [
+                                {
+                                    "name": [
+                                        "0"
+                                    ],
+                                    "label": [
+                                        "Off"
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        "1"
+                                    ],
+                                    "label": [
+                                        "Heat On"
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        "2"
+                                    ],
+                                    "label": [
+                                        "Cool On"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "name": [
@@ -641,25 +663,28 @@ e
                     "isNumeric": [
                         "false"
                     ],
-                    "actions": [{
-                        "action": [{
-                                "name": [
-                                    "1"
-                                ],
-                                "label": [
-                                    "Celsius"
-                                ]
-                            },
-                            {
-                                "name": [
-                                    "2"
-                                ],
-                                "label": [
-                                    "Fahrenheit"
-                                ]
-                            }
-                        ]
-                    }]
+                    "actions": [
+                        {
+                            "action": [
+                                {
+                                    "name": [
+                                        "1"
+                                    ],
+                                    "label": [
+                                        "Celsius"
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        "2"
+                                    ],
+                                    "label": [
+                                        "Fahrenheit"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "name": [
@@ -797,25 +822,28 @@ e
                     "isNumeric": [
                         "false"
                     ],
-                    "actions": [{
-                        "action": [{
-                                "name": [
-                                    "0"
-                                ],
-                                "label": [
-                                    "Auto Apply Off"
-                                ]
-                            },
-                            {
-                                "name": [
-                                    "1"
-                                ],
-                                "label": [
-                                    "Auto Apply On"
-                                ]
-                            }
-                        ]
-                    }]
+                    "actions": [
+                        {
+                            "action": [
+                                {
+                                    "name": [
+                                        "0"
+                                    ],
+                                    "label": [
+                                        "Auto Apply Off"
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        "1"
+                                    ],
+                                    "label": [
+                                        "Auto Apply On"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "name": [
@@ -856,25 +884,28 @@ e
                     "label": [
                         "Device secure mode"
                     ],
-                    "actions": [{
-                        "action": [{
-                                "name": [
-                                    "0"
-                                ],
-                                "label": [
-                                    "Device operation is not secured"
-                                ]
-                            },
-                            {
-                                "name": [
-                                    "1"
-                                ],
-                                "label": [
-                                    "Device operation is secured"
-                                ]
-                            }
-                        ]
-                    }]
+                    "actions": [
+                        {
+                            "action": [
+                                {
+                                    "name": [
+                                        "0"
+                                    ],
+                                    "label": [
+                                        "Device operation is not secured"
+                                    ]
+                                },
+                                {
+                                    "name": [
+                                        "1"
+                                    ],
+                                    "label": [
+                                        "Device operation is secured"
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 },
                 {
                     "name": [
@@ -1397,43 +1428,50 @@ e
                     ]
                 }
             ]
-        }],
-        "driver_timestamp": [
-            "2018-07-12-14:53:23"
-        ],
-        "app": [
-            "Insteon_UD994"
-        ],
-        "app_version": [
-            "5.0.13"
-        ],
-        "app_full_version": [
-            "5.0.13A"
-        ],
-        "platform": [
-            "ISY-C-994"
-        ],
-        "build_timestamp": [
-            "2018-07-12-14:53:23"
-        ],
-        "root": [{
+        }
+    ],
+    "driver_timestamp": [
+        "2018-07-12-14:53:23"
+    ],
+    "app": [
+        "Insteon_UD994"
+    ],
+    "app_version": [
+        "5.0.13"
+    ],
+    "app_full_version": [
+        "5.0.13A"
+    ],
+    "platform": [
+        "ISY-C-994"
+    ],
+    "build_timestamp": [
+        "2018-07-12-14:53:23"
+    ],
+    "root": [
+        {
             "id": [
                 "00:21:b9:02:03:35"
             ],
             "name": [
                 "ISY"
             ]
-        }],
-        "product": [{
+        }
+    ],
+    "product": [
+        {
             "id": [
                 "1110"
             ],
             "desc": [
                 "ISY 994i 1024 IR"
             ]
-        }],
-        "features": [{
-            "feature": [{
+        }
+    ],
+    "features": [
+        {
+            "feature": [
+                {
                     "id": [
                         "21010"
                     ],
@@ -1784,42 +1822,49 @@ e
                     ]
                 }
             ]
-        }],
-        "triggers": [
-            "true"
-        ],
-        "maxTriggers": [
-            "2048"
-        ],
-        "variables": [
-            "true"
-        ],
-        "nodedefs": [
-            "true"
-        ],
-        "secsys": [{
+        }
+    ],
+    "triggers": [
+        "true"
+    ],
+    "maxTriggers": [
+        "2048"
+    ],
+    "variables": [
+        "true"
+    ],
+    "nodedefs": [
+        "true"
+    ],
+    "secsys": [
+        {
             "$": {
                 "type": "ELK",
                 "version": "2"
             }
-        }],
-        "baseDriver": [{
+        }
+    ],
+    "baseDriver": [
+        {
             "$": {
                 "type": "INSTEON",
                 "version": "2"
             }
-        }],
-        "security": [{
+        }
+    ],
+    "security": [
+        {
             "_": "SSL",
             "$": {
                 "v": "3.3"
             }
-        }],
-        "isDefaultCert": [
-            "false"
-        ],
-        "maxSSLStrength": [
-            "2048"
-        ]
-    }
+        }
+    ],
+    "isDefaultCert": [
+        "false"
+    ],
+    "maxSSLStrength": [
+        "2048"
+    ]
+}
 }

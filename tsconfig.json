@@ -2,13 +2,19 @@
     "compileOnSave": true,
     "compilerOptions": {
         "target": "ES2022",
-        "module": "Node16",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
         "rootDir": "src",
-        //"allowJs": true,
         "outDir": "dist",
         "declaration": true,
-        "declarationDir": "types",
-        "resolveJsonModule": true
+        "declarationDir": "dist/types",
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "declarationMap": true,
+        "sourceMap": true,
+        "incremental": true,
+        "noImplicitOverride": true,
+        "noImplicitThis": true
     },
     "watchOptions": {
         "excludeDirectories": ["**/node_modules", "_build", "temp/*"]

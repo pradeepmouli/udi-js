@@ -5,7 +5,7 @@ import { get,parsers } from 'restler-base';
 
 
 import { Parser } from 'xml2js';
-import { parseBooleans, parseNumbers } from 'xml2js/lib/processors';
+import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js'
 import { XmlDocument } from 'xmldoc';
 
 import axios, { AxiosRequestConfig } from 'axios';
@@ -40,7 +40,7 @@ import { InsteonSmokeSensorDevice } from './Devices/Insteon/InsteonSmokeSensorDe
 import { InsteonDimmerOutletDevice } from './Devices/Insteon/InsteonDimmerOutletDevice';
 import { InsteonKeypadButtonDevice } from './Devices/Insteon/InsteonKeypadDevice';
 import { EventEmitter } from 'events';
-import { Logger } from 'winston';
+import { Logger, level } from 'winston';
 
 export {
 	ISYScene,
@@ -79,9 +79,8 @@ export {
 const parser = new Parser({
 	explicitArray: false,
 	mergeAttrs: true,
-
 	attrValueProcessors: [parseBooleans, parseNumbers],
-	valueProcessors: [(a,b) => parseNumbers(a), (a,b) => parseBooleans(a)]
+	valueProcessors: [parseBooleans,parseNumbers]
 });
 
 export let Controls = {};
@@ -125,14 +124,12 @@ export class ISY extends EventEmitter {
 	public readonly storagePath: string;
 
 	constructor (
-		config: { host: string, username: string, password: string, elkEnabled?: boolean, useHttps?: boolean, displayNameFormat?: string; }, logger: Logger, storagePath?: string) {
+		config: { host: string, username: string, password: string, elkEnabled?: boolean, useHttps?: boolean, displayNameFormat?: string; }, logger: Logger = new Logger(), storagePath?: string) {
 		super();
 		this.storagePath = storagePath ?? './';
 		this.displayNameFormat = config.displayNameFormat ?? '${location ?? folder} ${spokenName ?? name}';
 		this.address = config.host;
 		this.logger = logger;
-		axios :
-
 		this.credentials = {
 			username: config.username,
 			password: config.password
@@ -165,13 +162,13 @@ export class ISY extends EventEmitter {
 
 	}
 
-	public emit(event: 'InitializeCompleted' | 'NodeAdded' | 'NodeRemoved' | 'NodeChanged', node?: ISYNode): boolean {
+	public override emit(event: 'InitializeCompleted' | 'NodeAdded' | 'NodeRemoved' | 'NodeChanged', node?: ISYNode): boolean {
 		return super.emit(event, node);
 	}
 
 
 
-	public on(event: 'InitializeCompleted' | 'NodeAdded' | 'NodeRemoved' | 'NodeChanged', listener: (node?: ISYNode) => void): this {
+	public override on(event: 'InitializeCompleted' | 'NodeAdded' | 'NodeRemoved' | 'NodeChanged', listener: (node?: ISYNode) => void): this {
 		return super.on(event, listener);
 	}
 
@@ -373,7 +370,7 @@ export class ISY extends EventEmitter {
 	public finishInitialize(success: boolean, initializeCompleted: () => void) {
 		if (!this.nodesLoaded) {
 			this.nodesLoaded = true;
-			initializeCompleted();
+			//initializeCompleted();
 			if (success) {
 				if (this.elkEnabled) {
 					this.deviceList[this.elkAlarmPanel.address] = this.elkAlarmPanel;
@@ -505,12 +502,12 @@ export class ISY extends EventEmitter {
 						device.uom[prop.id] = prop.uom;
 						device.logger(
 							`Property ${Controls[prop.id].label} (${prop.id}) initialized to: ${
-							device[prop.id]
+							device.local[prop.id]
 							} (${device.formatted[prop.id]})`
 						);
 					}
 				} else if (node.property) {
-					device[node.property.id] = device.convertFrom(
+					device.local[node.property.id] = device.convertFrom(
 						node.property.value,
 						node.property.uom
 					);
@@ -519,7 +516,7 @@ export class ISY extends EventEmitter {
 					device.logger(
 						`Property ${Controls[node.property.id].label} (${
 						node.property.id
-						}) initialized to: ${device[node.property.id]} (${
+						}) initialized to: ${device.local[node.property.id]} (${
 						device.formatted[node.property.id]
 						})`
 					);
@@ -576,11 +573,11 @@ export class ISY extends EventEmitter {
 
 			});
 		} catch (e) {
-			this.logger.error(`Error initializing ISY: ${JSON.stringify(e)}`);
+		 console.log(`Error initializing ISY: ${JSON.stringify(e)}`);
 
 		} finally {
 			if (this.nodesLoaded !== true) {
-				this.finishInitialize(true, initializeCompleted);
+				that.finishInitialize(true, initializeCompleted);
 			}
 		}
 		return Promise.resolve(true);
@@ -668,7 +665,7 @@ export class ISY extends EventEmitter {
 		const that = this;
 		const auth =
 			`Basic ${new Buffer(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
-		that.logger.info(
+		this.logger.info(
 			`Connecting to: ${this.wsprotocol}://${this.address}/rest/subscribe`
 		);
 		this.webSocket = new Client(

@@ -6,7 +6,9 @@ export class InsteonLeakSensorDevice extends ISYBinaryStateDevice(InsteonBaseDev
 	constructor (isy: ISY, deviceNode: { family: any; type?: string; enabled: any; deviceClass?: any; pnode?: any; property?: any; flag?: any; nodeDefId?: string; address?: string; name?: string; parent?: any; ELK_ID?: string; }) {
 		super(isy, deviceNode);
 	}
-	get leakDetected() {
+
+	
+	get isDry() {
 		return this.state;
 	}
 }

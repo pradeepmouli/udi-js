@@ -1,3 +1,4 @@
+
 import { Client } from 'faye-websocket';
 import { writeFile } from 'fs';
 import { get,parsers } from 'restler-base';
@@ -121,7 +122,7 @@ export class ISY extends EventEmitter {
 	public model: any;
 	public serverVersion: any;
 	public readonly storagePath: string;
-	
+
 	constructor (
 		config: { host: string, username: string, password: string, elkEnabled?: boolean, useHttps?: boolean, displayNameFormat?: string; }, logger: Logger = new Logger(), storagePath?: string) {
 		super();
@@ -129,13 +130,11 @@ export class ISY extends EventEmitter {
 		this.displayNameFormat = config.displayNameFormat ?? '${location ?? folder} ${spokenName ?? name}';
 		this.address = config.host;
 		this.logger = logger;
-		
-		
 		this.credentials = {
 			username: config.username,
 			password: config.password
 		};
-		
+
 		this.restlerOptions = {
 			username: this.credentials.username,
 			password: this.credentials.password,
@@ -154,7 +153,7 @@ export class ISY extends EventEmitter {
 		this.wsprotocol = 'ws';
 		this.elkEnabled = config.elkEnabled ?? false;
 
-		
+
 
 		this.guardianTimer = null;
 		if (this.elkEnabled) {

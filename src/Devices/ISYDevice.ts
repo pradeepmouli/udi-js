@@ -27,7 +27,7 @@ export class ISYDevice<T extends Family> extends ISYNode {
 	public readonly pending: any[string] = {};
 	public readonly local: any[string] = {};
 	public hidden: boolean = false;
-	
+
 	public _enabled: any;
 	productName: string;
 	model: string;
@@ -139,7 +139,7 @@ export class ISYDevice<T extends Family> extends ISYNode {
 			});
 	}
 
-	public 
+	public
 
 	public async sendCommand(command, ...parameters: any[]): Promise<any> {
 		return this.isy.sendNodeCommand(this, command, ...parameters);

@@ -15,13 +15,12 @@
         "incremental": true,
         "noImplicitOverride": true,
         "noImplicitThis": true
-       
     },
     "watchOptions": {
         "excludeDirectories": ["**/node_modules", "_build", "temp/*"]
       },
     "exclude": [
-        "./lib/*",
+        "./dist/*",
         "**/node_modules",
         "./test/*"
     ]

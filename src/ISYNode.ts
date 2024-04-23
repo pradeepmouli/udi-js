@@ -7,6 +7,17 @@ import { PropertyChangedEventEmitter } from './Utils';
 import { LogMethod, Logform, Logger, debug } from 'winston';
 
 
+interface Node {
+	flag?: any;
+	nodeDefId?: string;
+	address?: string;
+	name?: string;
+	family?: Family;
+	parent?: any;
+	enabled: boolean;
+	ELK_ID?: string;
+}
+
 export class ISYNode extends EventEmitter implements PropertyChangedEventEmitter {
 
 	public readonly isy: ISY;
@@ -32,7 +43,7 @@ export class ISYNode extends EventEmitter implements PropertyChangedEventEmitter
 	public enabled: boolean;
 	baseName: any;
 	family: Family;
-	constructor (isy: ISY, node: { flag?: any; nodeDefId?: string; address?: string; name?: string; family?: Family; parent?: any; enabled: boolean; ELK_ID?: string; }) {
+	constructor (isy: ISY, node: Node) {
 		super();
 		this.isy = isy;
 		this.nodeType = 0;

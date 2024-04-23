@@ -10,6 +10,30 @@ import { ISYNode } from '../ISYNode';
 import { ISYScene } from '../ISYScene';
 import { NodeEvent } from '../Events/NodeEvent';
 
+interface PropertyStatus {
+	id: string | number;
+	value: any;
+	formatted: any;
+	uom: any;
+}
+
+interface NodeResponse {
+	family: any;
+	type?: string;
+	enabled: any;
+	deviceClass?: any;
+	pnode?: any;
+	property?: PropertyStatus[] | PropertyStatus;
+	flag?: any;
+	nodeDefId?: string;
+	address?: any;
+	name?: string;
+	parent?: any;
+	ELK_ID?: string;
+}
+
+
+
 export class ISYDevice<T extends Family> extends ISYNode {
 	declare public family: T;
 
@@ -35,7 +59,7 @@ export class ISYDevice<T extends Family> extends ISYNode {
 	version: string;
 	isDimmable: boolean;
 
-	constructor(isy: ISY, node: { family: any; type?: string; enabled: any; deviceClass?: any; pnode?: any; property?: any; flag?: any; nodeDefId?: string; address?: any; name?: string; parent?: any; ELK_ID?: string; }) {
+	constructor(isy: ISY, node: NodeResponse) {
 		super(isy, node);
 
 		this.family = node.family as T;
@@ -139,43 +163,49 @@ export class ISYDevice<T extends Family> extends ISYNode {
 			});
 	}
 
-	public
 
-	public async sendCommand(command, ...parameters: any[]): Promise<any> {
+
+	public async sendCommand(command: string, ...parameters: any[]): Promise<any> {
 		return this.isy.sendNodeCommand(this, command, ...parameters);
 	}
 
 	public async refresh(): Promise<any> {
 		const device = this;
-		const result = await this.isy.callISY(`nodes/${this.address}/status`);
-		const node = result.node;
+		const node = (await this.isy.callISY(`nodes/${this.address}/status`)).node;
 		// this.logger(node);
 
-		if (Array.isArray(node.property)) {
-			for (const prop of node.property) {
-				device.local[prop.id] = prop.value;
-				device.formatted[prop.id] = prop.formatted;
-				device.uom[prop.id] = prop.uom;
-				device.logger(
-					`Property ${Controls[prop.id].label} (${prop.id}) refreshed to: ${
-					device[prop.id]
-					} (${device.formatted[prop.id]})`
-				);
-			}
-		} else if (node.property) {
-			device.local[node.property.id] = node.property.value;
-			device.formatted[node.property.id] = node.property.formatted;
-			device.uom[node.property.id] = node.property.uom;
-			device.logger(
-				`Property ${Controls[node.property.id].label} (${node.property.id}) refreshed to: ${device[node.property.id]} (${device.formatted[node.property.id]})`
-			);
-		}
-		return result;
+		this.parseResult(node, device);
+		return await this.isy.callISY(`nodes/${this.address}/status`);
 	}
 
 
 
-	public override handleControlTrigger(controlName) {
+	public parseResult(node: { property: PropertyStatus|PropertyStatus[]} , device: this) {
+		if (Array.isArray(node.property)) {
+			for (const prop of node.property) {
+				this.applyStatus(device, prop);
+			}
+		} else if (node.property) {
+			this.applyStatus(device, node.property);
+			//device.local[node.property.id] = node.property.value;
+			//device.formatted[node.property.id] = node.property.formatted;
+			//device.uom[node.property.id] = node.property.uom;
+			device.logger(
+				`Property ${Controls[node.property.id].label} (${node.property.id}) refreshed to: ${device[node.property.id]} (${device.formatted[node.property.id]})`
+			);
+		}
+	}
+
+	public applyStatus(device: this, prop: PropertyStatus) {
+		device.local[prop.id] = prop.value;
+		device.formatted[prop.id] = prop.formatted;
+		device.uom[prop.id] = prop.uom;
+		device.logger(
+			`Property ${Controls[prop.id].label} (${prop.id}) refreshed to: ${device[prop.id]} (${device.formatted[prop.id]})`
+		);
+	}
+
+	public override handleControlTrigger(controlName: string) {
 		return this.emit('ControlTriggered', controlName);
 	}
 

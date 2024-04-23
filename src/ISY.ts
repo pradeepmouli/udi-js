@@ -726,8 +726,8 @@ export class ISY extends EventEmitter {
 		return s;
 	}
 
-	public getScene(address: string | number) {
-		return this.sceneList[address];
+	public getScene(address: string) {
+		return this.sceneList.get(address);
 	}
 
 	public async  sendISYCommand(path: string): Promise<any> {

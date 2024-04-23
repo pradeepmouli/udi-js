@@ -2,22 +2,26 @@ import { EventEmitter } from 'events';
 import { ISY } from './ISY';
 import { VariableType } from './ISYConstants';
 
-export class ISYVariable extends EventEmitter {
+const varT = (t: VariableType) => VariableType.Integer ? Number : String;
+
+
+
+export class ISYVariable<P = VariableType.Integer | VariableType.State> extends EventEmitter {
 	public isy: ISY;
 	public id: number;
 	public name: string;
 	public value: any;
 	public init: any;
-	public type: VariableType;
+	public type: P;
 	public lastChanged: Date;
-	constructor(isy: ISY, id: number, name: string, type: any) {
+	constructor(isy: ISY, id: number, name: string, type: VariableType) {
 		super();
 		this.isy = isy;
 		this.id = id;
 		this.name = name;
 		this.value = undefined;
 		this.init = undefined;
-		this.type = type;
+
 		this.lastChanged = new Date();
 	}
 
@@ -40,7 +44,7 @@ export class ISYVariable extends EventEmitter {
 		}
 	}
 
-	public async updateValue(value: any): Promise<void> {
+	public async updateValue(value: P): Promise<void> {
 		const p = await this.isy.callISY(`vars\\${this.type}\\${this.id}\\${value}`);
 		this.value = value;
 		return p;

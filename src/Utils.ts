@@ -33,7 +33,7 @@ export async function getAsync(url: string, options: AxiosRequestConfig): Promis
 
 	const p = new Promise<any>((resolve, reject) => {
 
-	 console.log('Calling: ' + url);
+
 
 		get(url, options)
 			.on('complete', (result: any) => {

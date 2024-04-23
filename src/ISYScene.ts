@@ -34,7 +34,7 @@ export class ISYScene extends ISYNode {
 					if (d !== null && d !== undefined) { d.addLink(this); }
 
 					if (d instanceof InsteonDimmableDevice && node.type !== LinkType.Controller) { this.isDimmable = true; }
-					this.members[s] = d;
+					this.members.push(d);
 				}
 			}
 		} else if (scene.members?.link) {
@@ -48,7 +48,7 @@ export class ISYScene extends ISYNode {
 				if (d) { d.addLink(this);
 				// tslint:disable-next-line: triple-equals
 				if ((d.isDimmable && node.type != LinkType.Controller) || this.isDimmable) { this.isDimmable = true; }
-				this.members[s] = d;
+				this.members.push(d);
 				}
 			}
 		}

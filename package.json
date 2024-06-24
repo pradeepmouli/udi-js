@@ -17,7 +17,12 @@
         "elk",
         "ZWave"
     ],
-    "main": "./lib/ISY.js",
+    "directories": {
+        "test": "test",
+        "lib": "dist"
+    },
+
+    "main": "./dist/ISY.js",
     "devDependencies": {
         "@types/node": "18.18.2",
         "@types/xml2js": "",
@@ -26,15 +31,16 @@
     },
     "dependencies": {
         "@log4js-node/log4js-api": "^1.0.2",
+        "@project-chip/matter.js": "^0.9.1",
+        "axios": "^1.4.0",
         "faye-websocket": "^0.11.3",
         "mocha": "^7.2.0",
         "p-queue": "^6.6.1",
         "restler": "^3.4.0",
         "restler-base": "^3.4.6",
+        "winston": "^3.11.0",
         "xml2js": "0.6.2",
-        "xmldoc": "",
-        "winston":"^3.11.0",
-        "axios":"^1.4.0"
+        "xmldoc": ""
     },
     "bugs": {
         "url": "https://github.com/pradeepmouli/isy-js/issues"

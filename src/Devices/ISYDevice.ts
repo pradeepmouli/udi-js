@@ -1,40 +1,62 @@
 import { timingSafeEqual } from 'crypto';
 import { isNullOrUndefined } from 'util';
-
+import type { Identity } from '@project-chip/matter.js/util';
 import { stringify } from 'querystring';
 import { threadId } from 'worker_threads';
 import { Family } from '../Families';
 import { Controls, ISY } from '../ISY';
 import { Commands, States } from '../ISYConstants';
-import { ISYNode } from '../ISYNode';
+import { ISYNode, NodeNotes } from '../ISYNode';
 import { ISYScene } from '../ISYScene';
 import { NodeEvent } from '../Events/NodeEvent';
+import { UnitOfMeasure } from '../UOM';
+import { EndpointType, MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
+import { Endpoint } from '@project-chip/matter.js/endpoint';
+import { Cluster, ClusterType, Identify } from '@project-chip/matter.js/cluster';
+import { BridgedDeviceBasicInformation } from '@project-chip/matter.js/cluster';
+import { BridgedDeviceBasicInformationBehavior, BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
+import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
+import { type } from 'os';
+import { OnOffBaseDevice } from '@project-chip/matter.js/device';
+import { OnOffBehavior } from '@project-chip/matter.js/behaviors/on-off';
+import { OnOffLightDevice } from '@project-chip/matter.js/endpoint/definitions';
+import { ClusterBehavior, ClusterInterface } from '@project-chip/matter.js/behavior/cluster';
+import { Behavior } from '@project-chip/matter.js/behavior';
+import { OnOffSwitchConfigurationBehavior } from '@project-chip/matter.js/behaviors/on-off-switch-configuration';
 
-interface PropertyStatus {
+export interface PropertyStatus {
 	id: string | number;
 	value: any;
 	formatted: any;
-	uom: any;
+	uom: UnitOfMeasure;
+
+	prec: number;
+	name: string;
 }
 
-interface NodeResponse {
-	family: any;
+export interface NodeInfo {
+	family: Family;
 	type?: string;
 	enabled: any;
 	deviceClass?: any;
-	pnode?: any;
+	pnode: any;
 	property?: PropertyStatus[] | PropertyStatus;
 	flag?: any;
 	nodeDefId?: string;
-	address?: any;
-	name?: string;
+	address: any;
+	name: string;
 	parent?: any;
-	ELK_ID?: string;
+	startDelay: number;
+	hint: string;
+
+	endDelay: number;
+	wattage: number;
+	dcPeriod: number;
 }
 
 
 
-export class ISYDevice<T extends Family> extends ISYNode {
+export class ISYDevice<T extends Family, Drivers extends string = string, Commands extends string = string> extends ISYNode {
 	declare public family: T;
 
 	public readonly typeCode: string;
@@ -59,7 +81,7 @@ export class ISYDevice<T extends Family> extends ISYNode {
 	version: string;
 	isDimmable: boolean;
 
-	constructor(isy: ISY, node: NodeResponse) {
+	constructor(isy: ISY, node: NodeInfo) {
 		super(isy, node);
 
 		this.family = node.family as T;
@@ -112,11 +134,11 @@ export class ISYDevice<T extends Family> extends ISYNode {
 
 	}
 
-	public convertTo(value: any, uom: number): any {
+	public convertTo(value: any, UnitOfMeasure: number): any {
 		return value;
 	}
 
-	public convertFrom(value: any, uom: number): any {
+	public convertFrom(value: any, UnitOfMeasure: number): any {
 		return value;
 	}
 
@@ -145,8 +167,14 @@ export class ISYDevice<T extends Family> extends ISYNode {
 		return this._parentDevice;
 	}
 
-	public async refreshProperty(propertyName: string): Promise<any> {
-		return this.isy.callISY(`nodes/${this.address}/status/${propertyName}`);
+
+
+	public async readProperty(propertyName: Drivers): Promise<PropertyStatus> {
+		return (await this.isy.callISY(`nodes/${this.address}/${propertyName}`)).node.property;
+	}
+
+	public async readProperties(): Promise<PropertyStatus[]> {
+		return (await this.isy.callISY(`nodes/${this.address}/status`)).node.property;
 	}
 
 	public async updateProperty(propertyName: string, value: string): Promise<any> {
@@ -156,7 +184,7 @@ export class ISYDevice<T extends Family> extends ISYNode {
 		);
 		this.pending[propertyName] = value;
 		return this.isy
-			.sendISYCommand(`nodes/${this.address}/set/${propertyName}/${val}`)
+			.callISY(`nodes/${this.address}/set/${propertyName}/${val}`)
 			.then((p) => {
 				this.local[propertyName] = value;
 				this.pending[propertyName] = null;
@@ -165,8 +193,8 @@ export class ISYDevice<T extends Family> extends ISYNode {
 
 
 
-	public async sendCommand(command: string, ...parameters: any[]): Promise<any> {
-		return this.isy.sendNodeCommand(this, command, ...parameters);
+	public async sendCommand(command: string, parameters?: (Record<string|symbol,string|number>|string|number)): Promise<any> {
+		return this.isy.sendNodeCommand(this, command, parameters);
 	}
 
 	public async refresh(): Promise<any> {
@@ -255,7 +283,7 @@ export type Constructor<T> = new (...args: any[]) => T;
 export const ISYBinaryStateDevice = <K extends Family, T extends Constructor<ISYDevice<K>>>(Base: T) => {
 	return class extends Base {
 		get state(): Promise<boolean> {
-			return this.refreshProperty('ST').then(p => p  > 0);
+			return this.readProperty('ST').then(p => p.value  > 0);
 		}
 	};
 };
@@ -265,7 +293,7 @@ export const ISYUpdateableBinaryStateDevice = <K extends Family,T extends Constr
 ) => {
 	return class extends Base {
 		get state(): Promise<boolean> {
-			return this.refreshProperty('ST').then(p => p  > 0);
+			return this.readProperty('ST').then(p => p.value  > 0);
 		}
 
 
@@ -283,6 +311,58 @@ export const ISYUpdateableBinaryStateDevice = <K extends Family,T extends Constr
 };
 
 
+export type EndpointFor<K extends Behavior.Type, K1 extends Behavior.Type = K, K2 extends Behavior.Type = K>  = {events: SupportedBehaviors.EventsOf<SupportedBehaviors.MapOf<[K,K1,K2]>>, set: (values: SupportedBehaviors.StatePatchOf<SupportedBehaviors.MapOf<[K,K1,K2]>>) => void} & Endpoint;
+
+
+
+export interface MapsTo<T extends Behavior.Type, T1 extends Behavior.Type = T, T2 extends Behavior.Type = T>  {
+	initialize(endpoint: EndpointFor<T, T1, T2>): void;
+
+}
+
+export interface MapsToEndpointType<T extends EndpointType>  {
+	initialize(endpoint: Endpoint<T>): void;
+
+}
+
+type BehaviorList<T extends ClusterBehavior> = SupportedBehaviors & T;
+
+export interface MapsToEndpoint<T extends ClusterBehavior>
+{
+	initialize<K extends MutableEndpoint.With<EndpointType.Empty,BehaviorList<T>>>(endpoint: Endpoint<K>): void;
+
+}
+export const MatterEndpoint = <P extends MutableEndpoint, T extends Constructor<ISYDevice<any>>>(base: T, endpointType: P) =>
+{
+
+
+	return class extends base
+	{
+
+		baseBehavior: P = endpointType;
+
+
+
+		createEndpoint() {
+
+			var p = this.baseBehavior.with(BridgedDeviceBasicInformationServer);
+
+			return new Endpoint(this.baseBehavior.with(BridgedDeviceBasicInformationServer),{id: this.address, bridgedDeviceBasicInformation: {
+                nodeLabel: this.displayName,
+                productName: this.productName,
+                productLabel: this.productName,
+                serialNumber: `${this.address}`,
+                reachable: this.enabled,
+            }});
+
+
+
+		}
+
+
+	};
+
+}
 
 export const ISYLevelDevice = <T extends Constructor<ISYDevice<any>>>(base: T) =>
 	class extends base {

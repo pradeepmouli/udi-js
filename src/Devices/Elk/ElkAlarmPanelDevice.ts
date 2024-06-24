@@ -27,7 +27,15 @@ export class ELKAlarmPanelDevice extends ISYDevice<Family.Elk> {
 
 	constructor(isy: ISY, area: number) {
 
-		super(isy, { family: Family.Elk, type: '0.0.0.0', enabled: true, address: `ElkAlarmPanel_${area}`, name: `Elk Alarm Panel ${area}` });
+		super(isy, {
+			family: Family.Elk, type: '0.0.0.0', enabled: true, address: `ElkAlarmPanel_${area}`, name: `Elk Alarm Panel ${area}`,
+			pnode: undefined,
+			startDelay: 0,
+			hint: '',
+			endDelay: 0,
+			wattage: 0,
+			dcPeriod: 0
+		});
 
 		this.area = area;
 		this.alarmTripState = AlarmTripState.DISARMED;

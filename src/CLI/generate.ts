@@ -1,2 +1,2 @@
-import { generateTemplateClassesFromXSD } from 'xsd2ts';
-generateTemplateClassesFromXSD('./dependency.xsd'); 
+//import { generateTemplateClassesFromXSD } from 'xsd2ts';
+//generateTemplateClassesFromXSD('./dependency.xsd');

@@ -4,7 +4,7 @@ import { InsteonBaseDevice } from './InsteonBaseDevice';
 
 export class InsteonMotionSensorDevice extends InsteonBaseDevice {
 	private _isMotionDetected: boolean;
-	constructor (isy: ISY, deviceNode: { family: any; type?: string; enabled: any; deviceClass?: any; pnode?: any; property?: any; flag?: any; nodeDefId?: string; address?: string; name?: string; parent?: any; ELK_ID?: string; }) {
+	constructor (isy: ISY, deviceNode) {
 		super(isy, deviceNode);
 		this._isMotionDetected = false;
 	}
@@ -16,7 +16,7 @@ export class InsteonMotionSensorDevice extends InsteonBaseDevice {
 				this._isMotionDetected = true;
 				this.emit('ControlTriggered',controlName);
 				this.emit('PropertyChanged', 'motionDetected', true, false, "true");
-				
+
 				setTimeout(() => {
 					this.logger('No motion detected in last 30 seconds.');
 					this._isMotionDetected = false;

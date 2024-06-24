@@ -17,7 +17,15 @@ export class ElkAlarmSensorDevice extends ISYDevice<Family.Elk> {
 	public logicalState: AlarmSensorLogicalState;
 	public voltage: number;
 	constructor (isy: ISY, name: string, area: number, zone: string) {
-		super(isy, { family: Family.Elk, name, address: `ElkZone_${zone}`, enabled: true });
+		super(isy, {
+			family: Family.Elk, name, address: `ElkZone_${zone}`, enabled: true,
+			pnode: undefined,
+			startDelay: 0,
+			hint: '',
+			endDelay: 0,
+			wattage: 0,
+			dcPeriod: 0
+		});
 		this.area = area;
 		this.zone = zone;
 		// this.name = name;

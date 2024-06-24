@@ -69,6 +69,12 @@ export enum Family {
 	UPB = 7
 }
 
+declare module 'winston' {
+	interface Logger extends LoggerLike{
+		prefix?: string;
+	}
+}
+
 export interface LoggerLike extends Partial<log4js.Logger> {
 	prefix?: string;
 	(msg: any): void;

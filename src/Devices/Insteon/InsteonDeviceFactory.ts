@@ -4,7 +4,7 @@ import { parseStringPromise } from 'xml2js';
 import { Categories } from '../../Categories';
 import { Family, InsteonBaseDevice, InsteonLockDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDevice, ISYNode } from '../../ISY';
 import { parseTypeCode } from '../../Utils';
-import { ISYBinaryStateDevice } from '../ISYDevice';
+import { ISYBinaryStateDevice, NodeInfo } from '../ISYDevice';
 import { InsteonLampDevice, InsteonSwitchDevice, KeypadDevice } from './InsteonDevice';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice';
 import { InsteonDimmerOutletDevice } from './InsteonDimmerOutletDevice';
@@ -42,7 +42,15 @@ export class InsteonDeviceFactory {
 							family: item.id,
 							type: `${element.id}.${device.id}.0.0`,
 							address: '0 0 0 1',
-							nodeDefId: ''
+							nodeDefId: '',
+							enabled: undefined,
+							pnode: undefined,
+							name: '',
+							startDelay: 0,
+							hint: '',
+							endDelay: 0,
+							wattage: 0,
+							dcPeriod: 0
 						});
 						if(!r.unsupported)
 						{
@@ -61,18 +69,18 @@ export class InsteonDeviceFactory {
 		writeFileSync("DeviceMapClean.json",JSON.stringify(s));
 	}
 
-	public static getDeviceDetails(node: { family?: any; type?: any; address?: any; nodeDefId: any; }): { name: string; modelNumber?: string; version?: string; class?: typeof ISYDevice; unsupported?: true; } {
+	public static getDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class?: typeof ISYDevice; unsupported?: true; } {
 		const family = Number(node.family ?? '1');
 
 		if ((family ?? Family.Insteon) === Family.Insteon) {
 
-			return this.getInsteonDeviceDetails(node.type, node);
+			return this.getInsteonDeviceDetails(node);
 
 		} else { return { name: 'Unsupported Device', class: ISYDevice, unsupported: true }; }
 	}
 
-	public static getInsteonDeviceDetails(typeCode: string, node: { address?: any; nodeDefId: any; }): { name: string; modelNumber?: string; version?: string; class: typeof ISYDevice; unsupported?: true; } {
-		const type = parseTypeCode(typeCode);
+	public static getInsteonDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class: typeof ISYDevice; unsupported?: true; } {
+		const type = parseTypeCode(node.type);
 		const subAddress = node.address.split(' ').pop();
 
 		// const typeArray = typeCode.split('.');
@@ -259,7 +267,6 @@ export class InsteonDeviceFactory {
 				break;
 			case '#':
 				return { name: 'SwitchLinc Relay - Remote Control On/Off Switch', modelNumber: '2476S-SP', class: InsteonRelaySwitchDevice };
-				break;
 			case '"':
 				retVal = { name: 'In-LineLinc Relay', modelNumber: '2475S-SP', class: InsteonRelaySwitchDevice };
 				break;
@@ -327,7 +334,7 @@ export class InsteonDeviceFactory {
 		return retVal;
 	}
 
-	private static getDimLightInfo(deviceCode: number, subAddress: string, node: { nodeDefId: string; }): { name: string; modelNumber?: string; version?: string; class?: typeof InsteonBaseDevice; } {
+	private static getDimLightInfo(deviceCode: number, subAddress: string, node: NodeInfo): { name: string; modelNumber?: string; version?: string; class?: typeof InsteonBaseDevice; } {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = { name: 'Generic Insteon Dimmer', class: InsteonDimmableDevice } as { name: string; modelNumber?: string; version?: string; class?: typeof InsteonBaseDevice; };
 		switch (c) {

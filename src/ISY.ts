@@ -34,7 +34,7 @@ import { ISYNode } from './ISYNode';
 import * as ProductInfoData from './isyproductinfo.json';
 import { ISYScene } from './ISYScene';
 import { ISYVariable } from './ISYVariable';
-import { getAsync, LoggerLike } from './Utils';
+import { LoggerLike } from './Utils';
 import { InsteonOnOffOutletDevice } from './Devices/Insteon/InsteonOnOffOutletDevice';
 import { InsteonSmokeSensorDevice } from './Devices/Insteon/InsteonSmokeSensorDevice';
 import { InsteonDimmerOutletDevice } from './Devices/Insteon/InsteonDimmerOutletDevice';
@@ -123,13 +123,16 @@ export class ISY extends EventEmitter {
 	public serverVersion: any;
 	public readonly storagePath: string;
 
+	public	static instance :
+	ISY;
+
 	constructor (
 		config: { host: string, username: string, password: string, elkEnabled?: boolean, useHttps?: boolean, displayNameFormat?: string; }, logger: Logger = new Logger(), storagePath?: string) {
 		super();
 		this.storagePath = storagePath ?? './';
 		this.displayNameFormat = config.displayNameFormat ?? '${location ?? folder} ${spokenName ?? name}';
 		this.address = config.host;
-		this.logger = logger;
+		this.logger = logger as Logger;
 		this.credentials = {
 			username: config.username,
 			password: config.password
@@ -159,8 +162,11 @@ export class ISY extends EventEmitter {
 		if (this.elkEnabled) {
 			this.elkAlarmPanel = new ELKAlarmPanelDevice(this, 1);
 		}
+		ISY.instance = this;
 
 	}
+
+
 
 	public override emit(event: 'InitializeCompleted' | 'NodeAdded' | 'NodeRemoved' | 'NodeChanged', node?: ISYNode): boolean {
 		return super.emit(event, node);
@@ -737,18 +743,27 @@ export class ISY extends EventEmitter {
 		return this.callISY(path);
 	}
 
-	public async sendNodeCommand(
+	public async sendNodeCommand<P extends string|symbol>(
 		node: ISYNode,
 		command: string,
-		...parameters: any[]
+		parameters?: (Record<P,string|number>|string|number)
 	): Promise<any> {
 		let uriToUse = `nodes/${node.address}/cmd/${command}`;
-		if (
-			parameters !== null &&
-			parameters !== undefined &&
-			parameters.length > 0
-		) {
-			uriToUse += `/${parameters.join('/')}`;
+		if (parameters !== null && parameters !== undefined)
+		{
+			if(typeof(parameters) == 'object') {
+				var q = parameters as Record<P, string|number>;
+				for (const paramName of Object.getOwnPropertyNames(q))
+				{
+					uriToUse += `/${paramName}/${q[paramName]}`
+				}
+
+				//uriToUse += `/${q[((p : Record<string,number|number>) => `${p[]}/${p.paramValue}` ).join('/')}`;
+			}
+			else if(typeof(parameters) == 'number' || typeof(parameters) == 'string')
+			{
+				uriToUse += `/${parameters}`
+			}
 		}
 		this.logger.info(`${node.name}: sending ${command} command: ${uriToUse}`);
 		return this.callISY(uriToUse);

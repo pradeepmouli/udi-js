@@ -1,18 +1,25 @@
 import { Family, Insteon } from '../../Families';
 import { ISY } from '../../ISY';
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils';
-import { ISYDevice } from '../ISYDevice';
+import { ISYDevice, NodeInfo } from '../ISYDevice';
 
 // import { InsteonNLS } from './insteonfam'
 export class ZWaveBaseDevice extends ISYDevice<Family.ZWave> {
-	constructor(isy: ISY, deviceNode: { family: any; type?: string; enabled: any; deviceClass?: any; pnode?: any; property?: any; flag?: any; nodeDefId?: string; address?: string; name?: string; parent?: any; ELK_ID?: string; }) {
+
+	public async getNodeDef()
+	{
+		return this.isy.callISY(`zmatter/zwave/node/${this.address}/def/get?full=true`)
+	}
+
+	constructor(isy: ISY, deviceNode: NodeInfo) {
 
 		super(isy, deviceNode);
 		this.family = Family.ZWave;
+
 		//// this.productName = InsteonNLS.getDeviceDescription(String.fromCharCode(category,device,version));
-		this.childDevices = {};
+
 	}
-	public convertFrom(value: any, uom: number): any {
+	public override convertFrom(value: any, uom: number): any {
 		switch (uom) {
 			case 101:
 				return byteToDegree(value);
@@ -24,7 +31,7 @@ export class ZWaveBaseDevice extends ISYDevice<Family.ZWave> {
 				return super.convertFrom(value, uom);
 		}
 	}
-	public convertTo(value: any, uom: number): any {
+	public override convertTo(value: any, uom: number): any {
 		const nuom = super.convertTo(value, uom);
 		switch (uom) {
 			case 101:
@@ -38,6 +45,6 @@ export class ZWaveBaseDevice extends ISYDevice<Family.ZWave> {
 		}
 	}
 	public async sendBeep(level: number = 100): Promise<any> {
-		return this.sendCommand(this, 'BEEP');
+		return this.sendCommand('BEEP');
 	}
 }

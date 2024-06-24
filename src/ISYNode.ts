@@ -18,6 +18,12 @@ interface Node {
 	ELK_ID?: string;
 }
 
+export interface NodeNotes {
+	location: string;
+	spoken: string;
+
+}
+
 export class ISYNode extends EventEmitter implements PropertyChangedEventEmitter {
 
 	public readonly isy: ISY;
@@ -189,7 +195,7 @@ export class ISYNode extends EventEmitter implements PropertyChangedEventEmitter
 
 	}
 
-	public async getNotes(): Promise<any> {
+	public async getNotes(): Promise<NodeNotes> {
 
 		try {
 			const result = await this.isy.callISY(`nodes/${this.address}/notes`);

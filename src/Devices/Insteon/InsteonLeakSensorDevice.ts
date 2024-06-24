@@ -3,11 +3,11 @@ import { ISYUpdateableBinaryStateDevice, ISYBinaryStateDevice } from '../ISYDevi
 import { InsteonBaseDevice } from './InsteonBaseDevice';
 
 export class InsteonLeakSensorDevice extends ISYBinaryStateDevice(InsteonBaseDevice) {
-	constructor (isy: ISY, deviceNode: { family: any; type?: string; enabled: any; deviceClass?: any; pnode?: any; property?: any; flag?: any; nodeDefId?: string; address?: string; name?: string; parent?: any; ELK_ID?: string; }) {
+	constructor (isy: ISY, deviceNode) {
 		super(isy, deviceNode);
 	}
 
-	
+
 	get isDry() {
 		return this.state;
 	}

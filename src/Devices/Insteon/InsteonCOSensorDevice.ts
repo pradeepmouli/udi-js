@@ -1,6 +1,6 @@
-import { ISY } from '../../ISY';
-import { ISYUpdateableBinaryStateDevice, ISYBinaryStateDevice, NodeInfo } from '../ISYDevice';
-import { InsteonBaseDevice } from './InsteonBaseDevice';
+import { ISY } from '../../ISY.js';
+import { ISYUpdateableBinaryStateDevice, ISYBinaryStateDevice, NodeInfo } from '../ISYDevice.js';
+import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
 
 export class InsteonCOSensorDevice extends ISYBinaryStateDevice(InsteonBaseDevice) {

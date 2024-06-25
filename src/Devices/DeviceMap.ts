@@ -1,5 +1,5 @@
-import { Family, ISYDevice } from '../ISY';
-import { Insteon } from '../Families';
+import { Family, ISYDevice } from '../ISY.js';
+import { Insteon } from '../Families.js';
 
 // tslint:disable-next-line: no-unused-expression
 // tslint:disable-next-line: no-angle-bracket-type-assertion

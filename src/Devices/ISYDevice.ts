@@ -3,13 +3,13 @@ import { isNullOrUndefined } from 'util';
 import type { Identity } from '@project-chip/matter.js/util';
 import { stringify } from 'querystring';
 import { threadId } from 'worker_threads';
-import { Family } from '../Families';
-import { Controls, ISY } from '../ISY';
-import { Commands, States } from '../ISYConstants';
-import { ISYNode, NodeNotes } from '../ISYNode';
-import { ISYScene } from '../ISYScene';
-import { NodeEvent } from '../Events/NodeEvent';
-import { UnitOfMeasure } from '../UOM';
+import { Family } from '../Families.js';
+import { Controls, ISY } from '../ISY.js';
+import { Commands, States } from '../ISYConstants.js';
+import { ISYNode, NodeNotes } from '../ISYNode.js';
+import { ISYScene } from '../ISYScene.js';
+import { NodeEvent } from '../Events/NodeEvent.js';
+import { UnitOfMeasure } from '../UOM.js';
 import { EndpointType, MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
 import { Endpoint } from '@project-chip/matter.js/endpoint';
 import { Cluster, ClusterType, Identify } from '@project-chip/matter.js/cluster';
@@ -21,7 +21,6 @@ import { OnOffBaseDevice } from '@project-chip/matter.js/device';
 import { OnOffBehavior } from '@project-chip/matter.js/behaviors/on-off';
 import { OnOffLightDevice } from '@project-chip/matter.js/endpoint/definitions';
 import { ClusterBehavior, ClusterInterface } from '@project-chip/matter.js/behavior/cluster';
-import { Behavior } from '@project-chip/matter.js/behavior';
 import { OnOffSwitchConfigurationBehavior } from '@project-chip/matter.js/behaviors/on-off-switch-configuration';
 
 export interface PropertyStatus {
@@ -68,10 +67,10 @@ export class ISYDevice<T extends Family, Drivers extends string = string, Comman
 	public _parentDevice: ISYDevice<T>;
 	public readonly children: Array<ISYDevice<T>> = [];
 	public readonly scenes: ISYScene[] = [];
-	public readonly formatted: any[string] = {};
-	public readonly uom: any[string] = {};
-	public readonly pending: any[string] = {};
-	public readonly local: any[string] = {};
+	public readonly formatted: any[Drivers] = {};
+	public readonly uom: any[Drivers] = {};
+	public readonly pending: any[Drivers] = {};
+	public readonly local: any[Drivers] = {};
 	public hidden: boolean = false;
 
 	public _enabled: any;
@@ -310,15 +309,6 @@ export const ISYUpdateableBinaryStateDevice = <K extends Family,T extends Constr
 	};
 };
 
-
-export type EndpointFor<K extends Behavior.Type, K1 extends Behavior.Type = K, K2 extends Behavior.Type = K>  = {events: SupportedBehaviors.EventsOf<SupportedBehaviors.MapOf<[K,K1,K2]>>, set: (values: SupportedBehaviors.StatePatchOf<SupportedBehaviors.MapOf<[K,K1,K2]>>) => void} & Endpoint;
-
-
-
-export interface MapsTo<T extends Behavior.Type, T1 extends Behavior.Type = T, T2 extends Behavior.Type = T>  {
-	initialize(endpoint: EndpointFor<T, T1, T2>): void;
-
-}
 
 export interface MapsToEndpointType<T extends EndpointType>  {
 	initialize(endpoint: Endpoint<T>): void;

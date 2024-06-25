@@ -1,5 +1,5 @@
-import { KeypadDevice } from './InsteonDevice';
-import { InsteonDimmableDevice } from './InsteonDimmableDevice';
+import { KeypadDevice } from './InsteonDevice.js';
+import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import 'winston';
 
 export class InsteonKeypadDimmerDevice extends KeypadDevice(InsteonDimmableDevice) {

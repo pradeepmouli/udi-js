@@ -1,7 +1,7 @@
-import { ISY } from '../../ISY';
-import { Props } from '../../ISYConstants';
-import { NodeInfo } from '../ISYDevice';
-import { InsteonBaseDevice } from './InsteonBaseDevice';
+import { ISY } from '../../ISY.js';
+import { Props } from '../../ISYConstants.js';
+import { NodeInfo } from '../ISYDevice.js';
+import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
 
 export class InsteonThermostatDevice extends InsteonBaseDevice {

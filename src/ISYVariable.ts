@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
-import { ISY } from './ISY';
-import { VariableType } from './ISYConstants';
+import { ISY } from './ISY.js';
+import { VariableType } from './ISYConstants.js';
 
 const varT = (t: VariableType) => VariableType.Integer ? Number : String;
 

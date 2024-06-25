@@ -1,7 +1,7 @@
-import { Family } from '../../Families';
-import { ISY } from '../../ISY';
-import { ISYDevice } from '../ISYDevice';
-import { AlarmSensorPhysicalState, AlarmSensorLogicalState } from './ElkAlarmPanelDevice';
+import { Family } from '../../Families.js';
+import { ISY } from '../../ISY.js';
+import { ISYDevice } from '../../ISYNode.js';
+import { AlarmSensorPhysicalState, AlarmSensorLogicalState } from './ElkAlarmPanelDevice.js';
 /////////////////////////////
 // ELKAlarmSensor
 //

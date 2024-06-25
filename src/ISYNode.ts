@@ -1,10 +1,11 @@
 import { EventEmitter } from 'events';
 import { isNullOrUndefined } from 'util';
 
-import { Family } from './Families';
-import { Categories, Controls, ISY, NodeType } from './ISY';
-import { PropertyChangedEventEmitter } from './Utils';
+import { Family } from './Families.js';
+import { Categories, Controls, ISY, ISYScene, NodeType } from './ISY.js';
+import { PropertyChangedEventEmitter } from './Utils.js';
 import { LogMethod, Logform, Logger, debug } from 'winston';
+import { NodeInfo, PropertyStatus } from './Devices/ISYDevice.js';
 
 
 interface Node {
@@ -214,4 +215,210 @@ export class ISYNode extends EventEmitter implements PropertyChangedEventEmitter
 
 
 
+}
+export class ISYDevice<T extends Family, Drivers extends string = string, Commands extends string = string> extends ISYNode {
+	declare public family: T;
+
+	public readonly typeCode: string;
+	public readonly deviceClass: any;
+	public readonly parentAddress: any;
+	public readonly category: number;
+	public readonly subCategory: number;
+	public readonly type: any;
+	public _parentDevice: ISYDevice<T>;
+	public readonly children: Array<ISYDevice<T>> = [];
+	public readonly scenes: ISYScene[] = [];
+	public readonly formatted: any[string] = {};
+	public readonly uom: any[string] = {};
+	public readonly pending: any[string] = {};
+	public readonly local: any[string] = {};
+	public hidden: boolean = false;
+
+	public _enabled: any;
+	productName: string;
+	model: string;
+	modelNumber: string;
+	version: string;
+	isDimmable: boolean;
+
+	constructor (isy: ISY, node: NodeInfo) {
+		super(isy, node);
+
+		this.family = node.family as T;
+		this.nodeType = 1;
+		this.type = node.type;
+		this._enabled = node.enabled;
+		this.deviceClass = node.deviceClass;
+		this.parentAddress = node.pnode;
+		const s = this.type.split('.');
+		this.category = Number(s[0]);
+		this.subCategory = Number(s[1]);
+
+		// console.log(nodeDetail);
+		if (this.parentAddress !== this.address &&
+			this.parentAddress !== undefined) {
+			this._parentDevice = isy.getDevice(this.parentAddress);
+			if (!isNullOrUndefined(this._parentDevice)) {
+				this._parentDevice.addChild(this);
+			}
+
+		}
+		if (Array.isArray(node.property)) {
+			for (const prop of node.property) {
+				this.local[prop.id] = this.convertFrom(prop.value, prop.uom);
+				this.formatted[prop.id] = prop.formatted;
+				this.uom[prop.id] = prop.uom;
+				this.logger(
+					`Property ${Controls[prop.id].label} (${prop.id}) initialized to: ${this.local[prop.id]} (${this.formatted[prop.id]})`
+				);
+			}
+		} else if (node.property) {
+			this.local[node.property.id] = this.convertFrom(
+				node.property.value,
+				node.property.uom
+			);
+			this.formatted[node.property.id] = node.property.formatted;
+			this.uom[node.property.id] = node.property.uom;
+			this.logger(
+				`Property ${Controls[node.property.id].label} (${node.property.id}) initialized to: ${this.local[node.property.id]} (${this.formatted[node.property.id]})`
+			);
+		}
+
+	}
+
+	public convertTo(value: any, UnitOfMeasure: number): any {
+		return value;
+	}
+
+	public convertFrom(value: any, UnitOfMeasure: number): any {
+		return value;
+	}
+
+	public addLink(isyScene: ISYScene) {
+		this.scenes.push(isyScene);
+	}
+
+	public addChild(childDevice: ISYDevice<T>) {
+		this.children.push(childDevice);
+	}
+
+	get parentDevice(): ISYDevice<T> {
+		if (this._parentDevice === undefined) {
+			if (this.parentAddress !== this.address &&
+				this.parentAddress !== null &&
+				this.parentAddress !== undefined) {
+				this._parentDevice = this.isy.getDevice(this.parentAddress);
+				if (this._parentDevice !== null) {
+					this._parentDevice.addChild(this);
+				}
+			}
+			this._parentDevice = null;
+		}
+		return this._parentDevice;
+	}
+
+
+
+	public async readProperty(propertyName: Drivers): Promise<PropertyStatus> {
+		return (await this.isy.callISY(`nodes/${this.address}/${propertyName}`)).node.property;
+	}
+
+	public async readProperties(): Promise<PropertyStatus[]> {
+		return (await this.isy.callISY(`nodes/${this.address}/status`)).node.property;
+	}
+
+	public async updateProperty(propertyName: string, value: string): Promise<any> {
+		const val = this.convertTo(Number(value), Number(this.uom[propertyName]));
+		this.logger(
+			`Updating property ${Controls[propertyName].label}. incoming value: ${value} outgoing value: ${val}`
+		);
+		this.pending[propertyName] = value;
+		return this.isy
+			.callISY(`nodes/${this.address}/set/${propertyName}/${val}`)
+			.then((p) => {
+				this.local[propertyName] = value;
+				this.pending[propertyName] = null;
+			});
+	}
+
+
+
+	public async sendCommand(command: string, parameters?: (Record<string | symbol, string | number> | string | number)): Promise<any> {
+		return this.isy.sendNodeCommand(this, command, parameters);
+	}
+
+	public async refresh(): Promise<any> {
+		const device = this;
+		const node = (await this.isy.callISY(`nodes/${this.address}/status`)).node;
+		// this.logger(node);
+		this.parseResult(node, device);
+		return await this.isy.callISY(`nodes/${this.address}/status`);
+	}
+
+
+
+	public parseResult(node: { property: PropertyStatus | PropertyStatus[]; }, device: this) {
+		if (Array.isArray(node.property)) {
+			for (const prop of node.property) {
+				this.applyStatus(device, prop);
+			}
+		} else if (node.property) {
+			this.applyStatus(device, node.property);
+			//device.local[node.property.id] = node.property.value;
+			//device.formatted[node.property.id] = node.property.formatted;
+			//device.uom[node.property.id] = node.property.uom;
+			device.logger(
+				`Property ${Controls[node.property.id].label} (${node.property.id}) refreshed to: ${device[node.property.id]} (${device.formatted[node.property.id]})`
+			);
+		}
+	}
+
+	public applyStatus(device: this, prop: PropertyStatus) {
+		device.local[prop.id] = prop.value;
+		device.formatted[prop.id] = prop.formatted;
+		device.uom[prop.id] = prop.uom;
+		device.logger(
+			`Property ${Controls[prop.id].label} (${prop.id}) refreshed to: ${device[prop.id]} (${device.formatted[prop.id]})`
+		);
+	}
+
+	public override handleControlTrigger(controlName: string) {
+		return this.emit('ControlTriggered', controlName);
+	}
+
+	public override handlePropertyChange(propertyName: string, value: any, formattedValue: string) {
+		let changed = false;
+		const priorVal = this.local[propertyName];
+		try {
+			const val = this.convertFrom(
+				value,
+				this.uom[propertyName]
+			);
+
+			if (this.local[propertyName] !== val) {
+
+				this.logger(
+					`Property ${Controls[propertyName].label} (${propertyName}) updated to: ${val} (${formattedValue})`
+				);
+				this.local[propertyName] = val;
+				this.formatted[propertyName] = formattedValue;
+				this.lastChanged = new Date();
+				changed = true;
+			} else {
+				this.logger(
+					`Update event triggered, property ${Controls[propertyName].label} (${propertyName}) is unchanged.`
+				);
+			}
+			if (changed) {
+				this.emit('PropertyChanged', propertyName, val, priorVal, formattedValue);
+
+				this.scenes.forEach((element) => {
+					this.logger(`Recalulating ${element.name}`);
+					element.recalculateState();
+				});
+			}
+		} finally {
+			return changed;
+		}
+	}
 }

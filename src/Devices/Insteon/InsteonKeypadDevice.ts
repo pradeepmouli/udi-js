@@ -1,5 +1,5 @@
-import { ISY } from '../../ISY';
-import { InsteonRelayDevice } from './InsteonRelayDevice';
+import { ISY } from '../../ISY.js';
+import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import 'winston';
 
 

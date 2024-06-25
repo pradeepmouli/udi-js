@@ -8,12 +8,14 @@
         "outDir": "./dist",
         "declaration": true,
         "declarationDir": "./dist/types",
+        "allowArbitraryExtensions": true,
         "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
         "allowJs": false,
         "skipLibCheck": true,
         "noImplicitOverride": true,
-        "noImplicitThis": true
+        "noImplicitThis": true,
+        "esModuleInterop": true
     },
 
       "include": ["src/**/*", "test/**/*", "types/**/*", "scripts/**/*", "bin/**/*", "index.ts", "index.js", "index.d.ts"],

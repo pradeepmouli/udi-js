@@ -1,11 +1,12 @@
-import { Family, Insteon } from '../../Families';
+import { Family, Insteon } from '../../Families.js';
 import { ISY } from '../../ISY.js';
-import { UnitOfMeasure as UOM, UnitOfMeasure } from '../../UOM';
-import { byteToDegree, byteToPct, pctToByte } from '../../Utils';
-import { ISYDevice, NodeInfo } from '../ISYDevice';
+import { UnitOfMeasure as UOM, UnitOfMeasure } from '../../UOM.js';
+import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
+import { NodeInfo } from '../ISYDevice.js';
+import { ISYDevice } from '../../ISYNode.js';
 import 'winston';
 
-// import { InsteonNLS } from './insteonfam'
+// import { InsteonNLS } from './insteonfam.js'
 export class InsteonBaseDevice extends ISYDevice<Family.Insteon> {
 	constructor(isy: ISY, deviceNode: NodeInfo) {
 

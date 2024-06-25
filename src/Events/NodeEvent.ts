@@ -1,6 +1,7 @@
-import { ISYEvent } from './ISYEvent';
-import { t } from '../Families';
-export class NodeEvent<TActionType, TEventType extends t> extends ISYEvent<TActionType, TEventType> {
+import { ISYEvent } from './ISYEvent.js';
+import { t } from '../Families.js';
+import { EventType } from './EventType.js';
+export class NodeEvent<TActionType, TEventType extends EventType> extends ISYEvent<TActionType, TEventType> {
 	nodeAddress: string;
 	constructor (eventData: any) {
 		super(eventData);

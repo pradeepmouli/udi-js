@@ -5,15 +5,14 @@ import axios, { AxiosRequestConfig } from 'axios';
 import * as log4js from '@log4js-node/log4js-api';
 import { Logger}from 'winston'
 
-import { Categories } from './Categories';
+import { Categories } from './Categories.js';
 import { EventEmitter as BaseEventEmitter } from 'events';
 import { Axios } from 'axios';
 
 
 
 //import { get } from 'http';
-import { EventType } from './Events/EventType';
-import PriorityQueue from 'p-queue/dist/priority-queue';
+import { EventType } from './Events/EventType.js';
 
 export function byteToPct(value) {
 	return Math.round((value * 100) / 255);

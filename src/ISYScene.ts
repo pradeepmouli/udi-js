@@ -1,8 +1,8 @@
-import { InsteonDimmableDevice } from './Devices/Insteon/InsteonDimmableDevice';
-import { Family } from './Families';
-import { InsteonRelayDevice, ISY, ISYDevice } from './ISY';
-import { Commands, LinkType } from './ISYConstants';
-import { ISYNode } from './ISYNode';
+import { InsteonDimmableDevice } from './Devices/Insteon/InsteonDimmableDevice.js';
+import { Family } from './Families.js';
+import { InsteonRelayDevice, ISY, ISYDevice } from './ISY.js';
+import { Commands, LinkType } from './ISYConstants.js';
+import { ISYNode } from './ISYNode.js';
 
 export class ISYScene extends ISYNode {
 	public type: string;

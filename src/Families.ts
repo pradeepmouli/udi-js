@@ -1,7 +1,7 @@
-import { ISYUpdateableBinaryStateDevice } from './Devices/ISYDevice';
-import { InsteonBaseDevice } from './ISY';
-import { EventType } from './Events/EventType';
-import { ISYEvent } from './Events/ISYEvent';
+import { ISYUpdateableBinaryStateDevice } from './Devices/ISYDevice.js';
+import { InsteonBaseDevice } from './ISY.js';
+import { EventType } from './Events/EventType.js';
+import { ISYEvent } from './Events/ISYEvent.js';
 
 
 export enum Family {

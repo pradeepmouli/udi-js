@@ -1,7 +1,7 @@
 
-import { ISYUpdateableLevelDevice } from '../ISYDevice';
-import { Family } from '../../ISY';
-import { ZWaveBaseDevice } from './ZWaveBaseDevice';
+import { ISYUpdateableLevelDevice } from '../ISYDevice.js';
+import { Family } from '../../ISY.js';
+import { ZWaveBaseDevice } from './ZWaveBaseDevice.js';
 import 'winston';
 
 export class ZWaveDimmerSwitchDevice extends ISYUpdateableLevelDevice(ZWaveBaseDevice) {

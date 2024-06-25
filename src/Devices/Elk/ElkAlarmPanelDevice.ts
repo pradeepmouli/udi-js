@@ -1,8 +1,8 @@
 import { timingSafeEqual } from 'crypto';
-import { Family } from '../../Families';
-import { ISY } from '../../ISY';
-import { ISYDevice } from '../ISYDevice';
-import { ElkAlarmSensorDevice } from './ElkAlarmSensorDevice';
+import { Family } from '../../Families.js';
+import { ISY } from '../../ISY.js';
+import { ISYDevice } from '../../ISYNode.js';
+import { ElkAlarmSensorDevice } from './ElkAlarmSensorDevice.js';
 
 /////////////////////////////
 // ELKAlarmPanelDevice

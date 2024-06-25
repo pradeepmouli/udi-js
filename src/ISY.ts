@@ -9,36 +9,36 @@ import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js'
 import { XmlDocument } from 'xmldoc';
 
 import axios, { AxiosRequestConfig } from 'axios';
-import { Categories } from './Categories';
-import { DeviceFactory } from './Devices/DeviceFactory';
-import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice';
-import { ElkAlarmSensorDevice } from "./Devices/Elk/ElkAlarmSensorDevice";
-import { InsteonBaseDevice } from './Devices/Insteon/InsteonBaseDevice';
-import { InsteonOutletDevice, InsteonSwitchDevice } from './Devices/Insteon/InsteonDevice';
-import { InsteonDimmableDevice } from './Devices/Insteon/InsteonDimmableDevice';
-import { InsteonDimmerSwitchDevice } from './Devices/Insteon/InsteonDimmerSwitchDevice';
-import { InsteonDoorWindowSensorDevice } from './Devices/Insteon/InsteonDoorWindowSensorDevice';
-import { InsteonFanDevice, InsteonFanMotorDevice } from './Devices/Insteon/InsteonFanDevice';
-import { InsteonKeypadRelayDevice } from "./Devices/Insteon/InsteonKeypadRelayDevice";
-import { InsteonKeypadDimmerDevice } from "./Devices/Insteon/InsteonKeypadDimmerDevice";
-import { InsteonLeakSensorDevice } from './Devices/Insteon/InsteonLeakSensorDevice';
-import { InsteonLockDevice } from './Devices/Insteon/InsteonLockDevice';
-import { InsteonMotionSensorDevice } from './Devices/Insteon/InsteonMotionSensorDevice';
-import { InsteonRelayDevice } from './Devices/Insteon/InsteonRelayDevice';
-import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevice';
-import { ISYDevice } from './Devices/ISYDevice';
-import { Family } from './Families';
-import { EventType } from "./Events/EventType";
-import {  NodeType, Props, States, VariableType } from './ISYConstants';
-import { ISYNode } from './ISYNode';
+import { Categories } from './Categories.js';
+import { DeviceFactory } from './Devices/DeviceFactory.js';
+import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
+import { ElkAlarmSensorDevice } from "./Devices/Elk/ElkAlarmSensorDevice.js";
+import { InsteonBaseDevice } from './Devices/Insteon/InsteonBaseDevice.js';
+import { InsteonOutletDevice, InsteonSwitchDevice } from './Devices/Insteon/InsteonDevice.js';
+import { InsteonDimmableDevice } from './Devices/Insteon/InsteonDimmableDevice.js';
+import { InsteonDimmerSwitchDevice } from './Devices/Insteon/InsteonDimmerSwitchDevice.js';
+import { InsteonDoorWindowSensorDevice } from './Devices/Insteon/InsteonDoorWindowSensorDevice.js';
+import { InsteonFanDevice, InsteonFanMotorDevice } from './Devices/Insteon/InsteonFanDevice.js';
+import { InsteonKeypadRelayDevice } from "./Devices/Insteon/InsteonKeypadRelayDevice.js";
+import { InsteonKeypadDimmerDevice } from "./Devices/Insteon/InsteonKeypadDimmerDevice.js";
+import { InsteonLeakSensorDevice } from './Devices/Insteon/InsteonLeakSensorDevice.js';
+import { InsteonLockDevice } from './Devices/Insteon/InsteonLockDevice.js';
+import { InsteonMotionSensorDevice } from './Devices/Insteon/InsteonMotionSensorDevice.js';
+import { InsteonRelayDevice } from './Devices/Insteon/InsteonRelayDevice.js';
+import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevice.js';
+import { ISYDevice } from './ISYNode.js';
+import { Family } from './Families.js';
+import { EventType } from "./Events/EventType.js";
+import {  NodeType, Props, States, VariableType } from './ISYConstants.js';
+import { ISYNode } from './ISYNode.js';
 import * as ProductInfoData from './isyproductinfo.json';
-import { ISYScene } from './ISYScene';
-import { ISYVariable } from './ISYVariable';
-import { LoggerLike } from './Utils';
-import { InsteonOnOffOutletDevice } from './Devices/Insteon/InsteonOnOffOutletDevice';
-import { InsteonSmokeSensorDevice } from './Devices/Insteon/InsteonSmokeSensorDevice';
-import { InsteonDimmerOutletDevice } from './Devices/Insteon/InsteonDimmerOutletDevice';
-import { InsteonKeypadButtonDevice } from './Devices/Insteon/InsteonKeypadDevice';
+import { ISYScene } from './ISYScene.js';
+import { ISYVariable } from './ISYVariable.js';
+import { LoggerLike } from './Utils.js';
+import { InsteonOnOffOutletDevice } from './Devices/Insteon/InsteonOnOffOutletDevice.js';
+import { InsteonSmokeSensorDevice } from './Devices/Insteon/InsteonSmokeSensorDevice.js';
+import { InsteonDimmerOutletDevice } from './Devices/Insteon/InsteonDimmerOutletDevice.js';
+import { InsteonKeypadButtonDevice } from './Devices/Insteon/InsteonKeypadDevice.js';
 import { EventEmitter } from 'events';
 import { Logger, level } from 'winston';
 
@@ -85,7 +85,6 @@ const parser = new Parser({
 
 export let Controls = {};
 
-const ProductInfo: ProductInfoEntry[] = ProductInfoData;
 
 interface ProductInfoEntry {
 	type: string;

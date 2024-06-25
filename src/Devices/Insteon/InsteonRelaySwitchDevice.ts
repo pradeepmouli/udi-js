@@ -1,5 +1,5 @@
-import { InsteonSwitchDevice } from './InsteonDevice';
-import { InsteonRelayDevice } from './InsteonRelayDevice';
+import { InsteonSwitchDevice } from './InsteonDevice.js';
+import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import 'winston';
 
 export class InsteonRelaySwitchDevice extends InsteonSwitchDevice(InsteonRelayDevice) {

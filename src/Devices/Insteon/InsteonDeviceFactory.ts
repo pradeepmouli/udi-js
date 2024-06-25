@@ -1,32 +1,32 @@
 import { format } from 'util';
 import { parseStringPromise } from 'xml2js';
 
-import { Categories } from '../../Categories';
-import { Family, InsteonBaseDevice, InsteonLockDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDevice, ISYNode } from '../../ISY';
-import { parseTypeCode } from '../../Utils';
-import { ISYBinaryStateDevice, NodeInfo } from '../ISYDevice';
-import { InsteonLampDevice, InsteonSwitchDevice, KeypadDevice } from './InsteonDevice';
-import { InsteonDimmableDevice } from './InsteonDimmableDevice';
-import { InsteonDimmerOutletDevice } from './InsteonDimmerOutletDevice';
-import { InsteonDimmerSwitchDevice } from './InsteonDimmerSwitchDevice';
-import { InsteonDoorWindowSensorDevice } from './InsteonDoorWindowSensorDevice';
-import { InsteonFanDevice, InsteonFanMotorDevice } from './InsteonFanDevice';
-import { InsteonKeypadButtonDevice } from './InsteonKeypadDevice';
-import { InsteonKeypadDimmerDevice } from './InsteonKeypadDimmerDevice';
-import { InsteonKeypadRelayDevice } from './InsteonKeypadRelayDevice';
-import { InsteonLeakSensorDevice } from './InsteonLeakSensorDevice';
-import { InsteonMotionSensorDevice } from './InsteonMotionSensorDevice';
-import { InsteonOnOffOutletDevice } from './InsteonOnOffOutletDevice';
-import { InsteonRelayDevice } from './InsteonRelayDevice';
-import { InsteonRelaySwitchDevice } from './InsteonRelaySwitchDevice';
-import * as DeviceMapJSON from '../InsteonDeviceMap.json'
-import {DeviceMap} from '../DeviceMap'
+import { Categories } from '../../Categories.js';
+import { Family, InsteonBaseDevice, InsteonLockDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDevice, ISYNode } from '../../ISY.js';
+import { parseTypeCode } from '../../Utils.js';
+import { ISYBinaryStateDevice, NodeInfo } from '../ISYDevice.js';
+import { InsteonLampDevice, InsteonSwitchDevice, KeypadDevice } from './InsteonDevice.js';
+import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
+import { InsteonDimmerOutletDevice } from './InsteonDimmerOutletDevice.js';
+import { InsteonDimmerSwitchDevice } from './InsteonDimmerSwitchDevice.js';
+import { InsteonDoorWindowSensorDevice } from './InsteonDoorWindowSensorDevice.js';
+import { InsteonFanDevice, InsteonFanMotorDevice } from './InsteonFanDevice.js';
+import { InsteonKeypadButtonDevice } from './InsteonKeypadDevice.js';
+import { InsteonKeypadDimmerDevice } from './InsteonKeypadDimmerDevice.js';
+import { InsteonKeypadRelayDevice } from './InsteonKeypadRelayDevice.js';
+import { InsteonLeakSensorDevice } from './InsteonLeakSensorDevice.js';
+import { InsteonMotionSensorDevice } from './InsteonMotionSensorDevice.js';
+import { InsteonOnOffOutletDevice } from './InsteonOnOffOutletDevice.js';
+import { InsteonRelayDevice } from './InsteonRelayDevice.js';
+import { InsteonRelaySwitchDevice } from './InsteonRelaySwitchDevice.js';
+import * as DeviceMapJSON from './DeviceMapClean.json'
+import {DeviceMap} from '../DeviceMap.js'
 import { userInfo } from 'os';
 import { writeFileSync, writeFile } from 'fs';
 
 type l = ISYDevice<Family>;
 
-let s = DeviceMapJSON as unknown as DeviceMap;
+let s = [DeviceMapJSON.default[0]] as DeviceMap;
 
 export class InsteonDeviceFactory {
 

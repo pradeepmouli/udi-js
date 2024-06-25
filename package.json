@@ -7,10 +7,11 @@
         "name": "Pradeep Mouli"
     },
     "scripts": {
+
         "test": "mocha",
         "prepublishOnly": "npm run build",
         "linter": "eslint --ignore-path .gitignore .",
-        "build": "rimraf ./dist/* && tsc"
+        "build": "rimraf ./dist/* && tsc -p ./tsconfig.json"
     },
     "keywords": [
         "isy",
@@ -24,6 +25,7 @@
         "lib": "dist"
     },
     "main": "./dist/ISY.js",
+    "type": "module",
     "devDependencies": {
         "@types/node": "18.18.2",
         "@types/xml2js": "",

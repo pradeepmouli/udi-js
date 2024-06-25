@@ -1,4 +1,4 @@
-import { get } from 'restler-base';
+
 import axios, { AxiosRequestConfig } from 'axios';
 
 
@@ -28,40 +28,7 @@ export function byteToDegree(value) {
 
 let lastrequest = Promise.resolve();
 
-export async function getAsync(url: string, options: AxiosRequestConfig): Promise<any> {
 
-	const p = new Promise<any>((resolve, reject) => {
-
-
-
-		get(url, options)
-			.on('complete', (result: any) => {
-				resolve(result);
-			})
-			.on('error', (err, response) => {
-
-				reject(err);
-			})
-			.on('fail', (data, response) => {
-
-				reject(data);
-			})
-			.on('abort', () => {
-				reject();
-			})
-			.on('timeout', (ms) => {
-				reject(ms);
-			});
-	});
-
-	try
-	{
-		await lastrequest;
-	} finally
-	{
-		return p;
-	}
-}
 
 export enum Family {
 	Insteon = 1,

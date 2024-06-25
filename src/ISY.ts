@@ -1,8 +1,6 @@
 
 import { Client } from 'faye-websocket';
 import { writeFile } from 'fs';
-import { get,parsers } from 'restler-base';
-
 
 import { Parser } from 'xml2js';
 import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js'
@@ -137,18 +135,17 @@ export class ISY extends EventEmitter {
 			password: config.password
 		};
 
-		this.restlerOptions = {
-			username: this.credentials.username,
-			password: this.credentials.password,
-			parser: parsers.xml,
+		// `${this.restlerOptions = {		username: this.credentials.username,
+		// 	password: this.credentials.password,
+		// 	parser: parsers.xml,
 
-			xml2js: {
-				explicitArray: false,
-				mergeAttrs: true,
-				attrValueProcessors: [parseBooleans, parseNumbers],
-				valueProcessors: [parseNumbers, parseBooleans]
-			}
-		};
+		// 	xml2js: {
+		// 		explicitArray: false,
+		// 		mergeAttrs: true,
+		// 		attrValueProcessors: [parseBooleans, parseNumbers],
+		// 		valueProcessors: [parseNumbers, parseBooleans]
+		// 	}
+		// };
 
 		this.nodesLoaded = false;
 		this.protocol = config.useHttps === true ? 'https' : 'http';
@@ -545,33 +542,33 @@ export class ISY extends EventEmitter {
 			await this.loadVariables(VariableType.State);
 			await this.refreshStatuses().then(() => {
 				if (this.elkEnabled) {
-					get(
-						`${this.protocol}://${that.address}/rest/elk/get/topology`,
-						options
-					).on('complete', (result: { message: string; }, response: any) => {
-						if (that.checkForFailure(response)) {
-							that.logger.info('Error loading from elk: ' + result.message);
-							throw new Error(
-								'Unable to contact the ELK to get the topology'
-							);
-						} else {
-							that.loadElkNodes(result);
-							get(
-								`${that.protocol}://${that.address}/rest/elk/get/status`,
-								options
-							).on('complete', (result: { message: string; }, response: any) => {
-								if (that.checkForFailure(response)) {
-									that.logger.info(`Error:${result.message}`);
-									throw new Error(
-										'Unable to get the status from the elk'
-									);
-								} else {
-									that.loadElkInitialStatus(result);
-									that.finishInitialize(true, initializeCompleted);
-								}
-							});
-						}
-					});
+					// get(
+					// 	`${this.protocol}://${that.address}/rest/elk/get/topology`,
+					// 	options
+					// ).on('complete', (result: { message: string; }, response: any) => {
+					// 	if (that.checkForFailure(response)) {
+					// 		that.logger.info('Error loading from elk: ' + result.message);
+					// 		throw new Error(
+					// 			'Unable to contact the ELK to get the topology'
+					// 		);
+					// 	} else {
+					// 		that.loadElkNodes(result);
+					// 		get(
+					// 			`${that.protocol}://${that.address}/rest/elk/get/status`,
+					// 			options
+					// 		).on('complete', (result: { message: string; }, response: any) => {
+					// 			if (that.checkForFailure(response)) {
+					// 				that.logger.info(`Error:${result.message}`);
+					// 				throw new Error(
+					// 					'Unable to get the status from the elk'
+					// 				);
+					// 			} else {
+					// 				that.loadElkInitialStatus(result);
+					// 				that.finishInitialize(true, initializeCompleted);
+					// 			}
+					// 		});
+					// 	}
+					// });
 				} else {
 					that.finishInitialize(true, initializeCompleted);
 				}

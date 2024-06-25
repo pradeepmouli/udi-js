@@ -7,6 +7,7 @@ import type { DimmableLightRequirements } from '@project-chip/matter.js/devices/
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import { OnOffBehavior as OOB, OnOffInterface } from '@project-chip/matter.js/behaviors/on-off';
 import { OnOff, ClusterType } from '@project-chip/matter.js/cluster';
+import 'winston';
 
 type LevelControlBehavior = typeof DimmableLightRequirements.LevelControlServer
 type OnOffBehavior = typeof OOB
@@ -24,7 +25,7 @@ export class InsteonDimmableDevice extends ISYUpdateableLevelDevice(InsteonRelay
 		return super.updateLevel(level);
 	}
 
-	
+
 
 
 	override initialize(endpoint: EndpointFor<LevelControlBehavior,OnOffBehavior>): void {

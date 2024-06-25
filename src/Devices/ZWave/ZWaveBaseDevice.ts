@@ -2,6 +2,7 @@ import { Family, Insteon } from '../../Families';
 import { ISY } from '../../ISY';
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils';
 import { ISYDevice, NodeInfo } from '../ISYDevice';
+import 'winston';
 
 // import { InsteonNLS } from './insteonfam'
 export class ZWaveBaseDevice extends ISYDevice<Family.ZWave> {

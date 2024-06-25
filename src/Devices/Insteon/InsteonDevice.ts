@@ -5,6 +5,7 @@ import { Commands } from '../../ISYConstants';
 import { Constructor } from '../ISYDevice';
 import { InsteonKeypadButtonDevice } from './InsteonKeypadDevice';
 import { InsteonRelayDevice } from './InsteonRelayDevice';
+import 'winston';
 
 export const InsteonLampDevice = <T extends Constructor<InsteonBaseDevice>>(IB: T) => (class extends IB {
 			declare isDimmable: boolean;

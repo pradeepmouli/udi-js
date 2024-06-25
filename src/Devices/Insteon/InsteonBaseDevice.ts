@@ -3,6 +3,7 @@ import { ISY } from '../../ISY.js';
 import { UnitOfMeasure as UOM, UnitOfMeasure } from '../../UOM';
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils';
 import { ISYDevice, NodeInfo } from '../ISYDevice';
+import 'winston';
 
 // import { InsteonNLS } from './insteonfam'
 export class InsteonBaseDevice extends ISYDevice<Family.Insteon> {

@@ -4,6 +4,7 @@ import { States } from '../../ISYConstants';
 import { ISYUpdateableBinaryStateDevice, ISYDevice, ISYUpdateableLevelDevice } from '../ISYDevice';
 import { InsteonBaseDevice } from './InsteonBaseDevice';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice';
+import 'winston';
 
 export class InsteonFanMotorDevice extends ISYUpdateableLevelDevice(ISYUpdateableBinaryStateDevice(InsteonBaseDevice)) {
 	constructor (isy: ISY, deviceNode) {

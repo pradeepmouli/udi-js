@@ -1,6 +1,7 @@
 import { ISY } from '../../ISY';
 import { ISYBinaryStateDevice, NodeInfo } from '../ISYDevice';
 import { InsteonBaseDevice } from './InsteonBaseDevice';
+import 'winston';
 
 export class InsteonSmokeSensorDevice extends ISYBinaryStateDevice(InsteonBaseDevice) {
 	constructor(isy: ISY, deviceNode: NodeInfo ) {

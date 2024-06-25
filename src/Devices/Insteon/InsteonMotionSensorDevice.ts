@@ -1,6 +1,7 @@
 import { ISY } from '../../ISY';
 import { Commands } from '../../ISYConstants';
 import { InsteonBaseDevice } from './InsteonBaseDevice';
+import 'winston';
 
 export class InsteonMotionSensorDevice extends InsteonBaseDevice {
 	private _isMotionDetected: boolean;

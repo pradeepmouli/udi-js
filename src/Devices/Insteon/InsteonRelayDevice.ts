@@ -16,6 +16,7 @@ import { OnOffSwitchConfigurationServer } from '@project-chip/matter.js/behavior
 import { ClusterBehavior, ClusterEvents } from '@project-chip/matter.js/behavior/cluster';
 import { Behavior } from '@project-chip/matter.js/behavior';
 import { Identity } from '@project-chip/matter.js/util';
+import 'winston';
 
 
 export class InsteonRelayDevice extends ISYUpdateableBinaryStateDevice(InsteonBaseDevice) implements MapsTo<Identity<typeof OnOffBehavior>>{

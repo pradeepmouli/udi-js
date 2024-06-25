@@ -1,5 +1,6 @@
 import { ISY } from '../../ISY';
 import { InsteonRelayDevice } from './InsteonRelayDevice';
+import 'winston';
 
 
 export class InsteonKeypadButtonDevice extends InsteonRelayDevice {

@@ -1,5 +1,6 @@
 import { ISY, ISYDevice, Family } from '../../ISY';
 import { InsteonRelayDevice } from './InsteonRelayDevice';
+import 'winston';
 
 export class InsteonOnOffOutletDevice extends InsteonRelayDevice {
 

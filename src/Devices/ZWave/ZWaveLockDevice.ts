@@ -2,6 +2,7 @@ import { ISY } from '../../ISY';
 import { Commands, States } from '../../ISYConstants';
 import { ISYUpdateableBinaryStateDevice } from '../ISYDevice';
 import { ZWaveBaseDevice } from './ZWaveBaseDevice';
+import 'winston';
 
 
 export class ZwaveLockDevice extends ISYUpdateableBinaryStateDevice(ZWaveBaseDevice) {

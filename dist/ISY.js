@@ -112,7 +112,7 @@ export class ISY extends EventEmitter {
                 // this.logger.info(`Error calling ISY: ${JSON.stringify(response)}`);
                 throw new Error(`Error calling ISY: ${JSON.stringify(result)}`);
             }
-            return;
+            return result;
         }, (reason) => {
             throw new Error(`Error calling ISY: ${JSON.stringify(reason)}`);
         });

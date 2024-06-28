@@ -25,6 +25,7 @@
         "lib": "dist"
     },
     "main": "./dist/ISY.js",
+    "types": "./dist/types/ISY.d.ts",
     "type": "module",
     "devDependencies": {
         "@types/node": "18.18.2",

@@ -19,22 +19,26 @@ import { InsteonMotionSensorDevice } from './InsteonMotionSensorDevice.js';
 import { InsteonOnOffOutletDevice } from './InsteonOnOffOutletDevice.js';
 import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import { InsteonRelaySwitchDevice } from './InsteonRelaySwitchDevice.js';
-import * as DeviceMapJSON from './DeviceMapClean.json'
-import {DeviceMap} from '../DeviceMap.js'
+import * as DeviceMapJSON from './DeviceMap.json'
+import {DeviceDef, DeviceMap, type CategoryDef, type FamilyDef} from '../DeviceMap.js'
 import { userInfo } from 'os';
 import { writeFileSync, writeFile } from 'fs';
 
-type l = ISYDevice<Family>;
-
-let s = [DeviceMapJSON.default[0]] as DeviceMap;
+let s = [DeviceMapJSON.default[0]];
 
 export class InsteonDeviceFactory {
 
 	public static buildDeviceMap()
 	{
+
+		var fams = new Map<Family,FamilyDef<Family>>();
 		s.forEach((item) =>
 		{
+			var id = item.id as Family;
+			fams.set(id, {id: item.id, description: item.description, name: item.name, categories: new Map<string,CategoryDef<typeof id>>()} )
+			var famDef = fams[id] as FamilyDef<Family>;
 			item.categories.forEach((element) => {
+				var catDef = {id : element.id, name: element.name, devices: new Map<string,DeviceDef<Family>>};
 				element.devices.forEach(
 					device =>
 					{
@@ -56,23 +60,27 @@ export class InsteonDeviceFactory {
 						{
 							device.name = r.name;
 							device.modelNumber = r.modelNumber;
-							device.class = r.class;
+							device.class = r.class.name;
 						}
+						catDef.devices.set(`${device.id}`,{id: device.id, modelNumber: device.modelNumber, name: device.name, class: r.class})
 					}
 
+
 				);
+				famDef.categories.set(element.name, catDef);
 				element.devices = element.devices.sort((a,b)=> a.id - b.id)
 			});
 		}
 
 		);
-		writeFileSync("DeviceMapClean.json",JSON.stringify(s));
+		writeFileSync("DeviceMapClean.json",JSON.stringify(fams));
 	}
 
-	public static getDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class?: typeof ISYDevice; unsupported?: true; } {
+	static getDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class?: typeof ISYDevice; unsupported?: true; } {
 		const family = Number(node.family ?? '1');
-
+		//let insteonFamilyDef = s[0] as FamilyDef<Family.Insteon>;
 		if ((family ?? Family.Insteon) === Family.Insteon) {
+			//insteonFamilyDef.categories.forEach(callbackfn)
 
 			return this.getInsteonDeviceDetails(node);
 
@@ -887,4 +895,4 @@ export class InsteonDeviceFactory {
 	}
 }
 
-InsteonDeviceFactory.buildDeviceMap();
+//InsteonDeviceFactory.buildDeviceMap();

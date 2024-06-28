@@ -40,6 +40,7 @@ import { InsteonKeypadButtonDevice } from './Devices/Insteon/InsteonKeypadDevice
 import { EventEmitter } from 'events';
 import { Logger, level } from 'winston';
 
+
 export {
 	ISYScene,
 	States,

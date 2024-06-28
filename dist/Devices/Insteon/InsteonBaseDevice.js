@@ -1,0 +1,42 @@
+import { Family } from '../../Families.js';
+import { UnitOfMeasure as UOM } from '../../UOM.js';
+import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
+import { ISYDevice } from '../../ISYNode.js';
+import 'winston';
+// import { InsteonNLS } from './insteonfam.js'
+export class InsteonBaseDevice extends ISYDevice {
+    constructor(isy, deviceNode) {
+        super(isy, deviceNode);
+        this.family = Family.Insteon;
+        //// this.productName = InsteonNLS.getDeviceDescription(String.fromCharCode(category,device,version));
+        //his.childDevices = {};
+    }
+    convertFrom(value, uom) {
+        switch (uom) {
+            case UOM.DegreeX2:
+                return byteToDegree(value);
+            case UOM.LevelFrom0To255:
+                return byteToPct(value);
+            case UOM.Fahrenheit:
+                return value / 10;
+            default:
+                return super.convertFrom(value, uom);
+        }
+    }
+    convertTo(value, uom) {
+        const nuom = super.convertTo(value, uom);
+        switch (uom) {
+            case UOM.DegreeX2:
+                return nuom * 2;
+            case UOM.LevelFrom0To255:
+                return pctToByte(nuom);
+            case UOM.Fahrenheit:
+                return Math.round(value * 10);
+            default:
+                return nuom;
+        }
+    }
+    async sendBeep(level = 100) {
+        return this.sendCommand('BEEP');
+    }
+}

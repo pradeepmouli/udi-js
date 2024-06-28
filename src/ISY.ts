@@ -80,6 +80,7 @@ export {
 const parser = new Parser({
 	explicitArray: false,
 	mergeAttrs: true,
+
 	attrValueProcessors: [parseBooleans, parseNumbers],
 	valueProcessors: [parseBooleans,parseNumbers]
 });
@@ -186,11 +187,12 @@ export class ISY extends EventEmitter {
 		url = `${this.protocol}://${this.address}/rest/${url}/`;
 		this.logger.info(`Sending request: ${url}`);
 		const xml = await axios.get(url,{auth: {username: this.credentials.username, password: this.credentials.password}});
-		await parser.parseStringPromise(xml.data).then((result) => {
+		return await parser.parseStringPromise(xml.data).then((result) => {
 			if (this.checkForFailure(result)) {
 				// this.logger.info(`Error calling ISY: ${JSON.stringify(response)}`);
 				throw new Error(`Error calling ISY: ${JSON.stringify(result)}`);
 			}
+			return;
 		},(reason) =>
 		{
 			throw new Error(`Error calling ISY: ${JSON.stringify(reason)}`)

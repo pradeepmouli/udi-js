@@ -1,4 +1,4 @@
-import { Client } from 'faye-websocket';
+import WebSocket from 'faye-websocket';
 import { Categories } from './Categories.js';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
 import { ElkAlarmSensorDevice } from "./Devices/Elk/ElkAlarmSensorDevice.js";
@@ -34,7 +34,7 @@ export declare class ISY extends EventEmitter {
     readonly deviceMap: Map<string, string[]>;
     readonly sceneList: Map<string, ISYScene>;
     readonly folderMap: Map<string, string>;
-    webSocket: Client;
+    webSocket: WebSocket.Client;
     readonly zoneMap: Map<string, ElkAlarmSensorDevice>;
     readonly protocol: string;
     readonly address: string;
@@ -61,9 +61,9 @@ export declare class ISY extends EventEmitter {
         host: string;
         username: string;
         password: string;
-        elkEnabled?: boolean;
         useHttps?: boolean;
         displayNameFormat?: string;
+        elkEnabled?: boolean;
     }, logger?: Logger, storagePath?: string);
     emit(event: 'InitializeCompleted' | 'NodeAdded' | 'NodeRemoved' | 'NodeChanged', node?: ISYNode): boolean;
     on(event: 'InitializeCompleted' | 'NodeAdded' | 'NodeRemoved' | 'NodeChanged', listener: (node?: ISYNode) => void): this;
@@ -88,7 +88,7 @@ export declare class ISY extends EventEmitter {
     }): Promise<void>;
     loadElkNodes(result: any): void;
     loadElkInitialStatus(result: any): void;
-    finishInitialize(success: boolean, initializeCompleted: () => void): void;
+    finishInitialize(success: boolean): void;
     guardian(): void;
     variableChangedHandler(variable: {
         id: string;
@@ -96,14 +96,14 @@ export declare class ISY extends EventEmitter {
     }): void;
     checkForFailure(response: any): boolean;
     loadVariables(type: VariableType): Promise<any>;
-    loadConfig(): Promise<void>;
+    loadConfig(): Promise<any>;
     getVariableList(): Map<string, ISYVariable<VariableType>>;
     getVariable(type: VariableType, id: number): ISYVariable;
     createVariableKey(type: VariableType, id: number): string;
     createVariables(type: VariableType, result: any): void;
     setVariableValues(result: any): void;
     refreshStatuses(): Promise<void>;
-    initialize(initializeCompleted: any): Promise<any>;
+    initialize(): Promise<any>;
     handleInitializeError(step: string, reason: any): Promise<any>;
     handleWebSocketMessage(event: {
         data: any;

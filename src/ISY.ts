@@ -1,5 +1,5 @@
 
-import { Client } from 'faye-websocket';
+import WebSocket from 'faye-websocket';
 import { writeFile } from 'fs';
 
 import { Parser } from 'xml2js';
@@ -32,13 +32,13 @@ import { ISYNode } from './ISYNode.js';
 import * as ProductInfoData from './isyproductinfo.json';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
-import { LoggerLike } from './Utils.js';
 import { InsteonOnOffOutletDevice } from './Devices/Insteon/InsteonOnOffOutletDevice.js';
 import { InsteonSmokeSensorDevice } from './Devices/Insteon/InsteonSmokeSensorDevice.js';
 import { InsteonDimmerOutletDevice } from './Devices/Insteon/InsteonDimmerOutletDevice.js';
 import { InsteonKeypadButtonDevice } from './Devices/Insteon/InsteonKeypadDevice.js';
 import { EventEmitter } from 'events';
-import { Logger, level } from 'winston';
+import { Logger, level, loggers, createLogger, format, LoggerOptions, Logform } from 'winston';
+
 
 
 export {
@@ -100,7 +100,7 @@ export class ISY extends EventEmitter {
 	public readonly sceneList: Map<string, ISYScene> = new Map();
 	public readonly folderMap: Map<string, string> = new Map();
 
-	public webSocket: Client;
+	public webSocket: WebSocket.Client;
 	public readonly zoneMap: Map<string, ElkAlarmSensorDevice> = new Map();
 	public readonly protocol: string;
 	public readonly address: string;
@@ -125,16 +125,22 @@ export class ISY extends EventEmitter {
 	ISY;
 
 	constructor (
-		config: { host: string, username: string, password: string, elkEnabled?: boolean, useHttps?: boolean, displayNameFormat?: string; }, logger: Logger = new Logger(), storagePath?: string) {
+		config: { host: string, username: string, password: string, useHttps?: boolean, displayNameFormat?: string; elkEnabled?: boolean}, logger: Logger = new Logger(), storagePath?: string) {
 		super();
 		this.storagePath = storagePath ?? './';
 		this.displayNameFormat = config.displayNameFormat ?? '${location ?? folder} ${spokenName ?? name}';
 		this.address = config.host;
-		this.logger = logger as Logger;
 		this.credentials = {
 			username: config.username,
 			password: config.password
 		};
+		this.protocol = config.useHttps === true ? 'https' : 'http';
+		this.wsprotocol = 'ws';
+		this.elkEnabled = config.elkEnabled ?? false;
+
+		this.nodesLoaded = false;
+		this.logger = loggers.add('isy',{transports: logger.transports, level: logger.level, format:  format.label({ label: 'ISY' })});
+
 
 		// `${this.restlerOptions = {		username: this.credentials.username,
 		// 	password: this.credentials.password,
@@ -148,10 +154,8 @@ export class ISY extends EventEmitter {
 		// 	}
 		// };
 
-		this.nodesLoaded = false;
-		this.protocol = config.useHttps === true ? 'https' : 'http';
-		this.wsprotocol = 'ws';
-		this.elkEnabled = config.elkEnabled ?? false;
+
+
 
 
 
@@ -178,19 +182,16 @@ export class ISY extends EventEmitter {
 	public async callISY(url: string): Promise<any> {
 		url = `${this.protocol}://${this.address}/rest/${url}/`;
 		this.logger.info(`Sending request: ${url}`);
-		try {
-			const xml = await axios.get(url,{auth: {username: this.credentials.username, password: this.credentials.password}});
-			const response = await parser.parseStringPromise(xml.data);
-			if (this.checkForFailure(response)) {
+		const xml = await axios.get(url,{auth: {username: this.credentials.username, password: this.credentials.password}});
+		await parser.parseStringPromise(xml.data).then((result) => {
+			if (this.checkForFailure(result)) {
 				// this.logger.info(`Error calling ISY: ${JSON.stringify(response)}`);
-				throw new Error(`Error calling ISY: ${JSON.stringify(response)}`);
-			} else {
-				return response;
+				throw new Error(`Error calling ISY: ${JSON.stringify(result)}`);
 			}
-		} catch (e) {
-			throw new Error(JSON.stringify(e));
-		}
-
+		},(reason) =>
+		{
+			throw new Error(`Error calling ISY: ${JSON.stringify(reason)}`)
+		});
 	}
 
 	public nodeChangedHandler(node: ELKAlarmPanelDevice | ElkAlarmSensorDevice, propertyName = null) {
@@ -370,7 +371,7 @@ export class ISY extends EventEmitter {
 		});
 	}
 
-	public finishInitialize(success: boolean, initializeCompleted: () => void) {
+	public finishInitialize(success: boolean) {
 		if (!this.nodesLoaded) {
 			this.nodesLoaded = true;
 			//initializeCompleted();
@@ -418,6 +419,7 @@ export class ISY extends EventEmitter {
 
 	public async loadConfig() {
 		try {
+			this.logger.info('Loading ISY Config')
 			const result = await this.callISY('config');
 			if (this.debugLoggingEnabled) {
 				writeFile(this.storagePath +'/ISYConfigDump.json', JSON.stringify(result), this.logger.error);
@@ -436,6 +438,7 @@ export class ISY extends EventEmitter {
 					Controls[ctl.name] = ctl;
 				}
 			}
+			return result;
 		} catch (e) {
 			throw Error(`Error Loading Config: ${(e as Error).message}`);
 		}
@@ -530,7 +533,7 @@ export class ISY extends EventEmitter {
 		}
 	}
 
-	public async initialize(initializeCompleted: any): Promise<any> {
+	public async initialize(): Promise<any> {
 		const that = this;
 		const options = {
 			username: this.credentials.username,
@@ -571,16 +574,16 @@ export class ISY extends EventEmitter {
 					// 	}
 					// });
 				} else {
-					that.finishInitialize(true, initializeCompleted);
+					that.finishInitialize(true);
 				}
 
 			});
 		} catch (e) {
-		 console.log(`Error initializing ISY: ${JSON.stringify(e)}`);
+		 	this.logger.error(`Error initializing ISY`,[e]);
 
 		} finally {
 			if (this.nodesLoaded !== true) {
-				that.finishInitialize(true, initializeCompleted);
+				that.finishInitialize(true);
 			}
 		}
 		return Promise.resolve(true);
@@ -667,11 +670,11 @@ export class ISY extends EventEmitter {
 	public initializeWebSocket() {
 		const that = this;
 		const auth =
-			`Basic ${new Buffer(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
+			`Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`,'base64')}`;
 		this.logger.info(
 			`Connecting to: ${this.wsprotocol}://${this.address}/rest/subscribe`
 		);
-		this.webSocket = new Client(
+		this.webSocket = new WebSocket.Client(
 			`${this.wsprotocol}://${this.address}/rest/subscribe`,
 			['ISYSUB'],
 			{

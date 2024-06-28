@@ -15,7 +15,7 @@ import { InsteonMotionSensorDevice } from './InsteonMotionSensorDevice.js';
 import { InsteonOnOffOutletDevice } from './InsteonOnOffOutletDevice.js';
 import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import { InsteonRelaySwitchDevice } from './InsteonRelaySwitchDevice.js';
-import * as DeviceMapJSON from './DeviceMap.json';
+import * as DeviceMapJSON from './DeviceMap.json' with { type: 'json' };
 import { writeFileSync } from 'fs';
 let s = [DeviceMapJSON.default[0]];
 export class InsteonDeviceFactory {

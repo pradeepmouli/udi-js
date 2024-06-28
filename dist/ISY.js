@@ -1,4 +1,4 @@
-import { Client } from 'faye-websocket';
+import WebSocket from 'faye-websocket';
 import { writeFile } from 'fs';
 import { Parser } from 'xml2js';
 import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
@@ -33,7 +33,7 @@ import { InsteonSmokeSensorDevice } from './Devices/Insteon/InsteonSmokeSensorDe
 import { InsteonDimmerOutletDevice } from './Devices/Insteon/InsteonDimmerOutletDevice.js';
 import { InsteonKeypadButtonDevice } from './Devices/Insteon/InsteonKeypadDevice.js';
 import { EventEmitter } from 'events';
-import { Logger } from 'winston';
+import { Logger, loggers, format } from 'winston';
 export { ISYScene, States, Family, VariableType, Categories, Props, ISYVariable, InsteonBaseDevice, InsteonOutletDevice, ISYDevice, InsteonKeypadDimmerDevice, InsteonKeypadRelayDevice, InsteonKeypadButtonDevice, InsteonDimmableDevice, InsteonFanDevice, InsteonFanMotorDevice, InsteonLeakSensorDevice, InsteonSmokeSensorDevice, InsteonDimmerOutletDevice, InsteonOnOffOutletDevice, InsteonLockDevice, InsteonThermostatDevice, InsteonDoorWindowSensorDevice, InsteonDimmerSwitchDevice, InsteonRelayDevice, InsteonMotionSensorDevice, ISYNode, NodeType, ElkAlarmSensorDevice, ELKAlarmPanelDevice };
 const parser = new Parser({
     explicitArray: false,
@@ -72,11 +72,15 @@ export class ISY extends EventEmitter {
         this.storagePath = storagePath ?? './';
         this.displayNameFormat = config.displayNameFormat ?? '${location ?? folder} ${spokenName ?? name}';
         this.address = config.host;
-        this.logger = logger;
         this.credentials = {
             username: config.username,
             password: config.password
         };
+        this.protocol = config.useHttps === true ? 'https' : 'http';
+        this.wsprotocol = 'ws';
+        this.elkEnabled = config.elkEnabled ?? false;
+        this.nodesLoaded = false;
+        this.logger = loggers.add('isy', { transports: logger.transports, level: logger.level, format: format.label({ label: 'ISY' }) });
         // `${this.restlerOptions = {		username: this.credentials.username,
         // 	password: this.credentials.password,
         // 	parser: parsers.xml,
@@ -87,10 +91,6 @@ export class ISY extends EventEmitter {
         // 		valueProcessors: [parseNumbers, parseBooleans]
         // 	}
         // };
-        this.nodesLoaded = false;
-        this.protocol = config.useHttps === true ? 'https' : 'http';
-        this.wsprotocol = 'ws';
-        this.elkEnabled = config.elkEnabled ?? false;
         this.guardianTimer = null;
         if (this.elkEnabled) {
             this.elkAlarmPanel = new ELKAlarmPanelDevice(this, 1);
@@ -106,20 +106,15 @@ export class ISY extends EventEmitter {
     async callISY(url) {
         url = `${this.protocol}://${this.address}/rest/${url}/`;
         this.logger.info(`Sending request: ${url}`);
-        try {
-            const xml = await axios.get(url, { auth: { username: this.credentials.username, password: this.credentials.password } });
-            const response = await parser.parseStringPromise(xml.data);
-            if (this.checkForFailure(response)) {
+        const xml = await axios.get(url, { auth: { username: this.credentials.username, password: this.credentials.password } });
+        await parser.parseStringPromise(xml.data).then((result) => {
+            if (this.checkForFailure(result)) {
                 // this.logger.info(`Error calling ISY: ${JSON.stringify(response)}`);
-                throw new Error(`Error calling ISY: ${JSON.stringify(response)}`);
+                throw new Error(`Error calling ISY: ${JSON.stringify(result)}`);
             }
-            else {
-                return response;
-            }
-        }
-        catch (e) {
-            throw new Error(JSON.stringify(e));
-        }
+        }, (reason) => {
+            throw new Error(`Error calling ISY: ${JSON.stringify(reason)}`);
+        });
     }
     nodeChangedHandler(node, propertyName = null) {
         const that = this;
@@ -264,7 +259,7 @@ export class ISY extends EventEmitter {
             }
         });
     }
-    finishInitialize(success, initializeCompleted) {
+    finishInitialize(success) {
         if (!this.nodesLoaded) {
             this.nodesLoaded = true;
             //initializeCompleted();
@@ -299,6 +294,7 @@ export class ISY extends EventEmitter {
     }
     async loadConfig() {
         try {
+            this.logger.info('Loading ISY Config');
             const result = await this.callISY('config');
             if (this.debugLoggingEnabled) {
                 writeFile(this.storagePath + '/ISYConfigDump.json', JSON.stringify(result), this.logger.error);
@@ -316,6 +312,7 @@ export class ISY extends EventEmitter {
                     Controls[ctl.name] = ctl;
                 }
             }
+            return result;
         }
         catch (e) {
             throw Error(`Error Loading Config: ${e.message}`);
@@ -391,7 +388,7 @@ export class ISY extends EventEmitter {
             throw new Error(`Error refreshing statuses: ${JSON.stringify(e)}`);
         }
     }
-    async initialize(initializeCompleted) {
+    async initialize() {
         const that = this;
         const options = {
             username: this.credentials.username,
@@ -433,16 +430,16 @@ export class ISY extends EventEmitter {
                     // });
                 }
                 else {
-                    that.finishInitialize(true, initializeCompleted);
+                    that.finishInitialize(true);
                 }
             });
         }
         catch (e) {
-            console.log(`Error initializing ISY: ${JSON.stringify(e)}`);
+            this.logger.error(`Error initializing ISY`, [e]);
         }
         finally {
             if (this.nodesLoaded !== true) {
-                that.finishInitialize(true, initializeCompleted);
+                that.finishInitialize(true);
             }
         }
         return Promise.resolve(true);
@@ -519,9 +516,9 @@ export class ISY extends EventEmitter {
     }
     initializeWebSocket() {
         const that = this;
-        const auth = `Basic ${new Buffer(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
+        const auth = `Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`, 'base64')}`;
         this.logger.info(`Connecting to: ${this.wsprotocol}://${this.address}/rest/subscribe`);
-        this.webSocket = new Client(`${this.wsprotocol}://${this.address}/rest/subscribe`, ['ISYSUB'], {
+        this.webSocket = new WebSocket.Client(`${this.wsprotocol}://${this.address}/rest/subscribe`, ['ISYSUB'], {
             headers: {
                 Origin: 'com.universal-devices.websockets.isy',
                 Authorization: auth

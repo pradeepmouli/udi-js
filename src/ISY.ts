@@ -81,8 +81,8 @@ const parser = new Parser({
 	explicitArray: false,
 	mergeAttrs: true,
 
-	attrValueProcessors: [parseBooleans, parseNumbers],
-	valueProcessors: [parseBooleans,parseNumbers]
+	attrValueProcessors: [parseNumbers,parseBooleans],
+	valueProcessors: [parseNumbers,parseBooleans]
 });
 
 export let Controls = {};
@@ -508,7 +508,7 @@ export class ISY extends EventEmitter {
 						//Case FanLinc where we treat the light as a child of the fan.
 						device = child;
 					}
-				}
+
 				if (Array.isArray(node.property)) {
 					for (let prop of node.property) {
 						device.local[prop.id] = device.convertFrom(prop.value, prop.uom);
@@ -534,7 +534,7 @@ export class ISY extends EventEmitter {
 						device.formatted[node.property.id]
 						})`
 					);
-				}
+				}};
 			}
 		} catch (e) {
 			throw new Error(`Error refreshing statuses: ${JSON.stringify(e.message)}`);

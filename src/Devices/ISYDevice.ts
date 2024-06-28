@@ -158,11 +158,16 @@ export class ISYDevice<T extends Family, Drivers extends string = string, Comman
 
 
 	public async readProperty(propertyName: Drivers): Promise<PropertyStatus> {
-		return (await this.isy.callISY(`nodes/${this.address}/${propertyName}`)).node.property;
+
+		var result = (await this.isy.callISY(`nodes/${this.address}/${propertyName}`));
+		this.logger(JSON.stringify(result),"debug");
+		return result.property;
 	}
 
 	public async readProperties(): Promise<PropertyStatus[]> {
-		return (await this.isy.callISY(`nodes/${this.address}/status`)).node.property;
+		var result = (await this.isy.callISY(`nodes/${this.address}/status`));
+		this.logger(JSON.stringify(result),"debug")
+		return result.property;
 	}
 
 	public async updateProperty(propertyName: string, value: string): Promise<any> {
@@ -225,7 +230,7 @@ export class ISYDevice<T extends Family, Drivers extends string = string, Comman
 		return this.emit('ControlTriggered', controlName);
 	}
 
-	public override handlePropertyChange(propertyName: string, value: any, formattedValue: string) {
+	public override handlePropertyChange(propertyName: any, value: any, formattedValue: string) {
 		let changed = false;
 		const priorVal = this.local[propertyName];
 		try {
@@ -271,7 +276,8 @@ export type Constructor<T> = new (...args: any[]) => T;
 export const ISYBinaryStateDevice = <K extends Family, T extends Constructor<ISYDevice<K>>>(Base: T) => {
 	return class extends Base {
 		get state(): Promise<boolean> {
-			return this.readProperty('ST').then(p => p.value  > 0);
+			return Promise.resolve(this.local['ST'] > 0);
+			//return this.readProperty('ST').then(p => p.value  > 0);
 		}
 	};
 };
@@ -281,7 +287,8 @@ export const ISYUpdateableBinaryStateDevice = <K extends Family,T extends Constr
 ) => {
 	return class extends Base {
 		get state(): Promise<boolean> {
-			return this.readProperty('ST').then(p => p.value  > 0);
+			return Promise.resolve(this.local['ST'] > 0);
+			//return this.readProperty('ST').then(p => p.value  > 0);
 		}
 
 

@@ -40,7 +40,7 @@ declare const InsteonLeakSensorDevice_base: {
         }, device: any): void;
         applyStatus(device: any, prop: import("../ISYDevice.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
-        handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
+        handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;
         readonly flag: any;
         readonly nodeDefId: string;

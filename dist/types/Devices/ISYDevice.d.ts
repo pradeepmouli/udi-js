@@ -72,7 +72,7 @@ export declare class ISYDevice<T extends Family, Drivers extends string = string
     }, device: this): void;
     applyStatus(device: this, prop: PropertyStatus): void;
     handleControlTrigger(controlName: string): boolean;
-    handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
+    handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
 }
 export type Constructor<T> = new (...args: any[]) => T;
 export declare const ISYBinaryStateDevice: <K extends Family, T extends Constructor<ISYDevice<K>>>(Base: T) => {
@@ -114,7 +114,7 @@ export declare const ISYBinaryStateDevice: <K extends Family, T extends Construc
         }, device: any): void;
         applyStatus(device: any, prop: PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
-        handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
+        handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;
         readonly flag: any;
         readonly nodeDefId: string;
@@ -197,7 +197,7 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extend
         }, device: any): void;
         applyStatus(device: any, prop: PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
-        handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
+        handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;
         readonly flag: any;
         readonly nodeDefId: string;
@@ -287,7 +287,7 @@ export declare const MatterEndpoint: <P extends MutableEndpoint, T extends Const
         }, device: any): void;
         applyStatus(device: any, prop: PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
-        handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
+        handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;
         readonly flag: any;
         readonly nodeDefId: string;
@@ -369,7 +369,7 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(bas
         }, device: any): void;
         applyStatus(device: any, prop: PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
-        handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
+        handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;
         readonly flag: any;
         readonly nodeDefId: string;
@@ -452,7 +452,7 @@ export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDevice<
         }, device: any): void;
         applyStatus(device: any, prop: PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
-        handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
+        handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;
         readonly flag: any;
         readonly nodeDefId: string;

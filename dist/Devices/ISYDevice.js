@@ -87,10 +87,14 @@ export class ISYDevice extends ISYNode {
         return this._parentDevice;
     }
     async readProperty(propertyName) {
-        return (await this.isy.callISY(`nodes/${this.address}/${propertyName}`)).node.property;
+        var result = (await this.isy.callISY(`nodes/${this.address}/${propertyName}`));
+        this.logger(JSON.stringify(result), "debug");
+        return result.property;
     }
     async readProperties() {
-        return (await this.isy.callISY(`nodes/${this.address}/status`)).node.property;
+        var result = (await this.isy.callISY(`nodes/${this.address}/status`));
+        this.logger(JSON.stringify(result), "debug");
+        return result.property;
     }
     async updateProperty(propertyName, value) {
         const val = this.convertTo(Number(value), Number(this.uom[propertyName]));
@@ -167,14 +171,16 @@ export class ISYDevice extends ISYNode {
 export const ISYBinaryStateDevice = (Base) => {
     return class extends Base {
         get state() {
-            return this.readProperty('ST').then(p => p.value > 0);
+            return Promise.resolve(this.local['ST'] > 0);
+            //return this.readProperty('ST').then(p => p.value  > 0);
         }
     };
 };
 export const ISYUpdateableBinaryStateDevice = (Base) => {
     return class extends Base {
         get state() {
-            return this.readProperty('ST').then(p => p.value > 0);
+            return Promise.resolve(this.local['ST'] > 0);
+            //return this.readProperty('ST').then(p => p.value  > 0);
         }
         async updateState(state) {
             if (state !== await this.state || this.pending.ST > 0 !== await this.state) {

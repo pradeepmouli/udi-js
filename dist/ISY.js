@@ -38,8 +38,8 @@ export { ISYScene, States, Family, VariableType, Categories, Props, ISYVariable,
 const parser = new Parser({
     explicitArray: false,
     mergeAttrs: true,
-    attrValueProcessors: [parseBooleans, parseNumbers],
-    valueProcessors: [parseBooleans, parseNumbers]
+    attrValueProcessors: [parseNumbers, parseBooleans],
+    valueProcessors: [parseNumbers, parseBooleans]
 });
 export let Controls = {};
 export class ISY extends EventEmitter {
@@ -370,21 +370,22 @@ export class ISY extends EventEmitter {
                         //Case FanLinc where we treat the light as a child of the fan.
                         device = child;
                     }
-                }
-                if (Array.isArray(node.property)) {
-                    for (let prop of node.property) {
-                        device.local[prop.id] = device.convertFrom(prop.value, prop.uom);
-                        device.formatted[prop.id] = prop.formatted;
-                        device.uom[prop.id] = prop.uom;
-                        device.logger(`Property ${Controls[prop.id].label} (${prop.id}) initialized to: ${device.local[prop.id]} (${device.formatted[prop.id]})`);
+                    if (Array.isArray(node.property)) {
+                        for (let prop of node.property) {
+                            device.local[prop.id] = device.convertFrom(prop.value, prop.uom);
+                            device.formatted[prop.id] = prop.formatted;
+                            device.uom[prop.id] = prop.uom;
+                            device.logger(`Property ${Controls[prop.id].label} (${prop.id}) initialized to: ${device.local[prop.id]} (${device.formatted[prop.id]})`);
+                        }
+                    }
+                    else if (node.property) {
+                        device.local[node.property.id] = device.convertFrom(node.property.value, node.property.uom);
+                        device.formatted[node.property.id] = node.property.formatted;
+                        device.uom[node.property.id] = node.property.uom;
+                        device.logger(`Property ${Controls[node.property.id].label} (${node.property.id}) initialized to: ${device.local[node.property.id]} (${device.formatted[node.property.id]})`);
                     }
                 }
-                else if (node.property) {
-                    device.local[node.property.id] = device.convertFrom(node.property.value, node.property.uom);
-                    device.formatted[node.property.id] = node.property.formatted;
-                    device.uom[node.property.id] = node.property.uom;
-                    device.logger(`Property ${Controls[node.property.id].label} (${node.property.id}) initialized to: ${device.local[node.property.id]} (${device.formatted[node.property.id]})`);
-                }
+                ;
             }
         }
         catch (e) {

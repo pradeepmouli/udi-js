@@ -19,7 +19,7 @@ export interface PropertyStatus {
 export interface NodeInfo {
     family: Family;
     type?: string;
-    enabled: any;
+    enabled?: boolean;
     deviceClass?: any;
     pnode: any;
     property?: PropertyStatus[] | PropertyStatus;

@@ -36,7 +36,7 @@ export class ISYNode extends EventEmitter {
         this.family = node.family ?? Family.Insteon;
         this.parent = node.parent;
         this.parentType = Number(this.parent?.type);
-        this.enabled = node.enabled;
+        this.enabled = node.enabled ?? true;
         this.elkId = node.ELK_ID;
         this.propsInitialized = false;
         const s = this.name.split('.');

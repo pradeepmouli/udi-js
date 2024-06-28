@@ -15,7 +15,7 @@ interface Node {
 	name?: string;
 	family?: Family;
 	parent?: any;
-	enabled: boolean;
+	enabled?: boolean;
 	ELK_ID?: string;
 }
 
@@ -64,7 +64,7 @@ export class ISYNode extends EventEmitter implements PropertyChangedEventEmitter
 
 		this.parentType = Number(this.parent?.type);
 
-		this.enabled = node.enabled;
+		this.enabled = node.enabled ?? true;
 		this.elkId = node.ELK_ID;
 
 		this.propsInitialized = false;

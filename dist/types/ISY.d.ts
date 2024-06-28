@@ -27,6 +27,7 @@ import { InsteonDimmerOutletDevice } from './Devices/Insteon/InsteonDimmerOutlet
 import { InsteonKeypadButtonDevice } from './Devices/Insteon/InsteonKeypadDevice.js';
 import { EventEmitter } from 'events';
 import { Logger } from 'winston';
+import type { NodeInfo } from './Devices/ISYDevice.js';
 export { ISYScene, States, Family, VariableType, Categories, Props, ISYVariable, InsteonBaseDevice, InsteonOutletDevice, ISYDevice, InsteonKeypadDimmerDevice, InsteonKeypadRelayDevice, InsteonKeypadButtonDevice, InsteonDimmableDevice, InsteonFanDevice, InsteonFanMotorDevice, InsteonLeakSensorDevice, InsteonSmokeSensorDevice, InsteonDimmerOutletDevice, InsteonOnOffOutletDevice, InsteonLockDevice, InsteonThermostatDevice, InsteonDoorWindowSensorDevice, InsteonDimmerSwitchDevice, InsteonRelayDevice, InsteonMotionSensorDevice, ISYNode, NodeType, ElkAlarmSensorDevice, ELKAlarmPanelDevice };
 export declare let Controls: {};
 export declare class ISY extends EventEmitter {
@@ -83,7 +84,7 @@ export declare class ISY extends EventEmitter {
     }): Promise<void>;
     loadDevices(obj: {
         nodes: {
-            node: any;
+            node: NodeInfo[];
         };
     }): Promise<void>;
     loadElkNodes(result: any): void;

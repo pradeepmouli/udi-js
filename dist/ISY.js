@@ -135,14 +135,14 @@ export class ISY extends EventEmitter {
             await this.loadFolders(result).catch(p => this.logger.error('Error Loading Folders', p));
             await this.loadDevices(result).catch(p => this.logger.error('Error Loading Devices', p));
             await this.loadScenes(result).catch(p => this.logger.error('Error Loading Scenes', p));
+            return result;
         }
         catch (e) {
             throw new Error(`Error loading nodes: ${e.message}`);
         }
-        return Promise.resolve();
     }
     async loadFolders(result) {
-        this.logger.info('Loading Folders');
+        this.logger.info('Loading Folder Nodes');
         if (result?.nodes?.folder) {
             for (const folder of result.nodes.folder) {
                 this.logger.info(`Loading: ${JSON.stringify(folder)}`);
@@ -151,7 +151,7 @@ export class ISY extends EventEmitter {
         }
     }
     async loadScenes(result) {
-        this.logger.info('Loading Scenes');
+        this.logger.info('Loading Scene Nodes');
         for (const scene of result.nodes.group) {
             if (scene.name === 'ISY' || scene.name === 'Auto DR') {
                 continue;
@@ -167,8 +167,9 @@ export class ISY extends EventEmitter {
         }
     }
     async loadDevices(obj) {
-        this.logger.info('Loading Devices');
+        this.logger.info('Loading Device Nodes');
         for (const device of obj.nodes.node) {
+            this.logger.debug(`Loading Device Node: ${JSON.stringify(device)}`);
             if (!this.deviceMap.has(device.pnode)) {
                 const address = device.address;
                 this.deviceMap[device.pnode] = {
@@ -181,7 +182,7 @@ export class ISY extends EventEmitter {
             let newDevice = null;
             // let deviceTypeInfo = this.isyTypeToTypeName(device.type, device.address);
             // this.logger.info(JSON.stringify(deviceTypeInfo));
-            const enabled = Boolean(device.enabled);
+            const enabled = device.enabled ?? true;
             const d = DeviceFactory.getDeviceDetails(device);
             if (d.class) {
                 newDevice = new d.class(this, device);
@@ -203,7 +204,7 @@ export class ISY extends EventEmitter {
                         await newDevice.refreshNotes();
                     }
                     catch (e) {
-                        this.logger.info('No notes found.');
+                        this.logger.debug('No notes found.');
                     }
                     // if (!newDevice.hidden) {
                     // }
@@ -358,6 +359,7 @@ export class ISY extends EventEmitter {
             if (that.debugLoggingEnabled) {
                 writeFile(that.storagePath + '/ISYStatusDump.json', JSON.stringify(result), this.logger.error);
             }
+            this.logger.debug(result);
             for (const node of result.nodes.node) {
                 this.logger.debug(node);
                 let device = that.getDevice(node.id);
@@ -385,7 +387,7 @@ export class ISY extends EventEmitter {
             }
         }
         catch (e) {
-            throw new Error(`Error refreshing statuses: ${JSON.stringify(e)}`);
+            throw new Error(`Error refreshing statuses: ${JSON.stringify(e.message)}`);
         }
     }
     async initialize() {
@@ -435,7 +437,7 @@ export class ISY extends EventEmitter {
             });
         }
         catch (e) {
-            this.logger.error(`Error initializing ISY`, [e]);
+            throw (e);
         }
         finally {
             if (this.nodesLoaded !== true) {

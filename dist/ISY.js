@@ -519,8 +519,8 @@ export class ISY extends EventEmitter {
     initializeWebSocket() {
         const that = this;
         const auth = `Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
-        this.logger.info(`Connecting to: ${this.wsprotocol}://${this.address}/rest/subscribe`);
-        this.webSocket = new WebSocket.Client(`${this.wsprotocol}://${this.address}/rest/subscribe`, ['ISYSUB'], {
+        this.logger.info(`Connecting to: ${this.wsprotocol}://${this.host}/rest/subscribe`);
+        this.webSocket = new WebSocket.Client(`${this.wsprotocol}://${this.host}/rest/subscribe`, ['ISYSUB'], {
             headers: {
                 Origin: 'com.universal-devices.websockets.isy',
                 Authorization: auth

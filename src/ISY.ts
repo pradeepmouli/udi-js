@@ -674,10 +674,10 @@ export class ISY extends EventEmitter {
 		const auth =
 			`Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
 		this.logger.info(
-			`Connecting to: ${this.wsprotocol}://${this.address}/rest/subscribe`
+			`Connecting to: ${this.wsprotocol}://${this.host}/rest/subscribe`
 		);
 		this.webSocket = new WebSocket.Client(
-			`${this.wsprotocol}://${this.address}/rest/subscribe`,
+			`${this.wsprotocol}://${this.host}/rest/subscribe`,
 			['ISYSUB'],
 			{
 				headers: {

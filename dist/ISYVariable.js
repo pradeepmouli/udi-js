@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { VariableType } from './ISYConstants.js';
-const varT = (t) => VariableType.Integer ? Number : String;
+const varT = (t) => VariableType.Integer ? typeof Number : typeof String;
 export class ISYVariable extends EventEmitter {
     isy;
     id;

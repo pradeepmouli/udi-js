@@ -40,6 +40,7 @@ import { EventEmitter } from 'events';
 import { Logger, level, loggers, createLogger, format, LoggerOptions, Logform } from 'winston';
 import { timingSafeEqual } from 'crypto';
 import type { NodeInfo } from './Devices/ISYDevice.js';
+import { stringify } from 'querystring';
 
 
 
@@ -88,14 +89,6 @@ const parser = new Parser({
 export let Controls = {};
 
 
-interface ProductInfoEntry {
-	type: string;
-	address: string;
-	name: string;
-	deviceType: string;
-	connectionType: string;
-	batteryOperated: boolean;
-}
 
 export class ISY extends EventEmitter {
 	public readonly deviceList: Map<string, ISYDevice<any>> = new Map();
@@ -106,15 +99,26 @@ export class ISY extends EventEmitter {
 	public webSocket: WebSocket.Client;
 	public readonly zoneMap: Map<string, ElkAlarmSensorDevice> = new Map();
 	public readonly protocol: string;
-	public readonly address: string;
+	public readonly host: string;
+
+	public readonly port: number;
+
+	public get address()
+	{
+		return `${this.host}:${this.port}`
+	}
 	public readonly restlerOptions: any;
 	public readonly credentials: { username: string; password: string; };
-	public readonly variableList: Map<string, ISYVariable> = new Map();
+	public readonly variableList: Map<string, ISYVariable<VariableType>> = new Map();
 
 	public nodesLoaded: boolean = false;
 	public readonly wsprotocol: string = 'ws';
 	public readonly elkEnabled: boolean;
-	public readonly debugLoggingEnabled: boolean;
+	public get isDebugEnabled()
+	{
+		return this.logger?.isDebugEnabled();
+	}
+
 	public readonly displayNameFormat: string;
 	public guardianTimer: any;
 	public elkAlarmPanel: ELKAlarmPanelDevice;
@@ -128,35 +132,25 @@ export class ISY extends EventEmitter {
 	ISY;
 
 	constructor (
-		config: { host: string, username: string, password: string, useHttps?: boolean, displayNameFormat?: string; elkEnabled?: boolean}, logger: Logger = new Logger(), storagePath?: string) {
+		config: { host: string, port: number, protocol: 'http'|'https', username: string, password: string, displayNameFormat?: string; elkEnabled?: boolean}, logger: Logger = new Logger(), storagePath?: string) {
 		super();
 		this.storagePath = storagePath ?? './';
 		this.displayNameFormat = config.displayNameFormat ?? '${location ?? folder} ${spokenName ?? name}';
-		this.address = config.host;
+		this.host = config.host;
+		this.port = config.port;
 		this.credentials = {
 			username: config.username,
 			password: config.password
 		};
-		this.protocol = config.useHttps === true ? 'https' : 'http';
+		this.protocol = config.protocol;
 		this.wsprotocol = 'ws';
 		this.elkEnabled = config.elkEnabled ?? false;
 
 		this.nodesLoaded = false;
+		var fopts = format((info) => {info.message = JSON.stringify(info.message); return info })({ label: 'ISY' });
 		this.logger = loggers.add('isy',{transports: logger.transports, level: logger.level, format:  format.label({ label: 'ISY' })});
 
 
-
-		// `${this.restlerOptions = {		username: this.credentials.username,
-		// 	password: this.credentials.password,
-		// 	parser: parsers.xml,
-
-		// 	xml2js: {
-		// 		explicitArray: false,
-		// 		mergeAttrs: true,
-		// 		attrValueProcessors: [parseBooleans, parseNumbers],
-		// 		valueProcessors: [parseNumbers, parseBooleans]
-		// 	}
-		// };
 
 
 
@@ -234,7 +228,7 @@ export class ISY extends EventEmitter {
 		this.logger.info('Loading Folder Nodes');
 		if (result?.nodes?.folder) {
 			for (const folder of result.nodes.folder) {
-				this.logger.info(`Loading: ${JSON.stringify(folder)}`);
+				this.logger.info(`Loading Folder Node: ${JSON.stringify(folder)}`);
 				this.folderMap.set(folder.address, folder.name);
 			}
 		}
@@ -253,7 +247,7 @@ export class ISY extends EventEmitter {
 				await newScene.refreshNotes();
 
 			} catch (e) {
-				this.logger.info('No notes found.');
+				this.logger.debug('No notes found.');
 			}
 			this.sceneList.set(newScene.address, newScene);
 		}
@@ -428,7 +422,7 @@ export class ISY extends EventEmitter {
 		try {
 			this.logger.info('Loading ISY Config')
 			const result = await this.callISY('config');
-			if (this.debugLoggingEnabled) {
+			if (this.isDebugEnabled) {
 				writeFile(this.storagePath +'/ISYConfigDump.json', JSON.stringify(result), this.logger.error);
 			}
 
@@ -455,7 +449,7 @@ export class ISY extends EventEmitter {
 	public getVariableList() {
 		return this.variableList;
 	}
-	public getVariable(type: VariableType, id: number): ISYVariable {
+	public getVariable<P extends VariableType>(type: P, id: number): ISYVariable<P> {
 		const key = this.createVariableKey(type, id);
 		if (
 			this.variableList.has(key)
@@ -495,7 +489,7 @@ export class ISY extends EventEmitter {
 		try {
 			const that = this;
 			const result = await that.callISY('status');
-			if (that.debugLoggingEnabled) {
+			if (that.isDebugEnabled) {
 				writeFile(that.storagePath + '/ISYStatusDump.json', JSON.stringify(result), this.logger.error);
 			}
 			this.logger.debug(result);
@@ -678,7 +672,7 @@ export class ISY extends EventEmitter {
 	public initializeWebSocket() {
 		const that = this;
 		const auth =
-			`Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`,'base64')}`;
+			`Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
 		this.logger.info(
 			`Connecting to: ${this.wsprotocol}://${this.address}/rest/subscribe`
 		);
@@ -720,7 +714,7 @@ export class ISY extends EventEmitter {
 			});
 	}
 
-	public getDevice(address: string, parentsOnly = false): ISYDevice<any> {
+	public getDevice<T extends ISYDevice<any> = ISYDevice<any>>(address: string, parentsOnly = false): T {
 		let s = this.deviceList.get(address);
 		if (!parentsOnly) {
 			if (s === null) {
@@ -737,7 +731,7 @@ export class ISY extends EventEmitter {
 			}
 		}
 
-		return s;
+		return s as T;
 	}
 
 	public getScene(address: string) {

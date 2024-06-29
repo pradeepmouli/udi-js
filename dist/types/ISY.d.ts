@@ -38,17 +38,19 @@ export declare class ISY extends EventEmitter {
     webSocket: WebSocket.Client;
     readonly zoneMap: Map<string, ElkAlarmSensorDevice>;
     readonly protocol: string;
-    readonly address: string;
+    readonly host: string;
+    readonly port: number;
+    get address(): string;
     readonly restlerOptions: any;
     readonly credentials: {
         username: string;
         password: string;
     };
-    readonly variableList: Map<string, ISYVariable>;
+    readonly variableList: Map<string, ISYVariable<VariableType>>;
     nodesLoaded: boolean;
     readonly wsprotocol: string;
     readonly elkEnabled: boolean;
-    readonly debugLoggingEnabled: boolean;
+    get isDebugEnabled(): boolean;
     readonly displayNameFormat: string;
     guardianTimer: any;
     elkAlarmPanel: ELKAlarmPanelDevice;
@@ -60,9 +62,10 @@ export declare class ISY extends EventEmitter {
     static instance: ISY;
     constructor(config: {
         host: string;
+        port: number;
+        protocol: 'http' | 'https';
         username: string;
         password: string;
-        useHttps?: boolean;
         displayNameFormat?: string;
         elkEnabled?: boolean;
     }, logger?: Logger, storagePath?: string);
@@ -99,7 +102,7 @@ export declare class ISY extends EventEmitter {
     loadVariables(type: VariableType): Promise<any>;
     loadConfig(): Promise<any>;
     getVariableList(): Map<string, ISYVariable<VariableType>>;
-    getVariable(type: VariableType, id: number): ISYVariable;
+    getVariable<P extends VariableType>(type: P, id: number): ISYVariable<P>;
     createVariableKey(type: VariableType, id: number): string;
     createVariables(type: VariableType, result: any): void;
     setVariableValues(result: any): void;
@@ -110,7 +113,7 @@ export declare class ISY extends EventEmitter {
         data: any;
     }): void;
     initializeWebSocket(): void;
-    getDevice(address: string, parentsOnly?: boolean): ISYDevice<any>;
+    getDevice<T extends ISYDevice<any> = ISYDevice<any>>(address: string, parentsOnly?: boolean): T;
     getScene(address: string): ISYScene;
     sendISYCommand(path: string): Promise<any>;
     sendNodeCommand<P extends string | symbol>(node: ISYNode, command: string, parameters?: (Record<P, string | number> | string | number)): Promise<any>;

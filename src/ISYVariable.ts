@@ -2,11 +2,11 @@ import { EventEmitter } from 'events';
 import { ISY } from './ISY.js';
 import { VariableType } from './ISYConstants.js';
 
-const varT = (t: VariableType) => VariableType.Integer ? Number : String;
+const varT = (t: typeof VariableType) => VariableType.Integer ? typeof Number : typeof String;
 
+type Variable<T extends VariableType> = T extends VariableType.Integer ? Number : String;
 
-
-export class ISYVariable<P = VariableType.Integer | VariableType.State> extends EventEmitter {
+export class ISYVariable<P extends VariableType> extends EventEmitter {
 	public isy: ISY;
 	public id: number;
 	public name: string;
@@ -44,7 +44,7 @@ export class ISYVariable<P = VariableType.Integer | VariableType.State> extends 
 		}
 	}
 
-	public async updateValue(value: P): Promise<void> {
+	public async updateValue(value: Variable<P>): Promise<void> {
 		const p = await this.isy.callISY(`vars\\${this.type}\\${this.id}\\${value}`);
 		this.value = value;
 		return p;

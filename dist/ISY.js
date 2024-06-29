@@ -50,14 +50,20 @@ export class ISY extends EventEmitter {
     webSocket;
     zoneMap = new Map();
     protocol;
-    address;
+    host;
+    port;
+    get address() {
+        return `${this.host}:${this.port}`;
+    }
     restlerOptions;
     credentials;
     variableList = new Map();
     nodesLoaded = false;
     wsprotocol = 'ws';
     elkEnabled;
-    debugLoggingEnabled;
+    get isDebugEnabled() {
+        return this.logger?.isDebugEnabled();
+    }
     displayNameFormat;
     guardianTimer;
     elkAlarmPanel;
@@ -71,26 +77,18 @@ export class ISY extends EventEmitter {
         super();
         this.storagePath = storagePath ?? './';
         this.displayNameFormat = config.displayNameFormat ?? '${location ?? folder} ${spokenName ?? name}';
-        this.address = config.host;
+        this.host = config.host;
+        this.port = config.port;
         this.credentials = {
             username: config.username,
             password: config.password
         };
-        this.protocol = config.useHttps === true ? 'https' : 'http';
+        this.protocol = config.protocol;
         this.wsprotocol = 'ws';
         this.elkEnabled = config.elkEnabled ?? false;
         this.nodesLoaded = false;
+        var fopts = format((info) => { info.message = JSON.stringify(info.message); return info; })({ label: 'ISY' });
         this.logger = loggers.add('isy', { transports: logger.transports, level: logger.level, format: format.label({ label: 'ISY' }) });
-        // `${this.restlerOptions = {		username: this.credentials.username,
-        // 	password: this.credentials.password,
-        // 	parser: parsers.xml,
-        // 	xml2js: {
-        // 		explicitArray: false,
-        // 		mergeAttrs: true,
-        // 		attrValueProcessors: [parseBooleans, parseNumbers],
-        // 		valueProcessors: [parseNumbers, parseBooleans]
-        // 	}
-        // };
         this.guardianTimer = null;
         if (this.elkEnabled) {
             this.elkAlarmPanel = new ELKAlarmPanelDevice(this, 1);
@@ -146,7 +144,7 @@ export class ISY extends EventEmitter {
         this.logger.info('Loading Folder Nodes');
         if (result?.nodes?.folder) {
             for (const folder of result.nodes.folder) {
-                this.logger.info(`Loading: ${JSON.stringify(folder)}`);
+                this.logger.info(`Loading Folder Node: ${JSON.stringify(folder)}`);
                 this.folderMap.set(folder.address, folder.name);
             }
         }
@@ -162,7 +160,7 @@ export class ISY extends EventEmitter {
                 await newScene.refreshNotes();
             }
             catch (e) {
-                this.logger.info('No notes found.');
+                this.logger.debug('No notes found.');
             }
             this.sceneList.set(newScene.address, newScene);
         }
@@ -298,7 +296,7 @@ export class ISY extends EventEmitter {
         try {
             this.logger.info('Loading ISY Config');
             const result = await this.callISY('config');
-            if (this.debugLoggingEnabled) {
+            if (this.isDebugEnabled) {
                 writeFile(this.storagePath + '/ISYConfigDump.json', JSON.stringify(result), this.logger.error);
             }
             const controls = result.configuration.controls;
@@ -357,7 +355,7 @@ export class ISY extends EventEmitter {
         try {
             const that = this;
             const result = await that.callISY('status');
-            if (that.debugLoggingEnabled) {
+            if (that.isDebugEnabled) {
                 writeFile(that.storagePath + '/ISYStatusDump.json', JSON.stringify(result), this.logger.error);
             }
             this.logger.debug(result);
@@ -520,7 +518,7 @@ export class ISY extends EventEmitter {
     }
     initializeWebSocket() {
         const that = this;
-        const auth = `Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`, 'base64')}`;
+        const auth = `Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
         this.logger.info(`Connecting to: ${this.wsprotocol}://${this.address}/rest/subscribe`);
         this.webSocket = new WebSocket.Client(`${this.wsprotocol}://${this.address}/rest/subscribe`, ['ISYSUB'], {
             headers: {

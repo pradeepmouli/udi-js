@@ -1,7 +1,8 @@
 import { EventEmitter } from 'events';
 import { ISY } from './ISY.js';
 import { VariableType } from './ISYConstants.js';
-export declare class ISYVariable<P = VariableType.Integer | VariableType.State> extends EventEmitter {
+type Variable<T extends VariableType> = T extends VariableType.Integer ? Number : String;
+export declare class ISYVariable<P extends VariableType> extends EventEmitter {
     isy: ISY;
     id: number;
     name: string;
@@ -15,5 +16,6 @@ export declare class ISYVariable<P = VariableType.Integer | VariableType.State> 
             var: any;
         };
     }): void;
-    updateValue(value: P): Promise<void>;
+    updateValue(value: Variable<P>): Promise<void>;
 }
+export {};

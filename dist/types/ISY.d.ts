@@ -15,7 +15,7 @@ import { InsteonLockDevice } from './Devices/Insteon/InsteonLockDevice.js';
 import { InsteonMotionSensorDevice } from './Devices/Insteon/InsteonMotionSensorDevice.js';
 import { InsteonRelayDevice } from './Devices/Insteon/InsteonRelayDevice.js';
 import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevice.js';
-import { ISYDevice } from './ISYNode.js';
+import { ISYDeviceNode } from './ISYNode.js';
 import { Family } from './Families.js';
 import { NodeType, Props, States, VariableType } from './ISYConstants.js';
 import { ISYNode } from './ISYNode.js';
@@ -28,10 +28,10 @@ import { InsteonKeypadButtonDevice } from './Devices/Insteon/InsteonKeypadDevice
 import { EventEmitter } from 'events';
 import { Logger } from 'winston';
 import type { NodeInfo } from './Devices/ISYDevice.js';
-export { ISYScene, States, Family, VariableType, Categories, Props, ISYVariable, InsteonBaseDevice, InsteonOutletDevice, ISYDevice, InsteonKeypadDimmerDevice, InsteonKeypadRelayDevice, InsteonKeypadButtonDevice, InsteonDimmableDevice, InsteonFanDevice, InsteonFanMotorDevice, InsteonLeakSensorDevice, InsteonSmokeSensorDevice, InsteonDimmerOutletDevice, InsteonOnOffOutletDevice, InsteonLockDevice, InsteonThermostatDevice, InsteonDoorWindowSensorDevice, InsteonDimmerSwitchDevice, InsteonRelayDevice, InsteonMotionSensorDevice, ISYNode, NodeType, ElkAlarmSensorDevice, ELKAlarmPanelDevice };
+export { ISYScene, States, Family, VariableType, Categories, Props, ISYVariable, InsteonBaseDevice, InsteonOutletDevice, ISYDeviceNode as ISYDevice, InsteonKeypadDimmerDevice, InsteonKeypadRelayDevice, InsteonKeypadButtonDevice, InsteonDimmableDevice, InsteonFanDevice, InsteonFanMotorDevice, InsteonLeakSensorDevice, InsteonSmokeSensorDevice, InsteonDimmerOutletDevice, InsteonOnOffOutletDevice, InsteonLockDevice, InsteonThermostatDevice, InsteonDoorWindowSensorDevice, InsteonDimmerSwitchDevice, InsteonRelayDevice, InsteonMotionSensorDevice, ISYNode, NodeType, ElkAlarmSensorDevice, ELKAlarmPanelDevice };
 export declare let Controls: {};
 export declare class ISY extends EventEmitter {
-    readonly deviceList: Map<string, ISYDevice<any>>;
+    readonly deviceList: Map<string, ISYDeviceNode<any>>;
     readonly deviceMap: Map<string, string[]>;
     readonly sceneList: Map<string, ISYScene>;
     readonly folderMap: Map<string, string>;
@@ -59,6 +59,7 @@ export declare class ISY extends EventEmitter {
     model: any;
     serverVersion: any;
     readonly storagePath: string;
+    configInfo: any;
     static instance: ISY;
     constructor(config: {
         host: string;
@@ -113,7 +114,7 @@ export declare class ISY extends EventEmitter {
         data: any;
     }): void;
     initializeWebSocket(): void;
-    getDevice<T extends ISYDevice<any> = ISYDevice<any>>(address: string, parentsOnly?: boolean): T;
+    getDevice<T extends ISYDeviceNode<any> = ISYDeviceNode<any>>(address: string, parentsOnly?: boolean): T;
     getScene(address: string): ISYScene;
     sendISYCommand(path: string): Promise<any>;
     sendNodeCommand<P extends string | symbol>(node: ISYNode, command: string, parameters?: (Record<P, string | number> | string | number)): Promise<any>;

@@ -1,10 +1,10 @@
 import { Family } from '../../Families.js';
-import { ISYDevice } from '../../ISYNode.js';
+import { ISYDeviceNode } from '../../ISYNode.js';
 import { AlarmSensorPhysicalState, AlarmSensorLogicalState } from './ElkAlarmPanelDevice.js';
 /////////////////////////////
 // ELKAlarmSensor
 //
-export class ElkAlarmSensorDevice extends ISYDevice {
+export class ElkAlarmSensorDevice extends ISYDeviceNode {
     area;
     zone;
     deviceFriendlyName;

@@ -1,13 +1,12 @@
 import { Family } from '../Families.js';
-import { ISY } from '../ISY.js';
-import { ISYNode } from '../ISYNode.js';
-import { ISYScene } from '../ISYScene.js';
 import { UnitOfMeasure } from '../UOM.js';
 import { EndpointType, MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
 import { Endpoint } from '@project-chip/matter.js/endpoint';
 import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import 'winston';
+import { ISYDeviceNode } from '../ISYNode.js';
+import { Constructor } from './Constructor.js';
 export interface PropertyStatus {
     id: string | number;
     value: any;
@@ -34,48 +33,7 @@ export interface NodeInfo {
     wattage: number;
     dcPeriod: number;
 }
-export declare class ISYDevice<T extends Family, Drivers extends string = string, Commands extends string = string> extends ISYNode {
-    family: T;
-    readonly typeCode: string;
-    readonly deviceClass: any;
-    readonly parentAddress: any;
-    readonly category: number;
-    readonly subCategory: number;
-    readonly type: any;
-    _parentDevice: ISYDevice<T>;
-    readonly children: Array<ISYDevice<T>>;
-    readonly scenes: ISYScene[];
-    readonly formatted: any[Drivers];
-    readonly uom: any[Drivers];
-    readonly pending: any[Drivers];
-    readonly local: any[Drivers];
-    hidden: boolean;
-    _enabled: any;
-    productName: string;
-    model: string;
-    modelNumber: string;
-    version: string;
-    isDimmable: boolean;
-    constructor(isy: ISY, node: NodeInfo);
-    convertTo(value: any, UnitOfMeasure: number): any;
-    convertFrom(value: any, UnitOfMeasure: number): any;
-    addLink(isyScene: ISYScene): void;
-    addChild(childDevice: ISYDevice<T>): void;
-    get parentDevice(): ISYDevice<T>;
-    readProperty(propertyName: Drivers): Promise<PropertyStatus>;
-    readProperties(): Promise<PropertyStatus[]>;
-    updateProperty(propertyName: string, value: string): Promise<any>;
-    sendCommand(command: string, parameters?: (Record<string | symbol, string | number> | string | number)): Promise<any>;
-    refresh(): Promise<any>;
-    parseResult(node: {
-        property: PropertyStatus | PropertyStatus[];
-    }, device: this): void;
-    applyStatus(device: this, prop: PropertyStatus): void;
-    handleControlTrigger(controlName: string): boolean;
-    handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
-}
-export type Constructor<T> = new (...args: any[]) => T;
-export declare const ISYBinaryStateDevice: <K extends Family, T extends Constructor<ISYDevice<K>>>(Base: T) => {
+export declare const ISYBinaryStateDevice: <K extends Family, D extends string, T extends Constructor<ISYDeviceNode<K, D | "ST">>>(Base: T) => {
     new (...args: any[]): {
         readonly state: Promise<boolean>;
         family: K;
@@ -85,9 +43,9 @@ export declare const ISYBinaryStateDevice: <K extends Family, T extends Construc
         readonly category: number;
         readonly subCategory: number;
         readonly type: any;
-        _parentDevice: ISYDevice<K, string, string>;
-        readonly children: ISYDevice<K, string, string>[];
-        readonly scenes: ISYScene[];
+        _parentDevice: ISYDeviceNode<K, string, string>;
+        readonly children: ISYDeviceNode<K, string, string>[];
+        readonly scenes: import("../ISYScene.js").ISYScene[];
         readonly formatted: any[Drivers];
         readonly uom: any[Drivers];
         readonly pending: any[Drivers];
@@ -101,10 +59,10 @@ export declare const ISYBinaryStateDevice: <K extends Family, T extends Construc
         isDimmable: boolean;
         convertTo(value: any, UnitOfMeasure: number): any;
         convertFrom(value: any, UnitOfMeasure: number): any;
-        addLink(isyScene: ISYScene): void;
-        addChild(childDevice: ISYDevice<K, string, string>): void;
-        readonly parentDevice: ISYDevice<K, string, string>;
-        readProperty(propertyName: string): Promise<PropertyStatus>;
+        addLink(isyScene: import("../ISYScene.js").ISYScene): void;
+        addChild(childDevice: ISYDeviceNode<K, string, string>): void;
+        readonly parentDevice: ISYDeviceNode<K, string, string>;
+        readProperty(propertyName: "ST" | D): Promise<PropertyStatus>;
         readProperties(): Promise<PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
         sendCommand(command: string, parameters?: (Record<string | symbol, string | number> | string | number)): Promise<any>;
@@ -115,7 +73,7 @@ export declare const ISYBinaryStateDevice: <K extends Family, T extends Construc
         applyStatus(device: any, prop: PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
-        readonly isy: ISY;
+        readonly isy: import("../ISY.js").ISY;
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;
@@ -157,7 +115,7 @@ export declare const ISYBinaryStateDevice: <K extends Family, T extends Construc
         eventNames(): Array<string | symbol>;
     };
 } & T;
-export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extends Constructor<ISYDevice<K>>>(Base: T) => {
+export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extends Constructor<ISYDeviceNode<K>>>(Base: T) => {
     new (...args: any[]): {
         readonly state: Promise<boolean>;
         updateState(state: boolean): Promise<any>;
@@ -168,9 +126,9 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extend
         readonly category: number;
         readonly subCategory: number;
         readonly type: any;
-        _parentDevice: ISYDevice<K, string, string>;
-        readonly children: ISYDevice<K, string, string>[];
-        readonly scenes: ISYScene[];
+        _parentDevice: ISYDeviceNode<K, string, string>;
+        readonly children: ISYDeviceNode<K, string, string>[];
+        readonly scenes: import("../ISYScene.js").ISYScene[];
         readonly formatted: any[Drivers];
         readonly uom: any[Drivers];
         readonly pending: any[Drivers];
@@ -184,9 +142,9 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extend
         isDimmable: boolean;
         convertTo(value: any, UnitOfMeasure: number): any;
         convertFrom(value: any, UnitOfMeasure: number): any;
-        addLink(isyScene: ISYScene): void;
-        addChild(childDevice: ISYDevice<K, string, string>): void;
-        readonly parentDevice: ISYDevice<K, string, string>;
+        addLink(isyScene: import("../ISYScene.js").ISYScene): void;
+        addChild(childDevice: ISYDeviceNode<K, string, string>): void;
+        readonly parentDevice: ISYDeviceNode<K, string, string>;
         readProperty(propertyName: string): Promise<PropertyStatus>;
         readProperties(): Promise<PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
@@ -198,7 +156,7 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extend
         applyStatus(device: any, prop: PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
-        readonly isy: ISY;
+        readonly isy: import("../ISY.js").ISY;
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;
@@ -247,7 +205,7 @@ type BehaviorList<T extends ClusterBehavior> = SupportedBehaviors & T;
 export interface MapsToEndpoint<T extends ClusterBehavior> {
     initialize<K extends MutableEndpoint.With<EndpointType.Empty, BehaviorList<T>>>(endpoint: Endpoint<K>): void;
 }
-export declare const MatterEndpoint: <P extends MutableEndpoint, T extends Constructor<ISYDevice<any>>>(base: T, endpointType: P) => {
+export declare const MatterEndpoint: <P extends MutableEndpoint, T extends Constructor<ISYDeviceNode<any>>>(base: T, endpointType: P) => {
     new (...args: any[]): {
         baseBehavior: P;
         createEndpoint(): Endpoint<MutableEndpoint>;
@@ -258,9 +216,9 @@ export declare const MatterEndpoint: <P extends MutableEndpoint, T extends Const
         readonly category: number;
         readonly subCategory: number;
         readonly type: any;
-        _parentDevice: ISYDevice<any, string, string>;
-        readonly children: ISYDevice<any, string, string>[];
-        readonly scenes: ISYScene[];
+        _parentDevice: ISYDeviceNode<any, string, string>;
+        readonly children: ISYDeviceNode<any, string, string>[];
+        readonly scenes: import("../ISYScene.js").ISYScene[];
         readonly formatted: any[Drivers];
         readonly uom: any[Drivers];
         readonly pending: any[Drivers];
@@ -274,9 +232,9 @@ export declare const MatterEndpoint: <P extends MutableEndpoint, T extends Const
         isDimmable: boolean;
         convertTo(value: any, UnitOfMeasure: number): any;
         convertFrom(value: any, UnitOfMeasure: number): any;
-        addLink(isyScene: ISYScene): void;
-        addChild(childDevice: ISYDevice<any, string, string>): void;
-        readonly parentDevice: ISYDevice<any, string, string>;
+        addLink(isyScene: import("../ISYScene.js").ISYScene): void;
+        addChild(childDevice: ISYDeviceNode<any, string, string>): void;
+        readonly parentDevice: ISYDeviceNode<any, string, string>;
         readProperty(propertyName: string): Promise<PropertyStatus>;
         readProperties(): Promise<PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
@@ -288,7 +246,7 @@ export declare const MatterEndpoint: <P extends MutableEndpoint, T extends Const
         applyStatus(device: any, prop: PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
-        readonly isy: ISY;
+        readonly isy: import("../ISY.js").ISY;
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;
@@ -330,7 +288,7 @@ export declare const MatterEndpoint: <P extends MutableEndpoint, T extends Const
         eventNames(): Array<string | symbol>;
     };
 } & T;
-export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(base: T) => {
+export declare const ISYLevelDevice: <T extends Constructor<ISYDeviceNode<any>>>(base: T) => {
     new (...args: any[]): {
         readonly level: number;
         family: any;
@@ -340,9 +298,9 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(bas
         readonly category: number;
         readonly subCategory: number;
         readonly type: any;
-        _parentDevice: ISYDevice<any, string, string>;
-        readonly children: ISYDevice<any, string, string>[];
-        readonly scenes: ISYScene[];
+        _parentDevice: ISYDeviceNode<any, string, string>;
+        readonly children: ISYDeviceNode<any, string, string>[];
+        readonly scenes: import("../ISYScene.js").ISYScene[];
         readonly formatted: any[Drivers];
         readonly uom: any[Drivers];
         readonly pending: any[Drivers];
@@ -356,9 +314,9 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(bas
         isDimmable: boolean;
         convertTo(value: any, UnitOfMeasure: number): any;
         convertFrom(value: any, UnitOfMeasure: number): any;
-        addLink(isyScene: ISYScene): void;
-        addChild(childDevice: ISYDevice<any, string, string>): void;
-        readonly parentDevice: ISYDevice<any, string, string>;
+        addLink(isyScene: import("../ISYScene.js").ISYScene): void;
+        addChild(childDevice: ISYDeviceNode<any, string, string>): void;
+        readonly parentDevice: ISYDeviceNode<any, string, string>;
         readProperty(propertyName: string): Promise<PropertyStatus>;
         readProperties(): Promise<PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
@@ -370,7 +328,7 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(bas
         applyStatus(device: any, prop: PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
-        readonly isy: ISY;
+        readonly isy: import("../ISY.js").ISY;
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;
@@ -412,7 +370,7 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDevice<any>>>(bas
         eventNames(): Array<string | symbol>;
     };
 } & T;
-export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDevice<any>>>(base: T) => {
+export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDeviceNode<any>>>(base: T) => {
     new (...args: any[]): {
         readonly level: number;
         updateLevel(level: number): Promise<any>;
@@ -423,9 +381,9 @@ export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDevice<
         readonly category: number;
         readonly subCategory: number;
         readonly type: any;
-        _parentDevice: ISYDevice<any, string, string>;
-        readonly children: ISYDevice<any, string, string>[];
-        readonly scenes: ISYScene[];
+        _parentDevice: ISYDeviceNode<any, string, string>;
+        readonly children: ISYDeviceNode<any, string, string>[];
+        readonly scenes: import("../ISYScene.js").ISYScene[];
         readonly formatted: any[Drivers];
         readonly uom: any[Drivers];
         readonly pending: any[Drivers];
@@ -439,9 +397,9 @@ export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDevice<
         isDimmable: boolean;
         convertTo(value: any, UnitOfMeasure: number): any;
         convertFrom(value: any, UnitOfMeasure: number): any;
-        addLink(isyScene: ISYScene): void;
-        addChild(childDevice: ISYDevice<any, string, string>): void;
-        readonly parentDevice: ISYDevice<any, string, string>;
+        addLink(isyScene: import("../ISYScene.js").ISYScene): void;
+        addChild(childDevice: ISYDeviceNode<any, string, string>): void;
+        readonly parentDevice: ISYDeviceNode<any, string, string>;
         readProperty(propertyName: string): Promise<PropertyStatus>;
         readProperties(): Promise<PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
@@ -453,7 +411,7 @@ export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDevice<
         applyStatus(device: any, prop: PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
-        readonly isy: ISY;
+        readonly isy: import("../ISY.js").ISY;
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;

@@ -12,8 +12,8 @@ declare const InsteonCOSensorDevice_base: {
         readonly category: number;
         readonly subCategory: number;
         readonly type: any;
-        _parentDevice: import("../ISYDevice.js").ISYDevice<import("../../Families.js").Family, string, string>;
-        readonly children: import("../ISYDevice.js").ISYDevice<import("../../Families.js").Family, string, string>[];
+        _parentDevice: import("../../ISYNode.js").ISYDeviceNode<import("../../Families.js").Family, string, string>;
+        readonly children: import("../../ISYNode.js").ISYDeviceNode<import("../../Families.js").Family, string, string>[];
         readonly scenes: import("../../ISYScene.js").ISYScene[];
         readonly formatted: any[Drivers];
         readonly uom: any[Drivers];
@@ -29,8 +29,8 @@ declare const InsteonCOSensorDevice_base: {
         convertTo(value: any, UnitOfMeasure: number): any;
         convertFrom(value: any, UnitOfMeasure: number): any;
         addLink(isyScene: import("../../ISYScene.js").ISYScene): void;
-        addChild(childDevice: import("../ISYDevice.js").ISYDevice<import("../../Families.js").Family, string, string>): void;
-        readonly parentDevice: import("../ISYDevice.js").ISYDevice<import("../../Families.js").Family, string, string>;
+        addChild(childDevice: import("../../ISYNode.js").ISYDeviceNode<import("../../Families.js").Family, string, string>): void;
+        readonly parentDevice: import("../../ISYNode.js").ISYDeviceNode<import("../../Families.js").Family, string, string>;
         readProperty(propertyName: string): Promise<import("../ISYDevice.js").PropertyStatus>;
         readProperties(): Promise<import("../ISYDevice.js").PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;

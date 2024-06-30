@@ -24,7 +24,7 @@ import { InsteonLockDevice } from './Devices/Insteon/InsteonLockDevice.js';
 import { InsteonMotionSensorDevice } from './Devices/Insteon/InsteonMotionSensorDevice.js';
 import { InsteonRelayDevice } from './Devices/Insteon/InsteonRelayDevice.js';
 import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevice.js';
-import { ISYDevice } from './ISYNode.js';
+import { ISYDeviceNode } from './ISYNode.js';
 import { Family } from './Families.js';
 import { EventType } from "./Events/EventType.js";
 import {  NodeType, Props, States, VariableType } from './ISYConstants.js';
@@ -55,7 +55,7 @@ export {
 	ISYVariable,
 	InsteonBaseDevice,
 	InsteonOutletDevice,
-	ISYDevice,
+	ISYDeviceNode as ISYDevice,
 	InsteonKeypadDimmerDevice,
 	InsteonKeypadRelayDevice,
 	InsteonKeypadButtonDevice,
@@ -91,7 +91,7 @@ export let Controls = {};
 
 
 export class ISY extends EventEmitter {
-	public readonly deviceList: Map<string, ISYDevice<any>> = new Map();
+	public readonly deviceList: Map<string, ISYDeviceNode<any>> = new Map();
 	public readonly deviceMap: Map<string, string[]> = new Map();
 	public readonly sceneList: Map<string, ISYScene> = new Map();
 	public readonly folderMap: Map<string, string> = new Map();
@@ -128,6 +128,8 @@ export class ISY extends EventEmitter {
 	public serverVersion: any;
 	public readonly storagePath: string;
 
+	public configInfo: any;
+
 	public	static instance :
 	ISY;
 
@@ -145,7 +147,7 @@ export class ISY extends EventEmitter {
 		this.protocol = config.protocol;
 		this.wsprotocol = 'ws';
 		this.elkEnabled = config.elkEnabled ?? false;
-
+		
 		this.nodesLoaded = false;
 		var fopts = format((info) => {info.message = JSON.stringify(info.message); return info })({ label: 'ISY' });
 		this.logger = loggers.add('isy',{transports: logger.transports, level: logger.level, format:  format.label({ label: 'ISY' })});
@@ -207,11 +209,11 @@ export class ISY extends EventEmitter {
 		return this.elkAlarmPanel;
 	}
 
-	public async loadNodes(): Promise<any> {
+	public async loadNodes(): Promise<any>{
 		try {
 			const result = await this.callISY('nodes');
-
-			writeFile(this.storagePath + '/ISYNodesDump.json', JSON.stringify(result), this.logger.error);
+			if(this.isDebugEnabled)
+				writeFile(this.storagePath + '/ISYNodesDump.json', JSON.stringify(result), this.logger.error);
 
 			await this.loadFolders(result).catch(p => this.logger.error('Error Loading Folders', p));
 			await this.loadDevices(result).catch(p => this.logger.error('Error Loading Devices', p));
@@ -237,7 +239,7 @@ export class ISY extends EventEmitter {
 	public async loadScenes(result: { nodes: { group: any; }; }) {
 
 		this.logger.info('Loading Scene Nodes');
-		for (const scene of result.nodes.group) {
+		for (const scene of result.nodes?.group) {
 			if (scene.name === 'ISY' || scene.name === 'Auto DR') {
 				continue;
 			} // Skip ISY & Auto DR Scenes
@@ -269,7 +271,7 @@ export class ISY extends EventEmitter {
 			} else {
 				this.deviceMap[device.pnode].push(device.address);
 			}
-			let newDevice: ISYDevice<any> = null;
+			let newDevice: ISYDeviceNode<any> = null;
 
 			// let deviceTypeInfo = this.isyTypeToTypeName(device.type, device.address);
 			// this.logger.info(JSON.stringify(deviceTypeInfo));
@@ -290,11 +292,11 @@ export class ISY extends EventEmitter {
 						`Device type resolution failed for ${device.name} with type: ${device.type} and nodedef: ${
 						device.nodeDefId}`
 					);
-					newDevice = new ISYDevice(this, device);
+					newDevice = new ISYDeviceNode(this, device);
 				}
 				else if (newDevice !== null) {
 					if (d.unsupported) {
-						this.logger.warn('New device not supported: ' + JSON.stringify(device) + ' /n It has been mapped to: ' + d.class.name);
+						this.logger.warn('Device not currently supported: ' + JSON.stringify(device) + ' /n It has been mapped to: ' + d.class.name);
 					}
 					try {
 						await newDevice.refreshNotes();
@@ -317,7 +319,7 @@ export class ISY extends EventEmitter {
 			}
 		}
 
-		this.logger.info(`Devices: ${this.deviceList.size} added.`);
+		this.logger.info(`${this.deviceList.size} devices added.`);
 
 
 	}
@@ -399,7 +401,7 @@ export class ISY extends EventEmitter {
 	}
 
 	public variableChangedHandler(variable: { id: string; type: string; }) {
-		this.logger.info(`Variable:${variable.id} (${variable.type}) changed`);
+		this.logger.info(`Variable: ${variable.id} (${variable.type}) changed`);
 
 	}
 
@@ -439,7 +441,7 @@ export class ISY extends EventEmitter {
 					Controls[ctl.name] = ctl;
 				}
 			}
-			return result;
+			return result.configuration;
 		} catch (e) {
 			throw Error(`Error Loading Config: ${(e as Error).message}`);
 		}
@@ -694,8 +696,8 @@ export class ISY extends EventEmitter {
 			.on('message', (event: any) => {
 				that.handleWebSocketMessage(event);
 			})
-			.on('error', (err: string, response: any) => {
-				that.logger.info(`Websocket subscription error: ${err}`);
+			.on('error', (err: any, response: any) => {
+				that.logger.info(`Websocket subscription error: ${JSON.stringify(err.message)}`);
 				/// throw new Error('Error calling ISY' + err);
 			})
 			.on('fail', (data: string, response: any) => {
@@ -714,7 +716,7 @@ export class ISY extends EventEmitter {
 			});
 	}
 
-	public getDevice<T extends ISYDevice<any> = ISYDevice<any>>(address: string, parentsOnly = false): T {
+	public getDevice<T extends ISYDeviceNode<any> = ISYDeviceNode<any>>(address: string, parentsOnly = false): T {
 		let s = this.deviceList.get(address);
 		if (!parentsOnly) {
 			if (s === null) {

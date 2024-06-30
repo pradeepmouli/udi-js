@@ -13,9 +13,13 @@ export class InsteonDimmableDevice extends ISYUpdateableLevelDevice(InsteonRelay
         return super.updateLevel(level);
     }
     initialize(endpoint) {
-        super.initialize(endpoint);
-        endpoint.events.levelControl.onLevel$Changed.on((value) => this.updateLevel(value));
-        endpoint.events.levelControl.currentLevel$Changed;
-        endpoint.events.levelControl.maxLevel$Changed.on((value) => this.sendCommand("OL", value));
+        try {
+            super.initialize(endpoint);
+            endpoint.events.levelControl.onLevel$Changed.on((value) => this.updateLevel(value));
+            //endpoint.events.levelCont
+            endpoint.events.levelControl.maxLevel$Changed.on((value) => this.sendCommand("OL", value));
+        }
+        catch (error) {
+        }
     }
 }

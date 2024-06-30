@@ -1,10 +1,10 @@
 import { Family } from '../../Families.js';
 import { UnitOfMeasure as UOM } from '../../UOM.js';
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
-import { ISYDevice } from '../../ISYNode.js';
+import { ISYDeviceNode } from '../../ISYNode.js';
 import 'winston';
 // import { InsteonNLS } from './insteonfam.js'
-export class InsteonBaseDevice extends ISYDevice {
+export class InsteonBaseDevice extends ISYDeviceNode {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
         this.family = Family.Insteon;

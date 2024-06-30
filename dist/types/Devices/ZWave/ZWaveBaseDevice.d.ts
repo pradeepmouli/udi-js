@@ -1,9 +1,9 @@
 import { Family } from '../../Families.js';
 import { ISY } from '../../ISY.js';
 import { NodeInfo } from '../ISYDevice.js';
-import { ISYDevice } from '../../ISYNode.js';
+import { ISYDeviceNode } from '../../ISYNode.js';
 import 'winston';
-export declare class ZWaveBaseDevice extends ISYDevice<Family.ZWave> {
+export declare class ZWaveBaseDevice extends ISYDeviceNode<Family.ZWave> {
     getNodeDef(): Promise<any>;
     constructor(isy: ISY, deviceNode: NodeInfo);
     convertFrom(value: any, uom: number): any;

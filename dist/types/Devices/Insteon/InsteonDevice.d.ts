@@ -1,5 +1,5 @@
 import { Family, InsteonBaseDevice, ISY, ISYDevice } from '../../ISY.js';
-import { Constructor } from '../ISYDevice.js';
+import { Constructor } from '../Constructor.js';
 import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import 'winston';
 export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice>>(IB: T) => {
@@ -18,10 +18,10 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         _parentDevice: ISYDevice<Family.Insteon, string, string>;
         readonly children: ISYDevice<Family.Insteon, string, string>[];
         readonly scenes: import("../../ISYScene.js").ISYScene[];
-        readonly formatted: any[string];
-        readonly uom: any[string];
-        readonly pending: any[string];
-        readonly local: any[string];
+        readonly formatted: any[Drivers];
+        readonly uom: any[Drivers];
+        readonly pending: any[Drivers];
+        readonly local: any[Drivers];
         hidden: boolean;
         _enabled: any;
         productName: string;
@@ -41,7 +41,7 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         }, device: any): void;
         applyStatus(device: any, prop: import("../ISYDevice.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
-        handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
+        handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;
         readonly flag: any;
         readonly nodeDefId: string;
@@ -100,10 +100,10 @@ export declare const InsteonSwitchDevice: <T extends Constructor<InsteonBaseDevi
         _parentDevice: ISYDevice<Family.Insteon, string, string>;
         readonly children: ISYDevice<Family.Insteon, string, string>[];
         readonly scenes: import("../../ISYScene.js").ISYScene[];
-        readonly formatted: any[string];
-        readonly uom: any[string];
-        readonly pending: any[string];
-        readonly local: any[string];
+        readonly formatted: any[Drivers];
+        readonly uom: any[Drivers];
+        readonly pending: any[Drivers];
+        readonly local: any[Drivers];
         hidden: boolean;
         _enabled: any;
         productName: string;
@@ -123,7 +123,7 @@ export declare const InsteonSwitchDevice: <T extends Constructor<InsteonBaseDevi
         }, device: any): void;
         applyStatus(device: any, prop: import("../ISYDevice.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
-        handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
+        handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;
         readonly flag: any;
         readonly nodeDefId: string;
@@ -182,10 +182,10 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         _parentDevice: ISYDevice<Family.Insteon, string, string>;
         readonly children: ISYDevice<Family.Insteon, string, string>[];
         readonly scenes: import("../../ISYScene.js").ISYScene[];
-        readonly formatted: any[string];
-        readonly uom: any[string];
-        readonly pending: any[string];
-        readonly local: any[string];
+        readonly formatted: any[Drivers];
+        readonly uom: any[Drivers];
+        readonly pending: any[Drivers];
+        readonly local: any[Drivers];
         hidden: boolean;
         _enabled: any;
         productName: string;
@@ -205,7 +205,7 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         }, device: any): void;
         applyStatus(device: any, prop: import("../ISYDevice.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
-        handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
+        handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;
         readonly flag: any;
         readonly nodeDefId: string;

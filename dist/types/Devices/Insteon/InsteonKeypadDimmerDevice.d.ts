@@ -2,7 +2,7 @@ import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import 'winston';
 declare const InsteonKeypadDimmerDevice_base: {
     new (...args: any[]): {
-        addChild(childDevice: import("../../ISYNode.js").ISYDevice<import("../../Families.js").Family.Insteon>): void;
+        addChild(childDevice: import("../../ISYNode.js").ISYDeviceNode<import("../../Families.js").Family.Insteon>): void;
         convertFrom(value: any, uom: import("../../UOM.js").UnitOfMeasure): any;
         convertTo(value: any, uom: import("../../UOM.js").UnitOfMeasure): any;
         sendBeep(level?: number): Promise<any>;
@@ -13,13 +13,13 @@ declare const InsteonKeypadDimmerDevice_base: {
         readonly category: number;
         readonly subCategory: number;
         readonly type: any;
-        _parentDevice: import("../../ISYNode.js").ISYDevice<import("../../Families.js").Family.Insteon, string, string>;
-        readonly children: import("../../ISYNode.js").ISYDevice<import("../../Families.js").Family.Insteon, string, string>[];
+        _parentDevice: import("../../ISYNode.js").ISYDeviceNode<import("../../Families.js").Family.Insteon, string, string>;
+        readonly children: import("../../ISYNode.js").ISYDeviceNode<import("../../Families.js").Family.Insteon, string, string>[];
         readonly scenes: import("../../ISYScene.js").ISYScene[];
-        readonly formatted: any[string];
-        readonly uom: any[string];
-        readonly pending: any[string];
-        readonly local: any[string];
+        readonly formatted: any[Drivers];
+        readonly uom: any[Drivers];
+        readonly pending: any[Drivers];
+        readonly local: any[Drivers];
         hidden: boolean;
         _enabled: any;
         productName: string;
@@ -28,7 +28,7 @@ declare const InsteonKeypadDimmerDevice_base: {
         version: string;
         isDimmable: boolean;
         addLink(isyScene: import("../../ISYScene.js").ISYScene): void;
-        readonly parentDevice: import("../../ISYNode.js").ISYDevice<import("../../Families.js").Family.Insteon, string, string>;
+        readonly parentDevice: import("../../ISYNode.js").ISYDeviceNode<import("../../Families.js").Family.Insteon, string, string>;
         readProperty(propertyName: string): Promise<import("../ISYDevice.js").PropertyStatus>;
         readProperties(): Promise<import("../ISYDevice.js").PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
@@ -39,7 +39,7 @@ declare const InsteonKeypadDimmerDevice_base: {
         }, device: any): void;
         applyStatus(device: any, prop: import("../ISYDevice.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
-        handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
+        handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: import("../../ISY.js").ISY;
         readonly flag: any;
         readonly nodeDefId: string;

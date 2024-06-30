@@ -21,7 +21,7 @@ import { InsteonLockDevice } from './Devices/Insteon/InsteonLockDevice.js';
 import { InsteonMotionSensorDevice } from './Devices/Insteon/InsteonMotionSensorDevice.js';
 import { InsteonRelayDevice } from './Devices/Insteon/InsteonRelayDevice.js';
 import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevice.js';
-import { ISYDevice } from './ISYNode.js';
+import { ISYDeviceNode } from './ISYNode.js';
 import { Family } from './Families.js';
 import { EventType } from "./Events/EventType.js";
 import { NodeType, Props, States, VariableType } from './ISYConstants.js';
@@ -34,7 +34,7 @@ import { InsteonDimmerOutletDevice } from './Devices/Insteon/InsteonDimmerOutlet
 import { InsteonKeypadButtonDevice } from './Devices/Insteon/InsteonKeypadDevice.js';
 import { EventEmitter } from 'events';
 import { Logger, loggers, format } from 'winston';
-export { ISYScene, States, Family, VariableType, Categories, Props, ISYVariable, InsteonBaseDevice, InsteonOutletDevice, ISYDevice, InsteonKeypadDimmerDevice, InsteonKeypadRelayDevice, InsteonKeypadButtonDevice, InsteonDimmableDevice, InsteonFanDevice, InsteonFanMotorDevice, InsteonLeakSensorDevice, InsteonSmokeSensorDevice, InsteonDimmerOutletDevice, InsteonOnOffOutletDevice, InsteonLockDevice, InsteonThermostatDevice, InsteonDoorWindowSensorDevice, InsteonDimmerSwitchDevice, InsteonRelayDevice, InsteonMotionSensorDevice, ISYNode, NodeType, ElkAlarmSensorDevice, ELKAlarmPanelDevice };
+export { ISYScene, States, Family, VariableType, Categories, Props, ISYVariable, InsteonBaseDevice, InsteonOutletDevice, ISYDeviceNode as ISYDevice, InsteonKeypadDimmerDevice, InsteonKeypadRelayDevice, InsteonKeypadButtonDevice, InsteonDimmableDevice, InsteonFanDevice, InsteonFanMotorDevice, InsteonLeakSensorDevice, InsteonSmokeSensorDevice, InsteonDimmerOutletDevice, InsteonOnOffOutletDevice, InsteonLockDevice, InsteonThermostatDevice, InsteonDoorWindowSensorDevice, InsteonDimmerSwitchDevice, InsteonRelayDevice, InsteonMotionSensorDevice, ISYNode, NodeType, ElkAlarmSensorDevice, ELKAlarmPanelDevice };
 const parser = new Parser({
     explicitArray: false,
     mergeAttrs: true,
@@ -72,6 +72,7 @@ export class ISY extends EventEmitter {
     model;
     serverVersion;
     storagePath;
+    configInfo;
     static instance;
     constructor(config, logger = new Logger(), storagePath) {
         super();
@@ -130,7 +131,8 @@ export class ISY extends EventEmitter {
     async loadNodes() {
         try {
             const result = await this.callISY('nodes');
-            writeFile(this.storagePath + '/ISYNodesDump.json', JSON.stringify(result), this.logger.error);
+            if (this.isDebugEnabled)
+                writeFile(this.storagePath + '/ISYNodesDump.json', JSON.stringify(result), this.logger.error);
             await this.loadFolders(result).catch(p => this.logger.error('Error Loading Folders', p));
             await this.loadDevices(result).catch(p => this.logger.error('Error Loading Devices', p));
             await this.loadScenes(result).catch(p => this.logger.error('Error Loading Scenes', p));
@@ -151,7 +153,7 @@ export class ISY extends EventEmitter {
     }
     async loadScenes(result) {
         this.logger.info('Loading Scene Nodes');
-        for (const scene of result.nodes.group) {
+        for (const scene of result.nodes?.group) {
             if (scene.name === 'ISY' || scene.name === 'Auto DR') {
                 continue;
             } // Skip ISY & Auto DR Scenes
@@ -193,11 +195,11 @@ export class ISY extends EventEmitter {
             if (enabled) {
                 if (newDevice === null) {
                     this.logger.warn(`Device type resolution failed for ${device.name} with type: ${device.type} and nodedef: ${device.nodeDefId}`);
-                    newDevice = new ISYDevice(this, device);
+                    newDevice = new ISYDeviceNode(this, device);
                 }
                 else if (newDevice !== null) {
                     if (d.unsupported) {
-                        this.logger.warn('New device not supported: ' + JSON.stringify(device) + ' /n It has been mapped to: ' + d.class.name);
+                        this.logger.warn('Device not currently supported: ' + JSON.stringify(device) + ' /n It has been mapped to: ' + d.class.name);
                     }
                     try {
                         await newDevice.refreshNotes();
@@ -217,7 +219,7 @@ export class ISY extends EventEmitter {
                 this.logger.info(`Ignoring disabled device: ${device.name}`);
             }
         }
-        this.logger.info(`Devices: ${this.deviceList.size} added.`);
+        this.logger.info(`${this.deviceList.size} devices added.`);
     }
     loadElkNodes(result) {
         const document = new XmlDocument(result);
@@ -280,7 +282,7 @@ export class ISY extends EventEmitter {
         }
     }
     variableChangedHandler(variable) {
-        this.logger.info(`Variable:${variable.id} (${variable.type}) changed`);
+        this.logger.info(`Variable: ${variable.id} (${variable.type}) changed`);
     }
     checkForFailure(response) {
         return (response === null ||
@@ -312,7 +314,7 @@ export class ISY extends EventEmitter {
                     Controls[ctl.name] = ctl;
                 }
             }
-            return result;
+            return result.configuration;
         }
         catch (e) {
             throw Error(`Error Loading Config: ${e.message}`);
@@ -533,7 +535,7 @@ export class ISY extends EventEmitter {
             that.handleWebSocketMessage(event);
         })
             .on('error', (err, response) => {
-            that.logger.info(`Websocket subscription error: ${err}`);
+            that.logger.info(`Websocket subscription error: ${JSON.stringify(err.message)}`);
             /// throw new Error('Error calling ISY' + err);
         })
             .on('fail', (data, response) => {

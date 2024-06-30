@@ -3,11 +3,11 @@ import { ISY } from '../../ISY.js';
 import { UnitOfMeasure as UOM, UnitOfMeasure } from '../../UOM.js';
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
 import { NodeInfo } from '../ISYDevice.js';
-import { ISYDevice } from '../../ISYNode.js';
+import { ISYDeviceNode } from '../../ISYNode.js';
 import 'winston';
 
 // import { InsteonNLS } from './insteonfam.js'
-export class InsteonBaseDevice extends ISYDevice<Family.Insteon> {
+export class InsteonBaseDevice<Drivers extends string = string,Commands extends string = string> extends ISYDeviceNode<Family.Insteon,Drivers,Commands> {
 	constructor(isy: ISY, deviceNode: NodeInfo) {
 
 		super(isy, deviceNode);

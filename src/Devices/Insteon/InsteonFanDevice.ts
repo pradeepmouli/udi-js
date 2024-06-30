@@ -2,7 +2,7 @@ import { Family } from '../../Families.js';
 import { ISY, ISYNode } from '../../ISY.js';
 import { States } from '../../ISYConstants.js';
 import { ISYUpdateableBinaryStateDevice, ISYUpdateableLevelDevice } from '../ISYDevice.js';
-import { ISYDevice } from '../../ISYNode.js';
+import { ISYDeviceNode } from '../../ISYNode.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import 'winston';
@@ -52,7 +52,7 @@ export class InsteonFanDevice extends InsteonBaseDevice {
 		return false;
 	}
 
-	public override addChild(childDevice: ISYDevice<Family.Insteon>) {
+	public override addChild(childDevice: ISYDeviceNode<Family.Insteon>) {
 		super.addChild(childDevice);
 		if (childDevice instanceof InsteonFanMotorDevice) {
 			this.logger('Fan Motor Found');

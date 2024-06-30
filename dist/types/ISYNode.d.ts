@@ -51,7 +51,7 @@ export declare class ISYNode extends EventEmitter implements PropertyChangedEven
     refreshNotes(): Promise<void>;
     getNotes(): Promise<NodeNotes>;
 }
-export declare class ISYDevice<T extends Family, Drivers extends string = string, Commands extends string = string> extends ISYNode {
+export declare class ISYOldDevice<T extends Family, Drivers extends string = string, Commands extends string = string> extends ISYNode {
     family: T;
     readonly typeCode: string;
     readonly deviceClass: any;
@@ -59,8 +59,8 @@ export declare class ISYDevice<T extends Family, Drivers extends string = string
     readonly category: number;
     readonly subCategory: number;
     readonly type: any;
-    _parentDevice: ISYDevice<T>;
-    readonly children: Array<ISYDevice<T>>;
+    _parentDevice: ISYDeviceNode<T>;
+    readonly children: Array<ISYDeviceNode<T>>;
     readonly scenes: ISYScene[];
     readonly formatted: any[string];
     readonly uom: any[string];
@@ -77,8 +77,8 @@ export declare class ISYDevice<T extends Family, Drivers extends string = string
     convertTo(value: any, UnitOfMeasure: number): any;
     convertFrom(value: any, UnitOfMeasure: number): any;
     addLink(isyScene: ISYScene): void;
-    addChild(childDevice: ISYDevice<T>): void;
-    get parentDevice(): ISYDevice<T>;
+    addChild(childDevice: ISYDeviceNode<T>): void;
+    get parentDevice(): ISYDeviceNode<T>;
     readProperty(propertyName: Drivers): Promise<PropertyStatus>;
     readProperties(): Promise<PropertyStatus[]>;
     updateProperty(propertyName: string, value: string): Promise<any>;
@@ -90,5 +90,45 @@ export declare class ISYDevice<T extends Family, Drivers extends string = string
     applyStatus(device: this, prop: PropertyStatus): void;
     handleControlTrigger(controlName: string): boolean;
     handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
+}
+export declare class ISYDeviceNode<T extends Family, Drivers extends string = string, Commands extends string = string> extends ISYNode {
+    family: T;
+    readonly typeCode: string;
+    readonly deviceClass: any;
+    readonly parentAddress: any;
+    readonly category: number;
+    readonly subCategory: number;
+    readonly type: any;
+    _parentDevice: ISYDeviceNode<T, string, string>;
+    readonly children: Array<ISYDeviceNode<T, string, string>>;
+    readonly scenes: ISYScene[];
+    readonly formatted: any[Drivers];
+    readonly uom: any[Drivers];
+    readonly pending: any[Drivers];
+    readonly local: any[Drivers];
+    hidden: boolean;
+    _enabled: any;
+    productName: string;
+    model: string;
+    modelNumber: string;
+    version: string;
+    isDimmable: boolean;
+    constructor(isy: ISY, node: NodeInfo);
+    convertTo(value: any, UnitOfMeasure: number): any;
+    convertFrom(value: any, UnitOfMeasure: number): any;
+    addLink(isyScene: ISYScene): void;
+    addChild(childDevice: ISYDeviceNode<T, string, string>): void;
+    get parentDevice(): ISYDeviceNode<T, string, string>;
+    readProperty(propertyName: Drivers): Promise<PropertyStatus>;
+    readProperties(): Promise<PropertyStatus[]>;
+    updateProperty(propertyName: string, value: string): Promise<any>;
+    sendCommand(command: string, parameters?: (Record<string | symbol, string | number> | string | number)): Promise<any>;
+    refresh(): Promise<any>;
+    parseResult(node: {
+        property: PropertyStatus | PropertyStatus[];
+    }, device: this): void;
+    applyStatus(device: this, prop: PropertyStatus): void;
+    handleControlTrigger(controlName: string): boolean;
+    handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
 }
 export {};

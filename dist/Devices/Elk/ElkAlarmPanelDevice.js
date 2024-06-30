@@ -1,10 +1,10 @@
 import { Family } from '../../Families.js';
-import { ISYDevice } from '../../ISYNode.js';
+import { ISYDeviceNode } from '../../ISYNode.js';
 import { ElkAlarmSensorDevice } from './ElkAlarmSensorDevice.js';
 /////////////////////////////
 // ELKAlarmPanelDevice
 //
-export class ELKAlarmPanelDevice extends ISYDevice {
+export class ELKAlarmPanelDevice extends ISYDeviceNode {
     setFromAreaUpdate(nodes) {
         throw new Error('Method not implemented.');
     }

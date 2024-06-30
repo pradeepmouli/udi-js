@@ -1,9 +1,9 @@
 import { Family } from '../../Families.js';
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
-import { ISYDevice } from '../../ISYNode.js';
+import { ISYDeviceNode } from '../../ISYNode.js';
 import 'winston';
 // import { InsteonNLS } from './insteonfam'
-export class ZWaveBaseDevice extends ISYDevice {
+export class ZWaveBaseDevice extends ISYDeviceNode {
     async getNodeDef() {
         return this.isy.callISY(`zmatter/zwave/node/${this.address}/def/get?full=true`);
     }

@@ -49,9 +49,9 @@ declare  global {
 
 		left(numChars: number) : string;
 
-		rightTokenize(numChars: number, token: string) : string;
+		rightWithToken(numChars: number, token?: string) : string;
 
-		leftTokenize(numChars: number, token: string): string;
+		leftWithToken(numChars: number, token?: string): string;
 	}
 
 
@@ -183,28 +183,32 @@ export function left(this: string, numChars: number)
 	return this.substring(0,numChars - 1)
 }
 
-export function rightTokenize(this: string, maxNumChars: number, token: string)
+export function rightWithToken(this: string, maxNumChars: number, token: string = ' ')
 {
-	
-	var s = this.split(token)
+
+	var s = this.split(token);
 	var sb = s.pop();
 	var sp = s.pop()
-	while(sb.length + sp.length + 1 < maxNumChars && s.length > 0)
+	while(sp !== undefined && sb.length + sp.length + token.length <= maxNumChars )
 	{
 		sb = sp + token + sb;
+		sp = s.pop();
 	}
 
 
 }
 
-export function leftTokenize(this: string, maxNumChars: number, token: string)
+export function leftWithToken(this: string, maxNumChars: number, token: string = ' ')
 {
 	var s = this.split(token).reverse();
 	var sb = s.pop();
-	var sp = s.pop()
-	while(sb.length + sp.length + 1 < maxNumChars && s.length > 0)
+	var sp = s.pop();
+	while(sp !== undefined && sb.length + sp?.length + token.length <= maxNumChars)
 	{
+
 		sb = sb + token + sp;
+
+		sp = s.pop();
 	}
 }
 

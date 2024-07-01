@@ -16,8 +16,8 @@ declare global {
         removeAll(string: string): string;
         right(numChars: number): string;
         left(numChars: number): string;
-        rightTokenize(numChars: number, token: string): string;
-        leftTokenize(numChars: number, token: string): string;
+        rightWithToken(numChars: number, token?: string): string;
+        leftWithToken(numChars: number, token?: string): string;
     }
 }
 export interface LoggerLike extends Partial<log4js.Logger> {
@@ -33,8 +33,8 @@ export declare class EventEmitter<T extends TEventType> extends BaseEventEmitter
 }
 export declare function right(this: string, numChars: number): string;
 export declare function left(this: string, numChars: number): string;
-export declare function rightTokenize(this: string, maxNumChars: number, token: string): void;
-export declare function leftTokenize(this: string, maxNumChars: number, token: string): void;
+export declare function rightWithToken(this: string, maxNumChars: number, token?: string): void;
+export declare function leftWithToken(this: string, maxNumChars: number, token?: string): void;
 export declare function remove(this: string, searchValue: string | RegExp): string;
 export declare function removeAll(this: string, searchValue: string | RegExp): string;
 export declare function parseTypeCode(typeCode: string): {

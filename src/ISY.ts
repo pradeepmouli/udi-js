@@ -41,7 +41,7 @@ import { Logger, level, loggers, createLogger, format, LoggerOptions, Logform } 
 import { timingSafeEqual } from 'crypto';
 import type { NodeInfo } from './Devices/ISYDevice.js';
 import { stringify } from 'querystring';
-
+import  './Utils.js';
 
 
 export {
@@ -147,7 +147,7 @@ export class ISY extends EventEmitter {
 		this.protocol = config.protocol;
 		this.wsprotocol = 'ws';
 		this.elkEnabled = config.elkEnabled ?? false;
-		
+
 		this.nodesLoaded = false;
 		var fopts = format((info) => {info.message = JSON.stringify(info.message); return info })({ label: 'ISY' });
 		this.logger = loggers.add('isy',{transports: logger.transports, level: logger.level, format:  format.label({ label: 'ISY' })});

@@ -40,6 +40,23 @@ declare module 'winston' {
 
 }
 
+declare  global {
+	interface String {
+		remove(string: string) : string;
+		removeAll(string: string) : string;
+
+		right(numChars: number) : string;
+
+		left(numChars: number) : string;
+
+		rightTokenize(numChars: number, token: string) : string;
+
+		leftTokenize(numChars: number, token: string): string;
+	}
+
+
+}
+
 export interface LoggerLike extends Partial<log4js.Logger> {
 
 	(msg: any, level?: string, ...data: any[]): void;
@@ -168,7 +185,7 @@ export function left(this: string, numChars: number)
 
 export function rightTokenize(this: string, maxNumChars: number, token: string)
 {
-
+	
 	var s = this.split(token)
 	var sb = s.pop();
 	var sp = s.pop()
@@ -193,11 +210,13 @@ export function leftTokenize(this: string, maxNumChars: number, token: string)
 
 export function remove(this: string, searchValue: string | RegExp)
 {
+
 	return this.replace(searchValue, '');
 }
 
 export function removeAll(this: string, searchValue: string | RegExp)
 {
+
 	return this.replaceAll(searchValue, '');
 }
 

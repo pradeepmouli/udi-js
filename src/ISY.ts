@@ -41,10 +41,10 @@ import { Logger, level, loggers, createLogger, format, LoggerOptions, Logform } 
 import { timingSafeEqual } from 'crypto';
 import type { NodeInfo } from './Devices/ISYDevice.js';
 import { stringify } from 'querystring';
-import  './Utils.js';
 
+import * as Utils from './Utils.js';
 
-export {
+export  {
 	ISYScene,
 	States,
 	Family,
@@ -75,8 +75,12 @@ export {
 	ISYNode,
 	NodeType,
 	ElkAlarmSensorDevice,
-	ELKAlarmPanelDevice
-};
+	ELKAlarmPanelDevice,
+	Utils
+
+}
+
+
 
 const parser = new Parser({
 	explicitArray: false,
@@ -155,7 +159,7 @@ export class ISY extends EventEmitter {
 
 
 
-
+		
 
 
 

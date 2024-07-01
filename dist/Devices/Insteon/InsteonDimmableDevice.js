@@ -16,6 +16,7 @@ export class InsteonDimmableDevice extends ISYUpdateableLevelDevice(InsteonRelay
         try {
             super.initialize(endpoint);
             endpoint.events.levelControl.onLevel$Changed.on((value) => this.updateLevel(value));
+            this.on("PropertyChanged", (p, n, o, f) => endpoint.set({ levelControl: { onLevel: Number(n) } }));
             //endpoint.events.levelCont
             endpoint.events.levelControl.maxLevel$Changed.on((value) => this.sendCommand("OL", value));
         }

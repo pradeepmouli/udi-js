@@ -1,6 +1,6 @@
 
 import { Family, ISYDevice } from '../ISY.js';
-import { NodeInfo } from './ISYDevice.js';
+import { NodeInfo } from '../Definitions/NodeInfo.js';
 import { InsteonDeviceFactory } from './Insteon/InsteonDeviceFactory.js';
 
 

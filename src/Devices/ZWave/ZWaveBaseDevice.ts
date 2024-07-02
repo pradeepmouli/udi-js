@@ -1,7 +1,7 @@
-import { Family, Insteon } from '../../Families.js';
+import { Family, Insteon } from '../../Definitions/Families.js';
 import { ISY } from '../../ISY.js';
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
-import { NodeInfo } from '../ISYDevice.js';
+import { NodeInfo } from '../../Definitions/NodeInfo.js';
 import { ISYDeviceNode } from '../../ISYNode.js';
 import 'winston';
 

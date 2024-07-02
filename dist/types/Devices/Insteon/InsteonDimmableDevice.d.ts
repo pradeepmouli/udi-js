@@ -37,15 +37,15 @@ declare const InsteonDimmableDevice_base: {
         addLink(isyScene: import("../../ISYScene.js").ISYScene): void;
         addChild(childDevice: import("../../ISYNode.js").ISYDeviceNode<any, string, string>): void;
         readonly parentDevice: import("../../ISYNode.js").ISYDeviceNode<any, string, string>;
-        readProperty(propertyName: string): Promise<import("../ISYDevice.js").PropertyStatus>;
-        readProperties(): Promise<import("../ISYDevice.js").PropertyStatus[]>;
+        readProperty(propertyName: string): Promise<import("../../Definitions/PropertyStatus.js").PropertyStatus>;
+        readProperties(): Promise<import("../../Definitions/PropertyStatus.js").PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
         sendCommand(command: string, parameters?: (Record<string | symbol, string | number> | string | number)): Promise<any>;
         refresh(): Promise<any>;
         parseResult(node: {
-            property: import("../ISYDevice.js").PropertyStatus | import("../ISYDevice.js").PropertyStatus[];
+            property: import("../../Definitions/PropertyStatus.js").PropertyStatus | import("../../Definitions/PropertyStatus.js").PropertyStatus[];
         }, device: any): void;
-        applyStatus(device: any, prop: import("../ISYDevice.js").PropertyStatus): void;
+        applyStatus(device: any, prop: import("../../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;

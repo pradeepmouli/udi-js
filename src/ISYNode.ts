@@ -1,11 +1,12 @@
 import { EventEmitter } from 'events';
 import { isNullOrUndefined } from 'util';
 
-import { Family } from './Families.js';
+import { Family } from './Definitions/Families.js';
 import { Categories, Controls, ISY, ISYScene, NodeType } from './ISY.js';
 import { PropertyChangedEventEmitter } from './Utils.js';
 import { LogMethod, Logform, Logger, debug } from 'winston';
-import { NodeInfo, PropertyStatus } from './Devices/ISYDevice.js';
+import { NodeInfo } from './Definitions/NodeInfo.js';
+import { PropertyStatus } from './Definitions/PropertyStatus.js';
 
 
 interface Node {

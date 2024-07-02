@@ -1,4 +1,4 @@
-import { Family } from '../../Families.js';
+import { Family } from '../../Definitions/Families.js';
 import { ISY } from '../../ISY.js';
 import { ISYDeviceNode } from '../../ISYNode.js';
 export declare class ELKAlarmPanelDevice extends ISYDeviceNode<Family.Elk> {

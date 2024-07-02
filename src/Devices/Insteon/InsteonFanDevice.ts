@@ -1,4 +1,4 @@
-import { Family } from '../../Families.js';
+import { Family } from '../../Definitions/Families.js';
 import { ISY, ISYNode } from '../../ISY.js';
 import { States } from '../../ISYConstants.js';
 import { ISYUpdateableBinaryStateDevice, ISYUpdateableLevelDevice } from '../ISYDevice.js';

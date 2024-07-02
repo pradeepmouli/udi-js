@@ -1,5 +1,4 @@
-import { Family } from '../Families.js';
-import { UnitOfMeasure } from '../UOM.js';
+import { Family } from '../Definitions/Families.js';
 import { EndpointType, MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
 import { Endpoint } from '@project-chip/matter.js/endpoint';
 import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
@@ -7,32 +6,6 @@ import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import 'winston';
 import { ISYDeviceNode } from '../ISYNode.js';
 import { Constructor } from './Constructor.js';
-export interface PropertyStatus {
-    id: string | number;
-    value: any;
-    formatted: any;
-    uom: UnitOfMeasure;
-    prec: number;
-    name: string;
-}
-export interface NodeInfo {
-    family: Family;
-    type?: string;
-    enabled?: boolean;
-    deviceClass?: any;
-    pnode: any;
-    property?: PropertyStatus[] | PropertyStatus;
-    flag?: any;
-    nodeDefId?: string;
-    address: any;
-    name: string;
-    parent?: any;
-    startDelay: number;
-    hint: string;
-    endDelay: number;
-    wattage: number;
-    dcPeriod: number;
-}
 export declare const ISYBinaryStateDevice: <K extends Family, D extends string, T extends Constructor<ISYDeviceNode<K, D | "ST">>>(Base: T) => {
     new (...args: any[]): {
         readonly state: Promise<boolean>;
@@ -62,15 +35,15 @@ export declare const ISYBinaryStateDevice: <K extends Family, D extends string, 
         addLink(isyScene: import("../ISYScene.js").ISYScene): void;
         addChild(childDevice: ISYDeviceNode<K, string, string>): void;
         readonly parentDevice: ISYDeviceNode<K, string, string>;
-        readProperty(propertyName: "ST" | D): Promise<PropertyStatus>;
-        readProperties(): Promise<PropertyStatus[]>;
+        readProperty(propertyName: "ST" | D): Promise<import("../Definitions/PropertyStatus.js").PropertyStatus>;
+        readProperties(): Promise<import("../Definitions/PropertyStatus.js").PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
         sendCommand(command: string, parameters?: (Record<string | symbol, string | number> | string | number)): Promise<any>;
         refresh(): Promise<any>;
         parseResult(node: {
-            property: PropertyStatus | PropertyStatus[];
+            property: import("../Definitions/PropertyStatus.js").PropertyStatus | import("../Definitions/PropertyStatus.js").PropertyStatus[];
         }, device: any): void;
-        applyStatus(device: any, prop: PropertyStatus): void;
+        applyStatus(device: any, prop: import("../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: import("../ISY.js").ISY;
@@ -145,15 +118,15 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extend
         addLink(isyScene: import("../ISYScene.js").ISYScene): void;
         addChild(childDevice: ISYDeviceNode<K, string, string>): void;
         readonly parentDevice: ISYDeviceNode<K, string, string>;
-        readProperty(propertyName: string): Promise<PropertyStatus>;
-        readProperties(): Promise<PropertyStatus[]>;
+        readProperty(propertyName: string): Promise<import("../Definitions/PropertyStatus.js").PropertyStatus>;
+        readProperties(): Promise<import("../Definitions/PropertyStatus.js").PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
         sendCommand(command: string, parameters?: (Record<string | symbol, string | number> | string | number)): Promise<any>;
         refresh(): Promise<any>;
         parseResult(node: {
-            property: PropertyStatus | PropertyStatus[];
+            property: import("../Definitions/PropertyStatus.js").PropertyStatus | import("../Definitions/PropertyStatus.js").PropertyStatus[];
         }, device: any): void;
-        applyStatus(device: any, prop: PropertyStatus): void;
+        applyStatus(device: any, prop: import("../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: import("../ISY.js").ISY;
@@ -235,15 +208,15 @@ export declare const MatterEndpoint: <P extends MutableEndpoint, T extends Const
         addLink(isyScene: import("../ISYScene.js").ISYScene): void;
         addChild(childDevice: ISYDeviceNode<any, string, string>): void;
         readonly parentDevice: ISYDeviceNode<any, string, string>;
-        readProperty(propertyName: string): Promise<PropertyStatus>;
-        readProperties(): Promise<PropertyStatus[]>;
+        readProperty(propertyName: string): Promise<import("../Definitions/PropertyStatus.js").PropertyStatus>;
+        readProperties(): Promise<import("../Definitions/PropertyStatus.js").PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
         sendCommand(command: string, parameters?: (Record<string | symbol, string | number> | string | number)): Promise<any>;
         refresh(): Promise<any>;
         parseResult(node: {
-            property: PropertyStatus | PropertyStatus[];
+            property: import("../Definitions/PropertyStatus.js").PropertyStatus | import("../Definitions/PropertyStatus.js").PropertyStatus[];
         }, device: any): void;
-        applyStatus(device: any, prop: PropertyStatus): void;
+        applyStatus(device: any, prop: import("../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: import("../ISY.js").ISY;
@@ -317,15 +290,15 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDeviceNode<any>>>
         addLink(isyScene: import("../ISYScene.js").ISYScene): void;
         addChild(childDevice: ISYDeviceNode<any, string, string>): void;
         readonly parentDevice: ISYDeviceNode<any, string, string>;
-        readProperty(propertyName: string): Promise<PropertyStatus>;
-        readProperties(): Promise<PropertyStatus[]>;
+        readProperty(propertyName: string): Promise<import("../Definitions/PropertyStatus.js").PropertyStatus>;
+        readProperties(): Promise<import("../Definitions/PropertyStatus.js").PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
         sendCommand(command: string, parameters?: (Record<string | symbol, string | number> | string | number)): Promise<any>;
         refresh(): Promise<any>;
         parseResult(node: {
-            property: PropertyStatus | PropertyStatus[];
+            property: import("../Definitions/PropertyStatus.js").PropertyStatus | import("../Definitions/PropertyStatus.js").PropertyStatus[];
         }, device: any): void;
-        applyStatus(device: any, prop: PropertyStatus): void;
+        applyStatus(device: any, prop: import("../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: import("../ISY.js").ISY;
@@ -400,15 +373,15 @@ export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDeviceN
         addLink(isyScene: import("../ISYScene.js").ISYScene): void;
         addChild(childDevice: ISYDeviceNode<any, string, string>): void;
         readonly parentDevice: ISYDeviceNode<any, string, string>;
-        readProperty(propertyName: string): Promise<PropertyStatus>;
-        readProperties(): Promise<PropertyStatus[]>;
+        readProperty(propertyName: string): Promise<import("../Definitions/PropertyStatus.js").PropertyStatus>;
+        readProperties(): Promise<import("../Definitions/PropertyStatus.js").PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
         sendCommand(command: string, parameters?: (Record<string | symbol, string | number> | string | number)): Promise<any>;
         refresh(): Promise<any>;
         parseResult(node: {
-            property: PropertyStatus | PropertyStatus[];
+            property: import("../Definitions/PropertyStatus.js").PropertyStatus | import("../Definitions/PropertyStatus.js").PropertyStatus[];
         }, device: any): void;
-        applyStatus(device: any, prop: PropertyStatus): void;
+        applyStatus(device: any, prop: import("../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: import("../ISY.js").ISY;

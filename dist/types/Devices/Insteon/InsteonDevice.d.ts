@@ -5,8 +5,8 @@ import 'winston';
 export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice>>(IB: T) => {
     new (...args: any[]): {
         isDimmable: boolean;
-        convertFrom(value: any, uom: import("../../UOM.js").UnitOfMeasure): any;
-        convertTo(value: any, uom: import("../../UOM.js").UnitOfMeasure): any;
+        convertFrom(value: any, uom: import("../../Definitions/UOM.js").UnitOfMeasure): any;
+        convertTo(value: any, uom: import("../../Definitions/UOM.js").UnitOfMeasure): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -31,15 +31,15 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         addLink(isyScene: import("../../ISYScene.js").ISYScene): void;
         addChild(childDevice: ISYDevice<Family.Insteon, string, string>): void;
         readonly parentDevice: ISYDevice<Family.Insteon, string, string>;
-        readProperty(propertyName: string): Promise<import("../ISYDevice.js").PropertyStatus>;
-        readProperties(): Promise<import("../ISYDevice.js").PropertyStatus[]>;
+        readProperty(propertyName: string): Promise<import("../../Definitions/PropertyStatus.js").PropertyStatus>;
+        readProperties(): Promise<import("../../Definitions/PropertyStatus.js").PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
         sendCommand(command: string, parameters?: (Record<string | symbol, string | number> | string | number)): Promise<any>;
         refresh(): Promise<any>;
         parseResult(node: {
-            property: import("../ISYDevice.js").PropertyStatus | import("../ISYDevice.js").PropertyStatus[];
+            property: import("../../Definitions/PropertyStatus.js").PropertyStatus | import("../../Definitions/PropertyStatus.js").PropertyStatus[];
         }, device: any): void;
-        applyStatus(device: any, prop: import("../ISYDevice.js").PropertyStatus): void;
+        applyStatus(device: any, prop: import("../../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;
@@ -87,8 +87,8 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
 export declare const InsteonSwitchDevice: <T extends Constructor<InsteonBaseDevice>>(IB: T) => {
     new (...args: any[]): {
         isDimmable: boolean;
-        convertFrom(value: any, uom: import("../../UOM.js").UnitOfMeasure): any;
-        convertTo(value: any, uom: import("../../UOM.js").UnitOfMeasure): any;
+        convertFrom(value: any, uom: import("../../Definitions/UOM.js").UnitOfMeasure): any;
+        convertTo(value: any, uom: import("../../Definitions/UOM.js").UnitOfMeasure): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -113,15 +113,15 @@ export declare const InsteonSwitchDevice: <T extends Constructor<InsteonBaseDevi
         addLink(isyScene: import("../../ISYScene.js").ISYScene): void;
         addChild(childDevice: ISYDevice<Family.Insteon, string, string>): void;
         readonly parentDevice: ISYDevice<Family.Insteon, string, string>;
-        readProperty(propertyName: string): Promise<import("../ISYDevice.js").PropertyStatus>;
-        readProperties(): Promise<import("../ISYDevice.js").PropertyStatus[]>;
+        readProperty(propertyName: string): Promise<import("../../Definitions/PropertyStatus.js").PropertyStatus>;
+        readProperties(): Promise<import("../../Definitions/PropertyStatus.js").PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
         sendCommand(command: string, parameters?: (Record<string | symbol, string | number> | string | number)): Promise<any>;
         refresh(): Promise<any>;
         parseResult(node: {
-            property: import("../ISYDevice.js").PropertyStatus | import("../ISYDevice.js").PropertyStatus[];
+            property: import("../../Definitions/PropertyStatus.js").PropertyStatus | import("../../Definitions/PropertyStatus.js").PropertyStatus[];
         }, device: any): void;
-        applyStatus(device: any, prop: import("../ISYDevice.js").PropertyStatus): void;
+        applyStatus(device: any, prop: import("../../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;
@@ -169,8 +169,8 @@ export declare const InsteonSwitchDevice: <T extends Constructor<InsteonBaseDevi
 export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB: T) => {
     new (...args: any[]): {
         addChild(childDevice: ISYDevice<Family.Insteon>): void;
-        convertFrom(value: any, uom: import("../../UOM.js").UnitOfMeasure): any;
-        convertTo(value: any, uom: import("../../UOM.js").UnitOfMeasure): any;
+        convertFrom(value: any, uom: import("../../Definitions/UOM.js").UnitOfMeasure): any;
+        convertTo(value: any, uom: import("../../Definitions/UOM.js").UnitOfMeasure): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -195,15 +195,15 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         isDimmable: boolean;
         addLink(isyScene: import("../../ISYScene.js").ISYScene): void;
         readonly parentDevice: ISYDevice<Family.Insteon, string, string>;
-        readProperty(propertyName: string): Promise<import("../ISYDevice.js").PropertyStatus>;
-        readProperties(): Promise<import("../ISYDevice.js").PropertyStatus[]>;
+        readProperty(propertyName: string): Promise<import("../../Definitions/PropertyStatus.js").PropertyStatus>;
+        readProperties(): Promise<import("../../Definitions/PropertyStatus.js").PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
         sendCommand(command: string, parameters?: (Record<string | symbol, string | number> | string | number)): Promise<any>;
         refresh(): Promise<any>;
         parseResult(node: {
-            property: import("../ISYDevice.js").PropertyStatus | import("../ISYDevice.js").PropertyStatus[];
+            property: import("../../Definitions/PropertyStatus.js").PropertyStatus | import("../../Definitions/PropertyStatus.js").PropertyStatus[];
         }, device: any): void;
-        applyStatus(device: any, prop: import("../ISYDevice.js").PropertyStatus): void;
+        applyStatus(device: any, prop: import("../../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;

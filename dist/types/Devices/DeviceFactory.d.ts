@@ -1,5 +1,5 @@
 import { ISYDevice } from '../ISY.js';
-import { NodeInfo } from './ISYDevice.js';
+import { NodeInfo } from '../Definitions/NodeInfo.js';
 export declare class DeviceFactory {
     static getDeviceDetails(node: NodeInfo): {
         name: string;

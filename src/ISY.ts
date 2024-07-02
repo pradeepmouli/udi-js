@@ -25,7 +25,7 @@ import { InsteonMotionSensorDevice } from './Devices/Insteon/InsteonMotionSensor
 import { InsteonRelayDevice } from './Devices/Insteon/InsteonRelayDevice.js';
 import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevice.js';
 import { ISYDeviceNode } from './ISYNode.js';
-import { Family } from './Families.js';
+import { Family } from './Definitions/Families.js';
 import { EventType } from "./Events/EventType.js";
 import {  NodeType, Props, States, VariableType } from './ISYConstants.js';
 import { ISYNode } from './ISYNode.js';
@@ -39,7 +39,7 @@ import { InsteonKeypadButtonDevice } from './Devices/Insteon/InsteonKeypadDevice
 import { EventEmitter } from 'events';
 import { Logger, level, loggers, createLogger, format, LoggerOptions, Logform } from 'winston';
 import { timingSafeEqual } from 'crypto';
-import type { NodeInfo } from './Devices/ISYDevice.js';
+import type { NodeInfo } from './Definitions/NodeInfo.js';
 import { stringify } from 'querystring';
 
 import * as Utils from './Utils.js';
@@ -111,6 +111,14 @@ export class ISY extends EventEmitter {
 	{
 		return `${this.host}:${this.port}`
 	}
+
+	public id : string;
+
+	public vendorName = "Universal Devices, Inc.";
+
+	public productId = 5226;
+
+	public productName = "eisy";
 	public readonly restlerOptions: any;
 	public readonly credentials: { username: string; password: string; };
 	public readonly variableList: Map<string, ISYVariable<VariableType>> = new Map();
@@ -158,8 +166,6 @@ export class ISY extends EventEmitter {
 
 
 
-
-		
 
 
 
@@ -219,9 +225,9 @@ export class ISY extends EventEmitter {
 			if(this.isDebugEnabled)
 				writeFile(this.storagePath + '/ISYNodesDump.json', JSON.stringify(result), this.logger.error);
 
-			await this.loadFolders(result).catch(p => this.logger.error('Error Loading Folders', p));
-			await this.loadDevices(result).catch(p => this.logger.error('Error Loading Devices', p));
-			await this.loadScenes(result).catch(p => this.logger.error('Error Loading Scenes', p));
+			await this.readFolderNodes(result).catch(p => this.logger.error('Error Loading Folders', p));
+			await this.readDeviceNodes(result).catch(p => this.logger.error('Error Loading Devices', p));
+			await this.readSceneNodes(result).catch(p => this.logger.error('Error Loading Scenes', p));
 			return result;
 		} catch (e) {
 
@@ -230,7 +236,7 @@ export class ISY extends EventEmitter {
 
 	}
 
-	public async loadFolders(result: { nodes: { folder: any; }; }) {
+	public async readFolderNodes(result: { nodes: { folder: any; }; }) {
 		this.logger.info('Loading Folder Nodes');
 		if (result?.nodes?.folder) {
 			for (const folder of result.nodes.folder) {
@@ -240,7 +246,7 @@ export class ISY extends EventEmitter {
 		}
 	}
 
-	public async loadScenes(result: { nodes: { group: any; }; }) {
+	public async readSceneNodes(result: { nodes: { group: any; }; }) {
 
 		this.logger.info('Loading Scene Nodes');
 		for (const scene of result.nodes?.group) {
@@ -258,11 +264,9 @@ export class ISY extends EventEmitter {
 			this.sceneList.set(newScene.address, newScene);
 		}
 
-
-
 	}
 
-	public async loadDevices(obj: { nodes: { node: NodeInfo[]; }; }) {
+	public async readDeviceNodes(obj: { nodes: { node: NodeInfo[]; }; }) {
 
 		this.logger.info('Loading Device Nodes');
 		for (const device of obj.nodes.node) {
@@ -424,17 +428,21 @@ export class ISY extends EventEmitter {
 			.then(() => that.callISY(`vars/get/${type}`)).then(that.setVariableValues.bind(that));
 	}
 
-	public async loadConfig() {
+	public async loadConfig() : Promise<any>{
 		try {
 			this.logger.info('Loading ISY Config')
-			const result = await this.callISY('config');
+			const configuration = (await this.callISY('config')).configuration;
 			if (this.isDebugEnabled) {
-				writeFile(this.storagePath +'/ISYConfigDump.json', JSON.stringify(result), this.logger.error);
+				writeFile(this.storagePath +'/ISYConfigDump.json', JSON.stringify(configuration), this.logger.error);
 			}
 
-			const controls = result.configuration.controls;
-			this.model = result.configuration.deviceSpecs.model;
-			this.serverVersion = result.configuration.app_version;
+			const controls = configuration.controls;
+			this.model = configuration.deviceSpecs.model;
+			this.serverVersion = configuration.app_version;
+			this.vendorName = configuration.deviceSpecs.make;
+			this.productId = configuration.product.id;
+			this.productName = configuration.product.desc;
+			this.id = configuration.root.id;
 			// TODO: Check Installed Features
 			// this.logger.info(result.configuration);
 			if (controls !== undefined) {
@@ -445,7 +453,7 @@ export class ISY extends EventEmitter {
 					Controls[ctl.name] = ctl;
 				}
 			}
-			return result.configuration;
+			return configuration;
 		} catch (e) {
 			throw Error(`Error Loading Config: ${(e as Error).message}`);
 		}
@@ -680,10 +688,10 @@ export class ISY extends EventEmitter {
 		const auth =
 			`Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
 		this.logger.info(
-			`Connecting to: ${this.wsprotocol}://${this.host}/rest/subscribe`
+			`Connecting to: ${this.wsprotocol}://${this.address}/rest/subscribe`
 		);
 		this.webSocket = new WebSocket.Client(
-			`${this.wsprotocol}://${this.host}/rest/subscribe`,
+			`${this.wsprotocol}://${this.address}/rest/subscribe`,
 			['ISYSUB'],
 			{
 				headers: {

@@ -1,5 +1,5 @@
 import { InsteonDimmableDevice } from './Devices/Insteon/InsteonDimmableDevice.js';
-import { Family } from './Families.js';
+import { Family } from './Definitions/Families.js';
 import { InsteonRelayDevice, ISY, ISYDevice } from './ISY.js';
 import { Commands, LinkType } from './ISYConstants.js';
 import { ISYNode } from './ISYNode.js';

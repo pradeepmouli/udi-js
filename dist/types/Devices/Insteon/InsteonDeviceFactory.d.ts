@@ -1,5 +1,5 @@
 import { InsteonBaseDevice, ISYDevice } from '../../ISY.js';
-import { NodeInfo } from '../ISYDevice.js';
+import { NodeInfo } from '../../Definitions/NodeInfo.js';
 export declare class InsteonDeviceFactory {
     static buildDeviceMap(): void;
     static getDeviceDetails(node: NodeInfo): {

@@ -1,9 +1,10 @@
 import { EventEmitter } from 'events';
-import { Family } from './Families.js';
+import { Family } from './Definitions/Families.js';
 import { ISY, ISYScene, NodeType } from './ISY.js';
 import { PropertyChangedEventEmitter } from './Utils.js';
 import { Logger } from 'winston';
-import { NodeInfo, PropertyStatus } from './Devices/ISYDevice.js';
+import { NodeInfo } from './Definitions/NodeInfo.js';
+import { PropertyStatus } from './Definitions/PropertyStatus.js';
 interface Node {
     flag?: any;
     nodeDefId?: string;

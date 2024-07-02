@@ -1,6 +1,6 @@
 import { Family, InsteonBaseDevice, ISY, ISYDevice } from '../../ISY.js';
 
-import { Insteon } from '../../Families.js';
+import { Insteon } from '../../Definitions/Families.js';
 import { Commands } from '../../ISYConstants.js'
 import { Constructor } from '../Constructor.js';
 import { InsteonKeypadButtonDevice } from './InsteonKeypadDevice.js';

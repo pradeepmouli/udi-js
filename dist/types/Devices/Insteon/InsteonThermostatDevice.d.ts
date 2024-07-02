@@ -1,5 +1,5 @@
 import { ISY } from '../../ISY.js';
-import { NodeInfo } from '../ISYDevice.js';
+import { NodeInfo } from '../../Definitions/NodeInfo.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
 export declare class InsteonThermostatDevice extends InsteonBaseDevice {

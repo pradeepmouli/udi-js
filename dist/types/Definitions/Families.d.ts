@@ -1,4 +1,4 @@
-import { EventType } from './Events/EventType.js';
+import { EventType } from '../Events/EventType.js';
 export declare enum Family {
     Elk = 0,
     Insteon = 1,

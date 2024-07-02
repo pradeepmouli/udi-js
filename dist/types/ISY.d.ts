@@ -16,7 +16,7 @@ import { InsteonMotionSensorDevice } from './Devices/Insteon/InsteonMotionSensor
 import { InsteonRelayDevice } from './Devices/Insteon/InsteonRelayDevice.js';
 import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevice.js';
 import { ISYDeviceNode } from './ISYNode.js';
-import { Family } from './Families.js';
+import { Family } from './Definitions/Families.js';
 import { NodeType, Props, States, VariableType } from './ISYConstants.js';
 import { ISYNode } from './ISYNode.js';
 import { ISYScene } from './ISYScene.js';
@@ -27,7 +27,7 @@ import { InsteonDimmerOutletDevice } from './Devices/Insteon/InsteonDimmerOutlet
 import { InsteonKeypadButtonDevice } from './Devices/Insteon/InsteonKeypadDevice.js';
 import { EventEmitter } from 'events';
 import { Logger } from 'winston';
-import type { NodeInfo } from './Devices/ISYDevice.js';
+import type { NodeInfo } from './Definitions/NodeInfo.js';
 import * as Utils from './Utils.js';
 export { ISYScene, States, Family, VariableType, Categories, Props, ISYVariable, InsteonBaseDevice, InsteonOutletDevice, ISYDeviceNode as ISYDevice, InsteonKeypadDimmerDevice, InsteonKeypadRelayDevice, InsteonKeypadButtonDevice, InsteonDimmableDevice, InsteonFanDevice, InsteonFanMotorDevice, InsteonLeakSensorDevice, InsteonSmokeSensorDevice, InsteonDimmerOutletDevice, InsteonOnOffOutletDevice, InsteonLockDevice, InsteonThermostatDevice, InsteonDoorWindowSensorDevice, InsteonDimmerSwitchDevice, InsteonRelayDevice, InsteonMotionSensorDevice, ISYNode, NodeType, ElkAlarmSensorDevice, ELKAlarmPanelDevice, Utils };
 export declare let Controls: {};
@@ -42,6 +42,10 @@ export declare class ISY extends EventEmitter {
     readonly host: string;
     readonly port: number;
     get address(): string;
+    id: string;
+    vendorName: string;
+    productId: number;
+    productName: string;
     readonly restlerOptions: any;
     readonly credentials: {
         username: string;
@@ -77,17 +81,17 @@ export declare class ISY extends EventEmitter {
     nodeChangedHandler(node: ELKAlarmPanelDevice | ElkAlarmSensorDevice, propertyName?: any): void;
     getElkAlarmPanel(): ELKAlarmPanelDevice;
     loadNodes(): Promise<any>;
-    loadFolders(result: {
+    readFolderNodes(result: {
         nodes: {
             folder: any;
         };
     }): Promise<void>;
-    loadScenes(result: {
+    readSceneNodes(result: {
         nodes: {
             group: any;
         };
     }): Promise<void>;
-    loadDevices(obj: {
+    readDeviceNodes(obj: {
         nodes: {
             node: NodeInfo[];
         };

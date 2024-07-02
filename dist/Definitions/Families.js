@@ -1,4 +1,4 @@
-import { ISYEvent } from './Events/ISYEvent.js';
+import { ISYEvent } from '../Events/ISYEvent.js';
 export var Family;
 (function (Family) {
     Family[Family["Elk"] = 0] = "Elk";

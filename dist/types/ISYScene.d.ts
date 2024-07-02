@@ -1,4 +1,4 @@
-import { Family } from './Families.js';
+import { Family } from './Definitions/Families.js';
 import { ISY, ISYDevice } from './ISY.js';
 import { ISYNode } from './ISYNode.js';
 export declare class ISYScene extends ISYNode {

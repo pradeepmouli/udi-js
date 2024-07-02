@@ -22,7 +22,7 @@ import { InsteonMotionSensorDevice } from './Devices/Insteon/InsteonMotionSensor
 import { InsteonRelayDevice } from './Devices/Insteon/InsteonRelayDevice.js';
 import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevice.js';
 import { ISYDeviceNode } from './ISYNode.js';
-import { Family } from './Families.js';
+import { Family } from './Definitions/Families.js';
 import { EventType } from "./Events/EventType.js";
 import { NodeType, Props, States, VariableType } from './ISYConstants.js';
 import { ISYNode } from './ISYNode.js';
@@ -56,6 +56,10 @@ export class ISY extends EventEmitter {
     get address() {
         return `${this.host}:${this.port}`;
     }
+    id;
+    vendorName = "Universal Devices, Inc.";
+    productId = 5226;
+    productName = "eisy";
     restlerOptions;
     credentials;
     variableList = new Map();
@@ -134,16 +138,16 @@ export class ISY extends EventEmitter {
             const result = await this.callISY('nodes');
             if (this.isDebugEnabled)
                 writeFile(this.storagePath + '/ISYNodesDump.json', JSON.stringify(result), this.logger.error);
-            await this.loadFolders(result).catch(p => this.logger.error('Error Loading Folders', p));
-            await this.loadDevices(result).catch(p => this.logger.error('Error Loading Devices', p));
-            await this.loadScenes(result).catch(p => this.logger.error('Error Loading Scenes', p));
+            await this.readFolderNodes(result).catch(p => this.logger.error('Error Loading Folders', p));
+            await this.readDeviceNodes(result).catch(p => this.logger.error('Error Loading Devices', p));
+            await this.readSceneNodes(result).catch(p => this.logger.error('Error Loading Scenes', p));
             return result;
         }
         catch (e) {
             throw new Error(`Error loading nodes: ${e.message}`);
         }
     }
-    async loadFolders(result) {
+    async readFolderNodes(result) {
         this.logger.info('Loading Folder Nodes');
         if (result?.nodes?.folder) {
             for (const folder of result.nodes.folder) {
@@ -152,7 +156,7 @@ export class ISY extends EventEmitter {
             }
         }
     }
-    async loadScenes(result) {
+    async readSceneNodes(result) {
         this.logger.info('Loading Scene Nodes');
         for (const scene of result.nodes?.group) {
             if (scene.name === 'ISY' || scene.name === 'Auto DR') {
@@ -168,7 +172,7 @@ export class ISY extends EventEmitter {
             this.sceneList.set(newScene.address, newScene);
         }
     }
-    async loadDevices(obj) {
+    async readDeviceNodes(obj) {
         this.logger.info('Loading Device Nodes');
         for (const device of obj.nodes.node) {
             this.logger.debug(`Loading Device Node: ${JSON.stringify(device)}`);
@@ -298,13 +302,17 @@ export class ISY extends EventEmitter {
     async loadConfig() {
         try {
             this.logger.info('Loading ISY Config');
-            const result = await this.callISY('config');
+            const configuration = (await this.callISY('config')).configuration;
             if (this.isDebugEnabled) {
-                writeFile(this.storagePath + '/ISYConfigDump.json', JSON.stringify(result), this.logger.error);
+                writeFile(this.storagePath + '/ISYConfigDump.json', JSON.stringify(configuration), this.logger.error);
             }
-            const controls = result.configuration.controls;
-            this.model = result.configuration.deviceSpecs.model;
-            this.serverVersion = result.configuration.app_version;
+            const controls = configuration.controls;
+            this.model = configuration.deviceSpecs.model;
+            this.serverVersion = configuration.app_version;
+            this.vendorName = configuration.deviceSpecs.make;
+            this.productId = configuration.product.id;
+            this.productName = configuration.product.desc;
+            this.id = configuration.root.id;
             // TODO: Check Installed Features
             // this.logger.info(result.configuration);
             if (controls !== undefined) {
@@ -315,7 +323,7 @@ export class ISY extends EventEmitter {
                     Controls[ctl.name] = ctl;
                 }
             }
-            return result.configuration;
+            return configuration;
         }
         catch (e) {
             throw Error(`Error Loading Config: ${e.message}`);
@@ -522,8 +530,8 @@ export class ISY extends EventEmitter {
     initializeWebSocket() {
         const that = this;
         const auth = `Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
-        this.logger.info(`Connecting to: ${this.wsprotocol}://${this.host}/rest/subscribe`);
-        this.webSocket = new WebSocket.Client(`${this.wsprotocol}://${this.host}/rest/subscribe`, ['ISYSUB'], {
+        this.logger.info(`Connecting to: ${this.wsprotocol}://${this.address}/rest/subscribe`);
+        this.webSocket = new WebSocket.Client(`${this.wsprotocol}://${this.address}/rest/subscribe`, ['ISYSUB'], {
             headers: {
                 Origin: 'com.universal-devices.websockets.isy',
                 Authorization: auth

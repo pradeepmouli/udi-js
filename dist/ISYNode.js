@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { isNullOrUndefined } from 'util';
-import { Family } from './Families.js';
+import { Family } from './Definitions/Families.js';
 import { Controls, NodeType } from './ISY.js';
 export class ISYNode extends EventEmitter {
     isy;

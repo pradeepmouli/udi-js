@@ -1,6 +1,5 @@
-import { Family } from '../Families.js';
+import { Family } from '../Definitions/Families.js';
 import { Commands, States } from '../ISYConstants.js';
-import { UnitOfMeasure } from '../UOM.js';
 import { EndpointType, MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
 import { Endpoint } from '@project-chip/matter.js/endpoint';
 import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
@@ -9,38 +8,6 @@ import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import 'winston'
 import { ISYDeviceNode } from '../ISYNode.js';
 import { Constructor } from './Constructor.js';
-
-export interface PropertyStatus {
-	id: string | number;
-	value: any;
-	formatted: any;
-	uom: UnitOfMeasure;
-
-	prec: number;
-	name: string;
-}
-
-export interface NodeInfo {
-	family: Family;
-	type?: string;
-	enabled?: boolean;
-	deviceClass?: any;
-	pnode: any;
-	property?: PropertyStatus[] | PropertyStatus;
-	flag?: any;
-	nodeDefId?: string;
-	address: any;
-	name: string;
-	parent?: any;
-	startDelay: number;
-	hint: string;
-
-	endDelay: number;
-	wattage: number;
-	dcPeriod: number;
-}
-
-
 
 export const ISYBinaryStateDevice = <K extends Family,D extends string, T extends Constructor<ISYDeviceNode<K,D|'ST'>>>(Base: T) => {
 	return class extends Base {

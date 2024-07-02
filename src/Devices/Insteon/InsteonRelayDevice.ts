@@ -1,6 +1,7 @@
 import { OnOffLightDeviceDefinition, OnOffLightDevice } from '@project-chip/matter.js/devices/OnOffLightDevice';
 import { ISY } from '../../ISY.js';
-import { ISYUpdateableBinaryStateDevice, MapsToEndpoint, MapsToEndpointType, MatterEndpoint, NodeInfo } from '../ISYDevice.js';
+import { ISYUpdateableBinaryStateDevice, MapsToEndpoint, MapsToEndpointType, MatterEndpoint } from '../ISYDevice.js';
+import { NodeInfo } from '../../Definitions/NodeInfo.js';
 import { MapsTo, type MapsToCluster } from '../MapsTo.js';
 import { EndpointFor } from '../EndpointFor.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';

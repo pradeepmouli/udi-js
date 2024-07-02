@@ -1,5 +1,5 @@
-import { Family } from '../../Families.js';
-import { UnitOfMeasure as UOM } from '../../UOM.js';
+import { Family } from '../../Definitions/Families.js';
+import { UnitOfMeasure as UOM } from '../../Definitions/UOM.js';
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
 import { ISYDeviceNode } from '../../ISYNode.js';
 import 'winston';

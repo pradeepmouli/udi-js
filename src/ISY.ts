@@ -29,7 +29,6 @@ import { Family } from './Definitions/Families.js';
 import { EventType } from "./Events/EventType.js";
 import {  NodeType, Props, States, VariableType } from './ISYConstants.js';
 import { ISYNode } from './ISYNode.js';
-import * as ProductInfoData from './isyproductinfo.json';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
 import { InsteonOnOffOutletDevice } from './Devices/Insteon/InsteonOnOffOutletDevice.js';

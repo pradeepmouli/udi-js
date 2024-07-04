@@ -18,7 +18,7 @@ export type RelaxTypes<V> = V extends number
 
 
 export interface MapsTo<T extends Behavior.Type, T1 extends Behavior.Type = T, T2 extends Behavior.Type = T, T3 extends Behavior.Type = T> {
-	initialize(endpoint: EndpointFor<T, T1, T2, T3>): void;
+	 initialize(endpoint: EndpointFor<T, T1, T2, T3>): void | Promise<void>;
 
 }
 

@@ -94,6 +94,6 @@ export declare class InsteonDimmableDevice extends InsteonDimmableDevice_base im
     constructor(isy: ISY, node: any);
     get brightnessLevel(): number;
     updateBrightnessLevel(level: number): Promise<{}>;
-    initialize(endpoint: EndpointFor<LevelControlBehavior, OnOffBehavior>): void;
+    initialize(endpoint: EndpointFor<LevelControlBehavior, OnOffBehavior>): Promise<void>;
 }
 export {};

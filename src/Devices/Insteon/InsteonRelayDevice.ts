@@ -17,16 +17,18 @@ export class InsteonRelayDevice extends ISYUpdateableBinaryStateDevice(InsteonBa
 		super(isy, node);
 	}
 
-	initialize(endpoint: EndpointFor<typeof OnOffBehavior>): void {
+	async initialize(endpoint: EndpointFor<typeof OnOffBehavior>): Promise<void> {
 
 
 		endpoint.events.onOff.onOff$Changed.on((value) => {
 			this.updateIsOn(value);
 		});
-
+		//endpoint.defaults.onOff.onOff = await this.isOn;
+		endpoint.set({onOff:{onOff: await this.isOn}});
+		const that = this;
 		this.on("PropertyChanged", (propertyName, newValue, _oldValue, formattedValue) => {
 			if (propertyName === "ST") {
-				endpoint.set({onOff: newValue});
+				endpoint.set({onOff:{onOff: newValue > 0}});
 				//endpoint.setSt onOff: newValue });
 			}
 		});

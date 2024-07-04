@@ -8,13 +8,16 @@ class InsteonRelayDevice extends (0, ISYDevice_js_1.ISYUpdateableBinaryStateDevi
     constructor(isy, node) {
         super(isy, node);
     }
-    initialize(endpoint) {
+    async initialize(endpoint) {
         endpoint.events.onOff.onOff$Changed.on((value) => {
             this.updateIsOn(value);
         });
+        //endpoint.defaults.onOff.onOff = await this.isOn;
+        endpoint.set({ onOff: { onOff: await this.isOn } });
+        const that = this;
         this.on("PropertyChanged", (propertyName, newValue, _oldValue, formattedValue) => {
             if (propertyName === "ST") {
-                endpoint.set({ onOff: newValue });
+                endpoint.set({ onOff: { onOff: newValue > 0 } });
                 //endpoint.setSt onOff: newValue });
             }
         });

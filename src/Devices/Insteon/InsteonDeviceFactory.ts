@@ -1,79 +1,76 @@
-import { format } from 'util';
-import { parseStringPromise } from 'xml2js';
+import { Categories } from '../../Categories.js';
+import { Family, InsteonBaseDevice, InsteonLockDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDevice } from '../../ISY.js';
+import { parseTypeCode } from '../../Utils.js';
+import { ISYBinaryStateDevice } from '../ISYDevice.js';
+import { NodeInfo } from '../../Definitions/NodeInfo.js';
+import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
+import { InsteonDimmerOutletDevice } from './InsteonDimmerOutletDevice.js';
+import { InsteonDimmerSwitchDevice } from './InsteonDimmerSwitchDevice.js';
+import { InsteonDoorWindowSensorDevice } from './InsteonDoorWindowSensorDevice.js';
+import { InsteonFanDevice, InsteonFanMotorDevice } from './InsteonFanDevice.js';
+import { InsteonKeypadButtonDevice } from './InsteonKeypadDevice.js';
+import { InsteonKeypadDimmerDevice } from './InsteonKeypadDimmerDevice.js';
+import { InsteonKeypadRelayDevice } from './InsteonKeypadRelayDevice.js';
+import { InsteonLeakSensorDevice } from './InsteonLeakSensorDevice.js';
+import { InsteonMotionSensorDevice } from './InsteonMotionSensorDevice.js';
+import { InsteonOnOffOutletDevice } from './InsteonOnOffOutletDevice.js';
+import { InsteonRelayDevice } from './InsteonRelayDevice.js';
+import { InsteonRelaySwitchDevice } from './InsteonRelaySwitchDevice.js';
+import { DeviceDef, type CategoryDef, type FamilyDef } from '../DeviceMap.js';
+import { writeFileSync } from 'fs';
 
-import { Categories } from '../../Categories';
-import { Family, InsteonBaseDevice, InsteonLockDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDevice, ISYNode } from '../../ISY';
-import { parseTypeCode } from '../../Utils';
-import { ISYBinaryStateDevice, NodeInfo } from '../ISYDevice';
-import { InsteonLampDevice, InsteonSwitchDevice, KeypadDevice } from './InsteonDevice';
-import { InsteonDimmableDevice } from './InsteonDimmableDevice';
-import { InsteonDimmerOutletDevice } from './InsteonDimmerOutletDevice';
-import { InsteonDimmerSwitchDevice } from './InsteonDimmerSwitchDevice';
-import { InsteonDoorWindowSensorDevice } from './InsteonDoorWindowSensorDevice';
-import { InsteonFanDevice, InsteonFanMotorDevice } from './InsteonFanDevice';
-import { InsteonKeypadButtonDevice } from './InsteonKeypadDevice';
-import { InsteonKeypadDimmerDevice } from './InsteonKeypadDimmerDevice';
-import { InsteonKeypadRelayDevice } from './InsteonKeypadRelayDevice';
-import { InsteonLeakSensorDevice } from './InsteonLeakSensorDevice';
-import { InsteonMotionSensorDevice } from './InsteonMotionSensorDevice';
-import { InsteonOnOffOutletDevice } from './InsteonOnOffOutletDevice';
-import { InsteonRelayDevice } from './InsteonRelayDevice';
-import { InsteonRelaySwitchDevice } from './InsteonRelaySwitchDevice';
-import * as DeviceMapJSON from '../InsteonDeviceMap.json'
-import {DeviceMap} from '../DeviceMap'
-import { userInfo } from 'os';
-import { writeFileSync, writeFile } from 'fs';
-
-type l = ISYDevice<Family>;
-
-let s = DeviceMapJSON as unknown as DeviceMap;
 
 export class InsteonDeviceFactory {
 
-	public static buildDeviceMap()
-	{
-		s.forEach((item) =>
-		{
-			item.categories.forEach((element) => {
-				element.devices.forEach(
-					device =>
-					{
-						const r = this.getDeviceDetails({
-							family: item.id,
-							type: `${element.id}.${device.id}.0.0`,
-							address: '0 0 0 1',
-							nodeDefId: '',
-							enabled: undefined,
-							pnode: undefined,
-							name: '',
-							startDelay: 0,
-							hint: '',
-							endDelay: 0,
-							wattage: 0,
-							dcPeriod: 0
-						});
-						if(!r.unsupported)
-						{
-							device.name = r.name;
-							device.modelNumber = r.modelNumber;
-							device.class = r.class;
-						}
-					}
+	// public static buildDeviceMap() {
 
-				);
-				element.devices = element.devices.sort((a,b)=> a.id - b.id)
-			});
-		}
+	// 	var fams = new Map<Family, FamilyDef<Family>>();
+	// 	s.forEach((item) => {
+	// 		var id = item.id as Family;
+	// 		fams.set(id, { id: item.id, description: item.description, name: item.name, categories: new Map<string, CategoryDef<typeof id>>() });
+	// 		var famDef = fams[id] as FamilyDef<Family>;
+	// 		item.categories.forEach((element) => {
+	// 			var catDef = { id: element.id, name: element.name, devices: new Map<string, DeviceDef<Family>> };
+	// 			element.devices.forEach(
+	// 				device => {
+	// 					const r = this.getDeviceDetails({
+	// 						family: item.id,
+	// 						type: `${element.id}.${device.id}.0.0`,
+	// 						address: '0 0 0 1',
+	// 						nodeDefId: '',
+	// 						enabled: undefined,
+	// 						pnode: undefined,
+	// 						name: '',
+	// 						startDelay: 0,
+	// 						hint: '',
+	// 						endDelay: 0,
+	// 						wattage: 0,
+	// 						dcPeriod: 0
+	// 					});
+	// 					if (!r.unsupported) {
+	// 						device.name = r.name;
+	// 						device.modelNumber = r.modelNumber;
+	// 						device.class = r.class.name;
+	// 					}
+	// 					catDef.devices.set(`${device.id}`, { id: device.id, modelNumber: device.modelNumber, name: device.name, class: r.class });
+	// 				}
 
-		);
-		writeFileSync("DeviceMapClean.json",JSON.stringify(s));
-	}
 
-	public static getDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class?: typeof ISYDevice; unsupported?: true; } {
+	// 			);
+	// 			famDef.categories.set(element.name, catDef);
+	// 			element.devices = element.devices.sort((a, b) => a.id - b.id);
+	// 		});
+	// 	}
+
+	// 	);
+	// 	writeFileSync("DeviceMapClean.json", JSON.stringify(fams));
+	// }
+
+	static getDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class?: typeof ISYDevice; unsupported?: true; } {
 		const family = Number(node.family ?? '1');
-
+		//let insteonFamilyDef = s[0] as FamilyDef<Family.Insteon>;
 		if ((family ?? Family.Insteon) === Family.Insteon) {
-
+			//insteonFamilyDef.categories.forEach(callbackfn)
 			return this.getInsteonDeviceDetails(node);
 
 		} else { return { name: 'Unsupported Device', class: ISYDevice, unsupported: true }; }
@@ -90,25 +87,25 @@ export class InsteonDeviceFactory {
 		let deviceDetails = null;
 		if (category === Categories.Controller) {
 			deviceDetails = InsteonDeviceFactory.getControllerInfo(deviceCode);
-		} else if (category === 0o001) {
+		} else if (category === 1) {
 			deviceDetails = InsteonDeviceFactory.getDimLightInfo(deviceCode, subAddress, node);
-		} else if (category === 0o002) {
+		} else if (category === 2) {
 			deviceDetails = InsteonDeviceFactory.getSwitchLightInfo(deviceCode, subAddress);
-		} else if (category === 0o003) {
+		} else if (category === 3) {
 			deviceDetails = InsteonDeviceFactory.getNetworkBridgeInfo(deviceCode);
-		} else if (category === 0o005) {
+		} else if (category === 5) {
 			deviceDetails = InsteonDeviceFactory.getClimateControlInfo(deviceCode);
-		} else if (category === 0o004) {
+		} else if (category === 4) {
 			deviceDetails = InsteonDeviceFactory.getIrrigationControlInfo(deviceCode);
-		} else if (category === 0o007) {
+		} else if (category === 7) {
 			deviceDetails = InsteonDeviceFactory.getIOControlInfo(deviceCode);
-		} else if (category === 0o017) {
+		} else if (category === 15) {
 			deviceDetails = InsteonDeviceFactory.getAccessControlInfo(deviceCode);
-		} else if (category === 0o020) {
+		} else if (category === 16) {
 			deviceDetails = InsteonDeviceFactory.getSHS(deviceCode, subAddress, node);
-		} else if (category === 0o011) {
+		} else if (category === 9) {
 			deviceDetails = InsteonDeviceFactory.getEnergyManagement(deviceCode);
-		} else if (category === 0o016) {
+		} else if (category === 14) {
 			deviceDetails = InsteonDeviceFactory.getWindowsCovering(deviceCode);
 		}
 		if (deviceDetails) {
@@ -123,45 +120,45 @@ export class InsteonDeviceFactory {
 		}
 		if (!deviceDetails.class) {
 			deviceDetails.class = InsteonBaseDevice;
+			deviceDetails.unsupported = true;
 		}
 		return deviceDetails;
 
 		// deviceDetails = deviceDetails + version.toString(16);
-
 	}
 
 	public static getNetworkBridgeInfo(deviceCode: number): { name: string; modelNumber: string; version: string; class: typeof ISYDevice; } {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = null;
 		switch (c) {
-			case String.fromCharCode(0o001):
+			case String.fromCharCode(1):
 				retVal = { name: 'PowerLinc Serial', modelNumber: '2414S' };
 				break;
-			case String.fromCharCode(0o002):
+			case String.fromCharCode(2):
 				retVal = { name: 'PowerLinc USB', modelNumber: '2414U' };
 				break;
-			case String.fromCharCode(0o003):
+			case String.fromCharCode(3):
 				retVal = { name: 'Icon PowerLinc Serial', modelNumber: '2814S' };
 				break;
-			case String.fromCharCode(0o004):
+			case String.fromCharCode(4):
 				retVal = { name: 'Icon PowerLinc USB', modelNumber: '2814U' };
 				break;
-			case String.fromCharCode(0o005):
+			case String.fromCharCode(5):
 				retVal = { name: 'PowerLine Modem', modelNumber: '2412S' };
 				break;
-			case String.fromCharCode(0o006):
+			case String.fromCharCode(6):
 				retVal = { name: 'IRLinc Receiver', modelNumber: '2411R' };
 				break;
-			case String.fromCharCode(0o007):
+			case String.fromCharCode(7):
 				retVal = { name: 'IRLinc Transmitter', modelNumber: '2411T' };
 				break;
-			case String.fromCharCode(0o013):
+			case String.fromCharCode(11):
 				retVal = { name: 'PowerLine Modem USB', modelNumber: '2412U' };
 				break;
 			case '\r':
 				retVal = { name: 'EZX10-RF' };
 				break;
-			case String.fromCharCode(0o017):
+			case String.fromCharCode(15):
 				retVal = {
 					name: 'EZX10-IR'
 				};
@@ -174,17 +171,17 @@ export class InsteonDeviceFactory {
 
 	public static getIrrigationControlInfo(deviceCode: number): { name: string; modelNumber?: string; version?: string; class?: typeof ISYDevice; } {
 		const c = String.fromCharCode(deviceCode);
-		return c === String.fromCharCode(0o000) ? { name: 'EZRain/EZFlora Irrigation Controller' } : null;
+		return c === String.fromCharCode(0) ? { name: 'EZRain/EZFlora Irrigation Controller' } : null;
 	}
 
 	public static getSwitchLightInfo(deviceCode: number, subAddress: string): { name: string; modelNumber?: string; version?: string; class?: typeof InsteonBaseDevice; } {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = { name: 'Generic Insteon Relay', class: InsteonRelayDevice } as { name: string; modelNumber?: string; version?: string; class?: typeof InsteonBaseDevice; };
 		switch (c) {
-			case String.fromCharCode(0o006):
+			case String.fromCharCode(6):
 				retVal = { name: 'ApplianceLinc - Outdoor Plugin Module', modelNumber: '2456S3E' };
 				break;
-			case String.fromCharCode(0o007):
+			case String.fromCharCode(7):
 				retVal = { name: 'TimerLinc', modelNumber: '2456S3T' };
 				break;
 			case '\t':
@@ -193,7 +190,7 @@ export class InsteonDeviceFactory {
 			case '\n':
 				retVal = { name: 'SwitchLinc Relay', modelNumber: '2476ST', class: InsteonRelaySwitchDevice };
 				break;
-			case String.fromCharCode(0o013):
+			case String.fromCharCode(11):
 				retVal.class = InsteonRelaySwitchDevice;
 				retVal.name = 'Icon On/Off Switch';
 				retVal.modelNumber = '2876S';
@@ -204,56 +201,56 @@ export class InsteonDeviceFactory {
 			case '\r':
 				retVal = { name: 'ToggleLinc Relay', modelNumber: '2466S', class: InsteonRelaySwitchDevice };
 				break;
-			case String.fromCharCode(0o032):
+			case String.fromCharCode(26):
 				retVal = { name: 'ToggleLinc Relay', modelNumber: '2466S', class: InsteonRelaySwitchDevice };
 				break;
-			case String.fromCharCode(0o016):
+			case String.fromCharCode(14):
 				break;
 			case ')':
 				retVal = { name: 'SwitchLinc Relay Timer', modelNumber: '2476ST', class: InsteonRelaySwitchDevice };
 				break;
-			case String.fromCharCode(0o021):
+			case String.fromCharCode(17):
 				retVal = {
 					name: 'EZSwitch30', class: InsteonRelaySwitchDevice
 				};
 				break;
-			case String.fromCharCode(0o017):
+			case String.fromCharCode(15):
 				retVal = { name: 'KeypadLinc Relay', modelNumber: '2486S/WH6', class: InsteonKeypadRelayDevice };
 				break;
-			case String.fromCharCode(0o005):
+			case String.fromCharCode(5):
 				retVal = { name: 'KeypadLinc Relay (8 buttons)', modelNumber: '2486S/WH8', class: InsteonKeypadRelayDevice };
 				break;
-			case String.fromCharCode(0o020):
+			case String.fromCharCode(16):
 				retVal = { name: 'In-LineLinc Relay', modelNumber: '2475S' };
 				break;
-			case String.fromCharCode(0o024):
+			case String.fromCharCode(20):
 				retVal = { name: 'In-LineLinc Relay W/ Sense', modelNumber: 'B2475S' };
 				break;
-			case String.fromCharCode(0o023):
+			case String.fromCharCode(19):
 				retVal = { name: 'Icon SwitchLinc Relay for Bell Canada', modelNumber: 'B2475S' };
 				break;
 			case '\b':
 				retVal = { name: 'OutletLinc', modelNumber: '2473', class: InsteonOnOffOutletDevice };
 				break;
-			case String.fromCharCode(0o022):
+			case String.fromCharCode(18):
 				retVal = { name: 'Companion Switch', modelNumber: '2474S', class: InsteonRelaySwitchDevice };
 				break;
-			case String.fromCharCode(0o025):
+			case String.fromCharCode(21):
 				retVal = { name: 'SwitchLinc Relay W/ Sense', modelNumber: '2476S', class: InsteonRelaySwitchDevice };
 				break;
-			case String.fromCharCode(0o027):
+			case String.fromCharCode(23):
 				retVal = { name: 'Icon Relay 3-Pin', modelNumber: '2856S3B', class: InsteonRelaySwitchDevice };
 				break;
-			case String.fromCharCode(0o026):
+			case String.fromCharCode(22):
 				retVal = { name: ' Icon Relay Switch', modelNumber: '2876SB', class: InsteonRelaySwitchDevice };
 				break;
-			case String.fromCharCode(0o030):
+			case String.fromCharCode(24):
 				retVal = { name: 'SwitchLinc Relay 220 V.', modelNumber: '2494S220', class: InsteonRelaySwitchDevice };
 				break;
-			case String.fromCharCode(0o031):
+			case String.fromCharCode(25):
 				retVal = { name: 'SwitchLinc Relay 220 V. w/Beeper', modelNumber: '2494S220', class: InsteonRelaySwitchDevice };
 				break;
-			case String.fromCharCode(0o034):
+			case String.fromCharCode(28):
 				retVal = { name: 'SwitchLinc Relay - Remote Control On/Off Switch', modelNumber: '2476S', class: InsteonRelaySwitchDevice };
 				break;
 			case '%':
@@ -270,13 +267,13 @@ export class InsteonDeviceFactory {
 			case '"':
 				retVal = { name: 'In-LineLinc Relay', modelNumber: '2475S-SP', class: InsteonRelaySwitchDevice };
 				break;
-			case String.fromCharCode(0o036):
+			case String.fromCharCode(30):
 				retVal = { name: 'KeypadLinc Relay', modelNumber: '2487S', class: InsteonKeypadRelayDevice };
 				break;
 			case ',':
 				retVal = { name: 'Dual Band KeypadLinc Relay', modelNumber: '2487S', class: InsteonKeypadRelayDevice };
 				break;
-			case String.fromCharCode(0o037):
+			case String.fromCharCode(31):
 				retVal = { name: 'Dual Band InlineLinc On/Off Switch', modelNumber: '2475SDB', class: InsteonRelaySwitchDevice };
 				break;
 			case '*':
@@ -338,28 +335,28 @@ export class InsteonDeviceFactory {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = { name: 'Generic Insteon Dimmer', class: InsteonDimmableDevice } as { name: string; modelNumber?: string; version?: string; class?: typeof InsteonBaseDevice; };
 		switch (c) {
-			case String.fromCharCode(0o000):
+			case String.fromCharCode(0):
 				retVal = { name: 'LampLinc', modelNumber: '2456D3' };
 				break;
-			case String.fromCharCode(0o001):
+			case String.fromCharCode(1):
 				retVal = { name: 'SwitchLinc Dimmer', modelNumber: '2476D', class: InsteonDimmerSwitchDevice };
 				break;
-			case String.fromCharCode(0o002):
+			case String.fromCharCode(2):
 				retVal = { name: 'In-LineLinc Dimmable', modelNumber: '2475D' };
 				break;
-			case String.fromCharCode(0o003):
+			case String.fromCharCode(3):
 				retVal = { name: 'Icon Switch Dimmer', modelNumber: '2876D3' };
 				break;
-			case String.fromCharCode(0o004):
+			case String.fromCharCode(4):
 				retVal = { name: 'SwitchLinc Dimmer', modelNumber: '2476DH', class: InsteonDimmerSwitchDevice };
 				break;
-			case String.fromCharCode(0o006):
+			case String.fromCharCode(6):
 				retVal = { name: 'LampLinc 2 Pin', modelNumber: '2456D2' };
 				break;
 			case '\t':
 				retVal = { name: 'KeypadLinc Dimmer', modelNumber: '2486D' };
 				break;
-			case String.fromCharCode(0o007):
+			case String.fromCharCode(7):
 				retVal = { name: 'Icon LampLinc 2 Pin', modelNumber: '2856D2' };
 				break;
 			case '\n':
@@ -371,40 +368,40 @@ export class InsteonDeviceFactory {
 			case '\f':
 				retVal = { name: 'KeypadLinc Dimmer 8 Button', modelNumber: '2486DWH8', class: InsteonKeypadDimmerDevice };
 				break;
-			case String.fromCharCode(0o023):
+			case String.fromCharCode(19):
 				retVal = { name: 'Icon SwitchLinc Dimmer for Bell Canada' };
 				break;
-			case String.fromCharCode(0o027):
+			case String.fromCharCode(23):
 				break;
-			case String.fromCharCode(0o037):
+			case String.fromCharCode(31):
 				retVal = { name: 'ToggleLinc Dimmer', modelNumber: '2466D', class: InsteonDimmerSwitchDevice };
 				break;
-			case String.fromCharCode(0o030):
+			case String.fromCharCode(24):
 				retVal = { name: 'Companion Dimmer', modelNumber: '2474D' };
 				break;
-			case String.fromCharCode(0o032):
+			case String.fromCharCode(26):
 				retVal = { name: 'InlineLinc Dimmer', modelNumber: '2475D', class: InsteonDimmerSwitchDevice };
 				break;
-			case String.fromCharCode(0o005):
+			case String.fromCharCode(5):
 				retVal = { name: 'KeypadLinc Countdown Timer', modelNumber: '2484DWH8' };
 				break;
-			case String.fromCharCode(0o033):
+			case String.fromCharCode(27):
 				retVal = { name: 'KeypadLinc Dimmer 6 Buttons', modelNumber: '2486D', class: InsteonKeypadDimmerDevice };
 				break;
-			case String.fromCharCode(0o034):
+			case String.fromCharCode(28):
 
 				retVal = { name: 'KeypadLinc Dimmer 8 Buttons', modelNumber: '2486D', class: InsteonKeypadDimmerDevice };
 				break;
-			case String.fromCharCode(0o031):
+			case String.fromCharCode(25):
 				retVal = { name: 'SwitchLinc Dimmer W/Beeper', modelNumber: '2476D' };
 				break;
-			case String.fromCharCode(0o016):
+			case String.fromCharCode(14):
 				retVal = { name: 'LampLinc BiPhy', modelNumber: 'B2457D2' };
 				break;
-			case String.fromCharCode(0o036):
+			case String.fromCharCode(30):
 				retVal = { name: 'Icon Dimmer', modelNumber: '2876DB' };
 				break;
-			case String.fromCharCode(0o035):
+			case String.fromCharCode(29):
 				retVal = { name: 'SwitchLinc Dimmer 1000W', modelNumber: '2476DH', class: InsteonDimmerSwitchDevice };
 				break;
 			case '"':
@@ -501,19 +498,19 @@ export class InsteonDeviceFactory {
 			case 'V':
 				retVal = { name: 'KeypadLinc Dimmer 6 Buttons', modelNumber: '2334-632', class: InsteonKeypadDimmerDevice };
 				break;
-			case String.fromCharCode(0o013):
+			case String.fromCharCode(11):
 				retVal = { name: 'Plugin Dimmer', modelNumber: '2632-422' };
 				break;
-			case String.fromCharCode(0o017):
+			case String.fromCharCode(15):
 				retVal = { name: 'Plugin Dimmer', modelNumber: '2632-432' };
 				break;
-			case String.fromCharCode(0o021):
+			case String.fromCharCode(17):
 				retVal = { name: 'Plugin Dimmer', modelNumber: '2632-442' };
 				break;
 			case 'P':
 				retVal = { name: 'Plugin Dimmer', modelNumber: '2632-452' };
 				break;
-			case String.fromCharCode(0o022):
+			case String.fromCharCode(18):
 				retVal = { name: 'Plugin Dimmer', modelNumber: '2632-522' };
 		}
 		if (subAddress !== '1' && retVal.class === InsteonKeypadDimmerDevice) {
@@ -522,7 +519,7 @@ export class InsteonDeviceFactory {
 		if (node.nodeDefId === 'FanLincMotor') {
 			retVal.class = InsteonFanMotorDevice;
 		}
-		if (retVal?.class === undefined) {retVal.class = InsteonDimmableDevice; }
+		if (retVal?.class === undefined) { retVal.class = InsteonDimmableDevice; }
 		return retVal;
 	}
 
@@ -530,55 +527,55 @@ export class InsteonDeviceFactory {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = null;
 		switch (c) {
-			case String.fromCharCode(0o000):
+			case String.fromCharCode(0):
 				retVal = { name: 'ControLinc', modelNumber: '2430' };
 				break;
-			case String.fromCharCode(0o005):
+			case String.fromCharCode(5):
 				retVal = { name: 'RemoteLinc', modelNumber: '2440' };
 				break;
-			case String.fromCharCode(0o016):
+			case String.fromCharCode(14):
 				retVal = { name: 'RemoteLinc EZ', modelNumber: '2440EZ' };
 				break;
-			case String.fromCharCode(0o006):
+			case String.fromCharCode(6):
 				retVal = { name: 'Icon Tabletop', modelNumber: '2830' };
 				break;
 			case '\t':
 				retVal = { name: 'SignaLinc', modelNumber: '2442' };
 				break;
-			case String.fromCharCode(0o021):
+			case String.fromCharCode(17):
 				retVal = { name: 'RemoteLinc 2 Switch', modelNumber: '2342-242' };
 				break;
-			case String.fromCharCode(0o020):
+			case String.fromCharCode(16):
 				retVal = { name: 'RemoteLinc 2 Keypad, 4 Scene', modelNumber: '2342-232' };
 				break;
-			case String.fromCharCode(0o022):
+			case String.fromCharCode(18):
 				retVal = { name: 'RemoteLinc 2 Keypad, 8 Scene', modelNumber: '2342-222' };
 				break;
-			case String.fromCharCode(0o024):
+			case String.fromCharCode(20):
 				retVal = { name: 'Mini Remote Keypad, 4 Scene', modelNumber: '2342-432' };
 				break;
-			case String.fromCharCode(0o025):
+			case String.fromCharCode(21):
 				retVal = { name: 'Mini Remote Switch', modelNumber: '2342-442' };
 				break;
-			case String.fromCharCode(0o026):
+			case String.fromCharCode(22):
 				retVal = { name: 'Mini Remote Keypad, 8 Scene', modelNumber: '2342-422' };
 				break;
-			case String.fromCharCode(0o027):
+			case String.fromCharCode(23):
 				retVal = { name: 'Mini Remote Keypad, 4 Scene', modelNumber: '2342-532' };
 				break;
-			case String.fromCharCode(0o030):
+			case String.fromCharCode(24):
 				retVal = { name: 'Mini Remote Keypad, 8 Scene', modelNumber: '2342-522' };
 				break;
-			case String.fromCharCode(0o031):
+			case String.fromCharCode(25):
 				retVal = { name: 'Mini Remote Switch', modelNumber: '2342-542' };
 				break;
-			case String.fromCharCode(0o032):
+			case String.fromCharCode(26):
 				retVal = { name: 'Mini Remote Keypad, 8 Scene', modelNumber: '2342-222' };
 				break;
-			case String.fromCharCode(0o033):
+			case String.fromCharCode(27):
 				retVal = { name: 'Mini Remote Keypad, 4 Scene', modelNumber: '2342-232' };
 				break;
-			case String.fromCharCode(0o034):
+			case String.fromCharCode(28):
 				retVal = { name: 'Mini Remote Switch', modelNumber: '2342-242' };
 		}
 		return retVal;
@@ -588,33 +585,33 @@ export class InsteonDeviceFactory {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = null;
 		switch (c) {
-			case String.fromCharCode(0o000):
+			case String.fromCharCode(0):
 				retVal = { name: 'IOLinc', modelNumber: '2450' };
 				break;
-			case String.fromCharCode(0o003):
+			case String.fromCharCode(3):
 				retVal = { name: 'Compacta EZIO 2x4: INSTEON I/O Controller' };
 				break;
-			case String.fromCharCode(0o004):
+			case String.fromCharCode(4):
 				retVal = {
 					name: 'Compacta EZIO8SA: INSTEON I/O Controller'
 				};
 				break;
-			case String.fromCharCode(0o002):
+			case String.fromCharCode(2):
 				retVal = {
 					name: 'Compacta EZIO8T: INSTEON I/O Controller'
 				};
 				break;
-			case String.fromCharCode(0o005):
+			case String.fromCharCode(5):
 				retVal = {
 					name: 'Compacta EZSnSRF'
 				};
 				break;
-			case String.fromCharCode(0o006):
+			case String.fromCharCode(6):
 				retVal = {
 					name: 'Compacta EZSnSRF Interface'
 				};
 				break;
-			case String.fromCharCode(0o007):
+			case String.fromCharCode(7):
 				retVal = {
 					name: 'Compacta EZIO6I'
 				};
@@ -630,46 +627,46 @@ export class InsteonDeviceFactory {
 			case '\r':
 				retVal = { name: 'IOLinc (Refurbished)', modelNumber: '2450' };
 				break;
-			case String.fromCharCode(0o016):
+			case String.fromCharCode(14):
 				retVal = { name: 'I/O Module', modelNumber: '2248-222' };
 				break;
-			case String.fromCharCode(0o017):
+			case String.fromCharCode(15):
 				retVal = { name: 'I/O Module', modelNumber: '2248-422' };
 				break;
-			case String.fromCharCode(0o020):
+			case String.fromCharCode(16):
 				retVal = { name: 'I/O Module', modelNumber: '2248-442' };
 				break;
-			case String.fromCharCode(0o021):
+			case String.fromCharCode(17):
 				retVal = { name: 'I/O Module', modelNumber: '2248-522' };
 				break;
-			case String.fromCharCode(0o022):
+			case String.fromCharCode(18):
 				retVal = { name: 'IOLinc', modelNumber: '2822-222' };
 				break;
-			case String.fromCharCode(0o023):
+			case String.fromCharCode(19):
 				retVal = { name: 'IOLinc', modelNumber: '2822-422' };
 				break;
-			case String.fromCharCode(0o024):
+			case String.fromCharCode(20):
 				retVal = { name: 'IOLinc', modelNumber: '2822-442' };
 				break;
-			case String.fromCharCode(0o025):
+			case String.fromCharCode(21):
 				retVal = { name: 'IOLinc', modelNumber: '2822-522' };
 				break;
-			case String.fromCharCode(0o026):
+			case String.fromCharCode(22):
 				retVal = { name: 'Contact Closure', modelNumber: '2822-222' };
 				break;
-			case String.fromCharCode(0o027):
+			case String.fromCharCode(23):
 				retVal = { name: 'Contact Closure', modelNumber: '2822-422' };
 				break;
-			case String.fromCharCode(0o030):
+			case String.fromCharCode(24):
 				retVal = { name: 'Contact Closure', modelNumber: '2822-442' };
 				break;
-			case String.fromCharCode(0o031):
+			case String.fromCharCode(25):
 				retVal = { name: 'Contact Closure', modelNumber: '2822-522' };
 				break;
-			case String.fromCharCode(0o032):
+			case String.fromCharCode(26):
 				retVal = { name: 'Alert Module', modelNumber: '2867-222' };
 				break;
-			case String.fromCharCode(0o036):
+			case String.fromCharCode(30):
 				retVal = { name: 'Siren', modelNumber: '2868-222' };
 				break;
 			case ' ':
@@ -682,30 +679,30 @@ export class InsteonDeviceFactory {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = null;
 		switch (c) {
-			case String.fromCharCode(0o001):
+			case String.fromCharCode(1):
 				retVal = { name: 'INSTEON Motion Sensor', modelNumber: '2842-222', class: InsteonMotionSensorDevice };
 				break;
-			case String.fromCharCode(0o004):
+			case String.fromCharCode(4):
 				retVal = { name: 'INSTEON Motion Sensor', modelNumber: '2842-422', class: InsteonMotionSensorDevice };
 				break;
-			case String.fromCharCode(0o005):
+			case String.fromCharCode(5):
 				retVal = { name: 'INSTEON Motion Sensor', modelNumber: '2842-522', class: InsteonMotionSensorDevice };
 				break;
-			case String.fromCharCode(0o003):
+			case String.fromCharCode(3):
 				retVal = { name: 'INSTEON Motion Sensor', modelNumber: '2420M-SP', class: InsteonMotionSensorDevice };
 				break;
-			case String.fromCharCode(0o002):
+			case String.fromCharCode(2):
 				retVal = { name: 'TriggerLinc', modelNumber: '2421', class: InsteonDoorWindowSensorDevice };
 				break;
 			case '\t':
 				retVal = { name: 'Open/Close Sensor', modelNumber: '2843-222', class: InsteonDoorWindowSensorDevice };
 				break;
-			case String.fromCharCode(0o006):
+			case String.fromCharCode(6):
 				retVal = { name: 'Open/Close Sensor', modelNumber: '2843-422', class: InsteonDoorWindowSensorDevice };
 				break;
-			case String.fromCharCode(0o007):
+			case String.fromCharCode(7):
 				break;
-			case String.fromCharCode(0o031):
+			case String.fromCharCode(25):
 				retVal = { name: 'Open/Close Sensor', modelNumber: '2843-522', class: InsteonDoorWindowSensorDevice };
 				break;
 			case '\b':
@@ -714,30 +711,30 @@ export class InsteonDeviceFactory {
 			case '\r':
 				retVal = { name: 'Leak Sensor', modelNumber: '2852-422', class: InsteonLeakSensorDevice };
 				break;
-			case String.fromCharCode(0o016):
+			case String.fromCharCode(14):
 				retVal = { name: 'Leak Sensor', modelNumber: '2852-522', class: InsteonLeakSensorDevice };
 				break;
-			case String.fromCharCode(0o032):
+			case String.fromCharCode(26):
 				retVal = { name: 'Leak Sensor', modelNumber: '2852-522', class: InsteonLeakSensorDevice };
 				break;
 			case '\n':
 				retVal = { name: 'INSTEON Smoke Sensor', modelNumber: '', class: InsteonSmokeSensorDevice };
 				break;
-			case String.fromCharCode(0o021):
+			case String.fromCharCode(17):
 				retVal = { name: 'INSTEON Hidden Door Sensor', modelNumber: '2845-222', class: InsteonDoorWindowSensorDevice };
 				break;
-			case String.fromCharCode(0o024):
+			case String.fromCharCode(20):
 				retVal = { name: 'INSTEON Hidden Door Sensor', modelNumber: '2845-422', class: InsteonDoorWindowSensorDevice };
 				break;
-			case String.fromCharCode(0o025):
+			case String.fromCharCode(21):
 				break;
-			case String.fromCharCode(0o033):
+			case String.fromCharCode(27):
 				retVal = { name: 'INSTEON Hidden Door Sensor', modelNumber: '2845-522', class: InsteonDoorWindowSensorDevice };
 				break;
-			case String.fromCharCode(0o026):
+			case String.fromCharCode(22):
 				retVal = { name: 'Insteon Motion Sensor II', modelNumber: '2844-222', class: InsteonMotionSensorDevice };
 				break;
-			case String.fromCharCode(0o030):
+			case String.fromCharCode(24):
 				retVal = { name: 'Insteon Motion Sensor II', modelNumber: '2844-522', class: InsteonMotionSensorDevice };
 		}
 		if ((node.nodeDefId === 'BinaryAlarm' || node.nodeDefId === 'BinaryAlarm_ADV') && subAddress !== '1') {
@@ -752,74 +749,74 @@ export class InsteonDeviceFactory {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = null;
 		switch (c) {
-			case String.fromCharCode(0o000):
+			case String.fromCharCode(0):
 				retVal = {
 					name: 'BROAN SMSC080 Exhaust Fan'
 				};
 				break;
-			case String.fromCharCode(0o002):
+			case String.fromCharCode(2):
 				retVal = {
 					name: 'BROAN SMSC110 Exhaust Fan'
 				};
 				break;
-			case String.fromCharCode(0o005):
+			case String.fromCharCode(5):
 				retVal = {
 					name: 'BROAN, Venmar, Best Rangehoods'
 				};
 				break;
-			case String.fromCharCode(0o001):
+			case String.fromCharCode(1):
 				retVal = {
 					name: 'Compacta EZTherm'
 				};
 				break;
-			case String.fromCharCode(0o004):
+			case String.fromCharCode(4):
 				retVal = {
 					name: 'Compacta EZTherm'
 				};
 				break;
-			case String.fromCharCode(0o003):
+			case String.fromCharCode(3):
 				retVal = { name: 'INSTEON Thermostat Adapter', modelNumber: '2441V' };
 				break;
 			case '\t':
 				retVal = { name: 'INSTEON Thermostat Adapter', modelNumber: '2441V-SP' };
 				break;
-			case String.fromCharCode(0o013):
+			case String.fromCharCode(11):
 				retVal = { name: 'INSTEON Thermostat', modelNumber: '2441TH' };
 				break;
-			case String.fromCharCode(0o017):
+			case String.fromCharCode(15):
 				retVal = { name: 'INSTEON Thermostat', modelNumber: '2732-422' };
 				break;
-			case String.fromCharCode(0o020):
+			case String.fromCharCode(16):
 				retVal = { name: 'INSTEON Thermostat', modelNumber: '2732-522' };
 				break;
-			case String.fromCharCode(0o021):
+			case String.fromCharCode(17):
 				retVal = { name: 'INSTEON Thermostat', modelNumber: '2732-432' };
 				break;
-			case String.fromCharCode(0o022):
+			case String.fromCharCode(18):
 				retVal = { name: 'INSTEON Thermostat', modelNumber: '2732-532' };
 				break;
-			case String.fromCharCode(0o023):
+			case String.fromCharCode(19):
 				retVal = { name: 'INSTEON Thermostat Heat Pump', modelNumber: '2732-242' };
 				break;
-			case String.fromCharCode(0o024):
+			case String.fromCharCode(20):
 				retVal = { name: 'INSTEON Thermostat Heat Pump for Europe', modelNumber: '2732-442' };
 				break;
-			case String.fromCharCode(0o025):
+			case String.fromCharCode(21):
 				retVal = { name: 'INSTEON Thermostat Heat Pump for Aus/NZ', modelNumber: '2732-542' };
 				break;
-			case String.fromCharCode(0o026):
+			case String.fromCharCode(22):
 				retVal = { name: 'INSTEON Thermostat 2.0 (HVAC/HP)', modelNumber: '2732-222' };
 				break;
-			case String.fromCharCode(0o027):
+			case String.fromCharCode(23):
 				retVal = { name: 'INSTEON Thermostat 2.0 (HVAC/HP) for Europe', modelNumber: '2732-422' };
 				break;
-			case String.fromCharCode(0o030):
+			case String.fromCharCode(24):
 				retVal = { name: 'INSTEON Thermostat 2.0 (HVAC/HP) for Aus/NZ', modelNumber: '(2732-522)' };
 				break;
 			case '\n':
 				retVal = { name: 'INSTEON Wireless Thermostat', modelNumber: '2441ZTH' };
 				break;
-			case String.fromCharCode(0o016):
+			case String.fromCharCode(14):
 				retVal = { name: 'All-In-One INSTEON Thermostat Adapter', modelNumber: '2491T' };
 		}
 		if (retVal?.class === undefined) { retVal.class = InsteonThermostatDevice; }
@@ -830,7 +827,7 @@ export class InsteonDeviceFactory {
 		const c = String.fromCharCode(deviceCode);
 		const retVal = { name: '', modelNumber: '', class: InsteonLockDevice };
 		switch (c) {
-			case String.fromCharCode(0o006):
+			case String.fromCharCode(6):
 				retVal.name = 'MorningLinc';
 				break;
 			case '\n':
@@ -843,15 +840,15 @@ export class InsteonDeviceFactory {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = null;
 		switch (c) {
-			case String.fromCharCode(0o000):
+			case String.fromCharCode(0):
 				retVal = {
 					name: 'ZBPCM (iMeter Solo compat.)'
 				};
 				break;
-			case String.fromCharCode(0o007):
+			case String.fromCharCode(7):
 				retVal = { name: 'iMeter Solo', modelNumber: '2423A1' };
 				break;
-			case String.fromCharCode(0o013):
+			case String.fromCharCode(11):
 				retVal = {
 					name: 'Dual Band Normally Closed 240V Load Controller', modelNumber: '2477SA2'
 				};
@@ -871,20 +868,18 @@ export class InsteonDeviceFactory {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = null;
 		switch (c) {
-			case String.fromCharCode(0o001):
+			case String.fromCharCode(1):
 				retVal = { name: 'Micro Module Open/Close', modelNumber: '2444-222' };
 				break;
-			case String.fromCharCode(0o002):
+			case String.fromCharCode(2):
 				retVal = { name: 'Micro Module Open/Close', modelNumber: '2444-422' };
 				break;
-			case String.fromCharCode(0o003):
+			case String.fromCharCode(3):
 				retVal = { name: 'Micro Module Open/Close', modelNumber: '2444-522' };
 				break;
-			case String.fromCharCode(0o007):
+			case String.fromCharCode(7):
 				retVal = { name: 'Micro Module Open/Close', modelNumber: '2444-522' };
 		}
 		return retVal;
 	}
 }
-
-InsteonDeviceFactory.buildDeviceMap();

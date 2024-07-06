@@ -1,14 +1,14 @@
 import { timingSafeEqual } from 'crypto';
-import { Family } from '../../Families';
-import { ISY } from '../../ISY';
-import { ISYDevice } from '../ISYDevice';
-import { ElkAlarmSensorDevice } from './ElkAlarmSensorDevice';
+import { Family } from '../../Definitions/Families.js';
+import { ISY } from '../../ISY.js';
+import { ISYDeviceNode } from '../../ISYNode.js';
+import { ElkAlarmSensorDevice } from './ElkAlarmSensorDevice.js';
 
 /////////////////////////////
 // ELKAlarmPanelDevice
 
 //
-export class ELKAlarmPanelDevice extends ISYDevice<Family.Elk> {
+export class ELKAlarmPanelDevice extends ISYDeviceNode<Family.Elk> {
 	[x: string]: any;
 	setFromAreaUpdate(nodes: any) {
 		throw new Error('Method not implemented.');

@@ -1,10 +1,12 @@
-import { Family, Insteon } from '../../Families';
-import { ISY } from '../../ISY';
-import { byteToDegree, byteToPct, pctToByte } from '../../Utils';
-import { ISYDevice, NodeInfo } from '../ISYDevice';
+import { Family, Insteon } from '../../Definitions/Families.js';
+import { ISY } from '../../ISY.js';
+import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
+import { NodeInfo } from '../../Definitions/NodeInfo.js';
+import { ISYDeviceNode } from '../../ISYNode.js';
+import 'winston';
 
 // import { InsteonNLS } from './insteonfam'
-export class ZWaveBaseDevice extends ISYDevice<Family.ZWave> {
+export class ZWaveBaseDevice extends ISYDeviceNode<Family.ZWave> {
 
 	public async getNodeDef()
 	{

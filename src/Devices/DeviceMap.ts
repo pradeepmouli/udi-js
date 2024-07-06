@@ -1,5 +1,5 @@
-import { Family, ISYDevice } from '../ISY';
-import { Insteon } from '../Families';
+import { Family, ISYDevice } from '../ISY.js';
+import { Insteon } from '../Definitions/Families.js';
 
 // tslint:disable-next-line: no-unused-expression
 // tslint:disable-next-line: no-angle-bracket-type-assertion
@@ -15,20 +15,20 @@ export interface DeviceDef<T extends Family> {
 		modelNumber: string;
 
 		// tslint:disable-next-line: no-shadowed-variable
-		class: typeof ISYDevice;
+		class: typeof ISYDevice<T>;
 }
 
 export interface CategoryDef<T extends Family> {
 	id: number;
 	name: string;
-	devices: Array<DeviceDef<T>>;
+	devices: Map<string, DeviceDef<T>>;
 }
 
 export interface FamilyDef<T extends Family> {
 	id: T;
 	name: string;
 	description: string;
-	categories: Array<CategoryDef<T>>;
+	categories: Map<string,CategoryDef<T>>;
 }
 
 export interface DeviceMap extends Array<FamilyDef<Family>>{

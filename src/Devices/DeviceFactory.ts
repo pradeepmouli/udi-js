@@ -1,7 +1,7 @@
 
-import { Family, ISYDevice } from '../ISY';
-import { NodeInfo } from './ISYDevice';
-import { InsteonDeviceFactory } from './Insteon/InsteonDeviceFactory';
+import { Family, ISYDevice } from '../ISY.js';
+import { NodeInfo } from '../Definitions/NodeInfo.js';
+import { InsteonDeviceFactory } from './Insteon/InsteonDeviceFactory.js';
 
 
 export class DeviceFactory {

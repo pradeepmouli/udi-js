@@ -12,8 +12,6 @@ new/scratch.js
 new/test/testsuite.js
 .DS_Store
 node_modules/
-lib/
-dist/
 ISY*Dump.json
 ISYStatusDump.json
 ISYNodeInfo.xml

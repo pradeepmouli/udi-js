@@ -1,0 +1,16 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./dist/cjs/types",
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "paths": {
+            "@project-chip/matter.js/*": [
+                "/node_modules/@project-chip/matter.js/dist/cjs/*"
+            ],
+            "@project-chip/matter-node.js/*": [
+                "/node_modules/@project-chip/matter-node.js/dist/cjs/*"
+            ]
+        }
+    }
+}

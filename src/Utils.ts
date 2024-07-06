@@ -1,19 +1,19 @@
-import { get } from 'restler-base';
+
 import axios, { AxiosRequestConfig } from 'axios';
 
 
 import * as log4js from '@log4js-node/log4js-api';
-import { Logger}from 'winston'
+import winston, { Logger, format}from 'winston'
 
-import { Categories } from './Categories';
+import { Categories } from './Categories.js';
 import { EventEmitter as BaseEventEmitter } from 'events';
 import { Axios } from 'axios';
 
 
 
 //import { get } from 'http';
-import { EventType } from './Events/EventType';
-import PriorityQueue from 'p-queue/dist/priority-queue';
+import { EventType } from './Events/EventType.js';
+import type { Identity } from '@project-chip/matter.js/util';
 
 export function byteToPct(value) {
 	return Math.round((value * 100) / 255);
@@ -29,70 +29,200 @@ export function byteToDegree(value) {
 
 let lastrequest = Promise.resolve();
 
-export async function getAsync(url: string, options: AxiosRequestConfig): Promise<any> {
-
-	const p = new Promise<any>((resolve, reject) => {
 
 
-
-		get(url, options)
-			.on('complete', (result: any) => {
-				resolve(result);
-			})
-			.on('error', (err, response) => {
-
-				reject(err);
-			})
-			.on('fail', (data, response) => {
-
-				reject(data);
-			})
-			.on('abort', () => {
-				reject();
-			})
-			.on('timeout', (ms) => {
-				reject(ms);
-			});
-	});
-
-	try
-	{
-		await lastrequest;
-	} finally
-	{
-		return p;
-	}
-}
-
-export enum Family {
-	Insteon = 1,
-	UPB = 7
-}
 
 declare module 'winston' {
 	interface Logger extends LoggerLike{
-		prefix?: string;
+
 	}
+
+
+}
+
+declare  global {
+	interface String {
+		remove(string: string) : string;
+		removeAll(string: string) : string;
+
+		right(numChars: number) : string;
+
+		left(numChars: number) : string;
+
+		rightWithToken(numChars: number, token?: string) : string;
+
+		leftWithToken(numChars: number, token?: string): string;
+	}
+
+
 }
 
 export interface LoggerLike extends Partial<log4js.Logger> {
-	prefix?: string;
-	(msg: any): void;
+
+	(msg: any, level?: string, ...data: any[]): void;
 	//default(msg: any): void;
 
 }
+// `${`${const origCreateLogger = winston.createLogger.bind(winston)
+// Logger.prototwinston.createLogger = (options) =>
+// {
+// let logger =  winston.createLogger(options);
+// logger.prototype = logger.log.bind(logger);
+// }
 
-export interface PropertyChangedEventEmitter extends EventEmitter<EventType.PropertyChanged>
+// }`}`
+export function clone(logger: Logger, label: string): Logger {
+
+
+	return winston.createLogger({
+		format: format.label({label}),
+		transports: logger.transports,
+		level: logger.level,
+		levels: logger.levels,
+		exitOnError: logger.exitOnError,
+		exceptionHandlers: logger.exceptions,
+		...logger
+	})
+
+
+	// `${const copy1 = { ...logger };copy1.prefix = copy1.prefix = prefix ?? logger.prototype;
+
+	// const copy = logger.info.bind(copy1) as Logging;
+	// Object.assign(copy, logger);
+	// copy.prefix = prefix ?? logger.prefix;
+
+	// copy.isDebugEnabled = () => ISYPlatform.Instance.debugLoggingEnabled;
+
+	// copy.isErrorEnabled = () => true;
+
+	// copy.isWarnEnabled = () => true;
+
+	// copy.isFatalEnabled = () => true;
+
+	// copy.isTraceEnabled = () => true;
+
+	// // copy._log = logger._log.bind(copy);
+	// copy.debug = logger.debug.bind(copy);
+	// // copy.fatal = logger..bind(copy);
+	// copy.info = logger.info.bind(copy);
+	// copy.error = logger.error.bind(copy);
+	// copy.warn = logger.warn.bind(copy);
+
+	// copy.trace = ((message: ConcatArray<string>, ...args: any[]) => {
+	// 	// onst newMsg = chalk.dim(msg);
+	// 	if (copy.isTraceEnabled) {
+	// 		copy.log.apply(this, ['trace'].concat(message).concat(args));
+	// 	}
+	// }).bind(copy);
+
+	// copy.fatal = ((message: ConcatArray<string>, ...args: any[]) => {
+	// 	// onst newMsg = chalk.dim(msg);
+	// 	if (logger?.isFatalEnabled) {
+	// 		logger.log.apply(this, ['fatal'].concat(message).concat(args));
+	// 	}
+	// }).bind(copy);}`
+
+	//return copy;
+
+}
+
+// export function wire(logger: Logger) {
+
+// 	logger.isDebugEnabled = () => ISYPlatform.Instance.debugLoggingEnabled;
+
+// 	logger.isErrorEnabled = () => true;
+
+// 	logger.isWarnEnabled = () => true;
+
+// 	logger.isFatalEnabled = () => true;
+
+// 	logger.isTraceEnabled = () => true;
+
+// 	logger.trace = ((message, ...args: any[]) => {
+// 		// onst newMsg = chalk.dim(msg);
+// 		if (logger.isTraceEnabled()) {
+// 			logger.log.apply(this, ['trace'].concat(message).concat(args));
+// 		}
+// 	}).bind(logger);
+
+// 	logger.fatal = ((message, ...args: any[]) => {
+// 		// onst newMsg = chalk.dim(msg);
+// 		if (logger.isFatalEnabled()) {
+// 			logger.log.apply(this, ['fatal'].concat(message).concat(args));
+// 		}
+// 	}).bind(logger);
+
+// }
+
+
+type TEventType = keyof typeof EventType
+
+export interface PropertyChangedEventEmitter extends EventEmitter<"PropertyChanged">
 {
 	on(event:'PropertyChanged', listener: (propertyName : string, newValue: any, oldValue: any, formattedValue: string) => void) : this;
 
 }
 
-export class EventEmitter<T extends EventType> extends BaseEventEmitter
+export class EventEmitter<T extends TEventType> extends BaseEventEmitter
 {
+	override on(event: T, listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any) | ((controlName: string) => any)) : this
+	{
+		return super.on(event,listener);
+	}
+}
+
+export function right(this: string, numChars: number)
+{
+	var l = this.length;
+	return this.substring(length - numChars)
+}
+
+export function left(this: string, numChars: number)
+{
+
+	return this.substring(0,numChars - 1)
+}
+
+export function rightWithToken(this: string, maxNumChars: number, token: string = ' ')
+{
+
+	var s = this.split(token);
+	var sb = s.pop();
+	var sp = s.pop()
+	while(sp !== undefined && sb.length + sp.length + token.length <= maxNumChars )
+	{
+		sb = sp + token + sb;
+		sp = s.pop();
+	}
+
 
 }
 
+export function leftWithToken(this: string, maxNumChars: number, token: string = ' ')
+{
+	var s = this.split(token).reverse();
+	var sb = s.pop();
+	var sp = s.pop();
+	while(sp !== undefined && sb.length + sp?.length + token.length <= maxNumChars)
+	{
+
+		sb = sb + token + sp;
+
+		sp = s.pop();
+	}
+}
+
+export function remove(this: string, searchValue: string | RegExp)
+{
+
+	return this.replace(searchValue, '');
+}
+
+export function removeAll(this: string, searchValue: string | RegExp)
+{
+
+	return this.replaceAll(searchValue, '');
+}
 
 
 export function parseTypeCode(typeCode: string) : {category: Categories, deviceCode: number, firmwareVersion: number, minorVersion: number }

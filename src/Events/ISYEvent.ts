@@ -1,4 +1,4 @@
-import { EventType } from './EventType';
+import { EventType } from './EventType.js';
 export class ISYEvent<TAction, TEventType extends EventType> {
 	action: TAction;
 	eventInfo: any;

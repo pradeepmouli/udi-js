@@ -1,0 +1,26 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./dist/cjs",
+        "module": "commonjs",
+        "paths": {
+            "@project-chip/matter.js/*": [
+                "./node_modules/@project-chip/matter.js/dist/cjs/*/export.d.ts",
+                "./node_modules/@project-chip/matter.js/dist/cjs/endpoint/definitions/export.d.ts",
+                "./node_modules/@project-chip/matter.js/dist/cjs/behavior/definitions/export.d.ts"
+            ],
+            "@project-chip/matter.js/behaviors/*": [
+                "./node_modules/@project-chip/matter.js/dist/cjs/behavior/definitions/*/export.d.ts"
+            ],
+            "@project-chip/matter.js/devices/*": [
+                "./node_modules/@project-chip/matter.js/dist/cjs/endpoint/definitions/export.d.ts"
+            ],
+            "@project-chip/matter.js": [
+                "./node_modules/@project-chip/matter.js/dist/cjs/export.d.ts"
+            ],
+            "@project-chip/matter-node.js": [
+                "./node_modules/@project-chip/matter-node.js/dist/cjs"
+            ]
+        }
+    }
+}

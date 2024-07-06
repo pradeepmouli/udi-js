@@ -1,5 +1,5 @@
-import { EventType } from './EventType';
-import { NodeEvent } from './NodeEvent';
+import { EventType } from './EventType.js';
+import { NodeEvent } from './NodeEvent.js';
 class PropertyChangedEvent extends NodeEvent<string, EventType.PropertyChanged> {
 	property: string;
 	formattedValue: string;

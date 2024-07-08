@@ -4,8 +4,17 @@ import { Behavior } from '@project-chip/matter.js/behavior';
 import { MutableEndpoint,EndpointType} from '@project-chip/matter.js/endpoint/type';
 import { EndpointOptions, OnOffBaseDevice } from '@project-chip/matter.js/device';
 import type { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
-import type { Cluster, ClusterType } from '@project-chip/matter.js/cluster';
+import { BasicInformationCluster, type BasicInformation, type Cluster, type ClusterType } from '@project-chip/matter.js/cluster';
 import type { ClientMonitoringBehavior } from '@project-chip/matter.js/behaviors/client-monitoring';
+import type { Constructor } from './Constructor.js';
+import type { ISYDeviceNode, ISYNode } from '../ISYNode.js';
+import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
+import { addValueWithOverflow, type MaybePromise } from '@project-chip/matter.js/util';
+import { ISY, InsteonRelayDevice, type ISYDevice } from '../ISY.js';
+import { BasicInformationBehavior } from '@project-chip/matter.js/behaviors/basic-information';
+import { IdentifyBehavior } from '@project-chip/matter.js/behaviors/identify';
+import { IndexBehavior } from '@project-chip/matter.js/behavior/system/index';
+import { OnOffLightDevice } from '@project-chip/matter.js/devices/OnOffLightDevice';
 
 
 export type RelaxTypes<V> = V extends number
@@ -31,3 +40,109 @@ export type SupportedBehaviorsOf <K extends ClusterType.Of<ClusterType.Options<{
 SupportedBehaviors.MapOf<BehaviorsOf<K, K1,K2,K3>>
 
 export type EndpointForCluster<K extends ClusterType.Of<ClusterType.Options<{}>>, K1 extends ClusterType = K, K2 extends ClusterType = K, K3 extends ClusterType = K> = { events: SupportedBehaviors.EventsOf<SupportedBehaviorsOf<K,K1,K2,K3>>; set: (values: SupportedBehaviors.StatePatchOf<SupportedBehaviorsOf<K, K1, K2,K3>>) => void; }
+
+export const MatterEndpoint= <P extends EndpointType & MutableEndpoint, T extends Constructor<ISYDeviceNode<any>>>(base: T, endpointType: P) =>
+{
+
+
+	return class extends base
+	{
+
+		endpointType: P = endpointType;
+
+
+
+		createEndpoint<K extends SupportedBehaviors>() : Endpoint {
+
+			var p = this.endpointType.with(BridgedDeviceBasicInformationServer);
+
+		 	const id = this.address.replaceAll(' ', '_').replaceAll('.', ' ');
+
+			return new Endpoint(p,{id: id, address: this.address, bridgedDeviceBasicInformation: {
+
+				nodeLabel: this.displayName.rightWithToken(32,' '),
+                productName: this.productName.rightWithToken(32,' '),
+                productLabel: this.model.leftWithToken(64,' '),
+                serialNumber: id,
+                reachable: this.enabled,
+            }});
+
+
+
+		}
+
+
+
+}
+}
+
+export const ISYClusterBehavior = <T extends Constructor<ClusterBehavior>,P extends ISYDeviceNode<any,any,any>>(base: T, deviceType: P) =>
+{
+
+
+	return class extends base
+	{
+
+    device: P;
+
+    override initialize(_options?: {}): MaybePromise {
+        super.initialize(_options);
+        var address = this.agent.endpoint.stateOf(BridgedDeviceBasicInformationServer).uniqueId;
+        this.device = ISY.instance.getDevice(address);
+        if(this.device)
+        {
+          this.device.on("PropertyChanged", (propertyName, newValue, _oldValue, formattedValue) => this.handlePropertyChange(propertyName, newValue, _oldValue, formattedValue));
+        }
+    }
+
+
+    handlePropertyChange(propertyName: string, value: any, newValue: any, formattedValue: string) {
+
+
+
+
+    }
+  }
+}
+
+export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightDevice.behaviors.onOff, InsteonRelayDevice.prototype)
+{
+
+
+
+
+    override async on() {
+
+      await super.on();
+      return this.device.updateIsOn(true);
+    }
+
+    override async off() {
+      await super.off();
+      return this.device.updateIsOn(false);
+    }
+
+    override async toggle() {
+      return await this.device.updateIsOn(!this.device.isOn);
+    }
+
+    override handlePropertyChange(propertyName: string, value: any, newValue: any, formattedValue: string): void {
+        this.state.onOff = newValue > 0;
+
+        this.events.onOff$Changed.emit(newValue, value,this.context)
+
+    }
+
+
+}
+
+
+  export class BridgedISYNodeInformationServer extends BridgedDeviceBasicInformationServer
+  {
+    override initialize(): Promise<void> {
+
+        return super.initialize();
+
+
+    }
+  }

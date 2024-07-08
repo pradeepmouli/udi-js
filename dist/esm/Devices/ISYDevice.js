@@ -1,6 +1,4 @@
 import { Commands, States } from '../ISYConstants.js';
-import { Endpoint } from '@project-chip/matter.js/endpoint';
-import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
 import 'winston';
 export const ISYBinaryStateDevice = (Base) => {
     return class extends Base {
@@ -25,21 +23,6 @@ export const ISYUpdateableBinaryStateDevice = (Base) => {
                 });
             }
             return Promise.resolve();
-        }
-    };
-};
-export const MatterEndpoint = (base, endpointType) => {
-    return class extends base {
-        baseBehavior = endpointType;
-        createEndpoint() {
-            var p = this.baseBehavior.with(BridgedDeviceBasicInformationServer);
-            return new Endpoint(this.baseBehavior.with(BridgedDeviceBasicInformationServer), { id: this.address, bridgedDeviceBasicInformation: {
-                    nodeLabel: this.displayName,
-                    productName: this.productName,
-                    productLabel: this.productName,
-                    serialNumber: `${this.address}`,
-                    reachable: this.enabled,
-                } });
         }
     };
 };

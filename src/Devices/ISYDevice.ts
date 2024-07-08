@@ -8,6 +8,8 @@ import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import 'winston'
 import { ISYDeviceNode } from '../ISYNode.js';
 import { Constructor } from './Constructor.js';
+import type { BasicInformationBehavior } from '@project-chip/matter.js/behaviors/basic-information';
+import type { BridgedDeviceBasicInformationCluster } from '@project-chip/matter.js/cluster';
 
 export const ISYBinaryStateDevice = <K extends Family,D extends string, T extends Constructor<ISYDeviceNode<K,D|'ST'>>>(Base: T) => {
 	return class extends Base {
@@ -52,37 +54,6 @@ type BehaviorList<T extends ClusterBehavior> = SupportedBehaviors & T;
 export interface MapsToEndpoint<T extends ClusterBehavior>
 {
 	initialize<K extends MutableEndpoint.With<EndpointType.Empty,BehaviorList<T>>>(endpoint: Endpoint<K>): void;
-
-}
-export const MatterEndpoint = <P extends MutableEndpoint, T extends Constructor<ISYDeviceNode<any>>>(base: T, endpointType: P) =>
-{
-
-
-	return class extends base
-	{
-
-		baseBehavior: P = endpointType;
-
-
-
-		createEndpoint() {
-
-			var p = this.baseBehavior.with(BridgedDeviceBasicInformationServer);
-
-			return new Endpoint(this.baseBehavior.with(BridgedDeviceBasicInformationServer),{id: this.address, bridgedDeviceBasicInformation: {
-                nodeLabel: this.displayName,
-                productName: this.productName,
-                productLabel: this.productName,
-                serialNumber: `${this.address}`,
-                reachable: this.enabled,
-            }});
-
-
-
-		}
-
-
-	};
 
 }
 

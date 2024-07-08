@@ -1,7 +1,7 @@
 import { Endpoint } from '@project-chip/matter.js/endpoint';
 import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
 import { ISY, InsteonRelayDevice } from '../ISY.js';
-import { OnOffLightDevice } from '@project-chip/matter.js/devices/OnOffLightDevice';
+import { OnOffLightRequirements } from '@project-chip/matter.js/devices/OnOffLightDevice';
 export const MatterEndpoint = (base, endpointType) => {
     return class extends base {
         endpointType = endpointType;
@@ -18,7 +18,7 @@ export const MatterEndpoint = (base, endpointType) => {
         }
     };
 };
-export const ISYClusterBehavior = (base, deviceType) => {
+export const ISYClusterBehavior = (base, t) => {
     return class extends base {
         device;
         initialize(_options) {
@@ -33,10 +33,12 @@ export const ISYClusterBehavior = (base, deviceType) => {
         }
     };
 };
-export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightDevice.behaviors.onOff, InsteonRelayDevice.prototype) {
+//@ts-ignore
+const ISYAOnOffBehavior = ISYClusterBehavior(OnOffLightRequirements.OnOffServer, InsteonRelayDevice.prototype);
+export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.OnOffServer, InsteonRelayDevice.prototype) {
     async on() {
         await super.on();
-        return this.device.updateIsOn(true);
+        return super.device.updateIsOn(true);
     }
     async off() {
         await super.off();

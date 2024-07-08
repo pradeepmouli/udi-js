@@ -3,18 +3,23 @@ import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties'
 import { Behavior } from '@project-chip/matter.js/behavior';
 import { MutableEndpoint,EndpointType} from '@project-chip/matter.js/endpoint/type';
 import { EndpointOptions, OnOffBaseDevice } from '@project-chip/matter.js/device';
-import type { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
+import type { ClusterBehavior, ClusterInterface } from '@project-chip/matter.js/behavior/cluster';
 import { BasicInformationCluster, type BasicInformation, type Cluster, type ClusterType } from '@project-chip/matter.js/cluster';
 import type { ClientMonitoringBehavior } from '@project-chip/matter.js/behaviors/client-monitoring';
 import type { Constructor } from './Constructor.js';
 import type { ISYDeviceNode, ISYNode } from '../ISYNode.js';
+import type { Session } from '@project-chip/matter.js/session';
+import type { StateType } from '@project-chip/matter.js/behavior/state';
+import type { ClusterDatasource } from '@project-chip/matter.js/cluster';
 import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
 import { addValueWithOverflow, type MaybePromise } from '@project-chip/matter.js/util';
 import { ISY, InsteonRelayDevice, type ISYDevice } from '../ISY.js';
 import { BasicInformationBehavior } from '@project-chip/matter.js/behaviors/basic-information';
 import { IdentifyBehavior } from '@project-chip/matter.js/behaviors/identify';
 import { IndexBehavior } from '@project-chip/matter.js/behavior/system/index';
-import { OnOffLightDevice } from '@project-chip/matter.js/devices/OnOffLightDevice';
+import { OnOffLightDevice, OnOffLightRequirements } from '@project-chip/matter.js/devices/OnOffLightDevice';
+import { OnOffBehavior, OnOffServer } from '@project-chip/matter.js/behaviors/on-off';
+import type { Insteon } from '../Definitions/Families.js';
 
 
 export type RelaxTypes<V> = V extends number
@@ -76,11 +81,11 @@ export const MatterEndpoint= <P extends EndpointType & MutableEndpoint, T extend
 }
 }
 
-export const ISYClusterBehavior = <T extends Constructor<ClusterBehavior>,P extends ISYDeviceNode<any,any,any>>(base: T, deviceType: P) =>
+export const ISYClusterBehavior = <T extends Constructor<ClusterBehavior>,P extends ISYDeviceNode<any>>(base: T, t: P) =>
 {
 
 
-	return class extends base
+	return class extends base implements DeviceBehavior<P>
 	{
 
     device: P;
@@ -102,11 +107,26 @@ export const ISYClusterBehavior = <T extends Constructor<ClusterBehavior>,P exte
 
 
     }
-  }
+  } as T & Constructor<DeviceBehavior<P>>;
+};
+//@ts-ignore
+const ISYAOnOffBehavior = ISYClusterBehavior(OnOffLightRequirements.OnOffServer,InsteonRelayDevice.prototype);
+
+// <reference path="MatterDevice.js" />
+// @ts-ignore
+
+interface DeviceBehavior<P>
+{
+  device: P,
+  handlePropertyChange(propertyName: string, value: any, newValue: any, formattedValue: string): void;
 }
 
-export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightDevice.behaviors.onOff, InsteonRelayDevice.prototype)
+
+
+export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.OnOffServer,InsteonRelayDevice.prototype)
+// @ts-ignore
 {
+
 
 
 
@@ -114,7 +134,8 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightDevice.behavi
     override async on() {
 
       await super.on();
-      return this.device.updateIsOn(true);
+
+      return super.device.updateIsOn(true);
     }
 
     override async off() {

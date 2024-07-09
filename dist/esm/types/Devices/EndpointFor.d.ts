@@ -2,11 +2,11 @@ import { Endpoint } from '@project-chip/matter.js/endpoint';
 import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
 import { Behavior } from '@project-chip/matter.js/behavior';
 import { MutableEndpoint, EndpointType } from '@project-chip/matter.js/endpoint/type';
-import type { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
+import type { ClusterBehavior, ClusterInterface } from '@project-chip/matter.js/behavior/cluster';
 import { type ClusterType } from '@project-chip/matter.js/cluster';
 import type { Constructor } from './Constructor.js';
 import type { ISYDeviceNode } from '../ISYNode.js';
-import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
+import { type Identity, type MaybePromise } from '@project-chip/matter.js/util';
 import { ISY, InsteonRelayDevice } from '../ISY.js';
 import { OnOffServer } from '@project-chip/matter.js/behaviors/on-off';
 export type RelaxTypes<V> = V extends number ? number : V extends bigint ? bigint : V extends object ? V extends (...args: any[]) => any ? V : {
@@ -105,7 +105,7 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         eventNames(): Array<string | symbol>;
     };
 } & T;
-export declare const ISYClusterBehavior: <T extends Constructor<ClusterBehavior>, P extends ISYDeviceNode<any>>(base: T, t: P) => T & Constructor<DeviceBehavior<P>>;
+export declare const ISYClusterBehavior: <T extends Constructor<ClusterBehavior>, P extends ISYDeviceNode<any, string, string>>(base: T, p: Identity<P>) => T & Constructor<DeviceBehavior<P>>;
 interface DeviceBehavior<P> {
     device: P;
     handlePropertyChange(propertyName: string, value: any, newValue: any, formattedValue: string): void;
@@ -117,7 +117,14 @@ export declare class ISYOnOffBehavior extends ISYOnOffBehavior_base {
     toggle(): Promise<any>;
     handlePropertyChange(propertyName: string, value: any, newValue: any, formattedValue: string): void;
 }
-export declare class BridgedISYNodeInformationServer extends BridgedDeviceBasicInformationServer {
-    initialize(): Promise<void>;
+declare const BISY: ClusterBehavior.Type<import("@project-chip/matter.js/cluster").ElementModifier.WithAlterations<ClusterType, {
+    readonly attributes: {
+        readonly address: {
+            readonly optional: false;
+        };
+    };
+}>, ClusterBehavior.Type<ClusterType, Behavior.Type, ClusterInterface<{}>>, ClusterInterface<{}>>;
+export declare class BridgedISYNodeInformationServer extends BISY {
+    initialize(): MaybePromise<void>;
 }
 export {};

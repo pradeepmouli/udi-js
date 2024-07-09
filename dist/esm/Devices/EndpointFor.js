@@ -1,7 +1,7 @@
 import { Endpoint } from '@project-chip/matter.js/endpoint';
-import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
 import { ISY, InsteonRelayDevice } from '../ISY.js';
 import { OnOffLightRequirements } from '@project-chip/matter.js/devices/OnOffLightDevice';
+import { BridgedDeviceBasicInformationBehavior, BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
 export const MatterEndpoint = (base, endpointType) => {
     return class extends base {
         endpointType = endpointType;
@@ -18,7 +18,7 @@ export const MatterEndpoint = (base, endpointType) => {
         }
     };
 };
-export const ISYClusterBehavior = (base, t) => {
+export const ISYClusterBehavior = (base, p) => {
     return class extends base {
         device;
         initialize(_options) {
@@ -33,8 +33,7 @@ export const ISYClusterBehavior = (base, t) => {
         }
     };
 };
-//@ts-ignore
-const ISYAOnOffBehavior = ISYClusterBehavior(OnOffLightRequirements.OnOffServer, InsteonRelayDevice.prototype);
+const IRD = InsteonRelayDevice;
 export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.OnOffServer, InsteonRelayDevice.prototype) {
     async on() {
         await super.on();
@@ -52,7 +51,9 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.
         this.events.onOff$Changed.emit(newValue, value, this.context);
     }
 }
-export class BridgedISYNodeInformationServer extends BridgedDeviceBasicInformationServer {
+//@ts-ignore
+const BISY = BridgedDeviceBasicInformationBehavior.alter({ attributes: { address: { optional: false } } });
+export class BridgedISYNodeInformationServer extends BISY {
     initialize() {
         return super.initialize();
     }

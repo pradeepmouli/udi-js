@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BridgedISYNodeInformationServer = exports.ISYOnOffBehavior = exports.ISYClusterBehavior = exports.MatterEndpoint = void 0;
 const endpoint_1 = require("@project-chip/matter.js/endpoint");
-const bridged_device_basic_information_1 = require("@project-chip/matter.js/behaviors/bridged-device-basic-information");
 const ISY_js_1 = require("../ISY.js");
 const OnOffLightDevice_1 = require("@project-chip/matter.js/devices/OnOffLightDevice");
+const bridged_device_basic_information_1 = require("@project-chip/matter.js/behaviors/bridged-device-basic-information");
 const MatterEndpoint = (base, endpointType) => {
     return class extends base {
         endpointType = endpointType;
@@ -22,7 +22,7 @@ const MatterEndpoint = (base, endpointType) => {
     };
 };
 exports.MatterEndpoint = MatterEndpoint;
-const ISYClusterBehavior = (base, t) => {
+const ISYClusterBehavior = (base, p) => {
     return class extends base {
         device;
         initialize(_options) {
@@ -38,8 +38,7 @@ const ISYClusterBehavior = (base, t) => {
     };
 };
 exports.ISYClusterBehavior = ISYClusterBehavior;
-//@ts-ignore
-const ISYAOnOffBehavior = (0, exports.ISYClusterBehavior)(OnOffLightDevice_1.OnOffLightRequirements.OnOffServer, ISY_js_1.InsteonRelayDevice.prototype);
+const IRD = ISY_js_1.InsteonRelayDevice;
 class ISYOnOffBehavior extends (0, exports.ISYClusterBehavior)(OnOffLightDevice_1.OnOffLightRequirements.OnOffServer, ISY_js_1.InsteonRelayDevice.prototype) {
     async on() {
         await super.on();
@@ -58,7 +57,9 @@ class ISYOnOffBehavior extends (0, exports.ISYClusterBehavior)(OnOffLightDevice_
     }
 }
 exports.ISYOnOffBehavior = ISYOnOffBehavior;
-class BridgedISYNodeInformationServer extends bridged_device_basic_information_1.BridgedDeviceBasicInformationServer {
+//@ts-ignore
+const BISY = bridged_device_basic_information_1.BridgedDeviceBasicInformationBehavior.alter({ attributes: { address: { optional: false } } });
+class BridgedISYNodeInformationServer extends BISY {
     initialize() {
         return super.initialize();
     }

@@ -3,11 +3,29 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ISYUpdateableLevelDevice = exports.ISYLevelDevice = exports.ISYUpdateableBinaryStateDevice = exports.ISYBinaryStateDevice = void 0;
 const ISYConstants_js_1 = require("../ISYConstants.js");
 require("winston");
+const UOM_js_1 = require("../Definitions/UOM.js");
 const ISYBinaryStateDevice = (Base) => {
     return class extends Base {
         get state() {
             return Promise.resolve(this.local['ST'] > 0);
             //return this.readProperty('ST').then(p => p.value  > 0);
+        }
+        convertTo(value, uom) {
+            if (uom === UOM_js_1.UnitOfMeasure.Boolean) {
+                return value > 0 ? true : false;
+            }
+            else
+                super.convertTo(value, uom);
+        }
+        convertFrom(value, uom) {
+            if (uom === UOM_js_1.UnitOfMeasure.Boolean) {
+                if (value) {
+                    return 100;
+                }
+                else {
+                    return 0;
+                }
+            }
         }
     };
 };
@@ -18,10 +36,13 @@ const ISYUpdateableBinaryStateDevice = (Base) => {
             return Promise.resolve(this.local['ST'] > 0);
             //return this.readProperty('ST').then(p => p.value  > 0);
         }
+        set state(value) {
+            this.updateState(value);
+        }
         async updateState(state) {
             if (state !== await this.state || this.pending.ST > 0 !== await this.state) {
                 this.pending.ST = state ? ISYConstants_js_1.States.On : ISYConstants_js_1.States.Off;
-                return this.sendCommand(state ? ISYConstants_js_1.Commands.On : ISYConstants_js_1.Commands.Off).then((p) => {
+                return this.sendCommand(state ? 'DON' : 'DOF').then((p) => {
                     //this.local.ST = this.pending.ST;
                     this.pending.ST = null;
                 });

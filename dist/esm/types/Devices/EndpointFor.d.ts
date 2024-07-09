@@ -47,8 +47,8 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         modelNumber: string;
         version: string;
         isDimmable: boolean;
-        convertTo(value: any, UnitOfMeasure: number): any;
-        convertFrom(value: any, UnitOfMeasure: number): any;
+        convertTo(value: any, UnitOfMeasure: number, propertyName?: string): any;
+        convertFrom(value: any, UnitOfMeasure: number, propertyName?: string): any;
         addLink(isyScene: import("../ISYScene.js").ISYScene): void;
         addChild(childDevice: ISYDeviceNode<any, string, string>): void;
         readonly parentDevice: ISYDeviceNode<any, string, string>;

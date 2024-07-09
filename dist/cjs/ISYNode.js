@@ -380,10 +380,10 @@ class ISYDeviceNode extends ISYNode {
             this.logger(`Property ${ISY_js_1.Controls[node.property.id].label} (${node.property.id}) initialized to: ${this.local[node.property.id]} (${this.formatted[node.property.id]})`);
         }
     }
-    convertTo(value, UnitOfMeasure) {
+    convertTo(value, UnitOfMeasure, propertyName = null) {
         return value;
     }
-    convertFrom(value, UnitOfMeasure) {
+    convertFrom(value, UnitOfMeasure, propertyName = null) {
         return value;
     }
     addLink(isyScene) {

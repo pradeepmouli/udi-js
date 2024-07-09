@@ -5,6 +5,8 @@ import 'winston';
 declare const InsteonSmokeSensorDevice_base: {
     new (...args: any[]): {
         readonly state: Promise<boolean>;
+        convertTo(value: any, uom: import("../../Definitions/UOM.js").UnitOfMeasure): boolean;
+        convertFrom(value: any, uom: number): 0 | 100;
         family: import("../../ISY.js").Family;
         readonly typeCode: string;
         readonly deviceClass: any;
@@ -26,8 +28,6 @@ declare const InsteonSmokeSensorDevice_base: {
         modelNumber: string;
         version: string;
         isDimmable: boolean;
-        convertTo(value: any, UnitOfMeasure: number): any;
-        convertFrom(value: any, UnitOfMeasure: number): any;
         addLink(isyScene: import("../../ISYScene.js").ISYScene): void;
         addChild(childDevice: import("../../ISYNode.js").ISYDeviceNode<import("../../ISY.js").Family, string, string>): void;
         readonly parentDevice: import("../../ISYNode.js").ISYDeviceNode<import("../../ISY.js").Family, string, string>;

@@ -3,7 +3,8 @@ import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
 declare const InsteonLockDevice_base: {
     new (...args: any[]): {
-        readonly state: Promise<boolean>;
+        get state(): Promise<boolean>;
+        set state(value: boolean);
         updateState(state: boolean): Promise<any>;
         family: import("../../ISY.js").Family;
         readonly typeCode: string;
@@ -26,8 +27,8 @@ declare const InsteonLockDevice_base: {
         modelNumber: string;
         version: string;
         isDimmable: boolean;
-        convertTo(value: any, UnitOfMeasure: number): any;
-        convertFrom(value: any, UnitOfMeasure: number): any;
+        convertTo(value: any, UnitOfMeasure: number, propertyName?: string): any;
+        convertFrom(value: any, UnitOfMeasure: number, propertyName?: string): any;
         addLink(isyScene: import("../../ISYScene.js").ISYScene): void;
         addChild(childDevice: import("../../ISYNode.js").ISYDeviceNode<import("../../ISY.js").Family, string, string>): void;
         readonly parentDevice: import("../../ISYNode.js").ISYDeviceNode<import("../../ISY.js").Family, string, string>;

@@ -6,9 +6,12 @@ import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import 'winston';
 import { ISYDeviceNode } from '../ISYNode.js';
 import { Constructor } from './Constructor.js';
+import { UnitOfMeasure } from '../Definitions/UOM.js';
 export declare const ISYBinaryStateDevice: <K extends Family, D extends string, T extends Constructor<ISYDeviceNode<K, D | "ST">>>(Base: T) => {
     new (...args: any[]): {
         readonly state: Promise<boolean>;
+        convertTo(value: any, uom: UnitOfMeasure): boolean;
+        convertFrom(value: any, uom: number): 0 | 100;
         family: K;
         readonly typeCode: string;
         readonly deviceClass: any;
@@ -30,8 +33,6 @@ export declare const ISYBinaryStateDevice: <K extends Family, D extends string, 
         modelNumber: string;
         version: string;
         isDimmable: boolean;
-        convertTo(value: any, UnitOfMeasure: number): any;
-        convertFrom(value: any, UnitOfMeasure: number): any;
         addLink(isyScene: import("../ISYScene.js").ISYScene): void;
         addChild(childDevice: ISYDeviceNode<K, string, string>): void;
         readonly parentDevice: ISYDeviceNode<K, string, string>;
@@ -88,9 +89,17 @@ export declare const ISYBinaryStateDevice: <K extends Family, D extends string, 
         eventNames(): Array<string | symbol>;
     };
 } & T;
-export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extends Constructor<ISYDeviceNode<K>>>(Base: T) => {
+export interface ISYBinaryStateDevice {
+    get state(): Promise<boolean>;
+}
+export interface ISYUpdateableBinaryStateDevice {
+    get state(): Promise<boolean>;
+    set state(value: boolean);
+}
+export declare const ISYUpdateableBinaryStateDevice: <K extends Family, D extends string, C extends string, T extends Constructor<ISYDeviceNode<K, D | "ST", C | "DON" | "DOF">>>(Base: T) => {
     new (...args: any[]): {
-        readonly state: Promise<boolean>;
+        get state(): Promise<boolean>;
+        set state(value: boolean);
         updateState(state: boolean): Promise<any>;
         family: K;
         readonly typeCode: string;
@@ -113,12 +122,12 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, T extend
         modelNumber: string;
         version: string;
         isDimmable: boolean;
-        convertTo(value: any, UnitOfMeasure: number): any;
-        convertFrom(value: any, UnitOfMeasure: number): any;
+        convertTo(value: any, UnitOfMeasure: number, propertyName?: "ST" | D): any;
+        convertFrom(value: any, UnitOfMeasure: number, propertyName?: "ST" | D): any;
         addLink(isyScene: import("../ISYScene.js").ISYScene): void;
         addChild(childDevice: ISYDeviceNode<K, string, string>): void;
         readonly parentDevice: ISYDeviceNode<K, string, string>;
-        readProperty(propertyName: string): Promise<import("../Definitions/PropertyStatus.js").PropertyStatus>;
+        readProperty(propertyName: "ST" | D): Promise<import("../Definitions/PropertyStatus.js").PropertyStatus>;
         readProperties(): Promise<import("../Definitions/PropertyStatus.js").PropertyStatus[]>;
         updateProperty(propertyName: string, value: string): Promise<any>;
         sendCommand(command: string, parameters?: (Record<string | symbol, string | number> | string | number)): Promise<any>;
@@ -202,8 +211,8 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDeviceNode<any>>>
         modelNumber: string;
         version: string;
         isDimmable: boolean;
-        convertTo(value: any, UnitOfMeasure: number): any;
-        convertFrom(value: any, UnitOfMeasure: number): any;
+        convertTo(value: any, UnitOfMeasure: number, propertyName?: string): any;
+        convertFrom(value: any, UnitOfMeasure: number, propertyName?: string): any;
         addLink(isyScene: import("../ISYScene.js").ISYScene): void;
         addChild(childDevice: ISYDeviceNode<any, string, string>): void;
         readonly parentDevice: ISYDeviceNode<any, string, string>;
@@ -285,8 +294,8 @@ export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDeviceN
         modelNumber: string;
         version: string;
         isDimmable: boolean;
-        convertTo(value: any, UnitOfMeasure: number): any;
-        convertFrom(value: any, UnitOfMeasure: number): any;
+        convertTo(value: any, UnitOfMeasure: number, propertyName?: string): any;
+        convertFrom(value: any, UnitOfMeasure: number, propertyName?: string): any;
         addLink(isyScene: import("../ISYScene.js").ISYScene): void;
         addChild(childDevice: ISYDeviceNode<any, string, string>): void;
         readonly parentDevice: ISYDeviceNode<any, string, string>;

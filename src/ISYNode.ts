@@ -493,11 +493,11 @@ export class ISYDeviceNode<T extends Family, Drivers extends string = string, Co
 
     }
 
-    public convertTo(value: any, UnitOfMeasure: number): any {
+    public convertTo(value: any, UnitOfMeasure: number, propertyName: Drivers = null): any {
         return value;
     }
 
-    public convertFrom(value: any, UnitOfMeasure: number): any {
+    public convertFrom(value: any, UnitOfMeasure: number, propertyName: Drivers = null): any {
         return value;
     }
 

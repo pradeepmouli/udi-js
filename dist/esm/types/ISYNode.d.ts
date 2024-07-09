@@ -115,8 +115,8 @@ export declare class ISYDeviceNode<T extends Family, Drivers extends string = st
     version: string;
     isDimmable: boolean;
     constructor(isy: ISY, node: NodeInfo);
-    convertTo(value: any, UnitOfMeasure: number): any;
-    convertFrom(value: any, UnitOfMeasure: number): any;
+    convertTo(value: any, UnitOfMeasure: number, propertyName?: Drivers): any;
+    convertFrom(value: any, UnitOfMeasure: number, propertyName?: Drivers): any;
     addLink(isyScene: ISYScene): void;
     addChild(childDevice: ISYDeviceNode<T, string, string>): void;
     get parentDevice(): ISYDeviceNode<T, string, string>;

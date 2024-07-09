@@ -10,30 +10,69 @@ import { ISYDeviceNode } from '../ISYNode.js';
 import { Constructor } from './Constructor.js';
 import type { BasicInformationBehavior } from '@project-chip/matter.js/behaviors/basic-information';
 import type { BridgedDeviceBasicInformationCluster } from '@project-chip/matter.js/cluster';
+import { UnitOfMeasure } from '../Definitions/UOM.js';
 
 export const ISYBinaryStateDevice = <K extends Family,D extends string, T extends Constructor<ISYDeviceNode<K,D|'ST'>>>(Base: T) => {
-	return class extends Base {
+	return class extends Base implements ISYBinaryStateDevice{
 		get state(): Promise<boolean> {
 			return Promise.resolve(this.local['ST'] > 0);
 			//return this.readProperty('ST').then(p => p.value  > 0);
 		}
+
+		override convertTo(value: any, uom: UnitOfMeasure) {
+			if(uom === UnitOfMeasure.Boolean)
+			{
+				return value > 0 ? true : false;
+			}
+			else super.convertTo(value, uom);
+		}
+
+		public override convertFrom(value: any, uom: number) {
+			if(uom === UnitOfMeasure.Boolean)
+			{
+				if(value)
+				{
+					return 100;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+
+		}
 	};
 };
 
-export const ISYUpdateableBinaryStateDevice = <K extends Family,T extends Constructor<ISYDeviceNode<K>>>(
+export interface ISYBinaryStateDevice
+{
+  get state(): Promise<boolean>;
+
+}
+
+export interface ISYUpdateableBinaryStateDevice
+{
+	get state(): Promise<boolean>;
+	set state(value: boolean);
+}
+
+export const ISYUpdateableBinaryStateDevice = <K extends Family,D extends string,C extends string, T extends Constructor<ISYDeviceNode<K,D | 'ST', C | 'DON' | 'DOF'>>>(
 	Base: T
 ) => {
-	return class extends Base {
+	return class extends Base implements ISYUpdateableBinaryStateDevice {
 		get state(): Promise<boolean> {
 			return Promise.resolve(this.local['ST'] > 0);
 			//return this.readProperty('ST').then(p => p.value  > 0);
+		}
+		set state(value: boolean) {
+			this.updateState(value)
 		}
 
 
 		public async updateState(state: boolean): Promise<any> {
 			if (state !== await this.state || this.pending.ST > 0 !== await this.state) {
 				this.pending.ST = state ? States.On : States.Off;
-				return this.sendCommand(state ? Commands.On : Commands.Off).then((p) => {
+				return this.sendCommand(state ? 'DON' : 'DOF').then((p) => {
 					//this.local.ST = this.pending.ST;
 					this.pending.ST = null;
 				});

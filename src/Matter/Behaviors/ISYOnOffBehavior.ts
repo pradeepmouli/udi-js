@@ -12,24 +12,24 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.
 
     override async initialize(_options?: {}) {
         await super.initialize(_options);
-        this.state.onOff = await this.device.isOn;
-        
+        this.state.onOff = await this.device.state;
+
 
 
     }
   override async on() {
     // await super.on();
 
-    return this.device.updateIsOn(true);
+     this.device.state = true;
   }
 
   override async off() {
     //await super.off();
-    return this.device.updateIsOn(false);
+     this.device.state = false;
   }
 
   override async toggle() {
-    return await this.device.updateIsOn(!this.device.isOn);
+    this.device.state = !(await this.device.state);
   }
 
   override handlePropertyChange(propertyName: string, value: any, newValue: any, formattedValue: string): void {

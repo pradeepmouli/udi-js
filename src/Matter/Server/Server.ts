@@ -8,13 +8,14 @@ import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/beh
 import { VendorId } from '@project-chip/matter.js/datatype';
 import { logEndpoint } from '@project-chip/matter.js/device';
 import { EndpointServer, Endpoint } from '@project-chip/matter.js/endpoint';
-import type { EndpointType } from '@project-chip/matter.js/endpoint/type';
+import { EndpointType, MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
 import { AggregatorEndpoint } from '@project-chip/matter.js/endpoints/AggregatorEndpoint';
 import { Logger as MatterLogger, Level, levelFromString } from '@project-chip/matter.js/log';
 import { QrCode } from '@project-chip/matter.js/schema';
 import { config } from 'winston';
 import { ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
 import {  OnOffLightDevice, DimmableLightDevice } from '@project-chip/matter.js/endpoint/definitions';
+import type { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
 
 
 
@@ -47,14 +48,16 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
 {
     var logger = isy.logger;
 
-    MatterLogger.addLogger(
-    "polyLogger",
-    (level, message) => logger.log(Level[level].toLowerCase().replace('notice','info'),message.slice(23).remove(Level[level]).trimStart()), /*Preserve existing formatting, but trim off date*/
-	{
-        defaultLogLevel: levelFromString(logger.level),
-		logFormat: 'plain'
-    });
-
+  if(MatterLogger.getLoggerforIdentifier("polyLogger") === undefined)
+  {
+      MatterLogger.addLogger(
+      "polyLogger",
+      (level, message) => logger.log(Level[level].toLowerCase().replace('notice','info'),message.slice(23).remove(Level[level]).trimStart()), /*Preserve existing formatting, but trim off date*/
+    {
+          defaultLogLevel: levelFromString(logger.level),
+          logFormat: 'plain'
+      });
+  }
 
 
     MatterLogger.defaultLogLevel = levelFromString(logger.level);
@@ -67,7 +70,7 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
 
     const server = await ServerNode.create({
       // Required: Give the Node a unique ID which is used to store the state of this node
-      id: config.uniqueId,
+      id: config.uniqueId.removeAll(';'),
 
       // Provide Network relevant configuration like the port
       // Optional when operating only one device on a host, Default port is 5540
@@ -138,7 +141,7 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
       let serialNumber = `${device.address.replaceAll(' ', '_',).replaceAll('.','_')}`
       if (device instanceof InsteonRelayDevice && device.enabled && !(device instanceof InsteonKeypadButtonDevice)) {
         //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
-        let baseBehavior : EndpointType | typeof BridgedDeviceBasicInformationServer;
+        let baseBehavior : MutableEndpoint.With<EndpointType.For<OnOffLightDevice|DimmableLightDevice>, SupportedBehaviors.MapOf<[typeof BridgedDeviceBasicInformationServer]>>;
         if(device instanceof InsteonDimmableDevice)
         {
           baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer);
@@ -163,8 +166,6 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
           baseBehavior,
           {
             id: serialNumber,
-            address: device.address,
-
 
 
             bridgedDeviceBasicInformation: {
@@ -177,6 +178,7 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
               hardwareVersionString: `v.${device.version}`,
               softwareVersion: Number(device.version),
               softwareVersionString: `v.${device.version}`,
+
               serialNumber: serialNumber,
               reachable: true,
               uniqueId: device.address
@@ -225,7 +227,12 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
     //MatterLogger.setLogger("EndpointStructureLogger", ((level, message) => logger.log(Level[level], message)));
 
     //logEndpoint(EndpointServer.forEndpoint(server));
-    logEndpoint(EndpointServer.forEndpoint(server), {logAttributePrimitiveValues: true, logAttributeObjectValues: false});
+    if(logger.isTraceEnabled())
+        logEndpoint(EndpointServer.forEndpoint(server), {logAttributePrimitiveValues: true, logAttributeObjectValues: true});
+    else if(logger.isDebugEnabled())
+    {
+        logEndpoint(EndpointServer.forEndpoint(server), {logAttributePrimitiveValues: true, logAttributeObjectValues: false});
+    }
     if (server.lifecycle.isOnline) {
       const { qrPairingCode, manualPairingCode } = server.state.commissioning.pairingCodes;
 
@@ -238,7 +245,12 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
       e[1].initialize(e[0] as any);
     }*/
 
-    return new ServerNode(isy);
+    return server;
+
+  function createBaseBehavior(): any {
+    let baseBehavior: any;
+    return baseBehavior;
+  }
 }
 
 async function getConfiguration(isy: ISY) {

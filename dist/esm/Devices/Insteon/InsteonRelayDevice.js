@@ -7,10 +7,10 @@ export class InsteonRelayDevice extends ISYUpdateableBinaryStateDevice(InsteonBa
     }
     async initialize(endpoint) {
         endpoint.events.onOff.onOff$Changed.on((value) => {
-            this.updateIsOn(value);
+            this.state = value;
         });
         //endpoint.defaults.onOff.onOff = await this.isOn;
-        endpoint.set({ onOff: { onOff: await this.isOn } });
+        endpoint.set({ onOff: { onOff: await this.state } });
         const that = this;
         this.on("PropertyChanged", (propertyName, newValue, _oldValue, formattedValue) => {
             if (propertyName === "ST") {
@@ -19,24 +19,20 @@ export class InsteonRelayDevice extends ISYUpdateableBinaryStateDevice(InsteonBa
             }
         });
     }
-    get isOn() {
-        return super.state;
-    }
-    set isOn(value) {
-        this.updateIsOn(value);
-    }
     handlePropertyChange(propertyName, value, formattedValue) {
         return super.handlePropertyChange(propertyName, value, formattedValue);
     }
-    async updateIsOn(isOn) {
-        if ((await this.isOn).valueOf() !== isOn) {
-            this.isOn = true;
-            return super.updateState(isOn);
-        }
-        else {
-            return Promise.resolve();
-        }
-    }
+    /*
+        public async updateIsOn(isOn: boolean): Promise<any> {
+            if (t !== isOn) {
+                this.isOn = true;
+                return super.updateState(isOn);
+            }
+            else {
+                return Promise.resolve();
+            }
+    
+        } */
     async sendBeep(level = 100) {
         return super.sendBeep(level);
     }

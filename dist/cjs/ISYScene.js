@@ -65,7 +65,7 @@ class ISYScene extends ISYNode_js_1.ISYNode {
     get isOn() {
         for (const device of this.members) {
             if (device instanceof ISY_js_1.InsteonRelayDevice) {
-                if (device.isOn) {
+                if (device.state) {
                     return true;
                 }
             }
@@ -82,7 +82,7 @@ class ISYScene extends ISYNode_js_1.ISYNode {
             }
             else if (device instanceof ISY_js_1.InsteonRelayDevice) {
                 lightDeviceCount++;
-                blevel += device.isOn ? 100 : 0;
+                blevel += device.state ? 100 : 0;
             }
         }
         if (lightDeviceCount > 0) {
@@ -113,7 +113,7 @@ class ISYScene extends ISYNode_js_1.ISYNode {
     getAreAllLightsInSpecifiedState(state) {
         for (const device of this.members) {
             if (device instanceof ISY_js_1.InsteonRelayDevice) {
-                if (device.isOn !== state) {
+                if (device.state !== state) {
                     return false;
                 }
             }

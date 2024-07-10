@@ -10,22 +10,24 @@ const ISYBinaryStateDevice = (Base) => {
             return Promise.resolve(this.local['ST'] > 0);
             //return this.readProperty('ST').then(p => p.value  > 0);
         }
-        convertTo(value, uom) {
+        convertTo(value, uom, propertyName = null) {
             if (uom === UOM_js_1.UnitOfMeasure.Boolean) {
                 return value > 0 ? true : false;
             }
             else
-                super.convertTo(value, uom);
+                super.convertTo(value, uom, propertyName);
         }
-        convertFrom(value, uom) {
+        convertFrom(value, uom, propertyName = null) {
             if (uom === UOM_js_1.UnitOfMeasure.Boolean) {
                 if (value) {
-                    return 100;
+                    return ISYConstants_js_1.States.On;
                 }
                 else {
-                    return 0;
+                    return ISYConstants_js_1.States.Off;
                 }
             }
+            else
+                super.convertFrom(value, uom, propertyName);
         }
     };
 };
@@ -33,14 +35,14 @@ exports.ISYBinaryStateDevice = ISYBinaryStateDevice;
 const ISYUpdateableBinaryStateDevice = (Base) => {
     return class extends Base {
         get state() {
-            return Promise.resolve(this.local['ST'] > 0);
+            return Promise.resolve(this.local.ST > 0);
             //return this.readProperty('ST').then(p => p.value  > 0);
         }
         set state(value) {
             this.updateState(value);
         }
         async updateState(state) {
-            if (state !== await this.state || this.pending.ST > 0 !== await this.state) {
+            if (this.local.ST > 0 !== state || this.pending.ST > 0 !== state) {
                 this.pending.ST = state ? ISYConstants_js_1.States.On : ISYConstants_js_1.States.Off;
                 return this.sendCommand(state ? 'DON' : 'DOF').then((p) => {
                     //this.local.ST = this.pending.ST;

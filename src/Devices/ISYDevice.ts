@@ -19,26 +19,27 @@ export const ISYBinaryStateDevice = <K extends Family,D extends string, T extend
 			//return this.readProperty('ST').then(p => p.value  > 0);
 		}
 
-		override convertTo(value: any, uom: UnitOfMeasure) {
+		override convertTo(value: any, uom: UnitOfMeasure, propertyName: D = null) {
 			if(uom === UnitOfMeasure.Boolean)
 			{
 				return value > 0 ? true : false;
 			}
-			else super.convertTo(value, uom);
+			else super.convertTo(value, uom,propertyName);
 		}
 
-		public override convertFrom(value: any, uom: number) {
+		public override convertFrom(value: any, uom: number, propertyName: D = null) {
 			if(uom === UnitOfMeasure.Boolean)
 			{
 				if(value)
 				{
-					return 100;
+					return States.On;
 				}
 				else
 				{
-					return 0;
+					return States.Off;
 				}
 			}
+			else super.convertFrom(value, uom,propertyName);
 
 		}
 	};
@@ -61,7 +62,7 @@ export const ISYUpdateableBinaryStateDevice = <K extends Family,D extends string
 ) => {
 	return class extends Base implements ISYUpdateableBinaryStateDevice {
 		get state(): Promise<boolean> {
-			return Promise.resolve(this.local['ST'] > 0);
+			return Promise.resolve(this.local.ST > 0);
 			//return this.readProperty('ST').then(p => p.value  > 0);
 		}
 		set state(value: boolean) {
@@ -70,7 +71,7 @@ export const ISYUpdateableBinaryStateDevice = <K extends Family,D extends string
 
 
 		public async updateState(state: boolean): Promise<any> {
-			if (state !== await this.state || this.pending.ST > 0 !== await this.state) {
+			if (this.local.ST > 0 !== state || this.pending.ST > 0 !== state) {
 				this.pending.ST = state ? States.On : States.Off;
 				return this.sendCommand(state ? 'DON' : 'DOF').then((p) => {
 					//this.local.ST = this.pending.ST;

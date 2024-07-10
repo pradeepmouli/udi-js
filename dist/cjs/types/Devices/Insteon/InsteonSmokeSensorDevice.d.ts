@@ -5,8 +5,8 @@ import 'winston';
 declare const InsteonSmokeSensorDevice_base: {
     new (...args: any[]): {
         readonly state: Promise<boolean>;
-        convertTo(value: any, uom: import("../../Definitions/UOM.js").UnitOfMeasure): boolean;
-        convertFrom(value: any, uom: number): 0 | 100;
+        convertTo(value: any, uom: import("../../Definitions/UOM.js").UnitOfMeasure, propertyName?: string): boolean;
+        convertFrom(value: any, uom: number, propertyName?: string): number;
         family: import("../../ISY.js").Family;
         readonly typeCode: string;
         readonly deviceClass: any;

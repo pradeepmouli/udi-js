@@ -62,7 +62,7 @@ export class ISYScene extends ISYNode {
     get isOn() {
         for (const device of this.members) {
             if (device instanceof InsteonRelayDevice) {
-                if (device.isOn) {
+                if (device.state) {
                     return true;
                 }
             }
@@ -79,7 +79,7 @@ export class ISYScene extends ISYNode {
             }
             else if (device instanceof InsteonRelayDevice) {
                 lightDeviceCount++;
-                blevel += device.isOn ? 100 : 0;
+                blevel += device.state ? 100 : 0;
             }
         }
         if (lightDeviceCount > 0) {
@@ -110,7 +110,7 @@ export class ISYScene extends ISYNode {
     getAreAllLightsInSpecifiedState(state) {
         for (const device of this.members) {
             if (device instanceof InsteonRelayDevice) {
-                if (device.isOn !== state) {
+                if (device.state !== state) {
                     return false;
                 }
             }

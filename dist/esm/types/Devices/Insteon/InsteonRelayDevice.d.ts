@@ -92,10 +92,7 @@ declare const InsteonRelayDevice_base: {
 export declare class InsteonRelayDevice extends InsteonRelayDevice_base implements MapsTo<typeof OnOffBehavior> {
     constructor(isy: ISY, node: NodeInfo);
     initialize(endpoint: EndpointFor<typeof OnOffBehavior>): Promise<void>;
-    get isOn(): Promise<boolean>;
-    set isOn(value: boolean);
     handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean;
-    updateIsOn(isOn: boolean): Promise<any>;
     sendBeep(level?: number): Promise<any>;
 }
 export {};

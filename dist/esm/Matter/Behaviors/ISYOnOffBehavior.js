@@ -4,18 +4,18 @@ import { ISYClusterBehavior } from "./ISYClusterBehavior.js";
 export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.OnOffServer, InsteonRelayDevice) {
     async initialize(_options) {
         await super.initialize(_options);
-        this.state.onOff = await this.device.isOn;
+        this.state.onOff = await this.device.state;
     }
     async on() {
         // await super.on();
-        return this.device.updateIsOn(true);
+        this.device.state = true;
     }
     async off() {
         //await super.off();
-        return this.device.updateIsOn(false);
+        this.device.state = false;
     }
     async toggle() {
-        return await this.device.updateIsOn(!this.device.isOn);
+        this.device.state = !(await this.device.state);
     }
     handlePropertyChange(propertyName, value, newValue, formattedValue) {
         if (propertyName === 'ST') {

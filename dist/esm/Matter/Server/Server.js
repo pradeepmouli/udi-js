@@ -32,16 +32,18 @@ import { OnOffLightDevice, DimmableLightDevice } from '@project-chip/matter.js/e
 //2024-07-03 16:30:43.693
 export async function createServerNode(isy = ISY.instance) {
     var logger = isy.logger;
-    MatterLogger.addLogger("polyLogger", (level, message) => logger.log(Level[level].toLowerCase().replace('notice', 'info'), message.slice(23).remove(Level[level]).trimStart()), /*Preserve existing formatting, but trim off date*/ {
-        defaultLogLevel: levelFromString(logger.level),
-        logFormat: 'plain'
-    });
+    if (MatterLogger.getLoggerforIdentifier("polyLogger") === undefined) {
+        MatterLogger.addLogger("polyLogger", (level, message) => logger.log(Level[level].toLowerCase().replace('notice', 'info'), message.slice(23).remove(Level[level]).trimStart()), /*Preserve existing formatting, but trim off date*/ {
+            defaultLogLevel: levelFromString(logger.level),
+            logFormat: 'plain'
+        });
+    }
     MatterLogger.defaultLogLevel = levelFromString(logger.level);
     var config = await getConfiguration(isy);
     logger.info(`Matter config read: ${JSON.stringify(config)}`);
     const server = await ServerNode.create({
         // Required: Give the Node a unique ID which is used to store the state of this node
-        id: config.uniqueId,
+        id: config.uniqueId.removeAll(';'),
         // Provide Network relevant configuration like the port
         // Optional when operating only one device on a host, Default port is 5540
         network: {
@@ -111,7 +113,6 @@ export async function createServerNode(isy = ISY.instance) {
             }
             const endpoint = new Endpoint(baseBehavior, {
                 id: serialNumber,
-                address: device.address,
                 bridgedDeviceBasicInformation: {
                     nodeLabel: device.displayName.rightWithToken(32),
                     vendorName: 'Insteon Technologies, Inc.',
@@ -152,7 +153,11 @@ export async function createServerNode(isy = ISY.instance) {
      */
     //MatterLogger.setLogger("EndpointStructureLogger", ((level, message) => logger.log(Level[level], message)));
     //logEndpoint(EndpointServer.forEndpoint(server));
-    logEndpoint(EndpointServer.forEndpoint(server), { logAttributePrimitiveValues: true, logAttributeObjectValues: false });
+    if (logger.isTraceEnabled())
+        logEndpoint(EndpointServer.forEndpoint(server), { logAttributePrimitiveValues: true, logAttributeObjectValues: true });
+    else if (logger.isDebugEnabled()) {
+        logEndpoint(EndpointServer.forEndpoint(server), { logAttributePrimitiveValues: true, logAttributeObjectValues: false });
+    }
     if (server.lifecycle.isOnline) {
         const { qrPairingCode, manualPairingCode } = server.state.commissioning.pairingCodes;
         logger.info(QrCode.get(qrPairingCode));
@@ -163,7 +168,11 @@ export async function createServerNode(isy = ISY.instance) {
     {
       e[1].initialize(e[0] as any);
     }*/
-    return new ServerNode(isy);
+    return server;
+    function createBaseBehavior() {
+        let baseBehavior;
+        return baseBehavior;
+    }
 }
 async function getConfiguration(isy) {
     var logger = isy.logger;

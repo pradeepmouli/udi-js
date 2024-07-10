@@ -10,8 +10,8 @@ import { UnitOfMeasure } from '../Definitions/UOM.js';
 export declare const ISYBinaryStateDevice: <K extends Family, D extends string, T extends Constructor<ISYDeviceNode<K, D | "ST">>>(Base: T) => {
     new (...args: any[]): {
         readonly state: Promise<boolean>;
-        convertTo(value: any, uom: UnitOfMeasure): boolean;
-        convertFrom(value: any, uom: number): 0 | 100;
+        convertTo(value: any, uom: UnitOfMeasure, propertyName?: D): boolean;
+        convertFrom(value: any, uom: number, propertyName?: D): number;
         family: K;
         readonly typeCode: string;
         readonly deviceClass: any;

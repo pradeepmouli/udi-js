@@ -6,9 +6,10 @@ import { ISYDeviceNode } from '../../ISYNode.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import 'winston';
+import type { NodeInfo } from '../../Definitions/NodeInfo.js';
 
 export class InsteonFanMotorDevice extends ISYUpdateableLevelDevice(ISYUpdateableBinaryStateDevice(InsteonBaseDevice)) {
-	constructor (isy: ISY, deviceNode) {
+	constructor (isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
 		this.hidden = true;
 	}

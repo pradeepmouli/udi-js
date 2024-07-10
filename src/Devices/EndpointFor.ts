@@ -1,25 +1,12 @@
 import { Endpoint } from '@project-chip/matter.js/endpoint';
-import { SupportedBehaviors, type Behaviors } from '@project-chip/matter.js/endpoint/properties';
+import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
 import { Behavior } from '@project-chip/matter.js/behavior';
-import { MutableEndpoint,EndpointType} from '@project-chip/matter.js/endpoint/type';
-import { EndpointOptions, OnOffBaseDevice } from '@project-chip/matter.js/device';
-import type { ClusterBehavior, ClusterInterface } from '@project-chip/matter.js/behavior/cluster';
-import { BasicInformation, BasicInformationCluster, type Cluster, type ClusterType } from '@project-chip/matter.js/cluster';
-import type { ClientMonitoringBehavior } from '@project-chip/matter.js/behaviors/client-monitoring';
+import { MutableEndpoint, EndpointType } from '@project-chip/matter.js/endpoint/type';
+import type { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
+import { type ClusterType } from '@project-chip/matter.js/cluster';
 import type { Constructor } from './Constructor.js';
-import type { ISYDeviceNode, ISYNode } from '../ISYNode.js';
-import type { Session } from '@project-chip/matter.js/session';
-import type { StateType } from '@project-chip/matter.js/behavior/state';
-import type { ClusterDatasource, MutableCluster } from '@project-chip/matter.js/cluster';
+import type { ISYDeviceNode } from '../ISYNode.js';
 
-import { addValueWithOverflow, type Identity, type MaybePromise } from '@project-chip/matter.js/util';
-import { ISY, InsteonRelayDevice, type ISYDevice } from '../ISY.js';
-import { BasicInformationBehavior, BasicInformationServer } from '@project-chip/matter.js/behaviors/basic-information';
-import { IdentifyBehavior } from '@project-chip/matter.js/behaviors/identify';
-import { IndexBehavior } from '@project-chip/matter.js/behavior/system/index';
-import { OnOffLightDevice, OnOffLightRequirements } from '@project-chip/matter.js/devices/OnOffLightDevice';
-import { OnOffBehavior, OnOffServer } from '@project-chip/matter.js/behaviors/on-off';
-import type { Insteon } from '../Definitions/Families.js';
 import { BridgedDeviceBasicInformationBehavior, BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
 
 
@@ -82,94 +69,27 @@ export const MatterEndpoint= <P extends EndpointType & MutableEndpoint, T extend
 }
 }
 
-export const ISYClusterBehavior = <T extends Constructor<ClusterBehavior>,P extends ISYDeviceNode<any,string,string>>(base: T, p: Identity<P>) =>
-{
+ // @ts-ignore
+   const BISY = BridgedDeviceBasicInformationBehavior.alter({attributes: {address: {optional: false}, ...BridgedDeviceBasicInformationServer.cluster.attributes}});
 
 
-	return class extends base implements DeviceBehavior<P>
-	{
-
-    device: P;
-
-    override initialize(_options?: {}): MaybePromise {
-        super.initialize(_options);
-        var address = this.agent.endpoint.stateOf(BridgedDeviceBasicInformationServer).uniqueId;
-        this.device = ISY.instance.getDevice(address);
-        if(this.device)
-        {
-          this.device.on("PropertyChanged", (propertyName, newValue, _oldValue, formattedValue) => this.handlePropertyChange(propertyName, newValue, _oldValue, formattedValue));
-        }
-    }
-
-
-    handlePropertyChange(propertyName: string, value: any, newValue: any, formattedValue: string) {
-
-
-
-
-    }
-  } as T & Constructor<DeviceBehavior<P>>;
-};
-//@ts-ignore
-
-// <reference path="MatterDevice.js" />
-// @ts-ignore
-
-interface DeviceBehavior<P>
-{
-  device: P,
-  handlePropertyChange(propertyName: string, value: any, newValue: any, formattedValue: string): void;
-}
-
-const IRD = InsteonRelayDevice;
-
-export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.OnOffServer,InsteonRelayDevice.prototype)
-// @ts-ignore
-{
-
-
-
-
-
-    override async on() {
-
-      await super.on();
-
-      return super.device.updateIsOn(true);
-    }
-
-    override async off() {
-      await super.off();
-      return this.device.updateIsOn(false);
-    }
-
-    override async toggle() {
-      return await this.device.updateIsOn(!this.device.isOn);
-    }
-
-    override handlePropertyChange(propertyName: string, value: any, newValue: any, formattedValue: string): void {
-        this.state.onOff = newValue > 0;
-
-        this.events.onOff$Changed.emit(newValue, value,this.context)
-
-    }
-
-
-}
-
-//@ts-ignore
-   const BISY = BridgedDeviceBasicInformationBehavior.alter({attributes: {address: {optional: false}}});
-
-
-  export class BridgedISYNodeInformationServer extends BISY
+  export class BridgedISYNodeInformationServer extends BridgedDeviceBasicInformationServer
   {
 
-    override initialize(): MaybePromise<void> {
+    override async initialize(): Promise<void> {
 
 
 
         return super.initialize();
 
 
+
     }
   }
+
+  export namespace BridgedISYNodeInformationServer {
+    export class State extends BridgedDeviceBasicInformationServer.State {
+        // Assume Device is online when it is added, but developers should set correctly if needed
+        declare address: string;
+    }
+}

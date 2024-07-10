@@ -22,10 +22,6 @@ export declare const ISYBinaryStateDevice: <K extends Family, D extends string, 
         _parentDevice: ISYDeviceNode<K, string, string>;
         readonly children: ISYDeviceNode<K, string, string>[];
         readonly scenes: import("../ISYScene.js").ISYScene[];
-        readonly formatted: any[Drivers];
-        readonly uom: any[Drivers];
-        readonly pending: any[Drivers];
-        readonly local: any[Drivers];
         hidden: boolean;
         _enabled: any;
         productName: string;
@@ -43,11 +39,15 @@ export declare const ISYBinaryStateDevice: <K extends Family, D extends string, 
         refresh(): Promise<any>;
         parseResult(node: {
             property: import("../Definitions/PropertyStatus.js").PropertyStatus | import("../Definitions/PropertyStatus.js").PropertyStatus[];
-        }, device: any): void;
-        applyStatus(device: any, prop: import("../Definitions/PropertyStatus.js").PropertyStatus): void;
+        }): void;
+        applyStatus(prop: import("../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: import("../ISY.js").ISY;
+        readonly formatted: any[Drivers];
+        readonly uom: any[Drivers];
+        readonly pending: any[Drivers];
+        readonly local: any[Drivers];
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;
@@ -111,10 +111,6 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, D extend
         _parentDevice: ISYDeviceNode<K, string, string>;
         readonly children: ISYDeviceNode<K, string, string>[];
         readonly scenes: import("../ISYScene.js").ISYScene[];
-        readonly formatted: any[Drivers];
-        readonly uom: any[Drivers];
-        readonly pending: any[Drivers];
-        readonly local: any[Drivers];
         hidden: boolean;
         _enabled: any;
         productName: string;
@@ -134,11 +130,15 @@ export declare const ISYUpdateableBinaryStateDevice: <K extends Family, D extend
         refresh(): Promise<any>;
         parseResult(node: {
             property: import("../Definitions/PropertyStatus.js").PropertyStatus | import("../Definitions/PropertyStatus.js").PropertyStatus[];
-        }, device: any): void;
-        applyStatus(device: any, prop: import("../Definitions/PropertyStatus.js").PropertyStatus): void;
+        }): void;
+        applyStatus(prop: import("../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: import("../ISY.js").ISY;
+        readonly formatted: any[Drivers];
+        readonly uom: any[Drivers];
+        readonly pending: any[Drivers];
+        readonly local: any[Drivers];
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;
@@ -200,10 +200,6 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDeviceNode<any>>>
         _parentDevice: ISYDeviceNode<any, string, string>;
         readonly children: ISYDeviceNode<any, string, string>[];
         readonly scenes: import("../ISYScene.js").ISYScene[];
-        readonly formatted: any[Drivers];
-        readonly uom: any[Drivers];
-        readonly pending: any[Drivers];
-        readonly local: any[Drivers];
         hidden: boolean;
         _enabled: any;
         productName: string;
@@ -223,11 +219,15 @@ export declare const ISYLevelDevice: <T extends Constructor<ISYDeviceNode<any>>>
         refresh(): Promise<any>;
         parseResult(node: {
             property: import("../Definitions/PropertyStatus.js").PropertyStatus | import("../Definitions/PropertyStatus.js").PropertyStatus[];
-        }, device: any): void;
-        applyStatus(device: any, prop: import("../Definitions/PropertyStatus.js").PropertyStatus): void;
+        }): void;
+        applyStatus(prop: import("../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: import("../ISY.js").ISY;
+        readonly formatted: any[Drivers];
+        readonly uom: any[Drivers];
+        readonly pending: any[Drivers];
+        readonly local: any[Drivers];
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;
@@ -283,10 +283,6 @@ export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDeviceN
         _parentDevice: ISYDeviceNode<any, string, string>;
         readonly children: ISYDeviceNode<any, string, string>[];
         readonly scenes: import("../ISYScene.js").ISYScene[];
-        readonly formatted: any[Drivers];
-        readonly uom: any[Drivers];
-        readonly pending: any[Drivers];
-        readonly local: any[Drivers];
         hidden: boolean;
         _enabled: any;
         productName: string;
@@ -306,11 +302,15 @@ export declare const ISYUpdateableLevelDevice: <T extends Constructor<ISYDeviceN
         refresh(): Promise<any>;
         parseResult(node: {
             property: import("../Definitions/PropertyStatus.js").PropertyStatus | import("../Definitions/PropertyStatus.js").PropertyStatus[];
-        }, device: any): void;
-        applyStatus(device: any, prop: import("../Definitions/PropertyStatus.js").PropertyStatus): void;
+        }): void;
+        applyStatus(prop: import("../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: import("../ISY.js").ISY;
+        readonly formatted: any[Drivers];
+        readonly uom: any[Drivers];
+        readonly pending: any[Drivers];
+        readonly local: any[Drivers];
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;

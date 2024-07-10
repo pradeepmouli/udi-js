@@ -14,7 +14,7 @@ class InsteonBaseDevice extends ISYNode_js_1.ISYDeviceNode {
         //// this.productName = InsteonNLS.getDeviceDescription(String.fromCharCode(category,device,version));
         //his.childDevices = {};
     }
-    convertFrom(value, uom) {
+    convertFrom(value, uom, propertyName = null) {
         switch (uom) {
             case UOM_js_1.UnitOfMeasure.DegreeX2:
                 return (0, Utils_js_1.byteToDegree)(value);
@@ -26,7 +26,7 @@ class InsteonBaseDevice extends ISYNode_js_1.ISYDeviceNode {
                 return super.convertFrom(value, uom);
         }
     }
-    convertTo(value, uom) {
+    convertTo(value, uom, propertyName = null) {
         const nuom = super.convertTo(value, uom);
         switch (uom) {
             case UOM_js_1.UnitOfMeasure.DegreeX2:

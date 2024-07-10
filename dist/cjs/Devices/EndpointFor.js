@@ -1,9 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.BridgedISYNodeInformationServer = exports.ISYOnOffBehavior = exports.ISYClusterBehavior = exports.MatterEndpoint = void 0;
+exports.BridgedISYNodeInformationServer = exports.MatterEndpoint = void 0;
 const endpoint_1 = require("@project-chip/matter.js/endpoint");
-const ISY_js_1 = require("../ISY.js");
-const OnOffLightDevice_1 = require("@project-chip/matter.js/devices/OnOffLightDevice");
 const bridged_device_basic_information_1 = require("@project-chip/matter.js/behaviors/bridged-device-basic-information");
 const MatterEndpoint = (base, endpointType) => {
     return class extends base {
@@ -22,46 +20,16 @@ const MatterEndpoint = (base, endpointType) => {
     };
 };
 exports.MatterEndpoint = MatterEndpoint;
-const ISYClusterBehavior = (base, p) => {
-    return class extends base {
-        device;
-        initialize(_options) {
-            super.initialize(_options);
-            var address = this.agent.endpoint.stateOf(bridged_device_basic_information_1.BridgedDeviceBasicInformationServer).uniqueId;
-            this.device = ISY_js_1.ISY.instance.getDevice(address);
-            if (this.device) {
-                this.device.on("PropertyChanged", (propertyName, newValue, _oldValue, formattedValue) => this.handlePropertyChange(propertyName, newValue, _oldValue, formattedValue));
-            }
-        }
-        handlePropertyChange(propertyName, value, newValue, formattedValue) {
-        }
-    };
-};
-exports.ISYClusterBehavior = ISYClusterBehavior;
-const IRD = ISY_js_1.InsteonRelayDevice;
-class ISYOnOffBehavior extends (0, exports.ISYClusterBehavior)(OnOffLightDevice_1.OnOffLightRequirements.OnOffServer, ISY_js_1.InsteonRelayDevice.prototype) {
-    async on() {
-        await super.on();
-        return super.device.updateIsOn(true);
-    }
-    async off() {
-        await super.off();
-        return this.device.updateIsOn(false);
-    }
-    async toggle() {
-        return await this.device.updateIsOn(!this.device.isOn);
-    }
-    handlePropertyChange(propertyName, value, newValue, formattedValue) {
-        this.state.onOff = newValue > 0;
-        this.events.onOff$Changed.emit(newValue, value, this.context);
-    }
-}
-exports.ISYOnOffBehavior = ISYOnOffBehavior;
-//@ts-ignore
-const BISY = bridged_device_basic_information_1.BridgedDeviceBasicInformationBehavior.alter({ attributes: { address: { optional: false } } });
-class BridgedISYNodeInformationServer extends BISY {
-    initialize() {
+// @ts-ignore
+const BISY = bridged_device_basic_information_1.BridgedDeviceBasicInformationBehavior.alter({ attributes: { address: { optional: false }, ...bridged_device_basic_information_1.BridgedDeviceBasicInformationServer.cluster.attributes } });
+class BridgedISYNodeInformationServer extends bridged_device_basic_information_1.BridgedDeviceBasicInformationServer {
+    async initialize() {
         return super.initialize();
     }
 }
 exports.BridgedISYNodeInformationServer = BridgedISYNodeInformationServer;
+(function (BridgedISYNodeInformationServer) {
+    class State extends bridged_device_basic_information_1.BridgedDeviceBasicInformationServer.State {
+    }
+    BridgedISYNodeInformationServer.State = State;
+})(BridgedISYNodeInformationServer || (exports.BridgedISYNodeInformationServer = BridgedISYNodeInformationServer = {}));

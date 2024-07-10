@@ -5,10 +5,7 @@ import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
 
 export class InsteonLockDevice extends ISYUpdateableBinaryStateDevice(InsteonBaseDevice) {
-	constructor (isy: ISY, deviceNode: any
-	) {
-		super(isy, deviceNode);
-	}
+	
 	public sendLockCommand(lockState: any, resultHandler: any) {
 
 			this.sendNonSecureLockCommand(lockState);

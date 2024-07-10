@@ -1,10 +1,12 @@
+import type { NodeInfo } from '../../Definitions/NodeInfo.js';
+import type { ISY } from '../../ISY.js';
 import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import 'winston';
 declare const InsteonKeypadRelayDevice_base: {
     new (...args: any[]): {
         addChild(childDevice: import("../../ISYNode.js").ISYDeviceNode<import("../../ISY.js").Family.Insteon>): void;
-        convertFrom(value: any, uom: import("../../Definitions/UOM.js").UnitOfMeasure): any;
-        convertTo(value: any, uom: import("../../Definitions/UOM.js").UnitOfMeasure): any;
+        convertFrom(value: any, uom: import("../../Definitions/UOM.js").UnitOfMeasure, propertyName?: string): any;
+        convertTo(value: any, uom: import("../../Definitions/UOM.js").UnitOfMeasure, propertyName?: string): any;
         sendBeep(level?: number): Promise<any>;
         family: import("../../ISY.js").Family.Insteon;
         readonly typeCode: string;
@@ -16,10 +18,6 @@ declare const InsteonKeypadRelayDevice_base: {
         _parentDevice: import("../../ISYNode.js").ISYDeviceNode<import("../../ISY.js").Family.Insteon, string, string>;
         readonly children: import("../../ISYNode.js").ISYDeviceNode<import("../../ISY.js").Family.Insteon, string, string>[];
         readonly scenes: import("../../ISYScene.js").ISYScene[];
-        readonly formatted: any[Drivers];
-        readonly uom: any[Drivers];
-        readonly pending: any[Drivers];
-        readonly local: any[Drivers];
         hidden: boolean;
         _enabled: any;
         productName: string;
@@ -36,11 +34,15 @@ declare const InsteonKeypadRelayDevice_base: {
         refresh(): Promise<any>;
         parseResult(node: {
             property: import("../../Definitions/PropertyStatus.js").PropertyStatus | import("../../Definitions/PropertyStatus.js").PropertyStatus[];
-        }, device: any): void;
-        applyStatus(device: any, prop: import("../../Definitions/PropertyStatus.js").PropertyStatus): void;
+        }): void;
+        applyStatus(prop: import("../../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
-        readonly isy: import("../../ISY.js").ISY;
+        readonly isy: ISY;
+        readonly formatted: any[Drivers];
+        readonly uom: any[Drivers];
+        readonly pending: any[Drivers];
+        readonly local: any[Drivers];
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;
@@ -83,6 +85,6 @@ declare const InsteonKeypadRelayDevice_base: {
     };
 } & typeof InsteonRelayDevice;
 export declare class InsteonKeypadRelayDevice extends InsteonKeypadRelayDevice_base {
-    constructor(isy: any, deviceNode: any);
+    constructor(isy: ISY, deviceNode: NodeInfo);
 }
 export {};

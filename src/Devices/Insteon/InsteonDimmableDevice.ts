@@ -11,13 +11,14 @@ import { OnOffBehavior as OOB, OnOffInterface } from '@project-chip/matter.js/be
 import { OnOff, ClusterType } from '@project-chip/matter.js/cluster';
 import 'winston';
 import { UnitOfMeasure } from '../../Definitions/UOM.js';
+import type { NodeInfo } from '../../Definitions/NodeInfo.js';
 
 type LevelControlBehavior = typeof DimmableLightRequirements.LevelControlServer
 type OnOffBehavior = typeof OOB
 
 export class InsteonDimmableDevice extends ISYUpdateableLevelDevice(InsteonRelayDevice) implements MapsTo<LevelControlBehavior,OnOffBehavior>{
 
-	constructor (isy: ISY, node: any) {
+	constructor (isy: ISY,node: NodeInfo) {
 		super(isy, node);
 		this.isDimmable = true;
 	}

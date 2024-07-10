@@ -2,13 +2,11 @@ import { Endpoint } from '@project-chip/matter.js/endpoint';
 import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
 import { Behavior } from '@project-chip/matter.js/behavior';
 import { MutableEndpoint, EndpointType } from '@project-chip/matter.js/endpoint/type';
-import type { ClusterBehavior, ClusterInterface } from '@project-chip/matter.js/behavior/cluster';
+import type { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import { type ClusterType } from '@project-chip/matter.js/cluster';
 import type { Constructor } from './Constructor.js';
 import type { ISYDeviceNode } from '../ISYNode.js';
-import { type Identity, type MaybePromise } from '@project-chip/matter.js/util';
-import { ISY, InsteonRelayDevice } from '../ISY.js';
-import { OnOffServer } from '@project-chip/matter.js/behaviors/on-off';
+import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
 export type RelaxTypes<V> = V extends number ? number : V extends bigint ? bigint : V extends object ? V extends (...args: any[]) => any ? V : {
     [K in keyof V]: RelaxTypes<V[K]>;
 } : V;
@@ -36,10 +34,6 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         _parentDevice: ISYDeviceNode<any, string, string>;
         readonly children: ISYDeviceNode<any, string, string>[];
         readonly scenes: import("../ISYScene.js").ISYScene[];
-        readonly formatted: any[Drivers];
-        readonly uom: any[Drivers];
-        readonly pending: any[Drivers];
-        readonly local: any[Drivers];
         hidden: boolean;
         _enabled: any;
         productName: string;
@@ -59,11 +53,15 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         refresh(): Promise<any>;
         parseResult(node: {
             property: import("../Definitions/PropertyStatus.js").PropertyStatus | import("../Definitions/PropertyStatus.js").PropertyStatus[];
-        }, device: any): void;
-        applyStatus(device: any, prop: import("../Definitions/PropertyStatus.js").PropertyStatus): void;
+        }): void;
+        applyStatus(prop: import("../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
-        readonly isy: ISY;
+        readonly isy: import("../ISY.js").ISY;
+        readonly formatted: any[Drivers];
+        readonly uom: any[Drivers];
+        readonly pending: any[Drivers];
+        readonly local: any[Drivers];
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;
@@ -105,26 +103,11 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         eventNames(): Array<string | symbol>;
     };
 } & T;
-export declare const ISYClusterBehavior: <T extends Constructor<ClusterBehavior>, P extends ISYDeviceNode<any, string, string>>(base: T, p: Identity<P>) => T & Constructor<DeviceBehavior<P>>;
-interface DeviceBehavior<P> {
-    device: P;
-    handlePropertyChange(propertyName: string, value: any, newValue: any, formattedValue: string): void;
+export declare class BridgedISYNodeInformationServer extends BridgedDeviceBasicInformationServer {
+    initialize(): Promise<void>;
 }
-declare const ISYOnOffBehavior_base: ClusterBehavior.Type<import("@project-chip/matter.js/cluster").ClusterComposer.WithFeatures<import("@project-chip/matter.js/cluster").ClusterComposer.WithFeatures<import("@project-chip/matter.js/cluster").OnOff.Cluster, readonly [import("@project-chip/matter.js/cluster").OnOff.Feature]>, readonly ["LevelControlForLighting"]>, typeof OnOffServer, import("@project-chip/matter.js/behaviors/on-off").OnOffInterface> & Constructor<DeviceBehavior<InsteonRelayDevice>>;
-export declare class ISYOnOffBehavior extends ISYOnOffBehavior_base {
-    on(): Promise<any>;
-    off(): Promise<any>;
-    toggle(): Promise<any>;
-    handlePropertyChange(propertyName: string, value: any, newValue: any, formattedValue: string): void;
+export declare namespace BridgedISYNodeInformationServer {
+    class State extends BridgedDeviceBasicInformationServer.State {
+        address: string;
+    }
 }
-declare const BISY: ClusterBehavior.Type<import("@project-chip/matter.js/cluster").ElementModifier.WithAlterations<ClusterType, {
-    readonly attributes: {
-        readonly address: {
-            readonly optional: false;
-        };
-    };
-}>, ClusterBehavior.Type<ClusterType, Behavior.Type, ClusterInterface<{}>>, ClusterInterface<{}>>;
-export declare class BridgedISYNodeInformationServer extends BISY {
-    initialize(): MaybePromise<void>;
-}
-export {};

@@ -1,3 +1,4 @@
+import type { NodeInfo } from '../../Definitions/NodeInfo.js';
 import { ISY } from '../../ISY.js';
 import { Commands } from '../../ISYConstants.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
@@ -5,7 +6,7 @@ import 'winston';
 
 export class InsteonMotionSensorDevice extends InsteonBaseDevice {
 	private _isMotionDetected: boolean;
-	constructor (isy: ISY, deviceNode) {
+	constructor (isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
 		this._isMotionDetected = false;
 	}

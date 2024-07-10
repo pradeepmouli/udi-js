@@ -4,6 +4,7 @@ import { ISYDeviceNode } from '../../ISYNode.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import 'winston';
+import type { NodeInfo } from '../../Definitions/NodeInfo.js';
 declare const InsteonFanMotorDevice_base: {
     new (...args: any[]): {
         readonly level: number;
@@ -18,10 +19,6 @@ declare const InsteonFanMotorDevice_base: {
         _parentDevice: ISYDeviceNode<any, string, string>;
         readonly children: ISYDeviceNode<any, string, string>[];
         readonly scenes: import("../../ISYScene.js").ISYScene[];
-        readonly formatted: any[Drivers];
-        readonly uom: any[Drivers];
-        readonly pending: any[Drivers];
-        readonly local: any[Drivers];
         hidden: boolean;
         _enabled: any;
         productName: string;
@@ -41,11 +38,15 @@ declare const InsteonFanMotorDevice_base: {
         refresh(): Promise<any>;
         parseResult(node: {
             property: import("../../Definitions/PropertyStatus.js").PropertyStatus | import("../../Definitions/PropertyStatus.js").PropertyStatus[];
-        }, device: any): void;
-        applyStatus(device: any, prop: import("../../Definitions/PropertyStatus.js").PropertyStatus): void;
+        }): void;
+        applyStatus(prop: import("../../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;
+        readonly formatted: any[Drivers];
+        readonly uom: any[Drivers];
+        readonly pending: any[Drivers];
+        readonly local: any[Drivers];
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;
@@ -101,10 +102,6 @@ declare const InsteonFanMotorDevice_base: {
         _parentDevice: ISYDeviceNode<Family, string, string>;
         readonly children: ISYDeviceNode<Family, string, string>[];
         readonly scenes: import("../../ISYScene.js").ISYScene[];
-        readonly formatted: any[Drivers];
-        readonly uom: any[Drivers];
-        readonly pending: any[Drivers];
-        readonly local: any[Drivers];
         hidden: boolean;
         _enabled: any;
         productName: string;
@@ -124,11 +121,15 @@ declare const InsteonFanMotorDevice_base: {
         refresh(): Promise<any>;
         parseResult(node: {
             property: import("../../Definitions/PropertyStatus.js").PropertyStatus | import("../../Definitions/PropertyStatus.js").PropertyStatus[];
-        }, device: any): void;
-        applyStatus(device: any, prop: import("../../Definitions/PropertyStatus.js").PropertyStatus): void;
+        }): void;
+        applyStatus(prop: import("../../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;
+        readonly formatted: any[Drivers];
+        readonly uom: any[Drivers];
+        readonly pending: any[Drivers];
+        readonly local: any[Drivers];
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;
@@ -171,7 +172,7 @@ declare const InsteonFanMotorDevice_base: {
     };
 } & typeof InsteonBaseDevice;
 export declare class InsteonFanMotorDevice extends InsteonFanMotorDevice_base {
-    constructor(isy: ISY, deviceNode: any);
+    constructor(isy: ISY, deviceNode: NodeInfo);
     get isOn(): Promise<boolean>;
     get fanSpeed(): number;
     updateFanSpeed(level: number): Promise<any>;

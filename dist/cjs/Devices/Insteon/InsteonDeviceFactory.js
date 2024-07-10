@@ -260,7 +260,7 @@ class InsteonDeviceFactory {
                 retVal = { name: 'OutletLinc', modelNumber: '2473-SP', class: InsteonOnOffOutletDevice_js_1.InsteonOnOffOutletDevice };
                 break;
             case '#':
-                return { name: 'SwitchLinc Relay - Remote Control On/Off Switch', modelNumber: '2476S-SP', class: InsteonRelaySwitchDevice_js_1.InsteonRelaySwitchDevice };
+                retVal = { name: 'SwitchLinc Relay - Remote Control On/Off Switch', modelNumber: '2476S-SP', class: InsteonRelaySwitchDevice_js_1.InsteonRelaySwitchDevice };
             case '"':
                 retVal = { name: 'In-LineLinc Relay', modelNumber: '2475S-SP', class: InsteonRelaySwitchDevice_js_1.InsteonRelaySwitchDevice };
                 break;

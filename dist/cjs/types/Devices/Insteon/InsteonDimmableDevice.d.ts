@@ -5,6 +5,7 @@ import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import type { DimmableLightRequirements } from '@project-chip/matter.js/devices/DimmableLightDevice';
 import { OnOffBehavior as OOB } from '@project-chip/matter.js/behaviors/on-off';
 import 'winston';
+import type { NodeInfo } from '../../Definitions/NodeInfo.js';
 type LevelControlBehavior = typeof DimmableLightRequirements.LevelControlServer;
 type OnOffBehavior = typeof OOB;
 declare const InsteonDimmableDevice_base: {
@@ -21,10 +22,6 @@ declare const InsteonDimmableDevice_base: {
         _parentDevice: import("../../ISYNode.js").ISYDeviceNode<any, string, string>;
         readonly children: import("../../ISYNode.js").ISYDeviceNode<any, string, string>[];
         readonly scenes: import("../../ISYScene.js").ISYScene[];
-        readonly formatted: any[Drivers];
-        readonly uom: any[Drivers];
-        readonly pending: any[Drivers];
-        readonly local: any[Drivers];
         hidden: boolean;
         _enabled: any;
         productName: string;
@@ -44,11 +41,15 @@ declare const InsteonDimmableDevice_base: {
         refresh(): Promise<any>;
         parseResult(node: {
             property: import("../../Definitions/PropertyStatus.js").PropertyStatus | import("../../Definitions/PropertyStatus.js").PropertyStatus[];
-        }, device: any): void;
-        applyStatus(device: any, prop: import("../../Definitions/PropertyStatus.js").PropertyStatus): void;
+        }): void;
+        applyStatus(prop: import("../../Definitions/PropertyStatus.js").PropertyStatus): void;
         handleControlTrigger(controlName: string): boolean;
         handlePropertyChange(propertyName: any, value: any, formattedValue: string): boolean;
         readonly isy: ISY;
+        readonly formatted: any[Drivers];
+        readonly uom: any[Drivers];
+        readonly pending: any[Drivers];
+        readonly local: any[Drivers];
         readonly flag: any;
         readonly nodeDefId: string;
         readonly address: string;
@@ -91,7 +92,7 @@ declare const InsteonDimmableDevice_base: {
     };
 } & typeof InsteonRelayDevice;
 export declare class InsteonDimmableDevice extends InsteonDimmableDevice_base implements MapsTo<LevelControlBehavior, OnOffBehavior> {
-    constructor(isy: ISY, node: any);
+    constructor(isy: ISY, node: NodeInfo);
     get brightnessLevel(): number;
     updateBrightnessLevel(level: number): Promise<{}>;
     initialize(endpoint: EndpointFor<LevelControlBehavior, OnOffBehavior>): Promise<void>;

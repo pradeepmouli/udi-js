@@ -674,7 +674,7 @@ export class ISY extends EventEmitter {
 						{
 							this.logger.info(`Received Node Change Event: ${JSON.stringify(evt)}. These are currently unsupported.`);
 						}
-						this.logger.info(`Unhandled ${EventType[Number(stringControl)]} Event: ${JSON.stringify(evt)}`);
+						this.logger.debug(`${EventType[Number(stringControl)]} Event: ${JSON.stringify(evt)}`);
 					}
 
 					break;

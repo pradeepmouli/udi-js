@@ -6,9 +6,6 @@ const ISYDevice_js_1 = require("../ISYDevice.js");
 const InsteonBaseDevice_js_1 = require("./InsteonBaseDevice.js");
 require("winston");
 class InsteonLockDevice extends (0, ISYDevice_js_1.ISYUpdateableBinaryStateDevice)(InsteonBaseDevice_js_1.InsteonBaseDevice) {
-    constructor(isy, deviceNode) {
-        super(isy, deviceNode);
-    }
     sendLockCommand(lockState, resultHandler) {
         this.sendNonSecureLockCommand(lockState);
         this.sendSecureLockCommand(lockState);

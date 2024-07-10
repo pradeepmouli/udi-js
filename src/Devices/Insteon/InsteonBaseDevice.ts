@@ -19,7 +19,7 @@ export class InsteonBaseDevice<Drivers extends string = string,Commands extends 
 
 
 
-	public override convertFrom(value: any, uom: UnitOfMeasure,): any {
+	public override convertFrom(value: any, uom: UnitOfMeasure,propertyName: Drivers = null): any {
 		switch (uom) {
 			case UOM.DegreeX2:
 				return byteToDegree(value);
@@ -31,7 +31,7 @@ export class InsteonBaseDevice<Drivers extends string = string,Commands extends 
 				return super.convertFrom(value, uom);
 		}
 	}
-	public override convertTo(value: any, uom: UnitOfMeasure): any {
+	public override convertTo(value: any, uom: UnitOfMeasure,propertyName: Drivers = null): any {
 		const nuom = super.convertTo(value, uom);
 		switch (uom) {
 			case UOM.DegreeX2:

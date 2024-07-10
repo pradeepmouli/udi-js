@@ -20,9 +20,10 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior>, P ext
       var address = this.agent.get(BridgedDeviceBasicInformationServer).state.uniqueId;
       this.
         _device = ISY.instance.getDevice(address);
-      ISY.instance.logger.debug(`Initializing ${this.constructor.name} for ISY Device ${this._device} with address ${address}`);
+      ISY.instance.logger.debug(`Initializing ${this.constructor.name} for ${this._device.constructor.name} ${this._device} with address ${address}`);
       if (this._device) {
         this._device.on("PropertyChanged", this.handlePropertyChange.bind(this));
+        
       }
 
     }

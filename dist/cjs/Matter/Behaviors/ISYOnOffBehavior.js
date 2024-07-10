@@ -5,6 +5,10 @@ const InsteonRelayDevice_js_1 = require("../../Devices/Insteon/InsteonRelayDevic
 const OnOffLightDevice_1 = require("@project-chip/matter.js/devices/OnOffLightDevice");
 const ISYClusterBehavior_js_1 = require("./ISYClusterBehavior.js");
 class ISYOnOffBehavior extends (0, ISYClusterBehavior_js_1.ISYClusterBehavior)(OnOffLightDevice_1.OnOffLightRequirements.OnOffServer, InsteonRelayDevice_js_1.InsteonRelayDevice) {
+    async initialize(_options) {
+        await super.initialize(_options);
+        this.state.onOff = await this.device.isOn;
+    }
     async on() {
         // await super.on();
         return this.device.updateIsOn(true);

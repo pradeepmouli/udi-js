@@ -13,7 +13,6 @@ import { Logger as MatterLogger, Level, levelFromString } from '@project-chip/ma
 import { QrCode } from '@project-chip/matter.js/schema';
 import { ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
 import { OnOffLightDevice, DimmableLightDevice } from '@project-chip/matter.js/endpoint/definitions';
-const logger = ISY.instance.logger;
 //import {clone} from 'isy-nodejs/Utils';
 //let { Utils } = await import ('isy-nodejs');
 // function plainLogFormatter(now: Date, level: Level, facility: string, prefix: string, values: any[]) {
@@ -31,14 +30,13 @@ const logger = ISY.instance.logger;
 //
 //let matterLogger = clone(logger,'matter.js');
 //2024-07-03 16:30:43.693
-MatterLogger.addLogger("polyLogger", (level, message) => logger.log(Level[level].toLowerCase().replace('notice', 'info'), message.slice(23).remove(Level[level]).trimStart()), /*Preserve existing formatting, but trim off date*/ {
-    defaultLogLevel: levelFromString(logger.level),
-    logFormat: 'plain'
-});
-logger;
-MatterLogger.defaultLogLevel = levelFromString(logger.level);
-export async function createServerNode(isy) {
+export async function createServerNode(isy = ISY.instance) {
     var logger = isy.logger;
+    MatterLogger.addLogger("polyLogger", (level, message) => logger.log(Level[level].toLowerCase().replace('notice', 'info'), message.slice(23).remove(Level[level]).trimStart()), /*Preserve existing formatting, but trim off date*/ {
+        defaultLogLevel: levelFromString(logger.level),
+        logFormat: 'plain'
+    });
+    MatterLogger.defaultLogLevel = levelFromString(logger.level);
     var config = await getConfiguration(isy);
     logger.info(`Matter config read: ${JSON.stringify(config)}`);
     const server = await ServerNode.create({
@@ -168,6 +166,7 @@ export async function createServerNode(isy) {
     return new ServerNode(isy);
 }
 async function getConfiguration(isy) {
+    var logger = isy.logger;
     /**
      * Collect all needed data
      *

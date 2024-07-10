@@ -17,9 +17,6 @@ import { ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
 import {  OnOffLightDevice, DimmableLightDevice } from '@project-chip/matter.js/endpoint/definitions';
 
 
-const logger = ISY.instance.logger;
-
-
 
 //import {clone} from 'isy-nodejs/Utils';
 //let { Utils } = await import ('isy-nodejs');
@@ -44,7 +41,13 @@ const logger = ISY.instance.logger;
 //let matterLogger = clone(logger,'matter.js');
 
 //2024-07-03 16:30:43.693
-MatterLogger.addLogger(
+
+
+export async function createServerNode(isy: ISY = ISY.instance) : Promise<ServerNode>
+{
+    var logger = isy.logger;
+
+    MatterLogger.addLogger(
     "polyLogger",
     (level, message) => logger.log(Level[level].toLowerCase().replace('notice','info'),message.slice(23).remove(Level[level]).trimStart()), /*Preserve existing formatting, but trim off date*/
 	{
@@ -52,13 +55,9 @@ MatterLogger.addLogger(
 		logFormat: 'plain'
     });
 
-    logger
 
-MatterLogger.defaultLogLevel = levelFromString(logger.level);
 
-export async function createServerNode(isy: ISY) : Promise<ServerNode>
-{
-    var logger = isy.logger;
+    MatterLogger.defaultLogLevel = levelFromString(logger.level);
 
     var config = await getConfiguration(isy);
 
@@ -243,6 +242,7 @@ export async function createServerNode(isy: ISY) : Promise<ServerNode>
 }
 
 async function getConfiguration(isy: ISY) {
+    var logger = isy.logger;
     /**
      * Collect all needed data
      *

@@ -32,8 +32,11 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.
     this.device.state = !(await this.device.state);
   }
 
-  override handlePropertyChange(propertyName: string, value: any, newValue: any, formattedValue: string): void {
-    if (propertyName === 'ST') {
+  override handlePropertyChange({ driver, newValue, oldValue, formattedValue }: { driver: string; newValue: any; oldValue: any; formattedValue: string; }): void {
+    if (driver === 'ST') {
+        //this.asAdmin(() => this.state.onOff = newValue > 0);
+        //this.endpoint.set({values: {onOff: newValue > 0}});
+       // super.on()
       this.state.onOff = newValue > 0;
 
       //this.events.onOff$Changed.emit(newValue, value, this.context);

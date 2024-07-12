@@ -48,8 +48,7 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
 {
     var logger = isy.logger;
 
-  if(MatterLogger.getLoggerforIdentifier("polyLogger") === undefined)
-  {
+  try{
       MatterLogger.addLogger(
       "polyLogger",
       (level, message) => logger.log(Level[level].toLowerCase().replace('notice','info'),message.slice(23).remove(Level[level]).trimStart()), /*Preserve existing formatting, but trim off date*/
@@ -58,9 +57,12 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
           logFormat: 'plain'
       });
   }
-
-
+  finally
+  {
     MatterLogger.defaultLogLevel = levelFromString(logger.level);
+  }
+
+
 
     var config = await getConfiguration(isy);
 
@@ -70,7 +72,7 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
 
     const server = await ServerNode.create({
       // Required: Give the Node a unique ID which is used to store the state of this node
-      id: config.uniqueId.removeAll(';'),
+      id: config.uniqueId,
 
       // Provide Network relevant configuration like the port
       // Optional when operating only one device on a host, Default port is 5540

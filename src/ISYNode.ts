@@ -430,7 +430,12 @@ export class ISYDeviceNode<T extends Family, Drivers extends string = string, Co
                     element.recalculateState();
                 });
             }
-        } finally {
+        }
+		catch (error)
+		{
+			this.logger(error, "error")
+		}
+		finally {
             return changed;
         }
     }

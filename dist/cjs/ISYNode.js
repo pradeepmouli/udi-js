@@ -323,6 +323,9 @@ class ISYDeviceNode extends ISYNode {
                 });
             }
         }
+        catch (error) {
+            this.logger(error, "error");
+        }
         finally {
             return changed;
         }

@@ -32,18 +32,20 @@ import { OnOffLightDevice, DimmableLightDevice } from '@project-chip/matter.js/e
 //2024-07-03 16:30:43.693
 export async function createServerNode(isy = ISY.instance) {
     var logger = isy.logger;
-    if (MatterLogger.getLoggerforIdentifier("polyLogger") === undefined) {
+    try {
         MatterLogger.addLogger("polyLogger", (level, message) => logger.log(Level[level].toLowerCase().replace('notice', 'info'), message.slice(23).remove(Level[level]).trimStart()), /*Preserve existing formatting, but trim off date*/ {
             defaultLogLevel: levelFromString(logger.level),
             logFormat: 'plain'
         });
     }
-    MatterLogger.defaultLogLevel = levelFromString(logger.level);
+    finally {
+        MatterLogger.defaultLogLevel = levelFromString(logger.level);
+    }
     var config = await getConfiguration(isy);
     logger.info(`Matter config read: ${JSON.stringify(config)}`);
     const server = await ServerNode.create({
         // Required: Give the Node a unique ID which is used to store the state of this node
-        id: config.uniqueId.removeAll(';'),
+        id: config.uniqueId,
         // Provide Network relevant configuration like the port
         // Optional when operating only one device on a host, Default port is 5540
         network: {

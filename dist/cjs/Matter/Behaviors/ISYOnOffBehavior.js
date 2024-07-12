@@ -20,8 +20,11 @@ class ISYOnOffBehavior extends (0, ISYClusterBehavior_js_1.ISYClusterBehavior)(O
     async toggle() {
         this.device.state = !(await this.device.state);
     }
-    handlePropertyChange(propertyName, value, newValue, formattedValue) {
-        if (propertyName === 'ST') {
+    handlePropertyChange({ driver, newValue, oldValue, formattedValue }) {
+        if (driver === 'ST') {
+            //this.asAdmin(() => this.state.onOff = newValue > 0);
+            //this.endpoint.set({values: {onOff: newValue > 0}});
+            // super.on()
             this.state.onOff = newValue > 0;
             //this.events.onOff$Changed.emit(newValue, value, this.context);
         }

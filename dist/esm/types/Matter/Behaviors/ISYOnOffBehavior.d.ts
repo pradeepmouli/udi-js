@@ -5,6 +5,11 @@ export declare class ISYOnOffBehavior extends ISYOnOffBehavior_base {
     on(): Promise<void>;
     off(): Promise<void>;
     toggle(): Promise<void>;
-    handlePropertyChange(propertyName: string, value: any, newValue: any, formattedValue: string): void;
+    handlePropertyChange({ driver, newValue, oldValue, formattedValue }: {
+        driver: string;
+        newValue: any;
+        oldValue: any;
+        formattedValue: string;
+    }): void;
 }
 export {};

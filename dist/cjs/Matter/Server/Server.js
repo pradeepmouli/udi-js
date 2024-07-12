@@ -35,18 +35,20 @@ const definitions_1 = require("@project-chip/matter.js/endpoint/definitions");
 //2024-07-03 16:30:43.693
 async function createServerNode(isy = ISY_js_1.ISY.instance) {
     var logger = isy.logger;
-    if (log_1.Logger.getLoggerforIdentifier("polyLogger") === undefined) {
+    try {
         log_1.Logger.addLogger("polyLogger", (level, message) => logger.log(log_1.Level[level].toLowerCase().replace('notice', 'info'), message.slice(23).remove(log_1.Level[level]).trimStart()), /*Preserve existing formatting, but trim off date*/ {
             defaultLogLevel: (0, log_1.levelFromString)(logger.level),
             logFormat: 'plain'
         });
     }
-    log_1.Logger.defaultLogLevel = (0, log_1.levelFromString)(logger.level);
+    finally {
+        log_1.Logger.defaultLogLevel = (0, log_1.levelFromString)(logger.level);
+    }
     var config = await getConfiguration(isy);
     logger.info(`Matter config read: ${JSON.stringify(config)}`);
     const server = await node_1.ServerNode.create({
         // Required: Give the Node a unique ID which is used to store the state of this node
-        id: config.uniqueId.removeAll(';'),
+        id: config.uniqueId,
         // Provide Network relevant configuration like the port
         // Optional when operating only one device on a host, Default port is 5540
         network: {

@@ -16,6 +16,7 @@ import { config } from 'winston';
 import { ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
 import {  OnOffLightDevice, DimmableLightDevice } from '@project-chip/matter.js/endpoint/definitions';
 import type { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
+import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
 
 
 
@@ -143,10 +144,10 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
       let serialNumber = `${device.address.replaceAll(' ', '_',).replaceAll('.','_')}`
       if (device instanceof InsteonRelayDevice && device.enabled && !(device instanceof InsteonKeypadButtonDevice)) {
         //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
-        let baseBehavior : MutableEndpoint.With<EndpointType.For<OnOffLightDevice|DimmableLightDevice>, SupportedBehaviors.MapOf<[typeof BridgedDeviceBasicInformationServer]>>;
+        let baseBehavior : MutableEndpoint.With<EndpointType.For<OnOffLightDevice|DimmableLightDevice>, SupportedBehaviors.MapOf<[typeof BridgedDeviceBasicInformationServer, typeof ISYBridgedDeviceBehavior]>>;
         if(device instanceof InsteonDimmableDevice)
         {
-          baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer);
+          baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer).with(ISYBridgedDeviceBehavior);
           // if(device instanceof InsteonSwitchDevice)
           // {
           //     baseBehavior = DimmerSwitchDevice.with(BridgedDeviceBasicInformationServer);
@@ -154,7 +155,7 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
         }
         else
         {
-          baseBehavior = OnOffLightDevice.with(BridgedDeviceBasicInformationServer).with(ISYOnOffBehavior);
+          baseBehavior = OnOffLightDevice.with(BridgedDeviceBasicInformationServer).with(ISYBridgedDeviceBehavior).with(ISYOnOffBehavior);
           // if(device instanceof InsteonSwitchDevice)
           // {
           //     baseBehavior = OnOffLightSwitchDevice.with(BridgedDeviceBasicInformationServer);
@@ -168,6 +169,9 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
           baseBehavior,
           {
             id: serialNumber,
+            isyDevice: {
+                address: device.address,
+            },
 
 
             bridgedDeviceBasicInformation: {

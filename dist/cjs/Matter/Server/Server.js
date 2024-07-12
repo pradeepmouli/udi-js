@@ -16,6 +16,7 @@ const log_1 = require("@project-chip/matter.js/log");
 const schema_1 = require("@project-chip/matter.js/schema");
 const ISYOnOffBehavior_js_1 = require("../Behaviors/ISYOnOffBehavior.js");
 const definitions_1 = require("@project-chip/matter.js/endpoint/definitions");
+const ISYBridgedDeviceBehavior_js_1 = require("../Behaviors/ISYBridgedDeviceBehavior.js");
 //import {clone} from 'isy-nodejs/Utils';
 //let { Utils } = await import ('isy-nodejs');
 // function plainLogFormatter(now: Date, level: Level, facility: string, prefix: string, values: any[]) {
@@ -103,14 +104,14 @@ async function createServerNode(isy = ISY_js_1.ISY.instance) {
             //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
             let baseBehavior;
             if (device instanceof ISY_js_1.InsteonDimmableDevice) {
-                baseBehavior = definitions_1.DimmableLightDevice.with(bridged_device_basic_information_1.BridgedDeviceBasicInformationServer);
+                baseBehavior = definitions_1.DimmableLightDevice.with(bridged_device_basic_information_1.BridgedDeviceBasicInformationServer).with(ISYBridgedDeviceBehavior_js_1.ISYBridgedDeviceBehavior);
                 // if(device instanceof InsteonSwitchDevice)
                 // {
                 //     baseBehavior = DimmerSwitchDevice.with(BridgedDeviceBasicInformationServer);
                 // }
             }
             else {
-                baseBehavior = definitions_1.OnOffLightDevice.with(bridged_device_basic_information_1.BridgedDeviceBasicInformationServer).with(ISYOnOffBehavior_js_1.ISYOnOffBehavior);
+                baseBehavior = definitions_1.OnOffLightDevice.with(bridged_device_basic_information_1.BridgedDeviceBasicInformationServer).with(ISYBridgedDeviceBehavior_js_1.ISYBridgedDeviceBehavior).with(ISYOnOffBehavior_js_1.ISYOnOffBehavior);
                 // if(device instanceof InsteonSwitchDevice)
                 // {
                 //     baseBehavior = OnOffLightSwitchDevice.with(BridgedDeviceBasicInformationServer);
@@ -118,6 +119,9 @@ async function createServerNode(isy = ISY_js_1.ISY.instance) {
             }
             const endpoint = new endpoint_1.Endpoint(baseBehavior, {
                 id: serialNumber,
+                isyDevice: {
+                    address: device.address,
+                },
                 bridgedDeviceBasicInformation: {
                     nodeLabel: device.displayName.rightWithToken(32),
                     vendorName: 'Insteon Technologies, Inc.',

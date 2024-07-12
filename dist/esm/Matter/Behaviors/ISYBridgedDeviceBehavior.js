@@ -6,7 +6,7 @@
 import { Observable, EventEmitter } from "@project-chip/matter.js/util";
 import { ISY } from "../../ISY.js";
 export class ISYBridgedDeviceBehavior extends Behavior {
-    static id = "isydevice";
+    static id = "isyDevice";
     static early = true;
     async initialize(_options) {
         await super.initialize(_options);

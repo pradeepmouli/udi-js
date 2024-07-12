@@ -11,7 +11,7 @@ import { Observable, EventEmitter } from "@project-chip/matter.js/util";
 import { ISY } from "../../ISY.js";
 
 export class ISYBridgedDeviceBehavior extends Behavior {
-  static override readonly id = "isydevice";
+  static override readonly id = "isyDevice";
 
   static override readonly early = true;
 

@@ -13,6 +13,7 @@ import { Logger as MatterLogger, Level, levelFromString } from '@project-chip/ma
 import { QrCode } from '@project-chip/matter.js/schema';
 import { ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
 import { OnOffLightDevice, DimmableLightDevice } from '@project-chip/matter.js/endpoint/definitions';
+import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
 //import {clone} from 'isy-nodejs/Utils';
 //let { Utils } = await import ('isy-nodejs');
 // function plainLogFormatter(now: Date, level: Level, facility: string, prefix: string, values: any[]) {
@@ -100,14 +101,14 @@ export async function createServerNode(isy = ISY.instance) {
             //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
             let baseBehavior;
             if (device instanceof InsteonDimmableDevice) {
-                baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer);
+                baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer).with(ISYBridgedDeviceBehavior);
                 // if(device instanceof InsteonSwitchDevice)
                 // {
                 //     baseBehavior = DimmerSwitchDevice.with(BridgedDeviceBasicInformationServer);
                 // }
             }
             else {
-                baseBehavior = OnOffLightDevice.with(BridgedDeviceBasicInformationServer).with(ISYOnOffBehavior);
+                baseBehavior = OnOffLightDevice.with(BridgedDeviceBasicInformationServer).with(ISYBridgedDeviceBehavior).with(ISYOnOffBehavior);
                 // if(device instanceof InsteonSwitchDevice)
                 // {
                 //     baseBehavior = OnOffLightSwitchDevice.with(BridgedDeviceBasicInformationServer);
@@ -115,6 +116,9 @@ export async function createServerNode(isy = ISY.instance) {
             }
             const endpoint = new Endpoint(baseBehavior, {
                 id: serialNumber,
+                isyDevice: {
+                    address: device.address,
+                },
                 bridgedDeviceBasicInformation: {
                     nodeLabel: device.displayName.rightWithToken(32),
                     vendorName: 'Insteon Technologies, Inc.',

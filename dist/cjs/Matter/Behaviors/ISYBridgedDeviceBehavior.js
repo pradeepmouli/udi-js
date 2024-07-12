@@ -9,7 +9,7 @@ exports.ISYBridgedDeviceBehavior = void 0;
 const util_1 = require("@project-chip/matter.js/util");
 const ISY_js_1 = require("../../ISY.js");
 class ISYBridgedDeviceBehavior extends behavior_1.Behavior {
-    static id = "isydevice";
+    static id = "isyDevice";
     static early = true;
     async initialize(_options) {
         await super.initialize(_options);

@@ -6,7 +6,7 @@
 import type { ISYDeviceNode } from "../../ISYNode.js";
 import { Observable, EventEmitter } from "@project-chip/matter.js/util";
 export declare class ISYBridgedDeviceBehavior extends Behavior {
-    static readonly id = "isydevice";
+    static readonly id = "isyDevice";
     static readonly early = true;
     internal: ISYBridgedDeviceBehavior.Internal;
     state: ISYBridgedDeviceBehavior.State;

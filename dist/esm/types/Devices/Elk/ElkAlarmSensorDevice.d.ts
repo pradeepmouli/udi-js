@@ -1,8 +1,8 @@
-import { Family } from '../../Definitions/Families.js';
+import { Family } from '../../Definitions/Global/Families.js';
 import { ISY } from '../../ISY.js';
 import { ISYDeviceNode } from '../../ISYNode.js';
 import { AlarmSensorPhysicalState, AlarmSensorLogicalState } from './ElkAlarmPanelDevice.js';
-export declare class ElkAlarmSensorDevice extends ISYDeviceNode<Family.Elk> {
+export declare class ElkAlarmSensorDevice extends ISYDeviceNode<Family.Global> {
     [x: string]: any;
     area: number;
     zone: string;

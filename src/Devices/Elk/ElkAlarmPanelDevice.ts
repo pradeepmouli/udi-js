@@ -1,5 +1,5 @@
 import { timingSafeEqual } from 'crypto';
-import { Family } from '../../Definitions/Families.js';
+import { Family } from '../../Definitions/Global/Families.js';
 import { ISY } from '../../ISY.js';
 import { ISYDeviceNode } from '../../ISYNode.js';
 import { ElkAlarmSensorDevice } from './ElkAlarmSensorDevice.js';
@@ -8,7 +8,7 @@ import { ElkAlarmSensorDevice } from './ElkAlarmSensorDevice.js';
 // ELKAlarmPanelDevice
 
 //
-export class ELKAlarmPanelDevice extends ISYDeviceNode<Family.Elk> {
+export class ELKAlarmPanelDevice extends ISYDeviceNode<Family.Global> {
 	[x: string]: any;
 	setFromAreaUpdate(nodes: any) {
 		throw new Error('Method not implemented.');
@@ -28,7 +28,7 @@ export class ELKAlarmPanelDevice extends ISYDeviceNode<Family.Elk> {
 	constructor(isy: ISY, area: number) {
 
 		super(isy, {
-			family: Family.Elk, type: '0.0.0.0', enabled: true, address: `ElkAlarmPanel_${area}`, name: `Elk Alarm Panel ${area}`,
+			family: Family.Global, type: '0.0.0.0', enabled: true, address: `ElkAlarmPanel_${area}`, name: `Elk Alarm Panel ${area}`,
 			pnode: undefined,
 			startDelay: 0,
 			hint: '',

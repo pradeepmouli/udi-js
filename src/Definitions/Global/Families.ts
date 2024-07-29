@@ -1,11 +1,11 @@
-import { ISYUpdateableBinaryStateDevice } from '../Devices/ISYDevice.js';
-import { InsteonBaseDevice } from '../ISY.js';
-import { EventType } from '../Events/EventType.js';
-import { ISYEvent } from '../Events/ISYEvent.js';
+import { ISYUpdateableBinaryStateDevice } from '../../Devices/ISYDevice.js';
+import { InsteonBaseDevice } from '../../ISY.js';
+import { EventType } from '../../Events/EventType.js';
+import { ISYEvent } from '../../Events/ISYEvent.js';
 
 
 export enum Family {
-	Elk = 0,
+	Global = 0,
 	Insteon = 1,
 	UPB = 2,
 	ZigBeeLegacy = 3,

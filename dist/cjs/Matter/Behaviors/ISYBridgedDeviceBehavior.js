@@ -8,6 +8,7 @@ exports.ISYBridgedDeviceBehavior = void 0;
  */ const behavior_1 = require("@project-chip/matter.js/behavior");
 const util_1 = require("@project-chip/matter.js/util");
 const ISY_js_1 = require("../../ISY.js");
+const ClusterMap_js_1 = require("../../Model/ClusterMap.js");
 class ISYBridgedDeviceBehavior extends behavior_1.Behavior {
     static id = "isyDevice";
     static early = true;
@@ -15,6 +16,7 @@ class ISYBridgedDeviceBehavior extends behavior_1.Behavior {
         await super.initialize(_options);
         var address = this.state.address;
         this.internal.device = ISY_js_1.ISY.instance.getDevice(this.state.address);
+        this.internal.map = ClusterMap_js_1.MappingRegistry.getMapping(this.internal.device);
         ISY_js_1.ISY.instance.logger.debug(`Initializing ${this.constructor.name} for ${this.internal.device.constructor.name} ${this.internal.device.name} with address ${address}`);
         if (this.internal.device) {
             this.internal.device.on("PropertyChanged", this.handlePropertyChange.bind(this));
@@ -22,6 +24,12 @@ class ISYBridgedDeviceBehavior extends behavior_1.Behavior {
     }
     get device() {
         return (this.internal.device = this.internal.device ?? ISY_js_1.ISY.instance.getDevice(this.state.address));
+    }
+    get map() {
+        return this.internal.map;
+    }
+    mapForBehavior(behavior) {
+        return this.map[behavior.cluster["name"]];
     }
     handlePropertyChange(driver, newValue, oldValue, formattedValue) {
         this.events.propertyChanged.emit({ driver, newValue, oldValue, formattedValue });
@@ -35,6 +43,7 @@ exports.ISYBridgedDeviceBehavior = ISYBridgedDeviceBehavior;
 (function (ISYBridgedDeviceBehavior) {
     class Internal {
         device;
+        map;
     }
     ISYBridgedDeviceBehavior.Internal = Internal;
     class Events extends util_1.EventEmitter {

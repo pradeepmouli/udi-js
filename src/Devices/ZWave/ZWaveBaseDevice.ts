@@ -1,4 +1,4 @@
-import { Family, Insteon } from '../../Definitions/Families.js';
+import { Family, Insteon } from '../../Definitions/Global/Families.js';
 import { ISY } from '../../ISY.js';
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
 import { NodeInfo } from '../../Definitions/NodeInfo.js';

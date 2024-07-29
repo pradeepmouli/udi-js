@@ -3,11 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ISYUpdateableLevelDevice = exports.ISYLevelDevice = exports.ISYUpdateableBinaryStateDevice = exports.ISYBinaryStateDevice = void 0;
 const ISYConstants_js_1 = require("../ISYConstants.js");
 require("winston");
-const UOM_js_1 = require("../Definitions/UOM.js");
+const UOM_js_1 = require("../Definitions/Global/UOM.js");
 const ISYBinaryStateDevice = (Base) => {
     return class extends Base {
         get state() {
-            return Promise.resolve(this.local['ST'] > 0);
+            return Promise.resolve(this.local.ST > 0);
             //return this.readProperty('ST').then(p => p.value  > 0);
         }
         convertTo(value, uom, propertyName = null) {
@@ -40,6 +40,12 @@ const ISYUpdateableBinaryStateDevice = (Base) => {
         }
         set state(value) {
             this.updateState(value);
+        }
+        async On() {
+            return this.updateState(true);
+        }
+        async Off() {
+            return this.updateState(false);
         }
         async updateState(state) {
             if (this.local.ST > 0 !== state || this.pending.ST > 0 !== state) {

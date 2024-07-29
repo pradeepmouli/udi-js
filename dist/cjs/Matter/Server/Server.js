@@ -100,46 +100,48 @@ async function createServerNode(isy = ISY_js_1.ISY.instance) {
     const endpoints = [];
     for (const device of isy.deviceList.values()) {
         let serialNumber = `${device.address.replaceAll(' ', '_').replaceAll('.', '_')}`;
-        if (device instanceof ISY_js_1.InsteonRelayDevice && device.enabled && !(device instanceof ISY_js_1.InsteonKeypadButtonDevice)) {
+        if (device.enabled && !(device instanceof ISY_js_1.InsteonKeypadButtonDevice)) {
             //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
             let baseBehavior;
             if (device instanceof ISY_js_1.InsteonDimmableDevice) {
-                baseBehavior = definitions_1.DimmableLightDevice.with(bridged_device_basic_information_1.BridgedDeviceBasicInformationServer).with(ISYBridgedDeviceBehavior_js_1.ISYBridgedDeviceBehavior);
+                baseBehavior = definitions_1.DimmableLightDevice.with(bridged_device_basic_information_1.BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior_js_1.ISYBridgedDeviceBehavior, ISYOnOffBehavior_js_1.ISYOnOffBehavior, ISYOnOffBehavior_js_1.ISYDimmableBehavior);
                 // if(device instanceof InsteonSwitchDevice)
                 // {
                 //     baseBehavior = DimmerSwitchDevice.with(BridgedDeviceBasicInformationServer);
                 // }
             }
-            else {
-                baseBehavior = definitions_1.OnOffLightDevice.with(bridged_device_basic_information_1.BridgedDeviceBasicInformationServer).with(ISYBridgedDeviceBehavior_js_1.ISYBridgedDeviceBehavior).with(ISYOnOffBehavior_js_1.ISYOnOffBehavior);
+            else if (device instanceof ISY_js_1.InsteonRelayDevice) {
+                baseBehavior = definitions_1.OnOffLightDevice.with(bridged_device_basic_information_1.BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior_js_1.ISYBridgedDeviceBehavior, ISYOnOffBehavior_js_1.ISYOnOffBehavior);
                 // if(device instanceof InsteonSwitchDevice)
                 // {
                 //     baseBehavior = OnOffLightSwitchDevice.with(BridgedDeviceBasicInformationServer);
                 // }
             }
-            const endpoint = new endpoint_1.Endpoint(baseBehavior, {
-                id: serialNumber,
-                isyDevice: {
-                    address: device.address,
-                },
-                bridgedDeviceBasicInformation: {
-                    nodeLabel: device.displayName.rightWithToken(32),
-                    vendorName: 'Insteon Technologies, Inc.',
-                    vendorId: (0, datatype_1.VendorId)(config.vendorId),
-                    productName: device.productName.leftWithToken(32),
-                    productLabel: device.model.leftWithToken(64),
-                    hardwareVersion: Number(device.version),
-                    hardwareVersionString: `v.${device.version}`,
-                    softwareVersion: Number(device.version),
-                    softwareVersionString: `v.${device.version}`,
-                    serialNumber: serialNumber,
-                    reachable: true,
-                    uniqueId: device.address
-                }
-            });
-            await aggregator.add(endpoint);
-            logger.info(`Endpoint Added ${JSON.stringify(endpoint.id)} for ${device.displayName} (${device.address})`);
-            //endpoints.push({0:endpoint,1:device});
+            if (baseBehavior !== undefined) {
+                const endpoint = new endpoint_1.Endpoint(baseBehavior, {
+                    id: serialNumber,
+                    isyDevice: {
+                        address: device.address,
+                    },
+                    bridgedDeviceBasicInformation: {
+                        nodeLabel: device.displayName.rightWithToken(32),
+                        vendorName: 'Insteon Technologies, Inc.',
+                        vendorId: (0, datatype_1.VendorId)(config.vendorId),
+                        productName: device.productName.leftWithToken(32),
+                        productLabel: device.model.leftWithToken(64),
+                        hardwareVersion: Number(device.version),
+                        hardwareVersionString: `v.${device.version}`,
+                        softwareVersion: Number(device.version),
+                        softwareVersionString: `v.${device.version}`,
+                        serialNumber: serialNumber,
+                        reachable: true,
+                        uniqueId: device.address
+                    }
+                });
+                await aggregator.add(endpoint);
+                logger.info(`Endpoint Added ${JSON.stringify(endpoint.id)} for ${device.displayName} (${device.address})`);
+                //endpoints.push({0:endpoint,1:device});
+            }
             //endpoint.lifecycle.ready.on(()=> device.initialize(endpoint as any));
         }
         /**
@@ -162,11 +164,12 @@ async function createServerNode(isy = ISY_js_1.ISY.instance) {
      */
     //MatterLogger.setLogger("EndpointStructureLogger", ((level, message) => logger.log(Level[level], message)));
     //logEndpoint(EndpointServer.forEndpoint(server));
-    if (logger.isTraceEnabled())
-        (0, device_1.logEndpoint)(endpoint_1.EndpointServer.forEndpoint(server), { logAttributePrimitiveValues: true, logAttributeObjectValues: true });
-    else if (logger.isDebugEnabled()) {
-        (0, device_1.logEndpoint)(endpoint_1.EndpointServer.forEndpoint(server), { logAttributePrimitiveValues: true, logAttributeObjectValues: false });
-    }
+    //if(logger.isTraceEnabled())
+    // logEndpoint(EndpointServer.forEndpoint(server), {logAttributePrimitiveValues: true, logAttributeObjectValues: true});
+    //else if(logger.isDebugEnabled())
+    // {
+    (0, device_1.logEndpoint)(endpoint_1.EndpointServer.forEndpoint(server), { logAttributePrimitiveValues: true, logAttributeObjectValues: false });
+    // }
     if (server.lifecycle.isOnline) {
         const { qrPairingCode, manualPairingCode } = server.state.commissioning.pairingCodes;
         logger.info(schema_1.QrCode.get(qrPairingCode));

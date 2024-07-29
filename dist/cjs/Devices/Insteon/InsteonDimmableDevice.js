@@ -4,7 +4,7 @@ exports.InsteonDimmableDevice = void 0;
 const ISYDevice_js_1 = require("../ISYDevice.js");
 const InsteonRelayDevice_js_1 = require("./InsteonRelayDevice.js");
 require("winston");
-const UOM_js_1 = require("../../Definitions/UOM.js");
+const UOM_js_1 = require("../../Definitions/Global/UOM.js");
 class InsteonDimmableDevice extends (0, ISYDevice_js_1.ISYUpdateableLevelDevice)(InsteonRelayDevice_js_1.InsteonRelayDevice) {
     constructor(isy, node) {
         super(isy, node);

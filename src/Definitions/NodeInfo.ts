@@ -1,4 +1,4 @@
-import { Family } from "./Families.js";
+import { Family } from "./Global/Families.js";
 import { PropertyStatus } from "./PropertyStatus.js";
 
 

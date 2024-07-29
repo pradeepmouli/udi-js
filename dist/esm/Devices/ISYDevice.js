@@ -1,10 +1,10 @@
 import { Commands, States } from '../ISYConstants.js';
 import 'winston';
-import { UnitOfMeasure } from '../Definitions/UOM.js';
+import { UnitOfMeasure } from '../Definitions/Global/UOM.js';
 export const ISYBinaryStateDevice = (Base) => {
     return class extends Base {
         get state() {
-            return Promise.resolve(this.local['ST'] > 0);
+            return Promise.resolve(this.local.ST > 0);
             //return this.readProperty('ST').then(p => p.value  > 0);
         }
         convertTo(value, uom, propertyName = null) {
@@ -36,6 +36,12 @@ export const ISYUpdateableBinaryStateDevice = (Base) => {
         }
         set state(value) {
             this.updateState(value);
+        }
+        async On() {
+            return this.updateState(true);
+        }
+        async Off() {
+            return this.updateState(false);
         }
         async updateState(state) {
             if (this.local.ST > 0 !== state || this.pending.ST > 0 !== state) {

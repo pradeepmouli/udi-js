@@ -11,7 +11,7 @@ import { EndpointServer, Endpoint } from '@project-chip/matter.js/endpoint';
 import { AggregatorEndpoint } from '@project-chip/matter.js/endpoints/AggregatorEndpoint';
 import { Logger as MatterLogger, Level, levelFromString } from '@project-chip/matter.js/log';
 import { QrCode } from '@project-chip/matter.js/schema';
-import { ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
+import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
 import { OnOffLightDevice, DimmableLightDevice } from '@project-chip/matter.js/endpoint/definitions';
 import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
 //import {clone} from 'isy-nodejs/Utils';
@@ -97,46 +97,48 @@ export async function createServerNode(isy = ISY.instance) {
     const endpoints = [];
     for (const device of isy.deviceList.values()) {
         let serialNumber = `${device.address.replaceAll(' ', '_').replaceAll('.', '_')}`;
-        if (device instanceof InsteonRelayDevice && device.enabled && !(device instanceof InsteonKeypadButtonDevice)) {
+        if (device.enabled && !(device instanceof InsteonKeypadButtonDevice)) {
             //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
             let baseBehavior;
             if (device instanceof InsteonDimmableDevice) {
-                baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer).with(ISYBridgedDeviceBehavior);
+                baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior);
                 // if(device instanceof InsteonSwitchDevice)
                 // {
                 //     baseBehavior = DimmerSwitchDevice.with(BridgedDeviceBasicInformationServer);
                 // }
             }
-            else {
-                baseBehavior = OnOffLightDevice.with(BridgedDeviceBasicInformationServer).with(ISYBridgedDeviceBehavior).with(ISYOnOffBehavior);
+            else if (device instanceof InsteonRelayDevice) {
+                baseBehavior = OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior);
                 // if(device instanceof InsteonSwitchDevice)
                 // {
                 //     baseBehavior = OnOffLightSwitchDevice.with(BridgedDeviceBasicInformationServer);
                 // }
             }
-            const endpoint = new Endpoint(baseBehavior, {
-                id: serialNumber,
-                isyDevice: {
-                    address: device.address,
-                },
-                bridgedDeviceBasicInformation: {
-                    nodeLabel: device.displayName.rightWithToken(32),
-                    vendorName: 'Insteon Technologies, Inc.',
-                    vendorId: VendorId(config.vendorId),
-                    productName: device.productName.leftWithToken(32),
-                    productLabel: device.model.leftWithToken(64),
-                    hardwareVersion: Number(device.version),
-                    hardwareVersionString: `v.${device.version}`,
-                    softwareVersion: Number(device.version),
-                    softwareVersionString: `v.${device.version}`,
-                    serialNumber: serialNumber,
-                    reachable: true,
-                    uniqueId: device.address
-                }
-            });
-            await aggregator.add(endpoint);
-            logger.info(`Endpoint Added ${JSON.stringify(endpoint.id)} for ${device.displayName} (${device.address})`);
-            //endpoints.push({0:endpoint,1:device});
+            if (baseBehavior !== undefined) {
+                const endpoint = new Endpoint(baseBehavior, {
+                    id: serialNumber,
+                    isyDevice: {
+                        address: device.address,
+                    },
+                    bridgedDeviceBasicInformation: {
+                        nodeLabel: device.displayName.rightWithToken(32),
+                        vendorName: 'Insteon Technologies, Inc.',
+                        vendorId: VendorId(config.vendorId),
+                        productName: device.productName.leftWithToken(32),
+                        productLabel: device.model.leftWithToken(64),
+                        hardwareVersion: Number(device.version),
+                        hardwareVersionString: `v.${device.version}`,
+                        softwareVersion: Number(device.version),
+                        softwareVersionString: `v.${device.version}`,
+                        serialNumber: serialNumber,
+                        reachable: true,
+                        uniqueId: device.address
+                    }
+                });
+                await aggregator.add(endpoint);
+                logger.info(`Endpoint Added ${JSON.stringify(endpoint.id)} for ${device.displayName} (${device.address})`);
+                //endpoints.push({0:endpoint,1:device});
+            }
             //endpoint.lifecycle.ready.on(()=> device.initialize(endpoint as any));
         }
         /**
@@ -159,11 +161,12 @@ export async function createServerNode(isy = ISY.instance) {
      */
     //MatterLogger.setLogger("EndpointStructureLogger", ((level, message) => logger.log(Level[level], message)));
     //logEndpoint(EndpointServer.forEndpoint(server));
-    if (logger.isTraceEnabled())
-        logEndpoint(EndpointServer.forEndpoint(server), { logAttributePrimitiveValues: true, logAttributeObjectValues: true });
-    else if (logger.isDebugEnabled()) {
-        logEndpoint(EndpointServer.forEndpoint(server), { logAttributePrimitiveValues: true, logAttributeObjectValues: false });
-    }
+    //if(logger.isTraceEnabled())
+    // logEndpoint(EndpointServer.forEndpoint(server), {logAttributePrimitiveValues: true, logAttributeObjectValues: true});
+    //else if(logger.isDebugEnabled())
+    // {
+    logEndpoint(EndpointServer.forEndpoint(server), { logAttributePrimitiveValues: true, logAttributeObjectValues: false });
+    // }
     if (server.lifecycle.isOnline) {
         const { qrPairingCode, manualPairingCode } = server.state.commissioning.pairingCodes;
         logger.info(QrCode.get(qrPairingCode));

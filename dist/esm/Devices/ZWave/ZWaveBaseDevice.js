@@ -1,4 +1,4 @@
-import { Family } from '../../Definitions/Families.js';
+import { Family } from '../../Definitions/Global/Families.js';
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
 import { ISYDeviceNode } from '../../ISYNode.js';
 import 'winston';

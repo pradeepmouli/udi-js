@@ -5,6 +5,7 @@
  */ import { Behavior } from "@project-chip/matter.js/behavior";
 import type { ISYDeviceNode } from "../../ISYNode.js";
 import { Observable, EventEmitter } from "@project-chip/matter.js/util";
+import { type ClusterMapping, type DeviceToClusterMap } from '../../Model/ClusterMap.js';
 export declare class ISYBridgedDeviceBehavior extends Behavior {
     static readonly id = "isyDevice";
     static readonly early = true;
@@ -13,12 +14,17 @@ export declare class ISYBridgedDeviceBehavior extends Behavior {
     events: ISYBridgedDeviceBehavior.Events;
     initialize(_options?: {}): Promise<void>;
     get device(): ISYDeviceNode<any, any, any>;
+    get map(): DeviceToClusterMap<typeof this.internal.device>;
+    mapForBehavior<B extends {
+        cluster: unknown;
+    }>(behavior: B): ClusterMapping<B["cluster"], typeof this.internal.device>;
     handlePropertyChange(driver: string, newValue: any, oldValue: any, formattedValue: string): void;
     [Symbol.asyncDispose](): import("@project-chip/matter.js/util").MaybePromise;
 }
 export declare namespace ISYBridgedDeviceBehavior {
     class Internal {
         device?: ISYDeviceNode<any, any, any>;
+        map?: DeviceToClusterMap<typeof this.device>;
     }
     class Events extends EventEmitter {
         propertyChanged: Observable<[{

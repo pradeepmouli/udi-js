@@ -1,13 +1,14 @@
-import { Family, Insteon } from '../../Definitions/Families.js';
+import { Family, Insteon } from '../../Definitions/Global/Families.js';
 import { ISY } from '../../ISY.js';
-import { UnitOfMeasure as UOM, UnitOfMeasure } from '../../Definitions/UOM.js'
+import { UnitOfMeasure as UOM, UnitOfMeasure } from '../../Definitions/Global/UOM.js'
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
 import { NodeInfo } from '../../Definitions/NodeInfo.js';
 import { ISYDeviceNode } from '../../ISYNode.js';
 import 'winston';
+import type { Drivers } from '../../Definitions/Global/Drivers.js';
 
 // import { InsteonNLS } from './insteonfam.js'
-export class InsteonBaseDevice<Drivers extends string = string,Commands extends string = string> extends ISYDeviceNode<Family.Insteon,Drivers,Commands> {
+export class InsteonBaseDevice<D extends Drivers = Drivers,C extends string = string> extends ISYDeviceNode<Family.Insteon,D,C> {
 	constructor(isy: ISY, deviceNode: NodeInfo) {
 
 		super(isy, deviceNode);
@@ -19,7 +20,7 @@ export class InsteonBaseDevice<Drivers extends string = string,Commands extends 
 
 
 
-	public override convertFrom(value: any, uom: UnitOfMeasure,propertyName: Drivers = null): any {
+	public override convertFrom(value: any, uom: UnitOfMeasure,propertyName: D = null): any {
 		switch (uom) {
 			case UOM.DegreeX2:
 				return byteToDegree(value);

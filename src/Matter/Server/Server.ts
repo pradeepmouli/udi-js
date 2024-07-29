@@ -6,14 +6,14 @@ import { StorageBackendDisk } from '@project-chip/matter-node.js/storage';
 import { resolve } from 'path';
 import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
 import { VendorId } from '@project-chip/matter.js/datatype';
-import { logEndpoint } from '@project-chip/matter.js/device';
+import { logEndpoint, OnOffBaseDevice } from '@project-chip/matter.js/device';
 import { EndpointServer, Endpoint } from '@project-chip/matter.js/endpoint';
 import { EndpointType, MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
 import { AggregatorEndpoint } from '@project-chip/matter.js/endpoints/AggregatorEndpoint';
 import { Logger as MatterLogger, Level, levelFromString } from '@project-chip/matter.js/log';
 import { QrCode } from '@project-chip/matter.js/schema';
 import { config } from 'winston';
-import { ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
+import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
 import {  OnOffLightDevice, DimmableLightDevice } from '@project-chip/matter.js/endpoint/definitions';
 import type { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
 import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
@@ -142,28 +142,34 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
 
 
       let serialNumber = `${device.address.replaceAll(' ', '_',).replaceAll('.','_')}`
-      if (device instanceof InsteonRelayDevice && device.enabled && !(device instanceof InsteonKeypadButtonDevice)) {
+      if (device.enabled && !(device instanceof InsteonKeypadButtonDevice)) {
         //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
-        let baseBehavior : MutableEndpoint.With<EndpointType.For<OnOffLightDevice|DimmableLightDevice>, SupportedBehaviors.MapOf<[typeof BridgedDeviceBasicInformationServer, typeof ISYBridgedDeviceBehavior]>>;
+
+
+        let baseBehavior: MutableEndpoint.With<
+          DimmableLightDevice | OnOffLightDevice,
+          SupportedBehaviors.MapOf<[typeof BridgedDeviceBasicInformationServer, typeof ISYBridgedDeviceBehavior]>
+        >;
+
         if(device instanceof InsteonDimmableDevice)
         {
-          baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer).with(ISYBridgedDeviceBehavior);
+          baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer,ISYBridgedDeviceBehavior,ISYOnOffBehavior,ISYDimmableBehavior);
           // if(device instanceof InsteonSwitchDevice)
           // {
           //     baseBehavior = DimmerSwitchDevice.with(BridgedDeviceBasicInformationServer);
           // }
         }
-        else
+        else if(device instanceof InsteonRelayDevice)
         {
-          baseBehavior = OnOffLightDevice.with(BridgedDeviceBasicInformationServer).with(ISYBridgedDeviceBehavior).with(ISYOnOffBehavior);
+          baseBehavior = OnOffLightDevice.with(BridgedDeviceBasicInformationServer,ISYBridgedDeviceBehavior,ISYOnOffBehavior);
           // if(device instanceof InsteonSwitchDevice)
           // {
           //     baseBehavior = OnOffLightSwitchDevice.with(BridgedDeviceBasicInformationServer);
           // }
         }
 
-
-
+        if(baseBehavior !== undefined)
+        {
 
         const endpoint = new Endpoint(
           baseBehavior,
@@ -184,7 +190,7 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
               hardwareVersionString: `v.${device.version}`,
               softwareVersion: Number(device.version),
               softwareVersionString: `v.${device.version}`,
-
+              
               serialNumber: serialNumber,
               reachable: true,
               uniqueId: device.address
@@ -197,7 +203,7 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
         await aggregator.add(endpoint);
         logger.info(`Endpoint Added ${JSON.stringify(endpoint.id)} for ${device.displayName} (${device.address})`);
         //endpoints.push({0:endpoint,1:device});
-
+      }
         //endpoint.lifecycle.ready.on(()=> device.initialize(endpoint as any));
 
 
@@ -233,12 +239,12 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
     //MatterLogger.setLogger("EndpointStructureLogger", ((level, message) => logger.log(Level[level], message)));
 
     //logEndpoint(EndpointServer.forEndpoint(server));
-    if(logger.isTraceEnabled())
-        logEndpoint(EndpointServer.forEndpoint(server), {logAttributePrimitiveValues: true, logAttributeObjectValues: true});
-    else if(logger.isDebugEnabled())
-    {
+    //if(logger.isTraceEnabled())
+       // logEndpoint(EndpointServer.forEndpoint(server), {logAttributePrimitiveValues: true, logAttributeObjectValues: true});
+    //else if(logger.isDebugEnabled())
+   // {
         logEndpoint(EndpointServer.forEndpoint(server), {logAttributePrimitiveValues: true, logAttributeObjectValues: false});
-    }
+   // }
     if (server.lifecycle.isOnline) {
       const { qrPairingCode, manualPairingCode } = server.state.commissioning.pairingCodes;
 

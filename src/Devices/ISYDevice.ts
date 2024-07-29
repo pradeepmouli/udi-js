@@ -1,4 +1,4 @@
-import { Family } from '../Definitions/Families.js';
+import { Family } from '../Definitions/Global/Families.js';
 import { Commands, States } from '../ISYConstants.js';
 import { EndpointType, MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
 import { Endpoint } from '@project-chip/matter.js/endpoint';
@@ -10,12 +10,13 @@ import { ISYDeviceNode } from '../ISYNode.js';
 import { Constructor } from './Constructor.js';
 import type { BasicInformationBehavior } from '@project-chip/matter.js/behaviors/basic-information';
 import type { BridgedDeviceBasicInformationCluster } from '@project-chip/matter.js/cluster';
-import { UnitOfMeasure } from '../Definitions/UOM.js';
+import { UnitOfMeasure } from '../Definitions/Global/UOM.js';
+import { Drivers } from '../Definitions/Global/Drivers.js';
 
-export const ISYBinaryStateDevice = <K extends Family,D extends string, T extends Constructor<ISYDeviceNode<K,D|'ST'>>>(Base: T) => {
+export const ISYBinaryStateDevice = <K extends Family,D extends Drivers, T extends Constructor<ISYDeviceNode<K,D|Drivers.Status>>>(Base: T) => {
 	return class extends Base implements ISYBinaryStateDevice{
 		get state(): Promise<boolean> {
-			return Promise.resolve(this.local['ST'] > 0);
+			return Promise.resolve(this.local.ST > 0);
 			//return this.readProperty('ST').then(p => p.value  > 0);
 		}
 
@@ -51,24 +52,28 @@ export interface ISYBinaryStateDevice
 
 }
 
-export interface ISYUpdateableBinaryStateDevice
-{
-	get state(): Promise<boolean>;
-	set state(value: boolean);
-}
 
-export const ISYUpdateableBinaryStateDevice = <K extends Family,D extends string,C extends string, T extends Constructor<ISYDeviceNode<K,D | 'ST', C | 'DON' | 'DOF'>>>(
+
+export const ISYUpdateableBinaryStateDevice = <K extends Family,D extends Drivers,C extends string, T extends Constructor<ISYDeviceNode<K,D | Drivers.Status, C | 'DON' | 'DOF'>>>(
 	Base: T
 ) => {
-	return class extends Base implements ISYUpdateableBinaryStateDevice {
+	return class extends Base {
 		get state(): Promise<boolean> {
 			return Promise.resolve(this.local.ST > 0);
 			//return this.readProperty('ST').then(p => p.value  > 0);
 		}
+
 		set state(value: boolean) {
 			this.updateState(value)
 		}
 
+		public async On(): Promise<any> {
+			return this.updateState(true);
+		}
+
+		public async Off(): Promise<any> {
+			return this.updateState(false);
+		}
 
 		public async updateState(state: boolean): Promise<any> {
 			if (this.local.ST > 0 !== state || this.pending.ST > 0 !== state) {

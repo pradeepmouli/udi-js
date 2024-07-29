@@ -1,33 +1,49 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ISYOnOffBehavior = void 0;
+exports.ISYDimmableBehavior = exports.ISYOnOffBehavior = void 0;
 const InsteonRelayDevice_js_1 = require("../../Devices/Insteon/InsteonRelayDevice.js");
 const OnOffLightDevice_1 = require("@project-chip/matter.js/devices/OnOffLightDevice");
 const ISYClusterBehavior_js_1 = require("./ISYClusterBehavior.js");
+const Drivers_js_1 = require("../../Definitions/Global/Drivers.js");
+const DimmableLightDevice_1 = require("@project-chip/matter.js/devices/DimmableLightDevice");
+const InsteonDimmableDevice_js_1 = require("../../Devices/Insteon/InsteonDimmableDevice.js");
 class ISYOnOffBehavior extends (0, ISYClusterBehavior_js_1.ISYClusterBehavior)(OnOffLightDevice_1.OnOffLightRequirements.OnOffServer, InsteonRelayDevice_js_1.InsteonRelayDevice) {
     async initialize(_options) {
         await super.initialize(_options);
         this.state.onOff = await this.device.state;
     }
-    async on() {
-        // await super.on();
+    on = async () => {
+        await super.on();
         this.device.state = true;
-    }
+    };
     async off() {
         //await super.off();
         this.device.state = false;
     }
-    async toggle() {
+    toggle = async () => {
         this.device.state = !(await this.device.state);
-    }
-    handlePropertyChange({ driver, newValue, oldValue, formattedValue }) {
-        if (driver === 'ST') {
-            //this.asAdmin(() => this.state.onOff = newValue > 0);
-            //this.endpoint.set({values: {onOff: newValue > 0}});
-            // super.on()
-            this.state.onOff = newValue > 0;
-            //this.events.onOff$Changed.emit(newValue, value, this.context);
+    };
+    async handlePropertyChange({ driver, newValue, oldValue, formattedValue }) {
+        if (driver === Drivers_js_1.Drivers.Status) {
+            this.state.onOff = newValue;
         }
+        return super.handlePropertyChange({ driver, newValue, oldValue, formattedValue });
     }
 }
 exports.ISYOnOffBehavior = ISYOnOffBehavior;
+class ISYDimmableBehavior extends (0, ISYClusterBehavior_js_1.ISYClusterBehavior)(DimmableLightDevice_1.DimmableLightRequirements.LevelControlServer, InsteonDimmableDevice_js_1.InsteonDimmableDevice) {
+    async initialize(_options) {
+        await super.initialize(_options);
+        this.state.currentLevel = this.device.local.ST;
+        this.state.onLevel = this.device.local.OL;
+    }
+    setLevel(level) {
+        if (level > 0) {
+            return this.device.sendCommand('DON', level);
+        }
+        else {
+            return this.device.sendCommand('DOF');
+        }
+    }
+}
+exports.ISYDimmableBehavior = ISYDimmableBehavior;

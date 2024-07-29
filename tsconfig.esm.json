@@ -4,6 +4,9 @@
         "outDir": "./dist/esm",
         "module": "NodeNext",
         "moduleResolution": "NodeNext",
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "declaration": true,
+        "declarationDir": "./dist/esm/types",
+
     }
 }

@@ -1,4 +1,4 @@
-import { Family } from '../../Definitions/Families.js';
+import { Family } from '../../Definitions/Global/Families.js';
 import { ISY, ISYNode } from '../../ISY.js';
 import { States } from '../../ISYConstants.js';
 import { ISYUpdateableBinaryStateDevice, ISYUpdateableLevelDevice } from '../ISYDevice.js';
@@ -37,7 +37,7 @@ export class InsteonFanMotorDevice extends ISYUpdateableLevelDevice(ISYUpdateabl
 export class InsteonFanDevice extends InsteonBaseDevice {
 	public light: InsteonDimmableDevice;
 	public motor: InsteonFanMotorDevice;
-	constructor(isy: ISY, deviceNode) {
+	constructor(isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
 		this.light = new InsteonDimmableDevice(isy, deviceNode);
 		this.light.on('PropertyChanged', ((a: any, b: any, c: any, d: string) => { this.emit('PropertyChanged', `light.${a}`, b, c, d); }).bind(this));
@@ -66,7 +66,7 @@ export class InsteonFanDevice extends InsteonBaseDevice {
 		return this.motor.updateLevel(level);
 	}
 	public async updatFanIsOn(isOn: boolean) {
-		if (!isOn) {
+		if (!this.motor.isOn) {
 			this.motor.updateLevel(States.Level.Min);
 		} else {
 			this.motor.updateLevel(States.Fan.High);

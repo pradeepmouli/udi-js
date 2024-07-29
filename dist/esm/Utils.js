@@ -1,5 +1,5 @@
 import winston, { format } from 'winston';
-import { Categories } from './Categories.js';
+import { Categories } from './Definitions/Global/Categories.js';
 import { EventEmitter as BaseEventEmitter } from 'events';
 export function byteToPct(value) {
     return Math.round((value * 100) / 255);

@@ -1,4 +1,4 @@
-import { Family } from '../../Definitions/Families.js';
+import { Family } from '../../Definitions/Global/Families.js';
 import { ISYDeviceNode } from '../../ISYNode.js';
 import { AlarmSensorPhysicalState, AlarmSensorLogicalState } from './ElkAlarmPanelDevice.js';
 /////////////////////////////
@@ -16,7 +16,7 @@ export class ElkAlarmSensorDevice extends ISYDeviceNode {
     voltage;
     constructor(isy, name, area, zone) {
         super(isy, {
-            family: Family.Elk, name, address: `ElkZone_${zone}`, enabled: true,
+            family: Family.Global, name, address: `ElkZone_${zone}`, enabled: true,
             pnode: undefined,
             startDelay: 0,
             hint: '',

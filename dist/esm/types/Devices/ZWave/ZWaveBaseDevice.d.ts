@@ -1,4 +1,4 @@
-import { Family } from '../../Definitions/Families.js';
+import { Family } from '../../Definitions/Global/Families.js';
 import { ISY } from '../../ISY.js';
 import { NodeInfo } from '../../Definitions/NodeInfo.js';
 import { ISYDeviceNode } from '../../ISYNode.js';

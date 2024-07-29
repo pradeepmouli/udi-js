@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InsteonDeviceFactory = void 0;
-const Categories_js_1 = require("../../Categories.js");
+const Categories_js_1 = require("../../Definitions/Global/Categories.js");
 const ISY_js_1 = require("../../ISY.js");
 const Utils_js_1 = require("../../Utils.js");
 const ISYDevice_js_1 = require("../ISYDevice.js");

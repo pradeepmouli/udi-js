@@ -38,7 +38,7 @@ exports.parseTypeCode = parseTypeCode;
 exports.getCategory = getCategory;
 exports.getSubcategory = getSubcategory;
 const winston_1 = __importStar(require("winston"));
-const Categories_js_1 = require("./Categories.js");
+const Categories_js_1 = require("./Definitions/Global/Categories.js");
 const events_1 = require("events");
 function byteToPct(value) {
     return Math.round((value * 100) / 255);

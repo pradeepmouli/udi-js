@@ -1,4 +1,4 @@
-import { Categories } from '../../Categories.js';
+import { Categories } from '../../Definitions/Global/Categories.js';
 import { Family, InsteonBaseDevice, InsteonLockDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDevice } from '../../ISY.js';
 import { parseTypeCode } from '../../Utils.js';
 import { ISYBinaryStateDevice } from '../ISYDevice.js';
@@ -18,6 +18,8 @@ import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import { InsteonRelaySwitchDevice } from './InsteonRelaySwitchDevice.js';
 import { DeviceDef, type CategoryDef, type FamilyDef } from '../DeviceMap.js';
 import { writeFileSync } from 'fs';
+import DeviceMap from '../InsteonDeviceMap.json';
+
 
 
 export class InsteonDeviceFactory {
@@ -77,7 +79,7 @@ export class InsteonDeviceFactory {
 	}
 
 	public static getInsteonDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class: typeof ISYDevice; unsupported?: true; } {
-		const type = parseTypeCode(node.type);
+		const type = parseTypeCode(node.type as any);
 		const subAddress = node.address.split(' ').pop();
 
 		// const typeArray = typeCode.split('.');

@@ -10,7 +10,7 @@ import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import { OnOffBehavior as OOB, OnOffInterface } from '@project-chip/matter.js/behaviors/on-off';
 import { OnOff, ClusterType } from '@project-chip/matter.js/cluster';
 import 'winston';
-import { UnitOfMeasure } from '../../Definitions/UOM.js';
+import { UnitOfMeasure } from '../../Definitions/Global/UOM.js';
 import type { NodeInfo } from '../../Definitions/NodeInfo.js';
 
 type LevelControlBehavior = typeof DimmableLightRequirements.LevelControlServer

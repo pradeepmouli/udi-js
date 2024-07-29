@@ -1,7 +1,10 @@
-import { ISYEvent } from '../Events/ISYEvent.js';
-export var Family;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Family = void 0;
+const ISYEvent_js_1 = require("../../Events/ISYEvent.js");
+var Family;
 (function (Family) {
-    Family[Family["Elk"] = 0] = "Elk";
+    Family[Family["Global"] = 0] = "Global";
     Family[Family["Insteon"] = 1] = "Insteon";
     Family[Family["UPB"] = 2] = "UPB";
     Family[Family["ZigBeeLegacy"] = 3] = "ZigBeeLegacy";
@@ -15,6 +18,6 @@ export var Family;
     Family[Family["Lutron"] = 11] = "Lutron";
     Family[Family["ZWave"] = 12] = "ZWave";
     Family[Family["ZigBee"] = 14] = "ZigBee";
-})(Family || (Family = {}));
-class GenericEvent extends ISYEvent {
+})(Family || (exports.Family = Family = {}));
+class GenericEvent extends ISYEvent_js_1.ISYEvent {
 }

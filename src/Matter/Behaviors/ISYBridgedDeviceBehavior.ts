@@ -9,7 +9,12 @@ import internal from "stream";
 import type { ISYDeviceNode } from "../../ISYNode.js";
 import { Observable, EventEmitter } from "@project-chip/matter.js/util";
 import { ISY } from "../../ISY.js";
+import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
+import { MappingRegistry, type ClusterMapping, type ClusterTypeMapping, type DeviceToClusterMap } from '../../Model/ClusterMap.js';
+import type { ClusterType, ToClusterByName, ToClusterType, ToClusterTypeByName } from '../../Model/clusterEnum.js';
 
+
+type ClusterForBehavior<B extends ClusterBehavior> = B extends ClusterBehavior.Type<infer C> ? C : never;
 export class ISYBridgedDeviceBehavior extends Behavior {
   static override readonly id = "isyDevice";
 
@@ -24,6 +29,7 @@ export class ISYBridgedDeviceBehavior extends Behavior {
     await super.initialize(_options);
     var address = this.state.address;
     this.internal.device = ISY.instance.getDevice(this.state.address);
+    this.internal.map = MappingRegistry.getMapping(this.internal.device);
     ISY.instance.logger.debug(
       `Initializing ${this.constructor.name} for ${this.internal.device.constructor.name} ${this.internal.device.name} with address ${address}`
     );
@@ -34,6 +40,17 @@ export class ISYBridgedDeviceBehavior extends Behavior {
 
   get device(): ISYDeviceNode<any, any, any> {
     return (this.internal.device = this.internal.device ?? ISY.instance.getDevice(this.state.address));
+  }
+
+  get map(): DeviceToClusterMap<typeof this.internal.device> {
+
+    return this.internal.map;
+  }
+
+  mapForBehavior<B extends {cluster: unknown} >(behavior: B): ClusterMapping<B["cluster"],typeof this.internal.device>
+  {
+
+    return this.map[behavior.cluster["name"]];
   }
 
   handlePropertyChange(driver: string, newValue: any, oldValue: any, formattedValue: string) {
@@ -49,6 +66,7 @@ export class ISYBridgedDeviceBehavior extends Behavior {
 export namespace ISYBridgedDeviceBehavior {
   export class Internal {
     device?: ISYDeviceNode<any, any, any>;
+    map? : DeviceToClusterMap<typeof this.device>
   }
 
   export class Events extends EventEmitter {

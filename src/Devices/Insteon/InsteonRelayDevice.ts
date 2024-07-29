@@ -8,11 +8,17 @@ import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 
 import type { OnOffBehavior} from '@project-chip/matter.js/behaviors/on-off';
 import 'winston';
+import { Properties } from '../../ISYConstants.js';
+import { Drivers } from '../../Definitions/Global/Drivers.js';
 
 
 
 export class InsteonRelayDevice extends ISYUpdateableBinaryStateDevice(InsteonBaseDevice) implements MapsTo<typeof OnOffBehavior>{
+
+
 	constructor (isy: ISY, node: NodeInfo) {
+
+
 
 		super(isy, node);
 	}
@@ -22,10 +28,12 @@ export class InsteonRelayDevice extends ISYUpdateableBinaryStateDevice(InsteonBa
 
 		endpoint.events.onOff.onOff$Changed.on((value) => {
 			this.state = value;
+
 		});
 		//endpoint.defaults.onOff.onOff = await this.isOn;
 		endpoint.set({onOff:{onOff: await this.state}});
 		const that = this;
+
 		this.on("PropertyChanged", (propertyName, newValue, _oldValue, formattedValue) => {
 			if (propertyName === "ST") {
 				endpoint.set({onOff:{onOff: newValue > 0}});

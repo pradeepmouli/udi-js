@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ZWaveBaseDevice = void 0;
-const Families_js_1 = require("../../Definitions/Families.js");
+const Families_js_1 = require("../../Definitions/Global/Families.js");
 const Utils_js_1 = require("../../Utils.js");
 const ISYNode_js_1 = require("../../ISYNode.js");
 require("winston");

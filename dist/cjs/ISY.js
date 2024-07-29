@@ -33,7 +33,7 @@ const xml2js_1 = require("xml2js");
 const processors_js_1 = require("xml2js/lib/processors.js");
 const xmldoc_1 = require("xmldoc");
 const axios_1 = __importDefault(require("axios"));
-const Categories_js_1 = require("./Categories.js");
+const Categories_js_1 = require("./Definitions/Global/Categories.js");
 Object.defineProperty(exports, "Categories", { enumerable: true, get: function () { return Categories_js_1.Categories; } });
 const DeviceFactory_js_1 = require("./Devices/DeviceFactory.js");
 const ElkAlarmPanelDevice_js_1 = require("./Devices/Elk/ElkAlarmPanelDevice.js");
@@ -69,7 +69,7 @@ const InsteonThermostatDevice_js_1 = require("./Devices/Insteon/InsteonThermosta
 Object.defineProperty(exports, "InsteonThermostatDevice", { enumerable: true, get: function () { return InsteonThermostatDevice_js_1.InsteonThermostatDevice; } });
 const ISYNode_js_1 = require("./ISYNode.js");
 Object.defineProperty(exports, "ISYDevice", { enumerable: true, get: function () { return ISYNode_js_1.ISYDeviceNode; } });
-const Families_js_1 = require("./Definitions/Families.js");
+const Families_js_1 = require("./Definitions/Global/Families.js");
 Object.defineProperty(exports, "Family", { enumerable: true, get: function () { return Families_js_1.Family; } });
 const EventType_js_1 = require("./Events/EventType.js");
 const ISYConstants_js_1 = require("./ISYConstants.js");

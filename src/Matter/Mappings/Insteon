@@ -1,0 +1,61 @@
+import { OnOffCluster } from "@project-chip/matter.js/cluster";
+import { Drivers } from "../../Definitions/Global/Drivers";
+import { Family } from "../../Definitions/Global/Families.js";
+import { InsteonDimmableDevice, InsteonRelayDevice } from "../../ISY";
+import {
+  ClusterMap,
+  MappingRegistry,
+  type ClusterTypeMapping,
+  type FamilyToClusterMap,
+} from "../../Model/ClusterMap.js";
+import { DeviceTypeDefinition, DeviceTypes, OnOffBaseDevice } from "@project-chip/matter.js/device";
+import { OnOffLightDevice } from "@project-chip/matter.js/devices/OnOffLightDevice";
+import { DeviceTypeElement } from "@project-chip/matter.js/model";
+
+//import InsteonMap from "./Insteon.json";
+import { DimmableLightDevice } from "@project-chip/matter.js/devices/DimmableLightDevice";
+import { Converters } from '../Translation/Converters.js';
+
+const map: Partial<FamilyToClusterMap<Family.Insteon>> = {
+  Relay: {
+    deviceType: OnOffLightDevice,
+    mapping: {
+      OnOff: {
+        attributes: {
+          onOff: { driver: Drivers.Status, converter: Converters.BooleanLevel255.to},
+        },
+        commands: { on: Drivers.On, off: Drivers.Off },
+      },
+    },
+  },
+  RelaySwitch: {
+    deviceType: OnOffLightDevice,
+    mapping: {
+      OnOff: {
+        attributes: {
+          onOff: { driver: Drivers.Status },
+        },
+        commands: { on: Drivers.On, off: Drivers.Off },
+      },
+    },
+  },
+  Dimmer: {
+    deviceType: DimmableLightDevice,
+    mapping: {
+      OnOff: {
+        attributes: {
+          onOff: { driver: Drivers.Status },
+        },
+        commands: { on: Drivers.On, off: Drivers.Off },
+      },
+      LevelControl: {
+        attributes: {
+          currentLevel: { driver: Drivers.Status },
+        },
+        commands: { moveToLevel: Drivers.On },
+      },
+    },
+  },
+};
+
+MappingRegistry.register(map);

@@ -7,7 +7,7 @@ import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js'
 import { XmlDocument } from 'xmldoc';
 
 import axios, { AxiosRequestConfig } from 'axios';
-import { Categories } from './Categories.js';
+import { Categories } from './Definitions/Global/Categories.js';
 import { DeviceFactory } from './Devices/DeviceFactory.js';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
 import { ElkAlarmSensorDevice } from "./Devices/Elk/ElkAlarmSensorDevice.js";
@@ -25,7 +25,7 @@ import { InsteonMotionSensorDevice } from './Devices/Insteon/InsteonMotionSensor
 import { InsteonRelayDevice } from './Devices/Insteon/InsteonRelayDevice.js';
 import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevice.js';
 import { ISYDeviceNode } from './ISYNode.js';
-import { Family } from './Definitions/Families.js';
+import { Family } from './Definitions/Global/Families.js';
 import { EventType } from "./Events/EventType.js";
 import {  NodeType, Props, States, VariableType } from './ISYConstants.js';
 import { ISYNode } from './ISYNode.js';

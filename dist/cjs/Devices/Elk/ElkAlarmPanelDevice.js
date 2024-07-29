@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AlarmSensorLogicalState = exports.AlarmSensorPhysicalState = exports.AlarmState = exports.AlarmTripState = exports.AlarmMode = exports.AlarmPanelProperty = exports.ELKAlarmPanelDevice = void 0;
-const Families_js_1 = require("../../Definitions/Families.js");
+const Families_js_1 = require("../../Definitions/Global/Families.js");
 const ISYNode_js_1 = require("../../ISYNode.js");
 const ElkAlarmSensorDevice_js_1 = require("./ElkAlarmSensorDevice.js");
 /////////////////////////////
@@ -22,7 +22,7 @@ class ELKAlarmPanelDevice extends ISYNode_js_1.ISYDeviceNode {
     voltage;
     constructor(isy, area) {
         super(isy, {
-            family: Families_js_1.Family.Elk, type: '0.0.0.0', enabled: true, address: `ElkAlarmPanel_${area}`, name: `Elk Alarm Panel ${area}`,
+            family: Families_js_1.Family.Global, type: '0.0.0.0', enabled: true, address: `ElkAlarmPanel_${area}`, name: `Elk Alarm Panel ${area}`,
             pnode: undefined,
             startDelay: 0,
             hint: '',

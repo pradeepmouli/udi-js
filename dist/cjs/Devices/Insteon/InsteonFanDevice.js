@@ -59,7 +59,7 @@ class InsteonFanDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
         return this.motor.updateLevel(level);
     }
     async updatFanIsOn(isOn) {
-        if (!isOn) {
+        if (!this.motor.isOn) {
             this.motor.updateLevel(ISYConstants_js_1.States.Level.Min);
         }
         else {

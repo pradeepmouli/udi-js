@@ -1,4 +1,4 @@
-import { UnitOfMeasure } from './UOM.js';
+import { UnitOfMeasure } from './Global/UOM.js';
 export interface PropertyStatus {
     id: string | number;
     value: any;

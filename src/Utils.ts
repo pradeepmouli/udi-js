@@ -5,7 +5,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import * as log4js from '@log4js-node/log4js-api';
 import winston, { Logger, format}from 'winston'
 
-import { Categories } from './Categories.js';
+import { Categories } from './Definitions/Global/Categories.js';
 import { EventEmitter as BaseEventEmitter } from 'events';
 import { Axios } from 'axios';
 
@@ -225,7 +225,7 @@ export function removeAll(this: string, searchValue: string | RegExp)
 }
 
 
-export function parseTypeCode(typeCode: string) : {category: Categories, deviceCode: number, firmwareVersion: number, minorVersion: number }
+export function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}`) : {category: Categories, deviceCode: number, firmwareVersion: number, minorVersion: number }
 {
 	try {
 		const s = typeCode.split('.');
@@ -234,6 +234,7 @@ export function parseTypeCode(typeCode: string) : {category: Categories, deviceC
 
 		return output;
 	} catch (err) {
+
 		return null;
 	}
 }

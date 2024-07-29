@@ -1,4 +1,4 @@
-import { Categories } from '../../Categories.js';
+import { Categories } from '../../Definitions/Global/Categories.js';
 import { Family, InsteonBaseDevice, InsteonLockDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDevice } from '../../ISY.js';
 import { parseTypeCode } from '../../Utils.js';
 import { ISYBinaryStateDevice } from '../ISYDevice.js';

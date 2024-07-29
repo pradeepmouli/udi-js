@@ -1,7 +1,7 @@
 import { ISYUpdateableLevelDevice } from '../ISYDevice.js';
 import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import 'winston';
-import { UnitOfMeasure } from '../../Definitions/UOM.js';
+import { UnitOfMeasure } from '../../Definitions/Global/UOM.js';
 export class InsteonDimmableDevice extends ISYUpdateableLevelDevice(InsteonRelayDevice) {
     constructor(isy, node) {
         super(isy, node);

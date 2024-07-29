@@ -1,29 +1,44 @@
 import { InsteonRelayDevice } from "../../Devices/Insteon/InsteonRelayDevice.js";
 import { OnOffLightRequirements } from "@project-chip/matter.js/devices/OnOffLightDevice";
 import { ISYClusterBehavior } from "./ISYClusterBehavior.js";
+import { Drivers } from '../../Definitions/Global/Drivers.js';
+import { DimmableLightRequirements } from '@project-chip/matter.js/devices/DimmableLightDevice';
+import { InsteonDimmableDevice } from '../../Devices/Insteon/InsteonDimmableDevice.js';
 export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.OnOffServer, InsteonRelayDevice) {
     async initialize(_options) {
         await super.initialize(_options);
         this.state.onOff = await this.device.state;
     }
-    async on() {
-        // await super.on();
+    on = async () => {
+        await super.on();
         this.device.state = true;
-    }
+    };
     async off() {
         //await super.off();
         this.device.state = false;
     }
-    async toggle() {
+    toggle = async () => {
         this.device.state = !(await this.device.state);
+    };
+    async handlePropertyChange({ driver, newValue, oldValue, formattedValue }) {
+        if (driver === Drivers.Status) {
+            this.state.onOff = newValue;
+        }
+        return super.handlePropertyChange({ driver, newValue, oldValue, formattedValue });
     }
-    handlePropertyChange({ driver, newValue, oldValue, formattedValue }) {
-        if (driver === 'ST') {
-            //this.asAdmin(() => this.state.onOff = newValue > 0);
-            //this.endpoint.set({values: {onOff: newValue > 0}});
-            // super.on()
-            this.state.onOff = newValue > 0;
-            //this.events.onOff$Changed.emit(newValue, value, this.context);
+}
+export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequirements.LevelControlServer, InsteonDimmableDevice) {
+    async initialize(_options) {
+        await super.initialize(_options);
+        this.state.currentLevel = this.device.local.ST;
+        this.state.onLevel = this.device.local.OL;
+    }
+    setLevel(level) {
+        if (level > 0) {
+            return this.device.sendCommand('DON', level);
+        }
+        else {
+            return this.device.sendCommand('DOF');
         }
     }
 }

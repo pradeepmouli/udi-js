@@ -1,11 +1,12 @@
 import { EventEmitter } from 'events';
 import { isNullOrUndefined } from 'util';
-import { Family } from './Definitions/Families.js';
+import { Family } from './Definitions/Global/Families.js';
 import { Controls, NodeType } from './ISY.js';
+import { UnitOfMeasure } from './Definitions/Global/UOM.js';
 export class ISYNode extends EventEmitter {
     isy;
     formatted = {};
-    uom = {};
+    uom = { ST: UnitOfMeasure.Boolean };
     pending = {};
     local = {};
     flag;
@@ -17,7 +18,7 @@ export class ISYNode extends EventEmitter {
     spokenName;
     location;
     isLoad;
-    folder = '';
+    folder = "";
     parent;
     parentType;
     elkId;
@@ -43,14 +44,19 @@ export class ISYNode extends EventEmitter {
         this.enabled = node.enabled ?? true;
         this.elkId = node.ELK_ID;
         this.propsInitialized = false;
-        const s = this.name.split('.');
+        const s = this.name.split(".");
         //if (s.length > 1)
         //s.shift();
-        this.baseDisplayName = s.join(' ').replace(/([A-Z])/g, ' $1').replace('  ', ' ').replace('  ', ' ').trim();
+        this.baseDisplayName = s
+            .join(" ")
+            .replace(/([A-Z])/g, " $1")
+            .replace("  ", " ")
+            .replace("  ", " ")
+            .trim();
         if (this.parentType === NodeType.Folder) {
             this.folder = isy.folderMap.get(this.parent._);
             isy.logger.info(`${this.name} this node is in folder ${this.folder}`);
-            this.logger = (msg, level = 'debug', ...meta) => {
+            this.logger = (msg, level = "debug", ...meta) => {
                 isy.logger.log(level, `${this.folder} ${this.name} (${this.address}): ${msg}`, meta);
                 return isy.logger;
             };
@@ -58,7 +64,7 @@ export class ISYNode extends EventEmitter {
         }
         else {
             this.displayName = this.baseDisplayName;
-            this.logger = (msg, level = 'debug', ...meta) => {
+            this.logger = (msg, level = "debug", ...meta) => {
                 isy.logger.log(level, `${this.name} (${this.address}): ${msg}`, meta);
                 return isy.logger;
             };
@@ -79,9 +85,9 @@ export class ISYNode extends EventEmitter {
         return this;
     }
     emit(event, propertyName, newValue, oldValue, formattedValue, controlName) {
-        if ('PropertyChanged')
+        if ("PropertyChanged")
             return super.emit(event, propertyName, newValue, oldValue, formattedValue);
-        else if ('ControlTriggered')
+        else if ("ControlTriggered")
             return super.emit(event, controlName);
     }
     handleEvent(event) {
@@ -94,11 +100,11 @@ export class ISYNode extends EventEmitter {
         }
         if (event.control in this.local) {
             // property not command
-            const formatted = 'fmtAct' in event ? event.fmtAct : actionValue;
+            const formatted = "fmtAct" in event ? event.fmtAct : actionValue;
             return this.handlePropertyChange(event.control, actionValue, formatted);
         }
-        else if (event.control === '_3') {
-            this.logger(`Received Node Change Event: ${JSON.stringify(event)}. These are currently unsupported.`, 'info');
+        else if (event.control === "_3") {
+            this.logger(`Received Node Change Event: ${JSON.stringify(event)}. These are currently unsupported.`, "info");
         }
         else {
             // this.logger(event.control);
@@ -122,10 +128,15 @@ export class ISYNode extends EventEmitter {
             // template = template.replace("{", "{this."};
             const regex = /(?<op1>\w+) \?\? (?<op2>\w+)/g;
             this.logger(`Display name format: ${template}`);
-            let newttemp = template.replace(regex, 'this.$<op1> === null || this.$<op1> === undefined || this.$<op1> === \'\' ? this.$<op2> : this.$<op1>');
+            let newttemp = template.replace(regex, "this.$<op1> === null || this.$<op1> === undefined || this.$<op1> === '' ? this.$<op2> : this.$<op1>");
             this.logger(`Template format updated to: ${newttemp}`);
-            const s = { location: this.location ?? '', folder: this.folder ?? '', spokenName: this.spokenName ?? this.name, name: this.name ?? '' };
-            newttemp = newttemp.replace('this.name', 'this.baseDisplayName');
+            const s = {
+                location: this.location ?? "",
+                folder: this.folder ?? "",
+                spokenName: this.spokenName ?? this.name,
+                name: this.name ?? "",
+            };
+            newttemp = newttemp.replace("this.name", "this.baseDisplayName");
             ISYNode._displayNameFunction = new Function(`return \`${newttemp}\`.trim();`);
         }
         return ISYNode._displayNameFunction.call(this);
@@ -135,12 +146,12 @@ export class ISYNode extends EventEmitter {
         try {
             const result = await this.getNotes();
             if (result !== null && result !== undefined) {
-                that.location = result.location ?? this.folder ?? '';
-                that.spokenName = result.spoken ?? this.folder ?? '';
+                that.location = result.location ?? this.folder ?? "";
+                that.spokenName = result.spoken ?? this.folder ?? "";
                 // if(result.spoken)
             }
             else {
-                that.logger('No notes found.');
+                that.logger("No notes found.");
             }
             that.displayName = that.setDisplayName.bind(that)(that.isy.displayNameFormat);
             that.displayName = that.displayName ?? this.baseDisplayName;
@@ -190,12 +201,11 @@ export class ISYDeviceNode extends ISYNode {
         this._enabled = node.enabled;
         this.deviceClass = node.deviceClass;
         this.parentAddress = node.pnode;
-        const s = this.type.split('.');
+        const s = this.type.split(".");
         this.category = Number(s[0]);
         this.subCategory = Number(s[1]);
         // console.log(nodeDetail);
-        if (this.parentAddress !== this.address &&
-            this.parentAddress !== undefined) {
+        if (this.parentAddress !== this.address && this.parentAddress !== undefined) {
             this._parentDevice = isy.getDevice(this.parentAddress);
             if (!isNullOrUndefined(this._parentDevice)) {
                 this._parentDevice.addChild(this);
@@ -230,9 +240,7 @@ export class ISYDeviceNode extends ISYNode {
     }
     get parentDevice() {
         if (this._parentDevice === undefined) {
-            if (this.parentAddress !== this.address &&
-                this.parentAddress !== null &&
-                this.parentAddress !== undefined) {
+            if (this.parentAddress !== this.address && this.parentAddress !== null && this.parentAddress !== undefined) {
                 this._parentDevice = this.isy.getDevice(this.parentAddress);
                 if (this._parentDevice !== null) {
                     this._parentDevice.addChild(this);
@@ -243,12 +251,12 @@ export class ISYDeviceNode extends ISYNode {
         return this._parentDevice;
     }
     async readProperty(propertyName) {
-        var result = (await this.isy.callISY(`nodes/${this.address}/${propertyName}`));
+        var result = await this.isy.callISY(`nodes/${this.address}/${propertyName}`);
         this.logger(JSON.stringify(result), "debug");
         return result.property;
     }
     async readProperties() {
-        var result = (await this.isy.callISY(`nodes/${this.address}/status`));
+        var result = await this.isy.callISY(`nodes/${this.address}/status`);
         this.logger(JSON.stringify(result), "debug");
         return result.property;
     }
@@ -256,9 +264,7 @@ export class ISYDeviceNode extends ISYNode {
         const val = this.convertTo(Number(value), Number(this.uom[propertyName]));
         this.logger(`Updating property ${Controls[propertyName].label}. incoming value: ${value} outgoing value: ${val}`);
         this.pending[propertyName] = value;
-        return this.isy
-            .callISY(`nodes/${this.address}/set/${propertyName}/${val}`)
-            .then((p) => {
+        return this.isy.callISY(`nodes/${this.address}/set/${propertyName}/${val}`).then((p) => {
             this.local[propertyName] = value;
             this.pending[propertyName] = null;
         });
@@ -294,7 +300,7 @@ export class ISYDeviceNode extends ISYNode {
         this.logger(`Property ${Controls[prop.id].label} (${prop.id}) refreshed to: ${this[prop.id]} (${this.formatted[prop.id]})`);
     }
     handleControlTrigger(controlName) {
-        return this.emit('ControlTriggered', controlName);
+        return this.emit("ControlTriggered", controlName);
     }
     handlePropertyChange(propertyName, value, formattedValue) {
         let changed = false;
@@ -312,7 +318,7 @@ export class ISYDeviceNode extends ISYNode {
                 this.logger(`Update event triggered, property ${Controls[propertyName].label} (${propertyName}) is unchanged.`);
             }
             if (changed) {
-                this.emit('PropertyChanged', propertyName, val, priorVal, formattedValue);
+                this.emit("PropertyChanged", propertyName, val, priorVal, formattedValue);
                 this.scenes.forEach((element) => {
                     this.logger(`Recalulating ${element.name}`);
                     element.recalculateState();

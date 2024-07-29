@@ -1,0 +1,56 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "es2022",
+        "module": "NodeNext",
+
+        "rootDir": "./",
+        "outDir": "./",
+        "declaration": false,
+        //"declarationDir": "./dist/types",
+        "allowArbitraryExtensions": true,
+
+        "allowSyntheticDefaultImports": true,
+        "allowJs": false,
+        "skipLibCheck": true,
+        "noImplicitOverride": true,
+        "noImplicitThis": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "paths": {
+            "*": ["./"],
+            "../dist/esm/ISY.js": [
+                "../dist/esm/types/ISY.d.ts"
+            ],
+            "isy-nodejs": [
+                "../dist/esm/*",
+                "../dist/esm/types/*"
+            ]
+        },
+    },
+
+      "include": ["**/*"],
+      "ts-node": {
+        "transpileOnly": true,
+        "compilerOptions": {
+          "module": "NodeNext",
+          "target": "ESNext"
+        }}
+      ,
+
+    "exclude": [
+        "node_modules/@project-chip/*",
+        "node_modules",
+        "dist",
+        "coverage",
+        "temp",
+        "scripts",
+        "test",
+        "bin",
+        "types",
+        "index.ts",
+        "index.js",
+        "index.d.ts"
+
+    ]
+}

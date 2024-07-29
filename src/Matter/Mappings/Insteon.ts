@@ -1,41 +1,45 @@
 import { OnOffCluster } from "@project-chip/matter.js/cluster";
-import { Drivers } from "../../Definitions/Global/Drivers";
+import { DriverType } from "../../Definitions/Global/Drivers.js";
 import { Family } from "../../Definitions/Global/Families.js";
-import { InsteonDimmableDevice, InsteonRelayDevice } from "../../ISY";
+import { Insteon } from "../../Devices/Insteon/index.js";
+import { Devices} from "../../Devices/index.js";
 import {
-  ClusterMap,
   MappingRegistry,
   type ClusterTypeMapping,
   type FamilyToClusterMap,
+  type DeviceToClusterMap
 } from "../../Model/ClusterMap.js";
 import { DeviceTypeDefinition, DeviceTypes, OnOffBaseDevice } from "@project-chip/matter.js/device";
 import { OnOffLightDevice } from "@project-chip/matter.js/devices/OnOffLightDevice";
-import { DeviceTypeElement } from "@project-chip/matter.js/model";
 
 //import InsteonMap from "./Insteon.json";
 import { DimmableLightDevice } from "@project-chip/matter.js/devices/DimmableLightDevice";
-import { Converters } from '../Translation/Converters.js';
+import { Converters } from '../../Converters.js';
+import type { InsteonRelaySwitchDevice } from '../../Devices/Insteon/InsteonRelaySwitchDevice.js';
 
-const map: Partial<FamilyToClusterMap<Family.Insteon>> = {
+
+type Relay = typeof Insteon["Relay"]
+
+const map: FamilyToClusterMap<Family.Insteon> = {
   Relay: {
     deviceType: OnOffLightDevice,
     mapping: {
       OnOff: {
         attributes: {
-          onOff: { driver: Drivers.Status, converter: Converters.BooleanLevel255.to},
+          onOff: { driver: "ST", converter: "Converters.Standard.LevelFrom0To255?.Boolean?.to"},
         },
-        commands: { on: Drivers.On, off: Drivers.Off },
+        commands: { on: 'DON', off: DriverType.Off },
       },
     },
-  },
+  } ,
   RelaySwitch: {
     deviceType: OnOffLightDevice,
     mapping: {
       OnOff: {
         attributes: {
-          onOff: { driver: Drivers.Status },
+          onOff: "ST",
         },
-        commands: { on: Drivers.On, off: Drivers.Off },
+        commands: { on: DriverType.On, off: DriverType.Off },
       },
     },
   },
@@ -44,15 +48,15 @@ const map: Partial<FamilyToClusterMap<Family.Insteon>> = {
     mapping: {
       OnOff: {
         attributes: {
-          onOff: { driver: Drivers.Status },
+          onOff: { driver: DriverType.Status },
         },
-        commands: { on: Drivers.On, off: Drivers.Off },
+        commands: { on: DriverType.On, off: DriverType.Off },
       },
       LevelControl: {
         attributes: {
-          currentLevel: { driver: Drivers.Status },
+          currentLevel: { driver: DriverType.Status },
         },
-        commands: { moveToLevel: Drivers.On },
+        commands: { moveToLevel: {command: 'DON'}},
       },
     },
   },

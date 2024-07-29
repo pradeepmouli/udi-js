@@ -1,3 +1,5 @@
+import { Converters } from "../../Converters.js";
+
 export enum UnitOfMeasure {
 	Unknown = 0,
 	Ampere = 1,
@@ -106,4 +108,35 @@ export enum UnitOfMeasure {
 	Cent = 104,
 	Inch = 105,
 	MillimetersPerDay = 106,
-  }
+}
+
+export function toString(this: UnitOfMeasure): keyof typeof UnitOfMeasure {
+	return UnitOfMeasure[this] as keyof typeof UnitOfMeasure;
+}
+export namespace UnitOfMeasure {
+	export type ToType<X extends UnitOfMeasure> = X extends UnitOfMeasure.Boolean ? boolean : number;
+
+	export function convertTo<X extends UnitOfMeasure, Y extends UnitOfMeasure>(
+		this: X,
+		targetUOM: Y,
+		value: ToType<Y>
+	): ToType<X> {
+		const converter = Converters.Standard[this.toString()]?.[targetUOM];
+		if (converter) {
+			return converter.to(value);
+		}
+		return value as unknown as ToType<X>;
+	}
+
+	export function convertFrom<X extends UnitOfMeasure, Y extends UnitOfMeasure>(
+		this: X,
+		sourceUOM: Y,
+		value: ToType<Y>
+	): ToType<X> {
+		const converter = Converters.Standard[this.toString()]?.[sourceUOM];
+		if (converter) {
+			return converter.from(value);
+		}
+		return value as unknown as ToType<X>;
+	}
+}

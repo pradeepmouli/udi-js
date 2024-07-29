@@ -6,14 +6,15 @@ import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/beh
 import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import 'winston'
-import { ISYDeviceNode } from '../ISYNode.js';
+import { ISYNodeDevice, type DriverValues, type ISYDevice } from '../ISYNode.js';
 import { Constructor } from './Constructor.js';
 import type { BasicInformationBehavior } from '@project-chip/matter.js/behaviors/basic-information';
 import type { BridgedDeviceBasicInformationCluster } from '@project-chip/matter.js/cluster';
 import { UnitOfMeasure } from '../Definitions/Global/UOM.js';
-import { Drivers } from '../Definitions/Global/Drivers.js';
+import { DriverType, type Driver, type DriverTypeWithLiteral } from '../Definitions/Global/Drivers.js';
 
-export const ISYBinaryStateDevice = <K extends Family,D extends Drivers, T extends Constructor<ISYDeviceNode<K,D|Drivers.Status>>>(Base: T) => {
+
+export const ISYBinaryStateDevice = <K extends Family,D extends Driver.Literal, T extends Constructor<ISYNodeDevice<K,D|"ST",any>>>(Base: T) => {
 	return class extends Base implements ISYBinaryStateDevice{
 		get state(): Promise<boolean> {
 			return Promise.resolve(this.local.ST > 0);
@@ -54,10 +55,14 @@ export interface ISYBinaryStateDevice
 
 
 
-export const ISYUpdateableBinaryStateDevice = <K extends Family,D extends Drivers,C extends string, T extends Constructor<ISYDeviceNode<K,D | Drivers.Status, C | 'DON' | 'DOF'>>>(
+export const ISYUpdateableBinaryStateDevice = <K extends Family,D extends Driver.Literal,C extends string, T extends Constructor<ISYDevice<K,D,C | 'DON' | 'DOF'>>>(
 	Base: T
 ) => {
-	return class extends Base {
+	return class extends Base implements ISYDevice<K,D | DriverType.Status, C | 'DON' | 'DOF'> {
+
+		declare local : DriverValues<D | DriverType.Status>
+		declare formatted : DriverValues<D | DriverType.Status,string>
+		declare pending : DriverValues<D | DriverType.Status>
 		get state(): Promise<boolean> {
 			return Promise.resolve(this.local.ST > 0);
 			//return this.readProperty('ST').then(p => p.value  > 0);
@@ -78,6 +83,7 @@ export const ISYUpdateableBinaryStateDevice = <K extends Family,D extends Driver
 		public async updateState(state: boolean): Promise<any> {
 			if (this.local.ST > 0 !== state || this.pending.ST > 0 !== state) {
 				this.pending.ST = state ? States.On : States.Off;
+
 				return this.sendCommand(state ? 'DON' : 'DOF').then((p) => {
 					//this.local.ST = this.pending.ST;
 					this.pending.ST = null;
@@ -102,7 +108,7 @@ export interface MapsToEndpoint<T extends ClusterBehavior>
 
 }
 
-export const ISYLevelDevice = <T extends Constructor<ISYDeviceNode<any>>>(base: T) =>
+export const ISYLevelDevice = <T extends Constructor<ISYNodeDevice<any,any,any>>>(base: T) =>
 	class extends base {
 		get level(): number {
 			return this.local.ST;
@@ -111,7 +117,7 @@ export const ISYLevelDevice = <T extends Constructor<ISYDeviceNode<any>>>(base: 
 
 // tslint:disable-next-line: variable-name
 
-export const ISYUpdateableLevelDevice = <T extends Constructor<ISYDeviceNode<any>>>(base: T) =>
+export const ISYUpdateableLevelDevice = <T extends Constructor<ISYNodeDevice<any,any,any>>>(base: T) =>
 	class extends base {
 		get level(): number {
 			return this.local.ST;

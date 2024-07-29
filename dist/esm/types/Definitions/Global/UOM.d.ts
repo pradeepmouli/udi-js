@@ -107,3 +107,9 @@ export declare enum UnitOfMeasure {
     Inch = 105,
     MillimetersPerDay = 106
 }
+export declare function toString(this: UnitOfMeasure): keyof typeof UnitOfMeasure;
+export declare namespace UnitOfMeasure {
+    type ToType<X extends UnitOfMeasure> = X extends UnitOfMeasure.Boolean ? boolean : number;
+    function convertTo<X extends UnitOfMeasure, Y extends UnitOfMeasure>(this: X, targetUOM: Y, value: ToType<Y>): ToType<X>;
+    function convertFrom<X extends UnitOfMeasure, Y extends UnitOfMeasure>(this: X, sourceUOM: Y, value: ToType<Y>): ToType<X>;
+}

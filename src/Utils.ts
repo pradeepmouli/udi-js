@@ -5,7 +5,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import * as log4js from '@log4js-node/log4js-api';
 import winston, { Logger, format}from 'winston'
 
-import { Categories } from './Definitions/Global/Categories.js';
+import { Category } from './Definitions/Global/Categories.js';
 import { EventEmitter as BaseEventEmitter } from 'events';
 import { Axios } from 'axios';
 
@@ -14,6 +14,36 @@ import { Axios } from 'axios';
 //import { get } from 'http';
 import { EventType } from './Events/EventType.js';
 import type { Identity } from '@project-chip/matter.js/util';
+import { isBoxedPrimitive } from 'util/types';
+
+export interface Converter<F, T> {
+
+  from: (value: F) => T;
+  to: (value: T) => F;
+}
+
+export function invert<F, T>(converter: Converter<F, T>): Converter<T, F> {
+  return {
+    from: converter.to,
+    to: converter.from,
+  };
+}
+
+export type MaybeArray<T> = T | T[];
+
+
+export function toArray<T>(value: MaybeArray<T>): T[] {
+  return Array.isArray(value) ? value : [value];
+}
+
+export function fromArray<T>(...value: T[]): MaybeArray<T> {
+  if(value.length === 1)
+  {
+	return value[0];
+  }
+  return value;
+
+}
 
 export function byteToPct(value) {
 	return Math.round((value * 100) / 255);
@@ -69,7 +99,6 @@ export interface LoggerLike extends Partial<log4js.Logger> {
 // let logger =  winston.createLogger(options);
 // logger.prototype = logger.log.bind(logger);
 // }
-
 // }`}`
 export function clone(logger: Logger, label: string): Logger {
 
@@ -159,6 +188,7 @@ type TEventType = keyof typeof EventType
 
 export interface PropertyChangedEventEmitter extends EventEmitter<"PropertyChanged">
 {
+	
 	on(event:'PropertyChanged', listener: (propertyName : string, newValue: any, oldValue: any, formattedValue: string) => void) : this;
 
 }
@@ -225,7 +255,7 @@ export function removeAll(this: string, searchValue: string | RegExp)
 }
 
 
-export function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}`) : {category: Categories, deviceCode: number, firmwareVersion: number, minorVersion: number }
+export function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}`) : {category: Category, deviceCode: number, firmwareVersion: number, minorVersion: number }
 {
 	try {
 		const s = typeCode.split('.');
@@ -244,7 +274,7 @@ export function getCategory(device: { type: string; }) {
 		const s = device.type.split('.');
 		return Number(s[0]);
 	} catch (err) {
-		return Categories.Unknown;
+		return Category.Unknown;
 	}
 }
 export function getSubcategory(device: { type: string; }) {
@@ -252,6 +282,6 @@ export function getSubcategory(device: { type: string; }) {
 		const s = device.type.split('.');
 		return Number(s[1]);
 	} catch (err) {
-		return Categories.Unknown;
+		return Category.Unknown;
 	}
 }

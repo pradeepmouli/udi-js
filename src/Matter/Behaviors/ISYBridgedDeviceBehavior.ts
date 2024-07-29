@@ -6,12 +6,13 @@
 import type { StateType } from "@project-chip/matter.js/behavior/state";
 import { Internal } from "@project-chip/matter.js/behavior/state/managed";
 import internal from "stream";
-import type { ISYDeviceNode } from "../../ISYNode.js";
+import type { ISYDevice } from "../../ISYNode.js";
 import { Observable, EventEmitter } from "@project-chip/matter.js/util";
-import { ISY } from "../../ISY.js";
+import { ISY, type Family } from "../../ISY.js";
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import { MappingRegistry, type ClusterMapping, type ClusterTypeMapping, type DeviceToClusterMap } from '../../Model/ClusterMap.js';
 import type { ClusterType, ToClusterByName, ToClusterType, ToClusterTypeByName } from '../../Model/clusterEnum.js';
+import type { Driver } from '../../Definitions/Global/Drivers.js';
 
 
 type ClusterForBehavior<B extends ClusterBehavior> = B extends ClusterBehavior.Type<infer C> ? C : never;
@@ -38,7 +39,7 @@ export class ISYBridgedDeviceBehavior extends Behavior {
     }
   }
 
-  get device(): ISYDeviceNode<any, any, any> {
+  get device(): ISYDevice<any,any,any> {
     return (this.internal.device = this.internal.device ?? ISY.instance.getDevice(this.state.address));
   }
 
@@ -59,13 +60,13 @@ export class ISYBridgedDeviceBehavior extends Behavior {
 
   [Symbol.asyncDispose]() {
     this.internal.device = null;
-    return super[Symbol.asyncDispose]();
+      return super[Symbol.asyncDispose]();
+    }
   }
-}
 
 export namespace ISYBridgedDeviceBehavior {
   export class Internal {
-    device?: ISYDeviceNode<any, any, any>;
+    device?: ISYDevice<any,any,any>;
     map? : DeviceToClusterMap<typeof this.device>
   }
 

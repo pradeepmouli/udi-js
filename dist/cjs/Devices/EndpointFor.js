@@ -10,7 +10,7 @@ const MatterEndpoint = (base, endpointType) => {
             var p = this.endpointType.with(bridged_device_basic_information_1.BridgedDeviceBasicInformationServer);
             const id = this.address.replaceAll(' ', '_').replaceAll('.', ' ');
             return new endpoint_1.Endpoint(p, { id: id, address: this.address, bridgedDeviceBasicInformation: {
-                    nodeLabel: this.displayName.rightWithToken(32, ' '),
+                    nodeLabel: this.label.rightWithToken(32, ' '),
                     productName: this.productName.rightWithToken(32, ' '),
                     productLabel: this.model.leftWithToken(64, ' '),
                     serialNumber: id,

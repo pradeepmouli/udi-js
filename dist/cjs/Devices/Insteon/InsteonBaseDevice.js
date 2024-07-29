@@ -7,7 +7,7 @@ const Utils_js_1 = require("../../Utils.js");
 const ISYNode_js_1 = require("../../ISYNode.js");
 require("winston");
 // import { InsteonNLS } from './insteonfam.js'
-class InsteonBaseDevice extends ISYNode_js_1.ISYDeviceNode {
+class InsteonBaseDevice extends ISYNode_js_1.ISYNodeDevice {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
         this.family = Families_js_1.Family.Insteon;

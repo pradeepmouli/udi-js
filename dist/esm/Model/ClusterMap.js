@@ -1,5 +1,4 @@
-import * as Clusters from '@project-chip/matter.js/cluster';
-import { Drivers } from "../Definitions/Global/Drivers.js";
+import { DriverType } from "../Definitions/Global/Drivers.js";
 import { ClusterType } from './clusterEnum.js';
 import { OnOffLightDevice } from '@project-chip/matter.js/devices/OnOffLightDevice';
 export class MappingRegistry {
@@ -22,15 +21,16 @@ export class MappingRegistry {
         // }
     }
 }
-const ClusterIdentifier = Object.values(Clusters).filter(p => p instanceof Clusters.MutableCluster && typeof p == "object" && p.constructor.name.endsWith(".Cluster"));
-var clusterMap = { cluster: ClusterType.ColorControl, attributes: { colorTemperatureMireds: { driver: Drivers.Status } }, commands: { moveToColor: { command: Drivers.CustomControl1, parameters: { colorX: { parameter: "colorX" }, colorY: { parameter: "colorY" }, colorTemperature: { parameter: "colorTemperature" } } } } };
+var teest;
+var tts = teest.Relay.mapping.OnOff.attributes.onOff;
+var clusterMap = { cluster: ClusterType.ColorControl, attributes: { colorTemperatureMireds: { driver: DriverType.Status } }, commands: { moveToColor: { command: DriverType.CustomControl1, parameters: { colorX: { parameter: "colorX" }, colorY: { parameter: "colorY" }, colorTemperature: { parameter: "colorTemperature" } } } } };
 const map = {
     deviceType: OnOffLightDevice,
     mapping: { OnOff: {
             attributes: {
-                onOff: { driver: Drivers.Status },
+                onOff: { driver: "DON" },
             },
-            commands: { on: Drivers.On, off: Drivers.Off },
+            commands: { on: DriverType.On, off: DriverType.Off },
         },
     }
 };

@@ -1,12 +1,12 @@
 import { Family } from "./Global/Families.js";
-import { PropertyStatus } from "./PropertyStatus.js";
+import { DriverState } from "./PropertyStatus.js";
 export interface NodeInfo {
     family: Family;
     type?: string;
     enabled?: boolean;
     deviceClass?: any;
     pnode: any;
-    property?: PropertyStatus[] | PropertyStatus;
+    property?: DriverState[] | DriverState;
     flag?: any;
     nodeDefId?: string;
     address: any;

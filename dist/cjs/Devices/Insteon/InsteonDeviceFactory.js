@@ -66,7 +66,7 @@ class InsteonDeviceFactory {
             return this.getInsteonDeviceDetails(node);
         }
         else {
-            return { name: 'Unsupported Device', class: ISY_js_1.ISYDevice, unsupported: true };
+            return { name: "Unsupported Device", class: ISY_js_1.InsteonBaseDevice, unsupported: true };
         }
     }
     static getInsteonDeviceDetails(node) {
@@ -76,7 +76,7 @@ class InsteonDeviceFactory {
         const category = type.category;
         const deviceCode = type.deviceCode;
         let deviceDetails = null;
-        if (category === Categories_js_1.Categories.Controller) {
+        if (category === Categories_js_1.Category.Controller) {
             deviceDetails = InsteonDeviceFactory.getControllerInfo(deviceCode);
         }
         else if (category === 1) {
@@ -331,7 +331,7 @@ class InsteonDeviceFactory {
     }
     static getDimLightInfo(deviceCode, subAddress, node) {
         const c = String.fromCharCode(deviceCode);
-        let retVal = { name: 'Generic Insteon Dimmer', class: InsteonDimmableDevice_js_1.InsteonDimmableDevice };
+        let retVal = { name: "Generic Insteon Dimmer", class: InsteonDimmableDevice_js_1.InsteonDimmableDevice };
         switch (c) {
             case String.fromCharCode(0):
                 retVal = { name: 'LampLinc', modelNumber: '2456D3' };

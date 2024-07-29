@@ -181,7 +181,7 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
 
 
             bridgedDeviceBasicInformation: {
-              nodeLabel: device.displayName.rightWithToken(32),
+              nodeLabel: device.label.rightWithToken(32),
               vendorName: 'Insteon Technologies, Inc.',
               vendorId: VendorId(config.vendorId),
               productName: device.productName.leftWithToken(32),
@@ -190,7 +190,7 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
               hardwareVersionString: `v.${device.version}`,
               softwareVersion: Number(device.version),
               softwareVersionString: `v.${device.version}`,
-              
+
               serialNumber: serialNumber,
               reachable: true,
               uniqueId: device.address
@@ -201,7 +201,7 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
         );
 
         await aggregator.add(endpoint);
-        logger.info(`Endpoint Added ${JSON.stringify(endpoint.id)} for ${device.displayName} (${device.address})`);
+        logger.info(`Endpoint Added ${JSON.stringify(endpoint.id)} for ${device.label} (${device.address})`);
         //endpoints.push({0:endpoint,1:device});
       }
         //endpoint.lifecycle.ready.on(()=> device.initialize(endpoint as any));

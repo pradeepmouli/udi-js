@@ -1,19 +1,34 @@
-import { InsteonDimmableDevice } from './Devices/Insteon/InsteonDimmableDevice.js';
+import { Insteon } from './Devices/Insteon/index.js';
 import { Family } from './Definitions/Global/Families.js';
-import { InsteonRelayDevice, ISY, ISYDevice } from './ISY.js';
 import { Commands, LinkType } from './ISYConstants.js';
-import { ISYNode } from './ISYNode.js';
+import { ISYNode, type ISYDevice } from './ISYNode.js';
+import type { ISY } from './ISY.js';
 
-export class ISYScene extends ISYNode {
+interface SceneInfo
+ {
+	members?: {
+		link: any;
+	};
+	flag?: any;
+	nodeDefId?: string;
+	address?: string;
+	name?: string;
+	family?: Family;
+	parent?: any;
+	enabled: boolean;
+	ELK_ID?: string;
+}
+
+export class ISYScene extends ISYNode<'ST'> {
 	public type: string;
 	public connectionType: string;
 	public batteryOperated: boolean;
 	public deviceType: any;
 	public deviceFriendlyName: string;
-	public members: Array<ISYDevice<any>>;
+	public members: ISYDevice<any,any,any>[];
 	public isDimmable: boolean;
 	public typeCode: string;
-	constructor(isy: ISY, scene: { members?: { link: any; }; flag?: any; nodeDefId?: string; address?: string; name?: string; family?: Family; parent?: any; enabled: boolean; ELK_ID?: string; }) {
+	constructor(isy: ISY, scene: SceneInfo) {
 		super(isy, scene);
 		// this.logger(JSON.stringify(scene));
 		this.typeCode = '';
@@ -33,7 +48,7 @@ export class ISYScene extends ISYNode {
 
 					if (d !== null && d !== undefined) { d.addLink(this); }
 
-					if (d instanceof InsteonDimmableDevice && node.type !== LinkType.Controller) { this.isDimmable = true; }
+					if (d instanceof Insteon.Dimmer && node.type !== LinkType.Controller) { this.isDimmable = true; }
 					this.members.push(d);
 				}
 			}
@@ -58,7 +73,7 @@ export class ISYScene extends ISYNode {
 	// Get the current light state
 	get isOn() {
 		for (const device of this.members) {
-			if (device instanceof InsteonRelayDevice) {
+			if (device instanceof Insteon.Relay) {
 				if (device.state) {
 					return true;
 				}
@@ -71,10 +86,10 @@ export class ISYScene extends ISYNode {
 		let lightDeviceCount = 0;
 		let blevel = 0;
 		for (const device of this.members) {
-			if (device instanceof InsteonDimmableDevice) {
+			if (device instanceof Insteon.Dimmer) {
 				lightDeviceCount++;
 				blevel += device.brightnessLevel;
-			} else if (device instanceof InsteonRelayDevice) {
+			} else if (device instanceof Insteon.Relay) {
 				lightDeviceCount++;
 				blevel += device.state ? 100 : 0;
 			}
@@ -107,7 +122,7 @@ export class ISYScene extends ISYNode {
 	}
 	public getAreAllLightsInSpecifiedState(state) {
 		for (const device of this.members) {
-			if (device instanceof InsteonRelayDevice) {
+			if (device instanceof Insteon.Relay) {
 				if (device.state !== state) {
 					return false;
 				}

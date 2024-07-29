@@ -1,4 +1,4 @@
-export declare enum Categories {
+export declare enum Category {
     Controller = 0,
     DimmableControl = 1,
     RelayControl = 2,

@@ -3,12 +3,12 @@ import { ISY } from '../../ISY.js';
 import { UnitOfMeasure as UOM, UnitOfMeasure } from '../../Definitions/Global/UOM.js'
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
 import { NodeInfo } from '../../Definitions/NodeInfo.js';
-import { ISYDeviceNode } from '../../ISYNode.js';
+import { ISYNodeDevice } from '../../ISYNode.js';
 import 'winston';
-import type { Drivers } from '../../Definitions/Global/Drivers.js';
+import type { Driver, DriverType } from '../../Definitions/Global/Drivers.js';
 
 // import { InsteonNLS } from './insteonfam.js'
-export class InsteonBaseDevice<D extends Drivers = Drivers,C extends string = string> extends ISYDeviceNode<Family.Insteon,D,C> {
+export class InsteonBaseDevice<D extends Driver.Literal = 'ST',C extends string = 'QUERY'> extends ISYNodeDevice<Family.Insteon,D,C> {
 	constructor(isy: ISY, deviceNode: NodeInfo) {
 
 		super(isy, deviceNode);
@@ -32,7 +32,7 @@ export class InsteonBaseDevice<D extends Drivers = Drivers,C extends string = st
 				return super.convertFrom(value, uom);
 		}
 	}
-	public override convertTo(value: any, uom: UnitOfMeasure,propertyName: Drivers = null): any {
+	public override convertTo(value: any, uom: UnitOfMeasure,propertyName: DriverType = null): any {
 		const nuom = super.convertTo(value, uom);
 		switch (uom) {
 			case UOM.DegreeX2:

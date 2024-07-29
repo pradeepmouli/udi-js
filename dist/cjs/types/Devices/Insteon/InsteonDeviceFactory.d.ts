@@ -1,37 +1,40 @@
-import { InsteonBaseDevice, ISYDevice } from '../../ISY.js';
+import { Family, InsteonBaseDevice } from '../../ISY.js';
 import { NodeInfo } from '../../Definitions/NodeInfo.js';
+import { InsteonRelayDevice } from './InsteonRelayDevice.js';
+import { ISYDevice } from '../../ISYNode.js';
+import type { Constructor } from '../Constructor.js';
 export declare class InsteonDeviceFactory {
     static getDeviceDetails(node: NodeInfo): {
         name: string;
         modelNumber?: string;
         version?: string;
-        class?: typeof ISYDevice;
+        class?: Constructor<ISYDevice<Family.Insteon, any, any>>;
         unsupported?: true;
     };
     static getInsteonDeviceDetails(node: NodeInfo): {
         name: string;
         modelNumber?: string;
         version?: string;
-        class: typeof ISYDevice;
+        class: Constructor<ISYDevice<Family.Insteon, any, any>>;
         unsupported?: true;
     };
     static getNetworkBridgeInfo(deviceCode: number): {
         name: string;
         modelNumber: string;
         version: string;
-        class: typeof ISYDevice;
+        class: Constructor<ISYDevice<Family.Insteon, any, any>>;
     };
     static getIrrigationControlInfo(deviceCode: number): {
         name: string;
         modelNumber?: string;
         version?: string;
-        class?: typeof ISYDevice;
+        class?: InsteonBaseDevice;
     };
     static getSwitchLightInfo(deviceCode: number, subAddress: string): {
         name: string;
         modelNumber?: string;
         version?: string;
-        class?: typeof InsteonBaseDevice;
+        class?: typeof InsteonRelayDevice;
     };
     private static getDimLightInfo;
     private static getControllerInfo;

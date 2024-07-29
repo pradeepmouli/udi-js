@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.InsteonThermostatDevice = void 0;
 const ISYConstants_js_1 = require("../../ISYConstants.js");
 const InsteonBaseDevice_js_1 = require("./InsteonBaseDevice.js");
+const Drivers_js_1 = require("../../Definitions/Global/Drivers.js");
 require("winston");
 class InsteonThermostatDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
     constructor(isy, deviceNode) {
@@ -30,13 +31,13 @@ class InsteonThermostatDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
         return this.local[ISYConstants_js_1.Props.Climate.Humidity];
     }
     async updateCoolSetPoint(value) {
-        return this.updateProperty(ISYConstants_js_1.Props.Climate.CoolSetPoint, value);
+        return this.updateProperty(Drivers_js_1.DriverType.CoolSetpoint, value);
     }
     async updateHeatSetPoint(value) {
-        return this.updateProperty(ISYConstants_js_1.Props.Climate.HeatSetPoint, value);
+        return this.updateProperty(Drivers_js_1.DriverType.HeatSetpoint, value);
     }
     async updateMode(value) {
-        return this.updateProperty(ISYConstants_js_1.Props.Climate.Mode, value);
+        return this.updateProperty(Drivers_js_1.DriverType.ThermostatMode, value);
     }
 }
 exports.InsteonThermostatDevice = InsteonThermostatDevice;

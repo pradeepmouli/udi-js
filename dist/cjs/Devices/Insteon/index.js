@@ -14,11 +14,13 @@ const InsteonSmokeSensorDevice_js_1 = require("./InsteonSmokeSensorDevice.js");
 const InsteonDimmerOutletDevice_js_1 = require("./InsteonDimmerOutletDevice.js");
 const InsteonRelaySwitchDevice_js_1 = require("./InsteonRelaySwitchDevice.js");
 const InsteonThermostatDevice_js_1 = require("./InsteonThermostatDevice.js");
+const InsteonDoorWindowSensorDevice_js_1 = require("./InsteonDoorWindowSensorDevice.js");
 exports.Insteon = {
     LeakSensor: InsteonLeakSensorDevice_js_1.InsteonLeakSensorDevice,
     MotionSensor: InsteonMotionSensorDevice_js_1.InsteonMotionSensorDevice,
     SmokeSensor: InsteonSmokeSensorDevice_js_1.InsteonSmokeSensorDevice,
     RelaySwitch: InsteonRelaySwitchDevice_js_1.InsteonRelaySwitchDevice,
+    DoorWindowSensor: InsteonDoorWindowSensorDevice_js_1.InsteonDoorWindowSensorDevice,
     DimmerSwitch: InsteonDimmerSwitchDevice_js_1.InsteonDimmerSwitchDevice,
     DimmerOutlet: InsteonDimmerOutletDevice_js_1.InsteonDimmerOutletDevice,
     Base: InsteonBaseDevice_js_1.InsteonBaseDevice,
@@ -29,4 +31,3 @@ exports.Insteon = {
     Lock: InsteonLockDevice_js_1.InsteonLockDevice,
     Fan: InsteonFanDevice_js_1.InsteonFanDevice
 };
-exports.default = exports.Insteon;

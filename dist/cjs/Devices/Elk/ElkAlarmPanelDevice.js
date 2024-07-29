@@ -7,7 +7,7 @@ const ElkAlarmSensorDevice_js_1 = require("./ElkAlarmSensorDevice.js");
 /////////////////////////////
 // ELKAlarmPanelDevice
 //
-class ELKAlarmPanelDevice extends ISYNode_js_1.ISYDeviceNode {
+class ELKAlarmPanelDevice extends ISYNode_js_1.ISYNodeDevice {
     setFromAreaUpdate(nodes) {
         throw new Error('Method not implemented.');
     }

@@ -1,3 +1,4 @@
+import { Converters } from "../../Converters.js";
 export var UnitOfMeasure;
 (function (UnitOfMeasure) {
     UnitOfMeasure[UnitOfMeasure["Unknown"] = 0] = "Unknown";
@@ -107,4 +108,25 @@ export var UnitOfMeasure;
     UnitOfMeasure[UnitOfMeasure["Cent"] = 104] = "Cent";
     UnitOfMeasure[UnitOfMeasure["Inch"] = 105] = "Inch";
     UnitOfMeasure[UnitOfMeasure["MillimetersPerDay"] = 106] = "MillimetersPerDay";
+})(UnitOfMeasure || (UnitOfMeasure = {}));
+export function toString() {
+    return UnitOfMeasure[this];
+}
+(function (UnitOfMeasure) {
+    function convertTo(targetUOM, value) {
+        const converter = Converters.Standard[this.toString()]?.[targetUOM];
+        if (converter) {
+            return converter.to(value);
+        }
+        return value;
+    }
+    UnitOfMeasure.convertTo = convertTo;
+    function convertFrom(sourceUOM, value) {
+        const converter = Converters.Standard[this.toString()]?.[sourceUOM];
+        if (converter) {
+            return converter.from(value);
+        }
+        return value;
+    }
+    UnitOfMeasure.convertFrom = convertFrom;
 })(UnitOfMeasure || (UnitOfMeasure = {}));

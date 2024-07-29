@@ -1,20 +1,23 @@
 import { EventEmitter } from 'events';
 import { isNullOrUndefined } from 'util';
 import { Family } from './Definitions/Global/Families.js';
+import { Drivers } from './Definitions/Global/Drivers.js';
 import { Controls, NodeType } from './ISY.js';
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
+var StandardDrivers = { "ST": "a" };
 export class ISYNode extends EventEmitter {
     isy;
     formatted = {};
     uom = { ST: UnitOfMeasure.Boolean };
     pending = {};
     local = {};
+    drivers = new Drivers();
     flag;
     nodeDefId;
     address;
     // [x: string]: any;
     name;
-    displayName;
+    label;
     spokenName;
     location;
     isLoad;
@@ -23,7 +26,7 @@ export class ISYNode extends EventEmitter {
     parentType;
     elkId;
     nodeType;
-    baseDisplayName;
+    baseLabel;
     propsInitialized;
     logger;
     lastChanged;
@@ -47,7 +50,7 @@ export class ISYNode extends EventEmitter {
         const s = this.name.split(".");
         //if (s.length > 1)
         //s.shift();
-        this.baseDisplayName = s
+        this.baseLabel = s
             .join(" ")
             .replace(/([A-Z])/g, " $1")
             .replace("  ", " ")
@@ -60,10 +63,10 @@ export class ISYNode extends EventEmitter {
                 isy.logger.log(level, `${this.folder} ${this.name} (${this.address}): ${msg}`, meta);
                 return isy.logger;
             };
-            this.displayName = `${this.folder} ${this.baseName}`;
+            this.label = `${this.folder} ${this.baseName}`;
         }
         else {
-            this.displayName = this.baseDisplayName;
+            this.label = this.baseLabel;
             this.logger = (msg, level = "debug", ...meta) => {
                 isy.logger.log(level, `${this.name} (${this.address}): ${msg}`, meta);
                 return isy.logger;
@@ -104,7 +107,7 @@ export class ISYNode extends EventEmitter {
             return this.handlePropertyChange(event.control, actionValue, formatted);
         }
         else if (event.control === "_3") {
-            this.logger(`Received Node Change Event: ${JSON.stringify(event)}. These are currently unsupported.`, "info");
+            this.logger(`Received Node Change Event: ${JSON.stringify(event)}. These are currently unsupported.`, "debug");
         }
         else {
             // this.logger(event.control);
@@ -122,7 +125,7 @@ export class ISYNode extends EventEmitter {
         }
     }
     static _displayNameFunction;
-    setDisplayName(template) {
+    generateLabel(template) {
         // tslint:disable-next-line: only-arrow-functions
         if (!ISYNode._displayNameFunction) {
             // template = template.replace("{", "{this."};
@@ -136,7 +139,7 @@ export class ISYNode extends EventEmitter {
                 spokenName: this.spokenName ?? this.name,
                 name: this.name ?? "",
             };
-            newttemp = newttemp.replace("this.name", "this.baseDisplayName");
+            newttemp = newttemp.replace("this.name", "this.baseLabel");
             ISYNode._displayNameFunction = new Function(`return \`${newttemp}\`.trim();`);
         }
         return ISYNode._displayNameFunction.call(this);
@@ -153,9 +156,9 @@ export class ISYNode extends EventEmitter {
             else {
                 that.logger("No notes found.");
             }
-            that.displayName = that.setDisplayName.bind(that)(that.isy.displayNameFormat);
-            that.displayName = that.displayName ?? this.baseDisplayName;
-            that.logger(`The friendly name updated to: ${that.displayName}`);
+            that.label = that.generateLabel.bind(that)(that.isy.displayNameFormat);
+            that.label = that.label ?? this.baseLabel;
+            that.logger(`The friendly name updated to: ${that.label}`);
         }
         catch (e) {
             that.logger(e);
@@ -163,7 +166,7 @@ export class ISYNode extends EventEmitter {
     }
     async getNotes() {
         try {
-            const result = await this.isy.callISY(`nodes/${this.address}/notes`);
+            const result = await this.isy.sendRequest(`nodes/${this.address}/notes`);
             if (result !== null && result !== undefined) {
                 return result.NodeProperties;
             }
@@ -176,7 +179,83 @@ export class ISYNode extends EventEmitter {
         }
     }
 }
-export class ISYDeviceNode extends ISYNode {
+export class ISYMultiNodeDevice {
+    logger(arg0) {
+        throw new Error('Method not implemented.');
+    }
+    handleEvent(evt) {
+        throw new Error('Method not implemented.');
+    }
+    enabled;
+    refreshNotes() {
+        throw new Error("Method not implemented.");
+    }
+    address;
+    on(arg0, arg1) {
+        throw new Error("Method not implemented.");
+    }
+    name;
+    label;
+    formatted;
+    uom;
+    pending;
+    local;
+    drivers;
+    family;
+    typeCode;
+    deviceClass;
+    parentAddress;
+    category;
+    subCategory;
+    type;
+    _parentDevice;
+    children;
+    scenes;
+    hidden;
+    _enabled;
+    productName;
+    model;
+    modelNumber;
+    version;
+    isDimmable;
+    convertTo(value, UnitOfMeasure, propertyName = null) {
+        throw new Error("Method not implemented.");
+    }
+    convertFrom(value, UnitOfMeasure, propertyName = null) {
+        throw new Error("Method not implemented.");
+    }
+    addLink(isyScene) {
+        throw new Error("Method not implemented.");
+    }
+    addChild(childDevice) {
+        throw new Error("Method not implemented.");
+    }
+    readProperty(propertyName) {
+        throw new Error("Method not implemented.");
+    }
+    readProperties() {
+        throw new Error("Method not implemented.");
+    }
+    updateProperty(propertyName, value) {
+        throw new Error("Method not implemented.");
+    }
+    sendCommand(command, parameters) {
+        throw new Error("Method not implemented.");
+    }
+    refresh() {
+        throw new Error("Method not implemented.");
+    }
+    parseResult(node) {
+        throw new Error("Method not implemented.");
+    }
+    handleControlTrigger(controlName) {
+        throw new Error("Method not implemented.");
+    }
+    handlePropertyChange(propertyName, value, formattedValue) {
+        throw new Error("Method not implemented.");
+    }
+}
+export class ISYNodeDevice extends ISYNode {
     typeCode;
     deviceClass;
     parentAddress;
@@ -251,12 +330,12 @@ export class ISYDeviceNode extends ISYNode {
         return this._parentDevice;
     }
     async readProperty(propertyName) {
-        var result = await this.isy.callISY(`nodes/${this.address}/${propertyName}`);
+        var result = await this.isy.sendRequest(`nodes/${this.address}/${propertyName}`);
         this.logger(JSON.stringify(result), "debug");
         return result.property;
     }
     async readProperties() {
-        var result = await this.isy.callISY(`nodes/${this.address}/status`);
+        var result = await this.isy.sendRequest(`nodes/${this.address}/status`);
         this.logger(JSON.stringify(result), "debug");
         return result.property;
     }
@@ -264,7 +343,7 @@ export class ISYDeviceNode extends ISYNode {
         const val = this.convertTo(Number(value), Number(this.uom[propertyName]));
         this.logger(`Updating property ${Controls[propertyName].label}. incoming value: ${value} outgoing value: ${val}`);
         this.pending[propertyName] = value;
-        return this.isy.callISY(`nodes/${this.address}/set/${propertyName}/${val}`).then((p) => {
+        return this.isy.sendRequest(`nodes/${this.address}/set/${propertyName}/${val}`).then((p) => {
             this.local[propertyName] = value;
             this.pending[propertyName] = null;
         });
@@ -274,10 +353,10 @@ export class ISYDeviceNode extends ISYNode {
     }
     async refresh() {
         const device = this;
-        const node = (await this.isy.callISY(`nodes/${this.address}/status`)).node;
+        const node = (await this.isy.sendRequest(`nodes/${this.address}/status`)).node;
         // this.logger(node);
         this.parseResult(node);
-        return await this.isy.callISY(`nodes/${this.address}/status`);
+        return await this.isy.sendRequest(`nodes/${this.address}/status`);
     }
     parseResult(node) {
         if (Array.isArray(node.property)) {
@@ -302,25 +381,25 @@ export class ISYDeviceNode extends ISYNode {
     handleControlTrigger(controlName) {
         return this.emit("ControlTriggered", controlName);
     }
-    handlePropertyChange(propertyName, value, formattedValue) {
+    handlePropertyChange(driver, value, formattedValue) {
         let changed = false;
-        const priorVal = this.local[propertyName];
+        const priorVal = this.local[driver];
         try {
-            const val = this.convertFrom(value, this.uom[propertyName]);
-            if (this.local[propertyName] !== val) {
-                this.logger(`Property ${Controls[propertyName].label} (${propertyName}) updated to: ${val} (${formattedValue})`);
-                this.local[propertyName] = val;
-                this.formatted[propertyName] = formattedValue;
+            const val = this.convertFrom(value, this.uom[driver]);
+            if (this.local[driver] !== val) {
+                this.logger(`Property ${Controls[driver].label} (${driver}) updated to: ${val} (${formattedValue})`);
+                this.local[driver] = val;
+                this.formatted[driver] = formattedValue;
                 this.lastChanged = new Date();
                 changed = true;
             }
             else {
-                this.logger(`Update event triggered, property ${Controls[propertyName].label} (${propertyName}) is unchanged.`);
+                this.logger(`Update event triggered, property ${Controls[driver].label} (${driver}) is unchanged.`);
             }
             if (changed) {
-                this.emit("PropertyChanged", propertyName, val, priorVal, formattedValue);
+                this.emit("PropertyChanged", driver, val, priorVal, formattedValue);
                 this.scenes.forEach((element) => {
-                    this.logger(`Recalulating ${element.name}`);
+                    this.logger(`Recalulating ${element.deviceFriendlyName}`);
                     element.recalculateState();
                 });
             }

@@ -1,6 +1,21 @@
 import winston, { format } from 'winston';
-import { Categories } from './Definitions/Global/Categories.js';
+import { Category } from './Definitions/Global/Categories.js';
 import { EventEmitter as BaseEventEmitter } from 'events';
+export function invert(converter) {
+    return {
+        from: converter.to,
+        to: converter.from,
+    };
+}
+export function toArray(value) {
+    return Array.isArray(value) ? value : [value];
+}
+export function fromArray(...value) {
+    if (value.length === 1) {
+        return value[0];
+    }
+    return value;
+}
 export function byteToPct(value) {
     return Math.round((value * 100) / 255);
 }
@@ -109,7 +124,7 @@ export function getCategory(device) {
         return Number(s[0]);
     }
     catch (err) {
-        return Categories.Unknown;
+        return Category.Unknown;
     }
 }
 export function getSubcategory(device) {
@@ -118,6 +133,6 @@ export function getSubcategory(device) {
         return Number(s[1]);
     }
     catch (err) {
-        return Categories.Unknown;
+        return Category.Unknown;
     }
 }

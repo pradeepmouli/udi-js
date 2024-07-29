@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UnitOfMeasure = void 0;
+exports.toString = toString;
+const Converters_js_1 = require("../../Converters.js");
 var UnitOfMeasure;
 (function (UnitOfMeasure) {
     UnitOfMeasure[UnitOfMeasure["Unknown"] = 0] = "Unknown";
@@ -110,4 +112,25 @@ var UnitOfMeasure;
     UnitOfMeasure[UnitOfMeasure["Cent"] = 104] = "Cent";
     UnitOfMeasure[UnitOfMeasure["Inch"] = 105] = "Inch";
     UnitOfMeasure[UnitOfMeasure["MillimetersPerDay"] = 106] = "MillimetersPerDay";
+})(UnitOfMeasure || (exports.UnitOfMeasure = UnitOfMeasure = {}));
+function toString() {
+    return UnitOfMeasure[this];
+}
+(function (UnitOfMeasure) {
+    function convertTo(targetUOM, value) {
+        const converter = Converters_js_1.Converters.Standard[this.toString()]?.[targetUOM];
+        if (converter) {
+            return converter.to(value);
+        }
+        return value;
+    }
+    UnitOfMeasure.convertTo = convertTo;
+    function convertFrom(sourceUOM, value) {
+        const converter = Converters_js_1.Converters.Standard[this.toString()]?.[sourceUOM];
+        if (converter) {
+            return converter.from(value);
+        }
+        return value;
+    }
+    UnitOfMeasure.convertFrom = convertFrom;
 })(UnitOfMeasure || (exports.UnitOfMeasure = UnitOfMeasure = {}));

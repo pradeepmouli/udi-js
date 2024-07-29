@@ -11,11 +11,13 @@ import { InsteonSmokeSensorDevice } from "./InsteonSmokeSensorDevice.js";
 import { InsteonDimmerOutletDevice } from "./InsteonDimmerOutletDevice.js";
 import { InsteonRelaySwitchDevice } from "./InsteonRelaySwitchDevice.js";
 import { InsteonThermostatDevice } from "./InsteonThermostatDevice.js";
+import { InsteonDoorWindowSensorDevice } from './InsteonDoorWindowSensorDevice.js';
 export const Insteon = {
     LeakSensor: InsteonLeakSensorDevice,
     MotionSensor: InsteonMotionSensorDevice,
     SmokeSensor: InsteonSmokeSensorDevice,
     RelaySwitch: InsteonRelaySwitchDevice,
+    DoorWindowSensor: InsteonDoorWindowSensorDevice,
     DimmerSwitch: InsteonDimmerSwitchDevice,
     DimmerOutlet: InsteonDimmerOutletDevice,
     Base: InsteonBaseDevice,
@@ -26,4 +28,3 @@ export const Insteon = {
     Lock: InsteonLockDevice,
     Fan: InsteonFanDevice
 };
-export default Insteon;

@@ -2,6 +2,7 @@ import { ISY } from '../../ISY.js';
 import { Props } from '../../ISYConstants.js';
 import { NodeInfo } from '../../Definitions/NodeInfo.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
+import { DriverType } from '../../Definitions/Global/Drivers.js';
 import 'winston';
 
 export class InsteonThermostatDevice extends InsteonBaseDevice {
@@ -30,12 +31,12 @@ export class InsteonThermostatDevice extends InsteonBaseDevice {
 		return this.local[Props.Climate.Humidity];
 	}
 	public async updateCoolSetPoint(value: string) {
-		return this.updateProperty(Props.Climate.CoolSetPoint, value);
+		return this.updateProperty(DriverType.CoolSetpoint, value);
 	}
 	public async updateHeatSetPoint(value: string) {
-		return this.updateProperty(Props.Climate.HeatSetPoint, value);
+		return this.updateProperty(DriverType.HeatSetpoint, value);
 	}
 	public async updateMode(value: string) {
-		return this.updateProperty(Props.Climate.Mode, value);
+		return this.updateProperty(DriverType.ThermostatMode, value);
 	}
 }

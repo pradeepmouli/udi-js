@@ -1,5 +1,5 @@
-import { Categories } from '../../Definitions/Global/Categories.js';
-import { Family, InsteonBaseDevice, InsteonLockDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDevice } from '../../ISY.js';
+import { Category } from '../../Definitions/Global/Categories.js';
+import { Family, InsteonBaseDevice, InsteonLockDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice } from '../../ISY.js';
 import { parseTypeCode } from '../../Utils.js';
 import { ISYBinaryStateDevice } from '../ISYDevice.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
@@ -63,7 +63,7 @@ export class InsteonDeviceFactory {
             return this.getInsteonDeviceDetails(node);
         }
         else {
-            return { name: 'Unsupported Device', class: ISYDevice, unsupported: true };
+            return { name: "Unsupported Device", class: InsteonBaseDevice, unsupported: true };
         }
     }
     static getInsteonDeviceDetails(node) {
@@ -73,7 +73,7 @@ export class InsteonDeviceFactory {
         const category = type.category;
         const deviceCode = type.deviceCode;
         let deviceDetails = null;
-        if (category === Categories.Controller) {
+        if (category === Category.Controller) {
             deviceDetails = InsteonDeviceFactory.getControllerInfo(deviceCode);
         }
         else if (category === 1) {
@@ -328,7 +328,7 @@ export class InsteonDeviceFactory {
     }
     static getDimLightInfo(deviceCode, subAddress, node) {
         const c = String.fromCharCode(deviceCode);
-        let retVal = { name: 'Generic Insteon Dimmer', class: InsteonDimmableDevice };
+        let retVal = { name: "Generic Insteon Dimmer", class: InsteonDimmableDevice };
         switch (c) {
             case String.fromCharCode(0):
                 retVal = { name: 'LampLinc', modelNumber: '2456D3' };

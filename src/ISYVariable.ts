@@ -45,7 +45,7 @@ export class ISYVariable<P extends VariableType> extends EventEmitter {
 	}
 
 	public async updateValue(value: Variable<P>): Promise<void> {
-		const p = await this.isy.callISY(`vars\\${this.type}\\${this.id}\\${value}`);
+		const p = await this.isy.sendRequest(`vars\\${this.type}\\${this.id}\\${value}`);
 		this.value = value;
 		return p;
 	}

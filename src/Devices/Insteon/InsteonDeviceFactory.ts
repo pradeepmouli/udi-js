@@ -1,5 +1,5 @@
-import { Categories } from '../../Definitions/Global/Categories.js';
-import { Family, InsteonBaseDevice, InsteonLockDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDevice } from '../../ISY.js';
+import { Category } from '../../Definitions/Global/Categories.js';
+import { Family, InsteonBaseDevice, InsteonLockDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice } from '../../ISY.js';
 import { parseTypeCode } from '../../Utils.js';
 import { ISYBinaryStateDevice } from '../ISYDevice.js';
 import { NodeInfo } from '../../Definitions/NodeInfo.js';
@@ -16,9 +16,11 @@ import { InsteonMotionSensorDevice } from './InsteonMotionSensorDevice.js';
 import { InsteonOnOffOutletDevice } from './InsteonOnOffOutletDevice.js';
 import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import { InsteonRelaySwitchDevice } from './InsteonRelaySwitchDevice.js';
+import { ISYDevice } from '../../ISYNode.js';
 import { DeviceDef, type CategoryDef, type FamilyDef } from '../DeviceMap.js';
 import { writeFileSync } from 'fs';
 import DeviceMap from '../InsteonDeviceMap.json';
+import type { Constructor } from '../Constructor.js';
 
 
 
@@ -68,17 +70,17 @@ export class InsteonDeviceFactory {
 	// 	writeFileSync("DeviceMapClean.json", JSON.stringify(fams));
 	// }
 
-	static getDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class?: typeof ISYDevice; unsupported?: true; } {
+	static getDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class?: Constructor<ISYDevice<Family.Insteon,any,any>>; unsupported?: true; } {
 		const family = Number(node.family ?? '1');
 		//let insteonFamilyDef = s[0] as FamilyDef<Family.Insteon>;
 		if ((family ?? Family.Insteon) === Family.Insteon) {
 			//insteonFamilyDef.categories.forEach(callbackfn)
 			return this.getInsteonDeviceDetails(node);
 
-		} else { return { name: 'Unsupported Device', class: ISYDevice, unsupported: true }; }
+		} else { return { name: "Unsupported Device", class: InsteonBaseDevice, unsupported: true }; }
 	}
 
-	public static getInsteonDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class: typeof ISYDevice; unsupported?: true; } {
+	public static getInsteonDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class: Constructor<ISYDevice<Family.Insteon,any,any>>; unsupported?: true; } {
 		const type = parseTypeCode(node.type as any);
 		const subAddress = node.address.split(' ').pop();
 
@@ -87,7 +89,7 @@ export class InsteonDeviceFactory {
 		const deviceCode = type.deviceCode;
 
 		let deviceDetails = null;
-		if (category === Categories.Controller) {
+		if (category === Category.Controller) {
 			deviceDetails = InsteonDeviceFactory.getControllerInfo(deviceCode);
 		} else if (category === 1) {
 			deviceDetails = InsteonDeviceFactory.getDimLightInfo(deviceCode, subAddress, node);
@@ -129,7 +131,7 @@ export class InsteonDeviceFactory {
 		// deviceDetails = deviceDetails + version.toString(16);
 	}
 
-	public static getNetworkBridgeInfo(deviceCode: number): { name: string; modelNumber: string; version: string; class: typeof ISYDevice; } {
+	public static getNetworkBridgeInfo(deviceCode: number): { name: string; modelNumber: string; version: string; class: Constructor<ISYDevice<Family.Insteon,any,any>>; } {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = null;
 		switch (c) {
@@ -171,14 +173,14 @@ export class InsteonDeviceFactory {
 		return retVal;
 	}
 
-	public static getIrrigationControlInfo(deviceCode: number): { name: string; modelNumber?: string; version?: string; class?: typeof ISYDevice; } {
+	public static getIrrigationControlInfo(deviceCode: number): { name: string; modelNumber?: string; version?: string; class?: InsteonBaseDevice; } {
 		const c = String.fromCharCode(deviceCode);
 		return c === String.fromCharCode(0) ? { name: 'EZRain/EZFlora Irrigation Controller' } : null;
 	}
 
-	public static getSwitchLightInfo(deviceCode: number, subAddress: string): { name: string; modelNumber?: string; version?: string; class?: typeof InsteonBaseDevice; } {
+	public static getSwitchLightInfo(deviceCode: number, subAddress: string): { name: string; modelNumber?: string; version?: string; class?: typeof InsteonRelayDevice; } {
 		const c = String.fromCharCode(deviceCode);
-		let retVal = { name: 'Generic Insteon Relay', class: InsteonRelayDevice } as { name: string; modelNumber?: string; version?: string; class?: typeof InsteonBaseDevice; };
+		let retVal = { name: 'Generic Insteon Relay', class: InsteonRelayDevice } as { name: string; modelNumber?: string; version?: string; class?: typeof InsteonRelayDevice; };
 		switch (c) {
 			case String.fromCharCode(6):
 				retVal = { name: 'ApplianceLinc - Outdoor Plugin Module', modelNumber: '2456S3E' };
@@ -333,9 +335,14 @@ export class InsteonDeviceFactory {
 		return retVal;
 	}
 
-	private static getDimLightInfo(deviceCode: number, subAddress: string, node: NodeInfo): { name: string; modelNumber?: string; version?: string; class?: typeof InsteonBaseDevice; } {
+	private static getDimLightInfo(deviceCode: number, subAddress: string, node: NodeInfo): { name: string; modelNumber?: string; version?: string; class?: Constructor<ISYDevice<Family.Insteon,any,any>>; } {
 		const c = String.fromCharCode(deviceCode);
-		let retVal = { name: 'Generic Insteon Dimmer', class: InsteonDimmableDevice } as { name: string; modelNumber?: string; version?: string; class?: typeof InsteonBaseDevice; };
+		let retVal = { name: "Generic Insteon Dimmer", class: InsteonDimmableDevice } as {
+      name: string;
+      modelNumber?: string;
+      version?: string;
+      class?: Constructor<ISYDevice<Family.Insteon,any,any>>;
+    };
 		switch (c) {
 			case String.fromCharCode(0):
 				retVal = { name: 'LampLinc', modelNumber: '2456D3' };
@@ -525,7 +532,7 @@ export class InsteonDeviceFactory {
 		return retVal;
 	}
 
-	private static getControllerInfo(deviceCode: number): { name: string; modelNumber?: string; version?: string; class: typeof ISYDevice; } {
+	private static getControllerInfo(deviceCode: number): { name: string; modelNumber?: string; version?: string; class: Constructor<ISYDevice<Family.Insteon,any,any>>; } {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = null;
 		switch (c) {
@@ -583,7 +590,7 @@ export class InsteonDeviceFactory {
 		return retVal;
 	}
 
-	private static getIOControlInfo(deviceCode: number): { name: string; modelNumber?: string; version?: string; class?: typeof ISYDevice; } {
+	private static getIOControlInfo(deviceCode: number): { name: string; modelNumber?: string; version?: string; class?: Constructor<ISYDevice<Family.Insteon,any,any>>; } {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = null;
 		switch (c) {
@@ -677,7 +684,7 @@ export class InsteonDeviceFactory {
 		return retVal;
 	}
 
-	private static getSHS(deviceCode: number, subAddress: string, node): { name: string; modelNumber?: string; version?: string; class?: typeof ISYDevice; } {
+	private static getSHS(deviceCode: number, subAddress: string, node): { name: string; modelNumber?: string; version?: string; class?: Constructor<ISYDevice<Family.Insteon,any,any>>; } {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = null;
 		switch (c) {
@@ -747,7 +754,7 @@ export class InsteonDeviceFactory {
 		return retVal;
 	}
 
-	private static getClimateControlInfo(deviceCode: number): { name: string; modelNumber?: string; version?: string; class?: typeof ISYDevice; } {
+	private static getClimateControlInfo(deviceCode: number): { name: string; modelNumber?: string; version?: string; class?: Constructor<ISYDevice<Family.Insteon,any,any>>; } {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = null;
 		switch (c) {
@@ -825,7 +832,7 @@ export class InsteonDeviceFactory {
 		return retVal;
 	}
 
-	private static getAccessControlInfo(deviceCode: number): { name: string; modelNumber?: string; version?: string; class?: typeof InsteonBaseDevice; } {
+	private static getAccessControlInfo(deviceCode: number): { name: string; modelNumber?: string; version?: string; class?: Constructor<ISYDevice<Family.Insteon,any,any>>; } {
 		const c = String.fromCharCode(deviceCode);
 		const retVal = { name: '', modelNumber: '', class: InsteonLockDevice };
 		switch (c) {
@@ -838,7 +845,7 @@ export class InsteonDeviceFactory {
 		return retVal;
 	}
 
-	private static getEnergyManagement(deviceCode: number): { name: string; modelNumber?: string; version?: string; class?: typeof ISYDevice; } {
+	private static getEnergyManagement(deviceCode: number): { name: string; modelNumber?: string; version?: string; class?: Constructor<ISYDevice<Family.Insteon,any,any>>; } {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = null;
 		switch (c) {
@@ -866,7 +873,7 @@ export class InsteonDeviceFactory {
 		return retVal;
 	}
 
-	private static getWindowsCovering(deviceCode: number): { name: string; modelNumber?: string; version?: string; class?: typeof ISYDevice; } {
+	private static getWindowsCovering(deviceCode: number): { name: string; modelNumber?: string; version?: string; class?: Constructor<ISYDevice<Family.Insteon,any,any>>; } {
 		const c = String.fromCharCode(deviceCode);
 		let retVal = null;
 		switch (c) {

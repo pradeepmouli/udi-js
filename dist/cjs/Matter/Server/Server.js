@@ -124,7 +124,7 @@ async function createServerNode(isy = ISY_js_1.ISY.instance) {
                         address: device.address,
                     },
                     bridgedDeviceBasicInformation: {
-                        nodeLabel: device.displayName.rightWithToken(32),
+                        nodeLabel: device.label.rightWithToken(32),
                         vendorName: 'Insteon Technologies, Inc.',
                         vendorId: (0, datatype_1.VendorId)(config.vendorId),
                         productName: device.productName.leftWithToken(32),
@@ -139,7 +139,7 @@ async function createServerNode(isy = ISY_js_1.ISY.instance) {
                     }
                 });
                 await aggregator.add(endpoint);
-                logger.info(`Endpoint Added ${JSON.stringify(endpoint.id)} for ${device.displayName} (${device.address})`);
+                logger.info(`Endpoint Added ${JSON.stringify(endpoint.id)} for ${device.label} (${device.address})`);
                 //endpoints.push({0:endpoint,1:device});
             }
             //endpoint.lifecycle.ready.on(()=> device.initialize(endpoint as any));

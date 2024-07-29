@@ -2,11 +2,12 @@ import { Family } from '../../Definitions/Global/Families.js';
 import { ISY, ISYNode } from '../../ISY.js';
 import { States } from '../../ISYConstants.js';
 import { ISYUpdateableBinaryStateDevice, ISYUpdateableLevelDevice } from '../ISYDevice.js';
-import { ISYDeviceNode } from '../../ISYNode.js';
+import { ISYNodeDevice } from '../../ISYNode.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import 'winston';
 import type { NodeInfo } from '../../Definitions/NodeInfo.js';
+import {Insteon} from './index.js';
 
 export class InsteonFanMotorDevice extends ISYUpdateableLevelDevice(ISYUpdateableBinaryStateDevice(InsteonBaseDevice)) {
 	constructor (isy: ISY, deviceNode: NodeInfo) {
@@ -35,7 +36,7 @@ export class InsteonFanMotorDevice extends ISYUpdateableLevelDevice(ISYUpdateabl
 }
 
 export class InsteonFanDevice extends InsteonBaseDevice {
-	public light: InsteonDimmableDevice;
+	public light?: InsteonDimmableDevice;
 	public motor: InsteonFanMotorDevice;
 	constructor(isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
@@ -53,7 +54,7 @@ export class InsteonFanDevice extends InsteonBaseDevice {
 		return false;
 	}
 
-	public override addChild(childDevice: ISYDeviceNode<Family.Insteon>) {
+	public override addChild(childDevice) {
 		super.addChild(childDevice);
 		if (childDevice instanceof InsteonFanMotorDevice) {
 			this.logger('Fan Motor Found');

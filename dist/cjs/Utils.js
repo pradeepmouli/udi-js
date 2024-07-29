@@ -24,6 +24,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventEmitter = void 0;
+exports.invert = invert;
+exports.toArray = toArray;
+exports.fromArray = fromArray;
 exports.byteToPct = byteToPct;
 exports.pctToByte = pctToByte;
 exports.byteToDegree = byteToDegree;
@@ -40,6 +43,21 @@ exports.getSubcategory = getSubcategory;
 const winston_1 = __importStar(require("winston"));
 const Categories_js_1 = require("./Definitions/Global/Categories.js");
 const events_1 = require("events");
+function invert(converter) {
+    return {
+        from: converter.to,
+        to: converter.from,
+    };
+}
+function toArray(value) {
+    return Array.isArray(value) ? value : [value];
+}
+function fromArray(...value) {
+    if (value.length === 1) {
+        return value[0];
+    }
+    return value;
+}
 function byteToPct(value) {
     return Math.round((value * 100) / 255);
 }
@@ -149,7 +167,7 @@ function getCategory(device) {
         return Number(s[0]);
     }
     catch (err) {
-        return Categories_js_1.Categories.Unknown;
+        return Categories_js_1.Category.Unknown;
     }
 }
 function getSubcategory(device) {
@@ -158,6 +176,6 @@ function getSubcategory(device) {
         return Number(s[1]);
     }
     catch (err) {
-        return Categories_js_1.Categories.Unknown;
+        return Categories_js_1.Category.Unknown;
     }
 }

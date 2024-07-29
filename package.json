@@ -15,7 +15,8 @@
         "build:esm:types": "tsc -p ./tsconfig.esm.types.json",
         "build:esm": "tsc -p ./tsconfig.esm.json && npm run build:esm:types",
         "build:cjs": "tsc -p ./tsconfig.cjs.json && npm run build:cjs:types && cp ./package.cjs.json ./dist/cjs/package.json",
-        "build": "npm run clean && npm run build:esm && npm run build:cjs"
+        "build": "npm run clean && npm run build:esm && npm run build:cjs",
+        "codegen": "tsc -p ./tsconfig.cli.json && node ./CLI/generate.js"
     },
     "keywords": [
         "isy",
@@ -56,6 +57,7 @@
         "@project-chip/matter-node.js": "^0.10.0-alpha.0-20240716-446c872f",
         "@project-chip/matter.js": "^0.10.0-alpha.0-20240716-446c872f",
         "axios": "^1.7.2",
+        "fast-xml-parser": "^4.4.0",
         "faye-websocket": "^0.11.4",
         "mocha": "^7.2.0",
         "p-queue": "^6.6.1",

@@ -1,36 +1,43 @@
-import { Family, ISYDevice } from '../ISY.js';
-import { Insteon } from '../Definitions/Global/Families.js';
+
+import { DeviceEnergyManagementServer } from '@project-chip/matter.js/behaviors/device-energy-management';
+import { Insteon, Family } from '../Definitions/Global/Families.js';
+import { Category } from '../Definitions/Global/Categories.js';
+import type { ISYDevice } from '../ISYNode.js';
+import type { Devices } from './index.js';
+import type { Device } from '@project-chip/matter.js/device';
+import type { getCategory } from '../Utils.js';
 
 // tslint:disable-next-line: no-unused-expression
 // tslint:disable-next-line: no-angle-bracket-type-assertion
 
 type s<T extends Family> = ISYDevice<T>;
 
-export interface DeviceDef<T extends Family> {
-
-
+type DeviceNames<T extends Family> = `${T extends Family.Insteon | Family.ZWave | Family.ZigBee ? Devices<T>[keyof Devices<T>]["name"] : ""}`;
+type x = DeviceNames<Family.Insteon>
+export interface DeviceDef<T extends Family>
+{
 		id: number;
+		type?: string;
 		name: string;
-
-		modelNumber: string;
-
-		
-		class: typeof ISYDevice<T>;
+		modelNumber?: string;
+		class?: DeviceNames<T>;
 }
 
-export interface CategoryDef<T extends Family> {
-	id: number;
-	name: string;
-	devices: Map<string, DeviceDef<T>>;
+export interface CategoryDef<T extends Family, C extends Category> {
+	id: C;
+	name: `${typeof Category[C]}`;
+	devices: {[x:number]: DeviceDef<T>}
 }
 
 export interface FamilyDef<T extends Family> {
 	id: T;
-	name: string;
+	name: keyof typeof Family;
 	description: string;
-	categories: Map<string,CategoryDef<T>>;
+	categories: {[key in keyof typeof Category]?: CategoryDef<T,typeof Category[key]> & {name: key}};
 }
 
-export interface DeviceMap extends Array<FamilyDef<Family>>{
+var s : FamilyDef<Family.Insteon> = { id: Family.Insteon, description: "Insteon", name: "Insteon", categories: {DimmableControl: {id: Category.DimmableControl, name: "DimmableControl", devices: {1:{id: 0, name: "DimmableControl"}}}}};
 
-}
+export type DeviceMap = {
+  [key in keyof typeof Family]?: FamilyDef<(typeof Family)[key]> & { name: key };
+};

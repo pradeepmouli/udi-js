@@ -7,7 +7,7 @@ const ElkAlarmPanelDevice_js_1 = require("./ElkAlarmPanelDevice.js");
 /////////////////////////////
 // ELKAlarmSensor
 //
-class ElkAlarmSensorDevice extends ISYNode_js_1.ISYDeviceNode {
+class ElkAlarmSensorDevice extends ISYNode_js_1.ISYNodeDevice {
     area;
     zone;
     deviceFriendlyName;
@@ -31,7 +31,7 @@ class ElkAlarmSensorDevice extends ISYNode_js_1.ISYDeviceNode {
         this.zone = zone;
         // this.name = name;
         // this.address = "ElkZone" + zone;
-        this.displayName = `Elk Connected Sensor ${zone}`;
+        this.label = `Elk Connected Sensor ${zone}`;
         this.deviceFriendlyName = `Elk Connected Sensor ${zone}`;
         this.connectionType = 'Elk Network';
         this.batteryOperated = false;

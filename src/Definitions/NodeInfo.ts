@@ -1,5 +1,5 @@
 import { Family } from "./Global/Families.js";
-import { PropertyStatus } from "./PropertyStatus.js";
+import { DriverState } from "./PropertyStatus.js";
 
 
 export interface NodeInfo {
@@ -8,7 +8,7 @@ export interface NodeInfo {
 	enabled?: boolean;
 	deviceClass?: any;
 	pnode: any;
-	property?: PropertyStatus[] | PropertyStatus;
+	property?: DriverState[] | DriverState;
 	flag?: any;
 	nodeDefId?: string;
 	address: any;

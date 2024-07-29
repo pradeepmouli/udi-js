@@ -1,5 +1,4 @@
-import { InsteonDimmableDevice } from './Devices/Insteon/InsteonDimmableDevice.js';
-import { InsteonRelayDevice } from './ISY.js';
+import { Insteon } from './Devices/Insteon/index.js';
 import { Commands, LinkType } from './ISYConstants.js';
 import { ISYNode } from './ISYNode.js';
 export class ISYScene extends ISYNode {
@@ -30,7 +29,7 @@ export class ISYScene extends ISYNode {
                     if (d !== null && d !== undefined) {
                         d.addLink(this);
                     }
-                    if (d instanceof InsteonDimmableDevice && node.type !== LinkType.Controller) {
+                    if (d instanceof Insteon.Dimmer && node.type !== LinkType.Controller) {
                         this.isDimmable = true;
                     }
                     this.members.push(d);
@@ -61,7 +60,7 @@ export class ISYScene extends ISYNode {
     // Get the current light state
     get isOn() {
         for (const device of this.members) {
-            if (device instanceof InsteonRelayDevice) {
+            if (device instanceof Insteon.Relay) {
                 if (device.state) {
                     return true;
                 }
@@ -73,11 +72,11 @@ export class ISYScene extends ISYNode {
         let lightDeviceCount = 0;
         let blevel = 0;
         for (const device of this.members) {
-            if (device instanceof InsteonDimmableDevice) {
+            if (device instanceof Insteon.Dimmer) {
                 lightDeviceCount++;
                 blevel += device.brightnessLevel;
             }
-            else if (device instanceof InsteonRelayDevice) {
+            else if (device instanceof Insteon.Relay) {
                 lightDeviceCount++;
                 blevel += device.state ? 100 : 0;
             }
@@ -109,7 +108,7 @@ export class ISYScene extends ISYNode {
     }
     getAreAllLightsInSpecifiedState(state) {
         for (const device of this.members) {
-            if (device instanceof InsteonRelayDevice) {
+            if (device instanceof Insteon.Relay) {
                 if (device.state !== state) {
                     return false;
                 }

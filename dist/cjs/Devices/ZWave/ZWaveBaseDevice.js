@@ -6,9 +6,9 @@ const Utils_js_1 = require("../../Utils.js");
 const ISYNode_js_1 = require("../../ISYNode.js");
 require("winston");
 // import { InsteonNLS } from './insteonfam'
-class ZWaveBaseDevice extends ISYNode_js_1.ISYDeviceNode {
+class ZWaveBaseDevice extends ISYNode_js_1.ISYNodeDevice {
     async getNodeDef() {
-        return this.isy.callISY(`zmatter/zwave/node/${this.address}/def/get?full=true`);
+        return this.isy.sendRequest(`zmatter/zwave/node/${this.address}/def/get?full=true`);
     }
     constructor(isy, deviceNode) {
         super(isy, deviceNode);

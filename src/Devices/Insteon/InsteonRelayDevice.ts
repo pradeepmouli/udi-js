@@ -9,7 +9,7 @@ import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import type { OnOffBehavior} from '@project-chip/matter.js/behaviors/on-off';
 import 'winston';
 import { Properties } from '../../ISYConstants.js';
-import { Drivers } from '../../Definitions/Global/Drivers.js';
+import { Driver, DriverType } from '../../Definitions/Global/Drivers.js';
 
 
 

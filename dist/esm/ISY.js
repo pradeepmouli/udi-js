@@ -4,44 +4,71 @@ import { Parser } from 'xml2js';
 import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
 import { XmlDocument } from 'xmldoc';
 import axios from 'axios';
-import { Categories } from './Definitions/Global/Categories.js';
+import { EventEmitter } from 'events';
+import { format, Logger, loggers } from 'winston';
+import { Category } from './Definitions/Global/Categories.js';
+import { Family } from './Definitions/Global/Families.js';
 import { DeviceFactory } from './Devices/DeviceFactory.js';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
 import { ElkAlarmSensorDevice } from "./Devices/Elk/ElkAlarmSensorDevice.js";
 import { InsteonBaseDevice } from './Devices/Insteon/InsteonBaseDevice.js';
 import { InsteonOutletDevice } from './Devices/Insteon/InsteonDevice.js';
 import { InsteonDimmableDevice } from './Devices/Insteon/InsteonDimmableDevice.js';
+import { InsteonDimmerOutletDevice } from './Devices/Insteon/InsteonDimmerOutletDevice.js';
 import { InsteonDimmerSwitchDevice } from './Devices/Insteon/InsteonDimmerSwitchDevice.js';
 import { InsteonDoorWindowSensorDevice } from './Devices/Insteon/InsteonDoorWindowSensorDevice.js';
 import { InsteonFanDevice, InsteonFanMotorDevice } from './Devices/Insteon/InsteonFanDevice.js';
-import { InsteonKeypadRelayDevice } from "./Devices/Insteon/InsteonKeypadRelayDevice.js";
+import { InsteonKeypadButtonDevice } from './Devices/Insteon/InsteonKeypadDevice.js';
 import { InsteonKeypadDimmerDevice } from "./Devices/Insteon/InsteonKeypadDimmerDevice.js";
+import { InsteonKeypadRelayDevice } from "./Devices/Insteon/InsteonKeypadRelayDevice.js";
 import { InsteonLeakSensorDevice } from './Devices/Insteon/InsteonLeakSensorDevice.js';
 import { InsteonLockDevice } from './Devices/Insteon/InsteonLockDevice.js';
 import { InsteonMotionSensorDevice } from './Devices/Insteon/InsteonMotionSensorDevice.js';
+import { InsteonOnOffOutletDevice } from './Devices/Insteon/InsteonOnOffOutletDevice.js';
 import { InsteonRelayDevice } from './Devices/Insteon/InsteonRelayDevice.js';
+import { InsteonSmokeSensorDevice } from './Devices/Insteon/InsteonSmokeSensorDevice.js';
 import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevice.js';
-import { ISYDeviceNode } from './ISYNode.js';
-import { Family } from './Definitions/Global/Families.js';
 import { EventType } from "./Events/EventType.js";
 import { NodeType, Props, States, VariableType } from './ISYConstants.js';
-import { ISYNode } from './ISYNode.js';
+import { ISYNode, ISYNodeDevice } from './ISYNode.js';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
-import { InsteonOnOffOutletDevice } from './Devices/Insteon/InsteonOnOffOutletDevice.js';
-import { InsteonSmokeSensorDevice } from './Devices/Insteon/InsteonSmokeSensorDevice.js';
-import { InsteonDimmerOutletDevice } from './Devices/Insteon/InsteonDimmerOutletDevice.js';
-import { InsteonKeypadButtonDevice } from './Devices/Insteon/InsteonKeypadDevice.js';
-import { EventEmitter } from 'events';
-import { Logger, loggers, format } from 'winston';
 import * as Utils from './Utils.js';
-export { ISYScene, States, Family, VariableType, Categories, Props, ISYVariable, InsteonBaseDevice, InsteonOutletDevice, ISYDeviceNode as ISYDevice, InsteonKeypadDimmerDevice, InsteonKeypadRelayDevice, InsteonKeypadButtonDevice, InsteonDimmableDevice, InsteonFanDevice, InsteonFanMotorDevice, InsteonLeakSensorDevice, InsteonSmokeSensorDevice, InsteonDimmerOutletDevice, InsteonOnOffOutletDevice, InsteonLockDevice, InsteonThermostatDevice, InsteonDoorWindowSensorDevice, InsteonDimmerSwitchDevice, InsteonRelayDevice, InsteonMotionSensorDevice, ISYNode, NodeType, ElkAlarmSensorDevice, ELKAlarmPanelDevice, Utils };
-const parser = new Parser({
+import { XMLParser } from 'fast-xml-parser';
+export { Category as Categories, ELKAlarmPanelDevice, ElkAlarmSensorDevice, Family, InsteonBaseDevice, InsteonDimmableDevice, InsteonDimmerOutletDevice, InsteonDimmerSwitchDevice, InsteonDoorWindowSensorDevice, InsteonFanDevice, InsteonFanMotorDevice, InsteonKeypadButtonDevice, InsteonKeypadDimmerDevice, InsteonKeypadRelayDevice, InsteonLeakSensorDevice, InsteonLockDevice, InsteonMotionSensorDevice, InsteonOnOffOutletDevice, InsteonOutletDevice, InsteonRelayDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYNodeDevice as ISYDevice, ISYNode, ISYScene, ISYVariable, NodeType, Props, States, Utils, VariableType };
+const defaultParserOptions = {
     explicitArray: false,
     mergeAttrs: true,
     attrValueProcessors: [parseNumbers, parseBooleans],
-    valueProcessors: [parseNumbers, parseBooleans]
-});
+    valueProcessors: [parseNumbers, parseBooleans],
+    tagNameProcessors: [(tagName) => tagName === 'st' || tagName === 'cmd' || tagName === 'nodeDef' ? '' : tagName]
+};
+const defaultXMLParserOptions = {
+    parseAttributeValue: true,
+    allowBooleanAttributes: true,
+    attributeNamePrefix: '',
+    ignoreAttributes: false,
+    // updateTag(tagName, jPath, attrs) {
+    // 	//if(tagName === 'st' || tagName === 'cmd' || tagName === 'nodeDef')
+    // 	//	return false;
+    // 	//return tagName;
+    // },
+    textNodeName: '_',
+    commentPropName: '$comment',
+    cdataPropName: '$cdata',
+    ignoreDeclaration: true,
+    tagValueProcessor: (tagName, tagValue, jPath, hasAttributes, isLeafNode) => {
+        if (tagValue === "")
+            return null;
+        return tagValue;
+    },
+    isArray(tagName, jPath, isLeafNode, isAttribute) {
+        if (tagName === 'property')
+            return true;
+        return false;
+    },
+};
+const parser = new Parser(defaultParserOptions);
 export let Controls = {};
 export class ISY extends EventEmitter {
     deviceList = new Map();
@@ -60,7 +87,6 @@ export class ISY extends EventEmitter {
     vendorName = "Universal Devices, Inc.";
     productId = 5226;
     productName = "eisy";
-    restlerOptions;
     credentials;
     variableList = new Map();
     nodesLoaded = false;
@@ -77,10 +103,12 @@ export class ISY extends EventEmitter {
     model;
     serverVersion;
     storagePath;
+    enableWebSocket;
     configInfo;
     static instance;
     constructor(config, logger = new Logger(), storagePath) {
         super();
+        this.enableWebSocket = config.enableWebSocket ?? true;
         this.storagePath = storagePath ?? './';
         this.displayNameFormat = config.displayNameFormat ?? '${location ?? folder} ${spokenName ?? name}';
         this.host = config.host;
@@ -101,25 +129,51 @@ export class ISY extends EventEmitter {
         }
         ISY.instance = this;
     }
+    [Symbol.dispose]() {
+        try {
+            this.webSocket.close();
+        }
+        catch (e) {
+            this.logger.error(`Error closing websocket: ${e.message}`);
+        }
+    }
     emit(event, node) {
         return super.emit(event, node);
     }
     on(event, listener) {
         return super.on(event, listener);
     }
-    async callISY(url) {
-        url = `${this.protocol}://${this.address}/rest/${url}/`;
-        this.logger.info(`Sending request: ${url}`);
-        const xml = await axios.get(url, { auth: { username: this.credentials.username, password: this.credentials.password } });
-        return await parser.parseStringPromise(xml.data).then((result) => {
-            if (this.checkForFailure(result)) {
-                // this.logger.info(`Error calling ISY: ${JSON.stringify(response)}`);
-                throw new Error(`Error calling ISY: ${JSON.stringify(result)}`);
+    async sendRequest(url, options = { trailingSlash: true }) {
+        const requestLogLevel = options.requestLogLevel ?? null;
+        const responseLogLevel = options.responseLogLevel ?? null;
+        url = `${this.protocol}://${this.address}/rest/${url}${options.trailingSlash ? '/' : ''}`;
+        this.logger.log(`Sending request: ${url}`, requestLogLevel ?? 'debug');
+        try {
+            const response = await axios.get(url, { auth: { username: this.credentials.username, password: this.credentials.password } });
+            if (response.data) {
+                if (response.headers['content-type'].toString().includes('xml')) {
+                    let curParser = parser;
+                    if (options.parserOptions)
+                        curParser = new Parser({ ...defaultParserOptions, ...options.parserOptions });
+                    var altParser = new XMLParser(defaultXMLParserOptions);
+                    var s = altParser.parse(response.data);
+                    this.logger.log(`Response: ${JSON.stringify(s)}`, requestLogLevel ?? "debug");
+                    return s;
+                }
+                else if (response.headers['content-type'].toString().includes('json')) {
+                    this.logger.log(`Response: ${JSON.stringify(response.data)}`, requestLogLevel ?? 'debug');
+                    return JSON.parse(response.data);
+                }
+                else {
+                    this.logger.log(`Response Header: ${JSON.stringify(response.headers)} Response: ${JSON.stringify(response.data)}`, responseLogLevel ?? 'debug');
+                    return response.data;
+                }
             }
-            return result;
-        }, (reason) => {
-            throw new Error(`Error calling ISY: ${JSON.stringify(reason)}`);
-        });
+        }
+        catch (error) {
+            this.logger.error(`Error sending request to ISY: ${error?.message}`);
+            throw new Error(`Error sending request to ISY: ${JSON.stringify(error)}`);
+        }
     }
     nodeChangedHandler(node, propertyName = null) {
         const that = this;
@@ -135,7 +189,7 @@ export class ISY extends EventEmitter {
     }
     async loadNodes() {
         try {
-            const result = await this.callISY('nodes');
+            const result = await this.sendRequest('nodes');
             if (this.isDebugEnabled)
                 writeFile(this.storagePath + '/ISYNodesDump.json', JSON.stringify(result), this.logger.error);
             await this.readFolderNodes(result).catch(p => this.logger.error('Error Loading Folders', p));
@@ -159,7 +213,7 @@ export class ISY extends EventEmitter {
     async readSceneNodes(result) {
         this.logger.info('Loading Scene Nodes');
         for (const scene of result.nodes?.group) {
-            if (scene.name === 'ISY' || scene.name === 'Auto DR') {
+            if (scene.name === 'ISY' || scene.name === "IoX" || scene.name === 'Auto DR') {
                 continue;
             } // Skip ISY & Auto DR Scenes
             const newScene = new ISYScene(this, scene);
@@ -200,7 +254,7 @@ export class ISY extends EventEmitter {
             if (enabled) {
                 if (newDevice === null) {
                     this.logger.warn(`Device type resolution failed for ${device.name} with type: ${device.type} and nodedef: ${device.nodeDefId}`);
-                    newDevice = new ISYDeviceNode(this, device);
+                    newDevice = new ISYNodeDevice(this, device);
                 }
                 else if (newDevice !== null) {
                     if (d.unsupported) {
@@ -271,11 +325,13 @@ export class ISY extends EventEmitter {
             this.nodesLoaded = true;
             //initializeCompleted();
             if (success) {
-                if (this.elkEnabled) {
-                    this.deviceList[this.elkAlarmPanel.address] = this.elkAlarmPanel;
+                // if (this.elkEnabled) {
+                // 	this.deviceList[this.elkAlarmPanel.address] = this.elkAlarmPanel;
+                // }
+                if (this.enableWebSocket) {
+                    this.guardianTimer = setInterval(this.guardian.bind(this), 60000);
+                    this.initializeWebSocket();
                 }
-                this.guardianTimer = setInterval(this.guardian.bind(this), 60000);
-                this.initializeWebSocket();
             }
         }
     }
@@ -296,13 +352,13 @@ export class ISY extends EventEmitter {
     }
     async loadVariables(type) {
         const that = this;
-        return this.callISY(`vars/definitions/${type}`).then((result) => that.createVariables(type, result))
-            .then(() => that.callISY(`vars/get/${type}`)).then(that.setVariableValues.bind(that));
+        return this.sendRequest(`vars/definitions/${type}`).then((result) => that.createVariables(type, result))
+            .then(() => that.sendRequest(`vars/get/${type}`)).then(that.setVariableValues.bind(that));
     }
     async loadConfig() {
         try {
             this.logger.info('Loading ISY Config');
-            const configuration = (await this.callISY('config')).configuration;
+            const configuration = (await this.sendRequest('config')).configuration;
             if (this.isDebugEnabled) {
                 writeFile(this.storagePath + '/ISYConfigDump.json', JSON.stringify(configuration), this.logger.error);
             }
@@ -326,6 +382,7 @@ export class ISY extends EventEmitter {
             return configuration;
         }
         catch (e) {
+            this.handleInitializeError('config', e);
             throw Error(`Error Loading Config: ${e.message}`);
         }
     }
@@ -365,7 +422,7 @@ export class ISY extends EventEmitter {
     async refreshStatuses() {
         try {
             const that = this;
-            const result = await that.callISY('status');
+            const result = await that.sendRequest('status');
             if (that.isDebugEnabled) {
                 writeFile(that.storagePath + '/ISYStatusDump.json', JSON.stringify(result), this.logger.error);
             }
@@ -412,43 +469,11 @@ export class ISY extends EventEmitter {
             await this.loadNodes();
             await this.loadVariables(VariableType.Integer);
             await this.loadVariables(VariableType.State);
-            await this.refreshStatuses().then(() => {
-                if (this.elkEnabled) {
-                    // get(
-                    // 	`${this.protocol}://${that.address}/rest/elk/get/topology`,
-                    // 	options
-                    // ).on('complete', (result: { message: string; }, response: any) => {
-                    // 	if (that.checkForFailure(response)) {
-                    // 		that.logger.info('Error loading from elk: ' + result.message);
-                    // 		throw new Error(
-                    // 			'Unable to contact the ELK to get the topology'
-                    // 		);
-                    // 	} else {
-                    // 		that.loadElkNodes(result);
-                    // 		get(
-                    // 			`${that.protocol}://${that.address}/rest/elk/get/status`,
-                    // 			options
-                    // 		).on('complete', (result: { message: string; }, response: any) => {
-                    // 			if (that.checkForFailure(response)) {
-                    // 				that.logger.info(`Error:${result.message}`);
-                    // 				throw new Error(
-                    // 					'Unable to get the status from the elk'
-                    // 				);
-                    // 			} else {
-                    // 				that.loadElkInitialStatus(result);
-                    // 				that.finishInitialize(true, initializeCompleted);
-                    // 			}
-                    // 		});
-                    // 	}
-                    // });
-                }
-                else {
-                    that.finishInitialize(true);
-                }
-            });
+            await this.refreshStatuses();
+            await this.finishInitialize(true);
         }
         catch (e) {
-            throw (e);
+            this.handleInitializeError('initialize', e);
         }
         finally {
             if (this.nodesLoaded !== true) {
@@ -530,7 +555,15 @@ export class ISY extends EventEmitter {
     initializeWebSocket() {
         const that = this;
         const auth = `Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
-        this.logger.info(`Connecting to: ${this.wsprotocol}://${this.address}/rest/subscribe`);
+        this.logger.info(`Opening webSocket: ${this.wsprotocol}://${this.address}/rest/subscribe`);
+        if (this.webSocket) {
+            try {
+                this.webSocket.close();
+            }
+            catch (e) {
+                this.logger.warn(`Error closing existing websocket: ${e.message}`);
+            }
+        }
         this.webSocket = new WebSocket.Client(`${this.wsprotocol}://${this.address}/rest/subscribe`, ['ISYSUB'], {
             headers: {
                 Origin: 'com.universal-devices.websockets.isy',
@@ -582,7 +615,7 @@ export class ISY extends EventEmitter {
     async sendISYCommand(path) {
         // const uriToUse = `${this.protocol}://${this.address}/rest/${path}`;
         this.logger.info(`Sending command...${path}`);
-        return this.callISY(path);
+        return this.sendRequest(path);
     }
     async sendNodeCommand(node, command, parameters) {
         let uriToUse = `nodes/${node.address}/cmd/${command}`;
@@ -599,16 +632,16 @@ export class ISY extends EventEmitter {
             }
         }
         this.logger.info(`${node.name}: sending ${command} command: ${uriToUse}`);
-        return this.callISY(uriToUse);
+        return this.sendRequest(uriToUse);
     }
     async sendGetVariable(id, type, handleResult) {
         const uriToUse = `${this.protocol}://${this.address}/rest/vars/get/${type}/${id}`;
         this.logger.info(`Sending ISY command...${uriToUse}`);
-        return this.callISY(uriToUse).then((p) => handleResult(p.val, p.init));
+        return this.sendRequest(uriToUse).then((p) => handleResult(p.val, p.init));
     }
     async sendSetVariable(id, type, value, handleResult) {
         const uriToUse = `/rest/vars/set/${type}/${id}/${value}`;
         this.logger.info(`Sending ISY command...${uriToUse}`);
-        return this.callISY(uriToUse);
+        return this.sendRequest(uriToUse);
     }
 }

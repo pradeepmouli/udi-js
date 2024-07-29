@@ -1,8 +1,16 @@
 import * as log4js from '@log4js-node/log4js-api';
 import { Logger } from 'winston';
-import { Categories } from './Definitions/Global/Categories.js';
+import { Category } from './Definitions/Global/Categories.js';
 import { EventEmitter as BaseEventEmitter } from 'events';
 import { EventType } from './Events/EventType.js';
+export interface Converter<F, T> {
+    from: (value: F) => T;
+    to: (value: T) => F;
+}
+export declare function invert<F, T>(converter: Converter<F, T>): Converter<T, F>;
+export type MaybeArray<T> = T | T[];
+export declare function toArray<T>(value: MaybeArray<T>): T[];
+export declare function fromArray<T>(...value: T[]): MaybeArray<T>;
 export declare function byteToPct(value: any): number;
 export declare function pctToByte(value: any): number;
 export declare function byteToDegree(value: any): number;
@@ -38,7 +46,7 @@ export declare function leftWithToken(this: string, maxNumChars: number, token?:
 export declare function remove(this: string, searchValue: string | RegExp): string;
 export declare function removeAll(this: string, searchValue: string | RegExp): string;
 export declare function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}`): {
-    category: Categories;
+    category: Category;
     deviceCode: number;
     firmwareVersion: number;
     minorVersion: number;

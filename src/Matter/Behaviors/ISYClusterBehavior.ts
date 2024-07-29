@@ -1,13 +1,13 @@
 import type { ClusterBehavior, ClusterInterface } from "@project-chip/matter.js/behavior/cluster";
 
-import type { ISYDeviceNode } from "../../ISYNode.js";
+import type { ISYNodeDevice } from "../../ISYNode.js";
 
 import { BridgedDeviceBasicInformationServer } from "@project-chip/matter.js/behaviors/bridged-device-basic-information";
 import '@project-chip/matter.js/device';
 import type { Constructor } from "../../Devices/Constructor.js";
 import { ISY, type ISYDevice } from "../../ISY.js";
 import { ISYBridgedDeviceBehavior } from "./ISYBridgedDeviceBehavior.js";
-import { Drivers } from "../../Definitions/Global/Drivers.js";
+import { DriverType } from "../../Definitions/Global/Drivers.js";
 import {
   MappingRegistry,
   type ClusterMapping,
@@ -24,14 +24,14 @@ export type ConstructedType<B extends Constructor<any>> = B extends Constructor<
 
 export type ClusterForBehavior<B extends { cluster: any }> = B["cluster"];
 
-export type PropertyChange<P extends ISYDevice<any>> = {
+export type PropertyChange<P extends ISYDevice<any,any,any>> = {
   driver: DriversOf<P>;
   newValue: any;
   oldValue: any;
   formattedValue: string;
 };
 
-export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & {cluster: unknown}, P extends ISYDeviceNode<any>>(
+export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & {cluster: unknown}, P extends ISYNodeDevice<any,any,any>>(
   base: T,
   p: Constructor<P>
 ) : typeof base & {new(...args: any[]): DeviceBehavior<P, T>} {
@@ -99,7 +99,7 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & {clu
 // <reference path="MatterDevice.js" />
 // @ts-ignore
 
- export type DeviceBehavior<P extends ISYDevice<any>, T extends {cluster}> = {
+ export type DeviceBehavior<P extends ISYDevice<any,any,any>, T extends {cluster}> = {
   device: P;
 
 

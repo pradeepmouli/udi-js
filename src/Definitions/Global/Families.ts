@@ -5,6 +5,7 @@ import { ISYEvent } from '../../Events/ISYEvent.js';
 
 
 export enum Family {
+	Generic = -1,
 	Global = 0,
 	Insteon = 1,
 	UPB = 2,

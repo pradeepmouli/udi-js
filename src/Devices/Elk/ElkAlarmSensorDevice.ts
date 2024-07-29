@@ -1,11 +1,12 @@
+
 import { Family } from '../../Definitions/Global/Families.js';
 import { ISY } from '../../ISY.js';
-import { ISYDeviceNode } from '../../ISYNode.js';
+import { ISYNodeDevice } from '../../ISYNode.js';
 import { AlarmSensorPhysicalState, AlarmSensorLogicalState } from './ElkAlarmPanelDevice.js';
 /////////////////////////////
 // ELKAlarmSensor
 //
-export class ElkAlarmSensorDevice extends ISYDeviceNode<Family.Global> {
+export class ElkAlarmSensorDevice extends ISYNodeDevice<Family.Global,any,any> {
 	[x: string]: any;
 	public area: number;
 	public zone: string;
@@ -30,7 +31,7 @@ export class ElkAlarmSensorDevice extends ISYDeviceNode<Family.Global> {
 		this.zone = zone;
 		// this.name = name;
 		// this.address = "ElkZone" + zone;
-		this.displayName = `Elk Connected Sensor ${zone}`;
+		this.label = `Elk Connected Sensor ${zone}`;
 		this.deviceFriendlyName = `Elk Connected Sensor ${zone}`;
 		this.connectionType = 'Elk Network';
 		this.batteryOperated = false;

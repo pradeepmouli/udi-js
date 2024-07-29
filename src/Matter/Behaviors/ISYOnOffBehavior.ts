@@ -7,11 +7,11 @@ import { MappingRegistry, type ClusterTypeMapping } from '../../Model/ClusterMap
 import type { MutableCluster, OnOffCluster } from '@project-chip/matter.js/cluster';
 import type { OnOffBehavior, OnOffServer } from '@project-chip/matter.js/behaviors/on-off';
 import type { LevelControlServer, LevelControlInterface } from '@project-chip/matter.js/behaviors/level-control';
-import { Drivers } from '../../Definitions/Global/Drivers.js';
+import { DriverType } from '../../Definitions/Global/Drivers.js';
 import { DimmableLightRequirements } from '@project-chip/matter.js/devices/DimmableLightDevice';
 import { InsteonDimmableDevice } from '../../Devices/Insteon/InsteonDimmableDevice.js';
 
-
+import {Converters} from '../../Converters.js';
 
 
 
@@ -46,7 +46,7 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.
   }
 
   override async handlePropertyChange({driver, newValue, oldValue, formattedValue}: PropertyChange<InsteonRelayDevice>) {
-    if (driver === Drivers.Status) {
+    if (driver === DriverType.Status) {
       this.state.onOff = newValue;
 
     }
@@ -67,6 +67,7 @@ export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequire
   }
 
   override setLevel(level: number): MaybePromise<void> {
+    level = Converters.Matter.LevelFrom0To255.LightingLevel.to(level);
     if(level > 0)
     {
         return this.device.sendCommand('DON',level);

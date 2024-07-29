@@ -1,5 +1,6 @@
 import { EventType } from '../../Events/EventType.js';
 export declare enum Family {
+    Generic = -1,
     Global = 0,
     Insteon = 1,
     UPB = 2,

@@ -2,15 +2,16 @@ import { Family, Insteon } from '../../Definitions/Global/Families.js';
 import { ISY } from '../../ISY.js';
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
 import { NodeInfo } from '../../Definitions/NodeInfo.js';
-import { ISYDeviceNode } from '../../ISYNode.js';
+import { ISYNodeDevice } from '../../ISYNode.js';
 import 'winston';
+import type { Driver } from '../../Definitions/Global/Drivers.js';
 
 // import { InsteonNLS } from './insteonfam'
-export class ZWaveBaseDevice extends ISYDeviceNode<Family.ZWave> {
+export class ZWaveBaseDevice<D extends Driver.Literal = 'ST', C extends string = 'QUERY'> extends ISYNodeDevice<Family.ZWave,D,C> {
 
 	public async getNodeDef()
 	{
-		return this.isy.callISY(`zmatter/zwave/node/${this.address}/def/get?full=true`)
+		return this.isy.sendRequest(`zmatter/zwave/node/${this.address}/def/get?full=true`)
 	}
 
 	constructor(isy: ISY, deviceNode: NodeInfo) {

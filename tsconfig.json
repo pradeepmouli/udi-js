@@ -5,8 +5,8 @@
         "module": "NodeNext",
 
         "rootDir": "./src",
-        //"outDir": "./dist",
-        //"declaration": true,
+        "outDir": "./dist",
+        "declaration": false,
         //"declarationDir": "./dist/types",
         "allowArbitraryExtensions": true,
 

@@ -39,7 +39,7 @@ class ISYVariable extends events_1.EventEmitter {
         }
     }
     async updateValue(value) {
-        const p = await this.isy.callISY(`vars\\${this.type}\\${this.id}\\${value}`);
+        const p = await this.isy.sendRequest(`vars\\${this.type}\\${this.id}\\${value}`);
         this.value = value;
         return p;
     }

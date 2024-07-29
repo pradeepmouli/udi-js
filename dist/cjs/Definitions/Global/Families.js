@@ -4,6 +4,7 @@ exports.Family = void 0;
 const ISYEvent_js_1 = require("../../Events/ISYEvent.js");
 var Family;
 (function (Family) {
+    Family[Family["Generic"] = -1] = "Generic";
     Family[Family["Global"] = 0] = "Global";
     Family[Family["Insteon"] = 1] = "Insteon";
     Family[Family["UPB"] = 2] = "UPB";

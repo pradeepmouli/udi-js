@@ -3,7 +3,7 @@
  * Copyright 2022-2024 Matter.js Authors
  * SPDX-License-Identifier: Apache-2.0
  */ import { Behavior } from "@project-chip/matter.js/behavior";
-import type { ISYDeviceNode } from "../../ISYNode.js";
+import type { ISYDevice } from "../../ISYNode.js";
 import { Observable, EventEmitter } from "@project-chip/matter.js/util";
 import { type ClusterMapping, type DeviceToClusterMap } from '../../Model/ClusterMap.js';
 export declare class ISYBridgedDeviceBehavior extends Behavior {
@@ -13,7 +13,7 @@ export declare class ISYBridgedDeviceBehavior extends Behavior {
     state: ISYBridgedDeviceBehavior.State;
     events: ISYBridgedDeviceBehavior.Events;
     initialize(_options?: {}): Promise<void>;
-    get device(): ISYDeviceNode<any, any, any>;
+    get device(): ISYDevice<any, any, any>;
     get map(): DeviceToClusterMap<typeof this.internal.device>;
     mapForBehavior<B extends {
         cluster: unknown;
@@ -23,7 +23,7 @@ export declare class ISYBridgedDeviceBehavior extends Behavior {
 }
 export declare namespace ISYBridgedDeviceBehavior {
     class Internal {
-        device?: ISYDeviceNode<any, any, any>;
+        device?: ISYDevice<any, any, any>;
         map?: DeviceToClusterMap<typeof this.device>;
     }
     class Events extends EventEmitter {

@@ -4,8 +4,8 @@ import * as Clusters from '@project-chip/matter.js/cluster';
 import { Driver, DriverType } from "../Definitions/Global/Drivers.js";
 
 import { Family, InsteonRelayDevice } from '../ISY.js';
-import { type Device } from '@project-chip/matter.js/device';
-import type { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
+import { type Device, type DeviceTypeDefinition, type OnOffBaseDevice } from '@project-chip/matter.js/device';
+import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import { ClusterType, ToCompleteClusterByName } from './clusterEnum.js';
 import { OnOffLightDevice } from '@project-chip/matter.js/devices/OnOffLightDevice';
 import { Devices, type ToDevice } from '../Devices/index.js';
@@ -13,6 +13,10 @@ import { Behavior } from '@project-chip/matter.js/behavior';
 import type { ClusterForBehavior } from '../Matter/Behaviors/ISYClusterBehavior.js';
 import type { ISYDevice } from '../ISYNode.js';
 import test from 'node:test';
+import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
+import type { MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
+import type { OnOffBehavior } from '@project-chip/matter.js/behaviors/on-off';
+import type { Identity } from '@project-chip/matter.js/util';
 
 
 // `${const ClusterList = Object.keys(Clusters).filter(p => p instanceof Clusters.Cluster).map(p => p.constructor.name);
@@ -57,6 +61,12 @@ export type DeviceToClusterMap<T extends ISYDevice<Family,any,any>> =
 
 }
 
+export type DeviceToClusterMap2<T extends ISYDevice<Family,any,any>, D> =  D extends {behaviors: SupportedBehaviors, deviceType: string} ?
+{
+  deviceType: D,
+  mapping: EndpointMapping<D,T>;
+} : never
+
 export  class MappingRegistry
 {
     static map: Map<string,DeviceToClusterMap<any>> = new Map();
@@ -89,18 +99,15 @@ export  class MappingRegistry
     }
 }
 
-export type FamilyToClusterMap<T extends Family.Insteon | Family.ZWave | Family.ZigBee> =
-{
-
-
-    [Type in keyof Devices<T>]? : DeviceToClusterMap<InstanceType<ToDevice<Type>>>;
+export type FamilyToClusterMap<T extends Family.Insteon | Family.ZWave | Family.ZigBee> = {
+  [Type in keyof Devices<T>]?: DeviceToClusterMap2<InstanceType<Devices<T>[Type]>,any>;
 }
 
 
 type d = FamilyToClusterMap<Family.Insteon>;
 
 var teest: d;
-var tts = teest.Relay.mapping.OnOff.attributes.onOff;
+
 //export type FamilyToDeviceMap<T extends Family> = Record<keyof Devices<T>, DeviceToClusterMap<ISYDevice<T>>>;
 
 
@@ -117,6 +124,7 @@ export type ClusterMapping<A, K> =
       commands: ClusterCommandMapping<A, K>;
 
 };
+
 
 
 
@@ -142,6 +150,47 @@ export type ClusterTypeAttributeMapping<A extends ClusterType, K> = {
     | { driver: DriversOf<K>; converter?: string }
     | DriversOf<K>;
 };
+
+export type EndpointMapping1<A extends MutableEndpoint, K> = {
+    attributes?: SBAttributeMapping<A["behaviors"],K>,
+    commands?: SBCommandMapping<A["behaviors"],K>
+};
+
+type StringKeys<T> = Extract<keyof T, string>;
+
+export type EndpointMapping<A extends {behaviors: any}, D> = {
+  [K in Capitalize<StringKeys<A["behaviors"]>>]?: {
+    attributes?: AttributeMapping<A["behaviors"][Uncapitalize<K>], D>;
+    commands?: CommandMapping<A["behaviors"][Uncapitalize<K>], D>;
+  };
+};
+
+export type SBAttributeMapping<SB extends SupportedBehaviors,D> = {
+        [K in keyof SB]: Partial<Record<keyof Behavior.StateOf<SB[K]>,DriversOf<D>|{ driver: DriversOf<D>; converter?: string }>>;
+};
+
+export type AttributeMapping<B, D> = B extends {cluster: {attributes: infer E extends { [K in string]: Clusters.ClusterType.Attribute; }}} ? Partial<Record<keyof E, DriversOf<D> | { driver: DriversOf<D>; converter?: string }>> : never;
+
+
+export type CommandMapping<B, D> = B extends {
+  cluster: { commands: infer E extends { [K in string]: Clusters.ClusterType.Command } };
+}
+  ? Partial<
+      Record<keyof E, CommandsOf<D> | { command: CommandsOf<D>; parameters?: parameterMapping }>
+    >
+  : never;
+
+
+type  a = Clusters.ClusterType.CommandsOf<OnOffLightDevice["behaviors"]["onOff"]["cluster"]>
+
+export type SBCommandMapping<SB extends SupportedBehaviors,D> = {
+  //@ts-expect-error
+        [K in Capitalize<keyof SB>]?: SB[Uncapitalize<K>] extends {cluster: {commands}} ? Partial<Record<keyof SB[K]["cluster"]["commands"],CommandsOf<D>|{ driver: DriversOf<D>; converter?: string }>> : never;
+};
+
+
+
+
 
 
 
@@ -171,15 +220,16 @@ export type parameterMapping = {
 
 var clusterMap = {cluster: ClusterType.ColorControl, attributes: {colorTemperatureMireds:{driver: DriverType.Status}},commands: {moveToColor: {command: DriverType.CustomControl1, parameters: {colorX: {parameter: "colorX"}, colorY: {parameter: "colorY"}, colorTemperature: {parameter: "colorTemperature"}}}}};
 
+const map: EndpointMapping<OnOffLightDevice,InsteonRelayDevice> = {
+  Identify: {
+  },
+  OnOff: {
+        attributes: {
+          onOff: { driver: "DON" },
 
-const map: DeviceToClusterMap<InsteonRelayDevice> = {
-  deviceType: OnOffLightDevice,
-  mapping: {OnOff:
-    {
-      attributes: {
-        onOff: { driver: "DON" },
-      },
-      commands:  {on: DriverType.On, off: DriverType.Off },
-    },
+        },
+        commands: {
+          onWithTimedOff: { command: "DON" },
+        }
   }
-};
+}

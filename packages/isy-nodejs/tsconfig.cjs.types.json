@@ -3,6 +3,7 @@
     "compilerOptions": {
         "outDir": "./dist/cjs/types",
         "declaration": true,
+        "declarationMap": true,
         "emitDeclarationOnly": true,
         "paths": {
             "@project-chip/matter.js/*": [

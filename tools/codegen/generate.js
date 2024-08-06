@@ -1,27 +1,33 @@
 //import { generateTemplateClassesFromXSD } from 'xsd2ts';
 //generateTemplateClassesFromXSD('./dependency.xsd');
-import { writeFileSync } from 'fs';
-import { Family } from '../dist/esm/Definitions/Global/Families.js';
-import { InsteonDeviceFactory } from '../dist/esm/Devices/Insteon/InsteonDeviceFactory.js';
-import DeviceMapJSON from './DeviceMap.json' with { type: 'json' };
-import { parseNLSContent } from '../dist/esm/Model/NLS.js';
-import { ISY } from '../dist/esm/ISY.js';
-import winston from 'winston';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { Family } from "isy-nodejs/Definitions/Global/Families";
+import { InsteonDeviceFactory } from 'isy-nodejs/Devices/Insteon/InsteonDeviceFactory';
+import { ISY } from 'isy-nodejs/ISY';
+import { buildEditorDefMap } from 'isy-nodejs/Model/EditorDef';
+import { createMap, NLSIndexMap } from 'isy-nodejs/Model/NLS';
+import { toArray } from 'isy-nodejs/Utils';
 import { setUncaughtExceptionCaptureCallback } from 'process';
-import { buildNodeClassDefinitions } from '../dist/esm/Model/ClassDefinition.js';
-import { toArray } from '../dist/esm/Utils.js';
+import winston from 'winston';
+import DeviceMapJSON from './DeviceMap.json' with { type: 'json' };
+import { generateEnumDefs, generateNodeClassDefs } from './generate-nodeclasses.js';
 const format = winston.format;
-const myFormat = format.combine(format.splat(), winston.format.printf(info => {
+const myFormat = format.combine(format.splat(), winston.format.printf((info) => {
     const d = new Date();
-    const dStr = d.getFullYear() + '-' +
-        zPad2(d.getMonth() + 1) + '-' +
-        zPad2(d.getDate()) + ' ' +
-        zPad2(d.getHours()) + ':' +
-        zPad2(d.getMinutes()) + ':' +
+    const dStr = d.getFullYear() +
+        "-" +
+        zPad2(d.getMonth() + 1) +
+        "-" +
+        zPad2(d.getDate()) +
+        " " +
+        zPad2(d.getHours()) +
+        ":" +
+        zPad2(d.getMinutes()) +
+        ":" +
         zPad2(d.getSeconds());
     return `${dStr} ${info.level}: ${info.label}: ${info.message}`;
-}));
-const logger = winston.loggers.add('codegen', { format: winston.format.label({ label: 'codegen' }), transports: [new winston.transports.Console({ level: 'info', format: myFormat }), new winston.transports.File({ filename: 'isy.log', level: 'info', format: myFormat })], exitOnError: false });
+}), format.colorize({ all: true }));
+const logger = winston.loggers.add('defgen', { format: winston.format.label({ label: 'defgen' }), transports: [new winston.transports.Console({ level: 'info', format: myFormat }), new winston.transports.File({ filename: 'defgen.log', level: 'debug', format: myFormat })], exitOnError: false, levels: winston.config.cli.levels });
 // Zero padding
 function zPad2(str) {
     return str.toString().padStart(2, '0');
@@ -31,32 +37,36 @@ function zPad2(str) {
 setUncaughtExceptionCaptureCallback(cb => logger.error(cb));
 const isy = new ISY({ host: '192.168.1.50', username: 'admin', password: 'qazWSX12', port: 8080, protocol: 'http' }, logger);
 isy.initialize().catch(p => logger.error(p)).finally(() => isy.sendRequest('profiles/files').then(p => parseProfileFiles(p)));
-const nodeDefMap = new Map();
+export const nodeDefMap = new Map();
 async function parseProfileFiles(data) {
+    if (!existsSync('./resources/')) {
+        mkdirSync('./resources');
+    }
     for (const p of data.profiles?.profile) {
         for (const f of p.files) {
             if (f.dir) {
                 if (f.file) {
                     try {
-                        var response = await isy.sendRequest(`profiles/family/${p.family}/profile/${p.id}/download/${f.dir}/${f.file?.name}`, { trailingSlash: false, responseLogLevel: 'DEBUG', requestLogLevel: 'DEBUG' });
+                        var response = await isy.sendRequest(`profiles/family/${p.family}/profile/${p.id}/download/${f.dir}/${f.file?.name}`, { trailingSlash: false, responseLogLevel: winston.config.cli.levels.debug, requestLogLevel: winston.config.cli.levels.debug });
                         var family = p.family;
                         if (data) {
                             switch (f.dir) {
                                 case "nls":
-                                    parseNLS(response, family);
+                                    parseNLS(response, family, p.id);
                                     break;
                                 case "nodedef":
-                                    parseNodeDefs(response, family);
+                                    parseNodeDefs(response, family, p.id);
                                     break;
                                 case "editor":
-                                    parseEditorDefs(response, family);
+                                    parseEditorDefs(response, family, p.id);
                                     //logger.info(JSON.stringify(response, null, 2));
                                     break;
                                 case "linkdef":
+                                    parseLinkDefs(response, family, p.id);
                                     //logger.info(JSON.stringify(response, null, 2));
                                     break;
                                 case "emap":
-                                    parseEventMap(response, family);
+                                    parseEventMap(response, family, p.id);
                                     //logger.info(JSON.stringify(response, null, 2));
                                     break;
                                 default:
@@ -71,42 +81,87 @@ async function parseProfileFiles(data) {
                 }
             }
         }
-        let nodeList = nodeDefMap.get(p.family);
-        try {
-            if (nodeList) {
-                const classDefs = buildNodeClassDefinitions(nodeList, p.family);
-                writeFileSync(`./CLI/resources/nodeClassDef_${p.family}.json`, JSON.stringify(classDefs, null, 2));
-            }
-        }
-        catch (e) {
-            logger.error(e.message, e.stack);
-        }
     }
+    generateEnumDefs();
+    generateNodeClassDefs();
     // for (const family of nodeDefMap.keys()) {
     //      buildNodeClassDefinitions(nodeDefMap.get(family), family);
     // }
 }
-function parseNLS(data, family = Family.Insteon) {
+// function generateNodeClassDefs(p: any) {
+//     let nodeList = nodeDefMap.get(p.family);
+//     try {
+//         if (nodeList) {
+//             const classDefs = buildNodeClassDefinitions(nodeList, p.family, NLSRecordMap, EditorDefMap, NLSIndexMap);
+//             if (!existsSync('./resources/nodeClassDefs/generated/')) {
+//                 mkdirSync('./resources/nodeClassDefs/generated', { recursive: true });
+//             }
+//             writeFileSync(`./resources/nodeClassDefs/generated/nodeClassDefs_${p.family}.json`, JSON.stringify(classDefs, null, 2));
+//             if (!existsSync(`./packages/isy-nodejs/src/Devices/${Family[p.family]}/Generated`))
+//                 mkdirSync(`./packages/isy-nodejs/src/Devices/${Family[p.family]}/Generated`, { recursive: true });
+//             const classes = buildNodeClasses(classDefs);
+//             for (const c of classes) {
+//                 try {
+//                     var f = ts.createSourceFile(`./packages/isy-nodejs/src/Devices/${Family[p.family]}/Generated/${c.name}.ts`, "", ts.ScriptTarget.ES2022, false, ts.ScriptKind.TS);
+//                     //@ts-expect-error
+//                     f.statements = c.statements;
+//                     let r = ts.createPrinter();
+//                     writeFileSync(`./packages/isy-nodejs/src/Devices/${Family[p.family]}/Generated/${c.name}.ts`, r.printFile(f));
+//                 }
+//                 catch (e) {
+//                     logger.error(`Error creating ${Family[p.family]} ${c.name} class: ${e.message}`, e.stack);
+//                 }
+//             }
+//         }
+//     }
+//     catch (e) {
+//         logger.error(e.message, e.stack);
+//     }
+// }
+function parseNLS(data, family = Family.Insteon, profile) {
     //const filePath = path.join(__dirname, "nls.txt");
-    const parsedData = parseNLSContent(data, family);
-    writeFileSync(`./CLI/resources/nls_${family}.json`, JSON.stringify(parsedData, null, 2));
+    if (!existsSync('./resources/nls_raw/')) {
+        mkdirSync('./resources/nls_raw', { recursive: true });
+    }
+    writeFileSync(`./resources/nls_raw/${Family[family]}.txt`, data);
+    const nlsMap = createMap(data, family);
+    const indexMap = NLSIndexMap.get(family);
+    if (!existsSync('./resources/nls/')) {
+        mkdirSync('./resources/nls', { recursive: true });
+    }
+    if (nlsMap)
+        writeFileSync(`./resources/nls/${Family[family]}.json`, JSON.stringify(nlsMap, null, 2));
+    if (!existsSync('./resources/nls_index/')) {
+        mkdirSync('./resources/nls_index', { recursive: true });
+    }
+    if (indexMap)
+        writeFileSync(`./resources/nls_index/${Family[family]}.json`, JSON.stringify(indexMap, null, 2));
 }
 //logger.info(JSON.stringify(parsedData,null,2));
 //console.log(parsedData);
-const nodeDefs = new Map();
-function parseNodeDefs(data, family = Family.Insteon) {
+function parseNodeDefs(data, family = Family.Insteon, profile) {
     //const filePath = path.join(__dirname, "nls.txt");
-    writeFileSync(`./CLI/resources/nodeDefs_${family}.json`, JSON.stringify(data, null, 2));
-    let s = data;
-    nodeDefMap.set(family, toArray(s?.nodeDef));
+    let s = data.nodeDefs;
+    nodeDefMap.set(family, toArray(s.nodeDef));
+    if (!existsSync('./resources/nodeDefs/')) {
+        mkdirSync('./resources/nodeDefs', { recursive: true });
+    }
+    writeFileSync(`./resources/nodeDefs/${Family[family]}.json`, JSON.stringify(data, null, 2));
     //logger.info(JSON.stringify(parsedData,null,2));
     //console.log(parsedData);
 }
-function parseEditorDefs(response, family) {
-    writeFileSync(`./CLI/resources/editorDefs_${family}.json`, JSON.stringify(response, null, 2));
+function parseEditorDefs(response, family, profile) {
+    const editorMap = buildEditorDefMap(response.editors.editor, family);
+    if (!existsSync('./resources/editorDefs/')) {
+        mkdirSync('./resources/editorDefs');
+    }
+    writeFileSync(`./resources/editorDefs/${Family[family]}.json`, JSON.stringify(editorMap, null, 2));
 }
-function parseEventMap(response, family) {
-    writeFileSync(`./CLI/resources/eventMap_${family}.json`, JSON.stringify(response, null, 2));
+function parseEventMap(response, family, profile) {
+    if (!existsSync('./resources/eventMaps/')) {
+        mkdirSync('./resources/eventMaps', { recursive: true });
+    }
+    writeFileSync(`./resources/eventMaps/${Family[family]}.json`, JSON.stringify(response, null, 2));
 }
 export function buildDeviceMap() {
     var fams = {};
@@ -148,5 +203,12 @@ export function buildDeviceMap() {
     });
     writeFileSync("DeviceMapClean.json", JSON.stringify(fams));
 }
+function parseLinkDefs(response, family, profile) {
+    if (!existsSync('./resources/linkDefs/')) {
+        mkdirSync('./resources/linkDefs');
+    }
+    writeFileSync(`./resources/linkDefs/${Family[family]}.json`, JSON.stringify(response, null, 2));
+}
 //isy.callISY('profiles/files').then(p => console.log(JSON.stringify(p)));
 //buildDeviceMap();
+//# sourceMappingURL=generate.js.map

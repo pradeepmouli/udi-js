@@ -1,0 +1,16 @@
+# NLS For RCS
+
+# NodeDef names
+ND-LUTLoadShed-NAME = Load Shed
+
+#
+ND-LUTRelay-ICON = Lamp
+
+# On/Off Relay
+LUT_OL-0 = Off
+LUT_OL-100 = On
+
+# Communication Error 
+ST-ERR-NAME = Responding
+IX_ERR-0 = True
+IX_ERR-1 = False

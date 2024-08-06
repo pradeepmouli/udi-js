@@ -1,0 +1,273 @@
+{
+  "nodeDefs": {
+    "nodeDef": [
+      {
+        "editors": "",
+        "sts": {
+          "st": {
+            "id": "ST",
+            "editor": "BRD_ST"
+          },
+          "$comment": " Connection State "
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": {
+              "id": "UPDATE"
+            }
+          }
+        },
+        "id": "BRIDGE",
+        "nls": "BRD"
+      },
+      {
+        "editors": "",
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "CFN_ST"
+            },
+            {
+              "id": "GV0",
+              "editor": "CFN_DIR"
+            },
+            {
+              "id": "GV1",
+              "editor": "CFN_SPEED"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "CFN_ST",
+                  "optional": "T",
+                  "init": "ST"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              },
+              {
+                "id": "INC_SPEED"
+              },
+              {
+                "id": "DEC_SPEED"
+              },
+              {
+                "p": {
+                  "id": "FAN_SPEED",
+                  "editor": "CFN_SPEED",
+                  "init": "GV1"
+                },
+                "id": "SET_SPEED"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "CFN_DIR",
+                  "init": "GV0"
+                },
+                "id": "SET_DIRECTION"
+              }
+            ]
+          }
+        },
+        "id": "CEILING_FAN",
+        "nls": "CFN"
+      },
+      {
+        "editors": "",
+        "sts": {
+          "st": {
+            "id": "ST",
+            "editor": "LGT_ST"
+          }
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "LGT_ST",
+                  "optional": "T",
+                  "init": "ST"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              }
+            ]
+          }
+        },
+        "id": "LIGHT",
+        "nls": "LGT"
+      },
+      {
+        "editors": "",
+        "sts": {
+          "st": {
+            "id": "ST",
+            "editor": "NDL_ST"
+          }
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "DFOF"
+              }
+            ]
+          }
+        },
+        "id": "NODIM_LIGHT",
+        "nls": "NDL"
+      },
+      {
+        "editors": "",
+        "sts": {
+          "st": {
+            "id": "ST",
+            "editor": "SHD_ST"
+          }
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          }
+        },
+        "id": "SHADE",
+        "nls": "SHD"
+      },
+      {
+        "editors": "",
+        "sts": {
+          "st": {
+            "id": "ST",
+            "editor": "FPL_ST"
+          }
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          }
+        },
+        "id": "FIREPLACE",
+        "nls": "FPL"
+      },
+      {
+        "editors": "",
+        "sts": {
+          "st": {
+            "id": "ST",
+            "editor": "GNR_ST"
+          }
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          }
+        },
+        "id": "GENERIC",
+        "nls": "GNR"
+      },
+      {
+        "editors": "",
+        "sts": "",
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "_42_0",
+                  "nls": "HOLD_MS"
+                },
+                "id": "FDUP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "_42_0",
+                  "nls": "HOLD_MS"
+                },
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": ""
+        },
+        "id": "KEYPAD_BTN",
+        "nls": "BTN"
+      }
+    ]
+  }
+}

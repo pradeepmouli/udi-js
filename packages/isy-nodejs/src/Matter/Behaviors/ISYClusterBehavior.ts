@@ -1,6 +1,6 @@
 import type { ClusterBehavior, ClusterInterface } from "@project-chip/matter.js/behavior/cluster";
 
-import type { ISYNodeDevice } from "../../ISYNode.js";
+import type { ISYDeviceNode } from "../../ISYNode.js";
 
 import { BridgedDeviceBasicInformationServer } from "@project-chip/matter.js/behaviors/bridged-device-basic-information";
 import '@project-chip/matter.js/device';
@@ -17,12 +17,18 @@ import {
 import type { ClusterType, ToClusterTypeByName } from "../../Model/clusterEnum.js";
 import type { Cluster, ClusterServerHandlers, ClusterType as CT } from "@project-chip/matter.js/cluster";
 import type { RelaxTypes } from "../../Devices/MapsTo.js";
+import type { Behavior } from '@project-chip/matter.js/behavior';
+import type { OnOffBehavior, OnOffServer } from '@project-chip/matter.js/behaviors/on-off';
+import { OnOffLightRequirements } from '@project-chip/matter.js/devices/OnOffLightDevice';
+import type { LevelControlBehavior } from '@project-chip/matter.js/behaviors/level-control';
 
 type NotUnknown<T extends ClusterBehavior> = T extends { cluster: { name: "Unknown" } } ? never : T;
 
 export type ConstructedType<B extends Constructor<any>> = B extends Constructor<infer C> ? C : never;
 
-export type ClusterForBehavior<B extends { cluster: any }> = B["cluster"];
+export type ClusterForBehavior<B> = B extends ClusterBehavior.Type<infer C, infer D, infer E> ? C : never;
+
+type t = ClusterForBehavior<LevelControlBehavior>;
 
 export type PropertyChange<P extends ISYDevice<any,any,any>> = {
   driver: DriversOf<P>;
@@ -31,7 +37,7 @@ export type PropertyChange<P extends ISYDevice<any,any,any>> = {
   formattedValue: string;
 };
 
-export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & {cluster: unknown}, P extends ISYNodeDevice<any,any,any>>(
+export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & {cluster: unknown}, P extends ISYDeviceNode<any,any,any>>(
   base: T,
   p: Constructor<P>
 ) : typeof base & {new(...args: any[]): DeviceBehavior<P, T>} {

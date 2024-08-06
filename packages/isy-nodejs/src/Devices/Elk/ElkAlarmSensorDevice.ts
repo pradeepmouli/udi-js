@@ -1,12 +1,12 @@
 
 import { Family } from '../../Definitions/Global/Families.js';
 import { ISY } from '../../ISY.js';
-import { ISYNodeDevice } from '../../ISYNode.js';
+import { ISYDeviceNode } from '../../ISYNode.js';
 import { AlarmSensorPhysicalState, AlarmSensorLogicalState } from './ElkAlarmPanelDevice.js';
 /////////////////////////////
 // ELKAlarmSensor
 //
-export class ElkAlarmSensorDevice extends ISYNodeDevice<Family.Global,any,any> {
+export class ElkAlarmSensorDevice extends ISYDeviceNode<Family.Global,any,any> {
 	[x: string]: any;
 	public area: number;
 	public zone: string;

@@ -1,0 +1,784 @@
+#
+# Parameters
+#
+GEN-TEMP = Temperature
+GEN-OL = On Level
+GEN-RR = Ramp Rate
+
+#
+# Misc
+#
+PGM-CMD-BEEP-FMT = /level/${c}/${c} ${v}/
+CMDP-I_BEEP_255-LEVEL-NAME = Level
+
+IX_I_L255-0 = Off
+IX_I_L255-255 = On
+
+CMD-S_BL-NAME = Backlight Level
+
+# Micro Open/Close
+CMD-MOC-DUR-NAME = Max Duration
+ST-MOC-DUR-NAME = Max Duration
+
+# Siren
+CMD-ARM-NAME = Arm
+CMD-DISARM-NAME = Disarm
+CMDP-DUR-NAME = Duration
+CMDP-DLY-NAME = Delay
+CMDP-TT-NAME = Tone
+PGM-CMD-SRN-DON-FMT = ;DUR;On;On for ${v}; ;DLY;;, ${v};
+
+# Alert Module ..
+# .. Status
+ST-71A-OL-NAME = Duration
+ST-71A-RR-NAME = Tone
+# .. Cmds
+CMD-71A-OL-NAME = Duration
+CMD-71A-RR-NAME = Tone
+# .. DON parameters
+CMDPN-71A-OL-NAME = Duration
+CMDPN-71A-RR-NAME = Tone
+
+#
+# BMAN (fade up/fade down)
+#
+IX_I_BMAN-0 = Down
+IX_I_BMAN-1 = Up
+
+CMDP-I_OL-NAME = Level
+CMDP-I_RR-NAME = Ramp Rate
+CMDP-CLNRT-NAME = Retries
+
+IX_I_OL_RELAY-0 = Off
+IX_I_OL_RELAY-100 = On
+
+
+IX_I_SML-0 = Both Off
+IX_I_SML-50 = One On
+IX_I_SML-100 = Both On
+
+IX_I_OL_PCT-0 = Off
+
+IX_I_OL_PCT_ON-0 = Off
+IX_I_OL_PCT_ON-100 = On
+
+# MorningLinc
+IX_I_LOCK-0 = Unlocked
+IX_I_LOCK-100 = Locked
+CMD-Lock-DON-NAME = Lock
+CMD-Lock-DOF-NAME = Unlock
+
+#
+#  LinkDef Protocol names
+#
+LNKP-I_STD-NAME = Insteon
+LNKP-I_STD_ADV-NAME = Insteon
+
+CMD-I_IRLINC_TX-NAME = Transmit
+
+#
+# Command Parameter Formatting
+#
+PGM-CMD-FLM-DON-FMT = ///${v}/
+
+#  Link Parameter formatting
+LNKD-I_TSTAT-FMT = ;CLISPH;;Heat ${v}; ;CLISPC;; / Cool ${v}; ;CLIFS;; / Fan ${v}; ;CLIMD;; / Mode ${v};
+LNKD-I_TSTAT_ADV-FMT = ;CLISPH;;Heat ${v}; ;CLISPC;; / Cool ${v}; ;CLIFS;; / Fan ${v}; ;CLIMD;; / Mode ${v}; ;CLNRT;; / ${v};
+LNKD-I_TEMPLINC-FMT = ;CLISPH;;Heat ${v}; ;CLISPC;; / Cool ${v}; ;CLIFS;; / Fan ${v}; ;CLIMD;; / Mode ${v}; ;CLIEMD;; / Energy Save ${v};
+LNKD-I_TEMPLINC_ADV-FMT = ;CLISPH;;Heat ${v}; ;CLISPC;; / Cool ${v}; ;CLIFS;; / Fan ${v}; ;CLIMD;; / Mode ${v}; ;CLIEMD;; / Energy Save ${v}; ;CLNRT;; / ${v};
+LNKD-I_DIMMER-FMT = ;OL;;${v}; ;RR;; in ${v};
+LNKD-I_DIMMER_ADV-FMT = ;OL;;${v}; ;RR;; in ${v}; ;CLNRT;;, ${v};
+LNKD-I_MDIMMER-FMT = ;OL;;${v};
+LNKD-I_MDIMMER_ADV-FMT = ;OL;;${v}; ;CLNRT;;, ${v};
+LNKD-I_RELAY-FMT = ;OL;;${v};
+LNKD-I_RELAY_ADV-FMT = ;OL;;${v}; ;CLNRT;;, ${v};
+LNKD-I_FLM-FMT = ;OL;;${v};
+LNKD-I_FLM_ADV-FMT = ;OL;;${v}; ;CLNRT;;, ${v};
+LNKD-I_IRLINC_TX-FMT = ;;Transmit;Transmit;
+LNKD-I_IRLINC_TX_ADV-FMT = ;;Transmit;Transmit; ;CLNRT;;, ${v};
+LNKD-I_SIREN_ALERT-FMT = ;TT;Siren;${v}; ;DUR;; for ${v}; ;DLY;;, ${v};
+LNKD-I_SIREN_ALERT_ADV-FMT = ;TT;Siren;${v}; ;DUR;; for ${v}; ;DLY;;, ${v}; ;CLNRT;;, ${v};
+LNKD-I_SIREN_ARM_ADV-FMT = ;CLNRT;;${v};
+
+#
+#  Node definition names
+#
+ND-BallastRelayLampSwitch-NAME = Ballast Relay Lamp Switch
+ND-DimmerLampOnly-NAME = Dimmer Lamp
+ND-DimmerLampSwitch-NAME = Dimmer Lamp & Switch
+ND-DimmerSwitchOnly-NAME = Dimmer Switch
+ND-EZIO2x4_Input-NAME = EZIO2x4 Input
+ND-EZIO2x4_Output-NAME = EZIO2x4 Output
+ND-KeypadRelayButton-NAME = Keypad Relay Button
+ND-OnOffControl-NAME = On/Off Control
+ND-RelayLampOnly-NAME = Relay Lamp
+ND-RelayLampSwitch-NAME = Relay Lamp & Switch
+ND-RelaySwitchOnly-NAME = Relay Switch
+ND-Thermostat-NAME = Thermostat
+ND-Siren-NAME = Siren
+ND-Siren_ADV-NAME = Siren
+ND-SirenAlert-NAME = Siren Alert
+ND-SirenArm-NAME = Siren Arm
+
+#
+#  Node definition icons
+#
+ND-BallastRelayLampSwitch-ICON = LampAndSwitch
+ND-DimmerLampOnly-ICON = Lamp
+ND-DimmerLampSwitch-ICON = LampAndSwitch
+ND-DimmerSwitchOnly-ICON = Switch
+ND-EZIO2x4_Input-ICON = Input
+ND-EZIO2x4_Output-ICON = Output
+ND-KeypadRelayButton-ICON = Switch
+ND-OnOffControl-ICON = Switch
+ND-RelayLampOnly-ICON = Lamp
+ND-RelayLampSwitch-ICON = LampAndSwitch
+ND-RelaySwitchOnly-ICON = Switch
+ND-Thermostat-ICON = Thermostat
+ND-Siren-ICON = Siren
+ND-Siren_ADV-ICON = Siren
+ND-SirenAlert-ICON = Siren
+ND-SirenArm-ICON = Arm
+
+#
+#  Device info
+#
+DEV-0125-NAME = (2475DA2) Ballast Dimmer
+DEV-013D-NAME = (2446-422) Ballast Dimmer
+DEV-013E-NAME = (2446-522) Ballast Dimmer
+
+#
+# Custom driver controls
+#
+
+# BMAN/SMAN - Fade up/down/stop
+PGM-BMAN-FMT = /dir/${c}/Fade ${v}/
+
+CMD-GV1-NAME = Configuration Parameter
+CMDP-I_PARAM_NUM-NUM-NAME = Number
+CMDP-I_PARAM_LEN-LEN-NAME = Size
+CMDP-I_PARAM_VAL-VAL-NAME = Value
+PGM-CMD-GV1-FMT = /num//${c} Parameter ${v}/ /val// = ${v}/ /len// (${v} bytes)/
+
+IX_PARAM_LEN-1 = 1 Byte
+IX_PARAM_LEN-2 = 2 Bytes
+IX_PARAM_LEN-4 = 4 Bytes
+
+# Thermostat
+PGM-CMD-143-BRT-FMT = //${c} 1\u00B0/${c} ${v}/
+PGM-CMD-143-DIM-FMT = //${c} 1\u00B0/${c} ${v}/
+ST-143-ST-NAME = Temperature
+CMD-143-BRT-NAME = Setpoint Up
+CMD-143-DIM-NAME = Setpoint Down
+CMD-ST-NAME = Query
+
+# iMeterSolo
+ST-IMS-ST-NAME = Current Power
+CMD-IMS-RESET-NAME = Reset Total Energy
+
+#
+DC-109-GV1-NAME = Rate
+
+# LED Command
+CMD-LED-NAME = LED
+
+# I3 Dual Outlet LED
+IX_I3_RGB_LED-0 = Always Off
+IX_I3_RGB_LED-1 = On
+IX_I3_RGB_LED-2 = Default Behavior Off
+IX_I3_RGB_LED-3 = Default Behavior On
+IX_I3_RGB_LED-4 = Red Off
+IX_I3_RGB_LED-5 = Red On
+IX_I3_RGB_LED-6 = Green Off
+IX_I3_RGB_LED-7 = Green On
+IX_I3_RGB_LED-8 = Blue Off
+IX_I3_RGB_LED-9 = Blue On
+
+# I3 Flags settings
+IX_I3_ON_OFF-0 = Off
+IX_I3_ON_OFF-1 = On
+
+IX_I3_RELAY_DIM-0 = Dimmer
+IX_I3_RELAY_DIM-1 = Relay
+
+# I3 Paddle Flags
+ST-I3PF-ST-NAME  = Mode
+ST-I3PF-GV1-NAME = Program Lock
+ST-I3PF-GV2-NAME = Resume Dim
+ST-I3PF-GV3-NAME = Relay at Full On
+ST-I3PF-GV4-NAME = Key Beep
+ST-I3PF-GV5-NAME = Disable RF
+ST-I3PF-GV6-NAME = Button Lock
+ST-I3PF-GV7-NAME = Error Blink
+ST-I3PF-GV8-NAME = Cleanup Reports
+
+CMD-I3PF-GV0-NAME = Mode
+CMD-I3PF-GV1-NAME = Program Lock
+CMD-I3PF-GV2-NAME = Resume Dim
+CMD-I3PF-GV3-NAME = Relay at Full On
+CMD-I3PF-GV4-NAME = Key Beep
+CMD-I3PF-GV5-NAME = Disable RF
+CMD-I3PF-GV6-NAME = Button Lock
+CMD-I3PF-GV7-NAME = Error Blink
+CMD-I3PF-GV8-NAME = Cleanup Reports
+
+# I3 Keypad Flags
+ST-I3KP-ST-NAME  = Mode
+ST-I3KP-GV1-NAME = Program Lock
+ST-I3KP-GV2-NAME = Resume Dim
+ST-I3KP-GV3-NAME = Relay at Full On
+ST-I3KP-GV4-NAME = Key Beep
+ST-I3KP-GV5-NAME = Disable RF
+ST-I3KP-GV6-NAME = Button Lock
+ST-I3KP-GV7-NAME = Error Blink
+ST-I3KP-GV8-NAME = Cleanup Reports
+ST-I3KP-GV30-NAME = Load Button
+
+CMD-I3KP-GV0-NAME = Mode
+CMD-I3KP-GV1-NAME = Program Lock
+CMD-I3KP-GV2-NAME = Resume Dim
+CMD-I3KP-GV3-NAME = Relay at Full On
+CMD-I3KP-GV4-NAME = Key Beep
+CMD-I3KP-GV5-NAME = Disable RF
+CMD-I3KP-GV6-NAME = Button Lock
+CMD-I3KP-GV7-NAME = Error Blink
+CMD-I3KP-GV8-NAME = Cleanup Reports
+CMD-I3KP-GV30-NAME = Load Button
+
+IX_I3_LOAD_4-0 = Not Used
+IX_I3_LOAD_4-1 = Button 1
+IX_I3_LOAD_4-2 = Button 2
+IX_I3_LOAD_4-3 = Button 3
+IX_I3_LOAD_4-4 = Button 4
+
+# PIR Status
+ST-2844-GV1-NAME = Battery Powered
+
+# PIR Command Parameters
+CMD-2844-CLITEMP-NAME = Calibrate Temperature
+
+# PIR 2844 Motion conditions
+IX_MM-0 = Never
+IX_MM-1 = Always
+IX_MM-2 = Only during Day
+IX_MM-3 = Only at Night
+IX_MM-4 = Only when Hot
+IX_MM-5 = Only when Cold
+IX_MM-6 = Only Day + Hot
+IX_MM-7 = Only Day + Cold
+IX_MM-8 = Only Night + Hot
+IX_MM-9 = Only Night + Cold
+
+# PIR 2844 Day & Night conditions
+IX_MDN-0 = Never
+IX_MDN-1 = Always
+IX_MDN-2 = Only when Hot
+IX_MDN-3 = Only when Cold
+
+# PIR 2844 Hot & Cold conditions
+IX_MHC-0 = Never
+IX_MHC-1 = Always
+IX_MHC-2 = Only during Day
+IX_MHC-3 = Only at Night
+
+# Boolean False/True
+IX_BOOL-0   = False
+IX_BOOL-255 = True
+
+# Siren
+ST-SRN-ST-NAME = Siren
+ST-SRN-DUR-NAME = Siren Duration
+ST-SRN-DELAY-NAME = Arm Countdown
+
+# Insteon Siren Tone Type
+IX_TT-0 = Chime
+IX_TT-1 = Siren
+
+# Insteon Siren Countdown
+IX_DLY-0 = Immediate
+IX_DLY-1 = Delayed
+
+# Insteon Siren Arm Delay
+IX_SIL-0 = Beep
+IX_SIL-1 = Silent
+
+# Insteon Siren Mode
+IX_SIRMD-1 = Home
+IX_SIRMD-3 = Away
+IX_SIRMD-4 = Home & Away
+
+# Insteon Siren Mode Status
+IX_SIRMD_ST-0 = Disarmed
+IX_SIRMD_ST-1 = Armed Home
+IX_SIRMD_ST-3 = Armed Away
+IX_SIRMD_ST-4 = Armed Home & Away
+
+# Communication Error
+ST-ERR-NAME = Responding
+IX_ERR-0 = True
+IX_ERR-1 = False
+
+# Fan Level
+IX_I_FL-0 = Off
+IX_I_FL-25 = Low
+IX_I_FL-75 = Medium
+IX_I_FL-100 = High
+
+# Scene retries
+IX_I_CLNRT-0 = No retries
+IX_I_CLNRT-1 = 1 retry
+IX_I_CLNRT-2 = 2 retries
+IX_I_CLNRT-3 = 3 retries
+IX_I_CLNRT-4 = 4 retries
+IX_I_CLNRT-5 = 5 retries
+IX_I_CLNRT-6 = 6 retries
+IX_I_CLNRT-7 = 7 retries
+IX_I_CLNRT-8 = 8 retries
+IX_I_CLNRT-9 = 9 retries
+
+#Insteon
+IX_I_RR-31 = 0.1 seconds
+IX_I_RR-30 = 0.2 seconds
+IX_I_RR-29 = 0.3 seconds
+IX_I_RR-28 = 0.5 seconds
+IX_I_RR-27 = 2.0 seconds
+IX_I_RR-26 = 4.5 seconds
+IX_I_RR-25 = 6.5 seconds
+IX_I_RR-24 = 8.5 seconds
+IX_I_RR-23 = 19.0 seconds
+IX_I_RR-22 = 21.5 seconds
+IX_I_RR-21 = 23.5 seconds
+IX_I_RR-20 = 26.0 seconds
+IX_I_RR-19 = 28.0 seconds
+IX_I_RR-18 = 30.0 seconds
+IX_I_RR-17 = 32.0 seconds
+IX_I_RR-16 = 34.0 seconds
+IX_I_RR-15 = 38.5 seconds
+IX_I_RR-14 = 43.0 seconds
+IX_I_RR-13 = 47.0 seconds
+IX_I_RR-12 = 1.0 minute
+IX_I_RR-11 = 1.5 minutes
+IX_I_RR-10 = 2.0 minutes
+IX_I_RR-9  = 2.5 minutes
+IX_I_RR-8 = 3.0 minutes
+IX_I_RR-7 = 3.5 minutes
+IX_I_RR-6 = 4.0 minutes
+IX_I_RR-5 = 4.5 minutes
+IX_I_RR-4 = 5.0 minutes
+IX_I_RR-3 = 6.0 minutes
+IX_I_RR-2 = 7.0 minutes
+IX_I_RR-1 = 8.0 minutes
+IX_I_RR-0 = 9.0 minutes
+
+IX_I_BL-0   = On  0 / Off 0
+IX_I_BL-1   = On  1 / Off 0
+IX_I_BL-2   = On  2 / Off 0
+IX_I_BL-3   = On  3 / Off 0
+IX_I_BL-4   = On  4 / Off 0
+IX_I_BL-5   = On  5 / Off 0
+IX_I_BL-6   = On  6 / Off 0
+IX_I_BL-7   = On  7 / Off 0
+IX_I_BL-8   = On  8 / Off 0
+IX_I_BL-9   = On  9 / Off 0
+IX_I_BL-10  = On 10 / Off 0
+IX_I_BL-11  = On 11 / Off 0
+IX_I_BL-12  = On 12 / Off 0
+IX_I_BL-13  = On 13 / Off 0
+IX_I_BL-14  = On 14 / Off 0
+IX_I_BL-15  = On 15 / Off 0
+IX_I_BL-16  = On  0 / Off 1
+IX_I_BL-17  = On  1 / Off 1
+IX_I_BL-18  = On  2 / Off 1
+IX_I_BL-19  = On  3 / Off 1
+IX_I_BL-20  = On  4 / Off 1
+IX_I_BL-21  = On  5 / Off 1
+IX_I_BL-22  = On  6 / Off 1
+IX_I_BL-23  = On  7 / Off 1
+IX_I_BL-24  = On  8 / Off 1
+IX_I_BL-25  = On  9 / Off 1
+IX_I_BL-26  = On 10 / Off 1
+IX_I_BL-27  = On 11 / Off 1
+IX_I_BL-28  = On 12 / Off 1
+IX_I_BL-29  = On 13 / Off 1
+IX_I_BL-30  = On 14 / Off 1
+IX_I_BL-31  = On 15 / Off 1
+IX_I_BL-32  = On  0 / Off 2
+IX_I_BL-33  = On  1 / Off 2
+IX_I_BL-34  = On  2 / Off 2
+IX_I_BL-35  = On  3 / Off 2
+IX_I_BL-36  = On  4 / Off 2
+IX_I_BL-37  = On  5 / Off 2
+IX_I_BL-38  = On  6 / Off 2
+IX_I_BL-39  = On  7 / Off 2
+IX_I_BL-40  = On  8 / Off 2
+IX_I_BL-41  = On  9 / Off 2
+IX_I_BL-42  = On 10 / Off 2
+IX_I_BL-43  = On 11 / Off 2
+IX_I_BL-44  = On 12 / Off 2
+IX_I_BL-45  = On 13 / Off 2
+IX_I_BL-46  = On 14 / Off 2
+IX_I_BL-47  = On 15 / Off 2
+IX_I_BL-48  = On  0 / Off 3
+IX_I_BL-49  = On  1 / Off 3
+IX_I_BL-50  = On  2 / Off 3
+IX_I_BL-51  = On  3 / Off 3
+IX_I_BL-52  = On  4 / Off 3
+IX_I_BL-53  = On  5 / Off 3
+IX_I_BL-54  = On  6 / Off 3
+IX_I_BL-55  = On  7 / Off 3
+IX_I_BL-56  = On  8 / Off 3
+IX_I_BL-57  = On  9 / Off 3
+IX_I_BL-58  = On 10 / Off 3
+IX_I_BL-59  = On 11 / Off 3
+IX_I_BL-60  = On 12 / Off 3
+IX_I_BL-61  = On 13 / Off 3
+IX_I_BL-62  = On 14 / Off 3
+IX_I_BL-63  = On 15 / Off 3
+IX_I_BL-64  = On  0 / Off 4
+IX_I_BL-65  = On  1 / Off 4
+IX_I_BL-66  = On  2 / Off 4
+IX_I_BL-67  = On  3 / Off 4
+IX_I_BL-68  = On  4 / Off 4
+IX_I_BL-69  = On  5 / Off 4
+IX_I_BL-70  = On  6 / Off 4
+IX_I_BL-71  = On  7 / Off 4
+IX_I_BL-72  = On  8 / Off 4
+IX_I_BL-73  = On  9 / Off 4
+IX_I_BL-74  = On 10 / Off 4
+IX_I_BL-75  = On 11 / Off 4
+IX_I_BL-76  = On 12 / Off 4
+IX_I_BL-77  = On 13 / Off 4
+IX_I_BL-78  = On 14 / Off 4
+IX_I_BL-79  = On 15 / Off 4
+IX_I_BL-80  = On  0 / Off 5
+IX_I_BL-81  = On  1 / Off 5
+IX_I_BL-82  = On  2 / Off 5
+IX_I_BL-83  = On  3 / Off 5
+IX_I_BL-84  = On  4 / Off 5
+IX_I_BL-85  = On  5 / Off 5
+IX_I_BL-86  = On  6 / Off 5
+IX_I_BL-87  = On  7 / Off 5
+IX_I_BL-88  = On  8 / Off 5
+IX_I_BL-89  = On  9 / Off 5
+IX_I_BL-90  = On 10 / Off 5
+IX_I_BL-91  = On 11 / Off 5
+IX_I_BL-92  = On 12 / Off 5
+IX_I_BL-93  = On 13 / Off 5
+IX_I_BL-94  = On 14 / Off 5
+IX_I_BL-95  = On 15 / Off 5
+IX_I_BL-96  = On  0 / Off 6
+IX_I_BL-97  = On  1 / Off 6
+IX_I_BL-98  = On  2 / Off 6
+IX_I_BL-99  = On  3 / Off 6
+IX_I_BL-100 = On  4 / Off 6
+IX_I_BL-101 = On  5 / Off 6
+IX_I_BL-102 = On  6 / Off 6
+IX_I_BL-103 = On  7 / Off 6
+IX_I_BL-104 = On  8 / Off 6
+IX_I_BL-105 = On  9 / Off 6
+IX_I_BL-106 = On 10 / Off 6
+IX_I_BL-107 = On 11 / Off 6
+IX_I_BL-108 = On 12 / Off 6
+IX_I_BL-109 = On 13 / Off 6
+IX_I_BL-110 = On 14 / Off 6
+IX_I_BL-111 = On 15 / Off 6
+IX_I_BL-112 = On  0 / Off 7
+IX_I_BL-113 = On  1 / Off 7
+IX_I_BL-114 = On  2 / Off 7
+IX_I_BL-115 = On  3 / Off 7
+IX_I_BL-116 = On  4 / Off 7
+IX_I_BL-117 = On  5 / Off 7
+IX_I_BL-118 = On  6 / Off 7
+IX_I_BL-119 = On  7 / Off 7
+IX_I_BL-120 = On  8 / Off 7
+IX_I_BL-121 = On  9 / Off 7
+IX_I_BL-122 = On 10 / Off 7
+IX_I_BL-123 = On 11 / Off 7
+IX_I_BL-124 = On 12 / Off 7
+IX_I_BL-125 = On 13 / Off 7
+IX_I_BL-126 = On 14 / Off 7
+IX_I_BL-127 = On 15 / Off 7
+
+CMD-ICMD-NAME = Insteon Cmd
+CMDP-I_NUM_255-ICMD1-NAME = CMD1
+CMDP-I_NUM_255-ICMD2-NAME = CMD2
+CMDP-I_NUM_255-IDATA1-NAME = Data1
+CMDP-I_NUM_255-IDATA2-NAME = Data2
+CMDP-I_NUM_255-IDATA3-NAME = Data3
+CMDP-I_NUM_255-IDATA4-NAME = Data4
+CMDP-I_NUM_255-ICMDOPT-NAME = Option
+
+IX_NUM-0 = [] (0) 00
+IX_NUM-1 = [0] (1) 01
+IX_NUM-2 = [1] (2) 02
+IX_NUM-3 = [01] (3) 03
+IX_NUM-4 = [2] (4) 04
+IX_NUM-5 = [02] (5) 05
+IX_NUM-6 = [12] (6) 06
+IX_NUM-7 = [012] (7) 07
+IX_NUM-8 = [3] (8) 08
+IX_NUM-9 = [03] (9) 09
+IX_NUM-10 = [13] (10) 0A
+IX_NUM-11 = [013] (11) 0B
+IX_NUM-12 = [23] (12) 0C
+IX_NUM-13 = [023] (13) 0D
+IX_NUM-14 = [123] (14) 0E
+IX_NUM-15 = [0123] (15) 0F
+IX_NUM-16 = [4] (16) 10
+IX_NUM-17 = [04] (17) 11
+IX_NUM-18 = [14] (18) 12
+IX_NUM-19 = [014] (19) 13
+IX_NUM-20 = [24] (20) 14
+IX_NUM-21 = [024] (21) 15
+IX_NUM-22 = [124] (22) 16
+IX_NUM-23 = [0124] (23) 17
+IX_NUM-24 = [34] (24) 18
+IX_NUM-25 = [034] (25) 19
+IX_NUM-26 = [134] (26) 1A
+IX_NUM-27 = [0134] (27) 1B
+IX_NUM-28 = [234] (28) 1C
+IX_NUM-29 = [0234] (29) 1D
+IX_NUM-30 = [1234] (30) 1E
+IX_NUM-31 = [01234] (31) 1F
+IX_NUM-32 = [5] (32) 20
+IX_NUM-33 = [05] (33) 21
+IX_NUM-34 = [15] (34) 22
+IX_NUM-35 = [015] (35) 23
+IX_NUM-36 = [25] (36) 24
+IX_NUM-37 = [025] (37) 25
+IX_NUM-38 = [125] (38) 26
+IX_NUM-39 = [0125] (39) 27
+IX_NUM-40 = [35] (40) 28
+IX_NUM-41 = [035] (41) 29
+IX_NUM-42 = [135] (42) 2A
+IX_NUM-43 = [0135] (43) 2B
+IX_NUM-44 = [235] (44) 2C
+IX_NUM-45 = [0235] (45) 2D
+IX_NUM-46 = [1235] (46) 2E
+IX_NUM-47 = [01235] (47) 2F
+IX_NUM-48 = [45] (48) 30
+IX_NUM-49 = [045] (49) 31
+IX_NUM-50 = [145] (50) 32
+IX_NUM-51 = [0145] (51) 33
+IX_NUM-52 = [245] (52) 34
+IX_NUM-53 = [0245] (53) 35
+IX_NUM-54 = [1245] (54) 36
+IX_NUM-55 = [01245] (55) 37
+IX_NUM-56 = [345] (56) 38
+IX_NUM-57 = [0345] (57) 39
+IX_NUM-58 = [1345] (58) 3A
+IX_NUM-59 = [01345] (59) 3B
+IX_NUM-60 = [2345] (60) 3C
+IX_NUM-61 = [02345] (61) 3D
+IX_NUM-62 = [12345] (62) 3E
+IX_NUM-63 = [012345] (63) 3F
+IX_NUM-64 = [6] (64) 40
+IX_NUM-65 = [06] (65) 41
+IX_NUM-66 = [16] (66) 42
+IX_NUM-67 = [016] (67) 43
+IX_NUM-68 = [26] (68) 44
+IX_NUM-69 = [026] (69) 45
+IX_NUM-70 = [126] (70) 46
+IX_NUM-71 = [0126] (71) 47
+IX_NUM-72 = [36] (72) 48
+IX_NUM-73 = [036] (73) 49
+IX_NUM-74 = [136] (74) 4A
+IX_NUM-75 = [0136] (75) 4B
+IX_NUM-76 = [236] (76) 4C
+IX_NUM-77 = [0236] (77) 4D
+IX_NUM-78 = [1236] (78) 4E
+IX_NUM-79 = [01236] (79) 4F
+IX_NUM-80 = [46] (80) 50
+IX_NUM-81 = [046] (81) 51
+IX_NUM-82 = [146] (82) 52
+IX_NUM-83 = [0146] (83) 53
+IX_NUM-84 = [246] (84) 54
+IX_NUM-85 = [0246] (85) 55
+IX_NUM-86 = [1246] (86) 56
+IX_NUM-87 = [01246] (87) 57
+IX_NUM-88 = [346] (88) 58
+IX_NUM-89 = [0346] (89) 59
+IX_NUM-90 = [1346] (90) 5A
+IX_NUM-91 = [01346] (91) 5B
+IX_NUM-92 = [2346] (92) 5C
+IX_NUM-93 = [02346] (93) 5D
+IX_NUM-94 = [12346] (94) 5E
+IX_NUM-95 = [012346] (95) 5F
+IX_NUM-96 = [56] (96) 60
+IX_NUM-97 = [056] (97) 61
+IX_NUM-98 = [156] (98) 62
+IX_NUM-99 = [0156] (99) 63
+IX_NUM-100 = [256] (100) 64
+IX_NUM-101 = [0256] (101) 65
+IX_NUM-102 = [1256] (102) 66
+IX_NUM-103 = [01256] (103) 67
+IX_NUM-104 = [356] (104) 68
+IX_NUM-105 = [0356] (105) 69
+IX_NUM-106 = [1356] (106) 6A
+IX_NUM-107 = [01356] (107) 6B
+IX_NUM-108 = [2356] (108) 6C
+IX_NUM-109 = [02356] (109) 6D
+IX_NUM-110 = [12356] (110) 6E
+IX_NUM-111 = [012356] (111) 6F
+IX_NUM-112 = [456] (112) 70
+IX_NUM-113 = [0456] (113) 71
+IX_NUM-114 = [1456] (114) 72
+IX_NUM-115 = [01456] (115) 73
+IX_NUM-116 = [2456] (116) 74
+IX_NUM-117 = [02456] (117) 75
+IX_NUM-118 = [12456] (118) 76
+IX_NUM-119 = [012456] (119) 77
+IX_NUM-120 = [3456] (120) 78
+IX_NUM-121 = [03456] (121) 79
+IX_NUM-122 = [13456] (122) 7A
+IX_NUM-123 = [013456] (123) 7B
+IX_NUM-124 = [23456] (124) 7C
+IX_NUM-125 = [023456] (125) 7D
+IX_NUM-126 = [123456] (126) 7E
+IX_NUM-127 = [0123456] (127) 7F
+IX_NUM-128 = [7] (128) 80
+IX_NUM-129 = [07] (129) 81
+IX_NUM-130 = [17] (130) 82
+IX_NUM-131 = [017] (131) 83
+IX_NUM-132 = [27] (132) 84
+IX_NUM-133 = [027] (133) 85
+IX_NUM-134 = [127] (134) 86
+IX_NUM-135 = [0127] (135) 87
+IX_NUM-136 = [37] (136) 88
+IX_NUM-137 = [037] (137) 89
+IX_NUM-138 = [137] (138) 8A
+IX_NUM-139 = [0137] (139) 8B
+IX_NUM-140 = [237] (140) 8C
+IX_NUM-141 = [0237] (141) 8D
+IX_NUM-142 = [1237] (142) 8E
+IX_NUM-143 = [01237] (143) 8F
+IX_NUM-144 = [47] (144) 90
+IX_NUM-145 = [047] (145) 91
+IX_NUM-146 = [147] (146) 92
+IX_NUM-147 = [0147] (147) 93
+IX_NUM-148 = [247] (148) 94
+IX_NUM-149 = [0247] (149) 95
+IX_NUM-150 = [1247] (150) 96
+IX_NUM-151 = [01247] (151) 97
+IX_NUM-152 = [347] (152) 98
+IX_NUM-153 = [0347] (153) 99
+IX_NUM-154 = [1347] (154) 9A
+IX_NUM-155 = [01347] (155) 9B
+IX_NUM-156 = [2347] (156) 9C
+IX_NUM-157 = [02347] (157) 9D
+IX_NUM-158 = [12347] (158) 9E
+IX_NUM-159 = [012347] (159) 9F
+IX_NUM-160 = [57] (160) A0
+IX_NUM-161 = [057] (161) A1
+IX_NUM-162 = [157] (162) A2
+IX_NUM-163 = [0157] (163) A3
+IX_NUM-164 = [257] (164) A4
+IX_NUM-165 = [0257] (165) A5
+IX_NUM-166 = [1257] (166) A6
+IX_NUM-167 = [01257] (167) A7
+IX_NUM-168 = [357] (168) A8
+IX_NUM-169 = [0357] (169) A9
+IX_NUM-170 = [1357] (170) AA
+IX_NUM-171 = [01357] (171) AB
+IX_NUM-172 = [2357] (172) AC
+IX_NUM-173 = [02357] (173) AD
+IX_NUM-174 = [12357] (174) AE
+IX_NUM-175 = [012357] (175) AF
+IX_NUM-176 = [457] (176) B0
+IX_NUM-177 = [0457] (177) B1
+IX_NUM-178 = [1457] (178) B2
+IX_NUM-179 = [01457] (179) B3
+IX_NUM-180 = [2457] (180) B4
+IX_NUM-181 = [02457] (181) B5
+IX_NUM-182 = [12457] (182) B6
+IX_NUM-183 = [012457] (183) B7
+IX_NUM-184 = [3457] (184) B8
+IX_NUM-185 = [03457] (185) B9
+IX_NUM-186 = [13457] (186) BA
+IX_NUM-187 = [013457] (187) BB
+IX_NUM-188 = [23457] (188) BC
+IX_NUM-189 = [023457] (189) BD
+IX_NUM-190 = [123457] (190) BE
+IX_NUM-191 = [0123457] (191) BF
+IX_NUM-192 = [67] (192) C0
+IX_NUM-193 = [067] (193) C1
+IX_NUM-194 = [167] (194) C2
+IX_NUM-195 = [0167] (195) C3
+IX_NUM-196 = [267] (196) C4
+IX_NUM-197 = [0267] (197) C5
+IX_NUM-198 = [1267] (198) C6
+IX_NUM-199 = [01267] (199) C7
+IX_NUM-200 = [367] (200) C8
+IX_NUM-201 = [0367] (201) C9
+IX_NUM-202 = [1367] (202) CA
+IX_NUM-203 = [01367] (203) CB
+IX_NUM-204 = [2367] (204) CC
+IX_NUM-205 = [02367] (205) CD
+IX_NUM-206 = [12367] (206) CE
+IX_NUM-207 = [012367] (207) CF
+IX_NUM-208 = [467] (208) D0
+IX_NUM-209 = [0467] (209) D1
+IX_NUM-210 = [1467] (210) D2
+IX_NUM-211 = [01467] (211) D3
+IX_NUM-212 = [2467] (212) D4
+IX_NUM-213 = [02467] (213) D5
+IX_NUM-214 = [12467] (214) D6
+IX_NUM-215 = [012467] (215) D7
+IX_NUM-216 = [3467] (216) D8
+IX_NUM-217 = [03467] (217) D9
+IX_NUM-218 = [13467] (218) DA
+IX_NUM-219 = [013467] (219) DB
+IX_NUM-220 = [23467] (220) DC
+IX_NUM-221 = [023467] (221) DD
+IX_NUM-222 = [123467] (222) DE
+IX_NUM-223 = [0123467] (223) DF
+IX_NUM-224 = [567] (224) E0
+IX_NUM-225 = [0567] (225) E1
+IX_NUM-226 = [1567] (226) E2
+IX_NUM-227 = [01567] (227) E3
+IX_NUM-228 = [2567] (228) E4
+IX_NUM-229 = [02567] (229) E5
+IX_NUM-230 = [12567] (230) E6
+IX_NUM-231 = [012567] (231) E7
+IX_NUM-232 = [3567] (232) E8
+IX_NUM-233 = [03567] (233) E9
+IX_NUM-234 = [13567] (234) EA
+IX_NUM-235 = [013567] (235) EB
+IX_NUM-236 = [23567] (236) EC
+IX_NUM-237 = [023567] (237) ED
+IX_NUM-238 = [123567] (238) EE
+IX_NUM-239 = [0123567] (239) EF
+IX_NUM-240 = [4567] (240) F0
+IX_NUM-241 = [04567] (241) F1
+IX_NUM-242 = [14567] (242) F2
+IX_NUM-243 = [014567] (243) F3
+IX_NUM-244 = [24567] (244) F4
+IX_NUM-245 = [024567] (245) F5
+IX_NUM-246 = [124567] (246) F6
+IX_NUM-247 = [0124567] (247) F7
+IX_NUM-248 = [34567] (248) F8
+IX_NUM-249 = [034567] (249) F9
+IX_NUM-250 = [134567] (250) FA
+IX_NUM-251 = [0134567] (251) FB
+IX_NUM-252 = [234567] (252) FC
+IX_NUM-253 = [0234567] (253) FD
+IX_NUM-254 = [1234567] (254) FE
+IX_NUM-255 = [01234567] (255) FF
+
+# Add '-fmt' to cmd nls stem e.g. if nls stem 'c-on', then define 'c-on-fmt'
+# First character is separator to use, in this case its '/'
+# /<param name>/<param text if omitted>/<param text if not omitted>/ [.. next parameters]
+# No parameters then command is displayed with nothing else e.g. "Fast On"
+# default format is: <cmd name> $/<param1 name>//${id}=${v}/ [... same for rest of parameters]
+#  -  ${c} Command Name e.g. On
+#  -  ${id} id of parameter e.g. 'Level'
+#  -  ${v} value of parameter using 'nice' uom value e.g. '20.5%' '30 seconds'
+# pgm_DON_fmt = /level/${c}/to ${v}/ /ramprate// in ${v}/ /offtimer//, turn off ${v} later/
+# d2d_DOF_fmt = /ramprate// in ${v}/
+# c-fade.to-fmt = /level/${c}/${v}/ /ramprate// in ${v}/ /offtimer//, Turn Off ${v}/
+# d2d_FUP_fmt = /ramprate// in ${v}/
+# d2d-FDOWN_fmt = /ramprate// in ${v}/
+# #d2d-FSTOP_fmt =
+# d2d-BLINK_fmt = /rate/${c}/to ${c} every ${v}/
+# d2d-BRT_fmt = /any/${c}/${c}/
+# d2d-DIM_fmt = /any/${c}/${c}/

@@ -1,0 +1,98 @@
+{
+  "LUTLoadShed": {
+    "className": "LoadShedNode",
+    "id": "LUTLoadShed",
+    "nlsId": "RELAY",
+    "drivers": {
+      "ST": {
+        "label": "Status",
+        "hidden": false,
+        "id": "ST",
+        "editorId": "LUT_OL_RELAY",
+        "dataType": {
+          "51": {
+            "uom": 51,
+            "indexId": "LUT_OL",
+            "enum": true,
+            "values": {
+              "0": "",
+              "100": ""
+            }
+          }
+        },
+        "name": "status"
+      },
+      "ERR": {
+        "label": "Responding",
+        "hidden": true,
+        "id": "ERR",
+        "editorId": "LUT_ERR",
+        "dataType": {
+          "25": {
+            "uom": 25,
+            "indexId": "IX_ERR",
+            "enum": true,
+            "values": {
+              "0": "True",
+              "1": "False"
+            }
+          }
+        },
+        "name": "responding"
+      }
+    },
+    "commands": {
+      "DON": {
+        "label": "On",
+        "id": "DON",
+        "editorId": "LUT_OL_RELAY",
+        "dataType": {
+          "51": {
+            "uom": 51,
+            "indexId": "LUT_OL",
+            "enum": true,
+            "values": {
+              "0": "",
+              "100": ""
+            }
+          }
+        },
+        "name": "on",
+        "optional": true,
+        "parameters": {
+          "value": {
+            "id": "value",
+            "editorId": "LUT_OL_RELAY",
+            "dataType": {
+              "51": {
+                "uom": 51,
+                "indexId": "LUT_OL",
+                "enum": true,
+                "values": {
+                  "0": "",
+                  "100": ""
+                }
+              }
+            },
+            "name": "value"
+          }
+        },
+        "initialValue": "ST"
+      },
+      "DOF": {
+        "label": "Off",
+        "id": "DOF",
+        "name": "off"
+      },
+      "QUERY": {
+        "label": "Query",
+        "id": "QUERY",
+        "name": "query"
+      }
+    },
+    "events": {},
+    "family": 11,
+    "label": "Load Shed",
+    "name": "LoadShedNode"
+  }
+}

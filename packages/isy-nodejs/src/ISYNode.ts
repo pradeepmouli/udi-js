@@ -6,8 +6,8 @@ import { DriverType,  Drivers, DriverList, Driver, type EnumLiteral } from './De
 import { Categories, Controls, ISY, ISYScene, NodeType } from './ISY.js';
 import { PropertyChangedEventEmitter } from './Utils.js';
 import { LogMethod, Logform, Logger, debug } from 'winston';
-import { NodeInfo } from './Definitions/NodeInfo.js';
-import { DriverState } from './Definitions/PropertyStatus.js';
+import { NodeInfo } from './Model/NodeInfo.js';
+import { DriverState } from './Model/DriverState.js';
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
 import type { DriversOf } from './Model/ClusterMap.js';
 
@@ -31,10 +31,9 @@ export interface NodeNotes {
 
 export type DriverValues<DK extends string = DriverType.Status,V = any> = {[x in DK]?:V};
 
-var StandardDrivers : DriverValues<DriverType.Status> = {"ST":"a"}
 
 
-export class ISYNode<D extends Driver.Literal> extends EventEmitter implements PropertyChangedEventEmitter {
+export class ISYNode<D extends Driver.Literal = Driver.Literal>  extends EventEmitter implements PropertyChangedEventEmitter {
   public readonly isy: ISY;
 
   public readonly formatted: DriverValues<D,string> = {};
@@ -253,8 +252,8 @@ export interface ISYDevice<T extends Family, D extends Driver.Literal = Driver.L
   category: number;
   subCategory: number;
   type: any;
-  _parentDevice: ISYNodeDevice<T, Driver.Literal, string>;
-  children: Array<ISYNodeDevice<T, Driver.Literal, string>>;
+  _parentDevice: ISYDeviceNode<T, Driver.Literal, string>;
+  children: Array<ISYDeviceNode<T, Driver.Literal, string>>;
   scenes: ISYScene[];
   hidden: boolean;
   enabled: boolean;
@@ -271,7 +270,7 @@ export interface ISYDevice<T extends Family, D extends Driver.Literal = Driver.L
   convertFrom(value: any, UnitOfMeasure: number): any;
   convertFrom(value: any, UnitOfMeasure: number, propertyName: Driver.Literal): any;
   addLink(isyScene: ISYScene): void;
-  addChild(childDevice: ISYNodeDevice<T, Driver.Literal, string>): void;
+  addChild(childDevice: ISYDeviceNode<T, Driver.Literal, string>): void;
   readProperty(propertyName: D): Promise<DriverState>;
   readProperties(): Promise<DriverState[]>;
   updateProperty(propertyName: D, value: string): Promise<any>;
@@ -631,8 +630,8 @@ export class ISYMultiNodeDevice<T extends Family, L extends [ISYNode<DriverType.
   category: number;
   subCategory: number;
   type: any;
-  _parentDevice: ISYNodeDevice<T, Driver.Literal, string>;
-  children: ISYNodeDevice<T, Driver.Literal, string>[];
+  _parentDevice: ISYDeviceNode<T, Driver.Literal, string>;
+  children: ISYDeviceNode<T, Driver.Literal, string>[];
   scenes: ISYScene[];
   hidden: boolean;
   _enabled: any;
@@ -650,7 +649,7 @@ export class ISYMultiNodeDevice<T extends Family, L extends [ISYNode<DriverType.
   addLink(isyScene: ISYScene): void {
     throw new Error("Method not implemented.");
   }
-  addChild(childDevice: ISYNodeDevice<T, Driver.Literal, string>): void {
+  addChild(childDevice: ISYDeviceNode<T, Driver.Literal, string>): void {
     throw new Error("Method not implemented.");
   }
   readProperty(propertyName: D): Promise<DriverState> {
@@ -680,7 +679,7 @@ export class ISYMultiNodeDevice<T extends Family, L extends [ISYNode<DriverType.
   }
 }
 
-export class ISYNodeDevice<
+export class ISYDeviceNode<
     T extends Family,
     D extends Driver.Literal,
     C extends string
@@ -696,8 +695,8 @@ export class ISYNodeDevice<
   public readonly category: number;
   public readonly subCategory: number;
   public readonly type: any;
-  public _parentDevice: ISYNodeDevice<T, Driver.Literal, string>;
-  public readonly children: Array<ISYNodeDevice<T, Driver.Literal, string>> = [];
+  public _parentDevice: ISYDeviceNode<T, Driver.Literal, string>;
+  public readonly children: Array<ISYDeviceNode<T, Driver.Literal, string>> = [];
   public readonly scenes: ISYScene[] = [];
 
   public hidden: boolean = false;
@@ -724,7 +723,7 @@ export class ISYNodeDevice<
 
     // console.log(nodeDetail);
     if (this.parentAddress !== this.address && this.parentAddress !== undefined) {
-      this._parentDevice = isy.getDevice(this.parentAddress);
+      this._parentDevice = isy.getDevice(this.parentAddress) as unknown as ISYDeviceNode<T, Driver.Literal, string>;
       if (!isNullOrUndefined(this._parentDevice)) {
         this._parentDevice.addChild(this);
       }
@@ -768,14 +767,14 @@ export class ISYNodeDevice<
     this.scenes.push(isyScene);
   }
 
-  public addChild<K extends ISYNodeDevice<T, any, any>>(childDevice: K) {
+  public addChild<K extends ISYDeviceNode<T, any, any>>(childDevice: K) {
     this.children.push(childDevice);
   }
 
-  get parentDevice(): ISYNodeDevice<T, Driver.Literal, string> {
+  get parentDevice(): ISYDeviceNode<T, Driver.Literal, string> {
     if (this._parentDevice === undefined) {
       if (this.parentAddress !== this.address && this.parentAddress !== null && this.parentAddress !== undefined) {
-        this._parentDevice = this.isy.getDevice(this.parentAddress);
+        this._parentDevice = this.isy.getDevice(this.parentAddress) as unknown as ISYDeviceNode<T, Driver.Literal, string>;
         if (this._parentDevice !== null) {
           this._parentDevice.addChild(this);
         }
@@ -811,6 +810,7 @@ export class ISYNodeDevice<
     command: string,
     parameters?: Record<string | symbol, string | number> | string | number
   ): Promise<any> {
+    //@
     return this.isy.sendNodeCommand(this, command, parameters);
   }
 

@@ -1,0 +1,26 @@
+{
+  "NCD_ERR": {
+    "range": {
+      "uom": 25,
+      "subset": "0,1",
+      "nls": "IX_ERR"
+    },
+    "id": "NCD_ERR"
+  },
+  "NCD_ADRPST": {
+    "range": {
+      "uom": 25,
+      "subset": "0,1",
+      "nls": "R_ADRPST"
+    },
+    "id": "NCD_ADRPST"
+  },
+  "NCD_OL_RELAY": {
+    "range": {
+      "uom": 51,
+      "subset": "0,100",
+      "nls": "R_OL"
+    },
+    "id": "NCD_OL_RELAY"
+  }
+}

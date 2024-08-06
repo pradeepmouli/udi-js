@@ -1,14 +1,16 @@
 {
     "compileOnSave": true,
+    "extends": "../../tsconfig.base.json",
+
     "compilerOptions": {
         "target": "es2022",
         "module": "NodeNext",
 
         "rootDir": "./src",
-        "outDir": "./dist",
-        "declaration": false,
+
         //"declarationDir": "./dist/types",
         "allowArbitraryExtensions": true,
+        "disableSizeLimit": true,
 
         "allowSyntheticDefaultImports": true,
         "allowJs": false,
@@ -16,10 +18,12 @@
         "noImplicitOverride": true,
         "noImplicitThis": true,
         "esModuleInterop": true,
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "typeRoots": ["../../node_modules/@types", "types"],
     },
 
-      "include": ["src/**/*", "test/**/*", "types/**/*", "scripts/**/*", "bin/**/*", "index.ts", "index.js", "index.d.ts"],
+      "include": ["src/**/*", "test/**/*", "types/**/*", "scripts/**/*", "bin/**/*", "index.ts", "index.js", "index.d.ts",
+      "src/Definitions/Global/*.ts"],
     "exclude": [
         "node_modules/@project-chip/*",
         "node_modules",
@@ -35,7 +39,12 @@
         "index.d.ts",
         "src/CLI/*",
         "src/CLI",
-        "CLI/*"
+        "CLI/*",
+        "src/Devices/*/Generated/*",
+        "src/Definitions/Insteon/*",
+        "src/Definitions/ZWave/*",
+        "src/Definitions/ZWaveLegacy/*",
+        "src/Definitions/ZigBee/*"
 
     ]
 }

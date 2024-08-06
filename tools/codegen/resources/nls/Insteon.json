@@ -1,0 +1,4649 @@
+{
+  "143": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "143",
+        "value": "Temperature",
+        "driver": "ST",
+        "property": "NAME"
+      }
+    ],
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "143",
+        "value": "Setpoint Up",
+        "command": "BRT",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "143",
+        "value": "Setpoint Down",
+        "command": "DIM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "2844": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "2844",
+        "value": "Battery Powered",
+        "driver": "GV1",
+        "property": "NAME"
+      }
+    ],
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "2844",
+        "value": "Calibrate Temperature",
+        "command": "CLITEMP",
+        "property": "NAME"
+      }
+    ]
+  },
+  "Generic": {
+    "GEN": [
+      {
+        "type": "GEN",
+        "nlsId": "Generic",
+        "value": "Temperature",
+        "property": "TEMP"
+      },
+      {
+        "type": "GEN",
+        "nlsId": "Generic",
+        "value": "On Level",
+        "property": "OL"
+      },
+      {
+        "type": "GEN",
+        "nlsId": "Generic",
+        "value": "Ramp Rate",
+        "property": "RR"
+      }
+    ],
+    "PGM": [
+      {
+        "type": "PGM",
+        "key": "CMD-BEEP-FMT",
+        "value": "/level/${c}/${c} ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-SRN-DON-FMT",
+        "value": ";DUR;On;On for ${v}; ;DLY;;, ${v};"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-FLM-DON-FMT",
+        "value": "///${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "BMAN-FMT",
+        "value": "/dir/${c}/Fade ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-GV1-FMT",
+        "value": "/num//${c} Parameter ${v}/ /val//"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-143-BRT-FMT",
+        "value": "//${c} 1\\u00B0/${c} ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-143-DIM-FMT",
+        "value": "//${c} 1\\u00B0/${c} ${v}/"
+      }
+    ],
+    "CMDP": [
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Level",
+        "commandParameter": "LEVEL",
+        "property": "NAME",
+        "editorId": "I_BEEP_255"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Duration",
+        "commandParameter": "DUR",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Delay",
+        "commandParameter": "DLY",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Tone",
+        "commandParameter": "TT",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Level",
+        "commandParameter": "I_OL",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Ramp Rate",
+        "commandParameter": "I_RR",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Retries",
+        "commandParameter": "CLNRT",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Number",
+        "commandParameter": "NUM",
+        "property": "NAME",
+        "editorId": "I_PARAM_NUM"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Size",
+        "commandParameter": "LEN",
+        "property": "NAME",
+        "editorId": "I_PARAM_LEN"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Value",
+        "commandParameter": "VAL",
+        "property": "NAME",
+        "editorId": "I_PARAM_VAL"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "CMD1",
+        "commandParameter": "ICMD1",
+        "property": "NAME",
+        "editorId": "I_NUM_255"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "CMD2",
+        "commandParameter": "ICMD2",
+        "property": "NAME",
+        "editorId": "I_NUM_255"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Data1",
+        "commandParameter": "IDATA1",
+        "property": "NAME",
+        "editorId": "I_NUM_255"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Data2",
+        "commandParameter": "IDATA2",
+        "property": "NAME",
+        "editorId": "I_NUM_255"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Data3",
+        "commandParameter": "IDATA3",
+        "property": "NAME",
+        "editorId": "I_NUM_255"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Data4",
+        "commandParameter": "IDATA4",
+        "property": "NAME",
+        "editorId": "I_NUM_255"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Option",
+        "commandParameter": "ICMDOPT",
+        "property": "NAME",
+        "editorId": "I_NUM_255"
+      }
+    ],
+    "IX": [
+      {
+        "comment": "#",
+        "type": "IX",
+        "value": "Off",
+        "indexType": "IX_I_L255",
+        "indexValue": 0
+      },
+      {
+        "comment": "#",
+        "type": "IX",
+        "value": "On",
+        "indexType": "IX_I_L255",
+        "indexValue": 255
+      },
+      {
+        "comment": "#",
+        "type": "IX",
+        "value": "Down",
+        "indexType": "IX_I_BMAN",
+        "indexValue": 0
+      },
+      {
+        "comment": "#",
+        "type": "IX",
+        "value": "Up",
+        "indexType": "IX_I_BMAN",
+        "indexValue": 1
+      },
+      {
+        "comment": "#",
+        "type": "IX",
+        "value": "Off",
+        "indexType": "IX_I_OL_RELAY",
+        "indexValue": 0
+      },
+      {
+        "comment": "#",
+        "type": "IX",
+        "value": "On",
+        "indexType": "IX_I_OL_RELAY",
+        "indexValue": 100
+      },
+      {
+        "comment": "#",
+        "type": "IX",
+        "value": "Both Off",
+        "indexType": "IX_I_SML",
+        "indexValue": 0
+      },
+      {
+        "comment": "#",
+        "type": "IX",
+        "value": "One On",
+        "indexType": "IX_I_SML",
+        "indexValue": 50
+      },
+      {
+        "comment": "#",
+        "type": "IX",
+        "value": "Both On",
+        "indexType": "IX_I_SML",
+        "indexValue": 100
+      },
+      {
+        "comment": "#",
+        "type": "IX",
+        "value": "Off",
+        "indexType": "IX_I_OL_PCT",
+        "indexValue": 0
+      },
+      {
+        "comment": "#",
+        "type": "IX",
+        "value": "Off",
+        "indexType": "IX_I_OL_PCT_ON",
+        "indexValue": 0
+      },
+      {
+        "comment": "#",
+        "type": "IX",
+        "value": "On",
+        "indexType": "IX_I_OL_PCT_ON",
+        "indexValue": 100
+      },
+      {
+        "comment": "# MorningLinc",
+        "type": "IX",
+        "value": "Unlocked",
+        "indexType": "IX_I_LOCK",
+        "indexValue": 0
+      },
+      {
+        "comment": "# MorningLinc",
+        "type": "IX",
+        "value": "Locked",
+        "indexType": "IX_I_LOCK",
+        "indexValue": 100
+      },
+      {
+        "comment": "# BMAN/SMAN - Fade up/down/stop",
+        "type": "IX",
+        "value": "1 Byte",
+        "indexType": "IX_PARAM_LEN",
+        "indexValue": 1
+      },
+      {
+        "comment": "# BMAN/SMAN - Fade up/down/stop",
+        "type": "IX",
+        "value": "2 Bytes",
+        "indexType": "IX_PARAM_LEN",
+        "indexValue": 2
+      },
+      {
+        "comment": "# BMAN/SMAN - Fade up/down/stop",
+        "type": "IX",
+        "value": "4 Bytes",
+        "indexType": "IX_PARAM_LEN",
+        "indexValue": 4
+      },
+      {
+        "comment": "# I3 Dual Outlet LED",
+        "type": "IX",
+        "value": "Always Off",
+        "indexType": "IX_I3_RGB_LED",
+        "indexValue": 0
+      },
+      {
+        "comment": "# I3 Dual Outlet LED",
+        "type": "IX",
+        "value": "On",
+        "indexType": "IX_I3_RGB_LED",
+        "indexValue": 1
+      },
+      {
+        "comment": "# I3 Dual Outlet LED",
+        "type": "IX",
+        "value": "Default Behavior Off",
+        "indexType": "IX_I3_RGB_LED",
+        "indexValue": 2
+      },
+      {
+        "comment": "# I3 Dual Outlet LED",
+        "type": "IX",
+        "value": "Default Behavior On",
+        "indexType": "IX_I3_RGB_LED",
+        "indexValue": 3
+      },
+      {
+        "comment": "# I3 Dual Outlet LED",
+        "type": "IX",
+        "value": "Red Off",
+        "indexType": "IX_I3_RGB_LED",
+        "indexValue": 4
+      },
+      {
+        "comment": "# I3 Dual Outlet LED",
+        "type": "IX",
+        "value": "Red On",
+        "indexType": "IX_I3_RGB_LED",
+        "indexValue": 5
+      },
+      {
+        "comment": "# I3 Dual Outlet LED",
+        "type": "IX",
+        "value": "Green Off",
+        "indexType": "IX_I3_RGB_LED",
+        "indexValue": 6
+      },
+      {
+        "comment": "# I3 Dual Outlet LED",
+        "type": "IX",
+        "value": "Green On",
+        "indexType": "IX_I3_RGB_LED",
+        "indexValue": 7
+      },
+      {
+        "comment": "# I3 Dual Outlet LED",
+        "type": "IX",
+        "value": "Blue Off",
+        "indexType": "IX_I3_RGB_LED",
+        "indexValue": 8
+      },
+      {
+        "comment": "# I3 Dual Outlet LED",
+        "type": "IX",
+        "value": "Blue On",
+        "indexType": "IX_I3_RGB_LED",
+        "indexValue": 9
+      },
+      {
+        "comment": "# I3 Flags settings",
+        "type": "IX",
+        "value": "Off",
+        "indexType": "IX_I3_ON_OFF",
+        "indexValue": 0
+      },
+      {
+        "comment": "# I3 Flags settings",
+        "type": "IX",
+        "value": "On",
+        "indexType": "IX_I3_ON_OFF",
+        "indexValue": 1
+      },
+      {
+        "comment": "# I3 Flags settings",
+        "type": "IX",
+        "value": "Dimmer",
+        "indexType": "IX_I3_RELAY_DIM",
+        "indexValue": 0
+      },
+      {
+        "comment": "# I3 Flags settings",
+        "type": "IX",
+        "value": "Relay",
+        "indexType": "IX_I3_RELAY_DIM",
+        "indexValue": 1
+      },
+      {
+        "comment": "# I3 Keypad Flags",
+        "type": "IX",
+        "value": "Not Used",
+        "indexType": "IX_I3_LOAD_4",
+        "indexValue": 0
+      },
+      {
+        "comment": "# I3 Keypad Flags",
+        "type": "IX",
+        "value": "Button 1",
+        "indexType": "IX_I3_LOAD_4",
+        "indexValue": 1
+      },
+      {
+        "comment": "# I3 Keypad Flags",
+        "type": "IX",
+        "value": "Button 2",
+        "indexType": "IX_I3_LOAD_4",
+        "indexValue": 2
+      },
+      {
+        "comment": "# I3 Keypad Flags",
+        "type": "IX",
+        "value": "Button 3",
+        "indexType": "IX_I3_LOAD_4",
+        "indexValue": 3
+      },
+      {
+        "comment": "# I3 Keypad Flags",
+        "type": "IX",
+        "value": "Button 4",
+        "indexType": "IX_I3_LOAD_4",
+        "indexValue": 4
+      },
+      {
+        "comment": "# PIR 2844 Motion conditions",
+        "type": "IX",
+        "value": "Never",
+        "indexType": "IX_MM",
+        "indexValue": 0
+      },
+      {
+        "comment": "# PIR 2844 Motion conditions",
+        "type": "IX",
+        "value": "Always",
+        "indexType": "IX_MM",
+        "indexValue": 1
+      },
+      {
+        "comment": "# PIR 2844 Motion conditions",
+        "type": "IX",
+        "value": "Only during Day",
+        "indexType": "IX_MM",
+        "indexValue": 2
+      },
+      {
+        "comment": "# PIR 2844 Motion conditions",
+        "type": "IX",
+        "value": "Only at Night",
+        "indexType": "IX_MM",
+        "indexValue": 3
+      },
+      {
+        "comment": "# PIR 2844 Motion conditions",
+        "type": "IX",
+        "value": "Only when Hot",
+        "indexType": "IX_MM",
+        "indexValue": 4
+      },
+      {
+        "comment": "# PIR 2844 Motion conditions",
+        "type": "IX",
+        "value": "Only when Cold",
+        "indexType": "IX_MM",
+        "indexValue": 5
+      },
+      {
+        "comment": "# PIR 2844 Motion conditions",
+        "type": "IX",
+        "value": "Only Day + Hot",
+        "indexType": "IX_MM",
+        "indexValue": 6
+      },
+      {
+        "comment": "# PIR 2844 Motion conditions",
+        "type": "IX",
+        "value": "Only Day + Cold",
+        "indexType": "IX_MM",
+        "indexValue": 7
+      },
+      {
+        "comment": "# PIR 2844 Motion conditions",
+        "type": "IX",
+        "value": "Only Night + Hot",
+        "indexType": "IX_MM",
+        "indexValue": 8
+      },
+      {
+        "comment": "# PIR 2844 Motion conditions",
+        "type": "IX",
+        "value": "Only Night + Cold",
+        "indexType": "IX_MM",
+        "indexValue": 9
+      },
+      {
+        "comment": "# PIR 2844 Day & Night conditions",
+        "type": "IX",
+        "value": "Never",
+        "indexType": "IX_MDN",
+        "indexValue": 0
+      },
+      {
+        "comment": "# PIR 2844 Day & Night conditions",
+        "type": "IX",
+        "value": "Always",
+        "indexType": "IX_MDN",
+        "indexValue": 1
+      },
+      {
+        "comment": "# PIR 2844 Day & Night conditions",
+        "type": "IX",
+        "value": "Only when Hot",
+        "indexType": "IX_MDN",
+        "indexValue": 2
+      },
+      {
+        "comment": "# PIR 2844 Day & Night conditions",
+        "type": "IX",
+        "value": "Only when Cold",
+        "indexType": "IX_MDN",
+        "indexValue": 3
+      },
+      {
+        "comment": "# PIR 2844 Hot & Cold conditions",
+        "type": "IX",
+        "value": "Never",
+        "indexType": "IX_MHC",
+        "indexValue": 0
+      },
+      {
+        "comment": "# PIR 2844 Hot & Cold conditions",
+        "type": "IX",
+        "value": "Always",
+        "indexType": "IX_MHC",
+        "indexValue": 1
+      },
+      {
+        "comment": "# PIR 2844 Hot & Cold conditions",
+        "type": "IX",
+        "value": "Only during Day",
+        "indexType": "IX_MHC",
+        "indexValue": 2
+      },
+      {
+        "comment": "# PIR 2844 Hot & Cold conditions",
+        "type": "IX",
+        "value": "Only at Night",
+        "indexType": "IX_MHC",
+        "indexValue": 3
+      },
+      {
+        "comment": "# Boolean False/True",
+        "type": "IX",
+        "value": "False",
+        "indexType": "IX_BOOL",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Boolean False/True",
+        "type": "IX",
+        "value": "True",
+        "indexType": "IX_BOOL",
+        "indexValue": 255
+      },
+      {
+        "comment": "# Insteon Siren Tone Type",
+        "type": "IX",
+        "value": "Chime",
+        "indexType": "IX_TT",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Insteon Siren Tone Type",
+        "type": "IX",
+        "value": "Siren",
+        "indexType": "IX_TT",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Insteon Siren Countdown",
+        "type": "IX",
+        "value": "Immediate",
+        "indexType": "IX_DLY",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Insteon Siren Countdown",
+        "type": "IX",
+        "value": "Delayed",
+        "indexType": "IX_DLY",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Insteon Siren Arm Delay",
+        "type": "IX",
+        "value": "Beep",
+        "indexType": "IX_SIL",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Insteon Siren Arm Delay",
+        "type": "IX",
+        "value": "Silent",
+        "indexType": "IX_SIL",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Insteon Siren Mode",
+        "type": "IX",
+        "value": "Home",
+        "indexType": "IX_SIRMD",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Insteon Siren Mode",
+        "type": "IX",
+        "value": "Away",
+        "indexType": "IX_SIRMD",
+        "indexValue": 3
+      },
+      {
+        "comment": "# Insteon Siren Mode",
+        "type": "IX",
+        "value": "Home & Away",
+        "indexType": "IX_SIRMD",
+        "indexValue": 4
+      },
+      {
+        "comment": "# Insteon Siren Mode Status",
+        "type": "IX",
+        "value": "Disarmed",
+        "indexType": "IX_SIRMD_ST",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Insteon Siren Mode Status",
+        "type": "IX",
+        "value": "Armed Home",
+        "indexType": "IX_SIRMD_ST",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Insteon Siren Mode Status",
+        "type": "IX",
+        "value": "Armed Away",
+        "indexType": "IX_SIRMD_ST",
+        "indexValue": 3
+      },
+      {
+        "comment": "# Insteon Siren Mode Status",
+        "type": "IX",
+        "value": "Armed Home & Away",
+        "indexType": "IX_SIRMD_ST",
+        "indexValue": 4
+      },
+      {
+        "comment": "# Communication Error",
+        "type": "IX",
+        "value": "True",
+        "indexType": "IX_ERR",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Communication Error",
+        "type": "IX",
+        "value": "False",
+        "indexType": "IX_ERR",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Fan Level",
+        "type": "IX",
+        "value": "Off",
+        "indexType": "IX_I_FL",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Fan Level",
+        "type": "IX",
+        "value": "Low",
+        "indexType": "IX_I_FL",
+        "indexValue": 25
+      },
+      {
+        "comment": "# Fan Level",
+        "type": "IX",
+        "value": "Medium",
+        "indexType": "IX_I_FL",
+        "indexValue": 75
+      },
+      {
+        "comment": "# Fan Level",
+        "type": "IX",
+        "value": "High",
+        "indexType": "IX_I_FL",
+        "indexValue": 100
+      },
+      {
+        "comment": "# Scene retries",
+        "type": "IX",
+        "value": "No retries",
+        "indexType": "IX_I_CLNRT",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Scene retries",
+        "type": "IX",
+        "value": "1 retry",
+        "indexType": "IX_I_CLNRT",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Scene retries",
+        "type": "IX",
+        "value": "2 retries",
+        "indexType": "IX_I_CLNRT",
+        "indexValue": 2
+      },
+      {
+        "comment": "# Scene retries",
+        "type": "IX",
+        "value": "3 retries",
+        "indexType": "IX_I_CLNRT",
+        "indexValue": 3
+      },
+      {
+        "comment": "# Scene retries",
+        "type": "IX",
+        "value": "4 retries",
+        "indexType": "IX_I_CLNRT",
+        "indexValue": 4
+      },
+      {
+        "comment": "# Scene retries",
+        "type": "IX",
+        "value": "5 retries",
+        "indexType": "IX_I_CLNRT",
+        "indexValue": 5
+      },
+      {
+        "comment": "# Scene retries",
+        "type": "IX",
+        "value": "6 retries",
+        "indexType": "IX_I_CLNRT",
+        "indexValue": 6
+      },
+      {
+        "comment": "# Scene retries",
+        "type": "IX",
+        "value": "7 retries",
+        "indexType": "IX_I_CLNRT",
+        "indexValue": 7
+      },
+      {
+        "comment": "# Scene retries",
+        "type": "IX",
+        "value": "8 retries",
+        "indexType": "IX_I_CLNRT",
+        "indexValue": 8
+      },
+      {
+        "comment": "# Scene retries",
+        "type": "IX",
+        "value": "9 retries",
+        "indexType": "IX_I_CLNRT",
+        "indexValue": 9
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "0.1 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 31
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "0.2 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 30
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "0.3 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 29
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "0.5 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 28
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "2.0 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 27
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "4.5 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 26
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "6.5 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 25
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "8.5 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 24
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "19.0 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 23
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "21.5 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 22
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "23.5 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 21
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "26.0 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 20
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "28.0 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 19
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "30.0 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 18
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "32.0 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 17
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "34.0 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 16
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "38.5 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 15
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "43.0 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 14
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "47.0 seconds",
+        "indexType": "IX_I_RR",
+        "indexValue": 13
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "1.0 minute",
+        "indexType": "IX_I_RR",
+        "indexValue": 12
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "1.5 minutes",
+        "indexType": "IX_I_RR",
+        "indexValue": 11
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "2.0 minutes",
+        "indexType": "IX_I_RR",
+        "indexValue": 10
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "2.5 minutes",
+        "indexType": "IX_I_RR",
+        "indexValue": 9
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "3.0 minutes",
+        "indexType": "IX_I_RR",
+        "indexValue": 8
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "3.5 minutes",
+        "indexType": "IX_I_RR",
+        "indexValue": 7
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "4.0 minutes",
+        "indexType": "IX_I_RR",
+        "indexValue": 6
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "4.5 minutes",
+        "indexType": "IX_I_RR",
+        "indexValue": 5
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "5.0 minutes",
+        "indexType": "IX_I_RR",
+        "indexValue": 4
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "6.0 minutes",
+        "indexType": "IX_I_RR",
+        "indexValue": 3
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "7.0 minutes",
+        "indexType": "IX_I_RR",
+        "indexValue": 2
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "8.0 minutes",
+        "indexType": "IX_I_RR",
+        "indexValue": 1
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "9.0 minutes",
+        "indexType": "IX_I_RR",
+        "indexValue": 0
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  0 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 0
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  1 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 1
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  2 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 2
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  3 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 3
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  4 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 4
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  5 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 5
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  6 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 6
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  7 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 7
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  8 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 8
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  9 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 9
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 10 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 10
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 11 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 11
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 12 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 12
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 13 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 13
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 14 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 14
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 15 / Off 0",
+        "indexType": "IX_I_BL",
+        "indexValue": 15
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  0 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 16
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  1 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 17
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  2 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 18
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  3 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 19
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  4 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 20
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  5 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 21
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  6 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 22
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  7 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 23
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  8 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 24
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  9 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 25
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 10 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 26
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 11 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 27
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 12 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 28
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 13 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 29
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 14 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 30
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 15 / Off 1",
+        "indexType": "IX_I_BL",
+        "indexValue": 31
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  0 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 32
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  1 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 33
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  2 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 34
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  3 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 35
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  4 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 36
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  5 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 37
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  6 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 38
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  7 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 39
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  8 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 40
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  9 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 41
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 10 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 42
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 11 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 43
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 12 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 44
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 13 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 45
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 14 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 46
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 15 / Off 2",
+        "indexType": "IX_I_BL",
+        "indexValue": 47
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  0 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 48
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  1 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 49
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  2 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 50
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  3 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 51
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  4 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 52
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  5 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 53
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  6 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 54
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  7 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 55
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  8 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 56
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  9 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 57
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 10 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 58
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 11 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 59
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 12 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 60
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 13 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 61
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 14 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 62
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 15 / Off 3",
+        "indexType": "IX_I_BL",
+        "indexValue": 63
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  0 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 64
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  1 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 65
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  2 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 66
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  3 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 67
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  4 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 68
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  5 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 69
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  6 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 70
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  7 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 71
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  8 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 72
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  9 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 73
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 10 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 74
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 11 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 75
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 12 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 76
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 13 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 77
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 14 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 78
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 15 / Off 4",
+        "indexType": "IX_I_BL",
+        "indexValue": 79
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  0 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 80
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  1 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 81
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  2 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 82
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  3 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 83
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  4 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 84
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  5 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 85
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  6 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 86
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  7 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 87
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  8 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 88
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  9 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 89
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 10 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 90
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 11 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 91
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 12 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 92
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 13 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 93
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 14 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 94
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 15 / Off 5",
+        "indexType": "IX_I_BL",
+        "indexValue": 95
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  0 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 96
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  1 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 97
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  2 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 98
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  3 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 99
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  4 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 100
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  5 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 101
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  6 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 102
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  7 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 103
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  8 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 104
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  9 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 105
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 10 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 106
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 11 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 107
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 12 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 108
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 13 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 109
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 14 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 110
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 15 / Off 6",
+        "indexType": "IX_I_BL",
+        "indexValue": 111
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  0 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 112
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  1 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 113
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  2 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 114
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  3 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 115
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  4 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 116
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  5 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 117
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  6 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 118
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  7 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 119
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  8 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 120
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On  9 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 121
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 10 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 122
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 11 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 123
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 12 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 124
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 13 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 125
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 14 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 126
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "On 15 / Off 7",
+        "indexType": "IX_I_BL",
+        "indexValue": 127
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[] (0) 00",
+        "indexType": "IX_NUM",
+        "indexValue": 0
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0] (1) 01",
+        "indexType": "IX_NUM",
+        "indexValue": 1
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1] (2) 02",
+        "indexType": "IX_NUM",
+        "indexValue": 2
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01] (3) 03",
+        "indexType": "IX_NUM",
+        "indexValue": 3
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[2] (4) 04",
+        "indexType": "IX_NUM",
+        "indexValue": 4
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[02] (5) 05",
+        "indexType": "IX_NUM",
+        "indexValue": 5
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[12] (6) 06",
+        "indexType": "IX_NUM",
+        "indexValue": 6
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[012] (7) 07",
+        "indexType": "IX_NUM",
+        "indexValue": 7
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[3] (8) 08",
+        "indexType": "IX_NUM",
+        "indexValue": 8
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[03] (9) 09",
+        "indexType": "IX_NUM",
+        "indexValue": 9
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[13] (10) 0A",
+        "indexType": "IX_NUM",
+        "indexValue": 10
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[013] (11) 0B",
+        "indexType": "IX_NUM",
+        "indexValue": 11
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[23] (12) 0C",
+        "indexType": "IX_NUM",
+        "indexValue": 12
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[023] (13) 0D",
+        "indexType": "IX_NUM",
+        "indexValue": 13
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[123] (14) 0E",
+        "indexType": "IX_NUM",
+        "indexValue": 14
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0123] (15) 0F",
+        "indexType": "IX_NUM",
+        "indexValue": 15
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[4] (16) 10",
+        "indexType": "IX_NUM",
+        "indexValue": 16
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[04] (17) 11",
+        "indexType": "IX_NUM",
+        "indexValue": 17
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[14] (18) 12",
+        "indexType": "IX_NUM",
+        "indexValue": 18
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[014] (19) 13",
+        "indexType": "IX_NUM",
+        "indexValue": 19
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[24] (20) 14",
+        "indexType": "IX_NUM",
+        "indexValue": 20
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[024] (21) 15",
+        "indexType": "IX_NUM",
+        "indexValue": 21
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[124] (22) 16",
+        "indexType": "IX_NUM",
+        "indexValue": 22
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0124] (23) 17",
+        "indexType": "IX_NUM",
+        "indexValue": 23
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[34] (24) 18",
+        "indexType": "IX_NUM",
+        "indexValue": 24
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[034] (25) 19",
+        "indexType": "IX_NUM",
+        "indexValue": 25
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[134] (26) 1A",
+        "indexType": "IX_NUM",
+        "indexValue": 26
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0134] (27) 1B",
+        "indexType": "IX_NUM",
+        "indexValue": 27
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[234] (28) 1C",
+        "indexType": "IX_NUM",
+        "indexValue": 28
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0234] (29) 1D",
+        "indexType": "IX_NUM",
+        "indexValue": 29
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1234] (30) 1E",
+        "indexType": "IX_NUM",
+        "indexValue": 30
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01234] (31) 1F",
+        "indexType": "IX_NUM",
+        "indexValue": 31
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[5] (32) 20",
+        "indexType": "IX_NUM",
+        "indexValue": 32
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[05] (33) 21",
+        "indexType": "IX_NUM",
+        "indexValue": 33
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[15] (34) 22",
+        "indexType": "IX_NUM",
+        "indexValue": 34
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[015] (35) 23",
+        "indexType": "IX_NUM",
+        "indexValue": 35
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[25] (36) 24",
+        "indexType": "IX_NUM",
+        "indexValue": 36
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[025] (37) 25",
+        "indexType": "IX_NUM",
+        "indexValue": 37
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[125] (38) 26",
+        "indexType": "IX_NUM",
+        "indexValue": 38
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0125] (39) 27",
+        "indexType": "IX_NUM",
+        "indexValue": 39
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[35] (40) 28",
+        "indexType": "IX_NUM",
+        "indexValue": 40
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[035] (41) 29",
+        "indexType": "IX_NUM",
+        "indexValue": 41
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[135] (42) 2A",
+        "indexType": "IX_NUM",
+        "indexValue": 42
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0135] (43) 2B",
+        "indexType": "IX_NUM",
+        "indexValue": 43
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[235] (44) 2C",
+        "indexType": "IX_NUM",
+        "indexValue": 44
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0235] (45) 2D",
+        "indexType": "IX_NUM",
+        "indexValue": 45
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1235] (46) 2E",
+        "indexType": "IX_NUM",
+        "indexValue": 46
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01235] (47) 2F",
+        "indexType": "IX_NUM",
+        "indexValue": 47
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[45] (48) 30",
+        "indexType": "IX_NUM",
+        "indexValue": 48
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[045] (49) 31",
+        "indexType": "IX_NUM",
+        "indexValue": 49
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[145] (50) 32",
+        "indexType": "IX_NUM",
+        "indexValue": 50
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0145] (51) 33",
+        "indexType": "IX_NUM",
+        "indexValue": 51
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[245] (52) 34",
+        "indexType": "IX_NUM",
+        "indexValue": 52
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0245] (53) 35",
+        "indexType": "IX_NUM",
+        "indexValue": 53
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1245] (54) 36",
+        "indexType": "IX_NUM",
+        "indexValue": 54
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01245] (55) 37",
+        "indexType": "IX_NUM",
+        "indexValue": 55
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[345] (56) 38",
+        "indexType": "IX_NUM",
+        "indexValue": 56
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0345] (57) 39",
+        "indexType": "IX_NUM",
+        "indexValue": 57
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1345] (58) 3A",
+        "indexType": "IX_NUM",
+        "indexValue": 58
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01345] (59) 3B",
+        "indexType": "IX_NUM",
+        "indexValue": 59
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[2345] (60) 3C",
+        "indexType": "IX_NUM",
+        "indexValue": 60
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[02345] (61) 3D",
+        "indexType": "IX_NUM",
+        "indexValue": 61
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[12345] (62) 3E",
+        "indexType": "IX_NUM",
+        "indexValue": 62
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[012345] (63) 3F",
+        "indexType": "IX_NUM",
+        "indexValue": 63
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[6] (64) 40",
+        "indexType": "IX_NUM",
+        "indexValue": 64
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[06] (65) 41",
+        "indexType": "IX_NUM",
+        "indexValue": 65
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[16] (66) 42",
+        "indexType": "IX_NUM",
+        "indexValue": 66
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[016] (67) 43",
+        "indexType": "IX_NUM",
+        "indexValue": 67
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[26] (68) 44",
+        "indexType": "IX_NUM",
+        "indexValue": 68
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[026] (69) 45",
+        "indexType": "IX_NUM",
+        "indexValue": 69
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[126] (70) 46",
+        "indexType": "IX_NUM",
+        "indexValue": 70
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0126] (71) 47",
+        "indexType": "IX_NUM",
+        "indexValue": 71
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[36] (72) 48",
+        "indexType": "IX_NUM",
+        "indexValue": 72
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[036] (73) 49",
+        "indexType": "IX_NUM",
+        "indexValue": 73
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[136] (74) 4A",
+        "indexType": "IX_NUM",
+        "indexValue": 74
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0136] (75) 4B",
+        "indexType": "IX_NUM",
+        "indexValue": 75
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[236] (76) 4C",
+        "indexType": "IX_NUM",
+        "indexValue": 76
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0236] (77) 4D",
+        "indexType": "IX_NUM",
+        "indexValue": 77
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1236] (78) 4E",
+        "indexType": "IX_NUM",
+        "indexValue": 78
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01236] (79) 4F",
+        "indexType": "IX_NUM",
+        "indexValue": 79
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[46] (80) 50",
+        "indexType": "IX_NUM",
+        "indexValue": 80
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[046] (81) 51",
+        "indexType": "IX_NUM",
+        "indexValue": 81
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[146] (82) 52",
+        "indexType": "IX_NUM",
+        "indexValue": 82
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0146] (83) 53",
+        "indexType": "IX_NUM",
+        "indexValue": 83
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[246] (84) 54",
+        "indexType": "IX_NUM",
+        "indexValue": 84
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0246] (85) 55",
+        "indexType": "IX_NUM",
+        "indexValue": 85
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1246] (86) 56",
+        "indexType": "IX_NUM",
+        "indexValue": 86
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01246] (87) 57",
+        "indexType": "IX_NUM",
+        "indexValue": 87
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[346] (88) 58",
+        "indexType": "IX_NUM",
+        "indexValue": 88
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0346] (89) 59",
+        "indexType": "IX_NUM",
+        "indexValue": 89
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1346] (90) 5A",
+        "indexType": "IX_NUM",
+        "indexValue": 90
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01346] (91) 5B",
+        "indexType": "IX_NUM",
+        "indexValue": 91
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[2346] (92) 5C",
+        "indexType": "IX_NUM",
+        "indexValue": 92
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[02346] (93) 5D",
+        "indexType": "IX_NUM",
+        "indexValue": 93
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[12346] (94) 5E",
+        "indexType": "IX_NUM",
+        "indexValue": 94
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[012346] (95) 5F",
+        "indexType": "IX_NUM",
+        "indexValue": 95
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[56] (96) 60",
+        "indexType": "IX_NUM",
+        "indexValue": 96
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[056] (97) 61",
+        "indexType": "IX_NUM",
+        "indexValue": 97
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[156] (98) 62",
+        "indexType": "IX_NUM",
+        "indexValue": 98
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0156] (99) 63",
+        "indexType": "IX_NUM",
+        "indexValue": 99
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[256] (100) 64",
+        "indexType": "IX_NUM",
+        "indexValue": 100
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0256] (101) 65",
+        "indexType": "IX_NUM",
+        "indexValue": 101
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1256] (102) 66",
+        "indexType": "IX_NUM",
+        "indexValue": 102
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01256] (103) 67",
+        "indexType": "IX_NUM",
+        "indexValue": 103
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[356] (104) 68",
+        "indexType": "IX_NUM",
+        "indexValue": 104
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0356] (105) 69",
+        "indexType": "IX_NUM",
+        "indexValue": 105
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1356] (106) 6A",
+        "indexType": "IX_NUM",
+        "indexValue": 106
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01356] (107) 6B",
+        "indexType": "IX_NUM",
+        "indexValue": 107
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[2356] (108) 6C",
+        "indexType": "IX_NUM",
+        "indexValue": 108
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[02356] (109) 6D",
+        "indexType": "IX_NUM",
+        "indexValue": 109
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[12356] (110) 6E",
+        "indexType": "IX_NUM",
+        "indexValue": 110
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[012356] (111) 6F",
+        "indexType": "IX_NUM",
+        "indexValue": 111
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[456] (112) 70",
+        "indexType": "IX_NUM",
+        "indexValue": 112
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0456] (113) 71",
+        "indexType": "IX_NUM",
+        "indexValue": 113
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1456] (114) 72",
+        "indexType": "IX_NUM",
+        "indexValue": 114
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01456] (115) 73",
+        "indexType": "IX_NUM",
+        "indexValue": 115
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[2456] (116) 74",
+        "indexType": "IX_NUM",
+        "indexValue": 116
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[02456] (117) 75",
+        "indexType": "IX_NUM",
+        "indexValue": 117
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[12456] (118) 76",
+        "indexType": "IX_NUM",
+        "indexValue": 118
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[012456] (119) 77",
+        "indexType": "IX_NUM",
+        "indexValue": 119
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[3456] (120) 78",
+        "indexType": "IX_NUM",
+        "indexValue": 120
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[03456] (121) 79",
+        "indexType": "IX_NUM",
+        "indexValue": 121
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[13456] (122) 7A",
+        "indexType": "IX_NUM",
+        "indexValue": 122
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[013456] (123) 7B",
+        "indexType": "IX_NUM",
+        "indexValue": 123
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[23456] (124) 7C",
+        "indexType": "IX_NUM",
+        "indexValue": 124
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[023456] (125) 7D",
+        "indexType": "IX_NUM",
+        "indexValue": 125
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[123456] (126) 7E",
+        "indexType": "IX_NUM",
+        "indexValue": 126
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0123456] (127) 7F",
+        "indexType": "IX_NUM",
+        "indexValue": 127
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[7] (128) 80",
+        "indexType": "IX_NUM",
+        "indexValue": 128
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[07] (129) 81",
+        "indexType": "IX_NUM",
+        "indexValue": 129
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[17] (130) 82",
+        "indexType": "IX_NUM",
+        "indexValue": 130
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[017] (131) 83",
+        "indexType": "IX_NUM",
+        "indexValue": 131
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[27] (132) 84",
+        "indexType": "IX_NUM",
+        "indexValue": 132
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[027] (133) 85",
+        "indexType": "IX_NUM",
+        "indexValue": 133
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[127] (134) 86",
+        "indexType": "IX_NUM",
+        "indexValue": 134
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0127] (135) 87",
+        "indexType": "IX_NUM",
+        "indexValue": 135
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[37] (136) 88",
+        "indexType": "IX_NUM",
+        "indexValue": 136
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[037] (137) 89",
+        "indexType": "IX_NUM",
+        "indexValue": 137
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[137] (138) 8A",
+        "indexType": "IX_NUM",
+        "indexValue": 138
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0137] (139) 8B",
+        "indexType": "IX_NUM",
+        "indexValue": 139
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[237] (140) 8C",
+        "indexType": "IX_NUM",
+        "indexValue": 140
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0237] (141) 8D",
+        "indexType": "IX_NUM",
+        "indexValue": 141
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1237] (142) 8E",
+        "indexType": "IX_NUM",
+        "indexValue": 142
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01237] (143) 8F",
+        "indexType": "IX_NUM",
+        "indexValue": 143
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[47] (144) 90",
+        "indexType": "IX_NUM",
+        "indexValue": 144
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[047] (145) 91",
+        "indexType": "IX_NUM",
+        "indexValue": 145
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[147] (146) 92",
+        "indexType": "IX_NUM",
+        "indexValue": 146
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0147] (147) 93",
+        "indexType": "IX_NUM",
+        "indexValue": 147
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[247] (148) 94",
+        "indexType": "IX_NUM",
+        "indexValue": 148
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0247] (149) 95",
+        "indexType": "IX_NUM",
+        "indexValue": 149
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1247] (150) 96",
+        "indexType": "IX_NUM",
+        "indexValue": 150
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01247] (151) 97",
+        "indexType": "IX_NUM",
+        "indexValue": 151
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[347] (152) 98",
+        "indexType": "IX_NUM",
+        "indexValue": 152
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0347] (153) 99",
+        "indexType": "IX_NUM",
+        "indexValue": 153
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1347] (154) 9A",
+        "indexType": "IX_NUM",
+        "indexValue": 154
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01347] (155) 9B",
+        "indexType": "IX_NUM",
+        "indexValue": 155
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[2347] (156) 9C",
+        "indexType": "IX_NUM",
+        "indexValue": 156
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[02347] (157) 9D",
+        "indexType": "IX_NUM",
+        "indexValue": 157
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[12347] (158) 9E",
+        "indexType": "IX_NUM",
+        "indexValue": 158
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[012347] (159) 9F",
+        "indexType": "IX_NUM",
+        "indexValue": 159
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[57] (160) A0",
+        "indexType": "IX_NUM",
+        "indexValue": 160
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[057] (161) A1",
+        "indexType": "IX_NUM",
+        "indexValue": 161
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[157] (162) A2",
+        "indexType": "IX_NUM",
+        "indexValue": 162
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0157] (163) A3",
+        "indexType": "IX_NUM",
+        "indexValue": 163
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[257] (164) A4",
+        "indexType": "IX_NUM",
+        "indexValue": 164
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0257] (165) A5",
+        "indexType": "IX_NUM",
+        "indexValue": 165
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1257] (166) A6",
+        "indexType": "IX_NUM",
+        "indexValue": 166
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01257] (167) A7",
+        "indexType": "IX_NUM",
+        "indexValue": 167
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[357] (168) A8",
+        "indexType": "IX_NUM",
+        "indexValue": 168
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0357] (169) A9",
+        "indexType": "IX_NUM",
+        "indexValue": 169
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1357] (170) AA",
+        "indexType": "IX_NUM",
+        "indexValue": 170
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01357] (171) AB",
+        "indexType": "IX_NUM",
+        "indexValue": 171
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[2357] (172) AC",
+        "indexType": "IX_NUM",
+        "indexValue": 172
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[02357] (173) AD",
+        "indexType": "IX_NUM",
+        "indexValue": 173
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[12357] (174) AE",
+        "indexType": "IX_NUM",
+        "indexValue": 174
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[012357] (175) AF",
+        "indexType": "IX_NUM",
+        "indexValue": 175
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[457] (176) B0",
+        "indexType": "IX_NUM",
+        "indexValue": 176
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0457] (177) B1",
+        "indexType": "IX_NUM",
+        "indexValue": 177
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1457] (178) B2",
+        "indexType": "IX_NUM",
+        "indexValue": 178
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01457] (179) B3",
+        "indexType": "IX_NUM",
+        "indexValue": 179
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[2457] (180) B4",
+        "indexType": "IX_NUM",
+        "indexValue": 180
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[02457] (181) B5",
+        "indexType": "IX_NUM",
+        "indexValue": 181
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[12457] (182) B6",
+        "indexType": "IX_NUM",
+        "indexValue": 182
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[012457] (183) B7",
+        "indexType": "IX_NUM",
+        "indexValue": 183
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[3457] (184) B8",
+        "indexType": "IX_NUM",
+        "indexValue": 184
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[03457] (185) B9",
+        "indexType": "IX_NUM",
+        "indexValue": 185
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[13457] (186) BA",
+        "indexType": "IX_NUM",
+        "indexValue": 186
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[013457] (187) BB",
+        "indexType": "IX_NUM",
+        "indexValue": 187
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[23457] (188) BC",
+        "indexType": "IX_NUM",
+        "indexValue": 188
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[023457] (189) BD",
+        "indexType": "IX_NUM",
+        "indexValue": 189
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[123457] (190) BE",
+        "indexType": "IX_NUM",
+        "indexValue": 190
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0123457] (191) BF",
+        "indexType": "IX_NUM",
+        "indexValue": 191
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[67] (192) C0",
+        "indexType": "IX_NUM",
+        "indexValue": 192
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[067] (193) C1",
+        "indexType": "IX_NUM",
+        "indexValue": 193
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[167] (194) C2",
+        "indexType": "IX_NUM",
+        "indexValue": 194
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0167] (195) C3",
+        "indexType": "IX_NUM",
+        "indexValue": 195
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[267] (196) C4",
+        "indexType": "IX_NUM",
+        "indexValue": 196
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0267] (197) C5",
+        "indexType": "IX_NUM",
+        "indexValue": 197
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1267] (198) C6",
+        "indexType": "IX_NUM",
+        "indexValue": 198
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01267] (199) C7",
+        "indexType": "IX_NUM",
+        "indexValue": 199
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[367] (200) C8",
+        "indexType": "IX_NUM",
+        "indexValue": 200
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0367] (201) C9",
+        "indexType": "IX_NUM",
+        "indexValue": 201
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1367] (202) CA",
+        "indexType": "IX_NUM",
+        "indexValue": 202
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01367] (203) CB",
+        "indexType": "IX_NUM",
+        "indexValue": 203
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[2367] (204) CC",
+        "indexType": "IX_NUM",
+        "indexValue": 204
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[02367] (205) CD",
+        "indexType": "IX_NUM",
+        "indexValue": 205
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[12367] (206) CE",
+        "indexType": "IX_NUM",
+        "indexValue": 206
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[012367] (207) CF",
+        "indexType": "IX_NUM",
+        "indexValue": 207
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[467] (208) D0",
+        "indexType": "IX_NUM",
+        "indexValue": 208
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0467] (209) D1",
+        "indexType": "IX_NUM",
+        "indexValue": 209
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1467] (210) D2",
+        "indexType": "IX_NUM",
+        "indexValue": 210
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01467] (211) D3",
+        "indexType": "IX_NUM",
+        "indexValue": 211
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[2467] (212) D4",
+        "indexType": "IX_NUM",
+        "indexValue": 212
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[02467] (213) D5",
+        "indexType": "IX_NUM",
+        "indexValue": 213
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[12467] (214) D6",
+        "indexType": "IX_NUM",
+        "indexValue": 214
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[012467] (215) D7",
+        "indexType": "IX_NUM",
+        "indexValue": 215
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[3467] (216) D8",
+        "indexType": "IX_NUM",
+        "indexValue": 216
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[03467] (217) D9",
+        "indexType": "IX_NUM",
+        "indexValue": 217
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[13467] (218) DA",
+        "indexType": "IX_NUM",
+        "indexValue": 218
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[013467] (219) DB",
+        "indexType": "IX_NUM",
+        "indexValue": 219
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[23467] (220) DC",
+        "indexType": "IX_NUM",
+        "indexValue": 220
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[023467] (221) DD",
+        "indexType": "IX_NUM",
+        "indexValue": 221
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[123467] (222) DE",
+        "indexType": "IX_NUM",
+        "indexValue": 222
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0123467] (223) DF",
+        "indexType": "IX_NUM",
+        "indexValue": 223
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[567] (224) E0",
+        "indexType": "IX_NUM",
+        "indexValue": 224
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0567] (225) E1",
+        "indexType": "IX_NUM",
+        "indexValue": 225
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1567] (226) E2",
+        "indexType": "IX_NUM",
+        "indexValue": 226
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01567] (227) E3",
+        "indexType": "IX_NUM",
+        "indexValue": 227
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[2567] (228) E4",
+        "indexType": "IX_NUM",
+        "indexValue": 228
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[02567] (229) E5",
+        "indexType": "IX_NUM",
+        "indexValue": 229
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[12567] (230) E6",
+        "indexType": "IX_NUM",
+        "indexValue": 230
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[012567] (231) E7",
+        "indexType": "IX_NUM",
+        "indexValue": 231
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[3567] (232) E8",
+        "indexType": "IX_NUM",
+        "indexValue": 232
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[03567] (233) E9",
+        "indexType": "IX_NUM",
+        "indexValue": 233
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[13567] (234) EA",
+        "indexType": "IX_NUM",
+        "indexValue": 234
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[013567] (235) EB",
+        "indexType": "IX_NUM",
+        "indexValue": 235
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[23567] (236) EC",
+        "indexType": "IX_NUM",
+        "indexValue": 236
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[023567] (237) ED",
+        "indexType": "IX_NUM",
+        "indexValue": 237
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[123567] (238) EE",
+        "indexType": "IX_NUM",
+        "indexValue": 238
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0123567] (239) EF",
+        "indexType": "IX_NUM",
+        "indexValue": 239
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[4567] (240) F0",
+        "indexType": "IX_NUM",
+        "indexValue": 240
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[04567] (241) F1",
+        "indexType": "IX_NUM",
+        "indexValue": 241
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[14567] (242) F2",
+        "indexType": "IX_NUM",
+        "indexValue": 242
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[014567] (243) F3",
+        "indexType": "IX_NUM",
+        "indexValue": 243
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[24567] (244) F4",
+        "indexType": "IX_NUM",
+        "indexValue": 244
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[024567] (245) F5",
+        "indexType": "IX_NUM",
+        "indexValue": 245
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[124567] (246) F6",
+        "indexType": "IX_NUM",
+        "indexValue": 246
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0124567] (247) F7",
+        "indexType": "IX_NUM",
+        "indexValue": 247
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[34567] (248) F8",
+        "indexType": "IX_NUM",
+        "indexValue": 248
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[034567] (249) F9",
+        "indexType": "IX_NUM",
+        "indexValue": 249
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[134567] (250) FA",
+        "indexType": "IX_NUM",
+        "indexValue": 250
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0134567] (251) FB",
+        "indexType": "IX_NUM",
+        "indexValue": 251
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[234567] (252) FC",
+        "indexType": "IX_NUM",
+        "indexValue": 252
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[0234567] (253) FD",
+        "indexType": "IX_NUM",
+        "indexValue": 253
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[1234567] (254) FE",
+        "indexType": "IX_NUM",
+        "indexValue": 254
+      },
+      {
+        "comment": "#Insteon",
+        "type": "IX",
+        "value": "[01234567] (255) FF",
+        "indexType": "IX_NUM",
+        "indexValue": 255
+      }
+    ],
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Backlight Level",
+        "command": "S_BL",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Arm",
+        "command": "ARM",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Disarm",
+        "command": "DISARM",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Transmit",
+        "command": "I_IRLINC_TX",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Configuration Parameter",
+        "command": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Query",
+        "command": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "LED",
+        "command": "LED",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Insteon Cmd",
+        "command": "ICMD",
+        "property": "NAME"
+      }
+    ],
+    "CMDPN": [
+      {
+        "type": "CMDPN",
+        "key": "71A-OL-NAME",
+        "value": "Duration"
+      },
+      {
+        "type": "CMDPN",
+        "key": "71A-RR-NAME",
+        "value": "Tone"
+      }
+    ],
+    "LNKP": [
+      {
+        "type": "LNKP",
+        "protocol": "I_STD",
+        "property": "NAME",
+        "value": "Insteon"
+      },
+      {
+        "type": "LNKP",
+        "protocol": "I_STD_ADV",
+        "property": "NAME",
+        "value": "Insteon"
+      }
+    ],
+    "LNKD": [
+      {
+        "type": "LNKD",
+        "parameter": "I_TSTAT",
+        "property": "FMT",
+        "meta": "",
+        "value": ";CLISPH;;Heat ${v}; ;CLISPC;; / Cool ${v}; ;CLIFS;; / Fan ${v}; ;CLIMD;; / Mode ${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_TSTAT_ADV",
+        "property": "FMT",
+        "meta": "",
+        "value": ";CLISPH;;Heat ${v}; ;CLISPC;; / Cool ${v}; ;CLIFS;; / Fan ${v}; ;CLIMD;; / Mode ${v}; ;CLNRT;; / ${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_TEMPLINC",
+        "property": "FMT",
+        "meta": "",
+        "value": ";CLISPH;;Heat ${v}; ;CLISPC;; / Cool ${v}; ;CLIFS;; / Fan ${v}; ;CLIMD;; / Mode ${v}; ;CLIEMD;; / Energy Save ${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_TEMPLINC_ADV",
+        "property": "FMT",
+        "meta": "",
+        "value": ";CLISPH;;Heat ${v}; ;CLISPC;; / Cool ${v}; ;CLIFS;; / Fan ${v}; ;CLIMD;; / Mode ${v}; ;CLIEMD;; / Energy Save ${v}; ;CLNRT;; / ${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_DIMMER",
+        "property": "FMT",
+        "meta": "",
+        "value": ";OL;;${v}; ;RR;; in ${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_DIMMER_ADV",
+        "property": "FMT",
+        "meta": "",
+        "value": ";OL;;${v}; ;RR;; in ${v}; ;CLNRT;;, ${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_MDIMMER",
+        "property": "FMT",
+        "meta": "",
+        "value": ";OL;;${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_MDIMMER_ADV",
+        "property": "FMT",
+        "meta": "",
+        "value": ";OL;;${v}; ;CLNRT;;, ${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_RELAY",
+        "property": "FMT",
+        "meta": "",
+        "value": ";OL;;${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_RELAY_ADV",
+        "property": "FMT",
+        "meta": "",
+        "value": ";OL;;${v}; ;CLNRT;;, ${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_FLM",
+        "property": "FMT",
+        "meta": "",
+        "value": ";OL;;${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_FLM_ADV",
+        "property": "FMT",
+        "meta": "",
+        "value": ";OL;;${v}; ;CLNRT;;, ${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_IRLINC_TX",
+        "property": "FMT",
+        "meta": "",
+        "value": ";;Transmit;Transmit;"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_IRLINC_TX_ADV",
+        "property": "FMT",
+        "meta": "",
+        "value": ";;Transmit;Transmit; ;CLNRT;;, ${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_SIREN_ALERT",
+        "property": "FMT",
+        "meta": "",
+        "value": ";TT;Siren;${v}; ;DUR;; for ${v}; ;DLY;;, ${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_SIREN_ALERT_ADV",
+        "property": "FMT",
+        "meta": "",
+        "value": ";TT;Siren;${v}; ;DUR;; for ${v}; ;DLY;;, ${v}; ;CLNRT;;, ${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "I_SIREN_ARM_ADV",
+        "property": "FMT",
+        "meta": "",
+        "value": ";CLNRT;;${v};"
+      }
+    ],
+    "ND": [
+      {
+        "type": "ND",
+        "value": "Ballast Relay Lamp Switch",
+        "nodeDefId": "BallastRelayLampSwitch",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Dimmer Lamp",
+        "nodeDefId": "DimmerLampOnly",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Dimmer Lamp & Switch",
+        "nodeDefId": "DimmerLampSwitch",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Dimmer Switch",
+        "nodeDefId": "DimmerSwitchOnly",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "EZIO2x4 Input",
+        "nodeDefId": "EZIO2x4_Input",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "EZIO2x4 Output",
+        "nodeDefId": "EZIO2x4_Output",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Keypad Relay Button",
+        "nodeDefId": "KeypadRelayButton",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "On/Off Control",
+        "nodeDefId": "OnOffControl",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Relay Lamp",
+        "nodeDefId": "RelayLampOnly",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Relay Lamp & Switch",
+        "nodeDefId": "RelayLampSwitch",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Relay Switch",
+        "nodeDefId": "RelaySwitchOnly",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Thermostat",
+        "nodeDefId": "Thermostat",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Siren",
+        "nodeDefId": "Siren",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Siren",
+        "nodeDefId": "Siren_ADV",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Siren Alert",
+        "nodeDefId": "SirenAlert",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Siren Arm",
+        "nodeDefId": "SirenArm",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "LampAndSwitch",
+        "nodeDefId": "BallastRelayLampSwitch",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "Lamp",
+        "nodeDefId": "DimmerLampOnly",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "LampAndSwitch",
+        "nodeDefId": "DimmerLampSwitch",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "Switch",
+        "nodeDefId": "DimmerSwitchOnly",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "Input",
+        "nodeDefId": "EZIO2x4_Input",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "Output",
+        "nodeDefId": "EZIO2x4_Output",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "Switch",
+        "nodeDefId": "KeypadRelayButton",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "Switch",
+        "nodeDefId": "OnOffControl",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "Lamp",
+        "nodeDefId": "RelayLampOnly",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "LampAndSwitch",
+        "nodeDefId": "RelayLampSwitch",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "Switch",
+        "nodeDefId": "RelaySwitchOnly",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "Thermostat",
+        "nodeDefId": "Thermostat",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "Siren",
+        "nodeDefId": "Siren",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "Siren",
+        "nodeDefId": "Siren_ADV",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "Siren",
+        "nodeDefId": "SirenAlert",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "Arm",
+        "nodeDefId": "SirenArm",
+        "property": "ICON"
+      }
+    ],
+    "DC": [
+      {
+        "type": "DC",
+        "key": "109-GV1-NAME",
+        "value": "Rate"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Responding",
+        "driver": "ERR",
+        "property": "NAME"
+      }
+    ],
+    "# default format is: <cmd name> $/<param1 name>//${id}": [
+      {
+        "type": "# default format is: <cmd name> $/<param1 name>//${id}",
+        "key": "",
+        "value": "${v}/ [... same for rest of parameters]"
+      }
+    ],
+    "# pgm_DON_fmt": [
+      {
+        "type": "# pgm_DON_fmt",
+        "key": "",
+        "value": "/level/${c}/to ${v}/ /ramprate// in ${v}/ /offtimer//, turn off ${v} later/"
+      }
+    ],
+    "# d2d_DOF_fmt": [
+      {
+        "type": "# d2d_DOF_fmt",
+        "key": "",
+        "value": "/ramprate// in ${v}/"
+      }
+    ],
+    "# c": [
+      {
+        "type": "# c",
+        "key": "fade.to-fmt",
+        "value": "/level/${c}/${v}/ /ramprate// in ${v}/ /offtimer//, Turn Off ${v}/"
+      }
+    ],
+    "# d2d_FUP_fmt": [
+      {
+        "type": "# d2d_FUP_fmt",
+        "key": "",
+        "value": "/ramprate// in ${v}/"
+      }
+    ],
+    "# d2d": [
+      {
+        "type": "# d2d",
+        "key": "FDOWN_fmt",
+        "value": "/ramprate// in ${v}/"
+      },
+      {
+        "type": "# d2d",
+        "key": "BLINK_fmt",
+        "value": "/rate/${c}/to ${c} every ${v}/"
+      },
+      {
+        "type": "# d2d",
+        "key": "BRT_fmt",
+        "value": "/any/${c}/${c}/"
+      },
+      {
+        "type": "# d2d",
+        "key": "DIM_fmt",
+        "value": "/any/${c}/${c}/"
+      }
+    ]
+  },
+  "MOC": {
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "MOC",
+        "value": "Max Duration",
+        "command": "DUR",
+        "property": "NAME"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "MOC",
+        "value": "Max Duration",
+        "driver": "DUR",
+        "property": "NAME"
+      }
+    ]
+  },
+  "71A": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "71A",
+        "value": "Duration",
+        "driver": "OL",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "71A",
+        "value": "Tone",
+        "driver": "RR",
+        "property": "NAME"
+      }
+    ],
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "71A",
+        "value": "Duration",
+        "command": "OL",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "71A",
+        "value": "Tone",
+        "command": "RR",
+        "property": "NAME"
+      }
+    ]
+  },
+  "Lock": {
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "Lock",
+        "value": "Lock",
+        "command": "DON",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Lock",
+        "value": "Unlock",
+        "command": "DOF",
+        "property": "NAME"
+      }
+    ]
+  },
+  "0125": {
+    "DEV": [
+      {
+        "type": "DEV",
+        "nlsId": "0125",
+        "property": "NAME",
+        "meta": "",
+        "value": "(2475DA2) Ballast Dimmer"
+      }
+    ]
+  },
+  "013D": {
+    "DEV": [
+      {
+        "type": "DEV",
+        "nlsId": "013D",
+        "property": "NAME",
+        "meta": "",
+        "value": "(2446-422) Ballast Dimmer"
+      }
+    ]
+  },
+  "013E": {
+    "DEV": [
+      {
+        "type": "DEV",
+        "nlsId": "013E",
+        "property": "NAME",
+        "meta": "",
+        "value": "(2446-522) Ballast Dimmer"
+      }
+    ]
+  },
+  "IMS": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "IMS",
+        "value": "Current Power",
+        "driver": "ST",
+        "property": "NAME"
+      }
+    ],
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "IMS",
+        "value": "Reset Total Energy",
+        "command": "RESET",
+        "property": "NAME"
+      }
+    ]
+  },
+  "I3PF": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "I3PF",
+        "value": "Mode",
+        "driver": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3PF",
+        "value": "Program Lock",
+        "driver": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3PF",
+        "value": "Resume Dim",
+        "driver": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3PF",
+        "value": "Relay at Full On",
+        "driver": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3PF",
+        "value": "Key Beep",
+        "driver": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3PF",
+        "value": "Disable RF",
+        "driver": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3PF",
+        "value": "Button Lock",
+        "driver": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3PF",
+        "value": "Error Blink",
+        "driver": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3PF",
+        "value": "Cleanup Reports",
+        "driver": "GV8",
+        "property": "NAME"
+      }
+    ],
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "I3PF",
+        "value": "Mode",
+        "command": "GV0",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3PF",
+        "value": "Program Lock",
+        "command": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3PF",
+        "value": "Resume Dim",
+        "command": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3PF",
+        "value": "Relay at Full On",
+        "command": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3PF",
+        "value": "Key Beep",
+        "command": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3PF",
+        "value": "Disable RF",
+        "command": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3PF",
+        "value": "Button Lock",
+        "command": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3PF",
+        "value": "Error Blink",
+        "command": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3PF",
+        "value": "Cleanup Reports",
+        "command": "GV8",
+        "property": "NAME"
+      }
+    ]
+  },
+  "I3KP": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "I3KP",
+        "value": "Mode",
+        "driver": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3KP",
+        "value": "Program Lock",
+        "driver": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3KP",
+        "value": "Resume Dim",
+        "driver": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3KP",
+        "value": "Relay at Full On",
+        "driver": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3KP",
+        "value": "Key Beep",
+        "driver": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3KP",
+        "value": "Disable RF",
+        "driver": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3KP",
+        "value": "Button Lock",
+        "driver": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3KP",
+        "value": "Error Blink",
+        "driver": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3KP",
+        "value": "Cleanup Reports",
+        "driver": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "I3KP",
+        "value": "Load Button",
+        "driver": "GV30",
+        "property": "NAME"
+      }
+    ],
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "I3KP",
+        "value": "Mode",
+        "command": "GV0",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3KP",
+        "value": "Program Lock",
+        "command": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3KP",
+        "value": "Resume Dim",
+        "command": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3KP",
+        "value": "Relay at Full On",
+        "command": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3KP",
+        "value": "Key Beep",
+        "command": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3KP",
+        "value": "Disable RF",
+        "command": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3KP",
+        "value": "Button Lock",
+        "command": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3KP",
+        "value": "Error Blink",
+        "command": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3KP",
+        "value": "Cleanup Reports",
+        "command": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "I3KP",
+        "value": "Load Button",
+        "command": "GV30",
+        "property": "NAME"
+      }
+    ]
+  },
+  "SRN": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "SRN",
+        "value": "Siren",
+        "driver": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "SRN",
+        "value": "Siren Duration",
+        "driver": "DUR",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "SRN",
+        "value": "Arm Countdown",
+        "driver": "DELAY",
+        "property": "NAME"
+      }
+    ]
+  }
+}

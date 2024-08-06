@@ -8,10 +8,10 @@ import { XmlDocument } from 'xmldoc';
 
 import axios from 'axios';
 import { EventEmitter } from 'events';
-import { format, Logger, loggers, type LeveledLogMethod } from 'winston';
+import winston, { format, Logger, loggers, type LeveledLogMethod } from 'winston';
 import { Category } from './Definitions/Global/Categories.js';
 import { Family } from './Definitions/Global/Families.js';
-import type { NodeInfo } from './Definitions/NodeInfo.js';
+import type { NodeInfo } from './Model/NodeInfo.js';
 import { DeviceFactory } from './Devices/DeviceFactory.js';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
 import { ElkAlarmSensorDevice } from "./Devices/Elk/ElkAlarmSensorDevice.js";
@@ -34,7 +34,7 @@ import { InsteonSmokeSensorDevice } from './Devices/Insteon/InsteonSmokeSensorDe
 import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevice.js';
 import { EventType } from "./Events/EventType.js";
 import { NodeType, Props, States, VariableType } from './ISYConstants.js';
-import { ISYNode, ISYNodeDevice, type ISYDevice } from './ISYNode.js';
+import { ISYNode, ISYDeviceNode, type ISYDevice } from './ISYNode.js';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
 
@@ -47,7 +47,7 @@ export {
 
 	Category as Categories, ELKAlarmPanelDevice, ElkAlarmSensorDevice, Family, InsteonBaseDevice, InsteonDimmableDevice, InsteonDimmerOutletDevice, InsteonDimmerSwitchDevice, InsteonDoorWindowSensorDevice, InsteonFanDevice,
 	InsteonFanMotorDevice, InsteonKeypadButtonDevice, InsteonKeypadDimmerDevice,
-	InsteonKeypadRelayDevice, InsteonLeakSensorDevice, InsteonLockDevice, InsteonMotionSensorDevice, InsteonOnOffOutletDevice, InsteonOutletDevice, InsteonRelayDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYNodeDevice as ISYDevice, ISYNode, ISYScene, ISYVariable, NodeType, Props, States, Utils, VariableType
+	InsteonKeypadRelayDevice, InsteonLeakSensorDevice, InsteonLockDevice, InsteonMotionSensorDevice, InsteonOnOffOutletDevice, InsteonOutletDevice, InsteonRelayDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDeviceNode as ISYDevice, ISYNode, ISYScene, ISYVariable, NodeType, Props, States, Utils, VariableType
 };
 
 
@@ -66,6 +66,7 @@ const defaultXMLParserOptions: X2jOptions = {
 	parseAttributeValue: true,
 	allowBooleanAttributes: true,
 	attributeNamePrefix: '',
+	attributesGroupName: false,
 	ignoreAttributes: false,
 	// updateTag(tagName, jPath, attrs) {
 	// 	//if(tagName === 'st' || tagName === 'cmd' || tagName === 'nodeDef')
@@ -88,6 +89,8 @@ const defaultXMLParserOptions: X2jOptions = {
 	},
 
 }
+
+axios.defaults.transitional.forcedJSONParsing = false;
 
 
 const parser = new Parser(defaultParserOptions);
@@ -163,12 +166,12 @@ export class ISY extends EventEmitter implements Disposable{
 			password: config.password
 		};
 		this.protocol = config.protocol;
-		this.wsprotocol = 'ws';
+		this.wsprotocol = config.protocol === 'https' ? 'wss' : 'ws';
 		this.elkEnabled = config.elkEnabled ?? false;
 
 		this.nodesLoaded = false;
 		var fopts = format((info) => {info.message = JSON.stringify(info.message); return info })({ label: 'ISY' });
-		this.logger = loggers.add('isy',{transports: logger.transports, level: logger.level, format:  format.label({ label: 'ISY' })});
+		this.logger = loggers.add('isy',{transports: logger.transports, levels: logger.levels, format:  format.label({ label: 'ISY' })});
 
 
 
@@ -206,12 +209,12 @@ export class ISY extends EventEmitter implements Disposable{
 		return super.on(event, listener);
 	}
 
-	public async sendRequest(url: string, options: {parserOptions?: ParserOptions, trailingSlash: boolean, requestLogLevel?: string, responseLogLevel?: string} = {trailingSlash: true}): Promise<any> {
+	public async sendRequest(url: string, options: {parserOptions?: ParserOptions, trailingSlash: boolean, requestLogLevel?: any, responseLogLevel?: any} = {trailingSlash: true}): Promise<any> {
 
-		const requestLogLevel = options.requestLogLevel ?? null;
-		const responseLogLevel = options.responseLogLevel ?? null;
+		const requestLogLevel = options.requestLogLevel ?? winston.config.cli.levels.debug;
+		const responseLogLevel = options.responseLogLevel ?? winston.config.cli.levels.silly;
 		url = `${this.protocol}://${this.address}/rest/${url}${options.trailingSlash ? '/' : ''}`;
-		this.logger.log(`Sending request: ${url}`, requestLogLevel ?? 'debug');
+		this.logger.log(`Sending request: ${url}`, requestLogLevel);
 		try {
 			const response = await axios.get(url,{auth: {username: this.credentials.username, password: this.credentials.password}});
 			if(response.data)
@@ -340,7 +343,7 @@ export class ISY extends EventEmitter implements Disposable{
 						`Device type resolution failed for ${device.name} with type: ${device.type} and nodedef: ${
 						device.nodeDefId}`
 					);
-					newDevice = new ISYNodeDevice(this, device);
+					newDevice = new ISYDeviceNode(this, device);
 				}
 				else if (newDevice !== null) {
 					if (d.unsupported) {
@@ -729,22 +732,23 @@ export class ISY extends EventEmitter implements Disposable{
 
 		this.webSocket
 			.on('message', (event: any) => {
+				that.logger.silly(`Received message: ${JSON.stringify(event.data,null,2)}`);
 				that.handleWebSocketMessage(event);
 			})
 			.on('error', (err: any, response: any) => {
-				that.logger.info(`Websocket subscription error: ${JSON.stringify(err.message)}`);
+				that.logger.warn(`Websocket subscription error: ${JSON.stringify(err.message)}`);
 				/// throw new Error('Error calling ISY' + err);
 			})
 			.on('fail', (data: string, response: any) => {
-				that.logger.info(`Websocket subscription failure: ${data}`);
+				that.logger.warn(`Websocket subscription failure: ${data}`);
 				throw new Error('Failed calling ISY');
 			})
 			.on('abort', () => {
-				that.logger.info('Websocket subscription aborted.');
+				that.logger.warn('Websocket subscription aborted.');
 				throw new Error('Call to ISY was aborted');
 			})
 			.on('timeout', (ms: string) => {
-				that.logger.info(
+				that.logger.warn(
 					`Websocket subscription timed out after ${ms} milliseconds.`
 				);
 				throw new Error('Timeout contacting ISY');

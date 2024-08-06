@@ -1,0 +1,78 @@
+{
+  "BRD_ST": {
+    "range": {
+      "uom": 25,
+      "subset": "0,1,101",
+      "nls": "IX_BRD_ST"
+    },
+    "$comment": " ISY Index UOM with custom labels in NLS ",
+    "id": "BRD_ST"
+  },
+  "CFN_ST": {
+    "range": {
+      "uom": 51,
+      "subset": "0-100,101",
+      "nls": "IX_CFN_ST"
+    },
+    "$comment": " ISY Percent UOM ",
+    "id": "CFN_ST"
+  },
+  "CFN_SPEED": {
+    "range": {
+      "uom": 56,
+      "subset": "1-10"
+    },
+    "$comment": " ISY raw UOM ",
+    "id": "CFN_SPEED"
+  },
+  "CFN_DIR": {
+    "range": {
+      "uom": 25,
+      "subset": "0-2",
+      "nls": "IX_CFN_DIR"
+    },
+    "$comment": " ISY Index UOM with custom labels in NLS ",
+    "id": "CFN_DIR"
+  },
+  "LGT_ST": {
+    "range": {
+      "uom": 51,
+      "subset": "0-100,101",
+      "nls": "IX_LGT_ST"
+    },
+    "$comment": " ISY Percent UOM ",
+    "id": "LGT_ST"
+  },
+  "NDL_ST": {
+    "range": {
+      "uom": 78,
+      "subset": "0,100,101"
+    },
+    "$comment": " ISY On/Off UOM ",
+    "id": "NDL_ST"
+  },
+  "SHD_ST": {
+    "range": {
+      "uom": 97,
+      "subset": "0-100,101"
+    },
+    "$comment": " ISY Barrier Status UOM ",
+    "id": "SHD_ST"
+  },
+  "FPL_ST": {
+    "range": {
+      "uom": 78,
+      "subset": "0,100,101"
+    },
+    "$comment": " ISY On/Off UOM ",
+    "id": "FPL_ST"
+  },
+  "GNR_ST": {
+    "range": {
+      "uom": 78,
+      "subset": "0,100,101"
+    },
+    "$comment": " ISY On/Off UOM ",
+    "id": "GNR_ST"
+  }
+}

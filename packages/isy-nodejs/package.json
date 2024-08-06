@@ -16,6 +16,8 @@
         "build:esm": "tsc -p ./tsconfig.esm.json && npm run build:esm:types",
         "build:cjs": "tsc -p ./tsconfig.cjs.json && npm run build:cjs:types && cp ./package.cjs.json ./dist/cjs/package.json",
         "build": "npm run clean && npm run build:esm && npm run build:cjs",
+        "build:esm:only": "rimraf ./dist/esm/* && tsc -p ./tsconfig.esm.json",
+        "build:esm:watch": "tsc -p ./tsconfig.esm.json --watch",
         "codegen": "tsc -p ./tsconfig.cli.json && node ./CLI/generate.js"
     },
     "keywords": [

@@ -1,0 +1,4281 @@
+{
+  "104": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Sensor",
+        "nlsId": "104",
+        "property": "ICON"
+      }
+    ]
+  },
+  "111": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "DoorLock",
+        "nlsId": "111",
+        "property": "ICON"
+      }
+    ]
+  },
+  "117": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Sensor",
+        "nlsId": "117",
+        "property": "ICON"
+      }
+    ]
+  },
+  "118": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Sensor",
+        "nlsId": "118",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "118",
+        "value": "Temperature",
+        "driver": "ST",
+        "property": "NAME"
+      }
+    ]
+  },
+  "121": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "GenericRspCtl",
+        "nlsId": "121",
+        "property": "ICON"
+      }
+    ]
+  },
+  "123": {
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "123",
+        "value": "Open",
+        "command": "DOF",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "123",
+        "value": "Close",
+        "command": "DON",
+        "property": "NAME"
+      }
+    ]
+  },
+  "140": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Thermostat",
+        "nlsId": "140",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "140",
+        "value": "Temperature",
+        "driver": "ST",
+        "property": "NAME"
+      }
+    ]
+  },
+  "143": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "EnergyMonitor",
+        "nlsId": "143",
+        "property": "ICON"
+      }
+    ]
+  },
+  "148": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "148",
+        "property": "ICON"
+      }
+    ]
+  },
+  "149": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "149",
+        "property": "ICON"
+      }
+    ]
+  },
+  "150": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "150",
+        "property": "ICON"
+      }
+    ]
+  },
+  "151": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "151",
+        "property": "ICON"
+      }
+    ]
+  },
+  "152": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "152",
+        "property": "ICON"
+      }
+    ]
+  },
+  "153": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "153",
+        "property": "ICON"
+      }
+    ]
+  },
+  "154": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "154",
+        "property": "ICON"
+      }
+    ]
+  },
+  "155": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "MotionSensor",
+        "nlsId": "155",
+        "property": "ICON"
+      }
+    ]
+  },
+  "156": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "SmokeSensor",
+        "nlsId": "156",
+        "property": "ICON"
+      }
+    ]
+  },
+  "157": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "157",
+        "property": "ICON"
+      }
+    ]
+  },
+  "158": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "158",
+        "property": "ICON"
+      }
+    ]
+  },
+  "159": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "159",
+        "property": "ICON"
+      }
+    ]
+  },
+  "160": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "160",
+        "property": "ICON"
+      }
+    ]
+  },
+  "161": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "161",
+        "property": "ICON"
+      }
+    ]
+  },
+  "162": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "162",
+        "property": "ICON"
+      }
+    ]
+  },
+  "163": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "163",
+        "property": "ICON"
+      }
+    ]
+  },
+  "164": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "164",
+        "property": "ICON"
+      }
+    ]
+  },
+  "165": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "165",
+        "property": "ICON"
+      }
+    ]
+  },
+  "166": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "166",
+        "property": "ICON"
+      }
+    ]
+  },
+  "167": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "167",
+        "property": "ICON"
+      }
+    ]
+  },
+  "168": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "168",
+        "property": "ICON"
+      }
+    ]
+  },
+  "169": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "169",
+        "property": "ICON"
+      }
+    ]
+  },
+  "170": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "170",
+        "property": "ICON"
+      }
+    ]
+  },
+  "171": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "171",
+        "property": "ICON"
+      }
+    ]
+  },
+  "172": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "172",
+        "property": "ICON"
+      }
+    ]
+  },
+  "173": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "173",
+        "property": "ICON"
+      }
+    ]
+  },
+  "174": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "174",
+        "property": "ICON"
+      }
+    ]
+  },
+  "175": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "175",
+        "property": "ICON"
+      }
+    ]
+  },
+  "176": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "176",
+        "property": "ICON"
+      }
+    ]
+  },
+  "177": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "177",
+        "property": "ICON"
+      }
+    ]
+  },
+  "178": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "178",
+        "property": "ICON"
+      }
+    ]
+  },
+  "179": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "179",
+        "property": "ICON"
+      }
+    ]
+  },
+  "180": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "180",
+        "property": "ICON"
+      }
+    ]
+  },
+  "181": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "181",
+        "property": "ICON"
+      }
+    ]
+  },
+  "182": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "182",
+        "property": "ICON"
+      }
+    ]
+  },
+  "183": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "183",
+        "property": "ICON"
+      }
+    ]
+  },
+  "184": {
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "184",
+        "value": "Open",
+        "command": "DON",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "184",
+        "value": "Close",
+        "command": "DOF",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "184",
+        "value": "Open",
+        "command": "DON",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "184",
+        "value": "Close",
+        "command": "DOF",
+        "property": "NAME"
+      }
+    ]
+  },
+  "185": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Sensor",
+        "nlsId": "185",
+        "property": "ICON"
+      }
+    ]
+  },
+  "186": {
+    "GEN": [
+      {
+        "type": "GEN",
+        "nlsId": "186",
+        "value": "Component",
+        "key": "ID",
+        "property": "NAME"
+      },
+      {
+        "type": "GEN",
+        "nlsId": "186",
+        "value": "Duration",
+        "key": "RR",
+        "property": "NAME"
+      },
+      {
+        "type": "GEN",
+        "nlsId": "186",
+        "value": "Warm White",
+        "key": "GV0",
+        "property": "NAME"
+      },
+      {
+        "type": "GEN",
+        "nlsId": "186",
+        "value": "Cold White",
+        "key": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "GEN",
+        "nlsId": "186",
+        "value": "Red",
+        "key": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "GEN",
+        "nlsId": "186",
+        "value": "Green",
+        "key": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "GEN",
+        "nlsId": "186",
+        "value": "Blue",
+        "key": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "GEN",
+        "nlsId": "186",
+        "value": "Amber",
+        "key": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "GEN",
+        "nlsId": "186",
+        "value": "Cyan",
+        "key": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "GEN",
+        "nlsId": "186",
+        "value": "Purple",
+        "key": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "GEN",
+        "nlsId": "186",
+        "value": "Color Index",
+        "key": "GV8",
+        "property": "NAME"
+      }
+    ],
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "186",
+        "value": "Set",
+        "command": "DON",
+        "property": "NAME"
+      }
+    ]
+  },
+  "187": {
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "187",
+        "value": "Off",
+        "command": "DOF",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "187",
+        "value": "On",
+        "command": "DON",
+        "property": "NAME"
+      }
+    ]
+  },
+  "188": {
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "188",
+        "value": "Down",
+        "command": "DOF",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "188",
+        "value": "Up",
+        "command": "DON",
+        "property": "NAME"
+      }
+    ]
+  },
+  "189": {
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "189",
+        "value": "Close",
+        "command": "DOF",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "189",
+        "value": "Open",
+        "command": "DON",
+        "property": "NAME"
+      }
+    ]
+  },
+  "190": {
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "190",
+        "value": "Rotate CCW",
+        "command": "DOF",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "190",
+        "value": "Rotate CW",
+        "command": "DON",
+        "property": "NAME"
+      }
+    ]
+  },
+  "191": {
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "191",
+        "value": "Left",
+        "command": "DOF",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "191",
+        "value": "Right",
+        "command": "DON",
+        "property": "NAME"
+      }
+    ]
+  },
+  "192": {
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "192",
+        "value": "Reverse",
+        "command": "DOF",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "192",
+        "value": "Forward",
+        "command": "DON",
+        "property": "NAME"
+      }
+    ]
+  },
+  "193": {
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "193",
+        "value": "Pull",
+        "command": "DOF",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "193",
+        "value": "Push",
+        "command": "DON",
+        "property": "NAME"
+      }
+    ]
+  },
+  "197": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "197",
+        "value": "Current Tone",
+        "driver": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "197",
+        "value": "Volume",
+        "driver": "SVOL",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "197",
+        "value": "Default Tone",
+        "driver": "GV0",
+        "property": "NAME"
+      }
+    ],
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "197",
+        "value": "Volume",
+        "command": "SVOL",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "197",
+        "value": "Default Tone",
+        "command": "DEFID",
+        "property": "NAME"
+      }
+    ]
+  },
+  "198": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "198",
+        "property": "ICON"
+      }
+    ]
+  },
+  "253": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "253",
+        "value": "Button Message",
+        "driver": "GV30",
+        "property": "NAME"
+      }
+    ],
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "253",
+        "value": "Button Message",
+        "command": "GV30",
+        "property": "NAME"
+      }
+    ]
+  },
+  "301": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "301",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "301",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "301",
+        "value": "Smoke Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "302": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "302",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "302",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "302",
+        "value": "CO Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "303": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "303",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "303",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "303",
+        "value": "CO2 Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "304": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "304",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "304",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "304",
+        "value": "Heat Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "305": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "305",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "305",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "305",
+        "value": "Water Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "305",
+        "value": "Water Flow",
+        "driver": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "305",
+        "value": "Water Pressure",
+        "driver": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "305",
+        "value": "Water Temperature",
+        "driver": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "305",
+        "value": "Water Level",
+        "driver": "GV4",
+        "property": "NAME"
+      }
+    ]
+  },
+  "306": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "306",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "306",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "306",
+        "value": "Access Control",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "307": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "307",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "307",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "307",
+        "value": "Barrier Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "308": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "308",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "308",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "308",
+        "value": "Home Security",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "309": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "309",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "309",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "309",
+        "value": "Power Management",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "310": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "310",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "310",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "310",
+        "value": "System Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "311": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "311",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "311",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "311",
+        "value": "Emergency Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "312": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "312",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "312",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "312",
+        "value": "Clock Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "313": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "313",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "313",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "313",
+        "value": "Appliance Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "314": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "314",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "314",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "314",
+        "value": "Home Health Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "315": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "315",
+        "property": "ICON"
+      }
+    ]
+  },
+  "316": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "316",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "316",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "316",
+        "value": "Water Valve Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "316",
+        "value": "Valve",
+        "driver": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "316",
+        "value": "Master Valve",
+        "driver": "GV2",
+        "property": "NAME"
+      }
+    ]
+  },
+  "317": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "317",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "317",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "317",
+        "value": "Weather Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "318": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "318",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "318",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "318",
+        "value": "Irrigation Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "319": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "319",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "319",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "319",
+        "value": "Gas Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "320": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "320",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "320",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "320",
+        "value": "Pest Control",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "321": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "321",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "321",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "321",
+        "value": "Light Sensor",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "322": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "322",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "322",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "322",
+        "value": "Water Quality Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "323": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "323",
+        "property": "ICON"
+      },
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "323",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "323",
+        "value": "Home Monitoring",
+        "driver": "ALARM",
+        "property": "NAME"
+      }
+    ]
+  },
+  "350": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "350",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "350",
+        "value": "Chlorine level",
+        "driver": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "350",
+        "value": "Water Acidity",
+        "driver": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "350",
+        "value": "Oxidiation Reduction Potential",
+        "driver": "GV3",
+        "property": "NAME"
+      }
+    ]
+  },
+  "351": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "351",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "351",
+        "value": "Heart Rater LF/HF Ratio",
+        "driver": "GV1",
+        "property": "NAME"
+      }
+    ]
+  },
+  "352": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "352",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "352",
+        "value": "Motion Direction",
+        "driver": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "352",
+        "value": "Applied Force to Cover",
+        "driver": "GV2",
+        "property": "NAME"
+      }
+    ]
+  },
+  "353": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "353",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "353",
+        "value": "Return Air Temperature",
+        "driver": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "353",
+        "value": "Supply Air Temperature",
+        "driver": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "353",
+        "value": "Condenser Coil Temperature",
+        "driver": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "353",
+        "value": "Evaporator Temperature",
+        "driver": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "353",
+        "value": "Liquid Line Temperature",
+        "driver": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "353",
+        "value": "Discharge Temperature",
+        "driver": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "353",
+        "value": "Suction Pressure",
+        "driver": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "353",
+        "value": "Discharge Pressure",
+        "driver": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "353",
+        "value": "Defrost Temperature",
+        "driver": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "354": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "354",
+        "property": "ICON"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "354",
+        "value": "Sulfur Dioxide",
+        "driver": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "354",
+        "value": "Nitrogen Dioxide",
+        "driver": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "354",
+        "value": "Ammonia",
+        "driver": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "354",
+        "value": "Lead",
+        "driver": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "354",
+        "value": "Particulate Matter",
+        "driver": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "354",
+        "value": "Ozone",
+        "driver": "GV6",
+        "property": "NAME"
+      }
+    ]
+  },
+  "355": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "355",
+        "property": "ICON"
+      }
+    ]
+  },
+  "356": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "356",
+        "property": "ICON"
+      }
+    ]
+  },
+  "357": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "357",
+        "property": "ICON"
+      }
+    ]
+  },
+  "358": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "358",
+        "property": "ICON"
+      }
+    ]
+  },
+  "359": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "359",
+        "property": "ICON"
+      }
+    ]
+  },
+  "360": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "360",
+        "property": "ICON"
+      }
+    ]
+  },
+  "361": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "361",
+        "property": "ICON"
+      }
+    ]
+  },
+  "362": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "362",
+        "property": "ICON"
+      }
+    ]
+  },
+  "363": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "363",
+        "property": "ICON"
+      }
+    ]
+  },
+  "364": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "364",
+        "property": "ICON"
+      }
+    ]
+  },
+  "365": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "365",
+        "property": "ICON"
+      }
+    ]
+  },
+  "366": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "366",
+        "property": "ICON"
+      }
+    ]
+  },
+  "367": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "367",
+        "property": "ICON"
+      }
+    ]
+  },
+  "368": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "368",
+        "property": "ICON"
+      }
+    ]
+  },
+  "369": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "369",
+        "property": "ICON"
+      }
+    ]
+  },
+  "370": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "370",
+        "property": "ICON"
+      }
+    ]
+  },
+  "371": {
+    "NDN": [
+      {
+        "type": "NDN",
+        "value": "Alarm",
+        "nlsId": "371",
+        "property": "ICON"
+      }
+    ]
+  },
+  "Generic": {
+    "GEN": [
+      {
+        "type": "GEN",
+        "nlsId": "Generic",
+        "value": "Timer",
+        "key": "TIMER",
+        "property": "NAME"
+      }
+    ],
+    "PGM": [
+      {
+        "type": "PGM",
+        "key": "CMD-CONFIG-FMT",
+        "value": "/num//${c} Parameter ${vo}/ /val//"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-197-DON-FMT",
+        "value": "//${c} with default tone/${c} with Tone ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-WAKEOPTS-FMT",
+        "value": "/INTERVAL//${c} interval ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-DON-FMT",
+        "value": "///${v}/ /rr// in ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-FDUP-FMT",
+        "value": "/startlevel/${c}/Fade Up starting at ${v}/ /rr// in ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-FDDOWN-FMT",
+        "value": "/startlevel/${c}/Fade Down starting at ${v}/ /rr// in ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-CLISB-FMT",
+        "value": "/STATE/Setback/Setback State ${v}/ /TYPE//, Type ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-FADE-FMT",
+        "value": "/DIR/${c}/${c} ${v}/ /STARTLEVEL// starting at ${v}/ /RR// in ${v}/ /DIR2/ 2nd/ 2nd ${v}/ /STEP2// in ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-186-DON-FMT",
+        "value": "/GV0//Warm White ${vo}, / /GV1//Cold White ${vo}, / /GV2//Red ${vo}, / /GV3//Green ${vo}, / /GV4//Blue ${vo}, / /GV5//Amber ${vo}, / /GV6//Cyan ${vo}, / /GV7//Purple ${vo}, / /GV8//Color Index ${vo}, / /RR//in ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-186-FDUP-FMT",
+        "value": "/ID//Fade ${v} Up/ /STARTLEVEL// starting at ${vo}/ /RR// in ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-186-FDDOWN-FMT",
+        "value": "/ID//Fade ${v} Down/ /STARTLEVEL// starting at ${vo}/ /RR// in ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-186-FDSTOP-FMT",
+        "value": "/ID//Fade ${v} Stop/"
+      }
+    ],
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Set Configuration",
+        "command": "CONFIG",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Wakeup",
+        "command": "WAKEOPTS",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Fade",
+        "command": "FADE",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Lock",
+        "command": "LOCK",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Unlock",
+        "command": "UNLOCK",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "No Parameters",
+        "command": "ASSOC",
+        "property": "NAME"
+      }
+    ],
+    "CMDP": [
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Parameter Number",
+        "commandParameter": "NUM",
+        "property": "NAME",
+        "editorId": "_107_0_R_0_255"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Parameter Value",
+        "commandParameter": "VAL",
+        "property": "NAME",
+        "editorId": "ZW_CONFIG"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Interval",
+        "commandParameter": "INTERVAL",
+        "property": "NAME",
+        "editorId": "ZW_WAKE_INTERVAL"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Start Level",
+        "commandParameter": "STARTLEVEL",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "State",
+        "commandParameter": "STATE",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Type",
+        "commandParameter": "TYPE",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Direction",
+        "commandParameter": "DIR",
+        "property": "NAME",
+        "editorId": "ZW_MLS_DIR"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "2nd Direction",
+        "commandParameter": "DIR2",
+        "property": "NAME",
+        "editorId": "ZW_MLS_DIR"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Fade Rate",
+        "commandParameter": "RR",
+        "property": "NAME",
+        "editorId": "ZW_RR"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "2nd Fade Rate",
+        "commandParameter": "STEP2",
+        "property": "NAME",
+        "editorId": "ZW_RR"
+      }
+    ],
+    "IX": [
+      {
+        "comment": "# Sound Switch",
+        "type": "IX",
+        "value": "Mute",
+        "indexType": "IX_TVOL",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Sound Switch",
+        "type": "IX",
+        "value": "Previous",
+        "indexType": "IX_TVOL",
+        "indexValue": 101
+      },
+      {
+        "comment": "# Sound Switch",
+        "type": "IX",
+        "value": "Off",
+        "indexType": "IX_TONEID",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Communication Error",
+        "type": "IX",
+        "value": "True",
+        "indexType": "IX_ERR",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Communication Error",
+        "type": "IX",
+        "value": "False",
+        "indexType": "IX_ERR",
+        "indexValue": 1
+      },
+      {
+        "comment": "# ZW_DIM_PERCENT Index",
+        "type": "IX",
+        "value": "Previous Value",
+        "indexType": "IX_PCT_OPT",
+        "indexValue": 1
+      },
+      {
+        "comment": "# ZW_MLS_DIR (Fade direction) Index",
+        "type": "IX",
+        "value": "Up",
+        "indexType": "IX_MLS_DIR",
+        "indexValue": 0
+      },
+      {
+        "comment": "# ZW_MLS_DIR (Fade direction) Index",
+        "type": "IX",
+        "value": "Down",
+        "indexType": "IX_MLS_DIR",
+        "indexValue": 1
+      },
+      {
+        "comment": "# ZW_MLS_DIR (Fade direction) Index",
+        "type": "IX",
+        "value": "None",
+        "indexType": "IX_MLS_DIR",
+        "indexValue": 3
+      },
+      {
+        "comment": "# Color Component IDs",
+        "type": "IX",
+        "value": "Warm White",
+        "indexType": "IX_CCI",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Color Component IDs",
+        "type": "IX",
+        "value": "Cold White",
+        "indexType": "IX_CCI",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Color Component IDs",
+        "type": "IX",
+        "value": "Red",
+        "indexType": "IX_CCI",
+        "indexValue": 2
+      },
+      {
+        "comment": "# Color Component IDs",
+        "type": "IX",
+        "value": "Green",
+        "indexType": "IX_CCI",
+        "indexValue": 3
+      },
+      {
+        "comment": "# Color Component IDs",
+        "type": "IX",
+        "value": "Blue",
+        "indexType": "IX_CCI",
+        "indexValue": 4
+      },
+      {
+        "comment": "# Color Component IDs",
+        "type": "IX",
+        "value": "Amber",
+        "indexType": "IX_CCI",
+        "indexValue": 5
+      },
+      {
+        "comment": "# Color Component IDs",
+        "type": "IX",
+        "value": "Cyan",
+        "indexType": "IX_CCI",
+        "indexValue": 6
+      },
+      {
+        "comment": "# Color Component IDs",
+        "type": "IX",
+        "value": "Purple",
+        "indexType": "IX_CCI",
+        "indexValue": 7
+      },
+      {
+        "comment": "# Color Component IDs",
+        "type": "IX",
+        "value": "Color Index",
+        "indexType": "IX_CCI",
+        "indexValue": 8
+      },
+      {
+        "comment": "# Unlock options",
+        "type": "IX",
+        "value": "Default",
+        "indexType": "IX_UNLOCK",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Unlock options",
+        "type": "IX",
+        "value": "Normal",
+        "indexType": "IX_UNLOCK",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Unlock options",
+        "type": "IX",
+        "value": "With timer",
+        "indexType": "IX_UNLOCK",
+        "indexValue": 2
+      },
+      {
+        "comment": "# Unlock options",
+        "type": "IX",
+        "value": "Inside door handles",
+        "indexType": "IX_UNLOCK",
+        "indexValue": 3
+      },
+      {
+        "comment": "# Unlock options",
+        "type": "IX",
+        "value": "Inside door handles with timer",
+        "indexType": "IX_UNLOCK",
+        "indexValue": 4
+      },
+      {
+        "comment": "# Unlock options",
+        "type": "IX",
+        "value": "Outside door handles",
+        "indexType": "IX_UNLOCK",
+        "indexValue": 5
+      },
+      {
+        "comment": "# Unlock options",
+        "type": "IX",
+        "value": "Outside door handles with timer",
+        "indexType": "IX_UNLOCK",
+        "indexValue": 6
+      },
+      {
+        "comment": "# On/Off Percent",
+        "type": "IX",
+        "value": "Off",
+        "indexType": "IX_ONOFF",
+        "indexValue": 0
+      },
+      {
+        "comment": "# On/Off Percent",
+        "type": "IX",
+        "value": "On",
+        "indexType": "IX_ONOFF",
+        "indexValue": 100
+      },
+      {
+        "comment": "# Dimmer 0-100, 101= Unknown",
+        "type": "IX",
+        "value": "Off",
+        "indexType": "IX_DIM_REP",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Dimmer 0-100, 101= Unknown",
+        "type": "IX",
+        "value": "Unknown",
+        "indexType": "IX_DIM_REP",
+        "indexValue": 101
+      },
+      {
+        "comment": "# Thermostat Setback Types",
+        "type": "IX",
+        "value": "No override",
+        "indexType": "IX_SB_T",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Thermostat Setback Types",
+        "type": "IX",
+        "value": "Temporary Override",
+        "indexType": "IX_SB_T",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Thermostat Setback Types",
+        "type": "IX",
+        "value": "Permanent Override",
+        "indexType": "IX_SB_T",
+        "indexValue": 2
+      },
+      {
+        "comment": "# Thermostat Setback States",
+        "type": "IX",
+        "value": "Offset",
+        "indexType": "IX_SB_ST",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Thermostat Setback States",
+        "type": "IX",
+        "value": "Frost Protection",
+        "indexType": "IX_SB_ST",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Thermostat Setback States",
+        "type": "IX",
+        "value": "Energy Saving",
+        "indexType": "IX_SB_ST",
+        "indexValue": 2
+      },
+      {
+        "comment": "# Custom Button Press",
+        "type": "IX",
+        "value": "Default",
+        "indexType": "IX_CBP",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Custom Button Press",
+        "type": "IX",
+        "value": "Do Not Detect",
+        "indexType": "IX_CBP",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Custom Button Press",
+        "type": "IX",
+        "value": "(20.01) Basic Set",
+        "indexType": "IX_CBP",
+        "indexValue": 2
+      },
+      {
+        "comment": "# Custom Button Press",
+        "type": "IX",
+        "value": "(20.03) Basic Report",
+        "indexType": "IX_CBP",
+        "indexValue": 3
+      },
+      {
+        "comment": "# Custom Button Press",
+        "type": "IX",
+        "value": "(25.01) Binary Switch Set",
+        "indexType": "IX_CBP",
+        "indexValue": 4
+      },
+      {
+        "comment": "# Custom Button Press",
+        "type": "IX",
+        "value": "(25.03) Binary Switch Report",
+        "indexType": "IX_CBP",
+        "indexValue": 5
+      },
+      {
+        "comment": "# Custom Button Press",
+        "type": "IX",
+        "value": "(26.01) Multilevel Switch Set",
+        "indexType": "IX_CBP",
+        "indexValue": 6
+      },
+      {
+        "comment": "# Custom Button Press",
+        "type": "IX",
+        "value": "(26.03) Multilevel Switch Report",
+        "indexType": "IX_CBP",
+        "indexValue": 7
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_SMOKE",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Smoke detected",
+        "indexType": "IXA_SMOKE",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Smoke detected (no location)",
+        "indexType": "IXA_SMOKE",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Smoke alarm test",
+        "indexType": "IXA_SMOKE",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Replacement required",
+        "indexType": "IXA_SMOKE",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Replacement required (End of life)",
+        "indexType": "IXA_SMOKE",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Alarm silenced",
+        "indexType": "IXA_SMOKE",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Inspection required",
+        "indexType": "IXA_SMOKE",
+        "indexValue": 7
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Dust in device",
+        "indexType": "IXA_SMOKE",
+        "indexValue": 8
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "(Unknown Event)",
+        "indexType": "IXA_SMOKE",
+        "indexValue": 254
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_CO",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "CO detected",
+        "indexType": "IXA_CO",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "CO detected (no location)",
+        "indexType": "IXA_CO",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "CO alarm test",
+        "indexType": "IXA_CO",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Replacement required",
+        "indexType": "IXA_CO",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Replacement required (End of life)",
+        "indexType": "IXA_CO",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Alarm silenced",
+        "indexType": "IXA_CO",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Inspection required",
+        "indexType": "IXA_CO",
+        "indexValue": 7
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "(Unknown Event)",
+        "indexType": "IXA_CO",
+        "indexValue": 254
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_CO2",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "CO2 detected",
+        "indexType": "IXA_CO2",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "CO2 detected (no location)",
+        "indexType": "IXA_CO2",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "CO2 alarm test",
+        "indexType": "IXA_CO2",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Replacement required",
+        "indexType": "IXA_CO2",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Replacement required (End of life)",
+        "indexType": "IXA_CO2",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Alarm silenced",
+        "indexType": "IXA_CO2",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Inspection required",
+        "indexType": "IXA_CO2",
+        "indexValue": 7
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "(Unknown Event)",
+        "indexType": "IXA_CO2",
+        "indexValue": 254
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_HEAT",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Overheat",
+        "indexType": "IXA_HEAT",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Overheat (no location)",
+        "indexType": "IXA_HEAT",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Rapid temperature rise",
+        "indexType": "IXA_HEAT",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Rapid temperature rise (no location)",
+        "indexType": "IXA_HEAT",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Underheat",
+        "indexType": "IXA_HEAT",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Underheat (no location)",
+        "indexType": "IXA_HEAT",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Heat alarm test",
+        "indexType": "IXA_HEAT",
+        "indexValue": 7
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Replacement required (End of life)",
+        "indexType": "IXA_HEAT",
+        "indexValue": 8
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Alarm silenced",
+        "indexType": "IXA_HEAT",
+        "indexValue": 9
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Dust in device",
+        "indexType": "IXA_HEAT",
+        "indexValue": 10
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Inspection required",
+        "indexType": "IXA_HEAT",
+        "indexValue": 11
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Rapid temperature fall",
+        "indexType": "IXA_HEAT",
+        "indexValue": 12
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Rapid temperature fall (no location)",
+        "indexType": "IXA_HEAT",
+        "indexValue": 13
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_WATER",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Leak Detected",
+        "indexType": "IXA_WATER",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Leak Detected (No Location)",
+        "indexType": "IXA_WATER",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Level Drop",
+        "indexType": "IXA_WATER",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Level Drop (No Location)",
+        "indexType": "IXA_WATER",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Replace Water Filter",
+        "indexType": "IXA_WATER",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Water Flow",
+        "indexType": "IXA_WATER",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Water Pressure",
+        "indexType": "IXA_WATER",
+        "indexValue": 7
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Water Temperature",
+        "indexType": "IXA_WATER",
+        "indexValue": 8
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Water Level",
+        "indexType": "IXA_WATER",
+        "indexValue": 9
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Sump Pump Active",
+        "indexType": "IXA_WATER",
+        "indexValue": 10
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Sump Pump Fail",
+        "indexType": "IXA_WATER",
+        "indexValue": 11
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "(Unknown Event)",
+        "indexType": "IXA_WATER",
+        "indexValue": 254
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_AC",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Manual lock",
+        "indexType": "IXA_AC",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Manual unlock",
+        "indexType": "IXA_AC",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "RF lock",
+        "indexType": "IXA_AC",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "RF unlock",
+        "indexType": "IXA_AC",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Keypad lock",
+        "indexType": "IXA_AC",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Keypad unlock",
+        "indexType": "IXA_AC",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Manual not fully locked",
+        "indexType": "IXA_AC",
+        "indexValue": 7
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "RF not fully locked",
+        "indexType": "IXA_AC",
+        "indexValue": 8
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Auto locked",
+        "indexType": "IXA_AC",
+        "indexValue": 9
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Auto lock not fully locked",
+        "indexType": "IXA_AC",
+        "indexValue": 10
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Lock jammed",
+        "indexType": "IXA_AC",
+        "indexValue": 11
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "All user codes deleted",
+        "indexType": "IXA_AC",
+        "indexValue": 12
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Single user code deleted",
+        "indexType": "IXA_AC",
+        "indexValue": 13
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "User code added",
+        "indexType": "IXA_AC",
+        "indexValue": 14
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "User code not added (duplicate)",
+        "indexType": "IXA_AC",
+        "indexValue": 15
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Keypad temporary disabled",
+        "indexType": "IXA_AC",
+        "indexValue": 16
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Keypad busy",
+        "indexType": "IXA_AC",
+        "indexValue": 17
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "New program code entered",
+        "indexType": "IXA_AC",
+        "indexValue": 18
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Manual code entry limit",
+        "indexType": "IXA_AC",
+        "indexValue": 19
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Unlock by RF with invalid user code",
+        "indexType": "IXA_AC",
+        "indexValue": 20
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Locked by RF with invalid user code",
+        "indexType": "IXA_AC",
+        "indexValue": 21
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Window/door is open",
+        "indexType": "IXA_AC",
+        "indexValue": 22
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Window/door is closed",
+        "indexType": "IXA_AC",
+        "indexValue": 23
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Window/door handle is open",
+        "indexType": "IXA_AC",
+        "indexValue": 24
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Window/door handle is closed",
+        "indexType": "IXA_AC",
+        "indexValue": 25
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Messaging User Code entered via keypad",
+        "indexType": "IXA_AC",
+        "indexValue": 32
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_BA",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Initializing",
+        "indexType": "IXA_BA",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Open/Close Force exceeded",
+        "indexType": "IXA_BA",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Motor exceeded time limit",
+        "indexType": "IXA_BA",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Mechanical limits exceeded",
+        "indexType": "IXA_BA",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Operation not performed (UL)",
+        "indexType": "IXA_BA",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Unattended operation disabled (UL)",
+        "indexType": "IXA_BA",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Device malfunction",
+        "indexType": "IXA_BA",
+        "indexValue": 7
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Vacation mode",
+        "indexType": "IXA_BA",
+        "indexValue": 8
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Safety beam obstacle",
+        "indexType": "IXA_BA",
+        "indexValue": 9
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Sensor not detected / supervisory error",
+        "indexType": "IXA_BA",
+        "indexValue": 10
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Low battery warning",
+        "indexType": "IXA_BA",
+        "indexValue": 11
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Short in wall station wires",
+        "indexType": "IXA_BA",
+        "indexValue": 12
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "non-Z-Wave association",
+        "indexType": "IXA_BA",
+        "indexValue": 13
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_HS",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Intrusion",
+        "indexType": "IXA_HS",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Intrusion (no location)",
+        "indexType": "IXA_HS",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Tamper (Cover removed)",
+        "indexType": "IXA_HS",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Invalid code",
+        "indexType": "IXA_HS",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Glass break",
+        "indexType": "IXA_HS",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Glass break (no location)",
+        "indexType": "IXA_HS",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Motion",
+        "indexType": "IXA_HS",
+        "indexValue": 7
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Motion (no location)",
+        "indexType": "IXA_HS",
+        "indexValue": 8
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Tamper (Moved)",
+        "indexType": "IXA_HS",
+        "indexValue": 9
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Impact",
+        "indexType": "IXA_HS",
+        "indexValue": 10
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Magnetic interference",
+        "indexType": "IXA_HS",
+        "indexValue": 11
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "RF jamming",
+        "indexType": "IXA_HS",
+        "indexValue": 12
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_PM",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Power applied",
+        "indexType": "IXA_PM",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "AC mains disconnected",
+        "indexType": "IXA_PM",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "AC mains reconnected",
+        "indexType": "IXA_PM",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Surge",
+        "indexType": "IXA_PM",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Voltage drop/drift",
+        "indexType": "IXA_PM",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Over current",
+        "indexType": "IXA_PM",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Over voltage",
+        "indexType": "IXA_PM",
+        "indexValue": 7
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Overload",
+        "indexType": "IXA_PM",
+        "indexValue": 8
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Load error",
+        "indexType": "IXA_PM",
+        "indexValue": 9
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Replace battery soon",
+        "indexType": "IXA_PM",
+        "indexValue": 10
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Replace battery now",
+        "indexType": "IXA_PM",
+        "indexValue": 11
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Battery charging",
+        "indexType": "IXA_PM",
+        "indexValue": 12
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Battery fully charged",
+        "indexType": "IXA_PM",
+        "indexValue": 13
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Charge battery soon",
+        "indexType": "IXA_PM",
+        "indexValue": 14
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Charge battery now",
+        "indexType": "IXA_PM",
+        "indexValue": 15
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Backup battery low",
+        "indexType": "IXA_PM",
+        "indexValue": 16
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Battery fluid low",
+        "indexType": "IXA_PM",
+        "indexValue": 17
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Backup battery disconnected",
+        "indexType": "IXA_PM",
+        "indexValue": 18
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_SYS",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Hardware failure",
+        "indexType": "IXA_SYS",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Software failure",
+        "indexType": "IXA_SYS",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Hardware failure (+ reason)",
+        "indexType": "IXA_SYS",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Software failure (+ reason)",
+        "indexType": "IXA_SYS",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Heartbeat",
+        "indexType": "IXA_SYS",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Cover removed",
+        "indexType": "IXA_SYS",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Emergency shutoff",
+        "indexType": "IXA_SYS",
+        "indexValue": 7
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Digital input high state",
+        "indexType": "IXA_SYS",
+        "indexValue": 9
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Digital input low state",
+        "indexType": "IXA_SYS",
+        "indexValue": 10
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Digital input open",
+        "indexType": "IXA_SYS",
+        "indexValue": 11
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_EA",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Contact police",
+        "indexType": "IXA_EA",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Contact fire service",
+        "indexType": "IXA_EA",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Contact medical service",
+        "indexType": "IXA_EA",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Panic alert",
+        "indexType": "IXA_EA",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_CLOCK",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Wake up",
+        "indexType": "IXA_CLOCK",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Timer ended",
+        "indexType": "IXA_CLOCK",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Time remaining",
+        "indexType": "IXA_CLOCK",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_APP",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Program started",
+        "indexType": "IXA_APP",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Program in progress",
+        "indexType": "IXA_APP",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Program completed",
+        "indexType": "IXA_APP",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Replace main filter",
+        "indexType": "IXA_APP",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Failure to set target temperature",
+        "indexType": "IXA_APP",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Supplying water",
+        "indexType": "IXA_APP",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Water supply failure",
+        "indexType": "IXA_APP",
+        "indexValue": 7
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Boiling",
+        "indexType": "IXA_APP",
+        "indexValue": 8
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Boiling failure",
+        "indexType": "IXA_APP",
+        "indexValue": 9
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Washing",
+        "indexType": "IXA_APP",
+        "indexValue": 10
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Washing failure",
+        "indexType": "IXA_APP",
+        "indexValue": 11
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Rinsing",
+        "indexType": "IXA_APP",
+        "indexValue": 12
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Rinsing failure",
+        "indexType": "IXA_APP",
+        "indexValue": 13
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Draining",
+        "indexType": "IXA_APP",
+        "indexValue": 14
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Draining failure",
+        "indexType": "IXA_APP",
+        "indexValue": 15
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Spinning",
+        "indexType": "IXA_APP",
+        "indexValue": 16
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Spinning failure",
+        "indexType": "IXA_APP",
+        "indexValue": 17
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Drying",
+        "indexType": "IXA_APP",
+        "indexValue": 18
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Drying failure",
+        "indexType": "IXA_APP",
+        "indexValue": 19
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Fan failure",
+        "indexType": "IXA_APP",
+        "indexValue": 20
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Compressor failure",
+        "indexType": "IXA_APP",
+        "indexValue": 21
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_HH",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Leaving bed",
+        "indexType": "IXA_HH",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Sitting on bed",
+        "indexType": "IXA_HH",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Lying on bed",
+        "indexType": "IXA_HH",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Posture changed",
+        "indexType": "IXA_HH",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Sitting on bed edge",
+        "indexType": "IXA_HH",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "VOC level",
+        "indexType": "IXA_HH",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Sleep apnea detected",
+        "indexType": "IXA_HH",
+        "indexValue": 7
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Sleep stage 0",
+        "indexType": "IXA_HH",
+        "indexValue": 8
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Sleep stage 1",
+        "indexType": "IXA_HH",
+        "indexValue": 9
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Sleep stage 2",
+        "indexType": "IXA_HH",
+        "indexValue": 10
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Sleep stage 3",
+        "indexType": "IXA_HH",
+        "indexValue": 11
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Fall detected",
+        "indexType": "IXA_HH",
+        "indexValue": 12
+      },
+      {
+        "comment": "#  VOC",
+        "type": "IX",
+        "value": "--",
+        "indexType": "IXAV_VOC",
+        "indexValue": 0
+      },
+      {
+        "comment": "#  VOC",
+        "type": "IX",
+        "value": "Clean",
+        "indexType": "IXAV_VOC",
+        "indexValue": 1
+      },
+      {
+        "comment": "#  VOC",
+        "type": "IX",
+        "value": "Slightly Polluted",
+        "indexType": "IXAV_VOC",
+        "indexValue": 2
+      },
+      {
+        "comment": "#  VOC",
+        "type": "IX",
+        "value": "Moderately Polluted",
+        "indexType": "IXAV_VOC",
+        "indexValue": 3
+      },
+      {
+        "comment": "#  VOC",
+        "type": "IX",
+        "value": "Highly Polluted",
+        "indexType": "IXAV_VOC",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_WV",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Valve operation",
+        "indexType": "IXA_WV",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Master valve operation",
+        "indexType": "IXA_WV",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Valve short circuit",
+        "indexType": "IXA_WV",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Master valve short circuit",
+        "indexType": "IXA_WV",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Valve alarm",
+        "indexType": "IXA_WV",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Master valve alarm",
+        "indexType": "IXA_WV",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_WEA",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Rain",
+        "indexType": "IXA_WEA",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Moisture",
+        "indexType": "IXA_WEA",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Freeze",
+        "indexType": "IXA_WEA",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_IRR",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Schedule started",
+        "indexType": "IXA_IRR",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Schedule finished",
+        "indexType": "IXA_IRR",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Valve table run started",
+        "indexType": "IXA_IRR",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Valve table run finished",
+        "indexType": "IXA_IRR",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Device not configured",
+        "indexType": "IXA_IRR",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_GAS",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Combustible gas detected (+ loc)",
+        "indexType": "IXA_GAS",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Combustible gas detected",
+        "indexType": "IXA_GAS",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Toxic gas detected (+ loc)",
+        "indexType": "IXA_GAS",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Toxic gas detected",
+        "indexType": "IXA_GAS",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Gas alarm test",
+        "indexType": "IXA_GAS",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Replacement required",
+        "indexType": "IXA_GAS",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_PEST",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Trap armed (+ loc)",
+        "indexType": "IXA_PEST",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Trap armed",
+        "indexType": "IXA_PEST",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Trap re-arm required (+ loc)",
+        "indexType": "IXA_PEST",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Trap re-arm required",
+        "indexType": "IXA_PEST",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Pest detected (+ loc)",
+        "indexType": "IXA_PEST",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Pest detected",
+        "indexType": "IXA_PEST",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Pest exterminated (+ loc)",
+        "indexType": "IXA_PEST",
+        "indexValue": 7
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Pest exterminated",
+        "indexType": "IXA_PEST",
+        "indexValue": 8
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_LS",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Light detected",
+        "indexType": "IXA_LS",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Color transition",
+        "indexType": "IXA_LS",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Idle",
+        "indexType": "IXA_WQM",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Chlorine",
+        "indexType": "IXA_WQM",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Acidity (pH)",
+        "indexType": "IXA_WQM",
+        "indexValue": 2
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Oxidation",
+        "indexType": "IXA_WQM",
+        "indexValue": 3
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Chlorine empty",
+        "indexType": "IXA_WQM",
+        "indexValue": 4
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Acidity (pH) empty",
+        "indexType": "IXA_WQM",
+        "indexValue": 5
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Waterflow shortage",
+        "indexType": "IXA_WQM",
+        "indexValue": 6
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Waterflow clear water shortage",
+        "indexType": "IXA_WQM",
+        "indexValue": 7
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Disinfection error",
+        "indexType": "IXA_WQM",
+        "indexValue": 8
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Filter cleaning ongoing",
+        "indexType": "IXA_WQM",
+        "indexValue": 9
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Heating operation ongoing",
+        "indexType": "IXA_WQM",
+        "indexValue": 10
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Filter pump operation ongoing",
+        "indexType": "IXA_WQM",
+        "indexValue": 11
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Freshwater operation ongoing",
+        "indexType": "IXA_WQM",
+        "indexValue": 12
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Dry protection operation ongoing",
+        "indexType": "IXA_WQM",
+        "indexValue": 13
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Water tank empty",
+        "indexType": "IXA_WQM",
+        "indexValue": 14
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Water tank level unknown",
+        "indexType": "IXA_WQM",
+        "indexValue": 15
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Water tank full",
+        "indexType": "IXA_WQM",
+        "indexValue": 16
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Collective disorder",
+        "indexType": "IXA_WQM",
+        "indexValue": 17
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "(Unknown Event)",
+        "indexType": "IXA_WQM",
+        "indexValue": 254
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "-",
+        "indexType": "IXA_HM",
+        "indexValue": 0
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Home occupied",
+        "indexType": "IXA_HM",
+        "indexValue": 1
+      },
+      {
+        "comment": "#   ALARM uses these",
+        "type": "IX",
+        "value": "Home occupied (no location)",
+        "indexType": "IXA_HM",
+        "indexValue": 2
+      },
+      {
+        "comment": "# WATER, WV",
+        "type": "IX",
+        "value": "-",
+        "indexType": "IXAV_01",
+        "indexValue": 0
+      },
+      {
+        "comment": "# WATER, WV",
+        "type": "IX",
+        "value": "No Data",
+        "indexType": "IXAV_01",
+        "indexValue": 1
+      },
+      {
+        "comment": "# WATER, WV",
+        "type": "IX",
+        "value": "Below low threshold",
+        "indexType": "IXAV_01",
+        "indexValue": 2
+      },
+      {
+        "comment": "# WATER, WV",
+        "type": "IX",
+        "value": "Above high threshold",
+        "indexType": "IXAV_01",
+        "indexValue": 3
+      },
+      {
+        "comment": "# WATER, WV",
+        "type": "IX",
+        "value": "Max",
+        "indexType": "IXAV_01",
+        "indexValue": 4
+      }
+    ],
+    "# Off": [
+      {
+        "type": "# Off",
+        "key": "",
+        "value": "Open, On"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Responding",
+        "driver": "ERR",
+        "property": "NAME"
+      }
+    ],
+    "LNKD": [
+      {
+        "type": "LNKD",
+        "parameter": "ASSOC",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Association"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "ASSOC_MC",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Association MC"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "S0",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Association S0"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "MC_S0",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Association MC S0"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "ASSOC_CMD",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Association Command"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "S0_CMD",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Association Command S0"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "BASIC",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Basic"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "BSW",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Switch"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "MLSW",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Dimmer"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "S0_BASIC",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Basic S0"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "S0_BSW",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Switch S0"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "S0_MLSW",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Dimmer S0"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "MC_BASIC",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Basic MC"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "MC_BSW",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Switch MC"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "MC_MLSW",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Dimmer MC"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "MC_S0_BASIC",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Basic MC S0"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "MC_S0_BSW",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Switch MC S0"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "MC_S0_MLSW",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Dimmer MC S0"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "SCENE",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Scene"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "SCENE_S0",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Scene S0"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "SCENE_MC",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Scene MC"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "SCENE_MC_S0",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Scene MC S0"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "SCENE_R_CFG",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Scene Dimmer"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "SCENE_S0_R_CFG",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Scene Dimmer S0"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "SCENE_MC_R_CFG",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Scene Dimmer MC"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "SCENE_MC_S0_R_CFG",
+        "property": "NAME",
+        "meta": "",
+        "value": "Z-Wave Scene Dimmer MC S0"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "ASSOC",
+        "property": "FMT",
+        "meta": "",
+        "value": ";;No Parameters;No Parameters;"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "ASSOC_MC",
+        "property": "FMT",
+        "meta": "",
+        "value": ";;No Parameters;No Parameters;"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "SCENE",
+        "property": "FMT",
+        "meta": "",
+        "value": ";;No Parameters;No Parameters;"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "SCENE_MC",
+        "property": "FMT",
+        "meta": "",
+        "value": ";;No Parameters;No Parameters;"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "SCENE_R_CFG",
+        "property": "FMT",
+        "meta": "",
+        "value": ";OL;;${v}; ;RR;; in ${v};"
+      },
+      {
+        "type": "LNKD",
+        "parameter": "SCENE_MC_R_CFG",
+        "property": "FMT",
+        "meta": "",
+        "value": ";OL;;${v}; ;RR;; in ${v};"
+      }
+    ],
+    "# Dimmer 0": [
+      {
+        "type": "# Dimmer 0",
+        "key": "100, 101",
+        "value": "Unknown"
+      }
+    ]
+  }
+}

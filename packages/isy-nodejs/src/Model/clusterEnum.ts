@@ -1,9 +1,7 @@
 
 
 import * as Clusters from '@project-chip/matter.js/cluster';
-import type cluster from 'cluster';
 
-import { toCelsius } from 'homebridge-isy/dist/utils.js';
 export enum ClusterType {
   AccessControl = "AccessControl",
   AccountLogin = "AccountLogin",

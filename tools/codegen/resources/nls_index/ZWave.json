@@ -1,0 +1,396 @@
+{
+  "IX_TVOL": {
+    "0": "Off",
+    "255": "Previous"
+  },
+  "IX_TVOL_S": {
+    "0": "Default",
+    "101": "Previous"
+  },
+  "IX_TVOL_C": {
+    "0": "Mute",
+    "101": "Previous"
+  },
+  "IX_TONEID": {
+    "0": "Off"
+  },
+  "IX_ONOFF": {
+    "0": "Off",
+    "100": "On"
+  },
+  "IX_UCODE": {
+    "0": "Inactive",
+    "100": "Active"
+  },
+  "IX_ALLSET": {
+    "0": "Ignore All On & All Off",
+    "1": "Ignore All On",
+    "2": "Ignore All Off",
+    "255": "Ignore None"
+  },
+  "IX_FTU": {
+    "0": "False",
+    "100": "True",
+    "101": "Unknown"
+  },
+  "IX_ERR": {
+    "0": "True",
+    "1": "False"
+  },
+  "IX_PCT_OPT": {
+    "1": "Previous Value"
+  },
+  "IX_MLS_DIR": {
+    "0": "Up",
+    "1": "Down",
+    "3": "None"
+  },
+  "IX_CCI": {
+    "0": "Warm White",
+    "1": "Cold White",
+    "2": "Red",
+    "3": "Green",
+    "4": "Blue",
+    "5": "Amber",
+    "6": "Cyan",
+    "7": "Purple",
+    "8": "Color Index"
+  },
+  "IX_UNLOCK": {
+    "0": "Default",
+    "1": "Normal",
+    "2": "With timer",
+    "3": "Inside door handles",
+    "4": "Inside door handles with timer",
+    "5": "Outside door handles",
+    "6": "Outside door handles with timer"
+  },
+  "IX_DIM_REP": {
+    "0": "Off",
+    "101": "Unknown"
+  },
+  "IX_SB_T": {
+    "0": "No override",
+    "1": "Temporary Override",
+    "2": "Permanent Override"
+  },
+  "IX_SB_ST": {
+    "0": "Offset",
+    "1": "Frost Protection",
+    "2": "Energy Saving",
+    "3": "Unused"
+  },
+  "IX_CBP": {
+    "0": "Default",
+    "1": "Do Not Detect",
+    "2": "(20.01) Basic Set",
+    "3": "(20.03) Basic Report",
+    "4": "(25.01) Binary Switch Set",
+    "5": "(25.03) Binary Switch Report",
+    "6": "(26.01) Multilevel Switch Set",
+    "7": "(26.03) Multilevel Switch Report"
+  },
+  "IXA_SMOKE": {
+    "0": "Idle",
+    "1": "Smoke detected",
+    "2": "Smoke detected (no location)",
+    "3": "Smoke alarm test",
+    "4": "Replacement required",
+    "5": "Replacement required (End of life)",
+    "6": "Alarm silenced",
+    "7": "Inspection required",
+    "8": "Dust in device",
+    "254": "(Unknown Event)"
+  },
+  "IXA_CO": {
+    "0": "Idle",
+    "1": "CO detected",
+    "2": "CO detected (no location)",
+    "3": "CO alarm test",
+    "4": "Replacement required",
+    "5": "Replacement required (End of life)",
+    "6": "Alarm silenced",
+    "7": "Inspection required",
+    "254": "(Unknown Event)"
+  },
+  "IXA_CO2": {
+    "0": "Idle",
+    "1": "CO2 detected",
+    "2": "CO2 detected (no location)",
+    "3": "CO2 alarm test",
+    "4": "Replacement required",
+    "5": "Replacement required (End of life)",
+    "6": "Alarm silenced",
+    "7": "Inspection required",
+    "254": "(Unknown Event)"
+  },
+  "IXA_HEAT": {
+    "0": "Idle",
+    "1": "Overheat",
+    "2": "Overheat (no location)",
+    "3": "Rapid temperature rise",
+    "4": "Rapid temperature rise (no location)",
+    "5": "Underheat",
+    "6": "Underheat (no location)",
+    "7": "Heat alarm test",
+    "8": "Replacement required (End of life)",
+    "9": "Alarm silenced",
+    "10": "Dust in device",
+    "11": "Inspection required",
+    "12": "Rapid temperature fall",
+    "13": "Rapid temperature fall (no location)"
+  },
+  "IXA_WATER": {
+    "0": "Idle",
+    "1": "Leak Detected",
+    "2": "Leak Detected (No Location)",
+    "3": "Level Drop",
+    "4": "Level Drop (No Location)",
+    "5": "Replace Water Filter",
+    "6": "Water Flow",
+    "7": "Water Pressure",
+    "8": "Water Temperature",
+    "9": "Water Level",
+    "10": "Sump Pump Active",
+    "11": "Sump Pump Fail",
+    "254": "(Unknown Event)"
+  },
+  "IXA_AC": {
+    "0": "Idle",
+    "1": "Manual lock",
+    "2": "Manual unlock",
+    "3": "RF lock",
+    "4": "RF unlock",
+    "5": "Keypad lock",
+    "6": "Keypad unlock",
+    "7": "Manual not fully locked",
+    "8": "RF not fully locked",
+    "9": "Auto locked",
+    "10": "Auto lock not fully locked",
+    "11": "Lock jammed",
+    "12": "All user codes deleted",
+    "13": "Single user code deleted",
+    "14": "User code added",
+    "15": "User code not added (duplicate)",
+    "16": "Keypad temporary disabled",
+    "17": "Keypad busy",
+    "18": "New program code entered",
+    "19": "Manual code entry limit",
+    "20": "Unlock by RF with invalid user code",
+    "21": "Locked by RF with invalid user code",
+    "22": "Window/door is open",
+    "23": "Window/door is closed",
+    "24": "Window/door handle is open",
+    "25": "Window/door handle is closed",
+    "32": "Messaging User Code entered via keypad"
+  },
+  "IXA_BA": {
+    "0": "Idle",
+    "1": "Initializing",
+    "2": "Open/Close Force exceeded",
+    "3": "Motor exceeded time limit",
+    "4": "Mechanical limits exceeded",
+    "5": "Operation not performed (UL)",
+    "6": "Unattended operation disabled (UL)",
+    "7": "Device malfunction",
+    "8": "Vacation mode",
+    "9": "Safety beam obstacle",
+    "10": "Sensor not detected / supervisory error",
+    "11": "Low battery warning",
+    "12": "Short in wall station wires",
+    "13": "non-Z-Wave association"
+  },
+  "IXA_HS": {
+    "0": "Idle",
+    "1": "Intrusion",
+    "2": "Intrusion (no location)",
+    "3": "Tamper (Cover removed)",
+    "4": "Invalid code",
+    "5": "Glass break",
+    "6": "Glass break (no location)",
+    "7": "Motion",
+    "8": "Motion (no location)",
+    "9": "Tamper (Moved)",
+    "10": "Impact",
+    "11": "Magnetic interference",
+    "12": "RF jamming"
+  },
+  "IXA_PM": {
+    "0": "Idle",
+    "1": "Power applied",
+    "2": "AC mains disconnected",
+    "3": "AC mains reconnected",
+    "4": "Surge",
+    "5": "Voltage drop/drift",
+    "6": "Over current",
+    "7": "Over voltage",
+    "8": "Overload",
+    "9": "Load error",
+    "10": "Replace battery soon",
+    "11": "Replace battery now",
+    "12": "Battery charging",
+    "13": "Battery fully charged",
+    "14": "Charge battery soon",
+    "15": "Charge battery now",
+    "16": "Backup battery low",
+    "17": "Battery fluid low",
+    "18": "Backup battery disconnected"
+  },
+  "IXA_SYS": {
+    "0": "Idle",
+    "1": "Hardware failure",
+    "2": "Software failure",
+    "3": "Hardware failure (+ reason)",
+    "4": "Software failure (+ reason)",
+    "5": "Heartbeat",
+    "6": "Cover removed",
+    "7": "Emergency shutoff",
+    "9": "Digital input high state",
+    "10": "Digital input low state",
+    "11": "Digital input open"
+  },
+  "IXA_EA": {
+    "0": "Idle",
+    "1": "Contact police",
+    "2": "Contact fire service",
+    "3": "Contact medical service",
+    "4": "Panic alert"
+  },
+  "IXA_CLOCK": {
+    "0": "Idle",
+    "1": "Wake up",
+    "2": "Timer ended",
+    "3": "Time remaining"
+  },
+  "IXA_APP": {
+    "0": "Idle",
+    "1": "Program started",
+    "2": "Program in progress",
+    "3": "Program completed",
+    "4": "Replace main filter",
+    "5": "Failure to set target temperature",
+    "6": "Supplying water",
+    "7": "Water supply failure",
+    "8": "Boiling",
+    "9": "Boiling failure",
+    "10": "Washing",
+    "11": "Washing failure",
+    "12": "Rinsing",
+    "13": "Rinsing failure",
+    "14": "Draining",
+    "15": "Draining failure",
+    "16": "Spinning",
+    "17": "Spinning failure",
+    "18": "Drying",
+    "19": "Drying failure",
+    "20": "Fan failure",
+    "21": "Compressor failure"
+  },
+  "IXA_HH": {
+    "0": "Idle",
+    "1": "Leaving bed",
+    "2": "Sitting on bed",
+    "3": "Lying on bed",
+    "4": "Posture changed",
+    "5": "Sitting on bed edge",
+    "6": "VOC level",
+    "7": "Sleep apnea detected",
+    "8": "Sleep stage 0",
+    "9": "Sleep stage 1",
+    "10": "Sleep stage 2",
+    "11": "Sleep stage 3",
+    "12": "Fall detected"
+  },
+  "IXAV_VOC": {
+    "0": "--",
+    "1": "Clean",
+    "2": "Slightly Polluted",
+    "3": "Moderately Polluted",
+    "4": "Highly Polluted"
+  },
+  "IXA_SIREN": {
+    "0": "Idle",
+    "1": "Siren Active"
+  },
+  "IXA_WV": {
+    "0": "Idle",
+    "1": "Valve operation",
+    "2": "Master valve operation",
+    "3": "Valve short circuit",
+    "4": "Master valve short circuit",
+    "5": "Valve alarm",
+    "6": "Master valve alarm"
+  },
+  "IXA_WEA": {
+    "0": "Idle",
+    "1": "Rain",
+    "2": "Moisture",
+    "3": "Freeze"
+  },
+  "IXA_IRR": {
+    "0": "Idle",
+    "1": "Schedule started",
+    "2": "Schedule finished",
+    "3": "Valve table run started",
+    "4": "Valve table run finished",
+    "5": "Device not configured"
+  },
+  "IXA_GAS": {
+    "0": "Idle",
+    "1": "Combustible gas detected (+ loc)",
+    "2": "Combustible gas detected",
+    "3": "Toxic gas detected (+ loc)",
+    "4": "Toxic gas detected",
+    "5": "Gas alarm test",
+    "6": "Replacement required"
+  },
+  "IXA_PEST": {
+    "0": "Idle",
+    "1": "Trap armed (+ loc)",
+    "2": "Trap armed",
+    "3": "Trap re-arm required (+ loc)",
+    "4": "Trap re-arm required",
+    "5": "Pest detected (+ loc)",
+    "6": "Pest detected",
+    "7": "Pest exterminated (+ loc)",
+    "8": "Pest exterminated"
+  },
+  "IXA_LS": {
+    "0": "Idle",
+    "1": "Light detected",
+    "2": "Color transition"
+  },
+  "IXA_WQM": {
+    "0": "Idle",
+    "1": "Chlorine",
+    "2": "Acidity (pH)",
+    "3": "Oxidation",
+    "4": "Chlorine empty",
+    "5": "Acidity (pH) empty",
+    "6": "Waterflow shortage",
+    "7": "Waterflow clear water shortage",
+    "8": "Disinfection error",
+    "9": "Filter cleaning ongoing",
+    "10": "Heating operation ongoing",
+    "11": "Filter pump operation ongoing",
+    "12": "Freshwater operation ongoing",
+    "13": "Dry protection operation ongoing",
+    "14": "Water tank empty",
+    "15": "Water tank level unknown",
+    "16": "Water tank full",
+    "17": "Collective disorder",
+    "254": "(Unknown Event)"
+  },
+  "IXA_HM": {
+    "0": "-",
+    "1": "Home occupied",
+    "2": "Home occupied (no location)"
+  },
+  "IXAV_01": {
+    "0": "-",
+    "1": "No Data",
+    "2": "Below low threshold",
+    "3": "Above high threshold",
+    "4": "Max"
+  }
+}

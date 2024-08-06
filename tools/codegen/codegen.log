@@ -1,0 +1,127 @@
+[31m2024-08-01 13:14:54 error: codegen: Error parsing file ./resources/nodeDefs/: EISDIR: illegal operation on a directory, read[39m
+[31m2024-08-01 13:14:54 error: codegen: Error parsing file ./resources/nodeDefs/: EISDIR: illegal operation on a directory, read[39m
+[31m2024-08-01 13:14:54 error: codegen: Error parsing file ./resources/nodeDefs/: EISDIR: illegal operation on a directory, read[39m
+[31m2024-08-01 13:14:54 error: codegen: Error parsing file ./resources/nodeDefs/: EISDIR: illegal operation on a directory, read[39m
+[31m2024-08-01 13:14:54 error: codegen: Error parsing file ./resources/nodeDefs/: EISDIR: illegal operation on a directory, read[39m
+[31m2024-08-01 13:14:54 error: codegen: Error parsing file ./resources/nodeDefs/: EISDIR: illegal operation on a directory, read[39m
+[31m2024-08-01 13:14:54 error: codegen: Error parsing file ./resources/nodeDefs/: EISDIR: illegal operation on a directory, read[39m
+[31m2024-08-01 13:16:01 error: codegen: Error parsing file ./resources/nodeDefs/: EISDIR: illegal operation on a directory, read[39m
+[31m2024-08-01 13:16:01 error: codegen: Error parsing file ./resources/nodeDefs/: EISDIR: illegal operation on a directory, read[39m
+[31m2024-08-01 13:16:01 error: codegen: Error parsing file ./resources/nodeDefs/: EISDIR: illegal operation on a directory, read[39m
+[31m2024-08-01 13:16:01 error: codegen: Error parsing file ./resources/nodeDefs/: EISDIR: illegal operation on a directory, read[39m
+[31m2024-08-01 13:16:01 error: codegen: Error parsing file ./resources/nodeDefs/: EISDIR: illegal operation on a directory, read[39m
+[31m2024-08-01 13:16:01 error: codegen: Error parsing file ./resources/nodeDefs/: EISDIR: illegal operation on a directory, read[39m
+[31m2024-08-01 13:16:01 error: codegen: Error parsing file ./resources/nodeDefs/: EISDIR: illegal operation on a directory, read[39m
+[31m2024-08-01 13:16:08 error: codegen: Error parsing file ./resources/nodeDefs/: nodeDefs is not iterable[39m
+[31m2024-08-01 13:16:08 error: codegen: Error parsing file ./resources/nodeDefs/: nodeDefs is not iterable[39m
+[31m2024-08-01 13:16:08 error: codegen: Error parsing file ./resources/nodeDefs/: nodeDefs is not iterable[39m
+[31m2024-08-01 13:16:08 error: codegen: Error generating node classes: Cannot read properties of undefined (reading 'length')[39m
+[31m2024-08-01 13:20:40 error: codegen: Error generating node classes: Cannot convert undefined or null to object[39m
+[31m2024-08-01 13:24:31 error: codegen: Error generating node classes: Cannot convert undefined or null to object[39m
+[31m2024-08-01 13:24:47 error: codegen: undefined[39m
+[31m2024-08-01 13:27:46 error: codegen: undefined[39m
+[31m2024-08-01 13:27:55 error: codegen: undefined[39m
+[31m2024-08-01 14:20:42 error: codegen: Error generating node classes: Cannot read properties of undefined (reading 'length')[39m
+[31m2024-08-01 14:43:35 error: codegen: Error creating Lutron LutLoadShedNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-02 20:45:26 error: codegen: Error creating Lutron LUTLoadShedNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating Lutron LUTLoadShedNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBeeLegacy Error class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBeeLegacy/Generated/Error.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy Tvol class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/Tvol.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy Toneid class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/Toneid.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy Error class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/Error.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy PercentOpt class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/PercentOpt.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy MlsDirection class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/MlsDirection.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy Cci class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/Cci.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy Unlock class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/Unlock.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy OnOff class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/OnOff.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy DimRep class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/DimRep.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy SbT class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/SbT.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy SbState class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/SbState.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy Cbp class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/Cbp.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaSmoke class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaSmoke.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaCo class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaCo.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaCo2 class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaCo2.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaHeat class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaHeat.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaWater class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaWater.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaAc class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaAc.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaBa class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaBa.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaHs class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaHs.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaPm class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaPm.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaSys class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaSys.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaEa class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaEa.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaClock class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaClock.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaApp class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaApp.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaHh class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaHh.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxavVoc class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxavVoc.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaWv class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaWv.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaWea class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaWea.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaIrr class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaIrr.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaGas class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaGas.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaPest class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaPest.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaLs class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaLs.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaWqm class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaWqm.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy IxaHm class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/IxaHm.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZWaveLegacy Ixav01 class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZWaveLegacy/Generated/Ixav01.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBee IdEffect class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBee/Generated/IdEffect.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBee OnOff class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBee/Generated/OnOff.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBee Error class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBee/Generated/Error.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBee Tf class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBee/Generated/Tf.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBee PercentOpt class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBee/Generated/PercentOpt.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBee MlsDirection class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBee/Generated/MlsDirection.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBee Dim class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBee/Generated/Dim.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBee DimRep class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBee/Generated/DimRep.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBee Ol class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBee/Generated/Ol.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBee Cmm class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBee/Generated/Cmm.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBee Csm class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBee/Generated/Csm.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBee Huesat class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBee/Generated/Huesat.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBee Ctunit class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBee/Generated/Ctunit.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBee Huedir class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBee/Generated/Huedir.ts'[39m
+[31m2024-08-02 20:47:33 error: codegen: Error creating ZigBee DoorStatus class: ENOENT: no such file or directory, open './packages/isy-nodejs/src/Devices/ZigBee/Generated/DoorStatus.ts'[39m
+[31m2024-08-02 20:48:09 error: codegen: Error creating Lutron LUTLoadShedNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 12:55:46 error: codegen: Error creating Poly CeilingFanNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 12:55:46 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 13:03:47 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 13:14:14 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 14:00:19 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 17:41:24 error: codegen: Error creating Insteon Pir2844Node class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 17:41:32 error: codegen: Error creating Insteon Pir2844AdvNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 17:41:36 error: codegen: Error creating Insteon Pir2844cNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 17:41:39 error: codegen: Error creating Insteon Pir2844cAdvNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 17:41:43 error: codegen: Error creating Insteon I3PaddleFlagsNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 17:41:46 error: codegen: Error creating Insteon I3KeypadFlagsNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 17:41:49 error: codegen: Error creating Poly GenericRspNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 17:41:56 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 17:57:22 error: codegen: Error creating Insteon Pir2844Node class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:05:11 error: codegen: Error creating Insteon Pir2844Node class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:11:28 error: codegen: Error creating Insteon Pir2844Node class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:19:53 error: codegen: Error creating Insteon Pir2844Node class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:21:07 error: codegen: Error creating Insteon Pir2844Node class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:40:10 error: codegen: Error creating Insteon Pir2844Node class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:40:13 error: codegen: Error creating Insteon Pir2844AdvNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:40:17 error: codegen: Error creating Insteon Pir2844cNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:40:20 error: codegen: Error creating Insteon Pir2844cAdvNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:40:23 error: codegen: Error creating Insteon I3PaddleFlagsNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:40:29 error: codegen: Error creating Insteon I3KeypadFlagsNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:40:38 error: codegen: Error creating Poly GenericRspNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:40:58 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:52:40 error: codegen: Error creating Insteon Pir2844Node class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:52:44 error: codegen: Error creating Insteon Pir2844AdvNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:52:47 error: codegen: Error creating Insteon Pir2844cNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:52:51 error: codegen: Error creating Insteon Pir2844cAdvNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:52:54 error: codegen: Error creating Insteon I3PaddleFlagsNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:52:57 error: codegen: Error creating Insteon I3KeypadFlagsNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:53:03 error: codegen: Error creating Lutron LutLoadShedNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:53:06 error: codegen: Error creating Poly GenericRspNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 18:53:09 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 20:37:59 error: codegen: Error creating Insteon Pir2844Node class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 20:38:00 error: codegen: Error creating Insteon Pir2844AdvNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 20:38:01 error: codegen: Error creating Insteon Pir2844cNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 20:38:01 error: codegen: Error creating Insteon Pir2844cAdvNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 20:38:02 error: codegen: Error creating Insteon I3PaddleFlagsNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 20:38:02 error: codegen: Error creating Insteon I3KeypadFlagsNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 20:38:03 error: codegen: Error creating Poly GenericRspNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 20:38:03 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 20:55:31 error: codegen: Error creating Lutron LutLoadShedNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 20:55:37 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 21:15:03 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-05 21:22:49 error: codegen: Error creating Poly OutputNode class: ENOENT: no such file or directory, open '../../packages/isy-nodejs/src/Devices/Poly/Generated/OutputNode.ts'[39m

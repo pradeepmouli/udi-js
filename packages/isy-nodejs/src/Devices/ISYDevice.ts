@@ -6,7 +6,7 @@ import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/beh
 import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import 'winston'
-import { ISYNodeDevice, type DriverValues, type ISYDevice } from '../ISYNode.js';
+import { ISYDeviceNode, type DriverValues, type ISYDevice } from '../ISYNode.js';
 import { Constructor } from './Constructor.js';
 import type { BasicInformationBehavior } from '@project-chip/matter.js/behaviors/basic-information';
 import type { BridgedDeviceBasicInformationCluster } from '@project-chip/matter.js/cluster';
@@ -14,7 +14,7 @@ import { UnitOfMeasure } from '../Definitions/Global/UOM.js';
 import { DriverType, type Driver, type DriverTypeWithLiteral } from '../Definitions/Global/Drivers.js';
 
 
-export const ISYBinaryStateDevice = <K extends Family,D extends Driver.Literal, T extends Constructor<ISYNodeDevice<K,D|"ST",any>>>(Base: T) => {
+export const ISYBinaryStateDevice = <K extends Family,D extends Driver.Literal, T extends Constructor<ISYDeviceNode<K,D|"ST",any>>>(Base: T) => {
 	return class extends Base implements ISYBinaryStateDevice{
 		get state(): Promise<boolean> {
 			return Promise.resolve(this.local.ST > 0);
@@ -108,7 +108,7 @@ export interface MapsToEndpoint<T extends ClusterBehavior>
 
 }
 
-export const ISYLevelDevice = <T extends Constructor<ISYNodeDevice<any,any,any>>>(base: T) =>
+export const ISYLevelDevice = <T extends Constructor<ISYDeviceNode<any,any,any>>>(base: T) =>
 	class extends base {
 		get level(): number {
 			return this.local.ST;
@@ -117,7 +117,7 @@ export const ISYLevelDevice = <T extends Constructor<ISYNodeDevice<any,any,any>>
 
 // tslint:disable-next-line: variable-name
 
-export const ISYUpdateableLevelDevice = <T extends Constructor<ISYNodeDevice<any,any,any>>>(base: T) =>
+export const ISYUpdateableLevelDevice = <T extends Constructor<ISYDeviceNode<any,any,any>>>(base: T) =>
 	class extends base {
 		get level(): number {
 			return this.local.ST;

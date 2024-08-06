@@ -1,0 +1,103 @@
+{
+  "nodeDefs": {
+    "nodeDef": {
+      "sts": "",
+      "cmds": {
+        "sends": "",
+        "accepts": {
+          "cmd": [
+            {
+              "p": {
+                "id": "",
+                "editor": "I_OL_PARAM",
+                "optional": "T"
+              },
+              "id": "DON"
+            },
+            {
+              "id": "DOF"
+            },
+            {
+              "id": "DFOF"
+            },
+            {
+              "id": "DFON"
+            },
+            {
+              "id": "BRT"
+            },
+            {
+              "id": "DIM"
+            },
+            {
+              "id": "FDUP"
+            },
+            {
+              "id": "FDDOWN"
+            },
+            {
+              "id": "FDSTOP"
+            },
+            {
+              "id": "BEEP"
+            },
+            {
+              "id": "QUERY"
+            },
+            {
+              "p": {
+                "id": "",
+                "editor": "GNC_TSTAT_MODE"
+              },
+              "id": "CLIMD"
+            },
+            {
+              "p": {
+                "id": "",
+                "editor": "GNC_TSTAT_FAN_MODE"
+              },
+              "id": "CLIFS"
+            },
+            {
+              "p": {
+                "id": "",
+                "editor": "GNC_CLISPH_DEG"
+              },
+              "id": "CLISPH"
+            },
+            {
+              "p": {
+                "id": "",
+                "editor": "GNC_CLISPC_DEG"
+              },
+              "id": "CLISPC"
+            },
+            {
+              "p": {
+                "id": "",
+                "editor": "GNC_DELTA_DEG"
+              },
+              "id": "CLISPHD"
+            },
+            {
+              "p": {
+                "id": "",
+                "editor": "GNC_DELTA_DEG"
+              },
+              "id": "CLISPCD"
+            }
+          ]
+        }
+      },
+      "links": {
+        "ctl": {
+          "link": {
+            "linkdef": "I_CTL_DIMMER"
+          }
+        },
+        "rsp": ""
+      },
+      "id": "InsteonDimmer"
+    }
+  }
+}

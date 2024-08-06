@@ -33,13 +33,14 @@ export type MaybeArray<T> = T | T[];
 
 
 export function toArray<T>(value: MaybeArray<T>): T[] {
+	if(undefined === value)	return [];
   return Array.isArray(value) ? value : [value];
 }
 
 export function fromArray<T>(...value: T[]): MaybeArray<T> {
   if(value.length === 1)
   {
-	return value[0];
+	return value[0] ?? undefined;
   }
   return value;
 
@@ -188,7 +189,7 @@ type TEventType = keyof typeof EventType
 
 export interface PropertyChangedEventEmitter extends EventEmitter<"PropertyChanged">
 {
-	
+
 	on(event:'PropertyChanged', listener: (propertyName : string, newValue: any, oldValue: any, formattedValue: string) => void) : this;
 
 }

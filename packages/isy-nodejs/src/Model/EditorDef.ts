@@ -6,7 +6,9 @@ export type RangeDef = {
 	uom: UnitOfMeasure;
 	subset: string;
 	nls: string;
+	prec?: number;
 } | {
+  	nls?: string;
 	uom: UnitOfMeasure;
 	min: number;
 	max: number;

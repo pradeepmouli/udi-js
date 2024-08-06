@@ -1,0 +1,20 @@
+{
+  "IX_BRD_ST": {
+    "0": "False",
+    "1": "True",
+    "101": "Unknown"
+  },
+  "IX_CFN_ST": {
+    "0": "Off",
+    "101": "Unknown"
+  },
+  "IX_CFN_DIR": {
+    "0": "N/A",
+    "1": "Forward",
+    "2": "Reverse"
+  },
+  "IX_LGT_ST": {
+    "0": "Off",
+    "101": "Unknown"
+  }
+}

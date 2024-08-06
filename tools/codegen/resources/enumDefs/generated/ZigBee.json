@@ -1,0 +1,150 @@
+{
+  "IX_ID_EFFECT": {
+    "family": 14,
+    "id": "IX_ID_EFFECT",
+    "name": "IdEffect",
+    "values": {
+      "Blink": 0,
+      "Breath": 1,
+      "Okay": 2,
+      "ChannelChange": 11,
+      "Finish": 254,
+      "Stop": 255
+    }
+  },
+  "IX_ONOFF": {
+    "family": 14,
+    "id": "IX_ONOFF",
+    "name": "OnOff",
+    "values": {
+      "Off": 0,
+      "On": 100
+    }
+  },
+  "IX_ERR": {
+    "family": 14,
+    "id": "IX_ERR",
+    "name": "Error",
+    "values": {
+      "True": 0,
+      "False": 1
+    }
+  },
+  "IX_TF": {
+    "family": 14,
+    "id": "IX_TF",
+    "name": "Tf",
+    "values": {
+      "False": 0,
+      "True": 100
+    }
+  },
+  "IX_PCT_OPT": {
+    "family": 14,
+    "id": "IX_PCT_OPT",
+    "name": "PercentOpt",
+    "values": {
+      "PreviousValue": 1
+    }
+  },
+  "IX_MLS_DIR": {
+    "family": 14,
+    "id": "IX_MLS_DIR",
+    "name": "MlsDirection",
+    "values": {
+      "Up": 0,
+      "Down": 1,
+      "None": 3
+    }
+  },
+  "IX_DIM": {
+    "family": 14,
+    "id": "IX_DIM",
+    "name": "Dim",
+    "values": {
+      "Off": 0
+    }
+  },
+  "IX_DIM_REP": {
+    "family": 14,
+    "id": "IX_DIM_REP",
+    "name": "DimRep",
+    "values": {
+      "Off": 0,
+      "Unknown": 101
+    }
+  },
+  "IX_OL": {
+    "family": 14,
+    "id": "IX_OL",
+    "name": "OnLevel",
+    "values": {
+      "Off": 0,
+      "Previous": 101
+    }
+  },
+  "IX_CMM": {
+    "family": 14,
+    "id": "IX_CMM",
+    "name": "Cmm",
+    "values": {
+      "Stop": 0,
+      "Up": 1,
+      "2Reserved": 2,
+      "Down": 3
+    }
+  },
+  "IX_CSM": {
+    "family": 14,
+    "id": "IX_CSM",
+    "name": "Csm",
+    "values": {
+      "0Reserved": 0,
+      "Up": 1,
+      "2Reserved": 2,
+      "Down": 3
+    }
+  },
+  "IX_HUESAT": {
+    "family": 14,
+    "id": "IX_HUESAT",
+    "name": "Huesat",
+    "values": {
+      "Hue": 0,
+      "Saturation": 1
+    }
+  },
+  "IX_CTUNIT": {
+    "family": 14,
+    "id": "IX_CTUNIT",
+    "name": "Ctunit",
+    "values": {
+      "Kelvin": 0,
+      "Mired": 1
+    }
+  },
+  "IX_HUEDIR": {
+    "family": 14,
+    "id": "IX_HUEDIR",
+    "name": "Huedir",
+    "values": {
+      "ShortestDistance": 0,
+      "LongestDistance": 1,
+      "Up": 2,
+      "Down": 3
+    }
+  },
+  "IX_DOOR_STS": {
+    "family": 14,
+    "id": "IX_DOOR_STS",
+    "name": "DoorStatus",
+    "values": {
+      "Open": 0,
+      "Closed": 1,
+      "Jammed": 2,
+      "ForcedOpen": 3,
+      "Unspecified": 4,
+      "Undefined": 255
+    }
+  }
+}

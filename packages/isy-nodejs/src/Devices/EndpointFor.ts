@@ -5,7 +5,7 @@ import { MutableEndpoint, EndpointType } from '@project-chip/matter.js/endpoint/
 import type { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import { type ClusterType } from '@project-chip/matter.js/cluster';
 import type { Constructor } from './Constructor.js';
-import type { ISYNodeDevice } from '../ISYNode.js';
+import type { ISYDeviceNode } from '../ISYNode.js';
 
 import { BridgedDeviceBasicInformationBehavior, BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
 
@@ -34,7 +34,7 @@ SupportedBehaviors.MapOf<BehaviorsOf<K, K1,K2,K3>>
 
 export type EndpointForCluster<K extends ClusterType.Of<ClusterType.Options<{}>>, K1 extends ClusterType = K, K2 extends ClusterType = K, K3 extends ClusterType = K> = { events: SupportedBehaviors.EventsOf<SupportedBehaviorsOf<K,K1,K2,K3>>; set: (values: SupportedBehaviors.StatePatchOf<SupportedBehaviorsOf<K, K1, K2,K3>>) => void; }
 
-export const MatterEndpoint= <P extends EndpointType & MutableEndpoint, T extends Constructor<ISYNodeDevice<any,any,any>>>(base: T, endpointType: P) =>
+export const MatterEndpoint= <P extends EndpointType & MutableEndpoint, T extends Constructor<ISYDeviceNode<any,any,any>>>(base: T, endpointType: P) =>
 {
 
 

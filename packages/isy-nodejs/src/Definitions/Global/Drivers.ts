@@ -1,13 +1,14 @@
 import { isBoxedPrimitive } from 'util/types';
-import type { UnitOfMeasure } from './UOM.js';
+import { UnitOfMeasure } from './UOM.js';
 import EventEmitter from 'events';
-import type { ISYNode, ISYNodeDevice } from '../../ISYNode.js';
-import type { Identity, MaybePromise } from '@project-chip/matter.js/util';
-import type { DriverState } from '../PropertyStatus.js';
+import type { ISYNode, ISYDeviceNode } from '../../ISYNode.js';
+import type { Identity, MaybePromise, UnionToIntersection } from '@project-chip/matter.js/util';
+import type { DriverState } from '../../Model/DriverState.js';
 import { init } from 'homebridge';
 import type { TlvNumberSchema } from '@project-chip/matter.js/tlv';
+import type { Family } from './Families.js';
 
-export  enum DriverType {
+export enum DriverType {
   AccelerationXAxis = "ACCX",
   AccelerationYAxis = "ACCY",
   AccelerationZAxis = "ACCZ",
@@ -168,14 +169,14 @@ export  enum DriverType {
 
 type a = keyof typeof DriverType;
 
-export type EnumFromLabel<L extends keyof N,N> = N[L];
+ type EnumFromLabel<L extends keyof N,N> = N[L];
 
-export type DriverTypeFromName<N extends keyof typeof DriverType> = EnumFromLabel<N,typeof DriverType>;
+ type DriverTypeFromName<N extends keyof typeof DriverType> = EnumFromLabel<N,typeof DriverType>;
 type x = DriverTypeFromName<"Status"|"SoilTemperature">;
 
 //export type DriverLabel<T extends DriverType> = ReturnType>LabelMap.get>
 
-export type EnumLiteral<T extends string | number | bigint | boolean> = T extends string ? `${T}` : T extends boolean ? T extends true ? true : false : T;
+export type EnumLiteral<T> = T extends string ? `${T}` : T extends boolean ? T extends true ? true : false : T;
 
 type y = EnumLiteral<DriverType.Status>;
 
@@ -187,13 +188,16 @@ type T = DriverTypeFromName<keyof typeof DriverType>;
 
 type s = EnumLiteral<DriverType.AccelerationXAxis | DriverType.AccelerationYAxis>;
 
-export type DriverList<D extends DriverType | EnumLiteral<DriverType>> = (D extends DriverType
-  ? { [K in D]: Driver<K> } & { add(driver: Driver<D>): void }
+export type DriverList<D> = (D extends DriverType
+  ? { [K in D]?: Driver<K> } & { add(driver: Driver<D>): void }
   : D extends EnumLiteral<infer R extends DriverType>
-  ? { [K in R]: Driver<K> } & { add(driver: Driver<R>): void }
-  : {}) & { [N in keyof typeof DriverType]?: Driver<DriverTypeFromName<N>> };
+  ? { [K in R]?: Driver<R> } & { add(driver: Driver<R>): void }
+  : {}) //& { [N in keyof typeof DriverType]?: Driver<DriverTypeFromName<N>> };
 
 type KeyOrValue<K,D> = K extends D ? D : K extends keyof D ? D[K] : never;
+
+
+var d : UnionToIntersection<DriverList<"ACCX"|"ACCY">>;
 
 
 const LabelMap = new Map<DriverType,keyof typeof DriverType>(Object.entries(DriverType).map(([a,b])=>[b,a]) as any);
@@ -257,7 +261,7 @@ export class Drivers<D extends DriverType> {
 
 
 
-export interface Driver<D extends DriverType>  {
+export interface Driver<D extends DriverType | EnumLiteral<DriverType>>  {
 
     id: D;
     stateless?: true;
@@ -288,7 +292,7 @@ export namespace Driver {
     export type Literal = EnumLiteral<DriverType>;
     export type LiteralWithType = EnumWithLiteral<DriverType>;
 
-    export function create<D extends DriverType>(driver: EnumWithLiteral<D>, node: ISYNodeDevice<any,any,any>, initState: DriverState, stateless = false): Driver<DriverType> {
+    export function create<D extends DriverType>(driver: EnumWithLiteral<D>, node: ISYDeviceNode<Family,EnumWithLiteral<D>,string>, initState?: DriverState, driverDef? : {uom: UnitOfMeasure, label: string, name: string}, stateless = false): Driver<DriverType> {
 
         const query = async () => {  return (await node.readProperty(driver as D)); };
         if(stateless){
@@ -309,11 +313,11 @@ export namespace Driver {
         }
         var c  = {
             id : driver as D,
-            uom : initState.uom,
+            uom : initState?.uom ?? driverDef?.uom,
             state: {
                 initial: true,
-                value: node.convertFrom(initState.value,initState.uom,driver as D),
-                formattedValue: initState.formatted,
+                value: initState ? node.convertFrom(initState?.value,initState?.uom,driver as D) : null,
+                formattedValue: initState ? initState.formatted : null,
                 pendingValue: null
             },
             async query() {
@@ -322,8 +326,14 @@ export namespace Driver {
                 this.state.formattedValue = s.formatted;
                 return this;
             },
+            update(state: DriverState
+            ) {
+                this.state.value = node.convertFrom(state.value,state.uom,driver as D);
+                this.state.formattedValue = state.formatted;
+            },
             value: c.state.value,
-            name: initState.name ?? driver
+            name: initState?.name ?? driverDef?.name ?? driver,
+
         }
          node.on('PropertyChanged', (propertyName, newValue, oldValue, formattedValue) => {
             if (propertyName === driver) {

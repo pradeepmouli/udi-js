@@ -19,3 +19,4 @@ ISYNodes.json
 ISYNodes.xml
 .vscode
 CLI/resources/*
+**/resources_old/*

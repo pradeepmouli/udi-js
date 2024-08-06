@@ -2,7 +2,7 @@ import { Category } from '../../Definitions/Global/Categories.js';
 import { Family, InsteonBaseDevice, InsteonLockDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice } from '../../ISY.js';
 import { parseTypeCode } from '../../Utils.js';
 import { ISYBinaryStateDevice } from '../ISYDevice.js';
-import { NodeInfo } from '../../Definitions/NodeInfo.js';
+import { NodeInfo } from '../../Model/NodeInfo.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import { InsteonDimmerOutletDevice } from './InsteonDimmerOutletDevice.js';
 import { InsteonDimmerSwitchDevice } from './InsteonDimmerSwitchDevice.js';
@@ -19,7 +19,6 @@ import { InsteonRelaySwitchDevice } from './InsteonRelaySwitchDevice.js';
 import { ISYDevice } from '../../ISYNode.js';
 import { DeviceDef, type CategoryDef, type FamilyDef } from '../DeviceMap.js';
 import { writeFileSync } from 'fs';
-import DeviceMap from '../InsteonDeviceMap.json';
 import type { Constructor } from '../Constructor.js';
 
 

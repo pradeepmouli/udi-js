@@ -1,0 +1,11 @@
+{
+  "IX_ERR": {
+    "family": 9,
+    "id": "IX_ERR",
+    "name": "Error",
+    "values": {
+      "True": 0,
+      "False": 1
+    }
+  }
+}

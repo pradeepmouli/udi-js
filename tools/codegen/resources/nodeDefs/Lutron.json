@@ -1,0 +1,43 @@
+{
+  "nodeDefs": {
+    "nodeDef": {
+      "sts": {
+        "st": [
+          {
+            "id": "ST",
+            "editor": "LUT_OL_RELAY"
+          },
+          {
+            "id": "ERR",
+            "editor": "LUT_ERR",
+            "hide": "T"
+          }
+        ]
+      },
+      "cmds": {
+        "sends": "",
+        "accepts": {
+          "cmd": [
+            {
+              "p": {
+                "id": "",
+                "editor": "LUT_OL_RELAY",
+                "optional": "T",
+                "init": "ST"
+              },
+              "id": "DON"
+            },
+            {
+              "id": "DOF"
+            },
+            {
+              "id": "QUERY"
+            }
+          ]
+        }
+      },
+      "id": "LUTLoadShed",
+      "nls": "RELAY"
+    }
+  }
+}

@@ -14,10 +14,17 @@ export interface SendCommandDef {
     id: string;
 }
 
+export interface ParamDef {
+  id: string;
+  editor: string;
+  init: string;
+  optional?: string;
+}
+
 export interface AcceptCommandDef {
     name?: string;
     id?: string;
-    p?: MaybeArray<{id: string; editor: string; init: string; optional?: string;}>;
+    p?: MaybeArray<ParamDef>;
 }
 
 export interface NodeDef extends Nested<"st">{
@@ -140,4 +147,3 @@ export function flattenNestedObject<Label extends string,T = unknown> (input: Ne
  }
   return clone;
 }
-

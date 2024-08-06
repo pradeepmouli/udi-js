@@ -1,0 +1,6 @@
+{
+  "InsteonDimmer": {
+    "className": "SceneNode",
+    "id": "InsteonDimmer"
+  }
+}

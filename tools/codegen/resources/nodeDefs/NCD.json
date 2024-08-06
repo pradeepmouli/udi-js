@@ -1,0 +1,53 @@
+{
+  "nodeDefs": {
+    "nodeDef": {
+      "sts": {
+        "st": [
+          {
+            "id": "ST",
+            "editor": "NCD_OL_RELAY"
+          },
+          {
+            "id": "ERR",
+            "editor": "NCD_ERR",
+            "hide": "T"
+          }
+        ]
+      },
+      "cmds": {
+        "sends": {
+          "cmd": [
+            {
+              "id": "DON"
+            },
+            {
+              "id": "DOF"
+            }
+          ]
+        },
+        "accepts": {
+          "cmd": [
+            {
+              "id": "DON"
+            },
+            {
+              "id": "DOF"
+            },
+            {
+              "id": "QUERY"
+            },
+            {
+              "p": {
+                "id": "",
+                "editor": "NCD_ADRPST"
+              },
+              "id": "ADRPST"
+            }
+          ]
+        }
+      },
+      "id": "NCDRelay",
+      "nls": "RELAY"
+    }
+  }
+}

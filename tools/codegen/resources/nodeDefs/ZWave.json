@@ -1,0 +1,317 @@
+{
+  "nodeDefs": {
+    "nodedef": [
+      {
+        "id": "ZY002_1",
+        "nls": "119",
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "_51_0_R_0_101_N_IX_DIM_REP"
+            },
+            {
+              "id": "ERR",
+              "editor": "ZY_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "id": "DON",
+                "p": [
+                  {
+                    "id": "",
+                    "editor": "ZY_DIM_PERCENT",
+                    "init": "ST",
+                    "optional": "T"
+                  },
+                  {
+                    "id": "RR",
+                    "editor": "ZY_RR",
+                    "optional": "T"
+                  }
+                ]
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "BRT",
+                "native": "F"
+              },
+              {
+                "id": "DIM",
+                "native": "F"
+              },
+              {
+                "id": "FDUP",
+                "p": [
+                  {
+                    "id": "STARTLEVEL",
+                    "editor": "ZY_DIM_PERCENT",
+                    "init": "ST",
+                    "optional": "T"
+                  },
+                  {
+                    "id": "RR",
+                    "editor": "ZY_RR",
+                    "optional": "T"
+                  }
+                ]
+              },
+              {
+                "id": "FDDOWN",
+                "p": [
+                  {
+                    "id": "STARTLEVEL",
+                    "editor": "ZY_DIM_PERCENT",
+                    "init": "ST",
+                    "optional": "T"
+                  },
+                  {
+                    "id": "RR",
+                    "editor": "ZY_RR",
+                    "optional": "T"
+                  }
+                ]
+              },
+              {
+                "id": "FADE",
+                "p": [
+                  {
+                    "id": "DIR",
+                    "editor": "ZY_MLS_DIR"
+                  },
+                  {
+                    "id": "STARTLEVEL",
+                    "editor": "ZY_DIM_PERCENT",
+                    "init": "ST",
+                    "optional": "T"
+                  },
+                  {
+                    "id": "RR",
+                    "editor": "ZY_RR",
+                    "optional": "T"
+                  },
+                  {
+                    "id": "DIR2",
+                    "editor": "ZY_MLS_DIR",
+                    "optional": "T"
+                  },
+                  {
+                    "id": "STEP2",
+                    "editor": "ZY_RR",
+                    "optional": "T"
+                  }
+                ]
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "id": "CONFIG",
+                "p": [
+                  {
+                    "id": "NUM",
+                    "editor": "_107_0_R_0_255"
+                  },
+                  {
+                    "id": "VAL",
+                    "editor": "ZY_CONFIG"
+                  }
+                ]
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": "",
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "ASSOC_S0",
+                "gid": "ASSOC"
+              },
+              {
+                "linkdef": "ASSOC_MC_S0",
+                "gid": "ASSOC"
+              },
+              {
+                "linkdef": "BASIC_S0",
+                "gid": "BASIC"
+              },
+              {
+                "linkdef": "BASIC_MC_S0",
+                "gid": "BASIC"
+              },
+              {
+                "linkdef": "MLSW_S0",
+                "gid": "MLSW"
+              },
+              {
+                "linkdef": "MLSW_MC_S0",
+                "gid": "MLSW"
+              },
+              {
+                "linkdef": "ASSOC",
+                "gid": "ASSOC"
+              },
+              {
+                "linkdef": "ASSOC_MC",
+                "gid": "ASSOC"
+              }
+            ]
+          }
+        }
+      },
+      {
+        "id": "ZY002_001_186",
+        "nls": "186",
+        "sts": {
+          "st": [
+            {
+              "id": "GV0",
+              "editor": "_107_0_R_0_255"
+            },
+            {
+              "id": "GV2",
+              "editor": "_107_0_R_0_255"
+            },
+            {
+              "id": "GV3",
+              "editor": "_107_0_R_0_255"
+            },
+            {
+              "id": "GV4",
+              "editor": "_107_0_R_0_255"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "id": "DON",
+                "p": [
+                  {
+                    "id": "GV0",
+                    "editor": "_107_0_R_0_255",
+                    "optional": "T"
+                  },
+                  {
+                    "id": "GV2",
+                    "editor": "_107_0_R_0_255",
+                    "optional": "T"
+                  },
+                  {
+                    "id": "GV3",
+                    "editor": "_107_0_R_0_255",
+                    "optional": "T"
+                  },
+                  {
+                    "id": "GV4",
+                    "editor": "_107_0_R_0_255",
+                    "optional": "T"
+                  },
+                  {
+                    "id": "RR",
+                    "editor": "ZY_RR",
+                    "optional": "T"
+                  }
+                ]
+              },
+              {
+                "id": "FDUP",
+                "p": [
+                  {
+                    "id": "ID",
+                    "editor": "_25_0_S_001D_N_IX_CCI"
+                  },
+                  {
+                    "id": "STARTLEVEL",
+                    "editor": "_107_0_R_0_255",
+                    "optional": "T"
+                  },
+                  {
+                    "id": "RR",
+                    "editor": "ZY_RR",
+                    "optional": "T"
+                  }
+                ]
+              },
+              {
+                "id": "FDDOWN",
+                "p": [
+                  {
+                    "id": "ID",
+                    "editor": "_25_0_S_001D_N_IX_CCI"
+                  },
+                  {
+                    "id": "STARTLEVEL",
+                    "editor": "_107_0_R_0_255",
+                    "optional": "T"
+                  },
+                  {
+                    "id": "RR",
+                    "editor": "ZY_RR",
+                    "optional": "T"
+                  }
+                ]
+              },
+              {
+                "id": "FDSTOP",
+                "p": {
+                  "id": "ID",
+                  "editor": "_25_0_S_001D_N_IX_CCI"
+                }
+              },
+              {
+                "id": "QUERY"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": "",
+          "rsp": ""
+        }
+      }
+    ]
+  }
+}

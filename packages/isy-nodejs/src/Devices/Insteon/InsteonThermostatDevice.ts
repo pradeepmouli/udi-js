@@ -1,6 +1,6 @@
 import { ISY } from '../../ISY.js';
 import { Props } from '../../ISYConstants.js';
-import { NodeInfo } from '../../Definitions/NodeInfo.js';
+import { NodeInfo } from '../../Model/NodeInfo.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import { DriverType } from '../../Definitions/Global/Drivers.js';
 import 'winston';

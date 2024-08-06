@@ -1,0 +1,40 @@
+{
+  "IX_BRD_ST": {
+    "family": 10,
+    "id": "IX_BRD_ST",
+    "name": "BridgeQuery",
+    "values": {
+      "False": 0,
+      "True": 1,
+      "Unknown": 101
+    }
+  },
+  "IX_CFN_ST": {
+    "family": 10,
+    "id": "IX_CFN_ST",
+    "name": "ConfigurationQuery",
+    "values": {
+      "Off": 0,
+      "Unknown": 101
+    }
+  },
+  "IX_CFN_DIR": {
+    "family": 10,
+    "id": "IX_CFN_DIR",
+    "name": "ConfigurationDirection",
+    "values": {
+      "NA": 0,
+      "Forward": 1,
+      "Reverse": 2
+    }
+  },
+  "IX_LGT_ST": {
+    "family": 10,
+    "id": "IX_LGT_ST",
+    "name": "LgtQuery",
+    "values": {
+      "Off": 0,
+      "Unknown": 101
+    }
+  }
+}

@@ -2,11 +2,11 @@ import { Family } from '../../Definitions/Global/Families.js';
 import { ISY, ISYNode } from '../../ISY.js';
 import { States } from '../../ISYConstants.js';
 import { ISYUpdateableBinaryStateDevice, ISYUpdateableLevelDevice } from '../ISYDevice.js';
-import { ISYNodeDevice } from '../../ISYNode.js';
+import { ISYDeviceNode } from '../../ISYNode.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import 'winston';
-import type { NodeInfo } from '../../Definitions/NodeInfo.js';
+import type { NodeInfo } from '../../Model/NodeInfo.js';
 import {Insteon} from './index.js';
 
 export class InsteonFanMotorDevice extends ISYUpdateableLevelDevice(ISYUpdateableBinaryStateDevice(InsteonBaseDevice)) {

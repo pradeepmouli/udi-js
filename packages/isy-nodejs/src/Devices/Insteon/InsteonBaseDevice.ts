@@ -2,13 +2,13 @@ import { Family, Insteon } from '../../Definitions/Global/Families.js';
 import { ISY } from '../../ISY.js';
 import { UnitOfMeasure as UOM, UnitOfMeasure } from '../../Definitions/Global/UOM.js'
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
-import { NodeInfo } from '../../Definitions/NodeInfo.js';
-import { ISYNodeDevice } from '../../ISYNode.js';
+import { NodeInfo } from '../../Model/NodeInfo.js';
+import { ISYDeviceNode } from '../../ISYNode.js';
 import 'winston';
 import type { Driver, DriverType } from '../../Definitions/Global/Drivers.js';
 
 // import { InsteonNLS } from './insteonfam.js'
-export class InsteonBaseDevice<D extends Driver.Literal = 'ST',C extends string = 'QUERY'> extends ISYNodeDevice<Family.Insteon,D,C> {
+export class InsteonBaseDevice<D extends Driver.Literal = 'ST',C extends string = 'QUERY'> extends ISYDeviceNode<Family.Insteon,D,C> {
 	constructor(isy: ISY, deviceNode: NodeInfo) {
 
 		super(isy, deviceNode);

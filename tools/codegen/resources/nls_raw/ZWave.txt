@@ -1,0 +1,1034 @@
+#
+# Custom commands
+#
+
+# General names (for cmds, parameters, etc.)
+GEN-TIMER-NAME = Timer
+# For alarms (had to make generic because can appear on many alarm types)
+ST-GV10-NAME = V1 Alarm Type
+ST-GV11-NAME = V1 Alarm Level
+
+# Set time parameter
+CMD-SETTP-NAME = Set Time
+
+# Config
+PGM-CMD-CONFIG-FMT = /num//${c} Parameter ${vo}/ /val// = ${v}/
+CMD-CONFIG-NAME = Set Configuration
+CMDP-_107_0_R_0_255-NUM-NAME = Parameter Number
+CMDP-ZY_CONFIG-VAL-NAME = Parameter Value
+
+# Sound Switch
+ST-197-ST-NAME = Current Tone
+ST-197-SVOL-NAME = Default Volume
+ST-197-GV0-NAME = Default Tone
+ST-197-GV1-NAME = Current Volume
+CMD-197-GV1-NAME = Volume
+CMD-197-SVOL-NAME = Default Volume
+CMD-197-DEFID-NAME = Default Tone
+CMDPN-197-GV1-NAME = Volume
+PGM-CMD-197-DON-FMT = //${c} with default tone/${c} with Tone ${v}/ /GV1// Volume ${v}/
+IX_TVOL-0 = Off
+IX_TVOL-255 = Previous
+IX_TVOL_S-0 = Default
+IX_TVOL_S-101 = Previous
+IX_TVOL_C-0 = Mute
+IX_TVOL_C-101 = Previous
+IX_TONEID-0 = Off
+
+# 0-100% 0=Off 100=On
+IX_ONOFF-0 = Off
+IX_ONOFF-100 = On
+
+# User Code
+CMD-USER-NAME = User Code
+IX_UCODE-0 = Inactive
+IX_UCODE-100 = Active
+
+# Switch All
+CMD-ALLSET-NAME = Options
+IX_ALLSET-0 = Ignore All On & All Off
+IX_ALLSET-1 = Ignore All On
+IX_ALLSET-2 = Ignore All Off
+IX_ALLSET-255 = Ignore None
+
+# Wakeup
+PGM-CMD-WAKEOPTS-FMT = /INTERVAL//${c} interval ${v}/
+CMD-WAKEOPTS-NAME = Wakeup
+CMDP-ZY_WAKE_INTERVAL-INTERVAL-NAME = Interval
+
+# Misc lighting
+PGM-CMD-DON-FMT = ///${v}/ /rr// in ${v}/
+PGM-CMD-FDUP-FMT = /startlevel/${c}/Fade Up starting at ${v}/ /rr// in ${v}/
+PGM-CMD-FDDOWN-FMT = /startlevel/${c}/Fade Down starting at ${v}/ /rr// in ${v}/
+
+# Off=Open, On=Close Valve  (e.g. FortrezZ)
+CMD-123-DOF-NAME = Open
+CMD-123-DON-NAME = Close
+
+# Barrier
+CMD-184-DON-NAME = Open
+CMD-184-DOF-NAME = Close
+
+# Multilevel switch types
+CMD-187-DOF-NAME = Off
+CMD-187-DON-NAME = On
+CMD-188-DOF-NAME = Down
+CMD-188-DON-NAME = Up
+CMD-189-DOF-NAME = Close
+CMD-189-DON-NAME = Open
+CMD-190-DOF-NAME = Rotate CCW
+CMD-190-DON-NAME = Rotate CW
+CMD-191-DOF-NAME = Left
+CMD-191-DON-NAME = Right
+CMD-192-DOF-NAME = Reverse
+CMD-192-DON-NAME = Forward
+CMD-193-DOF-NAME = Pull
+CMD-193-DON-NAME = Push
+
+# Common
+CMDP-STARTLEVEL-NAME = Start Level
+
+# Setback
+PGM-CMD-CLISB-FMT = /STATE/Setback/Setback State ${v}/ /TYPE//, Type ${v}/
+CMDP-STATE-NAME = State
+CMDP-TYPE-NAME = Type
+
+# FADE Command
+PGM-CMD-FADE-FMT = /DIR/${c}/${c} ${v}/ /STARTLEVEL// starting at ${v}/ /RR// in ${v}/ /DIR2/ 2nd/ 2nd ${v}/ /STEP2// in ${v}/
+CMD-FADE-NAME = Fade
+CMDP-ZY_MLS_DIR-DIR-NAME = Direction
+CMDP-ZY_MLS_DIR-DIR2-NAME = 2nd Direction
+CMDP-ZY_RR-RR-NAME = Fade Rate
+CMDP-ZY_RR-STEP2-NAME = 2nd Fade Rate
+
+# Color Switch
+GEN-186-ID-NAME = Component
+GEN-186-RR-NAME = Duration
+GEN-186-GV0-NAME = Warm White
+GEN-186-GV1-NAME = Cold White
+GEN-186-GV2-NAME = Red
+GEN-186-GV3-NAME = Green
+GEN-186-GV4-NAME = Blue
+GEN-186-GV5-NAME = Amber
+GEN-186-GV6-NAME = Cyan
+GEN-186-GV7-NAME = Purple
+GEN-186-GV8-NAME = Color Index
+# Command Names
+CMD-186-DON-NAME = Set
+# Color Specific DON/FADE Up/Down Commands
+PGM-CMD-186-DON-FMT = /GV0//Warm White ${vo}, / /GV1//Cold White ${vo}, / /GV2//Red ${vo}, / /GV3//Green ${vo}, / /GV4//Blue ${vo}, / /GV5//Amber ${vo}, / /GV6//Cyan ${vo}, / /GV7//Purple ${vo}, / /GV8//Color Index ${vo}, / /RR//in ${v}/
+PGM-CMD-186-FDUP-FMT = /ID//Fade ${v} Up/ /STARTLEVEL// starting at ${vo}/ /RR// in ${v}/
+PGM-CMD-186-FDDOWN-FMT = /ID//Fade ${v} Down/ /STARTLEVEL// starting at ${vo}/ /RR// in ${v}/
+PGM-CMD-186-FDSTOP-FMT = /ID//Fade ${v} Stop/
+
+# Door Locks
+CMD-LOCK-NAME = Lock
+CMD-UNLOCK-NAME = Unlock
+
+# Wakeup isAwake
+PGM-CMD-199-DON-FMT = //${c}/Keep Awake ${v}/
+ST-199-ST-NAME = Is Awake
+ST-199-GV1-NAME = Keep Awake
+ST-199-GV2-NAME = Wake Interval
+CMD-SETIV-NAME = Set Wake Interval
+CMD-SLEEP-NAME = Sleep
+CMD-199-DON-NAME = Keep Awake
+CMD-199-DOF-NAME = Keep Awake Off
+IX_FTU-0 = False
+IX_FTU-100 = True
+IX_FTU-101 = Unknown
+
+# Communication Error
+ST-ERR-NAME = Responding
+IX_ERR-0 = True
+IX_ERR-1 = False
+
+# ZY_DIM_PERCENT Index
+IX_PCT_OPT-1 = Previous Value
+
+# ZY_MLS_DIR (Fade direction) Index
+IX_MLS_DIR-0 = Up
+IX_MLS_DIR-1 = Down
+IX_MLS_DIR-3 = None
+
+# Color Component IDs
+IX_CCI-0 = Warm White
+IX_CCI-1 = Cold White
+IX_CCI-2 = Red
+IX_CCI-3 = Green
+IX_CCI-4 = Blue
+IX_CCI-5 = Amber
+IX_CCI-6 = Cyan
+IX_CCI-7 = Purple
+IX_CCI-8 = Color Index
+
+# Unlock options
+IX_UNLOCK-0 = Default
+IX_UNLOCK-1 = Normal
+IX_UNLOCK-2 = With timer
+IX_UNLOCK-3 = Inside door handles
+IX_UNLOCK-4 = Inside door handles with timer
+IX_UNLOCK-5 = Outside door handles
+IX_UNLOCK-6 = Outside door handles with timer
+
+#  Link Definition Names
+LNKD-ASSOC-NAME = Z-Wave Association
+LNKD-ASSOC_S0-NAME = Z-Wave Association S0
+LNKD-ASSOC_S2AC-NAME = Z-Wave Association S2 Access
+LNKD-ASSOC_S2AU-NAME = Z-Wave Association S2 Auth
+LNKD-ASSOC_S2UN-NAME = Z-Wave Association S2 Unauth
+
+LNKD-ASSOC_MC-NAME = Z-Wave Association MC
+LNKD-ASSOC_MC_S0-NAME = Z-Wave Association MC S0
+LNKD-ASSOC_MC_S2AC-NAME = Z-Wave Association MC S2 Access
+LNKD-ASSOC_MC_S2AU-NAME = Z-Wave Association MC S2 Auth
+LNKD-ASSOC_MC_S2UN-NAME = Z-Wave Association MC S2 Unauth
+
+LNKD-BASIC-NAME = Z-Wave Basic
+LNKD-BASIC_S0-NAME = Z-Wave Basic S0
+LNKD-BASIC_S2AC-NAME = Z-Wave Basic S2 Access
+LNKD-BASIC_S2AU-NAME = Z-Wave Basic S2 Auth
+LNKD-BASIC_S2UN-NAME = Z-Wave Basic S2 Unauth
+
+LNKD-BASIC_MC-NAME = Z-Wave Basic MC
+LNKD-BASIC_MC_S0-NAME = Z-Wave Basic MC S0
+LNKD-BASIC_MC_S2AC-NAME = Z-Wave Basic MC S2 Access
+LNKD-BASIC_MC_S2AU-NAME = Z-Wave Basic MC S2 Auth
+LNKD-BASIC_MC_S2UN-NAME = Z-Wave Basic MC S2 Unauth
+
+LNKD-BSW-NAME = Z-Wave Switch
+LNKD-BSW_S0-NAME = Z-Wave Switch S0
+LNKD-BSW_S2AC-NAME = Z-Wave Switch S2 Access
+LNKD-BSW_S2AU-NAME = Z-Wave Switch S2 Auth
+LNKD-BSW_S2UN-NAME = Z-Wave Switch S2 Unauth
+
+LNKD-BSW_MC-NAME = Z-Wave Switch MC
+LNKD-BSW_MC_S0-NAME = Z-Wave Switch MC S0
+LNKD-BSW_MC_S2AC-NAME = Z-Wave Switch MC S2 Access
+LNKD-BSW_MC_S2AU-NAME = Z-Wave Switch MC S2 Auth
+LNKD-BSW_MC_S2UN-NAME = Z-Wave Switch MC S2 Unauth
+
+LNKD-MLSW-NAME = Z-Wave Dimmer
+LNKD-MLSW_S0-NAME = Z-Wave Dimmer S0
+LNKD-MLSW_S2AC-NAME = Z-Wave Dimmer S2 Access
+LNKD-MLSW_S2AU-NAME = Z-Wave Dimmer S2 Auth
+LNKD-MLSW_S2UN-NAME = Z-Wave Dimmer S2 Unauth
+
+LNKD-MLSW_MC-NAME = Z-Wave Dimmer MC
+LNKD-MLSW_MC_S0-NAME = Z-Wave Dimmer MC S0
+LNKD-MLSW_MC_S2AC-NAME = Z-Wave Dimmer MC S2 Access
+LNKD-MLSW_MC_S2AU-NAME = Z-Wave Dimmer MC S2 Auth
+LNKD-MLSW_MC_S2UN-NAME = Z-Wave Dimmer MC S2 Unauth
+
+LNKD-SCENE_CTL-NAME = Z-Wave Scene
+LNKD-SCENE_CTL_S0-NAME = Z-Wave Scene S0
+LNKD-SCENE_CTL_S2AC-NAME = Z-Wave Scene S2 Access
+LNKD-SCENE_CTL_S2AU-NAME = Z-Wave Scene S2 Auth
+LNKD-SCENE_CTL_S2UN-NAME = Z-Wave Scene S2 Unauth
+
+LNKD-SCENE_CTL_MC-NAME = Z-Wave Scene MC
+LNKD-SCENE_CTL_MC_S0-NAME = Z-Wave Scene MC S0
+LNKD-SCENE_CTL_MC_S2AC-NAME = Z-Wave Scene MC S2 Access
+LNKD-SCENE_CTL_MC_S2AU-NAME = Z-Wave Scene MC S2 Auth
+LNKD-SCENE_CTL_MC_S2UN-NAME = Z-Wave Scene MC S2 Unauth
+
+LNKD-SCENE_RSP-NAME = Z-Wave Scene
+LNKD-SCENE_RSP_S0-NAME = Z-Wave Scene S0
+LNKD-SCENE_RSP_S2AC-NAME = Z-Wave Scene S2 Access
+LNKD-SCENE_RSP_S2AU-NAME = Z-Wave Scene S2 Auth
+LNKD-SCENE_RSP_S2UN-NAME = Z-Wave Scene S2 Unauth
+
+LNKD-SCENE_RSP_MC-NAME = Z-Wave Scene MC
+LNKD-SCENE_RSP_MC_S0-NAME = Z-Wave Scene MC S0
+LNKD-SCENE_RSP_MC_S2AC-NAME = Z-Wave Scene MC S2 Access
+LNKD-SCENE_RSP_MC_S2AU-NAME = Z-Wave Scene MC S2 Auth
+LNKD-SCENE_RSP_MC_S2UN-NAME = Z-Wave Scene MC S2 Unauth
+
+#  Link Parameter formatting
+LNKD-ASSOC-FMT = ;;No Parameters;No Parameters;
+LNKD-ASSOC_S0-FMT = ;;No Parameters;No Parameters;
+LNKD-ASSOC_S2AC-FMT = ;;No Parameters;No Parameters;
+LNKD-ASSOC_S2AU-FMT = ;;No Parameters;No Parameters;
+LNKD-ASSOC_S2UN-FMT = ;;No Parameters;No Parameters;
+
+LNKD-ASSOC_MC-FMT = ;;No Parameters;No Parameters;
+LNKD-ASSOC_MC_S0-FMT = ;;No Parameters;No Parameters;
+LNKD-ASSOC_MC_S2AC-FMT = ;;No Parameters;No Parameters;
+LNKD-ASSOC_MC_S2AU-FMT = ;;No Parameters;No Parameters;
+LNKD-ASSOC_MC_S2UN-FMT = ;;No Parameters;No Parameters;
+
+LNKD-BASIC-FMT = ;;No Parameters;No Parameters;
+LNKD-BASIC_S0-FMT = ;;No Parameters;No Parameters;
+LNKD-BASIC_S2AC-FMT = ;;No Parameters;No Parameters;
+LNKD-BASIC_S2AU-FMT = ;;No Parameters;No Parameters;
+LNKD-BASIC_S2UN-FMT = ;;No Parameters;No Parameters;
+
+LNKD-BASIC_MC-FMT = ;;No Parameters;No Parameters;
+LNKD-BASIC_MC_S0-FMT = ;;No Parameters;No Parameters;
+LNKD-BASIC_MC_S2AC-FMT = ;;No Parameters;No Parameters;
+LNKD-BASIC_MC_S2AU-FMT = ;;No Parameters;No Parameters;
+LNKD-BASIC_MC_S2UN-FMT = ;;No Parameters;No Parameters;
+
+LNKD-BSW-FMT = ;;No Parameters;No Parameters;
+LNKD-BSW_S0-FMT = ;;No Parameters;No Parameters;
+LNKD-BSW_S2AC-FMT = ;;No Parameters;No Parameters;
+LNKD-BSW_S2AU-FMT = ;;No Parameters;No Parameters;
+LNKD-BSW_S2UN-FMT = ;;No Parameters;No Parameters;
+
+LNKD-BSW_MC-FMT = ;;No Parameters;No Parameters;
+LNKD-BSW_MC_S0-FMT = ;;No Parameters;No Parameters;
+LNKD-BSW_MC_S2AC-FMT = ;;No Parameters;No Parameters;
+LNKD-BSW_MC_S2AU-FMT = ;;No Parameters;No Parameters;
+LNKD-BSW_MC_S2UN-FMT = ;;No Parameters;No Parameters;
+
+LNKD-MLSW-FMT = ;;No Parameters;No Parameters;
+LNKD-MLSW_S0-FMT = ;;No Parameters;No Parameters;
+LNKD-MLSW_S2AC-FMT = ;;No Parameters;No Parameters;
+LNKD-MLSW_S2AU-FMT = ;;No Parameters;No Parameters;
+LNKD-MLSW_S2UN-FMT = ;;No Parameters;No Parameters;
+
+LNKD-MLSW_MC-FMT = ;;No Parameters;No Parameters;
+LNKD-MLSW_MC_S0-FMT = ;;No Parameters;No Parameters;
+LNKD-MLSW_MC_S2AC-FMT = ;;No Parameters;No Parameters;
+LNKD-MLSW_MC_S2AU-FMT = ;;No Parameters;No Parameters;
+LNKD-MLSW_MC_S2UN-FMT = ;;No Parameters;No Parameters;
+
+LNKD-SCENE_CTL-FMT = ;;No Parameters;No Parameters;
+LNKD-SCENE_CTL_S0-FMT = ;;No Parameters;No Parameters;
+LNKD-SCENE_CTL_S2AC-FMT = ;;No Parameters;No Parameters;
+LNKD-SCENE_CTL_S2AU-FMT = ;;No Parameters;No Parameters;
+LNKD-SCENE_CTL_S2UN-FMT = ;;No Parameters;No Parameters;
+
+LNKD-SCENE_CTL_MC-FMT = ;;No Parameters;No Parameters;
+LNKD-SCENE_CTL_MC_S0-FMT = ;;No Parameters;No Parameters;
+LNKD-SCENE_CTL_MC_S2AC-FMT = ;;No Parameters;No Parameters;
+LNKD-SCENE_CTL_MC_S2AU-FMT = ;;No Parameters;No Parameters;
+LNKD-SCENE_CTL_MC_S2UN-FMT = ;;No Parameters;No Parameters;
+
+LNKD-SCENE_RSP-FMT = ;OL;;${v}; ;RR;; in ${v};
+LNKD-SCENE_RSP_S0_RSP-FMT = ;OL;;${v}; ;RR;; in ${v};
+LNKD-SCENE_RSP_S2AC_RSP-FMT = ;OL;;${v}; ;RR;; in ${v};
+LNKD-SCENE_RSP_S2AU_RSP-FMT = ;OL;;${v}; ;RR;; in ${v};
+LNKD-SCENE_RSP_S2UN_RSP-FMT = ;OL;;${v}; ;RR;; in ${v};
+
+LNKD-SCENE_RSP_MC-FMT = ;OL;;${v}; ;RR;; in ${v};
+LNKD-SCENE_RSP_MC_S0_RSP_MC-FMT = ;OL;;${v}; ;RR;; in ${v};
+LNKD-SCENE_RSP_MC_S2AC_RSP_MC-FMT = ;OL;;${v}; ;RR;; in ${v};
+LNKD-SCENE_RSP_MC_S2AU_RSP_MC-FMT = ;OL;;${v}; ;RR;; in ${v};
+LNKD-SCENE_RSP_MC_S2UN_RSP_MC-FMT = ;OL;;${v}; ;RR;; in ${v};
+
+# Commands
+CMD-ASSOC-NAME = No Parameters
+
+# Devices
+NDN-111-ICON = DoorLock
+NDN-121-ICON = GenericRspCtl
+NDN-140-ICON = Thermostat
+NDN-143-ICON = EnergyMonitor
+
+# Sensors
+NDN-104-ICON = Sensor
+NDN-117-ICON = Sensor
+NDN-118-ICON = Sensor
+NDN-185-ICON = Sensor
+
+# Alarms
+NDN-148-ICON = Alarm
+NDN-149-ICON = Alarm
+NDN-150-ICON = Alarm
+NDN-151-ICON = Alarm
+NDN-152-ICON = Alarm
+NDN-153-ICON = Alarm
+NDN-154-ICON = Alarm
+NDN-155-ICON = MotionSensor
+NDN-156-ICON = SmokeSensor
+NDN-157-ICON = Alarm
+NDN-158-ICON = Alarm
+NDN-159-ICON = Alarm
+NDN-160-ICON = Alarm
+NDN-161-ICON = Alarm
+NDN-162-ICON = Alarm
+NDN-163-ICON = Alarm
+NDN-164-ICON = Alarm
+NDN-165-ICON = Alarm
+NDN-166-ICON = Alarm
+NDN-167-ICON = Alarm
+NDN-168-ICON = Alarm
+NDN-169-ICON = Alarm
+NDN-170-ICON = Alarm
+NDN-171-ICON = Alarm
+NDN-172-ICON = Alarm
+NDN-173-ICON = Alarm
+NDN-174-ICON = Alarm
+NDN-175-ICON = Alarm
+NDN-176-ICON = Alarm
+NDN-177-ICON = Alarm
+NDN-178-ICON = Alarm
+NDN-179-ICON = Alarm
+NDN-180-ICON = Alarm
+NDN-181-ICON = Alarm
+NDN-182-ICON = Alarm
+NDN-183-ICON = Alarm
+#
+NDN-198-ICON = Alarm
+NDN-301-ICON = Alarm
+NDN-302-ICON = Alarm
+NDN-303-ICON = Alarm
+NDN-304-ICON = Alarm
+NDN-305-ICON = Alarm
+NDN-306-ICON = Alarm
+NDN-307-ICON = Alarm
+NDN-308-ICON = Alarm
+NDN-309-ICON = Alarm
+NDN-310-ICON = Alarm
+NDN-311-ICON = Alarm
+NDN-312-ICON = Alarm
+NDN-313-ICON = Alarm
+NDN-314-ICON = Alarm
+NDN-315-ICON = Alarm
+NDN-316-ICON = Alarm
+NDN-317-ICON = Alarm
+NDN-318-ICON = Alarm
+NDN-319-ICON = Alarm
+NDN-320-ICON = Alarm
+NDN-321-ICON = Alarm
+NDN-322-ICON = Alarm
+NDN-323-ICON = Alarm
+NDN-350-ICON = Alarm
+NDN-351-ICON = Alarm
+NDN-352-ICON = Alarm
+NDN-353-ICON = Alarm
+NDN-354-ICON = Alarm
+NDN-355-ICON = Alarm
+NDN-356-ICON = Alarm
+NDN-357-ICON = Alarm
+NDN-358-ICON = Alarm
+NDN-359-ICON = Alarm
+NDN-360-ICON = Alarm
+NDN-361-ICON = Alarm
+NDN-362-ICON = Alarm
+NDN-363-ICON = Alarm
+NDN-364-ICON = Alarm
+NDN-365-ICON = Alarm
+NDN-366-ICON = Alarm
+NDN-367-ICON = Alarm
+NDN-368-ICON = Alarm
+NDN-369-ICON = Alarm
+NDN-370-ICON = Alarm
+NDN-371-ICON = Alarm
+
+# Multi-level Sensor
+ST-118-ST-NAME = Temperature
+#  - Water Sensor
+ST-350-GV1-NAME = Chlorine level
+ST-350-GV2-NAME = Water Acidity
+ST-350-GV3-NAME = Oxidiation Reduction Potential
+#  - Health Sensor
+ST-351-GV1-NAME = Heart Rater LF/HF Ratio
+#  - Movement sensor
+ST-352-GV1-NAME = Motion Direction
+ST-352-GV2-NAME = Applied Force to Cover
+#  - Air Cond
+ST-353-GV1-NAME = Return Air Temperature
+ST-353-GV2-NAME = Supply Air Temperature
+ST-353-GV3-NAME = Condenser Coil Temperature
+ST-353-GV4-NAME = Evaporator Temperature
+ST-353-GV5-NAME = Liquid Line Temperature
+ST-353-GV6-NAME = Discharge Temperature
+ST-353-GV7-NAME = Suction Pressure
+ST-353-GV8-NAME = Discharge Pressure
+ST-353-GV9-NAME = Defrost Temperature
+#  - Air Quality
+ST-354-GV1-NAME = Sulfur Dioxide
+ST-354-GV2-NAME = Nitrogen Dioxide
+ST-354-GV3-NAME = Ammonia
+ST-354-GV4-NAME = Lead
+ST-354-GV5-NAME = Particulate Matter
+ST-354-GV6-NAME = Ozone
+
+# Thermostat
+ST-140-ST-NAME = Temperature
+
+# Barrier
+CMD-184-DON-NAME = Open
+CMD-184-DOF-NAME = Close
+
+# On/Off Percent
+IX_ONOFF-0 = Off
+IX_ONOFF-100 = On
+
+# Dimmer 0-100, 101= Unknown
+IX_DIM_REP-0 = Off
+IX_DIM_REP-101 = Unknown
+
+# Thermostat Setback Types
+IX_SB_T-0 = No override
+IX_SB_T-1 = Temporary Override
+IX_SB_T-2 = Permanent Override
+
+# Thermostat Setback States
+IX_SB_ST-0 = Offset
+IX_SB_ST-1 = Frost Protection
+IX_SB_ST-2 = Energy Saving
+IX_SB_ST-3 = Unused
+
+# Custom Button Press
+ST-253-GV30-NAME = Button Message
+CMD-253-GV30-NAME = Button Message
+IX_CBP-0 = Default
+IX_CBP-1 = Do Not Detect
+IX_CBP-2 = (20.01) Basic Set
+IX_CBP-3 = (20.03) Basic Report
+IX_CBP-4 = (25.01) Binary Switch Set
+IX_CBP-5 = (25.03) Binary Switch Report
+IX_CBP-6 = (26.01) Multilevel Switch Set
+IX_CBP-7 = (26.03) Multilevel Switch Report
+
+# Alarm Settings
+# --- 0x01 - 301 - Smoke Alarm
+NDN-301-ICON = Alarm
+ST-301-ALARM-NAME = Smoke Alarm
+#   ALARM uses these
+IXA_SMOKE-0 = Idle
+IXA_SMOKE-1 = Smoke detected
+IXA_SMOKE-2 = Smoke detected (no location)
+IXA_SMOKE-3 = Smoke alarm test
+IXA_SMOKE-4 = Replacement required
+IXA_SMOKE-5 = Replacement required (End of life)
+IXA_SMOKE-6 = Alarm silenced
+IXA_SMOKE-7 = Inspection required
+IXA_SMOKE-8 = Dust in device
+IXA_SMOKE-254 = (Unknown Event)
+
+# --- 0x02 - 302 - CO Alarm
+NDN-302-ICON = Alarm
+ST-302-ALARM-NAME = CO Alarm
+#   ALARM uses these
+IXA_CO-0 = Idle
+IXA_CO-1 = CO detected
+IXA_CO-2 = CO detected (no location)
+IXA_CO-3 = CO alarm test
+IXA_CO-4 = Replacement required
+IXA_CO-5 = Replacement required (End of life)
+IXA_CO-6 = Alarm silenced
+IXA_CO-7 = Inspection required
+IXA_CO-254 = (Unknown Event)
+
+# --- 0x03 - 303 - CO2 Alarm
+NDN-303-ICON = Alarm
+ST-303-ALARM-NAME = CO2 Alarm
+#   ALARM uses these
+IXA_CO2-0 = Idle
+IXA_CO2-1 = CO2 detected
+IXA_CO2-2 = CO2 detected (no location)
+IXA_CO2-3 = CO2 alarm test
+IXA_CO2-4 = Replacement required
+IXA_CO2-5 = Replacement required (End of life)
+IXA_CO2-6 = Alarm silenced
+IXA_CO2-7 = Inspection required
+IXA_CO2-254 = (Unknown Event)
+
+# --- 0x04 - 304 - Heat Alarm
+NDN-304-ICON = Alarm
+ST-304-ALARM-NAME = Heat Alarm
+#   ALARM uses these
+IXA_HEAT-0 = Idle
+IXA_HEAT-1 = Overheat
+IXA_HEAT-2 = Overheat (no location)
+IXA_HEAT-3 = Rapid temperature rise
+IXA_HEAT-4 = Rapid temperature rise (no location)
+IXA_HEAT-5 = Underheat
+IXA_HEAT-6 = Underheat (no location)
+IXA_HEAT-7 = Heat alarm test
+IXA_HEAT-8 = Replacement required (End of life)
+IXA_HEAT-9 = Alarm silenced
+IXA_HEAT-10 = Dust in device
+IXA_HEAT-11 = Inspection required
+IXA_HEAT-12 = Rapid temperature fall
+IXA_HEAT-13 = Rapid temperature fall (no location)
+
+# --- 0x05 - 305 - Water Alarm
+NDN-305-ICON = Alarm
+ST-305-ALARM-NAME = Water Alarm
+ST-305-GV1-NAME = Water Flow
+ST-305-GV2-NAME = Water Pressure
+ST-305-GV3-NAME = Water Temperature
+ST-305-GV4-NAME = Water Level
+#   ALARM uses these
+IXA_WATER-0 = Idle
+IXA_WATER-1 = Leak Detected
+IXA_WATER-2 = Leak Detected (No Location)
+IXA_WATER-3 = Level Drop
+IXA_WATER-4 = Level Drop (No Location)
+IXA_WATER-5 = Replace Water Filter
+IXA_WATER-6 = Water Flow
+IXA_WATER-7 = Water Pressure
+IXA_WATER-8 = Water Temperature
+IXA_WATER-9 = Water Level
+IXA_WATER-10 = Sump Pump Active
+IXA_WATER-11 = Sump Pump Fail
+IXA_WATER-254 = (Unknown Event)
+
+# --- 0x06 - 306 - Access Control (0x00-0x3F)
+NDN-306-ICON = Alarm
+ST-306-ALARM-NAME = Access Control
+#   ALARM uses these
+IXA_AC-0 = Idle
+IXA_AC-1 = Manual lock
+IXA_AC-2 = Manual unlock
+IXA_AC-3 = RF lock
+IXA_AC-4 = RF unlock
+IXA_AC-5 = Keypad lock
+IXA_AC-6 = Keypad unlock
+IXA_AC-7 = Manual not fully locked
+IXA_AC-8 = RF not fully locked
+IXA_AC-9 = Auto locked
+IXA_AC-10 = Auto lock not fully locked
+IXA_AC-11 = Lock jammed
+IXA_AC-12 = All user codes deleted
+IXA_AC-13 = Single user code deleted
+IXA_AC-14 = User code added
+IXA_AC-15 = User code not added (duplicate)
+IXA_AC-16 = Keypad temporary disabled
+IXA_AC-17 = Keypad busy
+IXA_AC-18 = New program code entered
+IXA_AC-19 = Manual code entry limit
+IXA_AC-20 = Unlock by RF with invalid user code
+IXA_AC-21 = Locked by RF with invalid user code
+IXA_AC-22 = Window/door is open
+IXA_AC-23 = Window/door is closed
+IXA_AC-24 = Window/door handle is open
+IXA_AC-25 = Window/door handle is closed
+IXA_AC-32 = Messaging User Code entered via keypad
+
+# --- 0x06 - 307 - Barrier (offset 0x3F)
+NDN-307-ICON = Alarm
+ST-307-ALARM-NAME = Barrier Alarm
+#   ALARM uses these
+IXA_BA-0 = Idle
+IXA_BA-1 = Initializing
+IXA_BA-2 = Open/Close Force exceeded
+IXA_BA-3 = Motor exceeded time limit
+IXA_BA-4 = Mechanical limits exceeded
+IXA_BA-5 = Operation not performed (UL)
+IXA_BA-6 = Unattended operation disabled (UL)
+IXA_BA-7 = Device malfunction
+IXA_BA-8 = Vacation mode
+IXA_BA-9 = Safety beam obstacle
+IXA_BA-10 = Sensor not detected / supervisory error
+IXA_BA-11 = Low battery warning
+IXA_BA-12 = Short in wall station wires
+IXA_BA-13 = non-Z-Wave association
+
+# --- 0x07 - 308 - Home Security
+NDN-308-ICON = Alarm
+ST-308-ALARM-NAME = Home Security
+#   ALARM uses these
+IXA_HS-0 = Idle
+IXA_HS-1 = Intrusion
+IXA_HS-2 = Intrusion (no location)
+IXA_HS-3 = Tamper (Cover removed)
+IXA_HS-4 = Invalid code
+IXA_HS-5 = Glass break
+IXA_HS-6 = Glass break (no location)
+IXA_HS-7 = Motion
+IXA_HS-8 = Motion (no location)
+IXA_HS-9 = Tamper (Moved)
+IXA_HS-10 = Impact
+IXA_HS-11 = Magnetic interference
+IXA_HS-12 = RF jamming
+
+# --- 0x08 - 309 - Power Management
+NDN-309-ICON = Alarm
+ST-309-ALARM-NAME = Power Management
+#   ALARM uses these
+IXA_PM-0 = Idle
+IXA_PM-1 = Power applied
+IXA_PM-2 = AC mains disconnected
+IXA_PM-3 = AC mains reconnected
+IXA_PM-4 = Surge
+IXA_PM-5 = Voltage drop/drift
+IXA_PM-6 = Over current
+IXA_PM-7 = Over voltage
+IXA_PM-8 = Overload
+IXA_PM-9 = Load error
+IXA_PM-10 = Replace battery soon
+IXA_PM-11 = Replace battery now
+IXA_PM-12 = Battery charging
+IXA_PM-13 = Battery fully charged
+IXA_PM-14 = Charge battery soon
+IXA_PM-15 = Charge battery now
+IXA_PM-16 = Backup battery low
+IXA_PM-17 = Battery fluid low
+IXA_PM-18 = Backup battery disconnected
+
+# --- 0x09 - 310 - System
+NDN-310-ICON = Alarm
+ST-310-ALARM-NAME = System Alarm
+#   ALARM uses these
+IXA_SYS-0 = Idle
+IXA_SYS-1 = Hardware failure
+IXA_SYS-2 = Software failure
+IXA_SYS-3 = Hardware failure (+ reason)
+IXA_SYS-4 = Software failure (+ reason)
+IXA_SYS-5 = Heartbeat
+IXA_SYS-6 = Cover removed
+IXA_SYS-7 = Emergency shutoff
+IXA_SYS-9 = Digital input high state
+IXA_SYS-10 = Digital input low state
+IXA_SYS-11 = Digital input open
+
+# --- 0x0A - 311 - Emergency
+NDN-311-ICON = Alarm
+ST-311-ALARM-NAME = Emergency Alarm
+#   ALARM uses these
+IXA_EA-0 = Idle
+IXA_EA-1 = Contact police
+IXA_EA-2 = Contact fire service
+IXA_EA-3 = Contact medical service
+IXA_EA-4 = Panic alert
+
+# --- 0x0B - 312 - Clock
+NDN-312-ICON = Alarm
+ST-312-ALARM-NAME = Clock Alarm
+#   ALARM uses these
+IXA_CLOCK-0 = Idle
+IXA_CLOCK-1 = Wake up
+IXA_CLOCK-2 = Timer ended
+IXA_CLOCK-3 = Time remaining
+
+# --- 0x0C - 313 - Appliance Alarm
+NDN-313-ICON = Alarm
+ST-313-ALARM-NAME = Appliance Alarm
+#   ALARM uses these
+IXA_APP-0 = Idle
+IXA_APP-1 = Program started
+IXA_APP-2 = Program in progress
+IXA_APP-3 = Program completed
+IXA_APP-4 = Replace main filter
+IXA_APP-5 = Failure to set target temperature
+IXA_APP-6 = Supplying water
+IXA_APP-7 = Water supply failure
+IXA_APP-8 = Boiling
+IXA_APP-9 = Boiling failure
+IXA_APP-10 = Washing
+IXA_APP-11 = Washing failure
+IXA_APP-12 = Rinsing
+IXA_APP-13 = Rinsing failure
+IXA_APP-14 = Draining
+IXA_APP-15 = Draining failure
+IXA_APP-16 = Spinning
+IXA_APP-17 = Spinning failure
+IXA_APP-18 = Drying
+IXA_APP-19 = Drying failure
+IXA_APP-20 = Fan failure
+IXA_APP-21 = Compressor failure
+
+# --- 0x0D - 314 - Home Health Alarm
+NDN-314-ICON = Alarm
+ST-314-ALARM-NAME = Home Health Alarm
+#   ALARM uses these
+IXA_HH-0 = Idle
+IXA_HH-1 = Leaving bed
+IXA_HH-2 = Sitting on bed
+IXA_HH-3 = Lying on bed
+IXA_HH-4 = Posture changed
+IXA_HH-5 = Sitting on bed edge
+IXA_HH-6 = VOC level
+IXA_HH-7 = Sleep apnea detected
+IXA_HH-8 = Sleep stage 0
+IXA_HH-9 = Sleep stage 1
+IXA_HH-10 = Sleep stage 2
+IXA_HH-11 = Sleep stage 3
+IXA_HH-12 = Fall detected
+#  VOC
+IXAV_VOC-0 = --
+IXAV_VOC-1 = Clean
+IXAV_VOC-2 = Slightly Polluted
+IXAV_VOC-3 = Moderately Polluted
+IXAV_VOC-4 = Highly Polluted
+
+# --- 0x0E - 315 - Siren Alarm
+NDN-315-ICON = Alarm
+ST-315-ALARM-NAME = Siren Alarm
+#   ALARM uses these
+IXA_SIREN-0 = Idle
+IXA_SIREN-1 = Siren Active
+
+# --- 0x0F - 316 - Water Valve
+NDN-316-ICON = Alarm
+ST-316-ALARM-NAME = Water Valve Alarm
+ST-316-GV1-NAME = Valve
+ST-316-GV2-NAME = Master Valve
+#   ALARM uses these
+IXA_WV-0 = Idle
+IXA_WV-1 = Valve operation
+IXA_WV-2 = Master valve operation
+IXA_WV-3 = Valve short circuit
+IXA_WV-4 = Master valve short circuit
+IXA_WV-5 = Valve alarm
+IXA_WV-6 = Master valve alarm
+
+# --- 0x10 - 317 - Weather
+NDN-317-ICON = Alarm
+ST-317-ALARM-NAME = Weather Alarm
+#   ALARM uses these
+IXA_WEA-0 = Idle
+IXA_WEA-1 = Rain
+IXA_WEA-2 = Moisture
+IXA_WEA-3 = Freeze
+
+# --- 0x11 - 318 - Irrigation
+NDN-318-ICON = Alarm
+ST-318-ALARM-NAME = Irrigation Alarm
+#   ALARM uses these
+IXA_IRR-0 = Idle
+IXA_IRR-1 = Schedule started
+IXA_IRR-2 = Schedule finished
+IXA_IRR-3 = Valve table run started
+IXA_IRR-4 = Valve table run finished
+IXA_IRR-5 = Device not configured
+
+# --- 0x12 - 319 - Gas Alarm
+NDN-319-ICON = Alarm
+ST-319-ALARM-NAME = Gas Alarm
+#   ALARM uses these
+IXA_GAS-0 = Idle
+IXA_GAS-1 = Combustible gas detected (+ loc)
+IXA_GAS-2 = Combustible gas detected
+IXA_GAS-3 = Toxic gas detected (+ loc)
+IXA_GAS-4 = Toxic gas detected
+IXA_GAS-5 = Gas alarm test
+IXA_GAS-6 = Replacement required
+
+# --- 0x13 - 320 - Pest Control
+NDN-320-ICON = Alarm
+ST-320-ALARM-NAME = Pest Control
+#   ALARM uses these
+IXA_PEST-0 = Idle
+IXA_PEST-1 = Trap armed (+ loc)
+IXA_PEST-2 = Trap armed
+IXA_PEST-3 = Trap re-arm required (+ loc)
+IXA_PEST-4 = Trap re-arm required
+IXA_PEST-5 = Pest detected (+ loc)
+IXA_PEST-6 = Pest detected
+IXA_PEST-7 = Pest exterminated (+ loc)
+IXA_PEST-8 = Pest exterminated
+
+# --- 0x14 - 321 - Water Quality Alarm
+NDN-321-ICON = Alarm
+ST-321-ALARM-NAME = Light Sensor
+#   ALARM uses these
+IXA_LS-0 = Idle
+IXA_LS-1 = Light detected
+IXA_LS-2 = Color transition
+
+# --- 0x15 - 322 - Water Quality Alarm
+NDN-322-ICON = Alarm
+ST-322-ALARM-NAME = Water Quality Alarm
+#   ALARM uses these
+IXA_WQM-0 = Idle
+IXA_WQM-1 = Chlorine
+IXA_WQM-2 = Acidity (pH)
+IXA_WQM-3 = Oxidation
+IXA_WQM-4 = Chlorine empty
+IXA_WQM-5 = Acidity (pH) empty
+IXA_WQM-6 = Waterflow shortage
+IXA_WQM-7 = Waterflow clear water shortage
+IXA_WQM-8 = Disinfection error
+IXA_WQM-9 = Filter cleaning ongoing
+IXA_WQM-10 = Heating operation ongoing
+IXA_WQM-11 = Filter pump operation ongoing
+IXA_WQM-12 = Freshwater operation ongoing
+IXA_WQM-13 = Dry protection operation ongoing
+IXA_WQM-14 = Water tank empty
+IXA_WQM-15 = Water tank level unknown
+IXA_WQM-16 = Water tank full
+IXA_WQM-17 = Collective disorder
+IXA_WQM-254 = (Unknown Event)
+
+# --- 0x16 - 323 - Home Monitoring
+NDN-323-ICON = Alarm
+ST-323-ALARM-NAME = Home Monitoring
+#   ALARM uses these
+IXA_HM-0 = -
+IXA_HM-1 = Home occupied
+IXA_HM-2 = Home occupied (no location)
+
+# --- --- - 349 - V1 Alarm
+NDN-349-ICON = Alarm
+ST-349-ALARM-NAME = V1 Alarm
+
+# --- Alarm GVx names ---
+# WATER, WV
+IXAV_01-0 = -
+IXAV_01-1 = No Data
+IXAV_01-2 = Below low threshold
+IXAV_01-3 = Above high threshold
+IXAV_01-4 = Max
+# End
+
+NDN-101-NAME = Unknown
+NDN-102-NAME = Alarm
+NDN-103-NAME = AV Control Point
+NDN-104-NAME = Binary Sensor
+NDN-105-NAME = Class A Motor Control
+NDN-106-NAME = Class B Motor Control
+NDN-107-NAME = Class C Motor Control
+NDN-108-NAME = Controller
+NDN-109-NAME = Dimmer Switch
+NDN-110-NAME = Display
+NDN-111-NAME = Door Lock
+NDN-112-NAME = Doorbell
+NDN-113-NAME = Entry Control
+NDN-114-NAME = Gateway
+NDN-115-NAME = Installer Tool
+NDN-116-NAME = Motor Multiposition
+NDN-117-NAME = Climate Sensor
+NDN-118-NAME = Multilevel Sensor
+NDN-119-NAME = Dimmer Switch
+NDN-120-NAME = On/Off Power Strip
+NDN-121-NAME = On/Off Power Switch
+NDN-122-NAME = On/Off Scene Switch
+NDN-123-NAME = Open/Close Valve
+NDN-124-NAME = PC Controller
+NDN-125-NAME = Remote
+NDN-126-NAME = Remote Control
+NDN-127-NAME = AV Remote Control
+NDN-128-NAME = Simple Remote Control
+NDN-129-NAME = Repeater
+NDN-130-NAME = Residential HRV
+NDN-131-NAME = Satellite Receiver
+NDN-132-NAME = Satellite Receiver V2
+NDN-133-NAME = Scene Controller
+NDN-134-NAME = Scene Switch
+NDN-135-NAME = Security Panel
+NDN-136-NAME = Set-Top Box
+NDN-137-NAME = Siren
+NDN-139-NAME = Subsystem Controller
+NDN-140-NAME = Thermostat
+NDN-141-NAME = Toggle
+NDN-142-NAME = Television
+NDN-143-NAME = Energy Meter
+NDN-144-NAME = Pulse Meter
+NDN-145-NAME = Water Meter
+NDN-146-NAME = Gas Meter
+NDN-147-NAME = Binary Switch
+NDN-148-NAME = Binary Alarm
+NDN-149-NAME = Aux Sensor
+NDN-150-NAME = CO2 Alarm
+NDN-151-NAME = CO Alarm
+NDN-152-NAME = Freeze Alarm
+NDN-153-NAME = Glass Break Alarm
+NDN-154-NAME = Heat Sensor
+NDN-155-NAME = Motion Sensor
+NDN-156-NAME = Smoke Alarm
+NDN-157-NAME = Tamper Alarm
+NDN-158-NAME = Tilt Sensor
+NDN-159-NAME = Water Sensor
+NDN-160-NAME = Door/Window Alarm
+NDN-161-NAME = Test Alarm
+NDN-162-NAME = Low Battery Alarm
+NDN-163-NAME = CO End Of Life Alarm
+NDN-164-NAME = Malfunction Alarm
+NDN-165-NAME = Heartbeat
+NDN-166-NAME = Rapid Temp Rise Alarm
+NDN-168-NAME = Underheat Alarm
+NDN-169-NAME = Leak Detected Alarm
+NDN-170-NAME = Level Drop Alarm
+NDN-172-NAME = Intrusion Alarm
+NDN-173-NAME = Tamper Code Alarm
+NDN-174-NAME = Hardware Failure Alarm
+NDN-175-NAME = Software Failure Alarm
+NDN-176-NAME = Contact Police Alarm
+NDN-177-NAME = Contact Fire Alarm
+NDN-178-NAME = Contact Medical Alarm
+NDN-179-NAME = Wakeup Alarm
+NDN-183-NAME = Switch All
+NDN-184-NAME = Barrier
+NDN-185-NAME = Notification Sensor
+NDN-186-NAME = Color Switch
+NDN-187-NAME = On/Off Switch
+NDN-188-NAME = Up/Down Switch
+NDN-189-NAME = Open/Close Switch
+NDN-190-NAME = Rotate Switch
+NDN-191-NAME = Right/Left Switch
+NDN-192-NAME = Forward/Reverse Switch
+NDN-193-NAME = Basic
+NDN-195-NAME = Wall Controller
+NDN-196-NAME = Barrier Handle
+NDN-197-NAME = Sound Switch
+NDN-198-NAME = Panic Alert
+NDN-199-NAME = Wake Up
+NDN-201-NAME = Central Scene Control Button
+NDN-251-NAME = Basic Control
+NDN-252-NAME = Basic Association
+NDN-253-NAME = Detect Button Press
+NDN-254-NAME = Assoc Link
+NDN-255-NAME = Binary Control
+NDN-256-NAME = Binary Link
+NDN-257-NAME = Dimmer Control
+NDN-258-NAME = Dimmer Link
+NDN-259-NAME = Scene Responder
+NDN-301-NAME = Smoke Alarm
+NDN-302-NAME = Carbon Monoxide Alarm
+NDN-303-NAME = Carbon Dioxide Alarm
+NDN-304-NAME = Heat Alarm
+NDN-305-NAME = Water Alarm
+NDN-306-NAME = Access Control Alarm
+NDN-307-NAME = Barrier Alarm
+NDN-308-NAME = Home Security Alarm
+NDN-309-NAME = Power Management Alarm
+NDN-310-NAME = System Alarm
+NDN-311-NAME = Emergency Alarm
+NDN-312-NAME = Timer Alarm
+NDN-313-NAME = Appliance Alarm
+NDN-314-NAME = Home Health
+NDN-315-NAME = Siren Alarm
+NDN-316-NAME = Water Valve Alarm
+NDN-317-NAME = Weather Alarm
+NDN-318-NAME = Irrigation Alarm
+NDN-319-NAME = Gas Alarm
+NDN-320-NAME = Pest Control Alarm
+NDN-321-NAME = Light Sensor Alarm
+NDN-322-NAME = Water Quality Alarm
+NDN-323-NAME = Home Monitoring Alarm
+NDN-349-NAME = V1 Alarm 
+NDN-350-NAME = Water Sensor
+NDN-351-NAME = Health Sensor
+NDN-352-NAME = Movement Sensor
+NDN-353-NAME = Air Conditioning Sensor
+NDN-354-NAME = Air Quality Sensor
+NDN-355-NAME = Replace Water Filter Alarm
+NDN-356-NAME = Water Valve Operation Alarm
+NDN-357-NAME = Master Water Valve Operation Alarm
+NDN-358-NAME = Rain Alarm
+NDN-359-NAME = Moisture Alarm
+NDN-360-NAME = Freeze Alarm
+NDN-361-NAME = Combustible Gas Alarm
+NDN-362-NAME = Toxic Gas Alarm
+NDN-363-NAME = Pest Trap Armed Alarm
+NDN-364-NAME = Pest Trap re-Armed Alarm
+NDN-365-NAME = Light Detected Alarm
+NDN-366-NAME = Home Occupied Alarm
+NDN-367-NAME = Rapid Temperature Fall Alarm
+NDN-368-NAME = Unattended Operation (UL) Alarm
+NDN-369-NAME = Initialization Alarm
+NDN-370-NAME = Vacation Mode Alarm
+NDN-371-NAME = Safety Beam Obstacle Alarm
+NDN-372-NAME = Soil Sensor
+NDN-373-NAME = Weather Sensor
+NDN-374-NAME = Binary Smoke Sensor
+NDN-375-NAME = Binary CO Sensor
+NDN-376-NAME = Binary C02 Sensor
+NDN-377-NAME = Binary Freeze Sensor
+NDN-378-NAME = Binary Tamper Sensor
+NDN-379-NAME = Binary Door/Window Sensor
+NDN-380-NAME = Binary Motion Sensor
+NDN-381-NAME = Binary Glass Break Sensor
+NDN-401-NAME = Alarm Sensor
+NDN-402-NAME = Smoke Alarm Sensor
+NDN-403-NAME = CO Alarm Sensor
+NDN-404-NAME = CO2 Alarm Sensor
+NDN-405-NAME = Heat Alarm Sensor
+NDN-406-NAME = Water Alarm Sensor

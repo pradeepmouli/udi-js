@@ -1,0 +1,516 @@
+{
+  "ZY002_1": {
+    "className": "DimmerSwitchNode",
+    "id": "ZY002_1",
+    "nlsId": "119",
+    "drivers": {
+      "ST": {
+        "label": "Status",
+        "hidden": false,
+        "id": "ST",
+        "editorId": "_51_0_R_0_101_N_IX_DIM_REP",
+        "dataType": {
+          "51": {
+            "uom": 51,
+            "enum": true,
+            "min": 0,
+            "max": 101,
+            "precision": 0,
+            "indexId": "IX_DIM_REP"
+          }
+        },
+        "name": "status"
+      },
+      "ERR": {
+        "label": "Responding",
+        "hidden": true,
+        "id": "ERR",
+        "editorId": "ZY_ERR",
+        "dataType": {
+          "25": {
+            "uom": 25,
+            "indexId": "IX_ERR",
+            "enum": true,
+            "values": {
+              "0": "True",
+              "1": "False"
+            }
+          }
+        },
+        "name": "responding"
+      }
+    },
+    "commands": {
+      "DON": {
+        "label": "On",
+        "id": "DON",
+        "editorId": "ZY_DIM_PERCENT",
+        "dataType": {
+          "25": {
+            "uom": 25,
+            "indexId": "IX_PCT_OPT"
+          },
+          "51": {
+            "uom": 51,
+            "enum": false,
+            "min": 0,
+            "max": 100
+          }
+        },
+        "name": "on",
+        "optional": true,
+        "parameters": {
+          "value": {
+            "id": "value",
+            "editorId": "ZY_DIM_PERCENT",
+            "dataType": {
+              "25": {
+                "uom": 25,
+                "indexId": "IX_PCT_OPT"
+              },
+              "51": {
+                "uom": 51,
+                "enum": false,
+                "min": 0,
+                "max": 100
+              }
+            },
+            "name": "value"
+          },
+          "RR": {
+            "label": "Fade Rate",
+            "id": "RR",
+            "editorId": "ZY_RR",
+            "dataType": {},
+            "name": "fadeRate"
+          }
+        },
+        "initialValue": "ST"
+      },
+      "DOF": {
+        "label": "Off",
+        "id": "DOF",
+        "name": "off"
+      },
+      "DFON": {
+        "label": "Fast On",
+        "id": "DFON",
+        "name": "fastOn"
+      },
+      "DFOF": {
+        "label": "Fast Off",
+        "id": "DFOF",
+        "name": "fastOff"
+      },
+      "BRT": {
+        "label": "Brighten",
+        "id": "BRT",
+        "name": "brighten"
+      },
+      "DIM": {
+        "label": "Dim",
+        "id": "DIM",
+        "name": "dim"
+      },
+      "FDUP": {
+        "label": "Fade Up",
+        "id": "FDUP",
+        "name": "fadeUp",
+        "parameters": {
+          "STARTLEVEL": {
+            "label": "Start Level",
+            "id": "STARTLEVEL",
+            "editorId": "ZY_DIM_PERCENT",
+            "dataType": {},
+            "name": "startLevel"
+          },
+          "RR": {
+            "label": "Fade Rate",
+            "id": "RR",
+            "editorId": "ZY_RR",
+            "dataType": {},
+            "name": "fadeRate"
+          }
+        }
+      },
+      "FDDOWN": {
+        "label": "Fade Down",
+        "id": "FDDOWN",
+        "name": "fadeDown",
+        "parameters": {
+          "STARTLEVEL": {
+            "label": "Start Level",
+            "id": "STARTLEVEL",
+            "editorId": "ZY_DIM_PERCENT",
+            "dataType": {},
+            "name": "startLevel"
+          },
+          "RR": {
+            "label": "Fade Rate",
+            "id": "RR",
+            "editorId": "ZY_RR",
+            "dataType": {},
+            "name": "fadeRate"
+          }
+        }
+      },
+      "FADE": {
+        "label": "Fade",
+        "id": "FADE",
+        "name": "fade",
+        "parameters": {
+          "DIR": {
+            "label": "Direction",
+            "id": "DIR",
+            "editorId": "ZY_MLS_DIR",
+            "dataType": {},
+            "name": "direction"
+          },
+          "STARTLEVEL": {
+            "label": "Start Level",
+            "id": "STARTLEVEL",
+            "editorId": "ZY_DIM_PERCENT",
+            "dataType": {},
+            "name": "startLevel"
+          },
+          "RR": {
+            "label": "Fade Rate",
+            "id": "RR",
+            "editorId": "ZY_RR",
+            "dataType": {},
+            "name": "fadeRate"
+          },
+          "DIR2": {
+            "label": "2nd Direction",
+            "id": "DIR2",
+            "editorId": "ZY_MLS_DIR",
+            "dataType": {},
+            "name": "2ndDirection"
+          },
+          "STEP2": {
+            "label": "2nd Fade Rate",
+            "id": "STEP2",
+            "editorId": "ZY_RR",
+            "dataType": {},
+            "name": "2ndFadeRate"
+          }
+        }
+      },
+      "FDSTOP": {
+        "label": "Fade Stop",
+        "id": "FDSTOP",
+        "name": "fadeStop"
+      },
+      "QUERY": {
+        "label": "Query",
+        "id": "QUERY",
+        "name": "query"
+      },
+      "CONFIG": {
+        "label": "Set Configuration",
+        "id": "CONFIG",
+        "name": "setConfiguration",
+        "parameters": {
+          "NUM": {
+            "label": "Parameter Number",
+            "id": "NUM",
+            "editorId": "_107_0_R_0_255",
+            "dataType": {
+              "107": {
+                "uom": 107,
+                "enum": false,
+                "min": 0,
+                "max": 255,
+                "precision": 0
+              }
+            },
+            "name": "parameterNumber"
+          },
+          "VAL": {
+            "label": "Parameter Value",
+            "id": "VAL",
+            "editorId": "ZY_CONFIG",
+            "dataType": {},
+            "name": "parameterValue"
+          }
+        }
+      },
+      "WDU": {
+        "label": "Write Changes",
+        "id": "WDU",
+        "name": "writeChanges"
+      }
+    },
+    "events": {
+      "DON": {
+        "id": "DON",
+        "name": "don"
+      },
+      "DOF": {
+        "id": "DOF",
+        "name": "dof"
+      },
+      "FDUP": {
+        "id": "FDUP",
+        "name": "fdup"
+      },
+      "FDDOWN": {
+        "id": "FDDOWN",
+        "name": "fddown"
+      },
+      "FDSTOP": {
+        "id": "FDSTOP",
+        "name": "fdstop"
+      }
+    },
+    "family": 12,
+    "label": "Dimmer Switch",
+    "name": "DimmerSwitchNode"
+  },
+  "ZY002_001_186": {
+    "className": "ColorSwitchNode",
+    "id": "ZY002_001_186",
+    "nlsId": "186",
+    "drivers": {
+      "GV0": {
+        "hidden": false,
+        "id": "GV0",
+        "editorId": "_107_0_R_0_255",
+        "dataType": {
+          "107": {
+            "uom": 107,
+            "enum": false,
+            "min": 0,
+            "max": 255,
+            "precision": 0
+          }
+        },
+        "name": "gv0"
+      },
+      "GV2": {
+        "hidden": false,
+        "id": "GV2",
+        "editorId": "_107_0_R_0_255",
+        "dataType": {
+          "107": {
+            "uom": 107,
+            "enum": false,
+            "min": 0,
+            "max": 255,
+            "precision": 0
+          }
+        },
+        "name": "gv2"
+      },
+      "GV3": {
+        "hidden": false,
+        "id": "GV3",
+        "editorId": "_107_0_R_0_255",
+        "dataType": {
+          "107": {
+            "uom": 107,
+            "enum": false,
+            "min": 0,
+            "max": 255,
+            "precision": 0
+          }
+        },
+        "name": "gv3"
+      },
+      "GV4": {
+        "hidden": false,
+        "id": "GV4",
+        "editorId": "_107_0_R_0_255",
+        "dataType": {
+          "107": {
+            "uom": 107,
+            "enum": false,
+            "min": 0,
+            "max": 255,
+            "precision": 0
+          }
+        },
+        "name": "gv4"
+      }
+    },
+    "commands": {
+      "DON": {
+        "label": "Set",
+        "id": "DON",
+        "name": "set",
+        "parameters": {
+          "GV0": {
+            "id": "GV0",
+            "editorId": "_107_0_R_0_255",
+            "dataType": {
+              "107": {
+                "uom": 107,
+                "enum": false,
+                "min": 0,
+                "max": 255,
+                "precision": 0
+              }
+            },
+            "name": "gv0"
+          },
+          "GV2": {
+            "id": "GV2",
+            "editorId": "_107_0_R_0_255",
+            "dataType": {
+              "107": {
+                "uom": 107,
+                "enum": false,
+                "min": 0,
+                "max": 255,
+                "precision": 0
+              }
+            },
+            "name": "gv2"
+          },
+          "GV3": {
+            "id": "GV3",
+            "editorId": "_107_0_R_0_255",
+            "dataType": {
+              "107": {
+                "uom": 107,
+                "enum": false,
+                "min": 0,
+                "max": 255,
+                "precision": 0
+              }
+            },
+            "name": "gv3"
+          },
+          "GV4": {
+            "id": "GV4",
+            "editorId": "_107_0_R_0_255",
+            "dataType": {
+              "107": {
+                "uom": 107,
+                "enum": false,
+                "min": 0,
+                "max": 255,
+                "precision": 0
+              }
+            },
+            "name": "gv4"
+          },
+          "RR": {
+            "label": "Fade Rate",
+            "id": "RR",
+            "editorId": "ZY_RR",
+            "dataType": {},
+            "name": "fadeRate"
+          }
+        }
+      },
+      "FDUP": {
+        "label": "Fade Up",
+        "id": "FDUP",
+        "name": "fadeUp",
+        "parameters": {
+          "ID": {
+            "id": "ID",
+            "editorId": "_25_0_S_001D_N_IX_CCI",
+            "dataType": {
+              "25": {
+                "uom": 25,
+                "indexId": "IX_CCI"
+              }
+            },
+            "name": "id"
+          },
+          "STARTLEVEL": {
+            "label": "Start Level",
+            "id": "STARTLEVEL",
+            "editorId": "_107_0_R_0_255",
+            "dataType": {
+              "107": {
+                "uom": 107,
+                "enum": false,
+                "min": 0,
+                "max": 255,
+                "precision": 0
+              }
+            },
+            "name": "startLevel"
+          },
+          "RR": {
+            "label": "Fade Rate",
+            "id": "RR",
+            "editorId": "ZY_RR",
+            "dataType": {},
+            "name": "fadeRate"
+          }
+        }
+      },
+      "FDDOWN": {
+        "label": "Fade Down",
+        "id": "FDDOWN",
+        "name": "fadeDown",
+        "parameters": {
+          "ID": {
+            "id": "ID",
+            "editorId": "_25_0_S_001D_N_IX_CCI",
+            "dataType": {
+              "25": {
+                "uom": 25,
+                "indexId": "IX_CCI"
+              }
+            },
+            "name": "id"
+          },
+          "STARTLEVEL": {
+            "label": "Start Level",
+            "id": "STARTLEVEL",
+            "editorId": "_107_0_R_0_255",
+            "dataType": {
+              "107": {
+                "uom": 107,
+                "enum": false,
+                "min": 0,
+                "max": 255,
+                "precision": 0
+              }
+            },
+            "name": "startLevel"
+          },
+          "RR": {
+            "label": "Fade Rate",
+            "id": "RR",
+            "editorId": "ZY_RR",
+            "dataType": {},
+            "name": "fadeRate"
+          }
+        }
+      },
+      "FDSTOP": {
+        "label": "Fade Stop",
+        "id": "FDSTOP",
+        "name": "fadeStop",
+        "parameters": {
+          "ID": {
+            "id": "ID",
+            "editorId": "_25_0_S_001D_N_IX_CCI",
+            "dataType": {
+              "25": {
+                "uom": 25,
+                "indexId": "IX_CCI"
+              }
+            },
+            "name": "id"
+          }
+        }
+      },
+      "QUERY": {
+        "label": "Query",
+        "id": "QUERY",
+        "name": "query"
+      }
+    },
+    "events": {},
+    "family": 12,
+    "label": "Color Switch",
+    "name": "ColorSwitchNode"
+  }
+}

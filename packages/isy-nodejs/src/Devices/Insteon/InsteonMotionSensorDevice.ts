@@ -1,4 +1,4 @@
-import type { NodeInfo } from '../../Definitions/NodeInfo.js';
+import type { NodeInfo } from '../../Model/NodeInfo.js';
 import { ISY } from '../../ISY.js';
 import { Commands } from '../../ISYConstants.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';

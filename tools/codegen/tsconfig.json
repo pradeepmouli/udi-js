@@ -1,12 +1,13 @@
 {
     "compileOnSave": true,
+    "extends": "../../tsconfig.base.json",
     "compilerOptions": {
         "target": "es2022",
         "module": "NodeNext",
 
         "rootDir": "./",
         "outDir": "./",
-        "declaration": false,
+
         //"declarationDir": "./dist/types",
         "allowArbitraryExtensions": true,
 
@@ -18,18 +19,12 @@
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "paths": {
-            "*": ["./"],
-            "../dist/esm/ISY.js": [
-                "../dist/esm/types/ISY.d.ts"
-            ],
-            "isy-nodejs": [
-                "../dist/esm/*",
-                "../dist/esm/types/*"
-            ]
+            "isy-nodejs": ["../../packages/isy-nodejs/dist/esm/types/", "../../packages/isy-nodejs/dist/esm/"],
+            "isy-nodejs/*": ["../../packages/isy-nodejs/dist/esm/types/*","../../packages/isy-nodejs/dist/esm/*"],
         },
     },
 
-      "include": ["**/*"],
+      "include": ["**/*","./DeviceMap.json"],
       "ts-node": {
         "transpileOnly": true,
         "compilerOptions": {
@@ -39,6 +34,7 @@
       ,
 
     "exclude": [
+        "generate_old.ts",
         "node_modules/@project-chip/*",
         "node_modules",
         "dist",
@@ -50,7 +46,8 @@
         "types",
         "index.ts",
         "index.js",
-        "index.d.ts"
+        "index.d.ts",
+        "packages/**/*"
 
     ]
 }

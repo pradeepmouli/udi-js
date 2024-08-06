@@ -1,0 +1,372 @@
+#
+# UDZBee - Zigbee support
+#
+
+# General names (for cmds, parameters, etc.)
+GEN-TIMER-NAME = Timer
+
+# Set time parameter
+CMD-SETTP-NAME = Set Time
+
+# On/Off
+CMD-TOGGLE-NAME = Toggle
+ST-103-GV1-NAME = On Time
+ST-103-GV2-NAME = Off Wait Time
+
+# Identify
+CMD-IDENTIFY-NAME = Identify
+
+# Door Locks
+CMD-LOCK-NAME = Lock
+CMD-UNLOCK-NAME = Unlock
+CMD-TOGGLE-NAME = Toggle
+
+# Identify trigger effects
+IX_ID_EFFECT-0 = Blink
+IX_ID_EFFECT-1 = Breath
+IX_ID_EFFECT-2 = Okay
+IX_ID_EFFECT-11 = Channel Change
+IX_ID_EFFECT-254 = Finish 
+IX_ID_EFFECT-255 = Stop
+
+# 0-100% 0=Off 100=On
+IX_ONOFF-0 = Off
+IX_ONOFF-100 = On
+
+# Misc lighting
+PGM-CMD-DON-FMT = ///${v}/ /rr// in ${v}/
+PGM-CMD-FDUP-FMT = /startlevel/${c}/Fade Up starting at ${v}/ /rr// in ${v}/
+PGM-CMD-FDDOWN-FMT = /startlevel/${c}/Fade Down starting at ${v}/ /rr// in ${v}/
+
+# Common
+CMDP-STARTLEVEL-NAME = Start Level
+
+# FADE Command
+PGM-CMD-FADE-FMT = /DIR/${c}/${c} ${v}/ /STARTLEVEL// starting at ${v}/ /RR// in ${v}/ /DIR2/ 2nd/ 2nd ${v}/ /STEP2// in ${v}/
+CMD-FADE-NAME = Fade
+CMDP-ZY_MLS_DIR-DIR-NAME = Direction
+CMDP-ZY_MLS_DIR-DIR2-NAME = 2nd Direction
+CMDP-ZY_RR-RR-NAME = Fade Rate
+CMDP-ZY_RR-STEP2-NAME = 2nd Fade Rate
+
+# Communication Error
+ST-ERR-NAME = Responding
+IX_ERR-0 = True
+IX_ERR-1 = False
+
+# True=100, False=0
+IX_TF-0 = False
+IX_TF-100 = True
+
+# ZY_DIM_PERCENT Index
+IX_PCT_OPT-1 = Previous Value
+
+# ZY_MLS_DIR (Fade direction) Index
+IX_MLS_DIR-0 = Up
+IX_MLS_DIR-1 = Down
+IX_MLS_DIR-3 = None
+
+# Thermostat
+ST-140-ST-NAME = Temperature
+
+# Barrier
+CMD-184-DON-NAME = Open
+CMD-184-DOF-NAME = Close
+
+# On/Off Percent
+IX_ONOFF-0 = Off
+IX_ONOFF-100 = On
+
+# Dimmer
+IX_DIM-0 = Off
+
+# Dimmer 0-100, 101= Unknown
+IX_DIM_REP-0 = Off
+IX_DIM_REP-101 = Unknown
+
+# OL (On Level)
+IX_OL-0 = Off
+IX_OL-101 = Previous
+
+# Color commands
+CMD-EHUE-NAME = Enhanced Hue
+CMD-UNITS-NAME = Preferred Units
+CMD-STOP-NAME = Stop
+
+# Color Control
+CMD-MOVETO-NAME = Move To
+CMD-MOVETOHUE-NAME = Move To Hue
+CMD-MOVETOSAT-NAME = Move To Saturation
+CMD-MOVEHUE-NAME = Move Hue
+CMD-MOVESAT-NAME = Move Saturation
+CMD-STEPHUE-NAME = Step Hue
+CMD-STEPSAT-NAME = Step Saturation
+
+# Color Control M0 command parameters
+CMDPN-106-HUE-NAME = Hue
+CMDPN-106-SAT-NAME = Saturation
+CMDPN-106-MODE-NAME = Mode
+CMDPN-106-RATE-NAME = Rate
+CMDPN-106-DIR-NAME = Direction
+CMDPN-106-DUR-NAME = Duration
+CMDPN-106-SIZE-NAME = Step Size
+
+# Color status
+ST-106-ST-NAME = Hue
+ST-106-GV1-NAME = Saturation
+ST-106-GV2-NAME = Enhanced Hue
+
+# Color Move Mode
+IX_CMM-0 = Stop
+IX_CMM-1 = Up
+IX_CMM-2 = 2-Reserved
+IX_CMM-3 = Down
+
+# Color Step Mode
+IX_CSM-0 = 0-Reserved
+IX_CSM-1 = Up
+IX_CSM-2 = 2-Reserved
+IX_CSM-3 = Down
+
+# Color Hue/Sat
+IX_HUESAT-0 = Hue
+IX_HUESAT-1 = Saturation
+
+# Color Temperature Units
+IX_CTUNIT-0 = Kelvin
+IX_CTUNIT-1 = Mired
+
+# Hue Direction
+IX_HUEDIR-0 = Shortest Distance
+IX_HUEDIR-1 = Longest Distance
+IX_HUEDIR-2 = Up
+IX_HUEDIR-3 = Down
+
+# Color XY
+CMD-MOVETOXY-NAME = Move To XY
+CMD-MOVEXY-NAME = Move XY
+CMD-STEPXY-NAME = Step XY
+
+# Color Control XY command parameters
+CMDPN-108-X-NAME = X
+CMDPN-108-Y-NAME = Y
+CMDPN-108-RATEX-NAME = Rate X
+CMDPN-108-RATEY-NAME = Rate Y
+CMDPN-108-STEPX-NAME = Step X
+CMDPN-108-STEPY-NAME = Step Y
+CMDPN-108-DUR-NAME = Duration
+
+# Color XY Status
+ST-108-GV0-NAME = Color Temperature
+ST-108-GV1-NAME = Color X
+ST-108-GV2-NAME = Color Y
+
+# Color Temperature
+CMD-MOVETOCT-NAME = Move To Temperature 
+CMD-MOVECT-NAME = Move Temperature
+CMD-STEPCT-NAME = Step Temperature
+
+# Color Control Temperature command parameters
+CMDPN-108-COLOR-NAME = Color
+CMDPN-108-RATE-NAME = Rate
+CMDPN-108-STEP-NAME = Step
+CMDPN-108-SIZE-NAME = Step Size
+CMDPN-108-MODE-NAME = Mode
+CMDPN-108-MIN-NAME = Min
+CMDPN-108-MAX-NAME = Max
+CMDPN-108-DUR-NAME = Duration
+
+# Color XY Status & Temperature
+ST-108-GV0-NAME = Color X
+ST-108-GV1-NAME = Color Y
+ST-108-GV2-NAME = Color Temperature K
+ST-108-GV3-NAME = Color Temperature Mired
+ST-108-GV4-NAME = Preferred Units
+
+# Door Status
+IX_DOOR_STS-0 = Open
+IX_DOOR_STS-1 = Closed
+IX_DOOR_STS-2 = Jammed
+IX_DOOR_STS-3 = Forced Open
+IX_DOOR_STS-4 = Unspecified
+IX_DOOR_STS-255 = Undefined
+
+# IAS Zone Status
+ST-120-ST-NAME = Alarm 1
+ST-120-GV1-NAME = Alarm 2
+ST-120-GV2-NAME = Tamper
+ST-120-GV3-NAME = Low Battery
+ST-120-GV4-NAME = Reports Supervision
+ST-120-GV5-NAME = Reports Restore
+ST-120-GV6-NAME = Trouble
+ST-120-GV7-NAME = AC/Mains Fault
+ST-120-GV8-NAME = Test
+ST-120-GV9-NAME = Battery Defect
+
+# IAS Zone Status - Standard CIE
+ST-121-ST-NAME = System Alarm
+ST-121-GV1-NAME = Alarm 2
+ST-121-GV2-NAME = Tamper
+ST-121-GV3-NAME = Low Battery
+ST-121-GV4-NAME = Reports Supervision
+ST-121-GV5-NAME = Reports Restore
+ST-121-GV6-NAME = Trouble
+ST-121-GV7-NAME = AC/Mains Fault
+ST-121-GV8-NAME = Test
+ST-121-GV9-NAME = Battery Defect
+
+# IAS Zone Status - Motion Sensor
+ST-122-ST-NAME = Intrusion
+ST-122-GV1-NAME = Presence
+ST-122-GV2-NAME = Tamper
+ST-122-GV3-NAME = Low Battery
+ST-122-GV4-NAME = Reports Supervision
+ST-122-GV5-NAME = Reports Restore
+ST-122-GV6-NAME = Trouble
+ST-122-GV7-NAME = AC/Mains Fault
+ST-122-GV8-NAME = Test
+ST-122-GV9-NAME = Battery Defect
+
+# IAS Zone Status - Contact Switch
+ST-123-ST-NAME = Door/Window #1 Open
+ST-123-GV1-NAME = Door/Window #2 Open
+ST-123-GV2-NAME = Tamper
+ST-123-GV3-NAME = Low Battery
+ST-123-GV4-NAME = Reports Supervision
+ST-123-GV5-NAME = Reports Restore
+ST-123-GV6-NAME = Trouble
+ST-123-GV7-NAME = AC/Mains Fault
+ST-123-GV8-NAME = Test
+ST-123-GV9-NAME = Battery Defect
+
+# IAS Zone Status - Fire Alarm
+ST-124-ST-NAME = Fire Indication
+ST-124-GV1-NAME = Alarm 2
+ST-124-GV2-NAME = Tamper
+ST-124-GV3-NAME = Low Battery
+ST-124-GV4-NAME = Reports Supervision
+ST-124-GV5-NAME = Reports Restore
+ST-124-GV6-NAME = Trouble
+ST-124-GV7-NAME = AC/Mains Fault
+ST-124-GV8-NAME = Test
+ST-124-GV9-NAME = Battery Defect
+
+# IAS Zone Status - Water Alarm
+ST-125-ST-NAME = Water Overflow
+ST-125-GV1-NAME = Alarm 2
+ST-125-GV2-NAME = Tamper
+ST-125-GV3-NAME = Low Battery
+ST-125-GV4-NAME = Reports Supervision
+ST-125-GV5-NAME = Reports Restore
+ST-125-GV6-NAME = Trouble
+ST-125-GV7-NAME = AC/Mains Fault
+ST-125-GV8-NAME = Test
+ST-125-GV9-NAME = Battery Defect
+
+# IAS Zone Status - CO sensor
+ST-126-ST-NAME = CO Alarm
+ST-126-GV1-NAME = Cooking Indication
+ST-126-GV2-NAME = Tamper
+ST-126-GV3-NAME = Low Battery
+ST-126-GV4-NAME = Reports Supervision
+ST-126-GV5-NAME = Reports Restore
+ST-126-GV6-NAME = Trouble
+ST-126-GV7-NAME = AC/Mains Fault
+ST-126-GV8-NAME = Test
+ST-126-GV9-NAME = Battery Defect
+
+# IAS Zone Status - Personal Emergency
+ST-127-ST-NAME = Fall/Concussion
+ST-127-GV1-NAME = Emergency Button
+ST-127-GV2-NAME = Tamper
+ST-127-GV3-NAME = Low Battery
+ST-127-GV4-NAME = Reports Supervision
+ST-127-GV5-NAME = Reports Restore
+ST-127-GV6-NAME = Trouble
+ST-127-GV7-NAME = AC/Mains Fault
+ST-127-GV8-NAME = Test
+ST-127-GV9-NAME = Battery Defect
+
+# IAS Zone Status - Vibration/Moovement Sensor
+ST-128-ST-NAME = Movement
+ST-128-GV1-NAME = Vibration
+ST-128-GV2-NAME = Tamper
+ST-128-GV3-NAME = Low Battery
+ST-128-GV4-NAME = Reports Supervision
+ST-128-GV5-NAME = Reports Restore
+ST-128-GV6-NAME = Trouble
+ST-128-GV7-NAME = AC/Mains Fault
+ST-128-GV8-NAME = Test
+ST-128-GV9-NAME = Battery Defect
+
+# IAS Zone Status - Remote Control
+ST-129-ST-NAME = Panic
+ST-129-GV1-NAME = Emergency
+ST-129-GV2-NAME = Tamper
+ST-129-GV3-NAME = Low Battery
+ST-129-GV4-NAME = Reports Supervision
+ST-129-GV5-NAME = Reports Restore
+ST-129-GV6-NAME = Trouble
+ST-129-GV7-NAME = AC/Mains Fault
+ST-129-GV8-NAME = Test
+ST-129-GV9-NAME = Battery Defect
+
+# IAS Zone Status - Key Fob
+ST-130-ST-NAME = Panic
+ST-130-GV1-NAME = Emergency
+ST-130-GV2-NAME = Tamper
+ST-130-GV3-NAME = Low Battery
+ST-130-GV4-NAME = Reports Supervision
+ST-130-GV5-NAME = Reports Restore
+ST-130-GV6-NAME = Trouble
+ST-130-GV7-NAME = AC/Mains Fault
+ST-130-GV8-NAME = Test
+ST-130-GV9-NAME = Battery Defect
+
+# IAS Zone Status - Keypad
+ST-131-ST-NAME = Panic
+ST-131-GV1-NAME = Emergency
+ST-131-GV2-NAME = Tamper
+ST-131-GV3-NAME = Low Battery
+ST-131-GV4-NAME = Reports Supervision
+ST-131-GV5-NAME = Reports Restore
+ST-131-GV6-NAME = Trouble
+ST-131-GV7-NAME = AC/Mains Fault
+ST-131-GV8-NAME = Test
+ST-131-GV9-NAME = Battery Defect
+
+# IAS Zone Status - Standard Warning Device
+ST-132-ST-NAME = Alarm 1
+ST-132-GV1-NAME = Alarm 2
+ST-132-GV2-NAME = Tamper
+ST-132-GV3-NAME = Low Battery
+ST-132-GV4-NAME = Reports Supervision
+ST-132-GV5-NAME = Reports Restore
+ST-132-GV6-NAME = Trouble
+ST-132-GV7-NAME = AC/Mains Fault
+ST-132-GV8-NAME = Test
+ST-132-GV9-NAME = Battery Defect
+
+# IAS Zone Status - Glass Break
+ST-133-ST-NAME = Glass Break
+ST-133-GV1-NAME = Alarm 2
+ST-133-GV2-NAME = Tamper
+ST-133-GV3-NAME = Low Battery
+ST-133-GV4-NAME = Reports Supervision
+ST-133-GV5-NAME = Reports Restore
+ST-133-GV6-NAME = Trouble
+ST-133-GV7-NAME = AC/Mains Fault
+ST-133-GV8-NAME = Test
+ST-133-GV9-NAME = Battery Defect
+
+# IAS Zone Status - Security Repeater
+ST-134-ST-NAME = Glass Break
+ST-134-GV1-NAME = Alarm 2
+ST-134-GV2-NAME = Tamper
+ST-134-GV3-NAME = Low Battery
+ST-134-GV4-NAME = Reports Supervision
+ST-134-GV5-NAME = Reports Restore
+ST-134-GV6-NAME = Trouble
+ST-134-GV7-NAME = AC/Mains Fault
+ST-134-GV8-NAME = Test
+ST-134-GV9-NAME = Battery Defect

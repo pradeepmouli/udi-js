@@ -1,0 +1,111 @@
+{
+  "NCDRelay": {
+    "className": "LampAndSwitchNode",
+    "id": "NCDRelay",
+    "nlsId": "RELAY",
+    "drivers": {
+      "ST": {
+        "label": "Status",
+        "hidden": false,
+        "id": "ST",
+        "editorId": "NCD_OL_RELAY",
+        "dataType": {
+          "51": {
+            "uom": 51,
+            "indexId": "R_OL",
+            "enum": true,
+            "values": {
+              "0": "",
+              "100": ""
+            }
+          }
+        },
+        "name": "status"
+      },
+      "ERR": {
+        "label": "Responding",
+        "hidden": true,
+        "id": "ERR",
+        "editorId": "NCD_ERR",
+        "dataType": {
+          "25": {
+            "uom": 25,
+            "indexId": "IX_ERR",
+            "enum": true,
+            "values": {
+              "0": "True",
+              "1": "False"
+            }
+          }
+        },
+        "name": "responding"
+      }
+    },
+    "commands": {
+      "DON": {
+        "label": "On",
+        "id": "DON",
+        "name": "on"
+      },
+      "DOF": {
+        "label": "Off",
+        "id": "DOF",
+        "name": "off"
+      },
+      "QUERY": {
+        "label": "Query",
+        "id": "QUERY",
+        "name": "query"
+      },
+      "ADRPST": {
+        "label": "ADR",
+        "id": "ADRPST",
+        "editorId": "NCD_ADRPST",
+        "dataType": {
+          "25": {
+            "uom": 25,
+            "indexId": "R_ADRPST",
+            "enum": true,
+            "values": {
+              "0": "",
+              "1": ""
+            }
+          }
+        },
+        "name": "adr",
+        "optional": false,
+        "parameters": {
+          "value": {
+            "id": "value",
+            "editorId": "NCD_ADRPST",
+            "dataType": {
+              "25": {
+                "uom": 25,
+                "indexId": "R_ADRPST",
+                "enum": true,
+                "values": {
+                  "0": "",
+                  "1": ""
+                }
+              }
+            },
+            "name": "value"
+          }
+        }
+      }
+    },
+    "events": {
+      "DON": {
+        "id": "DON",
+        "name": "don"
+      },
+      "DOF": {
+        "id": "DOF",
+        "name": "dof"
+      }
+    },
+    "family": 9,
+    "label": "LampAndSwitch",
+    "name": "LampAndSwitchNode"
+  }
+}

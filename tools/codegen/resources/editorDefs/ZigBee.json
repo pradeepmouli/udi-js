@@ -1,0 +1,177 @@
+{
+  "ZB_ERR": {
+    "range": {
+      "uom": 25,
+      "subset": "0,1",
+      "nls": "IX_ERR"
+    },
+    "id": "ZB_ERR"
+  },
+  "ZB_OFF_0_ON_100": {
+    "range": {
+      "uom": 78,
+      "subset": "0,100"
+    },
+    "id": "ZB_OFF_0_ON_100"
+  },
+  "ZB_OFF_ON_UNKNOWN": {
+    "range": {
+      "uom": 78,
+      "subset": "0,100,101"
+    },
+    "id": "ZB_OFF_ON_UNKNOWN"
+  },
+  "ZB_0_100_PERCENT": {
+    "range": {
+      "uom": 51,
+      "subset": "0,100"
+    },
+    "id": "ZB_0_100_PERCENT"
+  },
+  "ZB_RR": {
+    "range": {
+      "uom": 58,
+      "min": 0,
+      "max": 6553,
+      "prec": 1
+    },
+    "id": "ZB_RR"
+  },
+  "ZB_OL": {
+    "range": [
+      {
+        "uom": 51,
+        "subset": "0-100",
+        "nls": "IX_OL"
+      },
+      {
+        "uom": 100,
+        "min": 0,
+        "max": 255,
+        "prec": 0
+      }
+    ],
+    "id": "ZB_OL"
+  },
+  "ZB_DIM_PERCENT": {
+    "range": [
+      {
+        "uom": 51,
+        "subset": "0-100",
+        "nls": "IX_DIM"
+      },
+      {
+        "uom": 100,
+        "min": 0,
+        "max": 255,
+        "prec": 0
+      }
+    ],
+    "id": "ZB_DIM_PERCENT"
+  },
+  "ZB_COLOR_MOVE_MODE": {
+    "range": {
+      "uom": 25,
+      "subset": "0,1,3",
+      "nls": "IX_CMM"
+    },
+    "id": "ZB_COLOR_MOVE_MODE"
+  },
+  "ZB_COLOR_STEP_MODE": {
+    "range": {
+      "uom": 25,
+      "subset": "1,3",
+      "nls": "IX_CSM"
+    },
+    "id": "ZB_COLOR_STEP_MODE"
+  },
+  "ZB_COLOR_HUE_SAT": {
+    "range": {
+      "uom": 25,
+      "subset": "0,1",
+      "nls": "IX_HUESAT"
+    },
+    "id": "ZB_COLOR_HUE_SAT"
+  },
+  "ZB_CT_UNITS": {
+    "range": {
+      "uom": 25,
+      "subset": "0,1",
+      "nls": "IX_CTUNIT"
+    },
+    "id": "ZB_CT_UNITS"
+  },
+  "ZB_HUE_DIRECTION": {
+    "range": {
+      "uom": 25,
+      "min": 0,
+      "max": 3,
+      "prec": 0,
+      "nls": "IX_HUEDIR"
+    },
+    "id": "ZB_HUE_DIRECTION"
+  },
+  "ZB_ENHANCED_HUE": {
+    "range": {
+      "uom": 149,
+      "min": 0,
+      "max": 360,
+      "prec": 3
+    },
+    "$comment": " <range uom=\"56\" min=\"0\" max=\"65534\" prec=\"0\" /> ",
+    "id": "ZB_ENHANCED_HUE"
+  },
+  "ZB_HUE": {
+    "range": {
+      "uom": 149,
+      "min": 0,
+      "max": 360,
+      "prec": 0
+    },
+    "$comment": " <range uom=\"56\" min=\"0\" max=\"254\" prec=\"0\" /> ",
+    "id": "ZB_HUE"
+  },
+  "ZB_IDENTIFY": {
+    "range": {
+      "uom": 58,
+      "min": 0,
+      "max": 65535,
+      "prec": 0
+    },
+    "$comment": " <range uom=\"25\" subset=\"0,1,2,11,254,255\" nls=\"IX_ID_EFFECT\" /> ",
+    "id": "ZB_IDENTIFY"
+  },
+  "ZB_SECONDS_FFFF_0": {
+    "range": {
+      "uom": 58,
+      "min": 0,
+      "max": 65535,
+      "prec": 0
+    },
+    "id": "ZB_SECONDS_FFFF_0"
+  },
+  "ZB_SECONDS_FFFF_1": {
+    "range": {
+      "uom": 58,
+      "min": 0,
+      "max": 6553,
+      "prec": 1
+    },
+    "id": "ZB_SECONDS_FFFF_1"
+  },
+  "ZB_LOCK_STS_2": {
+    "range": {
+      "uom": 11,
+      "subset": "0,100-102"
+    },
+    "id": "ZB_LOCK_STS_2"
+  },
+  "ZB_DOOR_STS": {
+    "range": {
+      "uom": 25,
+      "subset": "0-4,255",
+      "nls": "IX_DOOR_STS"
+    },
+    "id": "ZB_DOOR_STS"
+  }
+}

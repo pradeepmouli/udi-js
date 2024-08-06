@@ -3,32 +3,33 @@
     "compilerOptions": {
         "outDir": "./dist/cjs",
         "module": "commonjs",
+        "sourceMap": true,
         "paths": {
             "@project-chip/matter.js/*": [
-                "./node_modules/@project-chip/matter.js/dist/cjs/*/export.d.ts",
-                "./node_modules/@project-chip/matter.js/dist/cjs/endpoint/definitions/export.d.ts",
-                "./node_modules/@project-chip/matter.js/dist/cjs/behavior/definitions/export.d.ts"
+                "../../node_modules/@project-chip/matter.js/dist/cjs/*/export.d.ts",
+                "../../node_modules/@project-chip/matter.js/dist/cjs/endpoint/definitions/export.d.ts",
+                "../../node_modules/@project-chip/matter.js/dist/cjs/behavior/definitions/export.d.ts"
             ],
             "@project-chip/matter.js/behaviors/*": [
-                "./node_modules/@project-chip/matter.js/dist/cjs/behavior/definitions/*/export.d.ts"
+                "../../node_modules/@project-chip/matter.js/dist/cjs/behavior/definitions/*/export.d.ts"
             ],
             "@project-chip/matter.js/devices/*": [
-                "./node_modules/@project-chip/matter.js/dist/cjs/endpoint/definitions/export.d.ts"
+                "../../node_modules/@project-chip/matter.js/dist/cjs/endpoint/definitions/export.d.ts"
             ],
             "@project-chip/matter.js": [
-                "./node_modules/@project-chip/matter.js/dist/cjs/export.d.ts"
+                "../../node_modules/@project-chip/matter.js/dist/cjs/export.d.ts"
             ],
             "@project-chip/matter-node.js/environment": [
-                "./node_modules/@project-chip/matter-node.js/dist/cjs/environment/export.d.ts"
+                "../../node_modules/@project-chip/matter-node.js/dist/cjs/environment/export.d.ts"
             ],
             "@project-chip/matter-node.js": [
-                "./node_modules/@project-chip/matter-node.js/dist/cjs/export.d.ts"
+                "../../node_modules/@project-chip/matter-node.js/dist/cjs/export.d.ts"
             ],
             "@project-chip/matter-node.js/*": [
-                "./node_modules/@project-chip/matter-node.js/dist/cjs/export.d.ts"
+                "../../node_modules/@project-chip/matter-node.js/dist/cjs/export.d.ts"
             ],
             "@project-chip/matter-node.js/storage": [
-                "./node_modules/@project-chip/matter-node.js/dist/cjs/storage/export.d.ts"
+                "../../node_modules/@project-chip/matter-node.js/dist/cjs/storage/export.d.ts"
             ]
         }
     }

@@ -1,0 +1,1780 @@
+{
+  "Generic": {
+    "CMP": [
+      {
+        "type": "CMP",
+        "key": "OP-IS",
+        "value": "is"
+      },
+      {
+        "type": "CMP",
+        "key": "OP-ISNOT",
+        "value": "is not"
+      },
+      {
+        "type": "CMP",
+        "key": "OP-LT",
+        "value": "<"
+      },
+      {
+        "type": "CMP",
+        "key": "OP-GT",
+        "value": ">"
+      },
+      {
+        "type": "CMP",
+        "key": "OP-LE",
+        "value": "<"
+      },
+      {
+        "type": "CMP",
+        "key": "OP-GE",
+        "value": ">"
+      },
+      {
+        "type": "CMP",
+        "key": "CTL-OP-IS",
+        "value": "is switched"
+      },
+      {
+        "type": "CMP",
+        "key": "CTL-OP-ISNOT",
+        "value": "is not switched"
+      }
+    ],
+    "#PGM": [
+      {
+        "type": "#PGM",
+        "key": "ST-CLISPC-FMT",
+        "value": "${c} ${op} ${v}"
+      },
+      {
+        "type": "#PGM",
+        "key": "ST-CLISPH-FMT",
+        "value": "${c} ${op} ${v}"
+      },
+      {
+        "type": "#PGM",
+        "key": "CMD-CLISPC-FMT",
+        "value": "///${c} ${v}/"
+      },
+      {
+        "type": "#PGM",
+        "key": "CMD-CLISPH-FMT",
+        "value": "///${c} ${v}/"
+      },
+      {
+        "type": "#PGM",
+        "key": "CMD-CLIMD-FMT",
+        "value": "///${c} ${v}/"
+      },
+      {
+        "type": "#PGM",
+        "key": "CMD-CLIFS-FMT",
+        "value": "///${c} ${v}/"
+      },
+      {
+        "type": "#PGM",
+        "key": "CTL-DON-FMT",
+        "value": "///${c} ${v}/"
+      },
+      {
+        "type": "#PGM",
+        "key": "CMD-BRT-FMT",
+        "value": "///${c} ${v}/ /amount/${c}/${c} ${v}/"
+      },
+      {
+        "type": "#PGM",
+        "key": "CMD-DIM-FMT",
+        "value": "///${c} ${v}/ /amount/${c}/${c} ${v}/"
+      },
+      {
+        "type": "#PGM",
+        "key": "CTL-RR-FMT",
+        "value": "///${c} ${v}/"
+      }
+    ],
+    "GEN": [
+      {
+        "type": "GEN",
+        "nlsId": "Generic",
+        "value": "Mode",
+        "property": "MODE"
+      },
+      {
+        "type": "GEN",
+        "nlsId": "Generic",
+        "value": "Amount",
+        "property": "AMOUNT"
+      },
+      {
+        "type": "GEN",
+        "nlsId": "Generic",
+        "value": "Direction",
+        "property": "DIR"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Acceleration x axis",
+        "driver": "ACCX",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Acceleration y axis",
+        "driver": "ACCY",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Acceleration z axis",
+        "driver": "ACCZ",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Air Flow",
+        "driver": "AIRFLOW",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Alarm",
+        "driver": "ALARM",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Angle Position",
+        "driver": "ANGLPOS",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Air Quality Index",
+        "driver": "AQI",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Atmospheric Pressure",
+        "driver": "ATMPRES",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Barometric Pressure",
+        "driver": "BARPRES",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Battery Level",
+        "driver": "BATLVL",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Beep",
+        "driver": "BEEP",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Fade Start",
+        "driver": "BMAN",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Body mass index",
+        "driver": "BMI",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Basic metabolic rate",
+        "driver": "BMR",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Bone mass",
+        "driver": "BONEM",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Diastolic blood pressure",
+        "driver": "BPDIA",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Systolic blood pressure",
+        "driver": "BPSYS",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Brighten",
+        "driver": "BRT",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Busy",
+        "driver": "BUSY",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Current Current",
+        "driver": "CC",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Formaldehyde ch2o level",
+        "driver": "CH20",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Energy Mode",
+        "driver": "CLIEMD",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Fan State",
+        "driver": "CLIFRS",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Fan Mode",
+        "driver": "CLIFS",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Fan Mode Override",
+        "driver": "CLIFSO",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Heat/Cool State",
+        "driver": "CLIHCS",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Humidity",
+        "driver": "CLIHUM",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Mode",
+        "driver": "CLIMD",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Setback",
+        "driver": "CLISB",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Setback Offset",
+        "driver": "CLISBO",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Setback State",
+        "driver": "CLISBS",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Setback Type",
+        "driver": "CLISBT",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Schedule Mode",
+        "driver": "CLISMD",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Cool Setpoint",
+        "driver": "CLISPC",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Heat Setpoint",
+        "driver": "CLISPH",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Furnace Setpoint",
+        "driver": "CLISPF",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Dry Air Setpoint",
+        "driver": "CLISPDA",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Moist Air",
+        "driver": "CLISPMA",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Auto Changeover Setpoint",
+        "driver": "CLISPAC",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Energy Save Heat Setpoint",
+        "driver": "CLISPEH",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Energy Save Cool Setpoint",
+        "driver": "CLISPEC",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Away Heat Setpoint",
+        "driver": "CLISPWH",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Away Cool Setpoint",
+        "driver": "CLISPWC",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Full Power Setpoint",
+        "driver": "CLISPFP",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Temperature",
+        "driver": "CLITEMP",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Carbon monoxide level",
+        "driver": "CO",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "CO\\u2082 Level",
+        "driver": "CO2LVL",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Current Power",
+        "driver": "CPW",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Last Action",
+        "driver": "CTL",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Current Voltage",
+        "driver": "CV",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Delay",
+        "driver": "DELAY",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Dew Point",
+        "driver": "DEWPT",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Fast Off",
+        "driver": "DFOF",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Fast On",
+        "driver": "DFON",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Dim",
+        "driver": "DIM",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Distance",
+        "driver": "DISTANC",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Off",
+        "driver": "DOF",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Off 3 Key Presses",
+        "driver": "DOF3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Off 4 Key Presses",
+        "driver": "DOF4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Off 5 Key Presses",
+        "driver": "DOF5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "On",
+        "driver": "DON",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "On 3 Key Presses",
+        "driver": "DON3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "On 4 Key Presses",
+        "driver": "DON4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "On 5 Key Presses",
+        "driver": "DON5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Duration",
+        "driver": "DUR",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Electrical Conductivity",
+        "driver": "ELECCON",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Electrical Resistivity",
+        "driver": "ELECRES",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Evapotranspiration",
+        "driver": "ETO",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Fat mass",
+        "driver": "FATM",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Fade Down",
+        "driver": "FDDOWN",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Fade Stop",
+        "driver": "FDSTOP",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Fade Up",
+        "driver": "FDUP",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Frequency",
+        "driver": "FREQ",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "General Purpose",
+        "driver": "GPV",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Gust",
+        "driver": "GUST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Gas Volume",
+        "driver": "GVOL",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Hail",
+        "driver": "HAIL",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Heat Index",
+        "driver": "HEATIX",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Heart rate",
+        "driver": "HR",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Luminance",
+        "driver": "LUMIN",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Methane density ch4",
+        "driver": "METHANE",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Mode",
+        "driver": "MODE",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Moisture",
+        "driver": "MOIST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Moon Phase",
+        "driver": "MOON",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Muscle mass",
+        "driver": "MUSCLEM",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "On Level",
+        "driver": "OL",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Ozone",
+        "driver": "OZONE",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Pulse Count",
+        "driver": "PCNT",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Power Factor",
+        "driver": "PF",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Particulate matter",
+        "driver": "PM10",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Particulate matter 2 5",
+        "driver": "PM25",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Percent chance of precipitation",
+        "driver": "POP",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Polarized Power",
+        "driver": "PPW",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Precipitation",
+        "driver": "PRECIP",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Pulse Count",
+        "driver": "PULSCNT",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Query",
+        "driver": "QUERY",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Radon concentration",
+        "driver": "RADON",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Rain Rate",
+        "driver": "RAINRT",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Relative modulation level",
+        "driver": "RELMOD",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Reset",
+        "driver": "RESET",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Respiratory rate",
+        "driver": "RESPR",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Rf signal strength",
+        "driver": "RFSS",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Rotation",
+        "driver": "ROTATE",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Ramp Rate",
+        "driver": "RR",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Secure Mode",
+        "driver": "SECMD",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Seismic Intensity",
+        "driver": "SEISINT",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Seismic Magnitude",
+        "driver": "SEISMAG",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Fade Stop",
+        "driver": "SMAN",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Smoke density",
+        "driver": "SMOKED",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Soil humidity",
+        "driver": "SOILH",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Soil reactivity",
+        "driver": "SOILR",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Soil salinity",
+        "driver": "SOILS",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Soil Temperature",
+        "driver": "SOILT",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Solar Radiation",
+        "driver": "SOLRAD",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Speed",
+        "driver": "SPEED",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Status",
+        "driver": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Sound Volume",
+        "driver": "SVOL",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Tank Capacity",
+        "driver": "TANKCAP",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Total body water",
+        "driver": "TBW",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Exhaust temperature",
+        "driver": "TEMPEXH",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Outside temperature",
+        "driver": "TEMPOUT",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Tide Level",
+        "driver": "TIDELVL",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Time",
+        "driver": "TIME",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Time Remaining",
+        "driver": "TIMEREM",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Total Energy",
+        "driver": "TPW",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Target temperature",
+        "driver": "TTEMP",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "User Number",
+        "driver": "UAC",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Unit of Measure",
+        "driver": "UOM",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "User Number",
+        "driver": "USRNUM",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "UV Light",
+        "driver": "UV",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "VOC Level",
+        "driver": "VOCLVL",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Water flow",
+        "driver": "WATERF",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Water pressure",
+        "driver": "WATERP",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Boiler water temperature",
+        "driver": "WATERTB",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Domestic hot water temperature",
+        "driver": "WATERTD",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Weight",
+        "driver": "WEIGHT",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Wind Chill",
+        "driver": "WINDCH",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Wind Direction",
+        "driver": "WINDDIR",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Water Volume",
+        "driver": "WVOL",
+        "property": "NAME"
+      }
+    ],
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Alarm",
+        "command": "ALARM",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "All On",
+        "command": "ALLON",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "All Off",
+        "command": "ALLOFF",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Beep",
+        "command": "BEEP",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Backlight",
+        "command": "BL",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Fade Start",
+        "command": "BMAN",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Brighten",
+        "command": "BRT",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Energy Mode",
+        "command": "CLIEMD",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Fan State",
+        "command": "CLIFRS",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Fan Mode",
+        "command": "CLIFS",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Fan Mode Override",
+        "command": "CLIFSO",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Heat/Cool State",
+        "command": "CLIHCS",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Humidity",
+        "command": "CLIHUM",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Mode",
+        "command": "CLIMD",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Setback",
+        "command": "CLISB",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Setback State",
+        "command": "CLISBS",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Setback Type",
+        "command": "CLISBT",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Schedule Mode",
+        "command": "CLISMD",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Cool Setpoint",
+        "command": "CLISPC",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Heat Setpoint",
+        "command": "CLISPH",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Cool Setpoint Shift",
+        "command": "CLISPCD",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Heat Setpoint Shift",
+        "command": "CLISPHD",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Furnace Setpoint",
+        "command": "CLISPF",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Dry Air Setpoint",
+        "command": "CLISPDA",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Moist Air",
+        "command": "CLISPMA",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Auto Changeover Setpoint",
+        "command": "CLISPAC",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Energy Save Heat Setpoint",
+        "command": "CLISPEH",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Energy Save Cool Setpoint",
+        "command": "CLISPEC",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Away Heat Setpoint",
+        "command": "CLISPWH",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Away Cool Setpoint",
+        "command": "CLISPWC",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Full Power Setpoint",
+        "command": "CLISPFP",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Delay",
+        "command": "DELAY",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Fast Off",
+        "command": "DFOF",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Fast On",
+        "command": "DFON",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Dim",
+        "command": "DIM",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Off",
+        "command": "DOF",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Triple Press (Off)",
+        "command": "DOF3",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "4 x Press (Off)",
+        "command": "DOF4",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "5 x Press (Off)",
+        "command": "DOF5",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "On",
+        "command": "DON",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Triple Press (On)",
+        "command": "DON3",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "4 x Press (On)",
+        "command": "DON4",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "5 x Press (On)",
+        "command": "DON5",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Error",
+        "command": "ERR",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Fade Up",
+        "command": "FDUP",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Fade Down",
+        "command": "FDDOWN",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Fade Stop",
+        "command": "FDSTOP",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Hail",
+        "command": "HAIL",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "On Level",
+        "command": "OL",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Query",
+        "command": "QUERY",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Reset",
+        "command": "RESET",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Ramp Rate",
+        "command": "RR",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Secure Mode",
+        "command": "SECMD",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Fade Stop",
+        "command": "SMAN",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Query",
+        "command": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Sound Volume",
+        "command": "SVOL",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Access Code",
+        "command": "UAC",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Set Time",
+        "command": "SETTIME",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Write Changes",
+        "command": "WDU",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Mode",
+        "command": "MODE",
+        "property": "NAME"
+      }
+    ],
+    "CMDP": [
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Alarm",
+        "commandParameter": "ALARM",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Beep",
+        "commandParameter": "BEEP",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Fade Start",
+        "commandParameter": "BMAN",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Brighten",
+        "commandParameter": "BRT",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Energy Mode",
+        "commandParameter": "CLIEMD",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Fan State",
+        "commandParameter": "CLIFRS",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Fan Mode",
+        "commandParameter": "CLIFS",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Fan Mode Override",
+        "commandParameter": "CLIFSO",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Heat/Cool State",
+        "commandParameter": "CLIHCS",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Humidity",
+        "commandParameter": "CLIHUM",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Mode",
+        "commandParameter": "CLIMD",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Setback",
+        "commandParameter": "CLISB",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Setback State",
+        "commandParameter": "CLISBS",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Setback Type",
+        "commandParameter": "CLISBT",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Schedule Mode",
+        "commandParameter": "CLISMD",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Cool Setpoint",
+        "commandParameter": "CLISPC",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Heat Setpoint",
+        "commandParameter": "CLISPH",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Fast Off",
+        "commandParameter": "DFOF",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Fast On",
+        "commandParameter": "DFON",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Dim",
+        "commandParameter": "DIM",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Off",
+        "commandParameter": "DOF",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "On",
+        "commandParameter": "DON",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Error",
+        "commandParameter": "ERR",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Fade Up",
+        "commandParameter": "FDUP",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Fade Down",
+        "commandParameter": "FDDOWN",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Fade Stop",
+        "commandParameter": "FDSTOP",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "On Level",
+        "commandParameter": "OL",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Query",
+        "commandParameter": "QUERY",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Reset",
+        "commandParameter": "RESET",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Ramp Rate",
+        "commandParameter": "RR",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Secure Mode",
+        "commandParameter": "SECMD",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Fade Stop",
+        "commandParameter": "SMAN",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Query",
+        "commandParameter": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Sound Volume",
+        "commandParameter": "SVOL",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Access Code",
+        "commandParameter": "UAC",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Set Time",
+        "commandParameter": "SETTIME",
+        "property": "NAME"
+      }
+    ]
+  },
+  "ST": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "ST",
+        "value": "Temperature",
+        "driver": "143",
+        "property": "NAME"
+      }
+    ]
+  }
+}

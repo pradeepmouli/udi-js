@@ -1,6 +1,9 @@
-import ts, { factory } from 'typescript';
-import { UnitOfMeasure } from '../Definitions/Global/UOM.js';
-import { Family } from '../ISY.js';
+import ts, { factory } from "typescript";
+import { UnitOfMeasure } from "../Definitions/Global/UOM.js";
+import { Family } from "../ISY.js";
+import { EnumDefinitionMap } from "../Model/EnumDefinition.js";
+import { loggers } from "winston";
+const logger = loggers.get("EnumFactory");
 export function buildEnums(map) {
     let enums = [];
     for (const indexId in map) {
@@ -9,14 +12,59 @@ export function buildEnums(map) {
     return enums;
 }
 export function createEnum(enumDef) {
+    try {
+        return {
+            family: enumDef.family,
+            name: enumDef.name,
+            path: `/${Family[enumDef.family]}/${enumDef.name}.ts`,
+            id: enumDef.id,
+            statements: [
+                factory.createEnumDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], factory.createIdentifier(enumDef.name), [
+                    ...Object.entries(enumDef.values).map(([name, value]) => factory.createEnumMember(factory.createIdentifier(name), factory.createNumericLiteral(value))),
+                ]),
+            ],
+        };
+    }
+    catch (e) {
+        if (logger)
+            logger.error(`Error creating ${Family[enumDef.family]} ${enumDef.name} enum: ${e.message}`, e.stack);
+        else {
+            throw e;
+        }
+    }
+}
+class CodeFactory {
+}
+export class EnumFactory extends CodeFactory {
+    static generateEnumsForFamily(family) {
+        return buildEnums(EnumDefinitionMap.get(family));
+    }
+    static generateAll() {
+        let t = [];
+        for (const key of EnumDefinitionMap.keys()) {
+            try {
+                let e = this.generateEnumsForFamily(key);
+                t.push(...e);
+                t.push(buildEnumIndex(key, e));
+            }
+            catch (e) {
+                if (logger)
+                    logger.error(`Error generating enums for ${Family[key]}: ${e.message}`, e.stack);
+                else {
+                    throw e;
+                }
+            }
+        }
+        return t;
+    }
+}
+function buildEnumIndex(family, enums) {
     return {
-        name: enumDef.name,
-        id: enumDef.id,
+        family,
+        path: `/${Family[family]}/index.ts`,
         statements: [
-            factory.createEnumDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], factory.createIdentifier(enumDef.name), [
-                ...Object.entries(enumDef.values).map(([name, value]) => factory.createEnumMember(factory.createIdentifier(name), factory.createNumericLiteral(value)))
-            ])
-        ]
+            ...enums.map((p) => factory.createExportDeclaration(undefined, false, undefined, factory.createStringLiteral(`./${p.name}.js`), undefined)),
+        ],
     };
 }
 function createDriverInitializationStatement(def) {
@@ -25,7 +73,7 @@ function createDriverInitializationStatement(def) {
         factory.createThis(),
         factory.createAsExpression(factory.createPropertyAccessExpression(factory.createIdentifier("nodeInfo"), factory.createIdentifier("property")), factory.createTypeReferenceNode(factory.createIdentifier("DriverState"), undefined)),
         factory.createObjectLiteralExpression([
-            factory.createPropertyAssignment(factory.createIdentifier("uom"), factory.createPropertyAccessExpression(factory.createIdentifier("UnitOfMeasure"), factory.createIdentifier(UnitOfMeasure[def.primaryDataType().uom] ?? "Unknown"))),
+            factory.createPropertyAssignment(factory.createIdentifier("uom"), factory.createPropertyAccessExpression(factory.createIdentifier("UnitOfMeasure"), factory.createIdentifier(UnitOfMeasure[Object.values(def.dataType)[0]?.uom] ?? "Unknown"))),
             factory.createPropertyAssignment(factory.createIdentifier("label"), factory.createStringLiteral(def.label)),
             factory.createPropertyAssignment(factory.createIdentifier("name"), factory.createStringLiteral(def.name)),
         ], false),

@@ -1,21 +1,26 @@
 import { Family } from "../Definitions/Global/Families.js";
 import { toArray } from "../Utils.js";
 import { capitalize } from "@project-chip/matter.js/util";
-import { camelCase, pascalCase } from 'moderndash';
-import { NLSRecordType, } from "./NLS.js";
-export function buildNodeClassDefinitions(nodeDefs, family, NLSRecordMap, EditorDefMap, NLSIndexMap) {
+import { camelCase, merge, pascalCase } from 'moderndash';
+import { NLSRecordType, NLS, IndexDef, } from "./NLS.js";
+import { EditorDef } from "./EditorDef.js";
+import { EnumDefinition } from './EnumDefinition.js';
+import * as fs from 'fs';
+const NodeClassMap = new Map();
+function buildNodeClassDefinitions(nodeDefs, family) {
     const map = {};
     for (const nodeDef of nodeDefs) {
         var f = new NodeClassDefinition(nodeDef, family);
-        f.applyNLS(NLSRecordMap);
-        f.applyEditorDefs(EditorDefMap);
-        f.applyIndexDefs(NLSIndexMap);
+        f.applyNLS();
+        f.applyEditorDefs();
+        f.applyIndexDefs();
         map[f.id] = f;
     }
     return map;
 }
 export class NodeClassDefinition {
-    applyIndexDefs(NLSIndexMap) {
+    applyIndexDefs() {
+        let NLSIndexMap = IndexDef.Map;
         if (NLSIndexMap.has(Family.Generic)) {
             this.applyIndexMap(NLSIndexMap.get(Family.Generic));
         }
@@ -86,22 +91,24 @@ export class NodeClassDefinition {
             //                 configurable: true});
         }
     }
-    applyEditorDefs(EditorDefMap) {
-        var f = EditorDefMap.get(this.family);
-        if (f) {
-            for (const driver of Object.values(this.drivers)) {
-                var d = f[driver.editorId];
+    applyEditorDefs() {
+        for (const driver of Object.values(this.drivers)) {
+            if (driver.editorId) {
+                let d = EditorDef.get(this.family, driver.editorId);
                 if (d)
                     driver.applyEditorDef(d);
             }
-            for (const cmd of Object.values(this.commands)) {
-                var c = f[cmd.editorId];
-                if (c)
-                    cmd.applyEditorDef(c);
+        }
+        for (const cmd of Object.values(this.commands)) {
+            if (cmd.editorId) {
+                let d = EditorDef.get(this.family, cmd.editorId);
+                if (d)
+                    cmd.applyEditorDef(d);
             }
         }
     }
-    applyNLS(NLSRecordMap) {
+    applyNLS() {
+        let NLSRecordMap = NLS.Map;
         if (NLSRecordMap.has(Family.Generic)) {
             this.applyNLSMap(NLSRecordMap.get(Family.Generic));
         }
@@ -301,7 +308,8 @@ export class NodeMemberDefinition {
                         max: rangeDef.max,
                         step: rangeDef.step ?? undefined,
                         precision: rangeDef.prec ?? undefined,
-                        indexId: rangeDef.nls ?? undefined
+                        indexId: rangeDef.nls ?? undefined,
+                        returnType: rangeDef.nls ? EnumDefinition.get(this.classDef.family, rangeDef.nls, rangeDef.uom, this.classDef.id)?.name : undefined
                     };
                 }
             }
@@ -327,7 +335,7 @@ export class NodeMemberDefinition {
             id: this.id,
             editorId: this.editorId,
             dataType: this.dataType,
-            name: this.name
+            name: this.name,
         };
     }
 }
@@ -495,4 +503,49 @@ export class EventDefinition extends NodeMemberDefinition {
         };
     }
 }
+(function (NodeClassDefinition) {
+    NodeClassDefinition.Map = NodeClassMap;
+    function generate(family, nodeDefs) {
+        if (nodeDefs) {
+            var n = buildNodeClassDefinitions(nodeDefs, family);
+            NodeClassMap.set(family, n);
+            return n;
+        }
+    }
+    NodeClassDefinition.generate = generate;
+    function load(path) {
+        for (const file of new Set(fs.readdirSync(path + "/generated").concat(fs.readdirSync(path + "/custom")))) {
+            let fam = file.replace(".json", "");
+            const family = Family[fam];
+            let nodeClassDefs = {};
+            if (fs.existsSync(`${path}/generated/${fam}.json`)) {
+                nodeClassDefs = JSON.parse(fs.readFileSync(`${path}/generated/${fam}.json`, "utf8"));
+            }
+            if (fs.existsSync(`${path}/custom/${fam}.json`)) {
+                merge(nodeClassDefs, JSON.parse(fs.readFileSync(`${path}/custom/${fam}.json`, "utf8")));
+            }
+            populateClassDefinitions(nodeClassDefs);
+            NodeClassMap.set(family, nodeClassDefs);
+        }
+        return NodeClassMap;
+        function populateClassDefinitions(nodeClassDefs) {
+            for (var entry of Object.values(nodeClassDefs)) {
+                for (var driver of Object.values(entry.drivers)) {
+                    driver.classDef = entry;
+                }
+                for (var command of Object.values(entry.commands)) {
+                    command.classDef = entry;
+                    if (command.parameters)
+                        for (var param of Object.values(command.parameters)) {
+                            param.classDef = entry;
+                        }
+                }
+            }
+        }
+    }
+    NodeClassDefinition.load = load;
+    function save(path) {
+    }
+    NodeClassDefinition.save = save;
+})(NodeClassDefinition || (NodeClassDefinition = {}));
 //# sourceMappingURL=ClassDefinition.js.map

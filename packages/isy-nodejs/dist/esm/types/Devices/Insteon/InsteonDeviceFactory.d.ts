@@ -1,7 +1,7 @@
 import { Family, InsteonBaseDevice } from '../../ISY.js';
 import { NodeInfo } from '../../Model/NodeInfo.js';
 import { InsteonRelayDevice } from './InsteonRelayDevice.js';
-import { ISYDevice } from '../../ISYNode.js';
+import { ISYDevice } from '../../ISYDevice.js';
 import type { Constructor } from '../Constructor.js';
 export declare class InsteonDeviceFactory {
     static getDeviceDetails(node: NodeInfo): {

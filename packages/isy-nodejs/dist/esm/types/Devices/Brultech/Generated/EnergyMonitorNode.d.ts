@@ -1,8 +1,9 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
-import type { NodeInfo } from "../../../Definitions/NodeInfo.js";
+import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import type { ISY } from "../../../ISY.js";
 import { ISYDeviceNode } from "../../../ISYNode.js";
+import { Brultech } from "../../../Definitions/index.js";
 export declare const nodeDefId = "BTChannel";
 type Commands = {};
 type Drivers = {
@@ -16,7 +17,7 @@ type Drivers = {
     };
     ERR?: {
         uom: UnitOfMeasure.Index;
-        value: Error;
+        value: Brultech.Error;
     };
 };
 export declare class EnergyMonitorNode extends ISYDeviceNode<Family.Brultech, keyof Drivers, keyof Commands> {
@@ -26,7 +27,7 @@ export declare class EnergyMonitorNode extends ISYDeviceNode<Family.Brultech, ke
     constructor(isy: ISY, nodeInfo: NodeInfo);
     get currentPower(): number;
     get totalEnergy(): number;
-    get responding(): Error;
+    get responding(): Brultech.Error;
 }
 export {};
 //# sourceMappingURL=EnergyMonitorNode.d.ts.map

@@ -1,6 +1,6 @@
 import type { ClusterBehavior, ClusterInterface } from "@project-chip/matter.js/behavior/cluster";
 
-import type { ISYDeviceNode } from "../../ISYNode.js";
+import type { DriversOf, ISYDeviceNode } from '../../ISYNode.js';
 
 import { BridgedDeviceBasicInformationServer } from "@project-chip/matter.js/behaviors/bridged-device-basic-information";
 import '@project-chip/matter.js/device';
@@ -12,7 +12,7 @@ import {
   MappingRegistry,
   type ClusterMapping,
   type DeviceToClusterMap,
-  type DriversOf,
+
 } from "../../Model/ClusterMap.js";
 import type { ClusterType, ToClusterTypeByName } from "../../Model/clusterEnum.js";
 import type { Cluster, ClusterServerHandlers, ClusterType as CT } from "@project-chip/matter.js/cluster";

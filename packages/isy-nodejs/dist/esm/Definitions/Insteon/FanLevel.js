@@ -5,3 +5,4 @@ export var FanLevel;
     FanLevel[FanLevel["Medium"] = 75] = "Medium";
     FanLevel[FanLevel["High"] = 100] = "High";
 })(FanLevel || (FanLevel = {}));
+//# sourceMappingURL=FanLevel.js.map

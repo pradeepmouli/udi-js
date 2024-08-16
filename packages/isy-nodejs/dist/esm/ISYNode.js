@@ -1,37 +1,48 @@
 import { EventEmitter } from 'events';
-import { isNullOrUndefined } from 'util';
-import { Family } from './Definitions/Global/Families.js';
-import { Drivers } from './Definitions/Global/Drivers.js';
-import { Controls, NodeType } from './ISY.js';
+import { NodeType } from './ISY.js';
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
+//type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 export class ISYNode extends EventEmitter {
-    isy;
-    formatted = {};
-    uom = { ST: UnitOfMeasure.Boolean };
-    pending = {};
-    local = {};
-    drivers = new Drivers();
-    flag;
-    nodeDefId;
+    // #region Properties (32)
+    static #displayNameFunction;
+    #parentNode;
     address;
+    baseLabel;
+    flag;
+    isy;
+    nodeDefId;
+    static family;
+    static nodeDefId = "Unknown";
+    baseName;
+    commands;
+    //public readonly formatted: DriverValues<keyof D,string> = {};
+    //public readonly uom: { [x in Driver.Literal]?: UnitOfMeasure } = { ST: UnitOfMeasure.Boolean };
+    //public readonly pending: DriverValues<keyof D> = {};
+    //public readonly local: DriverValues<keyof D> = {};
+    drivers = {};
+    enabled;
+    events;
+    family;
+    folder = "";
+    hidden;
+    isDimmable;
+    isLoad;
+    label;
+    lastChanged;
+    location;
+    logger;
     // [x: string]: any;
     name;
-    label;
-    spokenName;
-    location;
-    isLoad;
-    folder = "";
-    parent;
-    parentType;
-    elkId;
     nodeType;
-    baseLabel;
+    parent;
+    parentAddress;
+    parentType;
     propsInitialized;
-    logger;
-    lastChanged;
-    enabled;
-    baseName;
-    family;
+    scenes;
+    spokenName;
+    type;
+    // #endregion Properties (32)
+    // #region Constructors (1)
     constructor(isy, node) {
         super();
         this.isy = isy;
@@ -40,11 +51,10 @@ export class ISYNode extends EventEmitter {
         this.nodeDefId = node.nodeDefId;
         this.address = String(node.address);
         this.name = node.name;
-        this.family = node.family ?? Family.Insteon;
+        this.family = node.family;
         this.parent = node.parent;
         this.parentType = Number(this.parent?.type);
         this.enabled = node.enabled ?? true;
-        this.elkId = node.ELK_ID;
         this.propsInitialized = false;
         const s = this.name.split(".");
         //if (s.length > 1)
@@ -59,7 +69,7 @@ export class ISYNode extends EventEmitter {
             this.folder = isy.folderMap.get(this.parent._);
             isy.logger.info(`${this.name} this node is in folder ${this.folder}`);
             this.logger = (msg, level = "debug", ...meta) => {
-                isy.logger.log(level, `${this.folder} ${this.name} (${this.address}): ${msg}`, meta);
+                isy.logger[level](`${this.folder} ${this.name} (${this.address}): ${msg}`, meta);
                 return isy.logger;
             };
             this.label = `${this.folder} ${this.baseName}`;
@@ -67,24 +77,53 @@ export class ISYNode extends EventEmitter {
         else {
             this.label = this.baseLabel;
             this.logger = (msg, level = "debug", ...meta) => {
-                isy.logger.log(level, `${this.name} (${this.address}): ${msg}`, meta);
+                isy.logger[level](`${this.name} (${this.address}): ${msg}`, meta);
                 return isy.logger;
             };
         }
-        this.logger(this.nodeDefId);
+        //this.logger(this.nodeDefId);
         this.lastChanged = new Date();
     }
-    handlePropertyChange(propertyName, value, formattedValue) {
-        this.lastChanged = new Date();
-        return true;
+    // #endregion Constructors (1)
+    // #region Public Getters And Setters (1)
+    get parentNode() {
+        if (this.#parentNode === undefined) {
+            if (this.parentAddress !== this.address && this.parentAddress !== null && this.parentAddress !== undefined) {
+                this.#parentNode = this.isy.getDevice(this.parentAddress);
+                if (this.#parentNode !== null) {
+                    //this.#parentNode.addChild(this);
+                }
+            }
+            this.#parentNode = null;
+        }
+        return this.#parentNode;
     }
-    handleControlTrigger(controlName) {
-        //this.lastChanged = new Date();
-        return true;
+    // #endregion Public Getters And Setters (1)
+    // #region Public Methods (21)
+    addLink(isyScene) {
+        this.scenes.push(isyScene);
     }
-    on(event, listener) {
-        super.on(event, listener);
-        return this;
+    applyStatus(prop) {
+        var d = this.drivers[prop.id];
+        if (d) {
+            d.apply(prop);
+            this.logger(`Property ${d.label} (${prop.id}) refreshed to: ${d.value} (${d.state.formattedValue}})`);
+            //d.state.value = this.convertFrom(prop.value, prop.uom, prop.id);
+            //d.state.formatted = prop.formatted;
+            //d.state.uom = prop.uom;
+        }
+    }
+    convert(value, from, to) {
+        return value;
+    }
+    convertFrom(value, uom, propertyName) {
+        throw new Error("Method not implemented.");
+    }
+    convertTo(value, uom, propertyName) {
+        if (this.drivers[propertyName].uom != uom) {
+            this.isy.logger.debug(`Converting ${this.drivers[propertyName].label} from ${this.drivers[propertyName].uom} to ${UnitOfMeasure}`);
+            return this.convertTo(value, uom);
+        }
     }
     emit(event, propertyName, newValue, oldValue, formattedValue, controlName) {
         if ("PropertyChanged")
@@ -92,41 +131,9 @@ export class ISYNode extends EventEmitter {
         else if ("ControlTriggered")
             return super.emit(event, controlName);
     }
-    handleEvent(event) {
-        let actionValue = null;
-        if (event.action instanceof Object) {
-            actionValue = event.action._;
-        }
-        else if (event.action instanceof Number || event.action instanceof String) {
-            actionValue = Number(event.action);
-        }
-        if (event.control in this.local) {
-            // property not command
-            const formatted = "fmtAct" in event ? event.fmtAct : actionValue;
-            return this.handlePropertyChange(event.control, actionValue, formatted);
-        }
-        else if (event.control === "_3") {
-            this.logger(`Received Node Change Event: ${JSON.stringify(event)}. These are currently unsupported.`, "debug");
-        }
-        else {
-            // this.logger(event.control);
-            const e = event.control;
-            const dispName = Controls[e];
-            if (dispName !== undefined && dispName !== null) {
-                this.logger(`Command ${dispName.label} (${e}) triggered.`);
-            }
-            else {
-                this.logger(`Command ${e} triggered.`);
-            }
-            let controlName = e;
-            this.handleControlTrigger(controlName);
-            return true;
-        }
-    }
-    static _displayNameFunction;
     generateLabel(template) {
         // tslint:disable-next-line: only-arrow-functions
-        if (!ISYNode._displayNameFunction) {
+        if (!ISYNode.#displayNameFunction) {
             // template = template.replace("{", "{this."};
             const regex = /(?<op1>\w+) \?\? (?<op2>\w+)/g;
             this.logger(`Display name format: ${template}`);
@@ -139,9 +146,106 @@ export class ISYNode extends EventEmitter {
                 name: this.name ?? "",
             };
             newttemp = newttemp.replace("this.name", "this.baseLabel");
-            ISYNode._displayNameFunction = new Function(`return \`${newttemp}\`.trim();`);
+            ISYNode.#displayNameFunction = new Function(`return \`${newttemp}\`.trim();`);
         }
-        return ISYNode._displayNameFunction.call(this);
+        return ISYNode.#displayNameFunction.call(this);
+    }
+    async getNotes() {
+        try {
+            const result = await this.isy.sendRequest(`nodes/${this.address}/notes`);
+            if (result !== null && result !== undefined) {
+                return result.NodeProperties;
+            }
+            else {
+                return null;
+            }
+        }
+        catch (e) {
+            return null;
+        }
+    }
+    handleControlTrigger(controlName) {
+        //this.lastChanged = new Date();
+        this.emit("ControlTriggered", controlName);
+        return true;
+    }
+    handleEvent(event) {
+        let actionValue = null;
+        if (event.action instanceof Object) {
+            actionValue = event.action._;
+        }
+        else if (event.action instanceof Number || event.action instanceof String) {
+            actionValue = Number(event.action);
+        }
+        if (event.control in this.drivers) {
+            // property not command
+            const formatted = "fmtAct" in event ? event.fmtAct : actionValue;
+            return this.handlePropertyChange(event.control, actionValue, event.action.uom, event.action.prec, formatted);
+        }
+        else if (event.control === "_3") {
+            this.logger(`Received Node Change Event: ${JSON.stringify(event)}. These are currently unsupported.`, "debug");
+        }
+        else {
+            // this.logger(event.control);
+            const e = event.control;
+            const dispName = this.commands[e].name;
+            if (dispName !== undefined && dispName !== null) {
+                this.logger(`Command ${dispName} (${e}) triggered.`);
+            }
+            else {
+                this.logger(`Command ${e} triggered.`);
+            }
+            this.handleControlTrigger(e);
+            return true;
+        }
+    }
+    handlePropertyChange(propertyName, value, uom, prec, formattedValue) {
+        this.lastChanged = new Date();
+        const oldValue = this.drivers[propertyName].value;
+        if (this.drivers[propertyName].patch(value, formattedValue, uom, prec)) {
+            this.emit("PropertyChanged", propertyName, value, oldValue, formattedValue);
+            this.scenes.forEach((element) => {
+                this.logger(`Recalulating ${element.deviceFriendlyName}`);
+                element.recalculateState();
+            });
+        }
+        return true;
+    }
+    on(event, listener) {
+        super.on(event, listener);
+        return this;
+    }
+    parseResult(node) {
+        if (Array.isArray(node.property)) {
+            for (const prop of node.property) {
+                this.applyStatus(prop);
+            }
+        }
+        else if (node.property) {
+            this.applyStatus(node.property);
+            //device.local[node.property.id] = node.property.value;
+            //device.formatted[node.property.id] = node.property.formatted;
+            //device.uom[node.property.id] = node.property.uom;
+        }
+    }
+    async readProperties() {
+        var result = await this.isy.sendRequest(`nodes/${this.address}/status`);
+        this.logger(JSON.stringify(result), "debug");
+        return result.property;
+    }
+    /*public addChild<K extends ISYDeviceNode<T, any, any, any>>(childDevice: K) {
+    this.children.push(childDevice);
+  }*/
+    async readProperty(propertyName) {
+        var result = await this.isy.sendRequest(`nodes/${this.address}/${propertyName}`);
+        return result.property;
+    }
+    async refresh() {
+        const device = this;
+        const node = (await this.isy.sendRequest(`nodes/${this.address}/status`)).node;
+        // this.logger(node);
+        this.parseResult(node);
+        return await this.isy.sendRequest(`nodes/${this.address}/status`);
     }
     async refreshNotes() {
         const that = this;
@@ -163,253 +267,22 @@ export class ISYNode extends EventEmitter {
             that.logger(e);
         }
     }
-    async getNotes() {
-        try {
-            const result = await this.isy.sendRequest(`nodes/${this.address}/notes`);
-            if (result !== null && result !== undefined) {
-                return result.NodeProperties;
-            }
-            else {
-                return null;
-            }
-        }
-        catch (e) {
-            return null;
-        }
-    }
-}
-export class ISYMultiNodeDevice {
-    logger(arg0) {
-        throw new Error('Method not implemented.');
-    }
-    handleEvent(evt) {
-        throw new Error('Method not implemented.');
-    }
-    enabled;
-    refreshNotes() {
-        throw new Error("Method not implemented.");
-    }
-    address;
-    on(arg0, arg1) {
-        throw new Error("Method not implemented.");
-    }
-    name;
-    label;
-    formatted;
-    uom;
-    pending;
-    local;
-    drivers;
-    family;
-    typeCode;
-    deviceClass;
-    parentAddress;
-    category;
-    subCategory;
-    type;
-    _parentDevice;
-    children;
-    scenes;
-    hidden;
-    _enabled;
-    productName;
-    model;
-    modelNumber;
-    version;
-    isDimmable;
-    convertTo(value, UnitOfMeasure, propertyName = null) {
-        throw new Error("Method not implemented.");
-    }
-    convertFrom(value, UnitOfMeasure, propertyName = null) {
-        throw new Error("Method not implemented.");
-    }
-    addLink(isyScene) {
-        throw new Error("Method not implemented.");
-    }
-    addChild(childDevice) {
-        throw new Error("Method not implemented.");
-    }
-    readProperty(propertyName) {
-        throw new Error("Method not implemented.");
-    }
-    readProperties() {
-        throw new Error("Method not implemented.");
-    }
-    updateProperty(propertyName, value) {
-        throw new Error("Method not implemented.");
-    }
-    sendCommand(command, parameters) {
-        throw new Error("Method not implemented.");
-    }
-    refresh() {
-        throw new Error("Method not implemented.");
-    }
-    parseResult(node) {
-        throw new Error("Method not implemented.");
-    }
-    handleControlTrigger(controlName) {
-        throw new Error("Method not implemented.");
-    }
-    handlePropertyChange(propertyName, value, formattedValue) {
-        throw new Error("Method not implemented.");
-    }
-}
-export class ISYDeviceNode extends ISYNode {
-    typeCode;
-    deviceClass;
-    parentAddress;
-    category;
-    subCategory;
-    type;
-    _parentDevice;
-    children = [];
-    scenes = [];
-    hidden = false;
-    _enabled;
-    productName;
-    model;
-    modelNumber;
-    version;
-    isDimmable;
-    constructor(isy, node) {
-        super(isy, node);
-        this.family = node.family;
-        this.nodeType = 1;
-        this.type = node.type;
-        this._enabled = node.enabled;
-        this.deviceClass = node.deviceClass;
-        this.parentAddress = node.pnode;
-        const s = this.type.split(".");
-        this.category = Number(s[0]);
-        this.subCategory = Number(s[1]);
-        // console.log(nodeDetail);
-        if (this.parentAddress !== this.address && this.parentAddress !== undefined) {
-            this._parentDevice = isy.getDevice(this.parentAddress);
-            if (!isNullOrUndefined(this._parentDevice)) {
-                this._parentDevice.addChild(this);
-            }
-        }
-        if (Array.isArray(node.property)) {
-            for (const prop of node.property) {
-                this.local[prop.id] = this.convertFrom(prop.value, prop.uom, prop.id);
-                this.formatted[prop.id] = prop.formatted;
-                this.uom[prop.id] = prop.uom;
-                this.logger(`Property ${Controls[prop.id].label} (${prop.id}) initialized to: ${this.local[prop.id]} (${this.formatted[prop.id]})`);
-            }
-        }
-        else if (node.property) {
-            this.local[node.property.id] = this.convertFrom(node.property.value, node.property.uom, node.property.id);
-            this.formatted[node.property.id] = node.property.formatted;
-            this.uom[node.property.id] = node.property.uom;
-            this.logger(`Property ${Controls[node.property.id].label} (${node.property.id}) initialized to: ${this.local[node.property.id]} (${this.formatted[node.property.id]})`);
-        }
-    }
-    convertTo(value, UnitOfMeasure, propertyName = null) {
-        return value;
-    }
-    convertFrom(value, UnitOfMeasure, propertyName = null) {
-        return value;
-    }
-    addLink(isyScene) {
-        this.scenes.push(isyScene);
-    }
-    addChild(childDevice) {
-        this.children.push(childDevice);
-    }
-    get parentDevice() {
-        if (this._parentDevice === undefined) {
-            if (this.parentAddress !== this.address && this.parentAddress !== null && this.parentAddress !== undefined) {
-                this._parentDevice = this.isy.getDevice(this.parentAddress);
-                if (this._parentDevice !== null) {
-                    this._parentDevice.addChild(this);
-                }
-            }
-            this._parentDevice = null;
-        }
-        return this._parentDevice;
-    }
-    async readProperty(propertyName) {
-        var result = await this.isy.sendRequest(`nodes/${this.address}/${propertyName}`);
-        this.logger(JSON.stringify(result), "debug");
-        return result.property;
-    }
-    async readProperties() {
-        var result = await this.isy.sendRequest(`nodes/${this.address}/status`);
-        this.logger(JSON.stringify(result), "debug");
-        return result.property;
-    }
-    async updateProperty(propertyName, value) {
-        const val = this.convertTo(Number(value), Number(this.uom[propertyName]));
-        this.logger(`Updating property ${Controls[propertyName].label}. incoming value: ${value} outgoing value: ${val}`);
-        this.pending[propertyName] = value;
-        return this.isy.sendRequest(`nodes/${this.address}/set/${propertyName}/${val}`).then((p) => {
-            this.local[propertyName] = value;
-            this.pending[propertyName] = null;
-        });
-    }
     async sendCommand(command, parameters) {
         //@
         return this.isy.sendNodeCommand(this, command, parameters);
     }
-    async refresh() {
-        const device = this;
-        const node = (await this.isy.sendRequest(`nodes/${this.address}/status`)).node;
-        // this.logger(node);
-        this.parseResult(node);
-        return await this.isy.sendRequest(`nodes/${this.address}/status`);
-    }
-    parseResult(node) {
-        if (Array.isArray(node.property)) {
-            for (const prop of node.property) {
-                this.applyStatus(prop);
-            }
+    async updateProperty(propertyName, value) {
+        var l = this.drivers[propertyName];
+        if (l) {
+            if (l.serverUom)
+                l.state.pendingValue = this.convert(value, l.uom, l.serverUom);
+            else
+                l.state.pendingValue = value;
         }
-        else if (node.property) {
-            this.applyStatus(node.property);
-            //device.local[node.property.id] = node.property.value;
-            //device.formatted[node.property.id] = node.property.formatted;
-            //device.uom[node.property.id] = node.property.uom;
-            this.logger(`Property ${Controls[node.property.id].label} (${node.property.id}) refreshed to: ${this[node.property.id]} (${this.formatted[node.property.id]})`);
-        }
-    }
-    applyStatus(prop) {
-        this.local[prop.id] = prop.value;
-        this.formatted[prop.id] = prop.formatted;
-        this.uom[prop.id] = prop.uom;
-        this.logger(`Property ${Controls[prop.id].label} (${prop.id}) refreshed to: ${this[prop.id]} (${this.formatted[prop.id]})`);
-    }
-    handleControlTrigger(controlName) {
-        return this.emit("ControlTriggered", controlName);
-    }
-    handlePropertyChange(driver, value, formattedValue) {
-        let changed = false;
-        const priorVal = this.local[driver];
-        try {
-            const val = this.convertFrom(value, this.uom[driver]);
-            if (this.local[driver] !== val) {
-                this.logger(`Property ${Controls[driver].label} (${driver}) updated to: ${val} (${formattedValue})`);
-                this.local[driver] = val;
-                this.formatted[driver] = formattedValue;
-                this.lastChanged = new Date();
-                changed = true;
-            }
-            else {
-                this.logger(`Update event triggered, property ${Controls[driver].label} (${driver}) is unchanged.`);
-            }
-            if (changed) {
-                this.emit("PropertyChanged", driver, val, priorVal, formattedValue);
-                this.scenes.forEach((element) => {
-                    this.logger(`Recalulating ${element.deviceFriendlyName}`);
-                    element.recalculateState();
-                });
-            }
-        }
-        catch (error) {
-            this.logger(error, "error");
-        }
-        finally {
-            return changed;
-        }
+        this.logger(`Updating property ${l.label}. incoming value: ${value} outgoing value: ${l.state.pendingValue}`);
+        return this.isy.sendRequest(`nodes/${this.address}/set/${propertyName}/${l.state.pendingValue}`).then((p) => {
+            l.state.pendingValue = null;
+        });
     }
 }
 //# sourceMappingURL=ISYNode.js.map

@@ -1,3 +1,4 @@
+import { merge } from 'moderndash';
 import { Family } from "../Definitions/Global/Families.js";
 import "../Utils.js";
 export var NLSRecordType;
@@ -133,6 +134,8 @@ const StdTranslations = {
     "(": "",
     ")": "",
     TVOL: "ToneVolume",
+    VIB: "Vibration",
+    LGT: "Light",
 };
 NLSTranslations.set(Family.Generic, StdTranslations);
 export function addToIndexMap(family, record) {
@@ -315,5 +318,35 @@ export function parseNLSContent(content, family) {
     });
     return NLSRecords;
 }
-// Example usage
+export var NLS;
+(function (NLS) {
+    function get(family, nlsId) {
+        if (NLSRecordMap.has(family)) {
+            return merge(NLSRecordMap.get(Family.Generic)[nlsId], NLSRecordMap.get(family)[nlsId]);
+        }
+    }
+    NLS.get = get;
+    NLS.Map = NLSRecordMap;
+})(NLS || (NLS = {}));
+export var Translation;
+(function (Translation) {
+    Translation.apply = applyTranslations;
+    Translation.Map = NLSTranslations;
+})(Translation || (Translation = {}));
+export var IndexDef;
+(function (IndexDef) {
+    function get(family, indexType) {
+        if (NLSIndexMap.has(family)) {
+            const indexMap = NLSIndexMap.get(family);
+            if (indexMap[indexType]) {
+                return indexMap[indexType];
+            }
+        }
+        if (family != Family.Generic) {
+            return get(Family.Generic, indexType);
+        }
+    }
+    IndexDef.get = get;
+    IndexDef.Map = NLSIndexMap;
+})(IndexDef || (IndexDef = {}));
 //# sourceMappingURL=NLS.js.map

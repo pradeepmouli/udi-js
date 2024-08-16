@@ -10,3 +10,4 @@ export var AlarmCo;
     AlarmCo[AlarmCo["InspectionRequired"] = 7] = "InspectionRequired";
     AlarmCo[AlarmCo["UnknownEvent"] = 254] = "UnknownEvent";
 })(AlarmCo || (AlarmCo = {}));
+//# sourceMappingURL=AlarmCo.js.map

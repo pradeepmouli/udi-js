@@ -130,6 +130,7 @@ export declare function addToIndexMap<T extends Family>(family: T, record: {
     indexType: string;
     indexValue: number;
     value: string;
+    comment: string;
 }): void;
 export declare function addToTranslationMap<T extends Family>(family: T, record: NLSGenericRecord | NLSCommandRecord | NLSDriverRecord): void;
 export declare function applyTranslations(family: Family, value: string): string;
@@ -140,4 +141,83 @@ export declare const NLSRecordMap: Map<Family, {
     [y: string]: NLSRecordTypeMap;
 }>;
 export declare function parseNLSContent<T extends Family>(content: string, family: T): NLSRecord<NLSRecordType>[];
+export declare namespace NLS {
+    function get<T extends Family>(family: T, nlsId: string): {
+        ST: NLSDriverRecord[];
+        GEN: NLSGenericRecord[];
+        CMD: NLSCommandRecord[];
+        ND: {
+            type: NLSRecordType.NodeDef;
+            nodeDefId: string;
+            property: string;
+            meta: string;
+            value: string;
+        }[];
+        NDN: {
+            type: NLSRecordType.NodeDefNLS;
+            nlsId: string;
+            property: string;
+            meta: string;
+            value: string;
+        }[];
+        DEV: {
+            type: NLSRecordType.DeviceInfo;
+            deviceCode: string;
+            property: string;
+            meta: string;
+            value: string;
+        }[];
+        CMDP: NLSCommandParameterRecord[];
+        CMDPN: NLSCommandParameterRecord[];
+        LNKP: {
+            type: NLSRecordType.LinkProtocol;
+            protocol: string;
+            property: string;
+            meta: string;
+            value: string;
+        }[];
+        LNKD: {
+            type: NLSRecordType.LinkParameter;
+            parameter: string;
+            property: string;
+            meta: string;
+            value: string;
+        }[];
+        IX: {
+            type: NLSRecordType.Index;
+            indexType: string;
+            indexValue: number;
+            value: string;
+        }[];
+        OTHER: {
+            type: NLSRecordType.Other;
+            key: string;
+            value: string;
+        }[];
+        PGM: {
+            type: NLSRecordType.Program;
+            key: string;
+            value: string;
+        }[];
+    };
+    const Map: Map<Family, {
+        [y: string]: NLSRecordTypeMap;
+    }>;
+}
+export declare namespace Translation {
+    const apply: typeof applyTranslations;
+    const Map: Map<Family, {
+        [y: string]: string;
+    }>;
+}
+export declare namespace IndexDef {
+    function get<T extends Family>(family: T, indexType: string): {
+        [y: number]: string;
+    };
+    const Map: Map<Family, {
+        [x: string]: {
+            [y: number]: string;
+        };
+    }>;
+}
 //# sourceMappingURL=NLS.d.ts.map

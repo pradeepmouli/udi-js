@@ -1,13 +1,20 @@
-import ts, { factory } from 'typescript';
-import { UnitOfMeasure } from '../Definitions/Global/UOM.js';
-import { Family } from '../ISY.js';
-import type { NodeClassDefinition, DriverDefinition, ParameterDefinition, CommandDefinition } from '../Model/ClassDefinition.js';
-import { EnumDefinition, EnumDefinitionMap } from '../Model/EnumDefinition.js';
-import { isGeneratorFunction } from 'util/types';
+import ts, { factory } from "typescript";
+import { UnitOfMeasure } from "../Definitions/Global/UOM.js";
+import { Family } from "../ISY.js";
+import type {
+  NodeClassDefinition,
+  DriverDefinition,
+  ParameterDefinition,
+  CommandDefinition,
+} from "../Model/ClassDefinition.js";
+import { EnumDefinition, EnumDefinitionMap } from "../Model/EnumDefinition.js";
+import { isGeneratorFunction } from "util/types";
+import { Logger, loggers } from "winston";
+import type { tryCatch } from "@project-chip/matter.js/common";
 
-export function buildEnums<T extends Family>(map: {
-  [x: string]: EnumDefinition<T>;
-}): { name: string; id: string; statements: ts.EnumDeclaration[] }[] {
+const logger = loggers.get("EnumFactory");
+
+export function buildEnums<T extends Family>(map: { [x: string]: EnumDefinition<T> }): GeneratedEnum<T>[] {
   let enums = [];
   for (const indexId in map) {
     enums.push(createEnum(map[indexId]));
@@ -15,26 +22,87 @@ export function buildEnums<T extends Family>(map: {
   return enums;
 }
 
-export function createEnum(enumDef: EnumDefinition<Family>): { name: string; id: string; statements: ts.EnumDeclaration[]; }
-{
+type GeneratedEnum<T extends Family> = {
+  family: T;
+  name: string;
+  id: string;
+  path: string;
+  statements: ts.EnumDeclaration[];
+};
+
+export function createEnum<T extends Family>(enumDef: EnumDefinition<T>): GeneratedEnum<T> {
+  try {
     return {
-        name: enumDef.name,
-        id: enumDef.id,
-        statements: [
-          factory.createEnumDeclaration(
-    [factory.createToken(ts.SyntaxKind.ExportKeyword)],
-    factory.createIdentifier(enumDef.name),
-      [
-        ...Object.entries(enumDef.values).map(([name, value]) =>
-          factory.createEnumMember(
-            factory.createIdentifier(name),
-            factory.createNumericLiteral(value)
-          ))
-      ])]
+      family: enumDef.family,
+      name: enumDef.name,
+      path: `/${Family[enumDef.family]}/${enumDef.name}.ts`,
+      id: enumDef.id,
+      statements: [
+        factory.createEnumDeclaration(
+          [factory.createToken(ts.SyntaxKind.ExportKeyword)],
+          factory.createIdentifier(enumDef.name),
+          [
+            ...Object.entries(enumDef.values).map(([name, value]) =>
+              factory.createEnumMember(factory.createIdentifier(name), factory.createNumericLiteral(value))
+            ),
+          ]
+        ),
+      ],
+    };
+  } catch (e) {
+    if (logger) logger.error(`Error creating ${Family[enumDef.family]} ${enumDef.name} enum: ${e.message}`, e.stack);
+    else {
+      throw e;
     }
+  }
+}
+
+class CodeFactory {
+}
+
+export class EnumFactory extends CodeFactory {
+  static generateEnumsForFamily<T extends Family>(family: T): GeneratedEnum<T>[] {
+    return buildEnums<T>(EnumDefinitionMap.get(family) as { [x: string]: EnumDefinition<T> });
+  }
+
+  static generateAll() {
+    let t = [];
+    for (const key of EnumDefinitionMap.keys()) {
+      try {
+        let e = this.generateEnumsForFamily(key);
+        t.push(...e);
+        t.push(buildEnumIndex(key, e));
+      } catch (e) {
+        if (logger) logger.error(`Error generating enums for ${Family[key]}: ${e.message}`, e.stack);
+        else {
+          throw e;
+        }
+      }
+    }
+    return t
+  }
+
+
 
 }
 
+function buildEnumIndex<T extends Family>(family: T, enums: GeneratedEnum<T>[]) {
+  return {
+    family,
+    path: `/${Family[family]}/index.ts`,
+    statements: [
+      ...enums.map((p) =>
+        factory.createExportDeclaration(
+          undefined,
+          false,
+          undefined,
+          factory.createStringLiteral(`./${p.name}.js`),
+          undefined
+        )
+      ),
+    ],
+  };
+}
 
 function createDriverInitializationStatement(def: DriverDefinition): ts.Statement {
   return factory.createExpressionStatement(
@@ -63,7 +131,7 @@ function createDriverInitializationStatement(def: DriverDefinition): ts.Statemen
                 factory.createIdentifier("uom"),
                 factory.createPropertyAccessExpression(
                   factory.createIdentifier("UnitOfMeasure"),
-                  factory.createIdentifier(UnitOfMeasure[def.primaryDataType().uom] ?? "Unknown")
+                  factory.createIdentifier(UnitOfMeasure[Object.values(def.dataType)[0]?.uom] ?? "Unknown")
                 )
               ),
               factory.createPropertyAssignment(

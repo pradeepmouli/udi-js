@@ -10,7 +10,8 @@
       "ChannelChange": 11,
       "Finish": 254,
       "Stop": 255
-    }
+    },
+    "usages": {}
   },
   "IX_ONOFF": {
     "family": 14,
@@ -19,7 +20,8 @@
     "values": {
       "Off": 0,
       "On": 100
-    }
+    },
+    "usages": {}
   },
   "IX_ERR": {
     "family": 14,
@@ -28,7 +30,8 @@
     "values": {
       "True": 0,
       "False": 1
-    }
+    },
+    "usages": {}
   },
   "IX_TF": {
     "family": 14,
@@ -37,7 +40,8 @@
     "values": {
       "False": 0,
       "True": 100
-    }
+    },
+    "usages": {}
   },
   "IX_PCT_OPT": {
     "family": 14,
@@ -45,7 +49,8 @@
     "name": "PercentOpt",
     "values": {
       "PreviousValue": 1
-    }
+    },
+    "usages": {}
   },
   "IX_MLS_DIR": {
     "family": 14,
@@ -55,7 +60,8 @@
       "Up": 0,
       "Down": 1,
       "None": 3
-    }
+    },
+    "usages": {}
   },
   "IX_DIM": {
     "family": 14,
@@ -63,7 +69,8 @@
     "name": "Dim",
     "values": {
       "Off": 0
-    }
+    },
+    "usages": {}
   },
   "IX_DIM_REP": {
     "family": 14,
@@ -72,7 +79,8 @@
     "values": {
       "Off": 0,
       "Unknown": 101
-    }
+    },
+    "usages": {}
   },
   "IX_OL": {
     "family": 14,
@@ -81,7 +89,8 @@
     "values": {
       "Off": 0,
       "Previous": 101
-    }
+    },
+    "usages": {}
   },
   "IX_CMM": {
     "family": 14,
@@ -92,7 +101,8 @@
       "Up": 1,
       "2Reserved": 2,
       "Down": 3
-    }
+    },
+    "usages": {}
   },
   "IX_CSM": {
     "family": 14,
@@ -103,7 +113,8 @@
       "Up": 1,
       "2Reserved": 2,
       "Down": 3
-    }
+    },
+    "usages": {}
   },
   "IX_HUESAT": {
     "family": 14,
@@ -112,7 +123,8 @@
     "values": {
       "Hue": 0,
       "Saturation": 1
-    }
+    },
+    "usages": {}
   },
   "IX_CTUNIT": {
     "family": 14,
@@ -121,7 +133,8 @@
     "values": {
       "Kelvin": 0,
       "Mired": 1
-    }
+    },
+    "usages": {}
   },
   "IX_HUEDIR": {
     "family": 14,
@@ -132,7 +145,8 @@
       "LongestDistance": 1,
       "Up": 2,
       "Down": 3
-    }
+    },
+    "usages": {}
   },
   "IX_DOOR_STS": {
     "family": 14,
@@ -145,6 +159,7 @@
       "ForcedOpen": 3,
       "Unspecified": 4,
       "Undefined": 255
-    }
+    },
+    "usages": {}
   }
 }

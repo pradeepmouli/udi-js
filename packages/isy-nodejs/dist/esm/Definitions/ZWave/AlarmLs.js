@@ -4,3 +4,4 @@ export var AlarmLs;
     AlarmLs[AlarmLs["LightDetected"] = 1] = "LightDetected";
     AlarmLs[AlarmLs["ColorTransition"] = 2] = "ColorTransition";
 })(AlarmLs || (AlarmLs = {}));
+//# sourceMappingURL=AlarmLs.js.map

@@ -6,3 +6,4 @@ export var AlarmEa;
     AlarmEa[AlarmEa["ContactMedicalService"] = 3] = "ContactMedicalService";
     AlarmEa[AlarmEa["PanicAlert"] = 4] = "PanicAlert";
 })(AlarmEa || (AlarmEa = {}));
+//# sourceMappingURL=AlarmEa.js.map

@@ -10,7 +10,7 @@ import { toArray } from 'isy-nodejs/Utils';
 import { setUncaughtExceptionCaptureCallback } from 'process';
 import winston from 'winston';
 import DeviceMapJSON from './DeviceMap.json' with { type: 'json' };
-import { generateEnumDefs, generateNodeClassDefs } from './generate-nodeclasses.js';
+import { generateEnumDefs, generateEnums, generateNodeClassDefs, generateNodeClasses } from './generate-nodeclasses.js';
 const format = winston.format;
 const myFormat = format.combine(format.splat(), winston.format.printf((info) => {
     const d = new Date();
@@ -83,7 +83,9 @@ async function parseProfileFiles(data) {
         }
     }
     generateEnumDefs();
+    generateEnums();
     generateNodeClassDefs();
+    generateNodeClasses();
     // for (const family of nodeDefMap.keys()) {
     //      buildNodeClassDefinitions(nodeDefMap.get(family), family);
     // }

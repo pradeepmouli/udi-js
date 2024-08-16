@@ -35,6 +35,9 @@ let lastrequest = Promise.resolve();
 // logger.prototype = logger.log.bind(logger);
 // }
 // }`}`
+export function valueOf(e, val) {
+    return e[val];
+}
 export function clone(logger, label) {
     return winston.createLogger({
         format: format.label({ label }),

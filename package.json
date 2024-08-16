@@ -15,8 +15,9 @@
     "mocha": "^10.2.0",
     "moderndash": "^3.12.0",
     "ts-morph": "^23.0.0",
-    "ts-node": "",
-    "typescript": "5.5.4"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^8.1.0"
   },
   "keywords": [
     "ISY",
@@ -28,6 +29,8 @@
   "author": "Pradeep Mouli",
   "license": "MIT",
   "dependencies": {
+    "@project-chip/matter-node.js": "^0.10.0-alpha.0-20240808-bb365a45",
+    "@project-chip/matter.js": "^0.10.0-alpha.0-20240808-bb365a45",
     "camelcase": "^8.0.0",
     "humanize": "^0.0.9",
     "humanize-string": "^3.0.0"

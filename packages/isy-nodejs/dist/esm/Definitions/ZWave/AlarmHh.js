@@ -14,3 +14,4 @@ export var AlarmHh;
     AlarmHh[AlarmHh["SleepStage3"] = 11] = "SleepStage3";
     AlarmHh[AlarmHh["FallDetected"] = 12] = "FallDetected";
 })(AlarmHh || (AlarmHh = {}));
+//# sourceMappingURL=AlarmHh.js.map

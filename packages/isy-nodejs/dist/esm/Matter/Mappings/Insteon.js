@@ -3,18 +3,17 @@ import { MappingRegistry } from "../../Model/ClusterMap.js";
 import { OnOffLightDevice } from "@project-chip/matter.js/devices/OnOffLightDevice";
 //import InsteonMap from "./Insteon.json";
 import { DimmableLightDevice } from "@project-chip/matter.js/devices/DimmableLightDevice";
-//@ts-ignore
 const map = {
     Relay: {
         deviceType: OnOffLightDevice,
         mapping: {
             OnOff: {
                 attributes: {
-                    onOff: { driver: "ST", converter: "Converters.Standard.LevelFrom0To255?.Boolean?.to" },
+                    onOff: { driver: "ST" },
                 },
-                commands: { on: 'DON', off: DriverType.Off },
+                commands: { on: 'DON' },
             },
-        },
+        }
     },
     RelaySwitch: {
         deviceType: OnOffLightDevice,
@@ -23,7 +22,7 @@ const map = {
                 attributes: {
                     onOff: "ST",
                 },
-                commands: { on: DriverType.On, off: DriverType.Off },
+                commands: { on: "DON" },
             },
         },
     },

@@ -1,4 +1,4 @@
-import type { Family } from '../Definitions/Global/Families.js';
+import { Family } from '../Definitions/Global/Families.js';
 import type { UnitOfMeasure } from '../Definitions/Global/UOM.js';
 import type { MaybeArray } from '../Utils.js';
 
@@ -33,4 +33,14 @@ export function buildEditorDefMap<T extends Family>(editorDefs: EditorDef[], fam
 
     EditorDefMap.set(family, map);
     return map;
+}
+
+export namespace EditorDef {
+	export function get<T extends Family>(family: T, id: string): EditorDef | undefined {
+		if(EditorDefMap.has(family)) {
+			return EditorDefMap.get(family)[id];
+		}
+	}
+
+	export const Map = EditorDefMap;
 }

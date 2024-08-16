@@ -13,6 +13,7 @@
         "pretty": true,
         "composite": true,
         "sourceMap": true,
+        "declarationMap": true,
         "suppressExcessPropertyErrors": false,
         "maxNodeModuleJsDepth": 5,
         "allowSyntheticDefaultImports": true,

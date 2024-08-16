@@ -5,7 +5,7 @@ import type { Driver } from "../Definitions/Global/Drivers.js";
 import { Command } from "@project-chip/matter.js/cluster";
 import { toArray } from "../Utils.js";
 import { camelize, capitalize } from "@project-chip/matter.js/util";
-import { camelCase, pascalCase } from 'moderndash'
+import { camelCase, merge, pascalCase } from 'moderndash'
 import {
   NLSCommandParameterRecord,
   NLSCommandRecord,
@@ -16,29 +16,32 @@ import {
   type NLSRecordMap as NLSM,
   type NLSIndexMap as NLSI,
   type NLSRecordTypeMap,
+  NLS,
+  IndexDef,
 } from "./NLS.js";
-import { type EditorDefMap as EDM, type EditorDef, type RangeDef } from "./EditorDef.js";
+import { EditorDef, type EditorDefMap as EDM, type RangeDef } from "./EditorDef.js";
 import { UnitOfMeasure } from "../Definitions/Global/UOM.js";
 import {  } from "util";
 import { getRandomValues } from 'crypto';
 import { create } from 'domain';
 import camelcase from 'camelcase';
+import { EnumDefinition, EnumDefinitionMap } from './EnumDefinition.js';
+import * as fs from 'fs';
 
 
 
-export function buildNodeClassDefinitions<T extends Family>(
+const NodeClassMap = new Map<Family, { [x: string]: NodeClassDefinition<Family>; }>();
+
+function buildNodeClassDefinitions<T extends Family>(
   nodeDefs: NodeDef[],
   family: T,
-  NLSRecordMap: typeof NLSM,
-  EditorDefMap: typeof EDM,
-  NLSIndexMap: typeof NLSI
 ): { [x: string]: NodeClassDefinition<T>; } {
   const map: { [x: string]: NodeClassDefinition<T>; } = {};
   for (const nodeDef of nodeDefs) {
     var f = new NodeClassDefinition(nodeDef, family);
-    f.applyNLS(NLSRecordMap);
-    f.applyEditorDefs(EditorDefMap);
-    f.applyIndexDefs(NLSIndexMap);
+    f.applyNLS();
+    f.applyEditorDefs();
+    f.applyIndexDefs();
     map[f.id] = f;
   }
   return map;
@@ -46,8 +49,12 @@ export function buildNodeClassDefinitions<T extends Family>(
 
 
 
+
+
+
 export class NodeClassDefinition<T extends Family> {
-  applyIndexDefs(NLSIndexMap: Map<Family, { [x: string]: { [y: number]: string; }; }>) {
+  applyIndexDefs() {
+    let NLSIndexMap = IndexDef.Map;
     if (NLSIndexMap.has(Family.Generic)) {
       this.applyIndexMap(NLSIndexMap.get(Family.Generic));
     }
@@ -92,6 +99,8 @@ export class NodeClassDefinition<T extends Family> {
     };
   }
 
+
+
   constructor (nodeDef: NodeDef, family: T) {
     this.id = nodeDef.id;
     this.nlsId = nodeDef.nls;
@@ -123,21 +132,28 @@ export class NodeClassDefinition<T extends Family> {
     }
   }
 
-  applyEditorDefs(EditorDefMap: typeof EDM) {
-    var f = EditorDefMap.get(this.family);
-    if (f) {
+  applyEditorDefs() {
+
       for (const driver of Object.values(this.drivers)) {
-        var d = f[driver.editorId];
-        if (d) driver.applyEditorDef(d);
+
+        if(driver.editorId)
+        {
+            let d = EditorDef.get(this.family, driver.editorId);
+            if (d) driver.applyEditorDef(d);
+        }
       }
       for (const cmd of Object.values(this.commands)) {
-        var c = f[cmd.editorId];
-        if (c) cmd.applyEditorDef(c);
+         if(cmd.editorId)
+        {
+            let d = EditorDef.get(this.family, cmd.editorId);
+            if (d) cmd.applyEditorDef(d);
+        }
       }
-    }
+
   }
 
-  applyNLS(NLSRecordMap: typeof NLSM) {
+  applyNLS() {
+    let NLSRecordMap = NLS.Map;
     if (NLSRecordMap.has(Family.Generic)) {
       this.applyNLSMap(NLSRecordMap.get(Family.Generic));
     }
@@ -235,6 +251,7 @@ export class NodeClassDefinition<T extends Family> {
 
 export type DataTypeDefinition = {
   uom: number;
+  serverUom?: number;
   enum: false;
   min: number;
   max: number;
@@ -382,9 +399,11 @@ export abstract class NodeMemberDefinition<TId extends string> {
             max: rangeDef.max,
             step: rangeDef.step ?? undefined,
             precision: rangeDef.prec ?? undefined,
-            indexId: rangeDef.nls ?? undefined
+            indexId: rangeDef.nls ?? undefined,
+            returnType: rangeDef.nls ? EnumDefinition.get(this.classDef.family, rangeDef.nls, rangeDef.uom, this.classDef.id)?.name : undefined
           };
         }
+
       }
       this.dataType = d;
     }
@@ -410,7 +429,7 @@ export abstract class NodeMemberDefinition<TId extends string> {
       id: this.id,
       editorId: this.editorId,
       dataType: this.dataType,
-      name: this.name
+      name: this.name,
     };
   }
 }
@@ -612,5 +631,71 @@ export class EventDefinition extends NodeMemberDefinition<string> {
           name: this.name
         }
     }
+
+}
+
+
+export namespace NodeClassDefinition
+{
+    export const Map = NodeClassMap;
+
+    export function generate<T extends Family>(family: T, nodeDefs: NodeDef[]): { [x: string]: NodeClassDefinition<T>; }
+    {
+        if(nodeDefs)
+        {
+            var n = buildNodeClassDefinitions(nodeDefs, family);
+            NodeClassMap.set(family, n);
+            return n;
+        }
+    }
+
+    export function load(path: string)
+    {
+          for (const file of new Set(fs.readdirSync(path + "/generated").concat(fs.readdirSync(path + "/custom")))) {
+            let fam = file.replace(".json", "");
+            const family = Family[fam];
+            let nodeClassDefs: {
+              [x: string]: NodeClassDefinition<Family>;
+            } = {};
+            if (fs.existsSync(`${path}/generated/${fam}.json`)) {
+              nodeClassDefs = JSON.parse(fs.readFileSync(`${path}/generated/${fam}.json`, "utf8")) as {
+                [x: string]: NodeClassDefinition<Family>;
+              };
+
+            }
+            if (fs.existsSync(`${path}/custom/${fam}.json`)) {
+              merge(
+                nodeClassDefs,
+                JSON.parse(fs.readFileSync(`${path}/custom/${fam}.json`, "utf8")) as {
+                  [x: string]: NodeClassDefinition<Family>;
+                }
+              );
+            }
+            populateClassDefinitions(nodeClassDefs);
+            NodeClassMap.set(family, nodeClassDefs);
+          }
+        return NodeClassMap;
+
+      function populateClassDefinitions(nodeClassDefs: { [x: string]: NodeClassDefinition<Family>; }) {
+        for (var entry of Object.values(nodeClassDefs)) {
+          for (var driver of Object.values(entry.drivers)) {
+            driver.classDef = entry;
+          }
+          for (var command of Object.values(entry.commands)) {
+            command.classDef = entry;
+            if(command.parameters)
+              for (var param of Object.values(command.parameters)) {
+                param.classDef = entry;
+              }
+          }
+        }
+      }
+    }
+
+    export function save(path: string)
+    {
+
+    }
+
 
 }

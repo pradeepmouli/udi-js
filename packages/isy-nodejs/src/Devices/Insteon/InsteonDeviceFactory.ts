@@ -16,7 +16,7 @@ import { InsteonMotionSensorDevice } from './InsteonMotionSensorDevice.js';
 import { InsteonOnOffOutletDevice } from './InsteonOnOffOutletDevice.js';
 import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import { InsteonRelaySwitchDevice } from './InsteonRelaySwitchDevice.js';
-import { ISYDevice } from '../../ISYNode.js';
+import { ISYDevice } from '../../ISYDevice.js';
 import { DeviceDef, type CategoryDef, type FamilyDef } from '../DeviceMap.js';
 import { writeFileSync } from 'fs';
 import type { Constructor } from '../Constructor.js';

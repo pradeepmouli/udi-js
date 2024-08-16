@@ -1,9 +1,10 @@
 import { Family } from "../../../Definitions/Global/Families.js";
-import type { NodeInfo } from "../../../Definitions/NodeInfo.js";
+import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import type { ISY } from "../../../ISY.js";
+import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 export declare const nodeDefId = "InsteonDimmer";
 type Commands = {
-    DON: (value: any) => Promise<boolean>;
+    DON: (value: number) => Promise<boolean>;
     DOF: () => Promise<boolean>;
     DFOF: () => Promise<boolean>;
     DFON: () => Promise<boolean>;
@@ -14,36 +15,36 @@ type Commands = {
     FDSTOP: () => Promise<boolean>;
     BEEP: () => Promise<boolean>;
     QUERY: () => Promise<boolean>;
-    CLIMD: (value: any) => Promise<boolean>;
-    CLIFS: (value: any) => Promise<boolean>;
-    CLISPH: (value: any) => Promise<boolean>;
-    CLISPC: (value: any) => Promise<boolean>;
-    CLISPHD: (value: any) => Promise<boolean>;
-    CLISPCD: (value: any) => Promise<boolean>;
+    CLIMD: (value: number) => Promise<boolean>;
+    CLIFS: (value: (0 | 1)) => Promise<boolean>;
+    CLISPH: (value: number) => Promise<boolean>;
+    CLISPC: (value: number) => Promise<boolean>;
+    CLISPHD: (value: number) => Promise<boolean>;
+    CLISPCD: (value: number) => Promise<boolean>;
 };
 type Drivers = {};
-export declare class InsteonDimmerNode extends ISYNode<Family.Scene, keyof Drivers, keyof Commands> {
+export declare class InsteonDimmerNode extends ISYDeviceNode<Family.Scene, Drivers, Commands> {
     readonly commands: Commands;
     drivers: Drivers;
     static nodeDefId: string;
     constructor(isy: ISY, nodeInfo: NodeInfo);
-    on(value: any): Promise<void>;
-    off(): Promise<void>;
-    fastOff(): Promise<void>;
-    fastOn(): Promise<void>;
-    brighten(): Promise<void>;
-    dim(): Promise<void>;
-    fadeUp(): Promise<void>;
-    fadeDown(): Promise<void>;
-    fadeStop(): Promise<void>;
-    beep(): Promise<void>;
-    query(): Promise<void>;
-    mode(value: any): Promise<void>;
-    fanMode(value: any): Promise<void>;
-    heatSetpoint(value: any): Promise<void>;
-    coolSetpoint(value: any): Promise<void>;
-    heatSetpointShift(value: any): Promise<void>;
-    coolSetpointShift(value: any): Promise<void>;
+    turnOn(value: number): Promise<any>;
+    turnOff(): Promise<any>;
+    fastOff(): Promise<any>;
+    fastOn(): Promise<any>;
+    brighten(): Promise<any>;
+    dim(): Promise<any>;
+    fadeUp(): Promise<any>;
+    fadeDown(): Promise<any>;
+    fadeStop(): Promise<any>;
+    beep(): Promise<any>;
+    query(): Promise<any>;
+    mode(value: number): Promise<any>;
+    fanMode(value: (0 | 1)): Promise<any>;
+    heatSetpoint(value: number): Promise<any>;
+    coolSetpoint(value: number): Promise<any>;
+    heatSetpointShift(value: number): Promise<any>;
+    coolSetpointShift(value: number): Promise<any>;
 }
 export {};
 //# sourceMappingURL=InsteonDimmerNode.d.ts.map

@@ -116,6 +116,7 @@ export var DriverType;
     DriverType["QueryDevice"] = "QUERY";
     DriverType["RadonConcentration"] = "RADON";
     DriverType["RainRate"] = "RAINRT";
+    DriverType["RampRate"] = "RR";
     DriverType["RelativeModulationLevel"] = "RELMOD";
     DriverType["ResetValues"] = "RESET";
     DriverType["RespiratoryRate"] = "RESPR";
@@ -144,7 +145,7 @@ export var DriverType;
     DriverType["Ultraviolet"] = "UV";
     DriverType["ValidUserAccessCodeEntered"] = "UAC";
     DriverType["Velocity"] = "SPEED";
-    DriverType["VolatileOrganicCompoundVOCLevel"] = "VOCLVL";
+    DriverType["VOCLevel"] = "VOCLVL";
     DriverType["WaterFlow"] = "WATERF";
     DriverType["WaterPressure"] = "WATERP";
     DriverType["WaterTemperature"] = "WATERT";
@@ -155,7 +156,6 @@ export var DriverType;
     DriverType["BoilerWaterTemperature"] = "WATERTB";
     DriverType["OutsideTemperature"] = "TEMPOUT";
 })(DriverType || (DriverType = {}));
-var d;
 const LabelMap = new Map(Object.entries(DriverType).map(([a, b]) => [b, a]));
 export class Drivers {
     DriverHandler = {
@@ -190,55 +190,98 @@ export class Drivers {
         this[LabelMap.get(driver.id)] = driver;
     }
 }
+export function isStateless(x) {
+    return x.stateless;
+}
+export function isTrue(x) {
+    return x;
+}
 export var Driver;
 (function (Driver) {
-    function create(driver, node, initState, driverDef, stateless = false) {
-        const query = async () => { return (await node.readProperty(driver)); };
-        if (stateless) {
+    function create(driver, node, initState, driverSignature, stateless, converter) {
+        const query = async () => {
+            return await node.readProperty(driver);
+        };
+        if (isTrue(stateless)) {
             return {
                 id: driver,
                 stateless: true,
                 uom: initState.uom,
                 state: {
                     initial: true,
-                    value: node.convertFrom(initState.value, initState.uom, driver),
+                    value: node.convertFrom(initState?.value, initState?.uom, driver),
                     formattedValue: initState.formatted,
-                    pendingValue: null
+                    pendingValue: null,
                 },
                 query,
-                value: async () => (await query()).value,
-                name: initState.name ?? driver
+                get value() {
+                    return query().then((p) => p.value);
+                },
+                name: initState.name ?? driverSignature.name ?? driverSignature.label ?? driver,
+                label: driverSignature.label ?? driver,
             };
         }
         var c = {
             id: driver,
-            uom: initState?.uom ?? driverDef?.uom,
+            uom: (initState?.uom ?? driverSignature?.uom),
+            serverUom: initState?.uom != driverSignature?.uom ? initState?.uom : undefined,
             state: {
                 initial: true,
-                value: initState ? node.convertFrom(initState?.value, initState?.uom, driver) : null,
+                value: initState
+                    ? converter
+                        ? converter.from(initState.value)
+                        : node.convertFrom(initState?.value, initState?.uom, driver)
+                    : null,
                 formattedValue: initState ? initState.formatted : null,
-                pendingValue: null
+                pendingValue: null,
             },
             async query() {
-                let s = await node.readProperty(driver);
-                this.state.value = node.convertFrom(s.value, s.uom, driver);
+                let s = await query();
+                this.state.value = converter ? converter.from(s.value) : node.convertFrom(s.value, s.uom, driver);
                 this.state.formattedValue = s.formatted;
-                return this;
+                return s;
             },
-            update(state) {
-                this.state.value = node.convertFrom(state.value, state.uom, driver);
+            apply(state, notify = false) {
+                let previousValue = this.state.value;
+                this.state.value = converter
+                    ? converter.from(state.value)
+                    : node.convertFrom(state.value, state.uom, driver);
                 this.state.formattedValue = state.formatted;
+                if (previousValue == this.state.value) {
+                    return false;
+                }
+                if (notify)
+                    node.emit("PropertyChanged", driver, state.value, previousValue, state.formatted);
+                return true;
             },
-            value: c.state.value,
-            name: initState?.name ?? driverDef?.name ?? driver,
+            patch(value, formattedValue, uom, prec, notify = false) {
+                let previousValue = this.state.value;
+                this.state.formattedValue = formattedValue;
+                if (uom != this.uom) {
+                    this.serverUom = uom;
+                    this.state.value = converter ? converter.from(value) : node.convertFrom(value, uom, driver);
+                }
+                if (previousValue == this.state.value) {
+                    return false;
+                }
+                if (notify)
+                    node.emit("PropertyChanged", driver, value, previousValue, formattedValue);
+                return true;
+            },
+            get value() {
+                return c.state.value;
+            },
+            name: initState?.name ?? driverSignature?.name ?? driver,
+            label: driverSignature?.label ?? driver,
         };
-        node.on('PropertyChanged', (propertyName, newValue, oldValue, formattedValue) => {
-            if (propertyName === driver) {
-                c.state.initial = false;
-                c.state.value = node.convertFrom(newValue, c.uom, driver);
-                c.state.formattedValue = formattedValue;
-            }
-        });
+        //  node.on('PropertyChanged', (propertyName, newValue, oldValue, formattedValue) => {
+        //     if (propertyName === driver) {
+        //         c.state.initial = false;
+        //         c.state.value = node.convertFrom(newValue,c.uom,driver as D);
+        //         c.state.formattedValue = formattedValue;
+        //     }
+        //});
+        return c;
     }
     Driver.create = create;
 })(Driver || (Driver = {}));

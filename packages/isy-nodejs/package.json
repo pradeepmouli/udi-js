@@ -13,12 +13,10 @@
         "clean": "rimraf ./dist/*",
         "build:cjs:types": "tsc -p ./tsconfig.cjs.types.json",
         "build:esm:types": "tsc -p ./tsconfig.esm.types.json",
-        "build:esm": "tsc -p ./tsconfig.esm.json && npm run build:esm:types",
+        "build:esm": "tsc -p ./tsconfig.esm.json",
         "build:cjs": "tsc -p ./tsconfig.cjs.json && npm run build:cjs:types && cp ./package.cjs.json ./dist/cjs/package.json",
         "build": "npm run clean && npm run build:esm && npm run build:cjs",
-        "build:esm:only": "rimraf ./dist/esm/* && tsc -p ./tsconfig.esm.json",
-        "build:esm:watch": "tsc -p ./tsconfig.esm.json --watch",
-        "codegen": "tsc -p ./tsconfig.cli.json && node ./CLI/generate.js"
+        "build:esm:watch": "tsc -p ./tsconfig.esm.json --watch"
     },
     "keywords": [
         "isy",
@@ -51,13 +49,12 @@
         "@types/xml2js": "",
         "@types/xmldoc": "",
         "mocha": "",
-        "rimraf": "^5.0.7",
-        "typescript": "^5.5.3"
+        "rimraf": "^5.0.7"
     },
     "dependencies": {
         "@log4js-node/log4js-api": "^1.0.2",
         "@project-chip/matter-node.js": "^0.10.0-alpha.0-20240716-446c872f",
-        "@project-chip/matter.js": "^0.10.0-alpha.0-20240716-446c872f",
+        "@project-chip/matter.js": "^0.10.0-alpha.0-20240808-bb365a45",
         "axios": "^1.7.2",
         "fast-xml-parser": "^4.4.0",
         "faye-websocket": "^0.11.4",

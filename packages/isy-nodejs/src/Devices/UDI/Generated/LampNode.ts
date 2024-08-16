@@ -1,12 +1,12 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
-import type { NodeInfo } from "../../../Definitions/NodeInfo.js";
+import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import type { ISY } from "../../../ISY.js";
 import { ISYDeviceNode } from "../../../ISYNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
-import type { DriverState } from "../../../Definitions/PropertyStatus.js";
-export await using nodeDefId = "EM3Relay";
-await using logger: Logger = isy.logger;
+import { UDI } from "../../../Definitions/index.js";
+import type { DriverState } from "../../../Model/DriverState.js";
+export const nodeDefId = "EM3Relay";
 type Commands = {
     DON: () => Promise<boolean>;
     DOF: () => Promise<boolean>;
@@ -19,10 +19,10 @@ type Drivers = {
     };
     ERR?: {
         uom: UnitOfMeasure.Index;
-        value: (0 | 1);
+        value: UDI.Error;
     };
 };
-export class LampNode extends ISYNode<Family.UDI, keyof Drivers, keyof Commands> {
+export class LampNode extends ISYDeviceNode<Family.UDI, keyof Drivers, keyof Commands> {
     public readonly commands: Commands = {
         DON: this.on,
         DOF: this.off,
@@ -33,21 +33,21 @@ export class LampNode extends ISYNode<Family.UDI, keyof Drivers, keyof Commands>
     constructor(isy: ISY, nodeInfo: NodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-        this.drivers.ERR = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async on() {
-        this.sendCommand("DON");
+        return this.sendCommand("DON");
     }
     async off() {
-        this.sendCommand("DOF");
+        return this.sendCommand("DOF");
     }
     async query() {
-        this.sendCommand("QUERY");
+        return this.sendCommand("QUERY");
     }
-    public get status(): boolean {
+    public get status(): (0 | 100) {
         return this.drivers.ST?.value;
     }
-    public get responding(): boolean {
+    public get responding(): UDI.Error {
         return this.drivers.ERR?.value;
     }
 }

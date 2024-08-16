@@ -4,3 +4,4 @@ export var Sirmd;
     Sirmd[Sirmd["Away"] = 3] = "Away";
     Sirmd[Sirmd["HomeAway"] = 4] = "HomeAway";
 })(Sirmd || (Sirmd = {}));
+//# sourceMappingURL=Sirmd.js.map

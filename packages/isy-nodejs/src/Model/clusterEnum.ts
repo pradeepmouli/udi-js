@@ -353,13 +353,13 @@ export enum ClusterType {
 
 
 
-export type ToCompleteClusterByName<E extends ClusterType> = (typeof Clusters[`${E}`])["Complete"];
-export type ToClusterByName<E extends ClusterType | keyof typeof Clusters> = (typeof Clusters)[`${E}`];
+//export type ToCompleteClusterByName<E extends ClusterType> = (typeof Clusters[`${E}`][];
+//export type ToClusterByName<E extends ClusterType | keyof typeof Clusters> = (typeof Clusters)[`${E}`];
 
 export type ToClusterTypeByName<E extends string> = E extends keyof typeof ClusterType ? typeof ClusterType[E] : never;
 
 ///type s = ToCluster<"OnOff">;
 
-export type ToClusterType<E extends Clusters.MutableCluster<any,any>> = E extends Clusters.MutableCluster<infer C,any> ? C : {};
+export type ToClusterType<E extends Clusters.MutableCluster<any>> = E extends Clusters.MutableCluster<infer C> ? C : {};
 
 type o = ToClusterType<Clusters.OnOffCluster>;

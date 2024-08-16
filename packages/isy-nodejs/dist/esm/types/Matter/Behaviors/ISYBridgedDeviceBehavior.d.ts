@@ -3,9 +3,9 @@
  * Copyright 2022-2024 Matter.js Authors
  * SPDX-License-Identifier: Apache-2.0
  */ import { Behavior } from "@project-chip/matter.js/behavior";
-import type { ISYDevice } from "../../ISYNode.js";
+import type { ISYDevice } from '../../ISYDevice.js';
 import { Observable, EventEmitter } from "@project-chip/matter.js/util";
-import { type ClusterMapping, type DeviceToClusterMap } from '../../Model/ClusterMap.js';
+import { DeviceToClusterMap, type ClusterMapping } from '../../Model/ClusterMap.js';
 export declare class ISYBridgedDeviceBehavior extends Behavior {
     static readonly id = "isyDevice";
     static readonly early = true;
@@ -14,7 +14,10 @@ export declare class ISYBridgedDeviceBehavior extends Behavior {
     events: ISYBridgedDeviceBehavior.Events;
     initialize(_options?: {}): Promise<void>;
     get device(): ISYDevice<any, any, any>;
-    get map(): DeviceToClusterMap<typeof this.internal.device>;
+    get map(): {
+        deviceType: any;
+        mapping: import("../../Model/ClusterMap.js").EndpointMapping<any, ISYDevice<any, any, any, string>>;
+    };
     mapForBehavior<B extends {
         cluster: unknown;
     }>(behavior: B): ClusterMapping<B["cluster"], typeof this.internal.device>;
@@ -24,7 +27,7 @@ export declare class ISYBridgedDeviceBehavior extends Behavior {
 export declare namespace ISYBridgedDeviceBehavior {
     class Internal {
         device?: ISYDevice<any, any, any>;
-        map?: DeviceToClusterMap<typeof this.device>;
+        map?: DeviceToClusterMap<typeof this.device, any>;
     }
     class Events extends EventEmitter {
         propertyChanged: Observable<[{

@@ -16,15 +16,14 @@ import type { NodeInfo } from '../../Model/NodeInfo.js';
 type LevelControlBehavior = typeof DimmableLightRequirements.LevelControlServer
 type OnOffBehavior = typeof OOB
 //@ts-ignore
-export class InsteonDimmableDevice extends ISYUpdateableLevelDevice(InsteonRelayDevice) implements MapsTo<LevelControlBehavior,OnOffBehavior>{
+export class InsteonDimmableDevice extends InsteonRelayDevice implements MapsTo<LevelControlBehavior,OnOffBehavior>{
+	isDimmable: boolean;
 
 	constructor (isy: ISY,node: NodeInfo) {
 		super(isy, node);
 		this.isDimmable = true;
 	}
-	get brightnessLevel() {
-		return this.level;
-	}
+
 	public async updateBrightnessLevel(level: number): Promise<{}> {
 		return super.updateLevel(level);
 	}

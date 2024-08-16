@@ -6,7 +6,8 @@
     "values": {
       "Mute": 0,
       "Previous": 101
-    }
+    },
+    "usages": {}
   },
   "IX_TONEID": {
     "family": 4,
@@ -14,7 +15,8 @@
     "name": "Toneid",
     "values": {
       "Off": 0
-    }
+    },
+    "usages": {}
   },
   "IX_ERR": {
     "family": 4,
@@ -23,7 +25,8 @@
     "values": {
       "True": 0,
       "False": 1
-    }
+    },
+    "usages": {}
   },
   "IX_PCT_OPT": {
     "family": 4,
@@ -31,7 +34,8 @@
     "name": "PercentOpt",
     "values": {
       "PreviousValue": 1
-    }
+    },
+    "usages": {}
   },
   "IX_MLS_DIR": {
     "family": 4,
@@ -41,7 +45,8 @@
       "Up": 0,
       "Down": 1,
       "None": 3
-    }
+    },
+    "usages": {}
   },
   "IX_CCI": {
     "family": 4,
@@ -57,7 +62,8 @@
       "Cyan": 6,
       "Purple": 7,
       "ColorIndex": 8
-    }
+    },
+    "usages": {}
   },
   "IX_UNLOCK": {
     "family": 4,
@@ -71,7 +77,8 @@
       "InsideDoorHandlesWithTimer": 4,
       "OutsideDoorHandles": 5,
       "OutsideDoorHandlesWithTimer": 6
-    }
+    },
+    "usages": {}
   },
   "IX_ONOFF": {
     "family": 4,
@@ -80,7 +87,8 @@
     "values": {
       "Off": 0,
       "On": 100
-    }
+    },
+    "usages": {}
   },
   "IX_DIM_REP": {
     "family": 4,
@@ -89,7 +97,8 @@
     "values": {
       "Off": 0,
       "Unknown": 101
-    }
+    },
+    "usages": {}
   },
   "IX_SB_T": {
     "family": 4,
@@ -99,7 +108,8 @@
       "NoOverride": 0,
       "TemporaryOverride": 1,
       "PermanentOverride": 2
-    }
+    },
+    "usages": {}
   },
   "IX_SB_ST": {
     "family": 4,
@@ -109,7 +119,8 @@
       "Offset": 0,
       "FrostProtection": 1,
       "EnergySaving": 2
-    }
+    },
+    "usages": {}
   },
   "IX_CBP": {
     "family": 4,
@@ -124,12 +135,13 @@
       "2503BinarySwitchReport": 5,
       "2601MultilevelSwitchSet": 6,
       "2603MultilevelSwitchReport": 7
-    }
+    },
+    "usages": {}
   },
   "IXA_SMOKE": {
     "family": 4,
     "id": "IXA_SMOKE",
-    "name": "AlarmSmoke",
+    "name": "AlertSmoke",
     "values": {
       "Idle": 0,
       "SmokeDetected": 1,
@@ -141,12 +153,13 @@
       "InspectionRequired": 7,
       "DustInDevice": 8,
       "UnknownEvent": 254
-    }
+    },
+    "usages": {}
   },
   "IXA_CO": {
     "family": 4,
     "id": "IXA_CO",
-    "name": "AlarmCo",
+    "name": "AlertCo",
     "values": {
       "Idle": 0,
       "CoDetected": 1,
@@ -157,12 +170,13 @@
       "AlarmSilenced": 6,
       "InspectionRequired": 7,
       "UnknownEvent": 254
-    }
+    },
+    "usages": {}
   },
   "IXA_CO2": {
     "family": 4,
     "id": "IXA_CO2",
-    "name": "AlarmCo2",
+    "name": "AlertCo2",
     "values": {
       "Idle": 0,
       "Co2Detected": 1,
@@ -173,12 +187,13 @@
       "AlarmSilenced": 6,
       "InspectionRequired": 7,
       "UnknownEvent": 254
-    }
+    },
+    "usages": {}
   },
   "IXA_HEAT": {
     "family": 4,
     "id": "IXA_HEAT",
-    "name": "AlarmHeat",
+    "name": "AlertHeat",
     "values": {
       "Idle": 0,
       "Overheat": 1,
@@ -194,12 +209,13 @@
       "InspectionRequired": 11,
       "RapidTemperatureFall": 12,
       "RapidTemperatureFallNoLocation": 13
-    }
+    },
+    "usages": {}
   },
   "IXA_WATER": {
     "family": 4,
     "id": "IXA_WATER",
-    "name": "AlarmWater",
+    "name": "AlertWater",
     "values": {
       "Idle": 0,
       "LeakDetected": 1,
@@ -214,12 +230,13 @@
       "SumpPumpActive": 10,
       "SumpPumpFail": 11,
       "UnknownEvent": 254
-    }
+    },
+    "usages": {}
   },
   "IXA_AC": {
     "family": 4,
     "id": "IXA_AC",
-    "name": "AlarmAc",
+    "name": "AlertAc",
     "values": {
       "Idle": 0,
       "ManualLock": 1,
@@ -248,12 +265,13 @@
       "WindowDoorHandleIsOpen": 24,
       "WindowDoorHandleIsClosed": 25,
       "MessagingUserCodeEnteredViaKeypad": 32
-    }
+    },
+    "usages": {}
   },
   "IXA_BA": {
     "family": 4,
     "id": "IXA_BA",
-    "name": "AlarmBa",
+    "name": "AlertBa",
     "values": {
       "Idle": 0,
       "Initializing": 1,
@@ -269,12 +287,13 @@
       "LowBatteryWarning": 11,
       "ShortInWallStationWires": 12,
       "NonZWaveAssociation": 13
-    }
+    },
+    "usages": {}
   },
   "IXA_HS": {
     "family": 4,
     "id": "IXA_HS",
-    "name": "AlarmHs",
+    "name": "AlertHs",
     "values": {
       "Idle": 0,
       "Intrusion": 1,
@@ -289,12 +308,13 @@
       "Impact": 10,
       "MagneticInterference": 11,
       "RfJamming": 12
-    }
+    },
+    "usages": {}
   },
   "IXA_PM": {
     "family": 4,
     "id": "IXA_PM",
-    "name": "AlarmPm",
+    "name": "AlertPm",
     "values": {
       "Idle": 0,
       "PowerApplied": 1,
@@ -315,12 +335,13 @@
       "BackupBatteryLow": 16,
       "BatteryFluidLow": 17,
       "BackupBatteryDisconnected": 18
-    }
+    },
+    "usages": {}
   },
   "IXA_SYS": {
     "family": 4,
     "id": "IXA_SYS",
-    "name": "AlarmSys",
+    "name": "AlertSys",
     "values": {
       "Idle": 0,
       "HardwareFailure": 1,
@@ -333,35 +354,38 @@
       "DigitalInputHighState": 9,
       "DigitalInputLowState": 10,
       "DigitalInputOpen": 11
-    }
+    },
+    "usages": {}
   },
   "IXA_EA": {
     "family": 4,
     "id": "IXA_EA",
-    "name": "AlarmEa",
+    "name": "AlertEa",
     "values": {
       "Idle": 0,
       "ContactPolice": 1,
       "ContactFireService": 2,
       "ContactMedicalService": 3,
       "PanicAlert": 4
-    }
+    },
+    "usages": {}
   },
   "IXA_CLOCK": {
     "family": 4,
     "id": "IXA_CLOCK",
-    "name": "AlarmClock",
+    "name": "AlertClock",
     "values": {
       "Idle": 0,
       "WakeUp": 1,
       "TimerEnded": 2,
       "TimeRemaining": 3
-    }
+    },
+    "usages": {}
   },
   "IXA_APP": {
     "family": 4,
     "id": "IXA_APP",
-    "name": "AlarmApp",
+    "name": "AlertApp",
     "values": {
       "Idle": 0,
       "ProgramStarted": 1,
@@ -385,12 +409,13 @@
       "DryingFailure": 19,
       "FanFailure": 20,
       "CompressorFailure": 21
-    }
+    },
+    "usages": {}
   },
   "IXA_HH": {
     "family": 4,
     "id": "IXA_HH",
-    "name": "AlarmHh",
+    "name": "AlertHh",
     "values": {
       "Idle": 0,
       "LeavingBed": 1,
@@ -405,7 +430,8 @@
       "SleepStage2": 10,
       "SleepStage3": 11,
       "FallDetected": 12
-    }
+    },
+    "usages": {}
   },
   "IXAV_VOC": {
     "family": 4,
@@ -417,12 +443,13 @@
       "SlightlyPolluted": 2,
       "ModeratelyPolluted": 3,
       "HighlyPolluted": 4
-    }
+    },
+    "usages": {}
   },
   "IXA_WV": {
     "family": 4,
     "id": "IXA_WV",
-    "name": "AlarmWv",
+    "name": "AlertWv",
     "values": {
       "Idle": 0,
       "ValveOperation": 1,
@@ -431,23 +458,25 @@
       "MasterValveShortCircuit": 4,
       "ValveAlarm": 5,
       "MasterValveAlarm": 6
-    }
+    },
+    "usages": {}
   },
   "IXA_WEA": {
     "family": 4,
     "id": "IXA_WEA",
-    "name": "AlarmWea",
+    "name": "AlertWea",
     "values": {
       "Idle": 0,
       "Rain": 1,
       "Moisture": 2,
       "Freeze": 3
-    }
+    },
+    "usages": {}
   },
   "IXA_IRR": {
     "family": 4,
     "id": "IXA_IRR",
-    "name": "AlarmIrr",
+    "name": "AlertIrr",
     "values": {
       "Idle": 0,
       "ScheduleStarted": 1,
@@ -455,12 +484,13 @@
       "ValveTableRunStarted": 3,
       "ValveTableRunFinished": 4,
       "DeviceNotConfigured": 5
-    }
+    },
+    "usages": {}
   },
   "IXA_GAS": {
     "family": 4,
     "id": "IXA_GAS",
-    "name": "AlarmGas",
+    "name": "AlertGas",
     "values": {
       "Idle": 0,
       "CombustibleGasDetectedLoc": 1,
@@ -469,12 +499,13 @@
       "ToxicGasDetected": 4,
       "GasAlarmTest": 5,
       "ReplacementRequired": 6
-    }
+    },
+    "usages": {}
   },
   "IXA_PEST": {
     "family": 4,
     "id": "IXA_PEST",
-    "name": "AlarmPest",
+    "name": "AlertPest",
     "values": {
       "Idle": 0,
       "TrapArmedLoc": 1,
@@ -485,22 +516,24 @@
       "PestDetected": 6,
       "PestExterminatedLoc": 7,
       "PestExterminated": 8
-    }
+    },
+    "usages": {}
   },
   "IXA_LS": {
     "family": 4,
     "id": "IXA_LS",
-    "name": "AlarmLs",
+    "name": "AlertLs",
     "values": {
       "Idle": 0,
       "LightDetected": 1,
       "ColorTransition": 2
-    }
+    },
+    "usages": {}
   },
   "IXA_WQM": {
     "family": 4,
     "id": "IXA_WQM",
-    "name": "AlarmWqm",
+    "name": "AlertWqm",
     "values": {
       "Idle": 0,
       "Chlorine": 1,
@@ -521,17 +554,19 @@
       "WaterTankFull": 16,
       "CollectiveDisorder": 17,
       "UnknownEvent": 254
-    }
+    },
+    "usages": {}
   },
   "IXA_HM": {
     "family": 4,
     "id": "IXA_HM",
-    "name": "AlarmHm",
+    "name": "AlertHm",
     "values": {
       "": 0,
       "HomeOccupied": 1,
       "HomeOccupiedNoLocation": 2
-    }
+    },
+    "usages": {}
   },
   "IXAV_01": {
     "family": 4,
@@ -543,6 +578,7 @@
       "BelowLowThreshold": 2,
       "AboveHighThreshold": 3,
       "Max": 4
-    }
+    },
+    "usages": {}
   }
 }

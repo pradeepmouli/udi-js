@@ -7,3 +7,4 @@ export var DoorStatus;
     DoorStatus[DoorStatus["Unspecified"] = 4] = "Unspecified";
     DoorStatus[DoorStatus["Undefined"] = 255] = "Undefined";
 })(DoorStatus || (DoorStatus = {}));
+//# sourceMappingURL=DoorStatus.js.map

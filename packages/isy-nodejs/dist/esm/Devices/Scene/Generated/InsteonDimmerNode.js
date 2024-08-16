@@ -1,9 +1,9 @@
-export await using nodeDefId = "InsteonDimmer";
-await using logger = isy.logger;
-export class InsteonDimmerNode extends ISYNode {
+import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+export const nodeDefId = "InsteonDimmer";
+export class InsteonDimmerNode extends ISYDeviceNode {
     commands = {
-        DON: this.on,
-        DOF: this.off,
+        DON: this.turnOn,
+        DOF: this.turnOff,
         DFOF: this.fastOff,
         DFON: this.fastOn,
         BRT: this.brighten,
@@ -25,55 +25,56 @@ export class InsteonDimmerNode extends ISYNode {
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
     }
-    async on(value) {
-        this.sendCommand("DON", { value: value });
+    async turnOn(value) {
+        return this.sendCommand("DON", { value: value });
     }
-    async off() {
-        this.sendCommand("DOF");
+    async turnOff() {
+        return this.sendCommand("DOF");
     }
     async fastOff() {
-        this.sendCommand("DFOF");
+        return this.sendCommand("DFOF");
     }
     async fastOn() {
-        this.sendCommand("DFON");
+        return this.sendCommand("DFON");
     }
     async brighten() {
-        this.sendCommand("BRT");
+        return this.sendCommand("BRT");
     }
     async dim() {
-        this.sendCommand("DIM");
+        return this.sendCommand("DIM");
     }
     async fadeUp() {
-        this.sendCommand("FDUP");
+        return this.sendCommand("FDUP");
     }
     async fadeDown() {
-        this.sendCommand("FDDOWN");
+        return this.sendCommand("FDDOWN");
     }
     async fadeStop() {
-        this.sendCommand("FDSTOP");
+        return this.sendCommand("FDSTOP");
     }
     async beep() {
-        this.sendCommand("BEEP");
+        return this.sendCommand("BEEP");
     }
     async query() {
-        this.sendCommand("QUERY");
+        return this.sendCommand("QUERY");
     }
     async mode(value) {
-        this.sendCommand("CLIMD", { value: value });
+        return this.sendCommand("CLIMD", { value: value });
     }
     async fanMode(value) {
-        this.sendCommand("CLIFS", { value: value });
+        return this.sendCommand("CLIFS", { value: value });
     }
     async heatSetpoint(value) {
-        this.sendCommand("CLISPH", { value: value });
+        return this.sendCommand("CLISPH", { value: value });
     }
     async coolSetpoint(value) {
-        this.sendCommand("CLISPC", { value: value });
+        return this.sendCommand("CLISPC", { value: value });
     }
     async heatSetpointShift(value) {
-        this.sendCommand("CLISPHD", { value: value });
+        return this.sendCommand("CLISPHD", { value: value });
     }
     async coolSetpointShift(value) {
-        this.sendCommand("CLISPCD", { value: value });
+        return this.sendCommand("CLISPCD", { value: value });
     }
 }
+//# sourceMappingURL=InsteonDimmerNode.js.map

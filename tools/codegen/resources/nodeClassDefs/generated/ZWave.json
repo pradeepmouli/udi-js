@@ -16,7 +16,8 @@
             "min": 0,
             "max": 101,
             "precision": 0,
-            "indexId": "IX_DIM_REP"
+            "indexId": "IX_DIM_REP",
+            "returnType": "DimRep"
           }
         },
         "name": "status"

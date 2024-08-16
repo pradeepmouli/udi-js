@@ -18,22 +18,10 @@ export const InsteonLampDevice = <T extends Constructor<InsteonBaseDevice>>(IB: 
 		});
 
 // tslint:disable-next-line: variable-name
-export const InsteonSwitchDevice = <T extends Constructor<InsteonBaseDevice>>(IB: T) => (class extends IB {
-	declare isDimmable: boolean;
-
-	constructor (...args: any[]) {
-		super(args[0], args[1]);
-		this.isDimmable = true;
-	}
-
-});
 
 export const KeypadDevice = <T extends Constructor<InsteonBaseDevice>>(IB: T) => (class extends IB {
 
-	public override addChild(childDevice: ISYDevice<Family.Insteon,any,any>)
-	{
-		super.addChild(childDevice);
-	}
+	
 });
 
 

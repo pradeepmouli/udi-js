@@ -5,3 +5,4 @@ export var Mdn;
     Mdn[Mdn["OnlyWhenHot"] = 2] = "OnlyWhenHot";
     Mdn[Mdn["OnlyWhenCold"] = 3] = "OnlyWhenCold";
 })(Mdn || (Mdn = {}));
+//# sourceMappingURL=Mdn.js.map

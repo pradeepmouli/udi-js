@@ -20,3 +20,4 @@ export var AlarmWqm;
     AlarmWqm[AlarmWqm["CollectiveDisorder"] = 17] = "CollectiveDisorder";
     AlarmWqm[AlarmWqm["UnknownEvent"] = 254] = "UnknownEvent";
 })(AlarmWqm || (AlarmWqm = {}));
+//# sourceMappingURL=AlarmWqm.js.map

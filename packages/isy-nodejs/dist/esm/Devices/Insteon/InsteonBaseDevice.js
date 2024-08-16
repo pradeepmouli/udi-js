@@ -1,8 +1,9 @@
 import { Family } from '../../Definitions/Global/Families.js';
 import { UnitOfMeasure as UOM } from '../../Definitions/Global/UOM.js';
-import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
-import { ISYDeviceNode } from '../../ISYNode.js';
+import { byteToDegree, pctToByte } from '../../Utils.js';
+import { ISYDeviceNode } from '../ISYDeviceNode.js';
 import 'winston';
+import { Converters } from '../../Converters.js';
 // import { InsteonNLS } from './insteonfam.js'
 export class InsteonBaseDevice extends ISYDeviceNode {
     constructor(isy, deviceNode) {
@@ -11,12 +12,12 @@ export class InsteonBaseDevice extends ISYDeviceNode {
         //// this.productName = InsteonNLS.getDeviceDescription(String.fromCharCode(category,device,version));
         //his.childDevices = {};
     }
-    convertFrom(value, uom, propertyName = null) {
+    convertFrom(value, uom, driver = null) {
         switch (uom) {
             case UOM.DegreeX2:
                 return byteToDegree(value);
             case UOM.LevelFrom0To255:
-                return byteToPct(value);
+                return Converters.Standard.LevelFrom0To255.Percent.to(value);
             case UOM.Fahrenheit:
                 return value / 10;
             default:
@@ -37,7 +38,7 @@ export class InsteonBaseDevice extends ISYDeviceNode {
         }
     }
     async sendBeep(level = 100) {
-        return this.sendCommand('BEEP');
+        // this.drivers(level);
     }
 }
 //# sourceMappingURL=InsteonBaseDevice.js.map

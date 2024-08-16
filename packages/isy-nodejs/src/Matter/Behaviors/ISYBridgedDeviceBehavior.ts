@@ -6,12 +6,12 @@
 import type { StateType } from "@project-chip/matter.js/behavior/state";
 import { Internal } from "@project-chip/matter.js/behavior/state/managed";
 import internal from "stream";
-import type { ISYDevice } from "../../ISYNode.js";
+import type { ISYDevice } from '../../ISYDevice.js';
 import { Observable, EventEmitter } from "@project-chip/matter.js/util";
 import { ISY, type Family } from "../../ISY.js";
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
-import { MappingRegistry, type ClusterMapping, type ClusterTypeMapping, type DeviceToClusterMap } from '../../Model/ClusterMap.js';
-import type { ClusterType, ToClusterByName, ToClusterType, ToClusterTypeByName } from '../../Model/clusterEnum.js';
+import { MappingRegistry, DeviceToClusterMap, type ClusterMapping } from '../../Model/ClusterMap.js';
+import type { ClusterType,  ToClusterType, ToClusterTypeByName } from '../../Model/clusterEnum.js';
 import type { Driver } from '../../Definitions/Global/Drivers.js';
 
 
@@ -43,7 +43,7 @@ export class ISYBridgedDeviceBehavior extends Behavior {
     return (this.internal.device = this.internal.device ?? ISY.instance.getDevice(this.state.address));
   }
 
-  get map(): DeviceToClusterMap<typeof this.internal.device> {
+  get map(){
 
     return this.internal.map;
   }
@@ -67,7 +67,7 @@ export class ISYBridgedDeviceBehavior extends Behavior {
 export namespace ISYBridgedDeviceBehavior {
   export class Internal {
     device?: ISYDevice<any,any,any>;
-    map? : DeviceToClusterMap<typeof this.device>
+    map? : DeviceToClusterMap<typeof this.device,any>
   }
 
   export class Events extends EventEmitter {

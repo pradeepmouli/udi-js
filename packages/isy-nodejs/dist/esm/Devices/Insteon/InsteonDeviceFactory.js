@@ -1,7 +1,6 @@
 import { Category } from '../../Definitions/Global/Categories.js';
 import { Family, InsteonBaseDevice, InsteonLockDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice } from '../../ISY.js';
 import { parseTypeCode } from '../../Utils.js';
-import { ISYBinaryStateDevice } from '../ISYDevice.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import { InsteonDimmerOutletDevice } from './InsteonDimmerOutletDevice.js';
 import { InsteonDimmerSwitchDevice } from './InsteonDimmerSwitchDevice.js';

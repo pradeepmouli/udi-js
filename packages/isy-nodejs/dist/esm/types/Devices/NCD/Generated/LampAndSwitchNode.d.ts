@@ -1,8 +1,9 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
-import type { NodeInfo } from "../../../Definitions/NodeInfo.js";
+import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import type { ISY } from "../../../ISY.js";
 import { ISYDeviceNode } from "../../../ISYNode.js";
+import { NCD } from "../../../Definitions/index.js";
 export declare const nodeDefId = "NCDRelay";
 type Commands = {
     DON: () => Promise<boolean>;
@@ -17,7 +18,7 @@ type Drivers = {
     };
     ERR?: {
         uom: UnitOfMeasure.Index;
-        value: Error;
+        value: NCD.Error;
     };
 };
 export declare class LampAndSwitchNode extends ISYDeviceNode<Family.NCD, keyof Drivers, keyof Commands> {
@@ -30,7 +31,7 @@ export declare class LampAndSwitchNode extends ISYDeviceNode<Family.NCD, keyof D
     query(): Promise<any>;
     adr(value: (0 | 1)): Promise<any>;
     get status(): (0 | 100);
-    get responding(): Error;
+    get responding(): NCD.Error;
 }
 export {};
 //# sourceMappingURL=LampAndSwitchNode.d.ts.map

@@ -10,3 +10,4 @@ export var Cci;
     Cci[Cci["Purple"] = 7] = "Purple";
     Cci[Cci["ColorIndex"] = 8] = "ColorIndex";
 })(Cci || (Cci = {}));
+//# sourceMappingURL=Cci.js.map

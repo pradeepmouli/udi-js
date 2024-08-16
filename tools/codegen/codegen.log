@@ -125,3 +125,14 @@
 [31m2024-08-05 20:55:37 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
 [31m2024-08-05 21:15:03 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
 [31m2024-08-05 21:22:49 error: codegen: Error creating Poly OutputNode class: ENOENT: no such file or directory, open '../../packages/isy-nodejs/src/Devices/Poly/Generated/OutputNode.ts'[39m
+[31m2024-08-06 15:26:57 error: codegen: Error creating Lutron LutLoadShedNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-06 15:27:27 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-06 17:06:21 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-06 17:11:05 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-06 17:15:03 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-06 17:23:55 error: codegen: Error generating node class definitions for Insteon: enumDef.usages.add is not a function[39m
+[31m2024-08-06 17:23:55 error: codegen: Error generating node class definitions for ZWave: enumDef.usages.add is not a function[39m
+[31m2024-08-06 17:23:57 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m
+[31m2024-08-06 18:28:49 error: codegen: Error generating node class definitions for Insteon: enumDef.usages.add is not a function[39m
+[31m2024-08-06 18:28:49 error: codegen: Error generating node class definitions for ZWave: enumDef.usages.add is not a function[39m
+[31m2024-08-06 18:28:50 error: codegen: Error creating ZWave ColorSwitchNode class: Cannot read properties of undefined (reading 'replace')[39m

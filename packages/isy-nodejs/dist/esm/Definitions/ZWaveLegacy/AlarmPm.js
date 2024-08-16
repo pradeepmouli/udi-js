@@ -20,3 +20,4 @@ export var AlarmPm;
     AlarmPm[AlarmPm["BatteryFluidLow"] = 17] = "BatteryFluidLow";
     AlarmPm[AlarmPm["BackupBatteryDisconnected"] = 18] = "BackupBatteryDisconnected";
 })(AlarmPm || (AlarmPm = {}));
+//# sourceMappingURL=AlarmPm.js.map

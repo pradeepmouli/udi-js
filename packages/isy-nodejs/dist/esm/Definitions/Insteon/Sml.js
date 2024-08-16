@@ -4,3 +4,4 @@ export var Sml;
     Sml[Sml["OneOn"] = 50] = "OneOn";
     Sml[Sml["BothOn"] = 100] = "BothOn";
 })(Sml || (Sml = {}));
+//# sourceMappingURL=Sml.js.map

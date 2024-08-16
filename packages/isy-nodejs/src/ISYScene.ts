@@ -1,35 +1,38 @@
 import { Insteon } from './Devices/Insteon/index.js';
 import { Family } from './Definitions/Global/Families.js';
 import { Commands, LinkType } from './ISYConstants.js';
-import { ISYNode, type ISYDevice } from './ISYNode.js';
+import { ISYNode } from './ISYNode.js';
+import { type ISYDevice } from './ISYDevice.js';
 import type { ISY } from './ISY.js';
+import type { Driver } from './Definitions/Global/Drivers.js';
+import type { Command } from './Definitions/Global/Commands.js';
+import type { NodeInfo } from './Model/NodeInfo.js';
 
-interface SceneInfo
+interface SceneInfo extends NodeInfo
  {
 	members?: {
 		link: any;
 	};
 	flag?: any;
 	nodeDefId?: string;
-	address?: string;
-	name?: string;
+	address: string;
+	name: string;
 	family?: Family;
 	parent?: any;
 	enabled: boolean;
-	ELK_ID?: string;
+	startDelay: number;
 }
 
-export class ISYScene extends ISYNode<'ST'> {
-	public type: string;
+export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>,Command.Signatures<'DON' | 'DOF'>,string> {
+
 	public connectionType: string;
 	public batteryOperated: boolean;
 	public deviceType: any;
 	public deviceFriendlyName: string;
 	public members: ISYDevice<any,any,any>[];
-	public isDimmable: boolean;
 	public typeCode: string;
 	constructor(isy: ISY, scene: SceneInfo) {
-		super(isy, scene);
+		super(isy, scene as SceneInfo);
 		// this.logger(JSON.stringify(scene));
 		this.typeCode = '';
 		this.connectionType = 'Insteon Wired';
@@ -73,8 +76,8 @@ export class ISYScene extends ISYNode<'ST'> {
 	// Get the current light state
 	get isOn() {
 		for (const device of this.members) {
-			if (device instanceof Insteon.Relay) {
-				if (device.state) {
+			if (device instanceof Insteon.Relay)  {
+				if (device.drivers.ST?.value === 1) {
 					return true;
 				}
 			}
@@ -91,7 +94,7 @@ export class ISYScene extends ISYNode<'ST'> {
 				blevel += device.brightnessLevel;
 			} else if (device instanceof Insteon.Relay) {
 				lightDeviceCount++;
-				blevel += device.state ? 100 : 0;
+				blevel += device.drivers.ST ? 100 : 0;
 			}
 		}
 		if (lightDeviceCount > 0) {
@@ -123,7 +126,7 @@ export class ISYScene extends ISYNode<'ST'> {
 	public getAreAllLightsInSpecifiedState(state) {
 		for (const device of this.members) {
 			if (device instanceof Insteon.Relay) {
-				if (device.state !== state) {
+				if (device.drivers.ST !== state) {
 					return false;
 				}
 			}

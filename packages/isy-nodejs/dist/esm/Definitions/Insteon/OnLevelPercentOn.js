@@ -3,3 +3,4 @@ export var OnLevelPercentOn;
     OnLevelPercentOn[OnLevelPercentOn["Off"] = 0] = "Off";
     OnLevelPercentOn[OnLevelPercentOn["On"] = 100] = "On";
 })(OnLevelPercentOn || (OnLevelPercentOn = {}));
+//# sourceMappingURL=OnLevelPercentOn.js.map

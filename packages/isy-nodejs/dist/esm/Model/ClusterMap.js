@@ -26,7 +26,7 @@ const map = {
     Identify: {},
     OnOff: {
         attributes: {
-            onOff: { driver: "DON" },
+            onOff: { driver: "ST" },
         },
         commands: {
             onWithTimedOff: { command: "DON" },

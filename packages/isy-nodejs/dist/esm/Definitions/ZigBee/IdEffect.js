@@ -7,3 +7,4 @@ export var IdEffect;
     IdEffect[IdEffect["Finish"] = 254] = "Finish";
     IdEffect[IdEffect["Stop"] = 255] = "Stop";
 })(IdEffect || (IdEffect = {}));
+//# sourceMappingURL=IdEffect.js.map

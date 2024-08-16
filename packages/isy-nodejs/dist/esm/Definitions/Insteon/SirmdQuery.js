@@ -5,3 +5,4 @@ export var SirmdQuery;
     SirmdQuery[SirmdQuery["ArmedAway"] = 3] = "ArmedAway";
     SirmdQuery[SirmdQuery["ArmedHomeAway"] = 4] = "ArmedHomeAway";
 })(SirmdQuery || (SirmdQuery = {}));
+//# sourceMappingURL=SirmdQuery.js.map

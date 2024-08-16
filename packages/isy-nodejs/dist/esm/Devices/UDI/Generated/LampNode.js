@@ -1,8 +1,8 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { ISYDeviceNode } from "../../../ISYNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
-export await using nodeDefId = "EM3Relay";
-await using logger = isy.logger;
-export class LampNode extends ISYNode {
+export const nodeDefId = "EM3Relay";
+export class LampNode extends ISYDeviceNode {
     commands = {
         DON: this.on,
         DOF: this.off,
@@ -13,16 +13,16 @@ export class LampNode extends ISYNode {
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-        this.drivers.ERR = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async on() {
-        this.sendCommand("DON");
+        return this.sendCommand("DON");
     }
     async off() {
-        this.sendCommand("DOF");
+        return this.sendCommand("DOF");
     }
     async query() {
-        this.sendCommand("QUERY");
+        return this.sendCommand("QUERY");
     }
     get status() {
         return this.drivers.ST?.value;
@@ -31,3 +31,4 @@ export class LampNode extends ISYNode {
         return this.drivers.ERR?.value;
     }
 }
+//# sourceMappingURL=LampNode.js.map

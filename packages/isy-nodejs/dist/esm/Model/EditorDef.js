@@ -7,4 +7,14 @@ export function buildEditorDefMap(editorDefs, family) {
     EditorDefMap.set(family, map);
     return map;
 }
+export var EditorDef;
+(function (EditorDef) {
+    function get(family, id) {
+        if (EditorDefMap.has(family)) {
+            return EditorDefMap.get(family)[id];
+        }
+    }
+    EditorDef.get = get;
+    EditorDef.Map = EditorDefMap;
+})(EditorDef || (EditorDef = {}));
 //# sourceMappingURL=EditorDef.js.map

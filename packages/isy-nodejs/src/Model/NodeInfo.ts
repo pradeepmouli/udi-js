@@ -5,7 +5,7 @@ import type { Family } from '../ISY.js';
 
 
 export interface NodeInfo {
-    family: Family;
+    family?: Family;
     type?: string;
     enabled?: boolean;
     deviceClass?: any;

@@ -1,14 +1,14 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
-import type { NodeInfo } from "../../../Definitions/NodeInfo.js";
+import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import type { ISY } from "../../../ISY.js";
-import { ISYDeviceNode } from "../../../ISYNode.js";
+import { ISYDeviceNode } from "../../ISYDeviceNode.js"
 import { Driver } from "../../../Definitions/Global/Drivers.js";
-import type { DriverState } from "../../../Definitions/PropertyStatus.js";
-export await using nodeDefId = "InsteonDimmer";
-await using logger: Logger = isy.logger;
+
+import type { DriverState } from "../../../Model/DriverState.js";
+export const nodeDefId = "InsteonDimmer";
 type Commands = {
-    DON: (value) => Promise<boolean>;
+    DON: (value: number) => Promise<boolean>;
     DOF: () => Promise<boolean>;
     DFOF: () => Promise<boolean>;
     DFON: () => Promise<boolean>;
@@ -19,18 +19,18 @@ type Commands = {
     FDSTOP: () => Promise<boolean>;
     BEEP: () => Promise<boolean>;
     QUERY: () => Promise<boolean>;
-    CLIMD: (value) => Promise<boolean>;
-    CLIFS: (value) => Promise<boolean>;
-    CLISPH: (value) => Promise<boolean>;
-    CLISPC: (value) => Promise<boolean>;
-    CLISPHD: (value) => Promise<boolean>;
-    CLISPCD: (value) => Promise<boolean>;
+    CLIMD: (value: number) => Promise<boolean>;
+    CLIFS: (value: (0 | 1)) => Promise<boolean>;
+    CLISPH: (value: number) => Promise<boolean>;
+    CLISPC: (value: number) => Promise<boolean>;
+    CLISPHD: (value: number) => Promise<boolean>;
+    CLISPCD: (value: number) => Promise<boolean>;
 };
 type Drivers = {};
-export class InsteonDimmerNode extends ISYNode<Family.Scene, keyof Drivers, keyof Commands> {
+export class InsteonDimmerNode extends ISYDeviceNode<Family.Scene, Drivers, Commands> {
     public readonly commands: Commands = {
-        DON: this.on,
-        DOF: this.off,
+        DON: this.turnOn,
+        DOF: this.turnOff,
         DFOF: this.fastOff,
         DFON: this.fastOn,
         BRT: this.brighten,
@@ -52,55 +52,55 @@ export class InsteonDimmerNode extends ISYNode<Family.Scene, keyof Drivers, keyo
     constructor(isy: ISY, nodeInfo: NodeInfo) {
         super(isy, nodeInfo);
     }
-    async on(value) {
-        this.sendCommand("DON", { value: value });
+    async turnOn(value: number) {
+        return this.sendCommand("DON", { value: value });
     }
-    async off() {
-        this.sendCommand("DOF");
+    async turnOff() {
+        return this.sendCommand("DOF");
     }
     async fastOff() {
-        this.sendCommand("DFOF");
+        return this.sendCommand("DFOF");
     }
     async fastOn() {
-        this.sendCommand("DFON");
+        return this.sendCommand("DFON");
     }
     async brighten() {
-        this.sendCommand("BRT");
+        return this.sendCommand("BRT");
     }
     async dim() {
-        this.sendCommand("DIM");
+        return this.sendCommand("DIM");
     }
     async fadeUp() {
-        this.sendCommand("FDUP");
+        return this.sendCommand("FDUP");
     }
     async fadeDown() {
-        this.sendCommand("FDDOWN");
+        return this.sendCommand("FDDOWN");
     }
     async fadeStop() {
-        this.sendCommand("FDSTOP");
+        return this.sendCommand("FDSTOP");
     }
     async beep() {
-        this.sendCommand("BEEP");
+        return this.sendCommand("BEEP");
     }
     async query() {
-        this.sendCommand("QUERY");
+        return this.sendCommand("QUERY");
     }
-    async mode(value) {
-        this.sendCommand("CLIMD", { value: value });
+    async mode(value: number) {
+        return this.sendCommand("CLIMD", { value: value });
     }
-    async fanMode(value) {
-        this.sendCommand("CLIFS", { value: value });
+    async fanMode(value: (0 | 1)) {
+        return this.sendCommand("CLIFS", { value: value });
     }
-    async heatSetpoint(value) {
-        this.sendCommand("CLISPH", { value: value });
+    async heatSetpoint(value: number) {
+        return this.sendCommand("CLISPH", { value: value });
     }
-    async coolSetpoint(value) {
-        this.sendCommand("CLISPC", { value: value });
+    async coolSetpoint(value: number) {
+        return this.sendCommand("CLISPC", { value: value });
     }
-    async heatSetpointShift(value) {
-        this.sendCommand("CLISPHD", { value: value });
+    async heatSetpointShift(value: number) {
+        return this.sendCommand("CLISPHD", { value: value });
     }
-    async coolSetpointShift(value) {
-        this.sendCommand("CLISPCD", { value: value });
+    async coolSetpointShift(value: number) {
+        return this.sendCommand("CLISPCD", { value: value });
     }
 }

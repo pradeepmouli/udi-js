@@ -18,10 +18,9 @@ import { OnOffLightDevice } from "@project-chip/matter.js/devices/OnOffLightDevi
 import { DimmableLightDevice } from "@project-chip/matter.js/devices/DimmableLightDevice";
 import { Converters } from '../../Converters.js';
 import type { InsteonRelaySwitchDevice } from '../../Devices/Insteon/InsteonRelaySwitchDevice.js';
-import { LevelControl } from '@project-chip/matter.js/elements';
 
 
-//@ts-ignore
+
 const map: FamilyToClusterMap<Family.Insteon> = {
   Relay: {
     deviceType: OnOffLightDevice,
@@ -29,14 +28,14 @@ const map: FamilyToClusterMap<Family.Insteon> = {
 
       OnOff: {
         attributes: {
-          onOff: { driver: "ST", converter: "Converters.Standard.LevelFrom0To255?.Boolean?.to"},
+          onOff: { driver: "ST"},
         },
-        commands: { on: 'DON', off: DriverType.Off },
+        commands: { on: 'DON'},
       },
 
 
 
-    } as EndpointMapping<OnOffLightDevice,Insteon.Relay>,
+    }
   } ,
   RelaySwitch: {
     deviceType: OnOffLightDevice,
@@ -45,7 +44,7 @@ const map: FamilyToClusterMap<Family.Insteon> = {
         attributes: {
           onOff: "ST",
         },
-        commands: { on: DriverType.On, off: DriverType.Off },
+        commands: { on: "DON"},
       },
     },
   } ,

@@ -2,13 +2,11 @@ import { Insteon } from './Devices/Insteon/index.js';
 import { Commands, LinkType } from './ISYConstants.js';
 import { ISYNode } from './ISYNode.js';
 export class ISYScene extends ISYNode {
-    type;
     connectionType;
     batteryOperated;
     deviceType;
     deviceFriendlyName;
     members;
-    isDimmable;
     typeCode;
     constructor(isy, scene) {
         super(isy, scene);
@@ -61,7 +59,7 @@ export class ISYScene extends ISYNode {
     get isOn() {
         for (const device of this.members) {
             if (device instanceof Insteon.Relay) {
-                if (device.state) {
+                if (device.drivers.ST?.value === 1) {
                     return true;
                 }
             }
@@ -78,7 +76,7 @@ export class ISYScene extends ISYNode {
             }
             else if (device instanceof Insteon.Relay) {
                 lightDeviceCount++;
-                blevel += device.state ? 100 : 0;
+                blevel += device.drivers.ST ? 100 : 0;
             }
         }
         if (lightDeviceCount > 0) {
@@ -109,7 +107,7 @@ export class ISYScene extends ISYNode {
     getAreAllLightsInSpecifiedState(state) {
         for (const device of this.members) {
             if (device instanceof Insteon.Relay) {
-                if (device.state !== state) {
+                if (device.drivers.ST !== state) {
                     return false;
                 }
             }

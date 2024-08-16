@@ -13,7 +13,7 @@ export class LoadShedNode extends ISYDeviceNode {
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-        this.drivers.ERR = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async on(value) {
         return this.sendCommand("DON", { value: value });
@@ -31,3 +31,4 @@ export class LoadShedNode extends ISYDeviceNode {
         return this.drivers.ERR?.value;
     }
 }
+//# sourceMappingURL=LoadShedNode.js.map

@@ -1,12 +1,18 @@
 import { isBoxedPrimitive } from 'util/types';
 import { UnitOfMeasure } from './UOM.js';
 import EventEmitter from 'events';
-import type { ISYNode, ISYDeviceNode } from '../../ISYNode.js';
+import type { ISYNode } from '../../ISYNode.js';
+
 import type { Identity, MaybePromise, UnionToIntersection } from '@project-chip/matter.js/util';
 import type { DriverState } from '../../Model/DriverState.js';
 import { init } from 'homebridge';
 import type { TlvNumberSchema } from '@project-chip/matter.js/tlv';
 import type { Family } from './Families.js';
+import type { Converter } from '../../Utils.js';
+import exp from 'constants';
+import { server } from 'typescript';
+import type { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
+import { KeyType } from '@project-chip/matter.js/crypto';
 
 export enum DriverType {
   AccelerationXAxis = "ACCX",
@@ -125,6 +131,7 @@ export enum DriverType {
   QueryDevice = "QUERY",
   RadonConcentration = "RADON",
   RainRate = "RAINRT",
+  RampRate = "RR",
   RelativeModulationLevel = "RELMOD",
   ResetValues = "RESET",
   RespiratoryRate = "RESPR",
@@ -153,7 +160,7 @@ export enum DriverType {
   Ultraviolet = "UV",
   ValidUserAccessCodeEntered = "UAC",
   Velocity = "SPEED",
-  VolatileOrganicCompoundVOCLevel = "VOCLVL",
+  VOCLevel = "VOCLVL",
   WaterFlow = "WATERF",
   WaterPressure = "WATERP",
   WaterTemperature = "WATERT",
@@ -168,6 +175,8 @@ export enum DriverType {
 
 
 type a = keyof typeof DriverType;
+
+
 
  type EnumFromLabel<L extends keyof N,N> = N[L];
 
@@ -189,15 +198,13 @@ type T = DriverTypeFromName<keyof typeof DriverType>;
 type s = EnumLiteral<DriverType.AccelerationXAxis | DriverType.AccelerationYAxis>;
 
 export type DriverList<D> = (D extends DriverType
-  ? { [K in D]?: Driver<K> } & { add(driver: Driver<D>): void }
+  ? { [K in D]?: Driver<K,any,any> } & { add(driver: Driver<D,any,any>): void }
   : D extends EnumLiteral<infer R extends DriverType>
-  ? { [K in R]?: Driver<R> } & { add(driver: Driver<R>): void }
+  ? { [K in R]?: Driver<R,any,any> } & { add(driver: Driver<R,any,any>): void }
   : {}) //& { [N in keyof typeof DriverType]?: Driver<DriverTypeFromName<N>> };
 
 type KeyOrValue<K,D> = K extends D ? D : K extends keyof D ? D[K] : never;
 
-
-var d : UnionToIntersection<DriverList<"ACCX"|"ACCY">>;
 
 
 const LabelMap = new Map<DriverType,keyof typeof DriverType>(Object.entries(DriverType).map(([a,b])=>[b,a]) as any);
@@ -249,7 +256,7 @@ export class Drivers<D extends DriverType> {
       return new Proxy(this, this.DriverHandler);
   }
 
-   add<K extends D>(driver: Driver<K>) {
+   add<K extends D>(driver: Driver<K,any, any>) {
       (this as unknown)[driver.id] = driver;
       (this as unknown)[LabelMap.get(driver.id)]= driver;
 
@@ -261,89 +268,192 @@ export class Drivers<D extends DriverType> {
 
 
 
-export interface Driver<D extends DriverType | EnumLiteral<DriverType>>  {
+export interface Driver<D extends DriverType | EnumLiteral<DriverType> | `${string}.${EnumLiteral<DriverType>}` ,U extends UnitOfMeasure, T = number, SU extends UnitOfMeasure = U, ST = number> {
 
     id: D;
-    stateless?: true;
-    uom: UnitOfMeasure;
+    uom: U;
+    serverUom?: SU;
     state: {
       initial: boolean;
-      value: any;
+      value: T;
       formattedValue?: any;
-      pendingValue: any;
+      pendingValue: T;
     }
-    value: any
+    readonly value:  T;
+    apply(state: DriverState, notify?: boolean): boolean;
+    patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number): boolean;
     query: () => Promise<DriverState>
     name: string;
+    label: string;
     //override on('change', listener: (value: any) => void): this;
 }
+
+export interface StatelessDriver<D extends DriverType | EnumLiteral<DriverType> | `${string}.${EnumLiteral<DriverType>}` ,U extends UnitOfMeasure, T = number>
+{
+    id: D;
+    stateless: true;
+    uom: U;
+    state: {
+      initial: boolean;
+      value: T;
+      formattedValue?: any;
+      pendingValue: T;
+    }
+    readonly value:  Promise<T>
+    query: () => Promise<DriverState>
+    name: string;
+    label: string;
+    //override on('change', listener: (value: any) => void): this;
+}
+
+export function isStateless(x : any) : x is StatelessDriver<any,any,any>
+{
+    return x.stateless;
+}
+
+export function isTrue(x: true | false) : x is true
+{
+    return x;
+}
+
+
 
 export type DriverTypeLiteral = EnumLiteral<DriverType>;
 
 
-
-export type DriverTypeWithLiteral = DriverType | EnumLiteral<DriverType>;
+type DriverTypeWithLiteral = DriverType | EnumLiteral<DriverType>;
 
 export type EnumWithLiteral<D extends string | bigint | number | boolean> = D | EnumLiteral<D>
 export namespace Driver {
 
+    export type Signature = { uom: UnitOfMeasure, value: any, name: string, label: string };
+
+    export type Signatures<D> = UnionToIntersection<D extends LiteralWithExtensions ? { [K in D]: Signature } : D extends {[K in keyof D]: Signature} ? D : never>
+
+    ///D extends (infer R extends LiteralWithExtensions | infer K extends {[L in keyof K]: Signature}) ? {[J in R & string]: Signature} & K : D extends LiteralWithExtensions ? { [K in D]: Signature } : D extends {[K in keyof D]: Signature} ? D : never;
+
+
+    type test = Signatures<
+      DriverType.Status | { ERR: Signature }
+    >;
+
+    export type For<D extends LiteralWithExtensions,T, S extends boolean = false> = T extends { uom: infer U extends UnitOfMeasure, value: infer V, name: infer N, label: infer L } ? (StatelessOrStateful<D,U,V,S> & {name: N, label: L}): never;
+
+    export type ForAll<T, S extends boolean = false> = {
+      [K in keyof T]: T[K] extends Signature
+        ? K extends LiteralWithExtensions
+          ? For<K, T[K], S>
+          : undefined
+        : undefined;
+    };
 
     export type Type = DriverType;
     export type Literal = EnumLiteral<DriverType>;
+    export type LiteralWithExtensions = Literal | `${string}.${Literal}`;
     export type LiteralWithType = EnumWithLiteral<DriverType>;
+    type StatelessOrStateful<
+      D extends LiteralWithExtensions,
+      U extends UnitOfMeasure,
+      T = number,
+      S extends boolean = false
+    > = S extends true ? StatelessDriver<D, U, T> : Driver<D, U, T>;
 
-    export function create<D extends DriverType>(driver: EnumWithLiteral<D>, node: ISYDeviceNode<Family,EnumWithLiteral<D>,string>, initState?: DriverState, driverDef? : {uom: UnitOfMeasure, label: string, name: string}, stateless = false): Driver<DriverType> {
 
-        const query = async () => {  return (await node.readProperty(driver as D)); };
-        if(stateless){
-          return {
-            id : driver as D,
-            stateless: true,
-            uom : initState.uom,
-            state : {
-                initial: true,
-                value: node.convertFrom(initState.value,initState.uom,driver as D),
-                formattedValue: initState.formatted,
-                pendingValue: null
-            },
-            query,
-            value : async () => (await query()).value,
-            name: initState.name ?? driver
+    export function create<D extends Literal, U extends UnitOfMeasure, T = number, S extends boolean = false, L extends string = string, N extends string = string>(
+      driver: EnumWithLiteral<D>,
+
+      node?: ISYNode<Family, any, any, any>,
+      initState?: DriverState,
+      driverSignature?: { uom: U; label: L; name: N },
+      stateless?: S,
+      converter?: Converter<any, T>
+    ): StatelessOrStateful<D, U, T, S> & {label: L, name: N}{
+      const query = async () => {
+        return await node.readProperty(driver as D);
+      };
+
+      if (isTrue(stateless)) {
+        return {
+          id: driver as D,
+          stateless: true,
+          uom: initState.uom as U,
+          state: {
+            initial: true,
+            value: node.convertFrom(initState?.value, initState?.uom, driver as D) as T,
+            formattedValue: initState.formatted,
+            pendingValue: null,
+          },
+          query,
+          get value() {
+            return query().then((p) => p.value) as Promise<T>;
+          },
+          name: initState.name ?? driverSignature.name ?? driverSignature.label ?? driver,
+          label: driverSignature.label ?? driver,
+        } as unknown as StatelessOrStateful<D, U, T, typeof stateless> & { label: L; name: N };
+      }
+      var c = {
+        id: driver as D,
+        uom: (initState?.uom ?? driverSignature?.uom) as U,
+        serverUom: initState?.uom != driverSignature?.uom ? initState?.uom : undefined,
+        state: {
+          initial: true,
+          value: initState
+            ? converter
+              ? converter.from(initState.value)
+              : (node.convertFrom(initState?.value, initState?.uom, driver as D) as T)
+            : null,
+          formattedValue: initState ? initState.formatted : null,
+          pendingValue: null,
+        },
+        async query() {
+          let s = await query();
+          this.state.value = converter ? converter.from(s.value) : node.convertFrom(s.value, s.uom, driver as D);
+          this.state.formattedValue = s.formatted;
+          return s;
+        },
+        apply(state: DriverState, notify = false) {
+          let previousValue = this.state.value;
+          this.state.value = converter
+            ? converter.from(state.value)
+            : node.convertFrom(state.value, state.uom, driver as D);
+          this.state.formattedValue = state.formatted;
+          if (previousValue == this.state.value) {
+            return false;
           }
-        }
-        var c  = {
-            id : driver as D,
-            uom : initState?.uom ?? driverDef?.uom,
-            state: {
-                initial: true,
-                value: initState ? node.convertFrom(initState?.value,initState?.uom,driver as D) : null,
-                formattedValue: initState ? initState.formatted : null,
-                pendingValue: null
-            },
-            async query() {
-                let s = await node.readProperty(driver as DriverType);
-                this.state.value = node.convertFrom(s.value,s.uom,driver as D);
-                this.state.formattedValue = s.formatted;
-                return this;
-            },
-            update(state: DriverState
-            ) {
-                this.state.value = node.convertFrom(state.value,state.uom,driver as D);
-                this.state.formattedValue = state.formatted;
-            },
-            value: c.state.value,
-            name: initState?.name ?? driverDef?.name ?? driver,
+          if (notify) node.emit("PropertyChanged", driver as D, state.value, previousValue, state.formatted);
+          return true;
+        },
+        patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number, notify = false) {
+          let previousValue = this.state.value;
 
-        }
-         node.on('PropertyChanged', (propertyName, newValue, oldValue, formattedValue) => {
-            if (propertyName === driver) {
-                c.state.initial = false;
-                c.state.value = node.convertFrom(newValue,c.uom,driver as D);
-                c.state.formattedValue = formattedValue;
-            }
-        })
+          this.state.formattedValue = formattedValue;
+          if (uom != this.uom) {
+            this.serverUom = uom;
+            this.state.value = converter ? converter.from(value) : node.convertFrom(value, uom, driver as D);
+          }
+          if (previousValue == this.state.value) {
+            return false;
+          }
+          if (notify) node.emit("PropertyChanged", driver as D, value, previousValue, formattedValue);
+          return true;
+        },
+        get value() {
+          return c.state.value;
+        },
+        name: initState?.name ?? driverSignature?.name ?? driver,
+        label: driverSignature?.label ?? driver,
+      };
+      //  node.on('PropertyChanged', (propertyName, newValue, oldValue, formattedValue) => {
+      //     if (propertyName === driver) {
+      //         c.state.initial = false;
+      //         c.state.value = node.convertFrom(newValue,c.uom,driver as D);
+      //         c.state.formattedValue = formattedValue;
+      //     }
 
+      //});
+      return c as unknown as StatelessOrStateful<D, U, T, typeof stateless> & { label: L; name: N };
     }
+
 
 
 }

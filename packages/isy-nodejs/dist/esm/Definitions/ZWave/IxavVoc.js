@@ -6,3 +6,4 @@ export var IxavVoc;
     IxavVoc[IxavVoc["ModeratelyPolluted"] = 3] = "ModeratelyPolluted";
     IxavVoc[IxavVoc["HighlyPolluted"] = 4] = "HighlyPolluted";
 })(IxavVoc || (IxavVoc = {}));
+//# sourceMappingURL=IxavVoc.js.map

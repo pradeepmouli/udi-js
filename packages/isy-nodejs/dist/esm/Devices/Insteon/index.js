@@ -1,5 +1,5 @@
 import { InsteonLeakSensorDevice } from "./InsteonLeakSensorDevice.js";
-import { InsteonBaseDevice } from "./InsteonBaseDevice.js";
+//import Base from "./InsteonBaseDevice.js"
 import { InsteonLockDevice } from "./InsteonLockDevice.js";
 import { InsteonFanDevice } from "./InsteonFanDevice.js";
 import { InsteonRelayDevice } from "./InsteonRelayDevice.js";
@@ -12,6 +12,7 @@ import { InsteonDimmerOutletDevice } from "./InsteonDimmerOutletDevice.js";
 import { InsteonRelaySwitchDevice } from "./InsteonRelaySwitchDevice.js";
 import { InsteonThermostatDevice } from "./InsteonThermostatDevice.js";
 import { InsteonDoorWindowSensorDevice } from './InsteonDoorWindowSensorDevice.js';
+export { InsteonBaseDevice as Base } from "./InsteonBaseDevice.js";
 export const Insteon = {
     LeakSensor: InsteonLeakSensorDevice,
     MotionSensor: InsteonMotionSensorDevice,
@@ -20,7 +21,6 @@ export const Insteon = {
     DoorWindowSensor: InsteonDoorWindowSensorDevice,
     DimmerSwitch: InsteonDimmerSwitchDevice,
     DimmerOutlet: InsteonDimmerOutletDevice,
-    Base: InsteonBaseDevice,
     Relay: InsteonRelayDevice,
     Dimmer: InsteonDimmableDevice,
     KeypadDimmer: InsteonKeypadDimmerDevice,

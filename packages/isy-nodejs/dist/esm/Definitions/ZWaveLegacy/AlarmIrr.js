@@ -7,3 +7,4 @@ export var AlarmIrr;
     AlarmIrr[AlarmIrr["ValveTableRunFinished"] = 4] = "ValveTableRunFinished";
     AlarmIrr[AlarmIrr["DeviceNotConfigured"] = 5] = "DeviceNotConfigured";
 })(AlarmIrr || (AlarmIrr = {}));
+//# sourceMappingURL=AlarmIrr.js.map

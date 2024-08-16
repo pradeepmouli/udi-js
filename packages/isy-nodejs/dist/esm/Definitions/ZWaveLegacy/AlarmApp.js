@@ -23,3 +23,4 @@ export var AlarmApp;
     AlarmApp[AlarmApp["FanFailure"] = 20] = "FanFailure";
     AlarmApp[AlarmApp["CompressorFailure"] = 21] = "CompressorFailure";
 })(AlarmApp || (AlarmApp = {}));
+//# sourceMappingURL=AlarmApp.js.map

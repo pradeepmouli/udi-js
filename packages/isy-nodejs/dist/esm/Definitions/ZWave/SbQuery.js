@@ -5,3 +5,4 @@ export var SbQuery;
     SbQuery[SbQuery["EnergySaving"] = 2] = "EnergySaving";
     SbQuery[SbQuery["Unused"] = 3] = "Unused";
 })(SbQuery || (SbQuery = {}));
+//# sourceMappingURL=SbQuery.js.map

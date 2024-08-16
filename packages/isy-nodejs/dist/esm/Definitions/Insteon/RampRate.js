@@ -65,3 +65,4 @@ export var RampRate;
     RampRate[RampRate[1] = 31] = 1;
     RampRate[RampRate["Seconds"] = 31] = "Seconds";
 })(RampRate || (RampRate = {}));
+//# sourceMappingURL=RampRate.js.map

@@ -1,21 +1,23 @@
-import { ISY } from '../../ISY.js';
-import { ISYUpdateableBinaryStateDevice } from '../ISYDevice.js';
+import { ISY, Family } from '../../ISY.js';
+
 import { NodeInfo } from '../../Model/NodeInfo.js';
 import { MapsTo } from '../MapsTo.js';
 import { EndpointFor } from '../EndpointFor.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 
 
+
 import type { OnOffBehavior} from '@project-chip/matter.js/behaviors/on-off';
 import 'winston';
 import { Properties } from '../../ISYConstants.js';
 import { Driver, DriverType } from '../../Definitions/Global/Drivers.js';
+import type { Command } from '../../Definitions/Global/Commands.js';
 
 
+export class InsteonRelayDevice extends InsteonBaseDevice<Driver.Signatures<'ST'>,Command.Signatures<'DON'>>  {
 
-export class InsteonRelayDevice extends ISYUpdateableBinaryStateDevice(InsteonBaseDevice) implements MapsTo<typeof OnOffBehavior>{
 
-
+	static override family: Family.Insteon = Family.Insteon;
 	constructor (isy: ISY, node: NodeInfo) {
 
 
@@ -27,7 +29,9 @@ export class InsteonRelayDevice extends ISYUpdateableBinaryStateDevice(InsteonBa
 
 
 		endpoint.events.onOff.onOff$Changed.on((value) => {
-			this.state = value;
+			this.commands.DON(value);
+			this.drivers.ST;
+
 
 		});
 		//endpoint.defaults.onOff.onOff = await this.isOn;
@@ -45,10 +49,7 @@ export class InsteonRelayDevice extends ISYUpdateableBinaryStateDevice(InsteonBa
 
 
 
-	public override handlePropertyChange(propertyName: string, value: any, formattedValue: string): boolean {
-		return super.handlePropertyChange(propertyName, value, formattedValue);
 
-	}
 /*
 	public async updateIsOn(isOn: boolean): Promise<any> {
 		if (t !== isOn) {

@@ -1,0 +1,39 @@
+import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { ISYDeviceNode } from "../../../ISYNode.js";
+import { Driver } from "../../../Definitions/Global/Drivers.js";
+export const nodeDefId = "RelayLoadControl";
+export class LampAndSwitchNode extends ISYDeviceNode {
+    commands = {
+        DON: this.on,
+        DOF: this.off,
+        QUERY: this.query,
+        ADRPST: this.adr
+    };
+    drivers = {};
+    static nodeDefId = "RelayLoadControl";
+    constructor(isy, nodeInfo) {
+        super(isy, nodeInfo);
+        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Unknown, label: "Status", name: "status" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Unknown, label: "Responding", name: "responding" });
+    }
+    async on() {
+        return this.sendCommand("DON");
+    }
+    async off() {
+        return this.sendCommand("DOF");
+    }
+    async query() {
+        return this.sendCommand("QUERY");
+    }
+    async adr(value) {
+        return this.sendCommand("ADRPST", { value: value });
+    }
+    get status() { }
+}
+return this.drivers.ST?.value;
+get;
+responding();
+{
+    return this.drivers.ERR?.value;
+}
+//# sourceMappingURL=LampAndSwitchNode.js.map

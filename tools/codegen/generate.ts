@@ -4,16 +4,14 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { Family } from "isy-nodejs/Definitions/Global/Families";
 import { InsteonDeviceFactory } from 'isy-nodejs/Devices/Insteon/InsteonDeviceFactory';
 import { ISY } from 'isy-nodejs/ISY';
-import { buildNodeClassDefinitions } from 'isy-nodejs/Model/ClassDefinition';
 import { buildEditorDefMap, EditorDefMap, type EditorDef } from 'isy-nodejs/Model/EditorDef';
 import { createMap, NLSIndexMap, NLSRecordMap } from 'isy-nodejs/Model/NLS';
 import { toArray } from 'isy-nodejs/Utils';
 import { setUncaughtExceptionCaptureCallback } from 'process';
-import { buildNodeClasses } from 'isy-nodejs/CodeGeneration/NodeClassFactory';
 import ts from 'typescript';
 import winston from 'winston';
 import DeviceMapJSON from './DeviceMap.json' with { type: 'json' };
-import { generateEnumDefs, generateNodeClassDefs } from './generate-nodeclasses.js';
+import { generateEnumDefs, generateEnums, generateEnumsForFamily, generateNodeClassDefs, generateNodeClasses } from './generate-nodeclasses.js';
 
 const format = winston.format;
 const myFormat = format.combine(
@@ -97,7 +95,9 @@ async function parseProfileFiles(data: { profiles: { profile: any; }; }) {
 
     }
      generateEnumDefs();
+     generateEnums();
      generateNodeClassDefs();
+     generateNodeClasses();
 
 
     // for (const family of nodeDefMap.keys()) {

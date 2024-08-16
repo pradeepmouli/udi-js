@@ -1,18 +1,11 @@
 import { NodeDef, type AcceptCommandDef, DriverDef, SendCommandDef, type ParamDef } from "./NodeDef.js";
 import { Family } from "../Definitions/Global/Families.js";
 import type { Driver } from "../Definitions/Global/Drivers.js";
-import { NLSCommandParameterRecord, NLSCommandRecord, NLSDriverRecord, NLSGenericRecord, type NLSRecordMap as NLSM, type NLSIndexMap as NLSI, type NLSRecordTypeMap } from "./NLS.js";
-import { type EditorDefMap as EDM, type EditorDef, type RangeDef } from "./EditorDef.js";
+import { NLSCommandParameterRecord, NLSCommandRecord, NLSDriverRecord, NLSGenericRecord, type NLSRecordTypeMap } from "./NLS.js";
+import { EditorDef, type RangeDef } from "./EditorDef.js";
 import { UnitOfMeasure } from "../Definitions/Global/UOM.js";
-export declare function buildNodeClassDefinitions<T extends Family>(nodeDefs: NodeDef[], family: T, NLSRecordMap: typeof NLSM, EditorDefMap: typeof EDM, NLSIndexMap: typeof NLSI): {
-    [x: string]: NodeClassDefinition<T>;
-};
 export declare class NodeClassDefinition<T extends Family> {
-    applyIndexDefs(NLSIndexMap: Map<Family, {
-        [x: string]: {
-            [y: number]: string;
-        };
-    }>): void;
+    applyIndexDefs(): void;
     applyIndexMap(indexDef: {
         [x: string]: {
             [y: number]: string;
@@ -153,6 +146,7 @@ export declare class NodeClassDefinition<T extends Family> {
             QUERY?: DriverDefinition;
             RADON?: DriverDefinition;
             RAINRT?: DriverDefinition;
+            RR?: DriverDefinition;
             RELMOD?: DriverDefinition;
             RESET?: DriverDefinition;
             RESPR?: DriverDefinition;
@@ -202,8 +196,8 @@ export declare class NodeClassDefinition<T extends Family> {
         name: string;
     };
     constructor(nodeDef: NodeDef, family: T);
-    applyEditorDefs(EditorDefMap: typeof EDM): void;
-    applyNLS(NLSRecordMap: typeof NLSM): void;
+    applyEditorDefs(): void;
+    applyNLS(): void;
     applyNLSMap(nlsm: {
         [y: string]: NLSRecordTypeMap;
     }): void;
@@ -211,6 +205,7 @@ export declare class NodeClassDefinition<T extends Family> {
 }
 export type DataTypeDefinition = {
     uom: number;
+    serverUom?: number;
     enum: false;
     min: number;
     max: number;
@@ -651,5 +646,17 @@ export declare class EventDefinition extends NodeMemberDefinition<string> {
         };
         name: string;
     };
+}
+export declare namespace NodeClassDefinition {
+    const Map: Map<Family, {
+        [x: string]: NodeClassDefinition<Family>;
+    }>;
+    function generate<T extends Family>(family: T, nodeDefs: NodeDef[]): {
+        [x: string]: NodeClassDefinition<T>;
+    };
+    function load(path: string): Map<Family, {
+        [x: string]: NodeClassDefinition<Family>;
+    }>;
+    function save(path: string): void;
 }
 //# sourceMappingURL=ClassDefinition.d.ts.map

@@ -4,3 +4,4 @@ export var Ftu;
     Ftu[Ftu["True"] = 100] = "True";
     Ftu[Ftu["Unknown"] = 101] = "Unknown";
 })(Ftu || (Ftu = {}));
+//# sourceMappingURL=Ftu.js.map

@@ -11,7 +11,8 @@ export var Clnrt;
     Clnrt[Clnrt["Retries"] = 4] = "Retries";
     Clnrt[Clnrt[5] = 5] = 5;
     Clnrt[Clnrt["Retries"] = 5] = "Retries";
-    Clnrt[Clnrt["6Retries"] = 6] = "6Retries";
+    Clnrt[Clnrt[6] = 6] = 6;
+    Clnrt[Clnrt["Retries"] = 6] = "Retries";
     Clnrt[Clnrt[7] = 7] = 7;
     Clnrt[Clnrt["Retries"] = 7] = "Retries";
     Clnrt[Clnrt[8] = 8] = 8;
@@ -19,3 +20,4 @@ export var Clnrt;
     Clnrt[Clnrt[9] = 9] = 9;
     Clnrt[Clnrt["Retries"] = 9] = "Retries";
 })(Clnrt || (Clnrt = {}));
+//# sourceMappingURL=Clnrt.js.map

@@ -10,7 +10,6 @@ export declare const Devices: {
         DoorWindowSensor: typeof import("./Insteon/InsteonDoorWindowSensorDevice.js").InsteonDoorWindowSensorDevice;
         DimmerSwitch: typeof import("./Insteon/InsteonDimmerSwitchDevice.js").InsteonDimmerSwitchDevice;
         DimmerOutlet: typeof import("./Insteon/InsteonDimmerOutletDevice.js").InsteonDimmerOutletDevice;
-        Base: typeof import("./Insteon/InsteonBaseDevice.js").InsteonBaseDevice;
         Relay: typeof import("./Insteon/InsteonRelayDevice.js").InsteonRelayDevice;
         Dimmer: typeof import("./Insteon/InsteonDimmableDevice.js").InsteonDimmableDevice;
         KeypadDimmer: typeof import("./Insteon/InsteonKeypadDimmerDevice.js").InsteonKeypadDimmerDevice;

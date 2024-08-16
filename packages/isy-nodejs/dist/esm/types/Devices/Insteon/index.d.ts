@@ -1,5 +1,4 @@
 import { InsteonLeakSensorDevice } from "./InsteonLeakSensorDevice.js";
-import { InsteonBaseDevice } from "./InsteonBaseDevice.js";
 import { InsteonLockDevice } from "./InsteonLockDevice.js";
 import { InsteonFanDevice } from "./InsteonFanDevice.js";
 import { InsteonRelayDevice } from "./InsteonRelayDevice.js";
@@ -12,6 +11,7 @@ import { InsteonDimmerOutletDevice } from "./InsteonDimmerOutletDevice.js";
 import { InsteonRelaySwitchDevice } from "./InsteonRelaySwitchDevice.js";
 import { InsteonThermostatDevice } from "./InsteonThermostatDevice.js";
 import { InsteonDoorWindowSensorDevice } from './InsteonDoorWindowSensorDevice.js';
+export { InsteonBaseDevice as Base } from "./InsteonBaseDevice.js";
 export declare const Insteon: {
     LeakSensor: typeof InsteonLeakSensorDevice;
     MotionSensor: typeof InsteonMotionSensorDevice;
@@ -20,7 +20,6 @@ export declare const Insteon: {
     DoorWindowSensor: typeof InsteonDoorWindowSensorDevice;
     DimmerSwitch: typeof InsteonDimmerSwitchDevice;
     DimmerOutlet: typeof InsteonDimmerOutletDevice;
-    Base: typeof InsteonBaseDevice;
     Relay: typeof InsteonRelayDevice;
     Dimmer: typeof InsteonDimmableDevice;
     KeypadDimmer: typeof InsteonKeypadDimmerDevice;
@@ -29,7 +28,6 @@ export declare const Insteon: {
     Fan: typeof InsteonFanDevice;
 };
 export declare namespace Insteon {
-    type Base = InsteonBaseDevice;
     type LeakSensor = InsteonLeakSensorDevice;
     type MotionSensor = InsteonMotionSensorDevice;
     type SmokeSensor = InsteonSmokeSensorDevice;

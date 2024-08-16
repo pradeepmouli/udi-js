@@ -888,7 +888,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "status"
@@ -904,7 +905,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "onLevel"
@@ -1052,7 +1054,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "updateOnLevel",
@@ -1067,7 +1070,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 100,
-                "indexId": "IX_I_OL_PCT"
+                "indexId": "IX_I_OL_PCT",
+                "returnType": "OnLevelPercent"
               }
             },
             "name": "value"
@@ -1195,7 +1199,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "status"
@@ -1211,7 +1216,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "onLevel"
@@ -1359,7 +1365,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "updateOnLevel",
@@ -1374,7 +1381,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 100,
-                "indexId": "IX_I_OL_PCT"
+                "indexId": "IX_I_OL_PCT",
+                "returnType": "OnLevelPercent"
               }
             },
             "name": "value"
@@ -1502,7 +1510,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "status"
@@ -1518,7 +1527,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "onLevel"
@@ -1675,7 +1685,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "updateOnLevel",
@@ -1690,7 +1701,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 100,
-                "indexId": "IX_I_OL_PCT"
+                "indexId": "IX_I_OL_PCT",
+                "returnType": "OnLevelPercent"
               }
             },
             "name": "value"
@@ -1825,7 +1837,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "status"
@@ -1841,7 +1854,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "onLevel"
@@ -1998,7 +2012,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "updateOnLevel",
@@ -2013,7 +2028,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 100,
-                "indexId": "IX_I_OL_PCT"
+                "indexId": "IX_I_OL_PCT",
+                "returnType": "OnLevelPercent"
               }
             },
             "name": "value"
@@ -2147,7 +2163,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "status"
@@ -2163,7 +2180,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "onLevel"
@@ -2320,7 +2338,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "updateOnLevel",
@@ -2335,7 +2354,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 100,
-                "indexId": "IX_I_OL_PCT"
+                "indexId": "IX_I_OL_PCT",
+                "returnType": "OnLevelPercent"
               }
             },
             "name": "value"
@@ -2386,7 +2406,8 @@
             "enum": true,
             "min": 0,
             "max": 9,
-            "indexId": "IX_I3_RGB_LED"
+            "indexId": "IX_I3_RGB_LED",
+            "returnType": "I3RgbLed"
           }
         },
         "name": "led",
@@ -2401,7 +2422,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 9,
-                "indexId": "IX_I3_RGB_LED"
+                "indexId": "IX_I3_RGB_LED",
+                "returnType": "I3RgbLed"
               }
             },
             "name": "value"
@@ -2501,7 +2523,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "status"
@@ -2517,7 +2540,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "onLevel"
@@ -2674,7 +2698,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "updateOnLevel",
@@ -2689,7 +2714,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 100,
-                "indexId": "IX_I_OL_PCT"
+                "indexId": "IX_I_OL_PCT",
+                "returnType": "OnLevelPercent"
               }
             },
             "name": "value"
@@ -2740,7 +2766,8 @@
             "enum": true,
             "min": 0,
             "max": 9,
-            "indexId": "IX_I3_RGB_LED"
+            "indexId": "IX_I3_RGB_LED",
+            "returnType": "I3RgbLed"
           }
         },
         "name": "led",
@@ -2755,7 +2782,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 9,
-                "indexId": "IX_I3_RGB_LED"
+                "indexId": "IX_I3_RGB_LED",
+                "returnType": "I3RgbLed"
               }
             },
             "name": "value"
@@ -3058,7 +3086,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "status"
@@ -3074,7 +3103,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "onLevel"
@@ -3231,7 +3261,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "updateOnLevel",
@@ -3246,7 +3277,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 100,
-                "indexId": "IX_I_OL_PCT"
+                "indexId": "IX_I_OL_PCT",
+                "returnType": "OnLevelPercent"
               }
             },
             "name": "value"
@@ -3314,7 +3346,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "status"
@@ -3330,7 +3363,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "onLevel"
@@ -3487,7 +3521,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "updateOnLevel",
@@ -3502,7 +3537,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 100,
-                "indexId": "IX_I_OL_PCT"
+                "indexId": "IX_I_OL_PCT",
+                "returnType": "OnLevelPercent"
               }
             },
             "name": "value"
@@ -3553,7 +3589,8 @@
             "enum": true,
             "min": 0,
             "max": 127,
-            "indexId": "IX_I_BL"
+            "indexId": "IX_I_BL",
+            "returnType": "Backlight"
           }
         },
         "name": "backlight",
@@ -3568,7 +3605,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 127,
-                "indexId": "IX_I_BL"
+                "indexId": "IX_I_BL",
+                "returnType": "Backlight"
               }
             },
             "name": "value"
@@ -3638,7 +3676,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "status"
@@ -3654,7 +3693,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "onLevel"
@@ -3811,7 +3851,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT"
+            "indexId": "IX_I_OL_PCT",
+            "returnType": "OnLevelPercent"
           }
         },
         "name": "updateOnLevel",
@@ -3826,7 +3867,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 100,
-                "indexId": "IX_I_OL_PCT"
+                "indexId": "IX_I_OL_PCT",
+                "returnType": "OnLevelPercent"
               }
             },
             "name": "value"
@@ -3877,7 +3919,8 @@
             "enum": true,
             "min": 0,
             "max": 127,
-            "indexId": "IX_I_BL"
+            "indexId": "IX_I_BL",
+            "returnType": "Backlight"
           }
         },
         "name": "backlight",
@@ -3892,7 +3935,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 127,
-                "indexId": "IX_I_BL"
+                "indexId": "IX_I_BL",
+                "returnType": "Backlight"
               }
             },
             "name": "value"
@@ -4785,7 +4829,8 @@
             "enum": true,
             "min": 0,
             "max": 9,
-            "indexId": "IX_I3_RGB_LED"
+            "indexId": "IX_I3_RGB_LED",
+            "returnType": "I3RgbLed"
           }
         },
         "name": "led",
@@ -4800,7 +4845,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 9,
-                "indexId": "IX_I3_RGB_LED"
+                "indexId": "IX_I3_RGB_LED",
+                "returnType": "I3RgbLed"
               }
             },
             "name": "value"
@@ -5013,7 +5059,8 @@
             "enum": true,
             "min": 0,
             "max": 9,
-            "indexId": "IX_I3_RGB_LED"
+            "indexId": "IX_I3_RGB_LED",
+            "returnType": "I3RgbLed"
           }
         },
         "name": "led",
@@ -5028,7 +5075,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 9,
-                "indexId": "IX_I3_RGB_LED"
+                "indexId": "IX_I3_RGB_LED",
+                "returnType": "I3RgbLed"
               }
             },
             "name": "value"
@@ -6021,7 +6069,8 @@
             "enum": true,
             "min": 0,
             "max": 127,
-            "indexId": "IX_I_BL"
+            "indexId": "IX_I_BL",
+            "returnType": "Backlight"
           }
         },
         "name": "backlight",
@@ -6036,7 +6085,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 127,
-                "indexId": "IX_I_BL"
+                "indexId": "IX_I_BL",
+                "returnType": "Backlight"
               }
             },
             "name": "value"
@@ -6219,7 +6269,8 @@
             "enum": true,
             "min": 0,
             "max": 127,
-            "indexId": "IX_I_BL"
+            "indexId": "IX_I_BL",
+            "returnType": "Backlight"
           }
         },
         "name": "backlight",
@@ -6234,7 +6285,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 127,
-                "indexId": "IX_I_BL"
+                "indexId": "IX_I_BL",
+                "returnType": "Backlight"
               }
             },
             "name": "value"
@@ -6296,7 +6348,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT_ON"
+            "indexId": "IX_I_OL_PCT_ON",
+            "returnType": "OnLevelPercentOn"
           }
         },
         "name": "status"
@@ -6376,7 +6429,8 @@
             "enum": true,
             "min": 0,
             "max": 100,
-            "indexId": "IX_I_OL_PCT_ON"
+            "indexId": "IX_I_OL_PCT_ON",
+            "returnType": "OnLevelPercentOn"
           }
         },
         "name": "status"
@@ -6707,7 +6761,8 @@
             "enum": true,
             "min": 0,
             "max": 127,
-            "indexId": "IX_I_BL"
+            "indexId": "IX_I_BL",
+            "returnType": "Backlight"
           }
         },
         "name": "backlight",
@@ -6722,7 +6777,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 127,
-                "indexId": "IX_I_BL"
+                "indexId": "IX_I_BL",
+                "returnType": "Backlight"
               }
             },
             "name": "value"
@@ -6825,7 +6881,8 @@
             "enum": true,
             "min": 0,
             "max": 127,
-            "indexId": "IX_I_BL"
+            "indexId": "IX_I_BL",
+            "returnType": "Backlight"
           }
         },
         "name": "backlight",
@@ -6840,7 +6897,8 @@
                 "enum": true,
                 "min": 0,
                 "max": 127,
-                "indexId": "IX_I_BL"
+                "indexId": "IX_I_BL",
+                "returnType": "Backlight"
               }
             },
             "name": "value"

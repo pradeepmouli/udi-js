@@ -5,3 +5,4 @@ export var Options;
     Options[Options["IgnoreAllOff"] = 2] = "IgnoreAllOff";
     Options[Options["IgnoreNone"] = 255] = "IgnoreNone";
 })(Options || (Options = {}));
+//# sourceMappingURL=Options.js.map

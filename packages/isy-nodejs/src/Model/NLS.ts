@@ -1,6 +1,8 @@
+import { merge } from 'moderndash';
 import type { DriverType } from "../Definitions/Global/Drivers.js";
 import { Family } from "../Definitions/Global/Families.js";
 import "../Utils.js";
+import type { TransactionalInteractionServer } from '@project-chip/matter.js/node/server';
 
 export enum NLSRecordType {
   Generic = "GEN",
@@ -180,12 +182,14 @@ const StdTranslations = {
   "(": "",
   ")": "",
   TVOL: "ToneVolume",
+  VIB: "Vibration",
+  LGT: "Light",
 };
 
 NLSTranslations.set(Family.Generic, StdTranslations);
 
 export function addToIndexMap<T extends Family>(
-family: T, record: {type: NLSRecordType, indexType: string, indexValue: number, value: string}){
+family: T, record: {type: NLSRecordType, indexType: string, indexValue: number, value: string, comment: string}){
     if(!NLSIndexMap.has(family))
     {
         NLSIndexMap.set(family, {});
@@ -395,4 +399,43 @@ export function parseNLSContent<T extends Family>(content: string, family: T): N
   return NLSRecords;
 }
 
-// Example usage
+export namespace NLS
+{
+    export function get<T extends Family>(family: T, nlsId: string) {
+        if(NLSRecordMap.has(family)) {
+            return merge(NLSRecordMap.get(Family.Generic)[nlsId], NLSRecordMap.get(family)[nlsId]);
+        }
+    }
+
+    export const Map = NLSRecordMap;
+}
+
+export namespace Translation
+{
+    export const apply = applyTranslations;
+
+    export const Map = NLSTranslations;
+}
+
+export namespace IndexDef
+{
+    export function get<T extends Family>(family: T, indexType: string) : {[y: number]: string}
+    {
+
+        if(NLSIndexMap.has(family))
+        {
+            const indexMap = NLSIndexMap.get(family);
+            if(indexMap[indexType])
+            {
+                return indexMap[indexType];
+            }
+        }
+        if(family != Family.Generic)
+        {
+           return get(Family.Generic, indexType);
+        }
+    }
+
+    export const Map = NLSIndexMap;
+
+}

@@ -1,0 +1,606 @@
+{
+  "IX_TVOL": {
+    "family": 12,
+    "id": "IX_TVOL",
+    "name": "ToneVolume",
+    "values": {
+      "Off": 0,
+      "Previous": 255
+    }
+  },
+  "IX_TVOL_S": {
+    "family": 12,
+    "id": "IX_TVOL_S",
+    "name": "ToneVolumeS",
+    "values": {
+      "Default": 0,
+      "Previous": 101
+    }
+  },
+  "IX_TVOL_C": {
+    "family": 12,
+    "id": "IX_TVOL_C",
+    "name": "ToneVolumeC",
+    "values": {
+      "Mute": 0,
+      "Previous": 101
+    }
+  },
+  "IX_TONEID": {
+    "family": 12,
+    "id": "IX_TONEID",
+    "name": "ToneID",
+    "values": {
+      "Off": 0
+    }
+  },
+  "IX_ONOFF": {
+    "family": 12,
+    "id": "IX_ONOFF",
+    "name": "OnOff",
+    "values": {
+      "Off": 0,
+      "On": 100
+    }
+  },
+  "IX_UCODE": {
+    "family": 12,
+    "id": "IX_UCODE",
+    "name": "Ucode",
+    "values": {
+      "Inactive": 0,
+      "Active": 100
+    }
+  },
+  "IX_ALLSET": {
+    "family": 12,
+    "id": "IX_ALLSET",
+    "name": "Options",
+    "values": {
+      "IgnoreAllOnAllOff": 0,
+      "IgnoreAllOn": 1,
+      "IgnoreAllOff": 2,
+      "IgnoreNone": 255
+    }
+  },
+  "IX_FTU": {
+    "family": 12,
+    "id": "IX_FTU",
+    "name": "TrueFalseUnknown",
+    "values": {
+      "False": 0,
+      "True": 100,
+      "Unknown": 101
+    }
+  },
+  "IX_ERR": {
+    "family": 12,
+    "id": "IX_ERR",
+    "name": "Error",
+    "values": {
+      "True": 0,
+      "False": 1
+    }
+  },
+  "IX_PCT_OPT": {
+    "family": 12,
+    "id": "IX_PCT_OPT",
+    "name": "PercentOpt",
+    "values": {
+      "PreviousValue": 1
+    }
+  },
+  "IX_MLS_DIR": {
+    "family": 12,
+    "id": "IX_MLS_DIR",
+    "name": "MultiLevelSwitchDirection",
+    "values": {
+      "Up": 0,
+      "Down": 1,
+      "None": 3
+    }
+  },
+  "IX_CCI": {
+    "family": 12,
+    "id": "IX_CCI",
+    "name": "CCT",
+    "values": {
+      "WarmWhite": 0,
+      "ColdWhite": 1,
+      "Red": 2,
+      "Green": 3,
+      "Blue": 4,
+      "Amber": 5,
+      "Cyan": 6,
+      "Purple": 7,
+      "ColorIndex": 8
+    }
+  },
+  "IX_UNLOCK": {
+    "family": 12,
+    "id": "IX_UNLOCK",
+    "name": "UnlockSettings",
+    "values": {
+      "Default": 0,
+      "Normal": 1,
+      "WithTimer": 2,
+      "InsideDoorHandles": 3,
+      "InsideDoorHandlesWithTimer": 4,
+      "OutsideDoorHandles": 5,
+      "OutsideDoorHandlesWithTimer": 6
+    }
+  },
+  "IX_DIM_REP": {
+    "family": 12,
+    "id": "IX_DIM_REP",
+    "name": "DimRep",
+    "values": {
+      "Off": 0,
+      "Unknown": 101
+    }
+  },
+  "IX_SB_T": {
+    "family": 12,
+    "id": "IX_SB_T",
+    "name": "SbT",
+    "values": {
+      "NoOverride": 0,
+      "TemporaryOverride": 1,
+      "PermanentOverride": 2
+    }
+  },
+  "IX_SB_ST": {
+    "family": 12,
+    "id": "IX_SB_ST",
+    "name": "SbQuery",
+    "values": {
+      "Offset": 0,
+      "FrostProtection": 1,
+      "EnergySaving": 2,
+      "Unused": 3
+    }
+  },
+  "IX_CBP": {
+    "family": 12,
+    "id": "IX_CBP",
+    "name": "Cbp",
+    "values": {
+      "Default": 0,
+      "DoNotDetect": 1,
+      "BasicSet": 2,
+      "BasicReport": 3,
+      "BinarySwitchSet": 4,
+      "BinarySwitchReport": 5,
+      "MultilevelSwitchSet": 6,
+      "MultilevelSwitchReport": 7
+    }
+  },
+  "IXA_SMOKE": {
+    "family": 12,
+    "id": "IXA_SMOKE",
+    "name": "SmokeAlarm",
+    "values": {
+      "Idle": 0,
+      "SmokeDetected": 1,
+      "SmokeDetectedNoLocation": 2,
+      "SmokeAlarmTest": 3,
+      "ReplacementRequired": 4,
+      "ReplacementRequiredEndOfLife": 5,
+      "AlarmSilenced": 6,
+      "InspectionRequired": 7,
+      "DustInDevice": 8,
+      "UnknownEvent": 254
+    }
+  },
+  "IXA_CO": {
+    "family": 12,
+    "id": "IXA_CO",
+    "name": "CarbonMonoxideAlarm",
+    "values": {
+      "Idle": 0,
+      "CoDetected": 1,
+      "CoDetectedNoLocation": 2,
+      "CoAlarmTest": 3,
+      "ReplacementRequired": 4,
+      "ReplacementRequiredEndOfLife": 5,
+      "AlarmSilenced": 6,
+      "InspectionRequired": 7,
+      "UnknownEvent": 254
+    }
+  },
+  "IXA_CO2": {
+    "family": 12,
+    "id": "IXA_CO2",
+    "name": "CO2Alarm",
+    "values": {
+      "Idle": 0,
+      "Co2Detected": 1,
+      "Co2DetectedNoLocation": 2,
+      "Co2AlarmTest": 3,
+      "ReplacementRequired": 4,
+      "ReplacementRequiredEndOfLife": 5,
+      "AlarmSilenced": 6,
+      "InspectionRequired": 7,
+      "UnknownEvent": 254
+    }
+  },
+  "IXA_HEAT": {
+    "family": 12,
+    "id": "IXA_HEAT",
+    "name": "OverheatAlarm",
+    "values": {
+      "Idle": 0,
+      "Overheat": 1,
+      "OverheatNoLocation": 2,
+      "RapidTemperatureRise": 3,
+      "RapidTemperatureRiseNoLocation": 4,
+      "Underheat": 5,
+      "UnderheatNoLocation": 6,
+      "HeatAlarmTest": 7,
+      "ReplacementRequiredEndOfLife": 8,
+      "AlarmSilenced": 9,
+      "DustInDevice": 10,
+      "InspectionRequired": 11,
+      "RapidTemperatureFall": 12,
+      "RapidTemperatureFallNoLocation": 13
+    }
+  },
+  "IXA_WATER": {
+    "family": 12,
+    "id": "IXA_WATER",
+    "name": "AlarmWater",
+    "values": {
+      "Idle": 0,
+      "LeakDetected": 1,
+      "LeakDetectedNoLocation": 2,
+      "LevelDrop": 3,
+      "LevelDropNoLocation": 4,
+      "ReplaceWaterFilter": 5,
+      "WaterFlow": 6,
+      "WaterPressure": 7,
+      "WaterTemperature": 8,
+      "WaterLevel": 9,
+      "SumpPumpActive": 10,
+      "SumpPumpFail": 11,
+      "UnknownEvent": 254
+    }
+  },
+  "IXA_AC": {
+    "family": 12,
+    "id": "IXA_AC",
+    "name": "AccessControlState",
+    "values": {
+      "Idle": 0,
+      "ManualLock": 1,
+      "ManualUnlock": 2,
+      "RfLock": 3,
+      "RfUnlock": 4,
+      "KeypadLock": 5,
+      "KeypadUnlock": 6,
+      "ManualNotFullyLocked": 7,
+      "RfNotFullyLocked": 8,
+      "AutoLocked": 9,
+      "AutoLockNotFullyLocked": 10,
+      "LockJammed": 11,
+      "AllUserCodesDeleted": 12,
+      "SingleUserCodeDeleted": 13,
+      "UserCodeAdded": 14,
+      "UserCodeNotAddedDuplicate": 15,
+      "KeypadTemporaryDisabled": 16,
+      "KeypadBusy": 17,
+      "NewProgramCodeEntered": 18,
+      "ManualCodeEntryLimit": 19,
+      "UnlockByRfWithInvalidUserCode": 20,
+      "LockedByRfWithInvalidUserCode": 21,
+      "WindowDoorIsOpen": 22,
+      "WindowDoorIsClosed": 23,
+      "WindowDoorHandleIsOpen": 24,
+      "WindowDoorHandleIsClosed": 25,
+      "MessagingUserCodeEnteredViaKeypad": 32
+    }
+  },
+  "IXA_BA": {
+    "family": 12,
+    "id": "IXA_BA",
+    "name": "AlarmBa",
+    "values": {
+      "Idle": 0,
+      "Initializing": 1,
+      "OpenCloseForceExceeded": 2,
+      "MotorExceededTimeLimit": 3,
+      "MechanicalLimitsExceeded": 4,
+      "OperationNotPerformedUl": 5,
+      "UnattendedOperationDisabledUl": 6,
+      "DeviceMalfunction": 7,
+      "VacationMode": 8,
+      "SafetyBeamObstacle": 9,
+      "SensorNotDetectedSupervisoryError": 10,
+      "LowBatteryWarning": 11,
+      "ShortInWallStationWires": 12,
+      "NonZWaveAssociation": 13
+    }
+  },
+  "IXA_HS": {
+    "family": 12,
+    "id": "IXA_HS",
+    "name": "HomeSecurityAlarm",
+    "values": {
+      "Idle": 0,
+      "Intrusion": 1,
+      "IntrusionNoLocation": 2,
+      "TamperCoverRemoved": 3,
+      "InvalidCode": 4,
+      "GlassBreak": 5,
+      "GlassBreakNoLocation": 6,
+      "Motion": 7,
+      "MotionNoLocation": 8,
+      "TamperMoved": 9,
+      "Impact": 10,
+      "MagneticInterference": 11,
+      "RfJamming": 12
+    }
+  },
+  "IXA_PM": {
+    "family": 12,
+    "id": "IXA_PM",
+    "name": "PowerManagementAlarm",
+    "values": {
+      "Idle": 0,
+      "PowerApplied": 1,
+      "AcMainsDisconnected": 2,
+      "AcMainsReconnected": 3,
+      "Surge": 4,
+      "VoltageDropDrift": 5,
+      "OverCurrent": 6,
+      "OverVoltage": 7,
+      "Overload": 8,
+      "LoadError": 9,
+      "ReplaceBatterySoon": 10,
+      "ReplaceBatteryNow": 11,
+      "BatteryCharging": 12,
+      "BatteryFullyCharged": 13,
+      "ChargeBatterySoon": 14,
+      "ChargeBatteryNow": 15,
+      "BackupBatteryLow": 16,
+      "BatteryFluidLow": 17,
+      "BackupBatteryDisconnected": 18
+    }
+  },
+  "IXA_SYS": {
+    "family": 12,
+    "id": "IXA_SYS",
+    "name": "SystemAlarm",
+    "values": {
+      "Idle": 0,
+      "HardwareFailure": 1,
+      "SoftwareFailure": 2,
+      "HardwareFailureReason": 3,
+      "SoftwareFailureReason": 4,
+      "Heartbeat": 5,
+      "CoverRemoved": 6,
+      "EmergencyShutoff": 7,
+      "DigitalInputHighState": 9,
+      "DigitalInputLowState": 10,
+      "DigitalInputOpen": 11
+    }
+  },
+  "IXA_EA": {
+    "family": 12,
+    "id": "IXA_EA",
+    "name": "AlarmEa",
+    "values": {
+      "Idle": 0,
+      "ContactPolice": 1,
+      "ContactFireService": 2,
+      "ContactMedicalService": 3,
+      "PanicAlert": 4
+    }
+  },
+  "IXA_CLOCK": {
+    "family": 12,
+    "id": "IXA_CLOCK",
+    "name": "AlarmClock",
+    "values": {
+      "Idle": 0,
+      "WakeUp": 1,
+      "TimerEnded": 2,
+      "TimeRemaining": 3
+    }
+  },
+  "IXA_APP": {
+    "family": 12,
+    "id": "IXA_APP",
+    "name": "ApplianceAlarm",
+    "values": {
+      "Idle": 0,
+      "ProgramStarted": 1,
+      "ProgramInProgress": 2,
+      "ProgramCompleted": 3,
+      "ReplaceMainFilter": 4,
+      "FailureToSetTargetTemperature": 5,
+      "SupplyingWater": 6,
+      "WaterSupplyFailure": 7,
+      "Boiling": 8,
+      "BoilingFailure": 9,
+      "Washing": 10,
+      "WashingFailure": 11,
+      "Rinsing": 12,
+      "RinsingFailure": 13,
+      "Draining": 14,
+      "DrainingFailure": 15,
+      "Spinning": 16,
+      "SpinningFailure": 17,
+      "Drying": 18,
+      "DryingFailure": 19,
+      "FanFailure": 20,
+      "CompressorFailure": 21
+    }
+  },
+  "IXA_HH": {
+    "family": 12,
+    "id": "IXA_HH",
+    "name": "AlarmHh",
+    "values": {
+      "Idle": 0,
+      "LeavingBed": 1,
+      "SittingOnBed": 2,
+      "LyingOnBed": 3,
+      "PostureChanged": 4,
+      "SittingOnBedEdge": 5,
+      "VocLevel": 6,
+      "SleepApneaDetected": 7,
+      "SleepStage0": 8,
+      "SleepStage1": 9,
+      "SleepStage2": 10,
+      "SleepStage3": 11,
+      "FallDetected": 12
+    }
+  },
+  "IXAV_VOC": {
+    "family": 12,
+    "id": "IXAV_VOC",
+    "name": "IxavVoc",
+    "values": {
+      "": 0,
+      "Clean": 1,
+      "SlightlyPolluted": 2,
+      "ModeratelyPolluted": 3,
+      "HighlyPolluted": 4
+    }
+  },
+  "IXA_SIREN": {
+    "family": 12,
+    "id": "IXA_SIREN",
+    "name": "AlarmSiren",
+    "values": {
+      "Idle": 0,
+      "SirenActive": 1
+    }
+  },
+  "IXA_WV": {
+    "family": 12,
+    "id": "IXA_WV",
+    "name": "WaterValveAlarm",
+    "values": {
+      "Idle": 0,
+      "ValveOperation": 1,
+      "MasterValveOperation": 2,
+      "ValveShortCircuit": 3,
+      "MasterValveShortCircuit": 4,
+      "ValveAlarm": 5,
+      "MasterValveAlarm": 6
+    }
+  },
+  "IXA_WEA": {
+    "family": 12,
+    "id": "IXA_WEA",
+    "name": "WeatherAlarm",
+    "values": {
+      "Idle": 0,
+      "Rain": 1,
+      "Moisture": 2,
+      "Freeze": 3
+    }
+  },
+  "IXA_IRR": {
+    "family": 12,
+    "id": "IXA_IRR",
+    "name": "AlarmIrr",
+    "values": {
+      "Idle": 0,
+      "ScheduleStarted": 1,
+      "ScheduleFinished": 2,
+      "ValveTableRunStarted": 3,
+      "ValveTableRunFinished": 4,
+      "DeviceNotConfigured": 5
+    }
+  },
+  "IXA_GAS": {
+    "family": 12,
+    "id": "IXA_GAS",
+    "name": "AlarmGas",
+    "values": {
+      "Idle": 0,
+      "CombustibleGasDetectedLoc": 1,
+      "CombustibleGasDetected": 2,
+      "ToxicGasDetectedLoc": 3,
+      "ToxicGasDetected": 4,
+      "GasAlarmTest": 5,
+      "ReplacementRequired": 6
+    }
+  },
+  "IXA_PEST": {
+    "family": 12,
+    "id": "IXA_PEST",
+    "name": "AlarmPest",
+    "values": {
+      "Idle": 0,
+      "TrapArmedLoc": 1,
+      "TrapArmed": 2,
+      "TrapReArmRequiredLoc": 3,
+      "TrapReArmRequired": 4,
+      "PestDetectedLoc": 5,
+      "PestDetected": 6,
+      "PestExterminatedLoc": 7,
+      "PestExterminated": 8
+    }
+  },
+  "IXA_LS": {
+    "family": 12,
+    "id": "IXA_LS",
+    "name": "AlarmLs",
+    "values": {
+      "Idle": 0,
+      "LightDetected": 1,
+      "ColorTransition": 2
+    }
+  },
+  "IXA_WQM": {
+    "family": 12,
+    "id": "IXA_WQM",
+    "name": "AlarmWqm",
+    "values": {
+      "Idle": 0,
+      "Chlorine": 1,
+      "AcidityPH": 2,
+      "Oxidation": 3,
+      "ChlorineEmpty": 4,
+      "AcidityPHEmpty": 5,
+      "WaterflowShortage": 6,
+      "WaterflowClearWaterShortage": 7,
+      "DisinfectionError": 8,
+      "FilterCleaningOngoing": 9,
+      "HeatingOperationOngoing": 10,
+      "FilterPumpOperationOngoing": 11,
+      "FreshwaterOperationOngoing": 12,
+      "DryProtectionOperationOngoing": 13,
+      "WaterTankEmpty": 14,
+      "WaterTankLevelUnknown": 15,
+      "WaterTankFull": 16,
+      "CollectiveDisorder": 17,
+      "UnknownEvent": 254
+    }
+  },
+  "IXA_HM": {
+    "family": 12,
+    "id": "IXA_HM",
+    "name": "AlarmHm",
+    "values": {
+      "": 0,
+      "HomeOccupied": 1,
+      "HomeOccupiedNoLocation": 2
+    }
+  },
+  "IXAV_01": {
+    "family": 12,
+    "id": "IXAV_01",
+    "name": "Ixav01",
+    "values": {
+      "": 0,
+      "NoData": 1,
+      "BelowLowThreshold": 2,
+      "AboveHighThreshold": 3,
+      "Max": 4
+    }
+  }
+}

@@ -1,1 +1,1 @@
-{"version":3,"file":"ParameterLength.d.ts","sourceRoot":"","sources":["../../../../../src/Definitions/Insteon/ParameterLength.ts"],"names":[],"mappings":"AAAA,oBAAY,eAAe;IACvB,CAAC,IAAA;IAAA,IAAI,IAAI;IACT,CAAC,IAAA;IAAA,KAAK,IAAI;IACV,CAAC,IAAA;IAAA,KAAK,IAAI;CACb"}
+{"version":3,"file":"ParameterLength.d.ts","sourceRoot":"","sources":["../../../../../src/Definitions/Insteon/ParameterLength.ts"],"names":[],"mappings":"AAAA,oBAAY,eAAe;IACvB,OAAO,IAAI;IACX,QAAQ,IAAI;IACZ,SAAS,IAAI;CAChB"}

@@ -8,3 +8,4 @@ export var AlarmGas;
     AlarmGas[AlarmGas["GasAlarmTest"] = 5] = "GasAlarmTest";
     AlarmGas[AlarmGas["ReplacementRequired"] = 6] = "ReplacementRequired";
 })(AlarmGas || (AlarmGas = {}));
+//# sourceMappingURL=AlarmGas.js.map

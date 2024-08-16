@@ -15,6 +15,7 @@ import { Axios } from 'axios';
 import { EventType } from './Events/EventType.js';
 import type { Identity } from '@project-chip/matter.js/util';
 import { isBoxedPrimitive } from 'util/types';
+import { Family } from './Definitions/index.js';
 
 export interface Converter<F, T> {
 
@@ -22,12 +23,17 @@ export interface Converter<F, T> {
   to: (value: T) => F;
 }
 
+export type StringKeys<T> = Extract<keyof T, string>;
+
+
 export function invert<F, T>(converter: Converter<F, T>): Converter<T, F> {
   return {
     from: converter.to,
     to: converter.from,
   };
 }
+
+
 
 export type MaybeArray<T> = T | T[];
 
@@ -101,6 +107,15 @@ export interface LoggerLike extends Partial<log4js.Logger> {
 // logger.prototype = logger.log.bind(logger);
 // }
 // }`}`
+
+
+	export function valueOf<E,T extends Extract<keyof E, string>>(e: E, val: T) : E[T]
+	{
+		return e[val];
+	}
+
+
+
 export function clone(logger: Logger, label: string): Logger {
 
 
@@ -113,6 +128,7 @@ export function clone(logger: Logger, label: string): Logger {
 		exceptionHandlers: logger.exceptions,
 		...logger
 	})
+
 
 
 	// `${const copy1 = { ...logger };copy1.prefix = copy1.prefix = prefix ?? logger.prototype;

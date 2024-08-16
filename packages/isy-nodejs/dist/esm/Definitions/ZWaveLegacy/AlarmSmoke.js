@@ -11,3 +11,4 @@ export var AlarmSmoke;
     AlarmSmoke[AlarmSmoke["DustInDevice"] = 8] = "DustInDevice";
     AlarmSmoke[AlarmSmoke["UnknownEvent"] = 254] = "UnknownEvent";
 })(AlarmSmoke || (AlarmSmoke = {}));
+//# sourceMappingURL=AlarmSmoke.js.map

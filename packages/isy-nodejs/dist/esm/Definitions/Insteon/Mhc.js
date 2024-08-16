@@ -5,3 +5,4 @@ export var Mhc;
     Mhc[Mhc["OnlyDuringDay"] = 2] = "OnlyDuringDay";
     Mhc[Mhc["OnlyAtNight"] = 3] = "OnlyAtNight";
 })(Mhc || (Mhc = {}));
+//# sourceMappingURL=Mhc.js.map

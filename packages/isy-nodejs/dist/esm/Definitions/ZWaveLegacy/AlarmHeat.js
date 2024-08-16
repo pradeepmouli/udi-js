@@ -15,3 +15,4 @@ export var AlarmHeat;
     AlarmHeat[AlarmHeat["RapidTemperatureFall"] = 12] = "RapidTemperatureFall";
     AlarmHeat[AlarmHeat["RapidTemperatureFallNoLocation"] = 13] = "RapidTemperatureFallNoLocation";
 })(AlarmHeat || (AlarmHeat = {}));
+//# sourceMappingURL=AlarmHeat.js.map

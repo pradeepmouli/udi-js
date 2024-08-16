@@ -10,3 +10,4 @@ export var AlarmCo2;
     AlarmCo2[AlarmCo2["InspectionRequired"] = 7] = "InspectionRequired";
     AlarmCo2[AlarmCo2["UnknownEvent"] = 254] = "UnknownEvent";
 })(AlarmCo2 || (AlarmCo2 = {}));
+//# sourceMappingURL=AlarmCo2.js.map

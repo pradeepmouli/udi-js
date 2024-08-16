@@ -1,7 +1,9 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
-import type { NodeInfo } from "../../../Definitions/NodeInfo.js";
+import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import type { ISY } from "../../../ISY.js";
+import { ISYDeviceNode } from "../../../ISYNode.js";
+import { UDI } from "../../../Definitions/index.js";
 export declare const nodeDefId = "EM3PulseCounter";
 type Commands = {};
 type Drivers = {
@@ -19,10 +21,10 @@ type Drivers = {
     };
     ERR?: {
         uom: UnitOfMeasure.Index;
-        value: (0 | 1);
+        value: UDI.Error;
     };
 };
-export declare class PulseCounterNode extends ISYNode<Family.UDI, keyof Drivers, keyof Commands> {
+export declare class PulseCounterNode extends ISYDeviceNode<Family.UDI, keyof Drivers, keyof Commands> {
     readonly commands: Commands;
     drivers: Drivers;
     static nodeDefId: string;
@@ -30,7 +32,7 @@ export declare class PulseCounterNode extends ISYNode<Family.UDI, keyof Drivers,
     get status(): number;
     get currentPower(): number;
     get totalEnergy(): number;
-    get responding(): boolean;
+    get responding(): UDI.Error;
 }
 export {};
 //# sourceMappingURL=PulseCounterNode.d.ts.map

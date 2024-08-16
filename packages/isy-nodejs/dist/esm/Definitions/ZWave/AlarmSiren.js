@@ -3,3 +3,4 @@ export var AlarmSiren;
     AlarmSiren[AlarmSiren["Idle"] = 0] = "Idle";
     AlarmSiren[AlarmSiren["SirenActive"] = 1] = "SirenActive";
 })(AlarmSiren || (AlarmSiren = {}));
+//# sourceMappingURL=AlarmSiren.js.map

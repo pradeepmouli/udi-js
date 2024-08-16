@@ -12,3 +12,4 @@ export var AlarmSys;
     AlarmSys[AlarmSys["DigitalInputLowState"] = 10] = "DigitalInputLowState";
     AlarmSys[AlarmSys["DigitalInputOpen"] = 11] = "DigitalInputOpen";
 })(AlarmSys || (AlarmSys = {}));
+//# sourceMappingURL=AlarmSys.js.map

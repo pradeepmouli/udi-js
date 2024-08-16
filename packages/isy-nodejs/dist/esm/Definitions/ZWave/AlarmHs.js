@@ -14,3 +14,4 @@ export var AlarmHs;
     AlarmHs[AlarmHs["MagneticInterference"] = 11] = "MagneticInterference";
     AlarmHs[AlarmHs["RfJamming"] = 12] = "RfJamming";
 })(AlarmHs || (AlarmHs = {}));
+//# sourceMappingURL=AlarmHs.js.map

@@ -7,6 +7,7 @@ export interface Converter<F, T> {
     from: (value: F) => T;
     to: (value: T) => F;
 }
+export type StringKeys<T> = Extract<keyof T, string>;
 export declare function invert<F, T>(converter: Converter<F, T>): Converter<T, F>;
 export type MaybeArray<T> = T | T[];
 export declare function toArray<T>(value: MaybeArray<T>): T[];
@@ -31,6 +32,7 @@ declare global {
 export interface LoggerLike extends Partial<log4js.Logger> {
     (msg: any, level?: string, ...data: any[]): void;
 }
+export declare function valueOf<E, T extends Extract<keyof E, string>>(e: E, val: T): E[T];
 export declare function clone(logger: Logger, label: string): Logger;
 type TEventType = keyof typeof EventType;
 export interface PropertyChangedEventEmitter extends EventEmitter<"PropertyChanged"> {

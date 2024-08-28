@@ -33,7 +33,7 @@ const map = {
                 attributes: {
                     onOff: { driver: "ST" },
                 },
-                commands: { on: "DON", off: DriverType.Off },
+                commands: { on: "DON" },
             },
             LevelControl: {
                 attributes: {

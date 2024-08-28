@@ -1,9 +1,10 @@
 import { existsSync, mkdirSync, readFile, readFileSync, writeFileSync } from "fs";
-import { buildNodeClasses } from "isy-nodejs/CodeGeneration/NodeClassFactory";
+import { Project, IndentationText, NewLineKind, QuoteKind, createWrappedNode } from "ts-morph";
+import { NodeClassFactory } from "isy-nodejs/CodeGeneration/NodeClassFactory";
 import { Family } from "isy-nodejs/ISY";
-import {NodeClassDefinition } from "isy-nodejs/Model/ClassDefinition";
+import { NodeClassDefinition } from "isy-nodejs/Model/ClassDefinition";
 import { buildEnums, EnumFactory } from "isy-nodejs/CodeGeneration/EnumFactory";
-import {buildEnumDefinitions, EnumDefinition} from "isy-nodejs/Model/EnumDefinition";
+import { buildEnumDefinitions, EnumDefinition } from "isy-nodejs/Model/EnumDefinition";
 import { EditorDefMap } from "isy-nodejs/Model/EditorDef";
 import { NLSRecordMap, NLSIndexMap } from "isy-nodejs/Model/NLS";
 import ts from "typescript";
@@ -51,7 +52,7 @@ winston.loggers.add('EnumFactory', {
     ],
     exitOnError: false,
     levels: winston.config.cli.levels,
-})
+});
 
 winston.loggers.add('NodeClassFactory', {
     format: winston.format.label({ label: "NodeClassFactory" }),
@@ -61,7 +62,7 @@ winston.loggers.add('NodeClassFactory', {
     ],
     exitOnError: false,
     levels: winston.config.cli.levels,
-})
+});
 // Zero padding
 function zPad2(str: number) {
     return str.toString().padStart(2, "0");
@@ -71,8 +72,7 @@ function zPad2(str: number) {
 
 export async function generateEnumDefs() {
     let enumMap = buildEnumDefinitions(NLSIndexMap);
-    for(const [family,enumDef] of enumMap)
-    {
+    for (const [family, enumDef] of enumMap) {
         if (!existsSync("./resources/enumDefs/generated/")) {
             mkdirSync("./resources/enumDefs/generated", { recursive: true });
         }
@@ -80,28 +80,24 @@ export async function generateEnumDefs() {
     }
 }
 
-function loadEnumDefs()
-{
+function loadEnumDefs() {
     return EnumDefinition.load("./resources/enumDefs");
 }
 
-export async function generateEnums()
-{
+export async function generateEnums() {
     let enumDefs = loadEnumDefs();
     let enums = EnumFactory.generateAll();
     saveSourceFiles("../../packages/isy-nodejs/src/Definitions", enums);
 
 }
 
-export async function generateEnumsForFamily(enumDefs: { [x: string]: EnumDefinition<Family> }, family: Family) {
+export async function generateEnumsForFamily(enumDefs: { [x: string]: EnumDefinition<Family>; }, family: Family) {
 
-    try
-    {
-        const enums = EnumFactory.generateAll()
+    try {
+        const enums = EnumFactory.generateAll();
         saveSourceFiles('../../packages/isy-nodejs/src/Definitions', enums);
     }
-    catch(e)
-    {
+    catch (e) {
         logger.error(`Error generating enums for ${Family[family]}: ${e.message}`, e.stack);
     }
 
@@ -110,8 +106,8 @@ export async function generateEnumsForFamily(enumDefs: { [x: string]: EnumDefini
 function saveSourceFiles(path: string, enums: { family: Family; name: string; id: string; path: string; statements: ts.EnumDeclaration[]; }[]) {
 
     for (const c of enums) {
-         if (existsSync(`${path}/${Family[c.family]}`))
-           mkdirSync(`${path}/${Family[c.family]}`, { recursive: true });
+        if (!existsSync(`${path}/${Family[c.family]}/generated/`))
+            mkdirSync(`${path}/${Family[c.family]}/generated`, { recursive: true });
         try {
             saveFile(path, c);
         } catch (e) {
@@ -146,10 +142,10 @@ export async function generateNodeClassDefs() {
     }
 
     for (const [family, nodeDefs] of nodeList) {
-       let classDefs: { [x: string]: NodeClassDefinition<Family>; } = {};
+        let classDefs: { [x: string]: NodeClassDefinition<Family>; } = {};
 
 
-       try {
+        try {
             classDefs = NodeClassDefinition.generate(family, nodeDefs);
             if (!existsSync("./resources/nodeClassDefs/generated/")) {
                 mkdirSync("./resources/nodeClassDefs/generated", { recursive: true });
@@ -164,55 +160,67 @@ export async function generateNodeClassDefs() {
     }
 }
 
-function loadNodeClassDefs()
-{
+function loadNodeClassDefs() {
     return NodeClassDefinition.load("./resources/nodeClassDefs");
 }
+const project = new Project({
+    compilerOptions: { target: ts.ScriptTarget.ES2022, module: ts.ModuleKind.ES2022 }, manipulationSettings: {
+        // TwoSpaces, FourSpaces, EightSpaces, or Tab
+        indentationText: IndentationText.Tab,
 
-export function generateNodeClasses()
-{
+        // LineFeed or CarriageReturnLineFeed
+        newLineKind: NewLineKind.LineFeed,
+        // Single or Double
+        quoteKind: QuoteKind.Single,
+        // Whether to change shorthand property assignments to property assignments
+        // and add aliases to import & export specifiers (see more information in
+        // the renaming section of the documentation).
+        usePrefixAndSuffixTextForRename: false,
+        // Whether to use trailing commas in multi-line scenarios where trailing
+        // commas would be used.
+        useTrailingCommas: false,
+    },
+});
+export function generateNodeClasses() {
     let classDefs = loadNodeClassDefs();
-    for(const [family,defs] of classDefs)
-    {
-        generateNodeClassesForFamily(defs,family);
+    NodeClassFactory.basePath = "../../packages/isy-nodejs/src/Devices";
+    for (const [family, defs] of classDefs) {
+        generateNodeClassesForFamily(defs, family);
     }
 }
 
 function generateNodeClassesForFamily(classDefs: { [x: string]: NodeClassDefinition<Family>; }, family: Family) {
-    const classes = buildNodeClasses(classDefs);
+    const classes = NodeClassFactory.buildNodeClasses(classDefs);
+
     if (!existsSync(`../../packages/isy-nodejs/src/Devices/${Family[family]}/Generated`))
-       mkdirSync(`../../packages/isy-nodejs/src/Devices/${Family[family]}/Generated`, { recursive: true });
+        mkdirSync(`../../packages/isy-nodejs/src/Devices/${Family[family]}/Generated`, { recursive: true });
     for (const c of classes) {
         try {
-            var f = ts.createSourceFile(
-              `../../packages/isy-nodejs/src/Devices/${Family[family]}/Generated/${c.name}.ts`,
-              "",
-              ts.ScriptTarget.ES2022,
-              false,
-              ts.ScriptKind.TS
-            );
-            //@ts-expect-error
-            f.statements = c.statements;
-            let r = ts.createPrinter();
-            writeFileSync(
-              `../../packages/isy-nodejs/src/Devices/${Family[family]}/Generated/${c.name}.ts`,
-              r.printFile(f)
-            );
+            c.sourceFile.saveSync();
+            /* var f = project.createSourceFile(
+                `../../packages/isy-nodejs/src/Devices/${Family[family]}/Generated/${c.name}.ts`,"",  {overwrite: true, }
+                );*/
+
+            //let r = ts.createPrinter();
+            //writeFileSync(
+            //`../../packages/isy-nodejs/src/Devices/${Family[family]}/Generated/${c.name}.ts`,
+            //f.print()
+            //);
         } catch (e) {
             logger.error(`Error creating ${Family[family]} ${c.name} class: ${e.message}`, e.stack);
         }
     }
 }
-    function saveFile(path: string, c: { family: Family; name: string; id: string; path: string; statements: ts.EnumDeclaration[]; }) {
-        var f = ts.createSourceFile(
-            `${path}/${c.path}`,
-            "",
-            ts.ScriptTarget.ES2022,
-            false,
-            ts.ScriptKind.TS
-        );
-        //@ts-expect-error
-        f.statements = c.statements;
-        let r = ts.createPrinter();
-        writeFileSync(`${path}/${c.path}`, r.printFile(f));
-    }
+function saveFile(path: string, c: { family: Family; name: string; id: string; path: string; statements: ts.EnumDeclaration[]; }) {
+    var f = ts.createSourceFile(
+        "",
+        "",
+        ts.ScriptTarget.ES2022,
+        false,
+        ts.ScriptKind.TS
+    );
+    //@ts-expect-error
+    f.statements = c.statements;
+    let r = ts.createPrinter();
+    writeFileSync(`${path}${c.path}`, r.printFile(f));
+}

@@ -1,10 +1,10 @@
 import type { NodeInfo } from '../../Model/NodeInfo.js';
 import { ISY } from '../../ISY.js';
-import { ISYUpdateableBinaryStateDevice, ISYBinaryStateDevice } from '../ISYDevice.js';
+import { ISYBinaryStateDevice } from '../ISYDevice.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
 
-export class InsteonDoorWindowSensorDevice extends ISYBinaryStateDevice(InsteonBaseDevice) {
+export class InsteonDoorWindowSensorDevice extends InsteonBaseDevice {
 
 
 	constructor (isy: ISY, deviceNode: NodeInfo) {
@@ -13,6 +13,6 @@ export class InsteonDoorWindowSensorDevice extends ISYBinaryStateDevice(InsteonB
 
 	}
 	get isOpen() {
-		return this.state;
+		return this.drivers.ST.value === '0';
 	}
 }

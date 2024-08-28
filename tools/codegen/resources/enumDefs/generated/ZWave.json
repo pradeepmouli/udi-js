@@ -73,7 +73,7 @@
   "IX_FTU": {
     "family": 12,
     "id": "IX_FTU",
-    "name": "Ftu",
+    "name": "TrueFalseUnknown",
     "values": {
       "False": 0,
       "True": 100,
@@ -490,7 +490,7 @@
   "IXAV_VOC": {
     "family": 12,
     "id": "IXAV_VOC",
-    "name": "IxavVoc",
+    "name": "AlertValueVoc",
     "values": {
       "": 0,
       "Clean": 1,
@@ -635,7 +635,7 @@
   "IXAV_01": {
     "family": 12,
     "id": "IXAV_01",
-    "name": "Ixav01",
+    "name": "AlertValue01",
     "values": {
       "": 0,
       "NoData": 1,

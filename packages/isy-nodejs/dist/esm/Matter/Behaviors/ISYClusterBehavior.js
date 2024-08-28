@@ -1,5 +1,5 @@
 import '@project-chip/matter.js/device';
-import { ISYBridgedDeviceBehavior } from "./ISYBridgedDeviceBehavior.js";
+import { ISYBridgedDeviceBehavior } from './ISYBridgedDeviceBehavior.js';
 export function ISYClusterBehavior(base, p) {
     return class ISYClusterBehavior extends base {
         _device;

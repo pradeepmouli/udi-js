@@ -1,28 +1,27 @@
 import { States } from '../../ISYConstants.js';
-import { ISYUpdateableBinaryStateDevice, ISYUpdateableLevelDevice } from '../ISYDevice.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import 'winston';
-export class InsteonFanMotorDevice extends ISYUpdateableLevelDevice(ISYUpdateableBinaryStateDevice(InsteonBaseDevice)) {
+export class InsteonFanMotorDevice extends InsteonBaseDevice {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
         this.hidden = true;
     }
     get isOn() {
-        return this.state;
+        return this.drivers.ST.value !== '0';
     }
     get fanSpeed() {
-        return this.level;
+        return this.drivers.ST.value;
     }
     async updateFanSpeed(level) {
-        return this.updateLevel(level);
+        return this.commands.BEEP(level);
     }
     async updateIsOn(isOn) {
         if (!isOn) {
-            return this.updateLevel(States.Level.Min);
+            return this.commands.BEEP(States.Level.Min);
         }
         else {
-            return this.updateLevel(States.Level.Max);
+            return this.commands.BEEP(States.Level.Max);
         }
     }
 }
@@ -52,15 +51,7 @@ export class InsteonFanDevice extends InsteonBaseDevice {
         }
     }
     async updateFanSpeed(level) {
-        return this.motor.updateLevel(level);
-    }
-    async updatFanIsOn(isOn) {
-        if (!this.motor.isOn) {
-            this.motor.updateLevel(States.Level.Min);
-        }
-        else {
-            this.motor.updateLevel(States.Fan.High);
-        }
+        return this.motor.updateFanSpeed(level);
     }
 }
 //# sourceMappingURL=InsteonFanDevice.js.map

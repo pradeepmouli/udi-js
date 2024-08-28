@@ -14,7 +14,7 @@ import { Driver, DriverType } from '../../Definitions/Global/Drivers.js';
 import type { Command } from '../../Definitions/Global/Commands.js';
 
 
-export class InsteonRelayDevice extends InsteonBaseDevice<Driver.Signatures<'ST'>,Command.Signatures<'DON'>>  {
+export class InsteonRelayDevice extends InsteonBaseDevice<Driver.Signatures<'ST'>,Command.Signatures<'DON'|'DOF'>>  {
 
 
 	static override family: Family.Insteon = Family.Insteon;
@@ -35,7 +35,7 @@ export class InsteonRelayDevice extends InsteonBaseDevice<Driver.Signatures<'ST'
 
 		});
 		//endpoint.defaults.onOff.onOff = await this.isOn;
-		endpoint.set({onOff:{onOff: await this.state}});
+		endpoint.set({onOff:{onOff: await this.drivers.ST.value > 0}});
 		const that = this;
 
 		this.on("PropertyChanged", (propertyName, newValue, _oldValue, formattedValue) => {

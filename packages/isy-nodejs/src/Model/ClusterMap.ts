@@ -11,6 +11,7 @@ import { OnOffLightDevice } from '@project-chip/matter.js/devices/OnOffLightDevi
 import { Devices, type ToDevice } from '../Devices/index.js';
 import { Behavior } from '@project-chip/matter.js/behavior';
 import type { ClusterForBehavior } from '../Matter/Behaviors/ISYClusterBehavior.js';
+import type { ISYNode } from '../ISYNode.js';
 import type { ISYDevice } from '../ISYDevice.js';
 import test from 'node:test';
 import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
@@ -62,7 +63,7 @@ import type { CommandsOf, DriversOf } from '../ISYNode.js';
 
 // }
 
-export type DeviceToClusterMap<T extends ISYDevice<Family,any,any>, D> =  D extends {behaviors: SupportedBehaviors, deviceType: string} ?
+export type DeviceToClusterMap<T extends ISYNode<Family,any,any,any>, D> =  D extends {behaviors: SupportedBehaviors, deviceType: string} ?
 {
   deviceType: D,
   mapping: EndpointMapping<D,T>;
@@ -79,7 +80,7 @@ export  class MappingRegistry
             MappingRegistry.map.set(key, map[key]);
         }
     }
-    static getMapping<T extends ISYDevice<any,any,any>>(device: T) : DeviceToClusterMap<T,D>
+    static getMapping<T extends ISYDevice<any,any,any>>(device: T) 
     {
         return MappingRegistry.map.get(device.constructor.name);
 
@@ -101,7 +102,7 @@ export  class MappingRegistry
 }
 
 export type FamilyToClusterMap<T extends Family.Insteon | Family.ZWave | Family.ZigBee> = {
-  [Type in keyof Devices<T>]?: DeviceToClusterMap<InstanceType<Devices<T>[Type]>,any>;
+  [Type in keyof Devices.Insteon]?: DeviceToClusterMap<InstanceType<Devices.Insteon[Type]>,any>;
 }
 
 
@@ -193,7 +194,7 @@ export type SBCommandMapping<SB extends SupportedBehaviors,D> = {
 
 
 export type ClusterAttributeMapping<A,K> = {
-    [key in keyof Clusters.ClusterType.AttributesOf<A>]?:{driver: keyof DriversOf<K>, converter?: (value: any) => any}|DriversOf<K>
+    [key in keyof Clusters.ClusterType.AttributesOf<A>]?:{driver: Extract<keyof DriversOf<K>, string>, converter?: (value: any) => any}|Extract<keyof DriversOf<K>, string>
 };
 
 
@@ -206,7 +207,7 @@ export type ClusterAttributeMapping<A,K> = {
 export type ClusterCommandMapping<A, K> = {
   [key in keyof Clusters.ClusterType.CommandsOf<A>]?:
     | { command: keyof CommandsOf<K>; parameters?: parameterMapping}
-    | CommandsOf<K>;
+    | keyof CommandsOf<K>;
 };
 
 

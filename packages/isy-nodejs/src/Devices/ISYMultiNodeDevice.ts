@@ -3,11 +3,11 @@ import type { Driver } from '../Definitions/Global/Drivers.js';
 import type { UnitOfMeasure } from '../Definitions/Global/UOM.js';
 import type { Family } from '../ISY.js';
 import type { ISYDevice } from '../ISYDevice.js';
-import type { CommandSignatures, DriverMap, ISYNode, NodeList } from '../ISYNode.js';
+import type { DriverMap, ISYNode, NodeList } from '../ISYNode.js';
 import type { ISYScene } from '../ISYScene.js';
 import type { DriverState } from '../Model/DriverState.js';
 
-
+/*
 
 
 
@@ -97,4 +97,4 @@ export class ISYMultiNodeDevice<T extends Family, N extends NodeList>
   label: string;
 
 
-}
+} */

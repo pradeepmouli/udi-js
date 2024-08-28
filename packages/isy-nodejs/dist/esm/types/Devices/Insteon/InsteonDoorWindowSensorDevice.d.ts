@@ -1,10 +1,9 @@
 import type { NodeInfo } from '../../Model/NodeInfo.js';
 import { ISY } from '../../ISY.js';
+import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
-declare const InsteonDoorWindowSensorDevice_base: any;
-export declare class InsteonDoorWindowSensorDevice extends InsteonDoorWindowSensorDevice_base {
+export declare class InsteonDoorWindowSensorDevice extends InsteonBaseDevice {
     constructor(isy: ISY, deviceNode: NodeInfo);
-    get isOpen(): any;
+    get isOpen(): boolean;
 }
-export {};
 //# sourceMappingURL=InsteonDoorWindowSensorDevice.d.ts.map

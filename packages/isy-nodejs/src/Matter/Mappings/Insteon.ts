@@ -5,10 +5,8 @@ import { Insteon } from "../../Devices/Insteon/index.js";
 import { Devices} from "../../Devices/index.js";
 import {
   MappingRegistry,
-  type ClusterTypeMapping,
   type FamilyToClusterMap,
   type DeviceToClusterMap,
-  type DeviceToClusterMap2,
   type EndpointMapping
 } from "../../Model/ClusterMap.js";
 import { DeviceTypeDefinition, DeviceTypes, OnOffBaseDevice } from "@project-chip/matter.js/device";
@@ -55,7 +53,7 @@ const map: FamilyToClusterMap<Family.Insteon> = {
         attributes: {
           onOff: { driver: "ST" },
         },
-        commands: { on: "DON", off: DriverType.Off },
+        commands: { on: "DON" },
       },
       LevelControl: {
         attributes: {

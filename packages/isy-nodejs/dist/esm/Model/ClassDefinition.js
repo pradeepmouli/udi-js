@@ -14,6 +14,21 @@ function buildNodeClassDefinitions(nodeDefs, family) {
         f.applyNLS();
         f.applyEditorDefs();
         f.applyIndexDefs();
+        for (const driver of Object.values(f.drivers)) {
+            for (const cmd of Object.values(f.commands)) {
+                if (cmd.initialValue == driver.id) {
+                    driver.readonly = false;
+                    break;
+                }
+                if (cmd.parameters)
+                    for (const cmdp of Object.values(cmd.parameters)) {
+                        if (cmdp.initialValue === driver.id) {
+                            driver.readonly = false;
+                            break;
+                        }
+                    }
+            }
+        }
         map[f.id] = f;
     }
     return map;
@@ -129,26 +144,28 @@ export class NodeClassDefinition {
     }
     applyNLSRecords(nls) {
         for (const entry of nls.GEN ?? []) {
-            if (this.commands.hasOwnProperty(entry.type)) {
-                this.commands[entry.type].applyNLSRecord(entry);
+            //if (this.commands.hasOwnProperty(entry.key)) {
+            for (const cmd in this.commands) {
+                this.commands[cmd].applyNLSRecord(entry);
             }
-            if (this.events.hasOwnProperty(entry.type)) {
-                this.events[entry.type].applyNLSRecord(entry);
+            //}
+            if (this.events.hasOwnProperty(entry.control)) {
+                this.events[entry.control].applyNLSRecord(entry);
             }
-            if (this.drivers.hasOwnProperty(entry.type)) {
-                this.drivers[entry.type].applyNLSRecord(entry);
+            if (this.drivers.hasOwnProperty(entry.control)) {
+                this.drivers[entry.control].applyNLSRecord(entry);
             }
         }
         for (const entry of nls.ST ?? []) {
             var e = entry;
-            if (this.drivers.hasOwnProperty(e.driver)) {
-                this.drivers[e.driver].applyNLSRecord(e);
+            if (this.drivers.hasOwnProperty(e.control)) {
+                this.drivers[e.control].applyNLSRecord(e);
             }
         }
         for (const entry of nls.CMD ?? []) {
             var c = entry;
-            if (this.commands.hasOwnProperty(c.command)) {
-                this.commands[c.command].applyNLSRecord(c);
+            if (this.commands.hasOwnProperty(c.control)) {
+                this.commands[c.control].applyNLSRecord(c);
             }
         }
         for (const entry of nls.CMDP ?? []) {
@@ -197,6 +214,7 @@ export class NodeMemberDefinition {
     id;
     editorId;
     dataType;
+    optional;
     classDef;
     constructor(classDef, def) {
         this.classDef = classDef;
@@ -207,6 +225,15 @@ export class NodeMemberDefinition {
             if (r)
                 this.applyEditorDef({ id: def.editor, range: r });
         }
+    }
+    selectValue(currentValue, newValue, nlsId) {
+        if (currentValue === undefined || currentValue === null) {
+            return newValue;
+        }
+        else if (this.classDef.nlsId == nlsId) {
+            return newValue;
+        }
+        return currentValue;
     }
     parseEditorId(e) {
         if (e.startsWith("_")) {
@@ -303,7 +330,7 @@ export class NodeMemberDefinition {
                 else {
                     d[rangeDef.uom] = {
                         uom: rangeDef.uom,
-                        enum: rangeDef.nls !== undefined && rangeDef.nls !== null ? true : false,
+                        enum: false,
                         min: rangeDef.min,
                         max: rangeDef.max,
                         step: rangeDef.step ?? undefined,
@@ -332,6 +359,7 @@ export class NodeMemberDefinition {
         return {
             label: this.label,
             hidden: this.hidden,
+            optional: this.optional,
             id: this.id,
             editorId: this.editorId,
             dataType: this.dataType,
@@ -340,34 +368,43 @@ export class NodeMemberDefinition {
     }
 }
 export class DriverDefinition extends NodeMemberDefinition {
+    readonly = true;
     constructor(def, classDef) {
         super(classDef, def);
         this.id = def.id;
-        this.hidden = def.hide === "T";
+        this.hidden = def.hide === 'T';
         this.editorId = def.editor;
     }
     applyNLSRecord(nls) {
         if (nls.type === NLSRecordType.Driver) {
-            if (nls.driver === this.id) {
-                if (nls.property === "NAME") {
-                    this.label = nls.value;
+            if (nls.control === this.id) {
+                if (nls.property === 'NAME') {
+                    this.label = this.selectValue(this.label, nls.value, nls.nlsId);
                 }
             }
         }
         else if (nls.type === NLSRecordType.Generic) {
-            if (nls.key === this.id) {
-                if (nls.property === "NAME") {
-                    this.label == this.label ?? nls.value;
+            if (nls.control === this.id) {
+                if (nls.property === 'NAME') {
+                    this.label = this.selectValue(this.label, nls.value, nls.nlsId);
                 }
             }
         }
     }
-    createClassProperty() {
-        return;
+    toJSON() {
+        return {
+            label: this.label,
+            hidden: this.hidden,
+            optional: this.optional,
+            readonly: this.readonly,
+            id: this.id,
+            editorId: this.editorId,
+            dataType: this.dataType,
+            name: this.name
+        };
     }
 }
 export class CommandDefinition extends NodeMemberDefinition {
-    optional;
     parameters;
     initialValue;
     get name() {
@@ -394,25 +431,25 @@ export class CommandDefinition extends NodeMemberDefinition {
     }
     applyNLSRecord(nls) {
         if (nls.type === NLSRecordType.Command) {
-            if (nls.command === this.id) {
+            if (nls.control === this.id) {
                 if (nls.property === "NAME") {
-                    this.label = nls.value;
+                    this.label = this.selectValue(this.label, nls.value, nls.nlsId);
                 }
             }
         }
         else if (nls.type === NLSRecordType.Generic) {
-            if (nls.key === this.id) {
+            if (nls.control === this.id) {
                 if (nls.property === "NAME") {
-                    this.label == this.label ?? nls.value;
+                    this.label = this.selectValue(this.label, nls.value, nls.nlsId);
                 }
             }
-            if (this.parameters && this.parameters[nls.key]) {
-                this.parameters[nls.key].applyNLSRecord(nls);
+            if (this.parameters && this.parameters[nls.control]) {
+                this.parameters[nls.control].applyNLSRecord(nls);
             }
         }
-        else if (nls.type === NLSRecordType.CommandParameter) {
-            if (this.parameters && this.parameters[nls.commandParameter]) {
-                this.parameters[nls.commandParameter].applyNLSRecord(nls);
+        else if (nls.type === NLSRecordType.CommandParameter || nls.type === NLSRecordType.CommandParameterNLS) {
+            if (this.parameters && this.parameters[nls.control]) {
+                this.parameters[nls.control].applyNLSRecord(nls);
             }
         }
     }
@@ -457,7 +494,6 @@ export class CommandDefinition extends NodeMemberDefinition {
 }
 export class ParameterDefinition extends NodeMemberDefinition {
     initialValue;
-    optional;
     constructor(def, classDef) {
         super(classDef, def);
         this.id = def.id;
@@ -467,29 +503,7 @@ export class ParameterDefinition extends NodeMemberDefinition {
     }
     applyNLSRecord(nls) {
         if (nls.property === "NAME") {
-            this.label = nls.value;
-        }
-    }
-}
-export class EventDefinition extends NodeMemberDefinition {
-    constructor(def, classDef) {
-        super(classDef);
-        this.id = def.id;
-    }
-    applyNLSRecord(nls) {
-        if (nls.type === NLSRecordType.Command) {
-            if (nls.command === this.id) {
-                if (nls.property === "NAME") {
-                    this.label = nls.value;
-                }
-            }
-        }
-        else if (nls.type === NLSRecordType.Generic) {
-            if (nls.key === this.id) {
-                if (nls.property === "NAME") {
-                    this.label == this.label ?? nls.value;
-                }
-            }
+            this.label = this.selectValue(this.label, nls.value, nls.nlsId);
         }
     }
     toJSON() {
@@ -499,8 +513,32 @@ export class EventDefinition extends NodeMemberDefinition {
             id: this.id,
             editorId: this.editorId,
             dataType: this.dataType,
-            name: this.name
+            name: this.name,
+            optional: this.optional,
+            initialValue: this.initialValue
         };
+    }
+}
+export class EventDefinition extends NodeMemberDefinition {
+    constructor(def, classDef) {
+        super(classDef);
+        this.id = def.id;
+    }
+    applyNLSRecord(nls) {
+        if (nls.type === NLSRecordType.Command) {
+            if (nls.control === this.id) {
+                if (nls.property === "NAME") {
+                    this.label = this.selectValue(this.label, nls.value, nls.nlsId);
+                }
+            }
+        }
+        else if (nls.type === NLSRecordType.Generic) {
+            if (nls.control === this.id) {
+                if (nls.property === "NAME") {
+                    this.label = this.selectValue(this.label, nls.value, nls.nlsId);
+                }
+            }
+        }
     }
 }
 (function (NodeClassDefinition) {

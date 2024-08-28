@@ -1,1 +1,0 @@
-{"version":3,"file":"InsteonDimmerSwitchDevice.js","sourceRoot":"","sources":["../../../../src/Devices/Insteon/InsteonDimmerSwitchDevice.ts"],"names":[],"mappings":";;;AAEA,yDAAyD;AACzD,yEAAmE;AACnE,mBAAiB;AAEjB,MAAa,yBAA0B,SAAQ,IAAA,sCAAmB,EAAC,gDAAqB,CAAC;IACxF,YAAa,GAAQ,EAAE,UAAoB;QAC1C,KAAK,CAAC,GAAG,EAAE,UAAU,CAAC,CAAC;IACxB,CAAC;CACD;AAJD,8DAIC"}

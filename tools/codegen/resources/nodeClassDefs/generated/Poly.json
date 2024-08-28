@@ -7,6 +7,7 @@
       "ST": {
         "label": "Connected",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "BRD_ST",
         "dataType": {
@@ -44,6 +45,7 @@
       "ST": {
         "label": "Fan Speed (%)",
         "hidden": false,
+        "readonly": false,
         "id": "ST",
         "editorId": "CFN_ST",
         "dataType": {
@@ -62,6 +64,7 @@
       "GV0": {
         "label": "Fan Direction",
         "hidden": false,
+        "readonly": false,
         "id": "GV0",
         "editorId": "CFN_DIR",
         "dataType": {
@@ -78,6 +81,7 @@
       "GV1": {
         "label": "Fan Speed (#)",
         "hidden": false,
+        "readonly": false,
         "id": "GV1",
         "editorId": "CFN_SPEED",
         "dataType": {
@@ -124,7 +128,9 @@
                 }
               }
             },
-            "name": "value"
+            "name": "value",
+            "optional": true,
+            "initialValue": "ST"
           }
         },
         "initialValue": "ST"
@@ -163,7 +169,9 @@
             "id": "FAN_SPEED",
             "editorId": "CFN_SPEED",
             "dataType": {},
-            "name": "fanSpeed"
+            "name": "fanSpeed",
+            "optional": false,
+            "initialValue": "GV1"
           }
         }
       },
@@ -195,7 +203,9 @@
                 "max": 2
               }
             },
-            "name": "value"
+            "name": "value",
+            "optional": false,
+            "initialValue": "GV0"
           }
         },
         "initialValue": "GV0"
@@ -214,6 +224,7 @@
       "ST": {
         "label": "Light",
         "hidden": false,
+        "readonly": false,
         "id": "ST",
         "editorId": "LGT_ST",
         "dataType": {
@@ -263,7 +274,9 @@
                 }
               }
             },
-            "name": "value"
+            "name": "value",
+            "optional": true,
+            "initialValue": "ST"
           }
         },
         "initialValue": "ST"
@@ -307,6 +320,7 @@
       "ST": {
         "label": "Light",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "NDL_ST",
         "dataType": {
@@ -358,6 +372,7 @@
       "ST": {
         "label": "Status",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "SHD_ST",
         "dataType": {
@@ -498,6 +513,7 @@
       "ST": {
         "label": "Status",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "FPL_ST",
         "dataType": {
@@ -539,6 +555,7 @@
       "ST": {
         "label": "Status",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "GNR_ST",
         "dataType": {

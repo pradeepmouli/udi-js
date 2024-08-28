@@ -27,6 +27,7 @@ import { create } from 'domain';
 import camelcase from 'camelcase';
 import { EnumDefinition, EnumDefinitionMap } from './EnumDefinition.js';
 import * as fs from 'fs';
+import { ThisTypeNode } from 'ts-morph';
 
 
 
@@ -42,6 +43,23 @@ function buildNodeClassDefinitions<T extends Family>(
     f.applyNLS();
     f.applyEditorDefs();
     f.applyIndexDefs();
+    for (const driver of Object.values(f.drivers)) {
+      for (const cmd of Object.values(f.commands)) {
+        if (cmd.initialValue == driver.id) {
+          driver.readonly = false;
+          break;
+        }
+        if(cmd.parameters)
+          for(const cmdp of Object.values(cmd.parameters))
+          {
+            if (cmdp.initialValue === driver.id) {
+              driver.readonly = false;
+              break;
+            }
+          }
+
+      }
+    }
     map[f.id] = f;
   }
   return map;
@@ -177,27 +195,29 @@ export class NodeClassDefinition<T extends Family> {
 
   private applyNLSRecords(nls: NLSRecordTypeMap) {
     for (const entry of nls.GEN ?? []) {
-      if (this.commands.hasOwnProperty(entry.type)) {
-        this.commands[entry.type].applyNLSRecord(entry);
+      //if (this.commands.hasOwnProperty(entry.key)) {
+      for (const cmd in this.commands) {
+        this.commands[cmd].applyNLSRecord(entry);
       }
+      //}
 
-      if (this.events.hasOwnProperty(entry.type)) {
-        this.events[entry.type].applyNLSRecord(entry);
+      if (this.events.hasOwnProperty(entry.control)) {
+        this.events[entry.control].applyNLSRecord(entry);
       }
-      if (this.drivers.hasOwnProperty(entry.type)) {
-        this.drivers[entry.type].applyNLSRecord(entry);
+      if (this.drivers.hasOwnProperty(entry.control)) {
+        this.drivers[entry.control].applyNLSRecord(entry);
       }
     }
     for (const entry of nls.ST ?? []) {
       var e = entry as NLSDriverRecord;
-      if (this.drivers.hasOwnProperty(e.driver)) {
-        this.drivers[e.driver].applyNLSRecord(e);
+      if (this.drivers.hasOwnProperty(e.control)) {
+        this.drivers[e.control].applyNLSRecord(e);
       }
     }
     for (const entry of nls.CMD ?? []) {
       var c = entry as NLSCommandRecord;
-      if (this.commands.hasOwnProperty(c.command)) {
-        this.commands[c.command].applyNLSRecord(c);
+      if (this.commands.hasOwnProperty(c.control)) {
+        this.commands[c.control].applyNLSRecord(c);
       }
     }
     for (const entry of nls.CMDP ?? []) {
@@ -267,7 +287,7 @@ export type DataTypeDefinition = {
 };
 
 export abstract class NodeMemberDefinition<TId extends string> {
-  label: string;
+  label?: string;
   hidden: boolean;
   id: TId;
   editorId: string;
@@ -275,7 +295,9 @@ export abstract class NodeMemberDefinition<TId extends string> {
     [x in keyof typeof UnitOfMeasure]?:
     DataTypeDefinition;
   };
+  optional: boolean;
   classDef: NodeClassDefinition<any>;
+
 
   constructor( classDef: NodeClassDefinition<any>, def?: DriverDef | ParamDef)
   {
@@ -285,12 +307,28 @@ export abstract class NodeMemberDefinition<TId extends string> {
 
       this.editorId = def.editor;
       this.dataType = {};
+
       var r = this.parseEditorId(def.editor);
       if(r)
         this.applyEditorDef({id: def.editor, range: r});
     }
 
   }
+
+  selectValue(currentValue, newValue, nlsId)
+  {
+      if(currentValue === undefined || currentValue === null)
+      {
+        return newValue;
+      }
+      else if(this.classDef.nlsId == nlsId)
+      {
+        return newValue;
+      }
+      return currentValue;
+
+  }
+
 
   parseEditorId(e: string)
   {
@@ -394,7 +432,7 @@ export abstract class NodeMemberDefinition<TId extends string> {
         } else {
           d[rangeDef.uom] = {
             uom: rangeDef.uom,
-            enum: rangeDef.nls !== undefined && rangeDef.nls !== null ? true : false,
+            enum: false,
             min: rangeDef.min,
             max: rangeDef.max,
             step: rangeDef.step ?? undefined,
@@ -426,6 +464,7 @@ export abstract class NodeMemberDefinition<TId extends string> {
     return {
       label: this.label,
       hidden: this.hidden,
+      optional: this.optional,
       id: this.id,
       editorId: this.editorId,
       dataType: this.dataType,
@@ -435,36 +474,47 @@ export abstract class NodeMemberDefinition<TId extends string> {
 }
 
 export class DriverDefinition extends NodeMemberDefinition<Driver.Type> {
-  constructor (def: DriverDef, classDef: NodeClassDefinition<any>) {
-    super(classDef, def);
-    this.id = def.id;
-    this.hidden = def.hide === "T";
-    this.editorId = def.editor;
-  }
+	readonly = true;
 
-  applyNLSRecord(nls: NLSGenericRecord | NLSDriverRecord) {
-    if (nls.type === NLSRecordType.Driver) {
-      if (nls.driver === this.id) {
-        if (nls.property === "NAME") {
-          this.label = nls.value;
-        }
-      }
-    } else if (nls.type === NLSRecordType.Generic) {
-      if (nls.key === this.id) {
-        if (nls.property === "NAME") {
-          this.label == this.label ?? nls.value;
-        }
-      }
-    }
-  }
+	constructor(def: DriverDef, classDef: NodeClassDefinition<any>) {
+		super(classDef, def);
+		this.id = def.id;
+		this.hidden = def.hide === 'T';
+		this.editorId = def.editor;
+	}
 
-  createClassProperty() {
-    return ;
-  }
+	applyNLSRecord(nls: NLSGenericRecord | NLSDriverRecord) {
+		if (nls.type === NLSRecordType.Driver) {
+			if (nls.control === this.id) {
+				if (nls.property === 'NAME') {
+					this.label = this.selectValue(this.label, nls.value, nls.nlsId);
+				}
+			}
+		} else if (nls.type === NLSRecordType.Generic) {
+			if (nls.control === this.id) {
+				if (nls.property === 'NAME') {
+					this.label = this.selectValue(this.label, nls.value, nls.nlsId);
+				}
+			}
+		}
+	}
+
+	override toJSON() {
+		return {
+			label: this.label,
+			hidden: this.hidden,
+			optional: this.optional,
+      readonly: this.readonly,
+			id: this.id,
+			editorId: this.editorId,
+			dataType: this.dataType,
+			name: this.name
+		};
+	}
 }
 
 export class CommandDefinition extends NodeMemberDefinition<string> {
-  optional: boolean;
+
 
   parameters?: { [x: string]: ParameterDefinition; };
   initialValue?: Driver.Type;
@@ -472,6 +522,7 @@ export class CommandDefinition extends NodeMemberDefinition<string> {
   override get name(): string {
     if(Object.values(this.classDef.drivers).find(d => d.name === super.name))
     {
+
       return "update" + capitalize(super.name);
     }
     return super.name;
@@ -489,6 +540,7 @@ export class CommandDefinition extends NodeMemberDefinition<string> {
           if (p.id === "") {
             this.editorId = p.editor;
             this.initialValue = p.init as Driver.Type;
+
             this.optional = p.optional === "T";
             p.id = "value";
           }
@@ -499,23 +551,23 @@ export class CommandDefinition extends NodeMemberDefinition<string> {
 
   applyNLSRecord(nls: NLSGenericRecord | NLSCommandRecord | NLSCommandParameterRecord) {
     if (nls.type === NLSRecordType.Command) {
-      if (nls.command === this.id) {
+      if (nls.control === this.id) {
         if (nls.property === "NAME") {
-          this.label = nls.value;
+          this.label =  this.selectValue(this.label,nls.value, nls.nlsId)
         }
       }
     } else if (nls.type === NLSRecordType.Generic) {
-      if (nls.key === this.id) {
+      if (nls.control === this.id) {
         if (nls.property === "NAME") {
-          this.label == this.label ?? nls.value;
+          this.label =  this.selectValue(this.label,nls.value, nls.nlsId)
         }
       }
-      if (this.parameters && this.parameters[nls.key]) {
-        this.parameters[nls.key].applyNLSRecord(nls);
+      if (this.parameters && this.parameters[nls.control]) {
+        this.parameters[nls.control].applyNLSRecord(nls);
       }
-    } else if (nls.type === NLSRecordType.CommandParameter) {
-      if (this.parameters && this.parameters[nls.commandParameter]) {
-        this.parameters[nls.commandParameter].applyNLSRecord(nls);
+    } else if (nls.type === NLSRecordType.CommandParameter || nls.type === NLSRecordType.CommandParameterNLS) {
+      if (this.parameters && this.parameters[nls.control]) {
+        this.parameters[nls.control].applyNLSRecord(nls);
       }
     }
   }
@@ -564,7 +616,7 @@ export class CommandDefinition extends NodeMemberDefinition<string> {
 
 export class ParameterDefinition extends NodeMemberDefinition<string> {
   initialValue: Driver.Type;
-  optional: boolean;
+
 
   constructor (def: ParamDef, classDef: NodeClassDefinition<any>) {
     super(classDef,def);
@@ -575,11 +627,26 @@ export class ParameterDefinition extends NodeMemberDefinition<string> {
     this.optional = def.optional === "T";
   }
   applyNLSRecord(nls: NLSCommandParameterRecord | NLSGenericRecord) {
-    if (nls.property === "NAME") {
-      this.label = nls.value;
-    }
-  }
 
+        if (nls.property === "NAME") {
+          this.label =  this.selectValue(this.label,nls.value, nls.nlsId)
+        }
+
+
+
+  }
+ override toJSON() {
+    return {
+      label: this.label,
+      hidden: this.hidden,
+      id: this.id,
+      editorId: this.editorId,
+      dataType: this.dataType,
+      name: this.name,
+      optional: this.optional,
+      initialValue: this.initialValue
+    };
+  }
 
   // applyEditorDef(e: EditorDef) {
   //   if (e.id === this.editorId) {
@@ -606,31 +673,21 @@ export class EventDefinition extends NodeMemberDefinition<string> {
 
   applyNLSRecord(nls: NLSCommandRecord | NLSGenericRecord) {
     if (nls.type === NLSRecordType.Command) {
-      if (nls.command === this.id) {
+      if (nls.control === this.id) {
         if (nls.property === "NAME") {
-          this.label = nls.value;
+          this.label =  this.selectValue(this.label,nls.value, nls.nlsId)
         }
       }
     } else if (nls.type === NLSRecordType.Generic) {
-      if (nls.key === this.id) {
+      if (nls.control === this.id) {
         if (nls.property === "NAME") {
-          this.label == this.label ?? nls.value;
+          this.label =  this.selectValue(this.label,nls.value, nls.nlsId)
         }
       }
     }
   }
 
-    override toJSON()     {
 
-        return {
-          label: this.label,
-          hidden: this.hidden,
-          id: this.id,
-          editorId: this.editorId,
-          dataType: this.dataType,
-          name: this.name
-        }
-    }
 
 }
 

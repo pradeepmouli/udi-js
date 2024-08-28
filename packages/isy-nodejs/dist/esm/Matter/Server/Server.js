@@ -117,7 +117,7 @@ export async function createServerNode(isy = ISY.instance) {
             if (baseBehavior !== undefined) {
                 const endpoint = new Endpoint(baseBehavior, {
                     id: serialNumber,
-                    isyDevice: {
+                    isyNode: {
                         address: device.address,
                     },
                     bridgedDeviceBasicInformation: {

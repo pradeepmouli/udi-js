@@ -5,14 +5,14 @@
         "type": "ST",
         "nlsId": "103",
         "value": "On Time",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "103",
         "value": "Off Wait Time",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       }
     ]
@@ -23,21 +23,21 @@
         "type": "ST",
         "nlsId": "106",
         "value": "Hue",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "106",
         "value": "Saturation",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "106",
         "value": "Enhanced Hue",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       }
     ]
@@ -48,56 +48,56 @@
         "type": "ST",
         "nlsId": "108",
         "value": "Color Temperature",
-        "driver": "GV0",
+        "control": "GV0",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "108",
         "value": "Color X",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "108",
         "value": "Color Y",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "108",
         "value": "Color X",
-        "driver": "GV0",
+        "control": "GV0",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "108",
         "value": "Color Y",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "108",
         "value": "Color Temperature K",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "108",
         "value": "Color Temperature Mired",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "108",
         "value": "Preferred Units",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       }
     ]
@@ -108,70 +108,70 @@
         "type": "ST",
         "nlsId": "120",
         "value": "Alarm 1",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "120",
         "value": "Alarm 2",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "120",
         "value": "Tamper",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "120",
         "value": "Low Battery",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "120",
         "value": "Reports Supervision",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "120",
         "value": "Reports Restore",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "120",
         "value": "Trouble",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "120",
         "value": "AC/Mains Fault",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "120",
         "value": "Test",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "120",
         "value": "Battery Defect",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -182,70 +182,70 @@
         "type": "ST",
         "nlsId": "121",
         "value": "System Alarm",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "121",
         "value": "Alarm 2",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "121",
         "value": "Tamper",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "121",
         "value": "Low Battery",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "121",
         "value": "Reports Supervision",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "121",
         "value": "Reports Restore",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "121",
         "value": "Trouble",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "121",
         "value": "AC/Mains Fault",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "121",
         "value": "Test",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "121",
         "value": "Battery Defect",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -256,70 +256,70 @@
         "type": "ST",
         "nlsId": "122",
         "value": "Intrusion",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "122",
         "value": "Presence",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "122",
         "value": "Tamper",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "122",
         "value": "Low Battery",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "122",
         "value": "Reports Supervision",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "122",
         "value": "Reports Restore",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "122",
         "value": "Trouble",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "122",
         "value": "AC/Mains Fault",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "122",
         "value": "Test",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "122",
         "value": "Battery Defect",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -330,70 +330,70 @@
         "type": "ST",
         "nlsId": "123",
         "value": "Door/Window #1 Open",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "123",
         "value": "Door/Window #2 Open",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "123",
         "value": "Tamper",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "123",
         "value": "Low Battery",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "123",
         "value": "Reports Supervision",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "123",
         "value": "Reports Restore",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "123",
         "value": "Trouble",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "123",
         "value": "AC/Mains Fault",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "123",
         "value": "Test",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "123",
         "value": "Battery Defect",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -404,70 +404,70 @@
         "type": "ST",
         "nlsId": "124",
         "value": "Fire Indication",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "124",
         "value": "Alarm 2",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "124",
         "value": "Tamper",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "124",
         "value": "Low Battery",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "124",
         "value": "Reports Supervision",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "124",
         "value": "Reports Restore",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "124",
         "value": "Trouble",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "124",
         "value": "AC/Mains Fault",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "124",
         "value": "Test",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "124",
         "value": "Battery Defect",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -478,70 +478,70 @@
         "type": "ST",
         "nlsId": "125",
         "value": "Water Overflow",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "125",
         "value": "Alarm 2",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "125",
         "value": "Tamper",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "125",
         "value": "Low Battery",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "125",
         "value": "Reports Supervision",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "125",
         "value": "Reports Restore",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "125",
         "value": "Trouble",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "125",
         "value": "AC/Mains Fault",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "125",
         "value": "Test",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "125",
         "value": "Battery Defect",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -552,70 +552,70 @@
         "type": "ST",
         "nlsId": "126",
         "value": "CO Alarm",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "126",
         "value": "Cooking Indication",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "126",
         "value": "Tamper",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "126",
         "value": "Low Battery",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "126",
         "value": "Reports Supervision",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "126",
         "value": "Reports Restore",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "126",
         "value": "Trouble",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "126",
         "value": "AC/Mains Fault",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "126",
         "value": "Test",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "126",
         "value": "Battery Defect",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -626,70 +626,70 @@
         "type": "ST",
         "nlsId": "127",
         "value": "Fall/Concussion",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "127",
         "value": "Emergency Button",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "127",
         "value": "Tamper",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "127",
         "value": "Low Battery",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "127",
         "value": "Reports Supervision",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "127",
         "value": "Reports Restore",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "127",
         "value": "Trouble",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "127",
         "value": "AC/Mains Fault",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "127",
         "value": "Test",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "127",
         "value": "Battery Defect",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -700,70 +700,70 @@
         "type": "ST",
         "nlsId": "128",
         "value": "Movement",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "128",
         "value": "Vibration",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "128",
         "value": "Tamper",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "128",
         "value": "Low Battery",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "128",
         "value": "Reports Supervision",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "128",
         "value": "Reports Restore",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "128",
         "value": "Trouble",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "128",
         "value": "AC/Mains Fault",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "128",
         "value": "Test",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "128",
         "value": "Battery Defect",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -774,70 +774,70 @@
         "type": "ST",
         "nlsId": "129",
         "value": "Panic",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "129",
         "value": "Emergency",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "129",
         "value": "Tamper",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "129",
         "value": "Low Battery",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "129",
         "value": "Reports Supervision",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "129",
         "value": "Reports Restore",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "129",
         "value": "Trouble",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "129",
         "value": "AC/Mains Fault",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "129",
         "value": "Test",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "129",
         "value": "Battery Defect",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -848,70 +848,70 @@
         "type": "ST",
         "nlsId": "130",
         "value": "Panic",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "130",
         "value": "Emergency",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "130",
         "value": "Tamper",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "130",
         "value": "Low Battery",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "130",
         "value": "Reports Supervision",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "130",
         "value": "Reports Restore",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "130",
         "value": "Trouble",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "130",
         "value": "AC/Mains Fault",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "130",
         "value": "Test",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "130",
         "value": "Battery Defect",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -922,70 +922,70 @@
         "type": "ST",
         "nlsId": "131",
         "value": "Panic",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "131",
         "value": "Emergency",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "131",
         "value": "Tamper",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "131",
         "value": "Low Battery",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "131",
         "value": "Reports Supervision",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "131",
         "value": "Reports Restore",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "131",
         "value": "Trouble",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "131",
         "value": "AC/Mains Fault",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "131",
         "value": "Test",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "131",
         "value": "Battery Defect",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -996,70 +996,70 @@
         "type": "ST",
         "nlsId": "132",
         "value": "Alarm 1",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "132",
         "value": "Alarm 2",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "132",
         "value": "Tamper",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "132",
         "value": "Low Battery",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "132",
         "value": "Reports Supervision",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "132",
         "value": "Reports Restore",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "132",
         "value": "Trouble",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "132",
         "value": "AC/Mains Fault",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "132",
         "value": "Test",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "132",
         "value": "Battery Defect",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -1070,70 +1070,70 @@
         "type": "ST",
         "nlsId": "133",
         "value": "Glass Break",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "133",
         "value": "Alarm 2",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "133",
         "value": "Tamper",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "133",
         "value": "Low Battery",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "133",
         "value": "Reports Supervision",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "133",
         "value": "Reports Restore",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "133",
         "value": "Trouble",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "133",
         "value": "AC/Mains Fault",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "133",
         "value": "Test",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "133",
         "value": "Battery Defect",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -1144,70 +1144,70 @@
         "type": "ST",
         "nlsId": "134",
         "value": "Glass Break",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "134",
         "value": "Alarm 2",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "134",
         "value": "Tamper",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "134",
         "value": "Low Battery",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "134",
         "value": "Reports Supervision",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "134",
         "value": "Reports Restore",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "134",
         "value": "Trouble",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "134",
         "value": "AC/Mains Fault",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "134",
         "value": "Test",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "134",
         "value": "Battery Defect",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -1218,7 +1218,7 @@
         "type": "ST",
         "nlsId": "140",
         "value": "Temperature",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       }
     ]
@@ -1229,14 +1229,14 @@
         "type": "CMD",
         "nlsId": "184",
         "value": "Open",
-        "command": "DON",
+        "control": "DON",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "184",
         "value": "Close",
-        "command": "DOF",
+        "control": "DOF",
         "property": "NAME"
       }
     ]
@@ -1247,7 +1247,7 @@
         "type": "GEN",
         "nlsId": "Generic",
         "value": "Timer",
-        "key": "TIMER",
+        "control": "TIMER",
         "property": "NAME"
       }
     ],
@@ -1256,161 +1256,161 @@
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Set Time",
-        "command": "SETTP",
+        "control": "SETTP",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Toggle",
-        "command": "TOGGLE",
+        "control": "TOGGLE",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Identify",
-        "command": "IDENTIFY",
+        "control": "IDENTIFY",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Lock",
-        "command": "LOCK",
+        "control": "LOCK",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Unlock",
-        "command": "UNLOCK",
+        "control": "UNLOCK",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Toggle",
-        "command": "TOGGLE",
+        "control": "TOGGLE",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Fade",
-        "command": "FADE",
+        "control": "FADE",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Enhanced Hue",
-        "command": "EHUE",
+        "control": "EHUE",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Preferred Units",
-        "command": "UNITS",
+        "control": "UNITS",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Stop",
-        "command": "STOP",
+        "control": "STOP",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Move To",
-        "command": "MOVETO",
+        "control": "MOVETO",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Move To Hue",
-        "command": "MOVETOHUE",
+        "control": "MOVETOHUE",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Move To Saturation",
-        "command": "MOVETOSAT",
+        "control": "MOVETOSAT",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Move Hue",
-        "command": "MOVEHUE",
+        "control": "MOVEHUE",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Move Saturation",
-        "command": "MOVESAT",
+        "control": "MOVESAT",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Step Hue",
-        "command": "STEPHUE",
+        "control": "STEPHUE",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Step Saturation",
-        "command": "STEPSAT",
+        "control": "STEPSAT",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Move To XY",
-        "command": "MOVETOXY",
+        "control": "MOVETOXY",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Move XY",
-        "command": "MOVEXY",
+        "control": "MOVEXY",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Step XY",
-        "command": "STEPXY",
+        "control": "STEPXY",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Move To Temperature",
-        "command": "MOVETOCT",
+        "control": "MOVETOCT",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Move Temperature",
-        "command": "MOVECT",
+        "control": "MOVECT",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Step Temperature",
-        "command": "STEPCT",
+        "control": "STEPCT",
         "property": "NAME"
       }
     ],
@@ -1765,14 +1765,14 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Start Level",
-        "commandParameter": "STARTLEVEL",
+        "control": "STARTLEVEL",
         "property": "NAME"
       },
       {
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Direction",
-        "commandParameter": "DIR",
+        "control": "DIR",
         "property": "NAME",
         "editorId": "ZY_MLS_DIR"
       },
@@ -1780,7 +1780,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "2nd Direction",
-        "commandParameter": "DIR2",
+        "control": "DIR2",
         "property": "NAME",
         "editorId": "ZY_MLS_DIR"
       },
@@ -1788,7 +1788,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Fade Rate",
-        "commandParameter": "RR",
+        "control": "RR",
         "property": "NAME",
         "editorId": "ZY_RR"
       },
@@ -1796,7 +1796,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "2nd Fade Rate",
-        "commandParameter": "STEP2",
+        "control": "STEP2",
         "property": "NAME",
         "editorId": "ZY_RR"
       }
@@ -1806,7 +1806,7 @@
         "type": "ST",
         "nlsId": "Generic",
         "value": "Responding",
-        "driver": "ERR",
+        "control": "ERR",
         "property": "NAME"
       }
     ],

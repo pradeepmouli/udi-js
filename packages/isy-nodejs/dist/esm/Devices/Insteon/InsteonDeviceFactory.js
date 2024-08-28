@@ -730,7 +730,7 @@ export class InsteonDeviceFactory {
         }
         if ((node.nodeDefId === 'BinaryAlarm' || node.nodeDefId === 'BinaryAlarm_ADV') && subAddress !== '1') {
             if (retVal) {
-                retVal.class = ISYBinaryStateDevice(InsteonBaseDevice);
+                retVal.class = InsteonBaseDevice;
             }
         }
         return retVal;

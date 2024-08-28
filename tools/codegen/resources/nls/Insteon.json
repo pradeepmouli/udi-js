@@ -5,7 +5,7 @@
         "type": "ST",
         "nlsId": "143",
         "value": "Temperature",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       }
     ],
@@ -14,14 +14,14 @@
         "type": "CMD",
         "nlsId": "143",
         "value": "Setpoint Up",
-        "command": "BRT",
+        "control": "BRT",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "143",
         "value": "Setpoint Down",
-        "command": "DIM",
+        "control": "DIM",
         "property": "NAME"
       }
     ]
@@ -32,7 +32,7 @@
         "type": "ST",
         "nlsId": "2844",
         "value": "Battery Powered",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       }
     ],
@@ -41,7 +41,7 @@
         "type": "CMD",
         "nlsId": "2844",
         "value": "Calibrate Temperature",
-        "command": "CLITEMP",
+        "control": "CLITEMP",
         "property": "NAME"
       }
     ]
@@ -109,7 +109,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Level",
-        "commandParameter": "LEVEL",
+        "control": "LEVEL",
         "property": "NAME",
         "editorId": "I_BEEP_255"
       },
@@ -117,49 +117,49 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Duration",
-        "commandParameter": "DUR",
+        "control": "DUR",
         "property": "NAME"
       },
       {
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Delay",
-        "commandParameter": "DLY",
+        "control": "DLY",
         "property": "NAME"
       },
       {
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Tone",
-        "commandParameter": "TT",
+        "control": "TT",
         "property": "NAME"
       },
       {
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Level",
-        "commandParameter": "I_OL",
+        "control": "I_OL",
         "property": "NAME"
       },
       {
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Ramp Rate",
-        "commandParameter": "I_RR",
+        "control": "I_RR",
         "property": "NAME"
       },
       {
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Retries",
-        "commandParameter": "CLNRT",
+        "control": "CLNRT",
         "property": "NAME"
       },
       {
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Number",
-        "commandParameter": "NUM",
+        "control": "NUM",
         "property": "NAME",
         "editorId": "I_PARAM_NUM"
       },
@@ -167,7 +167,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Size",
-        "commandParameter": "LEN",
+        "control": "LEN",
         "property": "NAME",
         "editorId": "I_PARAM_LEN"
       },
@@ -175,7 +175,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Value",
-        "commandParameter": "VAL",
+        "control": "VAL",
         "property": "NAME",
         "editorId": "I_PARAM_VAL"
       },
@@ -183,7 +183,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "CMD1",
-        "commandParameter": "ICMD1",
+        "control": "ICMD1",
         "property": "NAME",
         "editorId": "I_NUM_255"
       },
@@ -191,7 +191,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "CMD2",
-        "commandParameter": "ICMD2",
+        "control": "ICMD2",
         "property": "NAME",
         "editorId": "I_NUM_255"
       },
@@ -199,7 +199,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Data1",
-        "commandParameter": "IDATA1",
+        "control": "IDATA1",
         "property": "NAME",
         "editorId": "I_NUM_255"
       },
@@ -207,7 +207,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Data2",
-        "commandParameter": "IDATA2",
+        "control": "IDATA2",
         "property": "NAME",
         "editorId": "I_NUM_255"
       },
@@ -215,7 +215,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Data3",
-        "commandParameter": "IDATA3",
+        "control": "IDATA3",
         "property": "NAME",
         "editorId": "I_NUM_255"
       },
@@ -223,7 +223,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Data4",
-        "commandParameter": "IDATA4",
+        "control": "IDATA4",
         "property": "NAME",
         "editorId": "I_NUM_255"
       },
@@ -231,7 +231,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Option",
-        "commandParameter": "ICMDOPT",
+        "control": "ICMDOPT",
         "property": "NAME",
         "editorId": "I_NUM_255"
       }
@@ -3750,56 +3750,56 @@
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Backlight Level",
-        "command": "S_BL",
+        "control": "S_BL",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Arm",
-        "command": "ARM",
+        "control": "ARM",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Disarm",
-        "command": "DISARM",
+        "control": "DISARM",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Transmit",
-        "command": "I_IRLINC_TX",
+        "control": "I_IRLINC_TX",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Configuration Parameter",
-        "command": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Query",
-        "command": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "LED",
-        "command": "LED",
+        "control": "LED",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Insteon Cmd",
-        "command": "ICMD",
+        "control": "ICMD",
         "property": "NAME"
       }
     ],
@@ -4156,7 +4156,7 @@
         "type": "ST",
         "nlsId": "Generic",
         "value": "Responding",
-        "driver": "ERR",
+        "control": "ERR",
         "property": "NAME"
       }
     ],
@@ -4224,7 +4224,7 @@
         "type": "CMD",
         "nlsId": "MOC",
         "value": "Max Duration",
-        "command": "DUR",
+        "control": "DUR",
         "property": "NAME"
       }
     ],
@@ -4233,7 +4233,7 @@
         "type": "ST",
         "nlsId": "MOC",
         "value": "Max Duration",
-        "driver": "DUR",
+        "control": "DUR",
         "property": "NAME"
       }
     ]
@@ -4244,14 +4244,14 @@
         "type": "ST",
         "nlsId": "71A",
         "value": "Duration",
-        "driver": "OL",
+        "control": "OL",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "71A",
         "value": "Tone",
-        "driver": "RR",
+        "control": "RR",
         "property": "NAME"
       }
     ],
@@ -4260,14 +4260,14 @@
         "type": "CMD",
         "nlsId": "71A",
         "value": "Duration",
-        "command": "OL",
+        "control": "OL",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "71A",
         "value": "Tone",
-        "command": "RR",
+        "control": "RR",
         "property": "NAME"
       }
     ]
@@ -4278,14 +4278,14 @@
         "type": "CMD",
         "nlsId": "Lock",
         "value": "Lock",
-        "command": "DON",
+        "control": "DON",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Lock",
         "value": "Unlock",
-        "command": "DOF",
+        "control": "DOF",
         "property": "NAME"
       }
     ]
@@ -4329,7 +4329,7 @@
         "type": "ST",
         "nlsId": "IMS",
         "value": "Current Power",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       }
     ],
@@ -4338,7 +4338,7 @@
         "type": "CMD",
         "nlsId": "IMS",
         "value": "Reset Total Energy",
-        "command": "RESET",
+        "control": "RESET",
         "property": "NAME"
       }
     ]
@@ -4349,63 +4349,63 @@
         "type": "ST",
         "nlsId": "I3PF",
         "value": "Mode",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3PF",
         "value": "Program Lock",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3PF",
         "value": "Resume Dim",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3PF",
         "value": "Relay at Full On",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3PF",
         "value": "Key Beep",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3PF",
         "value": "Disable RF",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3PF",
         "value": "Button Lock",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3PF",
         "value": "Error Blink",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3PF",
         "value": "Cleanup Reports",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       }
     ],
@@ -4414,63 +4414,63 @@
         "type": "CMD",
         "nlsId": "I3PF",
         "value": "Mode",
-        "command": "GV0",
+        "control": "GV0",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3PF",
         "value": "Program Lock",
-        "command": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3PF",
         "value": "Resume Dim",
-        "command": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3PF",
         "value": "Relay at Full On",
-        "command": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3PF",
         "value": "Key Beep",
-        "command": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3PF",
         "value": "Disable RF",
-        "command": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3PF",
         "value": "Button Lock",
-        "command": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3PF",
         "value": "Error Blink",
-        "command": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3PF",
         "value": "Cleanup Reports",
-        "command": "GV8",
+        "control": "GV8",
         "property": "NAME"
       }
     ]
@@ -4481,70 +4481,70 @@
         "type": "ST",
         "nlsId": "I3KP",
         "value": "Mode",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3KP",
         "value": "Program Lock",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3KP",
         "value": "Resume Dim",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3KP",
         "value": "Relay at Full On",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3KP",
         "value": "Key Beep",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3KP",
         "value": "Disable RF",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3KP",
         "value": "Button Lock",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3KP",
         "value": "Error Blink",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3KP",
         "value": "Cleanup Reports",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "I3KP",
         "value": "Load Button",
-        "driver": "GV30",
+        "control": "GV30",
         "property": "NAME"
       }
     ],
@@ -4553,70 +4553,70 @@
         "type": "CMD",
         "nlsId": "I3KP",
         "value": "Mode",
-        "command": "GV0",
+        "control": "GV0",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3KP",
         "value": "Program Lock",
-        "command": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3KP",
         "value": "Resume Dim",
-        "command": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3KP",
         "value": "Relay at Full On",
-        "command": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3KP",
         "value": "Key Beep",
-        "command": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3KP",
         "value": "Disable RF",
-        "command": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3KP",
         "value": "Button Lock",
-        "command": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3KP",
         "value": "Error Blink",
-        "command": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3KP",
         "value": "Cleanup Reports",
-        "command": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "I3KP",
         "value": "Load Button",
-        "command": "GV30",
+        "control": "GV30",
         "property": "NAME"
       }
     ]
@@ -4627,21 +4627,21 @@
         "type": "ST",
         "nlsId": "SRN",
         "value": "Siren",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "SRN",
         "value": "Siren Duration",
-        "driver": "DUR",
+        "control": "DUR",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "SRN",
         "value": "Arm Countdown",
-        "driver": "DELAY",
+        "control": "DELAY",
         "property": "NAME"
       }
     ]

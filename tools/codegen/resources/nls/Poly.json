@@ -182,7 +182,7 @@
         "type": "GEN",
         "nlsId": "Generic",
         "value": "Hold Time",
-        "key": "HOLD_MS",
+        "control": "HOLD_MS",
         "property": "NAME"
       }
     ]
@@ -193,7 +193,7 @@
         "type": "ST",
         "nlsId": "BRD",
         "value": "Connected",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       }
     ],
@@ -202,7 +202,7 @@
         "type": "CMD",
         "nlsId": "BRD",
         "value": "Force Update",
-        "command": "UPDATE",
+        "control": "UPDATE",
         "property": "NAME"
       }
     ]
@@ -213,21 +213,21 @@
         "type": "ST",
         "nlsId": "CFN",
         "value": "Fan Speed (%)",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "CFN",
         "value": "Fan Direction",
-        "driver": "GV0",
+        "control": "GV0",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "CFN",
         "value": "Fan Speed (#)",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       }
     ],
@@ -236,42 +236,42 @@
         "type": "CMD",
         "nlsId": "CFN",
         "value": "Increase Speed (%)",
-        "command": "BRT",
+        "control": "BRT",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "CFN",
         "value": "Decrease Speed (%)",
-        "command": "DIM",
+        "control": "DIM",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "CFN",
         "value": "Increase Speed (#)",
-        "command": "INC_SPEED",
+        "control": "INC_SPEED",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "CFN",
         "value": "Decrease Speed (#)",
-        "command": "DEC_SPEED",
+        "control": "DEC_SPEED",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "CFN",
         "value": "Set Speed",
-        "command": "SET_SPEED",
+        "control": "SET_SPEED",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "CFN",
         "value": "Set Direction",
-        "command": "SET_DIRECTION",
+        "control": "SET_DIRECTION",
         "property": "NAME"
       }
     ]
@@ -282,7 +282,7 @@
         "type": "ST",
         "nlsId": "LGT",
         "value": "Light",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       }
     ]
@@ -293,7 +293,7 @@
         "type": "ST",
         "nlsId": "NDL",
         "value": "Light",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       }
     ]
@@ -304,14 +304,14 @@
         "type": "CMD",
         "nlsId": "SHD",
         "value": "Open",
-        "command": "DON",
+        "control": "DON",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "SHD",
         "value": "Close",
-        "command": "DOF",
+        "control": "DOF",
         "property": "NAME"
       }
     ]

@@ -7,6 +7,7 @@
       "ST": {
         "label": "Status",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "NCD_OL_RELAY",
         "dataType": {
@@ -25,6 +26,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "readonly": true,
         "id": "ERR",
         "editorId": "NCD_ERR",
         "dataType": {
@@ -89,7 +91,8 @@
                 }
               }
             },
-            "name": "value"
+            "name": "value",
+            "optional": false
           }
         }
       }

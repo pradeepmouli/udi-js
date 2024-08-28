@@ -1,4 +1,4 @@
-import ts from "typescript";
+import { ts } from 'ts-morph';
 import { Family } from "../ISY.js";
 import type { NodeClassDefinition } from "../Model/ClassDefinition.js";
 import { EnumDefinition } from "../Model/EnumDefinition.js";
@@ -22,7 +22,7 @@ export declare class EnumFactory extends CodeFactory {
 export declare function createNodeClass<T extends Family>(nodeClassDef: NodeClassDefinition<T>): {
     name: string;
     id: string;
-    statements: (ts.ImportDeclaration | ts.VariableStatement | ts.TypeAliasDeclaration | ts.ClassDeclaration)[];
+    statements: (import("typescript").VariableStatement | import("typescript").ClassDeclaration | import("typescript").TypeAliasDeclaration | import("typescript").ImportDeclaration)[];
 };
 export {};
 //# sourceMappingURL=EnumFactory.d.ts.map

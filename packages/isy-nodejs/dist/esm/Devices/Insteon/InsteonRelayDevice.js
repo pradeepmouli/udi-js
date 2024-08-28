@@ -12,7 +12,7 @@ export class InsteonRelayDevice extends InsteonBaseDevice {
             this.drivers.ST;
         });
         //endpoint.defaults.onOff.onOff = await this.isOn;
-        endpoint.set({ onOff: { onOff: await this.state } });
+        endpoint.set({ onOff: { onOff: await this.drivers.ST.value > 0 } });
         const that = this;
         this.on("PropertyChanged", (propertyName, newValue, _oldValue, formattedValue) => {
             if (propertyName === "ST") {

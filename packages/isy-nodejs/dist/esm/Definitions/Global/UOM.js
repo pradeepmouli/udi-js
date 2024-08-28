@@ -1,4 +1,3 @@
-import { Converters } from "../../Converters.js";
 export var UnitOfMeasure;
 (function (UnitOfMeasure) {
     UnitOfMeasure[UnitOfMeasure["Unknown"] = 0] = "Unknown";
@@ -108,26 +107,53 @@ export var UnitOfMeasure;
     UnitOfMeasure[UnitOfMeasure["Cent"] = 104] = "Cent";
     UnitOfMeasure[UnitOfMeasure["Inch"] = 105] = "Inch";
     UnitOfMeasure[UnitOfMeasure["MillimetersPerDay"] = 106] = "MillimetersPerDay";
+    UnitOfMeasure[UnitOfMeasure["Raw1ByteUnsignedValue"] = 107] = "Raw1ByteUnsignedValue";
+    UnitOfMeasure[UnitOfMeasure["Raw2ByteUnsignedValue"] = 108] = "Raw2ByteUnsignedValue";
+    UnitOfMeasure[UnitOfMeasure["Raw3ByteUnsignedValue"] = 109] = "Raw3ByteUnsignedValue";
+    UnitOfMeasure[UnitOfMeasure["Raw4ByteUnsignedValue"] = 110] = "Raw4ByteUnsignedValue";
+    UnitOfMeasure[UnitOfMeasure["Raw1ByteSignedValue"] = 111] = "Raw1ByteSignedValue";
+    UnitOfMeasure[UnitOfMeasure["Raw2ByteSignedValue"] = 112] = "Raw2ByteSignedValue";
+    UnitOfMeasure[UnitOfMeasure["Raw3ByteSignedValue"] = 113] = "Raw3ByteSignedValue";
+    UnitOfMeasure[UnitOfMeasure["Raw4ByteSignedValue"] = 114] = "Raw4ByteSignedValue";
+    UnitOfMeasure[UnitOfMeasure["MostRecentOnStyleActionTakenForLampControl"] = 115] = "MostRecentOnStyleActionTakenForLampControl";
+    UnitOfMeasure[UnitOfMeasure["Mile"] = 116] = "Mile";
+    UnitOfMeasure[UnitOfMeasure["Millibar"] = 117] = "Millibar";
+    UnitOfMeasure[UnitOfMeasure["Hectopascal"] = 118] = "Hectopascal";
+    UnitOfMeasure[UnitOfMeasure["WattHour"] = 119] = "WattHour";
+    UnitOfMeasure[UnitOfMeasure["InchesPerDay"] = 120] = "InchesPerDay";
+    UnitOfMeasure[UnitOfMeasure["MolePerCubicMeter"] = 121] = "MolePerCubicMeter";
+    UnitOfMeasure[UnitOfMeasure["MicrogramPerCubicMeter"] = 122] = "MicrogramPerCubicMeter";
+    UnitOfMeasure[UnitOfMeasure["BecquerelPerCubicMeter"] = 123] = "BecquerelPerCubicMeter";
+    UnitOfMeasure[UnitOfMeasure["PicocuriesPerLiter"] = 124] = "PicocuriesPerLiter";
+    UnitOfMeasure[UnitOfMeasure["Acidity"] = 125] = "Acidity";
+    UnitOfMeasure[UnitOfMeasure["BeatsPerMinute"] = 126] = "BeatsPerMinute";
+    UnitOfMeasure[UnitOfMeasure["MillimetersOfMercury"] = 127] = "MillimetersOfMercury";
+    UnitOfMeasure[UnitOfMeasure["Joule"] = 128] = "Joule";
+    UnitOfMeasure[UnitOfMeasure["BodyMassIndex"] = 129] = "BodyMassIndex";
+    UnitOfMeasure[UnitOfMeasure["LitersPerHour"] = 130] = "LitersPerHour";
+    UnitOfMeasure[UnitOfMeasure["DecibelMilliwatts"] = 131] = "DecibelMilliwatts";
+    UnitOfMeasure[UnitOfMeasure["BreathsPerMinute"] = 132] = "BreathsPerMinute";
+    UnitOfMeasure[UnitOfMeasure["Kilohertz"] = 133] = "Kilohertz";
+    UnitOfMeasure[UnitOfMeasure["MetersPerSquaredSeconds"] = 134] = "MetersPerSquaredSeconds";
+    UnitOfMeasure[UnitOfMeasure["ApparentPower"] = 135] = "ApparentPower";
+    UnitOfMeasure[UnitOfMeasure["ReactivePower"] = 136] = "ReactivePower";
+    UnitOfMeasure[UnitOfMeasure["NTPDateTime"] = 137] = "NTPDateTime";
+    UnitOfMeasure[UnitOfMeasure["PoundPerSquareInch"] = 138] = "PoundPerSquareInch";
+    UnitOfMeasure[UnitOfMeasure["Degrees0To360"] = 139] = "Degrees0To360";
+    UnitOfMeasure[UnitOfMeasure["MilligramPerLiter"] = 140] = "MilligramPerLiter";
+    UnitOfMeasure[UnitOfMeasure["Newton"] = 141] = "Newton";
+    UnitOfMeasure[UnitOfMeasure["USGallonsPerSecond"] = 142] = "USGallonsPerSecond";
+    UnitOfMeasure[UnitOfMeasure["USGallonsPerMinute"] = 143] = "USGallonsPerMinute";
+    UnitOfMeasure[UnitOfMeasure["USGallonsPerHour"] = 144] = "USGallonsPerHour";
+    UnitOfMeasure[UnitOfMeasure["Text"] = 145] = "Text";
+    UnitOfMeasure[UnitOfMeasure["ReservedForSystemEditors1"] = 146] = "ReservedForSystemEditors1";
+    UnitOfMeasure[UnitOfMeasure["XML"] = 147] = "XML";
+    UnitOfMeasure[UnitOfMeasure["ReservedForSystemEditors2"] = 148] = "ReservedForSystemEditors2";
+    UnitOfMeasure[UnitOfMeasure["DegreeOfHue0To360"] = 149] = "DegreeOfHue0To360";
+    UnitOfMeasure[UnitOfMeasure["URLForStreaming"] = 150] = "URLForStreaming";
+    UnitOfMeasure[UnitOfMeasure["UnixTimestamp"] = 151] = "UnixTimestamp";
 })(UnitOfMeasure || (UnitOfMeasure = {}));
 export function toString() {
     return UnitOfMeasure[this];
 }
-(function (UnitOfMeasure) {
-    function convertTo(targetUOM, value) {
-        const converter = Converters.Standard[this.toString()]?.[targetUOM];
-        if (converter) {
-            return converter.to(value);
-        }
-        return value;
-    }
-    UnitOfMeasure.convertTo = convertTo;
-    function convertFrom(sourceUOM, value) {
-        const converter = Converters.Standard[this.toString()]?.[sourceUOM];
-        if (converter) {
-            return converter.from(value);
-        }
-        return value;
-    }
-    UnitOfMeasure.convertFrom = convertFrom;
-})(UnitOfMeasure || (UnitOfMeasure = {}));
 //# sourceMappingURL=UOM.js.map

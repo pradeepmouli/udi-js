@@ -3,7 +3,7 @@ import { OnOffLightRequirements } from "@project-chip/matter.js/devices/OnOffLig
 import { ISYClusterBehavior, ClusterForBehavior, type PropertyChange } from "./ISYClusterBehavior.js";
 import { OnOffLightSwitchDevice } from '@project-chip/matter.js/devices/OnOffLightSwitchDevice';
 import type { MaybePromise } from '@project-chip/matter.js/util';
-import { MappingRegistry, type ClusterTypeMapping } from '../../Model/ClusterMap.js';
+import { MappingRegistry } from '../../Model/ClusterMap.js';
 import type { MutableCluster, OnOffCluster } from '@project-chip/matter.js/cluster';
 import type { OnOffBehavior, OnOffServer } from '@project-chip/matter.js/behaviors/on-off';
 import type { LevelControlServer, LevelControlInterface } from '@project-chip/matter.js/behaviors/level-control';
@@ -22,7 +22,7 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.
 
     override async initialize(_options?: {}) {
         await super.initialize(_options);
-        this.state.onOff = await this.device.state;
+        //this.state.onOff = await this.device.state;
 
 
 
@@ -33,20 +33,20 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.
     await super.on();
 
 
-     this.device.state = true;
+     //this.device.commands.DON = true;
   }
 
   override async off() {
     //await super.off();
-     this.device.state = false;
+    // this.device.drivers = false;
   }
 
   override toggle =  async () => {
-    this.device.state = !(await this.device.state);
+    //this.device.state = !(await this.device.state);
   }
 
   override async handlePropertyChange({driver, newValue, oldValue, formattedValue}: PropertyChange<InsteonRelayDevice>) {
-    if (driver === DriverType.Status) {
+    if (driver === "ST") {
       this.state.onOff = newValue;
 
     }
@@ -61,8 +61,8 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.
 export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequirements.LevelControlServer, InsteonDimmableDevice) {
   override async initialize(_options?: {}) {
     await super.initialize(_options);
-    this.state.currentLevel = this.device.local.ST;
-    this.state.onLevel = this.device.local.OL;
+    this.state.currentLevel = this.device.drivers.ST.value;
+    //this.state.onLevel = this.device.drivers.OL;
 
   }
 

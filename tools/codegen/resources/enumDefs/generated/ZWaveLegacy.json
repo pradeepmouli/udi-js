@@ -436,7 +436,7 @@
   "IXAV_VOC": {
     "family": 4,
     "id": "IXAV_VOC",
-    "name": "IxavVoc",
+    "name": "AlertValueVoc",
     "values": {
       "": 0,
       "Clean": 1,
@@ -571,7 +571,7 @@
   "IXAV_01": {
     "family": 4,
     "id": "IXAV_01",
-    "name": "Ixav01",
+    "name": "AlertValue01",
     "values": {
       "": 0,
       "NoData": 1,

@@ -175,7 +175,7 @@ export async function createServerNode(isy: ISY = ISY.instance) : Promise<Server
           baseBehavior,
           {
             id: serialNumber,
-            isyDevice: {
+            isyNode: {
                 address: device.address,
             },
 

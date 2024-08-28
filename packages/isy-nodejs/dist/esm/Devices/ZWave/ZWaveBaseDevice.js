@@ -1,6 +1,6 @@
 import { Family } from '../../Definitions/Global/Families.js';
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
-import { ISYDeviceNode } from '../../ISYNode.js';
+import { ISYDeviceNode } from '../ISYDeviceNode.js';
 import 'winston';
 // import { InsteonNLS } from './insteonfam'
 export class ZWaveBaseDevice extends ISYDeviceNode {
@@ -38,7 +38,7 @@ export class ZWaveBaseDevice extends ISYDeviceNode {
         }
     }
     async sendBeep(level = 100) {
-        return this.sendCommand('BEEP');
+        return this.sendCommand;
     }
 }
 //# sourceMappingURL=ZWaveBaseDevice.js.map

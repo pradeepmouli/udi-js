@@ -7,6 +7,7 @@
       "ST": {
         "label": "Temperature",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "RCS_TEMP_DEG",
         "dataType": {},
@@ -15,6 +16,7 @@
       "CLISPH": {
         "label": "Heat Setpoint",
         "hidden": false,
+        "readonly": false,
         "id": "CLISPH",
         "editorId": "RCS_CLISPH_DEG",
         "dataType": {},
@@ -23,6 +25,7 @@
       "CLISPC": {
         "label": "Cool Setpoint",
         "hidden": false,
+        "readonly": false,
         "id": "CLISPC",
         "editorId": "RCS_CLISPC_DEG",
         "dataType": {},
@@ -31,6 +34,7 @@
       "CLIMD": {
         "label": "Mode",
         "hidden": false,
+        "readonly": false,
         "id": "CLIMD",
         "editorId": "RCS_TSTAT_MODE",
         "dataType": {},
@@ -39,6 +43,7 @@
       "CLIFS": {
         "label": "Fan Mode",
         "hidden": false,
+        "readonly": false,
         "id": "CLIFS",
         "editorId": "RCS_TSTAT_FAN_MODE",
         "dataType": {},
@@ -47,6 +52,7 @@
       "CLIHCS": {
         "label": "Heat/Cool State",
         "hidden": false,
+        "readonly": true,
         "id": "CLIHCS",
         "editorId": "RCS_TSTAT_HCS",
         "dataType": {},
@@ -55,6 +61,7 @@
       "CLIFRS": {
         "label": "Fan State",
         "hidden": false,
+        "readonly": true,
         "id": "CLIFRS",
         "editorId": "RCS_CLIFRS",
         "dataType": {},
@@ -63,6 +70,7 @@
       "CLISMD": {
         "label": "Schedule Mode",
         "hidden": false,
+        "readonly": false,
         "id": "CLISMD",
         "editorId": "RCS_SMD",
         "dataType": {},
@@ -71,6 +79,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "readonly": true,
         "id": "ERR",
         "editorId": "RCS_ERR",
         "dataType": {},
@@ -89,7 +98,9 @@
             "id": "value",
             "editorId": "RCS_CLISPH_DEG",
             "dataType": {},
-            "name": "value"
+            "name": "value",
+            "optional": false,
+            "initialValue": "CLISPH"
           }
         },
         "initialValue": "CLISPH"
@@ -105,7 +116,9 @@
             "id": "value",
             "editorId": "RCS_CLISPC_DEG",
             "dataType": {},
-            "name": "value"
+            "name": "value",
+            "optional": false,
+            "initialValue": "CLISPC"
           }
         },
         "initialValue": "CLISPC"
@@ -121,7 +134,9 @@
             "id": "value",
             "editorId": "RCS_TSTAT_MODE",
             "dataType": {},
-            "name": "value"
+            "name": "value",
+            "optional": false,
+            "initialValue": "CLIMD"
           }
         },
         "initialValue": "CLIMD"
@@ -137,7 +152,9 @@
             "id": "value",
             "editorId": "RCS_TSTAT_FAN_MODE",
             "dataType": {},
-            "name": "value"
+            "name": "value",
+            "optional": false,
+            "initialValue": "CLIFS"
           }
         },
         "initialValue": "CLIFS"
@@ -153,7 +170,9 @@
             "id": "value",
             "editorId": "RCS_SMD",
             "dataType": {},
-            "name": "value"
+            "name": "value",
+            "optional": false,
+            "initialValue": "CLISMD"
           }
         },
         "initialValue": "CLISMD"
@@ -169,7 +188,8 @@
             "id": "value",
             "editorId": "RCS_DELTA_DEG",
             "dataType": {},
-            "name": "value"
+            "name": "value",
+            "optional": false
           }
         }
       },
@@ -184,7 +204,8 @@
             "id": "value",
             "editorId": "RCS_DELTA_DEG",
             "dataType": {},
-            "name": "value"
+            "name": "value",
+            "optional": false
           }
         }
       },
@@ -204,7 +225,8 @@
             "id": "value",
             "editorId": "RCS_ADRPST",
             "dataType": {},
-            "name": "value"
+            "name": "value",
+            "optional": false
           }
         }
       }
@@ -222,6 +244,7 @@
       "ST": {
         "label": "Status",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "RCS_OL_RELAY",
         "dataType": {},
@@ -230,6 +253,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "readonly": true,
         "id": "ERR",
         "editorId": "RCS_ERR",
         "dataType": {},
@@ -263,7 +287,8 @@
             "id": "value",
             "editorId": "RCS_ADRPST",
             "dataType": {},
-            "name": "value"
+            "name": "value",
+            "optional": false
           }
         }
       }

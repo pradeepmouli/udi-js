@@ -31,14 +31,14 @@
         "type": "ST",
         "nlsId": "Generic",
         "value": "Current Power",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "Generic",
         "value": "Responding",
-        "driver": "ERR",
+        "control": "ERR",
         "property": "NAME"
       }
     ],

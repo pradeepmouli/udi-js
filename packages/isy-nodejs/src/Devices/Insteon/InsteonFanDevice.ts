@@ -1,35 +1,34 @@
 import { Family } from '../../Definitions/Global/Families.js';
 import { ISY, ISYNode } from '../../ISY.js';
 import { States } from '../../ISYConstants.js';
-import { ISYUpdateableBinaryStateDevice, ISYUpdateableLevelDevice } from '../ISYDevice.js';
-import { ISYDeviceNode } from '../../ISYNode.js';
+
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import 'winston';
 import type { NodeInfo } from '../../Model/NodeInfo.js';
 import {Insteon} from './index.js';
 
-export class InsteonFanMotorDevice extends ISYUpdateableLevelDevice(ISYUpdateableBinaryStateDevice(InsteonBaseDevice)) {
+export class InsteonFanMotorDevice extends InsteonBaseDevice {
 	constructor (isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
 		this.hidden = true;
 	}
 
 	get isOn() {
-		return this.state;
+		return this.drivers.ST.value !== '0';
 	}
 	get fanSpeed() {
-		return this.level;
+		return this.drivers.ST.value;
 	}
 
 	public async updateFanSpeed(level: number) {
-		return this.updateLevel(level);
+		return this.commands.BEEP(level);
 	}
 	public async updateIsOn(isOn: boolean) {
 		if (!isOn) {
-			return this.updateLevel(States.Level.Min);
+			return this.commands.BEEP(States.Level.Min);
 		} else {
-			return this.updateLevel(States.Level.Max);
+			return this.commands.BEEP(States.Level.Max);
 		}
 	}
 
@@ -64,14 +63,8 @@ export class InsteonFanDevice extends InsteonBaseDevice {
 	}
 
 	public async updateFanSpeed(level: number) {
-		return this.motor.updateLevel(level);
+		return this.motor.updateFanSpeed(level);
 	}
-	public async updatFanIsOn(isOn: boolean) {
-		if (!this.motor.isOn) {
-			this.motor.updateLevel(States.Level.Min);
-		} else {
-			this.motor.updateLevel(States.Fan.High);
-		}
-	}
+	
 
 }

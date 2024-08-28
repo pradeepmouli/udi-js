@@ -43,7 +43,7 @@
         "type": "ST",
         "nlsId": "118",
         "value": "Temperature",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       }
     ]
@@ -64,14 +64,14 @@
         "type": "CMD",
         "nlsId": "123",
         "value": "Open",
-        "command": "DOF",
+        "control": "DOF",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "123",
         "value": "Close",
-        "command": "DON",
+        "control": "DON",
         "property": "NAME"
       }
     ]
@@ -90,7 +90,7 @@
         "type": "ST",
         "nlsId": "140",
         "value": "Temperature",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       }
     ]
@@ -471,28 +471,28 @@
         "type": "CMD",
         "nlsId": "184",
         "value": "Open",
-        "command": "DON",
+        "control": "DON",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "184",
         "value": "Close",
-        "command": "DOF",
+        "control": "DOF",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "184",
         "value": "Open",
-        "command": "DON",
+        "control": "DON",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "184",
         "value": "Close",
-        "command": "DOF",
+        "control": "DOF",
         "property": "NAME"
       }
     ]
@@ -513,77 +513,77 @@
         "type": "GEN",
         "nlsId": "186",
         "value": "Component",
-        "key": "ID",
+        "control": "ID",
         "property": "NAME"
       },
       {
         "type": "GEN",
         "nlsId": "186",
         "value": "Duration",
-        "key": "RR",
+        "control": "RR",
         "property": "NAME"
       },
       {
         "type": "GEN",
         "nlsId": "186",
         "value": "Warm White",
-        "key": "GV0",
+        "control": "GV0",
         "property": "NAME"
       },
       {
         "type": "GEN",
         "nlsId": "186",
         "value": "Cold White",
-        "key": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "GEN",
         "nlsId": "186",
         "value": "Red",
-        "key": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "GEN",
         "nlsId": "186",
         "value": "Green",
-        "key": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "GEN",
         "nlsId": "186",
         "value": "Blue",
-        "key": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "GEN",
         "nlsId": "186",
         "value": "Amber",
-        "key": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "GEN",
         "nlsId": "186",
         "value": "Cyan",
-        "key": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "GEN",
         "nlsId": "186",
         "value": "Purple",
-        "key": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "GEN",
         "nlsId": "186",
         "value": "Color Index",
-        "key": "GV8",
+        "control": "GV8",
         "property": "NAME"
       }
     ],
@@ -592,7 +592,7 @@
         "type": "CMD",
         "nlsId": "186",
         "value": "Set",
-        "command": "DON",
+        "control": "DON",
         "property": "NAME"
       }
     ]
@@ -603,14 +603,14 @@
         "type": "CMD",
         "nlsId": "187",
         "value": "Off",
-        "command": "DOF",
+        "control": "DOF",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "187",
         "value": "On",
-        "command": "DON",
+        "control": "DON",
         "property": "NAME"
       }
     ]
@@ -621,14 +621,14 @@
         "type": "CMD",
         "nlsId": "188",
         "value": "Down",
-        "command": "DOF",
+        "control": "DOF",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "188",
         "value": "Up",
-        "command": "DON",
+        "control": "DON",
         "property": "NAME"
       }
     ]
@@ -639,14 +639,14 @@
         "type": "CMD",
         "nlsId": "189",
         "value": "Close",
-        "command": "DOF",
+        "control": "DOF",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "189",
         "value": "Open",
-        "command": "DON",
+        "control": "DON",
         "property": "NAME"
       }
     ]
@@ -657,14 +657,14 @@
         "type": "CMD",
         "nlsId": "190",
         "value": "Rotate CCW",
-        "command": "DOF",
+        "control": "DOF",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "190",
         "value": "Rotate CW",
-        "command": "DON",
+        "control": "DON",
         "property": "NAME"
       }
     ]
@@ -675,14 +675,14 @@
         "type": "CMD",
         "nlsId": "191",
         "value": "Left",
-        "command": "DOF",
+        "control": "DOF",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "191",
         "value": "Right",
-        "command": "DON",
+        "control": "DON",
         "property": "NAME"
       }
     ]
@@ -693,14 +693,14 @@
         "type": "CMD",
         "nlsId": "192",
         "value": "Reverse",
-        "command": "DOF",
+        "control": "DOF",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "192",
         "value": "Forward",
-        "command": "DON",
+        "control": "DON",
         "property": "NAME"
       }
     ]
@@ -711,14 +711,14 @@
         "type": "CMD",
         "nlsId": "193",
         "value": "Pull",
-        "command": "DOF",
+        "control": "DOF",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "193",
         "value": "Push",
-        "command": "DON",
+        "control": "DON",
         "property": "NAME"
       }
     ]
@@ -729,21 +729,21 @@
         "type": "ST",
         "nlsId": "197",
         "value": "Current Tone",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "197",
         "value": "Volume",
-        "driver": "SVOL",
+        "control": "SVOL",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "197",
         "value": "Default Tone",
-        "driver": "GV0",
+        "control": "GV0",
         "property": "NAME"
       }
     ],
@@ -752,14 +752,14 @@
         "type": "CMD",
         "nlsId": "197",
         "value": "Volume",
-        "command": "SVOL",
+        "control": "SVOL",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "197",
         "value": "Default Tone",
-        "command": "DEFID",
+        "control": "DEFID",
         "property": "NAME"
       }
     ]
@@ -780,7 +780,7 @@
         "type": "ST",
         "nlsId": "253",
         "value": "Button Message",
-        "driver": "GV30",
+        "control": "GV30",
         "property": "NAME"
       }
     ],
@@ -789,7 +789,7 @@
         "type": "CMD",
         "nlsId": "253",
         "value": "Button Message",
-        "command": "GV30",
+        "control": "GV30",
         "property": "NAME"
       }
     ]
@@ -814,7 +814,7 @@
         "type": "ST",
         "nlsId": "301",
         "value": "Smoke Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -839,7 +839,7 @@
         "type": "ST",
         "nlsId": "302",
         "value": "CO Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -864,7 +864,7 @@
         "type": "ST",
         "nlsId": "303",
         "value": "CO2 Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -889,7 +889,7 @@
         "type": "ST",
         "nlsId": "304",
         "value": "Heat Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -914,35 +914,35 @@
         "type": "ST",
         "nlsId": "305",
         "value": "Water Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "305",
         "value": "Water Flow",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "305",
         "value": "Water Pressure",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "305",
         "value": "Water Temperature",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "305",
         "value": "Water Level",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       }
     ]
@@ -967,7 +967,7 @@
         "type": "ST",
         "nlsId": "306",
         "value": "Access Control",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -992,7 +992,7 @@
         "type": "ST",
         "nlsId": "307",
         "value": "Barrier Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -1017,7 +1017,7 @@
         "type": "ST",
         "nlsId": "308",
         "value": "Home Security",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -1042,7 +1042,7 @@
         "type": "ST",
         "nlsId": "309",
         "value": "Power Management",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -1067,7 +1067,7 @@
         "type": "ST",
         "nlsId": "310",
         "value": "System Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -1092,7 +1092,7 @@
         "type": "ST",
         "nlsId": "311",
         "value": "Emergency Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -1117,7 +1117,7 @@
         "type": "ST",
         "nlsId": "312",
         "value": "Clock Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -1142,7 +1142,7 @@
         "type": "ST",
         "nlsId": "313",
         "value": "Appliance Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -1167,7 +1167,7 @@
         "type": "ST",
         "nlsId": "314",
         "value": "Home Health Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -1202,21 +1202,21 @@
         "type": "ST",
         "nlsId": "316",
         "value": "Water Valve Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "316",
         "value": "Valve",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "316",
         "value": "Master Valve",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       }
     ]
@@ -1241,7 +1241,7 @@
         "type": "ST",
         "nlsId": "317",
         "value": "Weather Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -1266,7 +1266,7 @@
         "type": "ST",
         "nlsId": "318",
         "value": "Irrigation Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -1291,7 +1291,7 @@
         "type": "ST",
         "nlsId": "319",
         "value": "Gas Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -1316,7 +1316,7 @@
         "type": "ST",
         "nlsId": "320",
         "value": "Pest Control",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -1341,7 +1341,7 @@
         "type": "ST",
         "nlsId": "321",
         "value": "Light Sensor",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -1366,7 +1366,7 @@
         "type": "ST",
         "nlsId": "322",
         "value": "Water Quality Alarm",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -1391,7 +1391,7 @@
         "type": "ST",
         "nlsId": "323",
         "value": "Home Monitoring",
-        "driver": "ALARM",
+        "control": "ALARM",
         "property": "NAME"
       }
     ]
@@ -1410,21 +1410,21 @@
         "type": "ST",
         "nlsId": "350",
         "value": "Chlorine level",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "350",
         "value": "Water Acidity",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "350",
         "value": "Oxidiation Reduction Potential",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       }
     ]
@@ -1443,7 +1443,7 @@
         "type": "ST",
         "nlsId": "351",
         "value": "Heart Rater LF/HF Ratio",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       }
     ]
@@ -1462,14 +1462,14 @@
         "type": "ST",
         "nlsId": "352",
         "value": "Motion Direction",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "352",
         "value": "Applied Force to Cover",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       }
     ]
@@ -1488,63 +1488,63 @@
         "type": "ST",
         "nlsId": "353",
         "value": "Return Air Temperature",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "353",
         "value": "Supply Air Temperature",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "353",
         "value": "Condenser Coil Temperature",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "353",
         "value": "Evaporator Temperature",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "353",
         "value": "Liquid Line Temperature",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "353",
         "value": "Discharge Temperature",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "353",
         "value": "Suction Pressure",
-        "driver": "GV7",
+        "control": "GV7",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "353",
         "value": "Discharge Pressure",
-        "driver": "GV8",
+        "control": "GV8",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "353",
         "value": "Defrost Temperature",
-        "driver": "GV9",
+        "control": "GV9",
         "property": "NAME"
       }
     ]
@@ -1563,42 +1563,42 @@
         "type": "ST",
         "nlsId": "354",
         "value": "Sulfur Dioxide",
-        "driver": "GV1",
+        "control": "GV1",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "354",
         "value": "Nitrogen Dioxide",
-        "driver": "GV2",
+        "control": "GV2",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "354",
         "value": "Ammonia",
-        "driver": "GV3",
+        "control": "GV3",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "354",
         "value": "Lead",
-        "driver": "GV4",
+        "control": "GV4",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "354",
         "value": "Particulate Matter",
-        "driver": "GV5",
+        "control": "GV5",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "354",
         "value": "Ozone",
-        "driver": "GV6",
+        "control": "GV6",
         "property": "NAME"
       }
     ]
@@ -1779,7 +1779,7 @@
         "type": "GEN",
         "nlsId": "Generic",
         "value": "Timer",
-        "key": "TIMER",
+        "control": "TIMER",
         "property": "NAME"
       }
     ],
@@ -1850,42 +1850,42 @@
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Set Configuration",
-        "command": "CONFIG",
+        "control": "CONFIG",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Wakeup",
-        "command": "WAKEOPTS",
+        "control": "WAKEOPTS",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Fade",
-        "command": "FADE",
+        "control": "FADE",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Lock",
-        "command": "LOCK",
+        "control": "LOCK",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "Unlock",
-        "command": "UNLOCK",
+        "control": "UNLOCK",
         "property": "NAME"
       },
       {
         "type": "CMD",
         "nlsId": "Generic",
         "value": "No Parameters",
-        "command": "ASSOC",
+        "control": "ASSOC",
         "property": "NAME"
       }
     ],
@@ -1894,7 +1894,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Parameter Number",
-        "commandParameter": "NUM",
+        "control": "NUM",
         "property": "NAME",
         "editorId": "_107_0_R_0_255"
       },
@@ -1902,7 +1902,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Parameter Value",
-        "commandParameter": "VAL",
+        "control": "VAL",
         "property": "NAME",
         "editorId": "ZW_CONFIG"
       },
@@ -1910,7 +1910,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Interval",
-        "commandParameter": "INTERVAL",
+        "control": "INTERVAL",
         "property": "NAME",
         "editorId": "ZW_WAKE_INTERVAL"
       },
@@ -1918,28 +1918,28 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Start Level",
-        "commandParameter": "STARTLEVEL",
+        "control": "STARTLEVEL",
         "property": "NAME"
       },
       {
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "State",
-        "commandParameter": "STATE",
+        "control": "STATE",
         "property": "NAME"
       },
       {
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Type",
-        "commandParameter": "TYPE",
+        "control": "TYPE",
         "property": "NAME"
       },
       {
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Direction",
-        "commandParameter": "DIR",
+        "control": "DIR",
         "property": "NAME",
         "editorId": "ZW_MLS_DIR"
       },
@@ -1947,7 +1947,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "2nd Direction",
-        "commandParameter": "DIR2",
+        "control": "DIR2",
         "property": "NAME",
         "editorId": "ZW_MLS_DIR"
       },
@@ -1955,7 +1955,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "Fade Rate",
-        "commandParameter": "RR",
+        "control": "RR",
         "property": "NAME",
         "editorId": "ZW_RR"
       },
@@ -1963,7 +1963,7 @@
         "type": "CMDP",
         "nlsId": "Generic",
         "value": "2nd Fade Rate",
-        "commandParameter": "STEP2",
+        "control": "STEP2",
         "property": "NAME",
         "editorId": "ZW_RR"
       }
@@ -4040,7 +4040,7 @@
         "type": "ST",
         "nlsId": "Generic",
         "value": "Responding",
-        "driver": "ERR",
+        "control": "ERR",
         "property": "NAME"
       }
     ],

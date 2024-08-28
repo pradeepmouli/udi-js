@@ -1,11 +1,11 @@
 import { ISY } from '../../ISY.js';
 import { Commands, States } from '../../ISYConstants.js';
-import { ISYUpdateableBinaryStateDevice } from '../ISYDevice.js';
+
 import { ZWaveBaseDevice } from './ZWaveBaseDevice.js';
 import 'winston';
 
 
-export class ZwaveLockDevice extends ISYUpdateableBinaryStateDevice(ZWaveBaseDevice) {
+export class ZwaveLockDevice extends ZWaveBaseDevice {
 	constructor (isy: ISY, deviceNode: any
 	) {
 		super(isy, deviceNode);
@@ -18,11 +18,11 @@ export class ZwaveLockDevice extends ISYUpdateableBinaryStateDevice(ZWaveBaseDev
 
 	}
 	get isLocked() {
-		return this.state;
+		return this.drivers.ST.value > 0;
 	}
 
 	public async updateIsLocked(isLocked: boolean) {
-		return super.updateState(isLocked);
+		//return super.updateState(isLocked);
 	}
 
 	public async sendNonSecureLockCommand(lockState: any) {

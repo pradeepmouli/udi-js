@@ -53,8 +53,8 @@
     },
     "dependencies": {
         "@log4js-node/log4js-api": "^1.0.2",
-        "@project-chip/matter-node.js": "^0.10.0-alpha.0-20240716-446c872f",
-        "@project-chip/matter.js": "^0.10.0-alpha.0-20240808-bb365a45",
+        "@project-chip/matter-node.js": "^0.10.0-alpha.0-20240820-846ffb01",
+        "@project-chip/matter.js": "^0.10.0-alpha.0-20240820-846ffb01",
         "axios": "^1.7.2",
         "fast-xml-parser": "^4.4.0",
         "faye-websocket": "^0.11.4",

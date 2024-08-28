@@ -93,26 +93,26 @@ export declare abstract class NLSNodeDefFilteredRecord<T extends NLSRecordType> 
     parseKey(tokens: string[]): void;
 }
 export declare class NLSCommandRecord extends NLSNodeDefFilteredRecord<NLSRecordType.Command> {
-    command: string;
+    control: string;
     property: string;
     constructor(tokens: string[], value: string);
     parseKey(tokens: string[]): void;
 }
 export declare class NLSGenericRecord extends NLSNodeDefFilteredRecord<NLSRecordType.Generic> {
-    key: string;
+    control: string;
     property: string;
     constructor(tokens: string[], value: string);
     parseKey(tokens: string[]): void;
 }
 export declare class NLSCommandParameterRecord extends NLSNodeDefFilteredRecord<NLSRecordType.CommandParameter | NLSRecordType.CommandParameterNLS> {
-    commandParameter: string;
+    control: string;
     property: string;
     editorId: string;
     constructor(type: NLSRecordType.CommandParameter | NLSRecordType.CommandParameterNLS, tokens: string[], value: string);
     parseKey(tokens: string[]): void;
 }
 export declare class NLSDriverRecord extends NLSNodeDefFilteredRecord<NLSRecordType.Driver> {
-    driver: DriverType;
+    control: DriverType;
     property: string;
     constructor(tokens: string[], value: string);
     parseKey(tokens: string[]): void;

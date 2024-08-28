@@ -30,7 +30,8 @@
                 "max": 100
               }
             },
-            "name": "value"
+            "name": "value",
+            "optional": true
           }
         }
       },
@@ -110,7 +111,8 @@
                 "max": 3
               }
             },
-            "name": "value"
+            "name": "value",
+            "optional": false
           }
         }
       },
@@ -144,7 +146,8 @@
                 }
               }
             },
-            "name": "value"
+            "name": "value",
+            "optional": false
           }
         }
       },
@@ -174,7 +177,8 @@
                 "max": 120
               }
             },
-            "name": "value"
+            "name": "value",
+            "optional": false
           }
         }
       },
@@ -204,7 +208,8 @@
                 "max": 120
               }
             },
-            "name": "value"
+            "name": "value",
+            "optional": false
           }
         }
       },
@@ -234,7 +239,8 @@
                 "max": 25
               }
             },
-            "name": "value"
+            "name": "value",
+            "optional": false
           }
         }
       },
@@ -264,7 +270,8 @@
                 "max": 25
               }
             },
-            "name": "value"
+            "name": "value",
+            "optional": false
           }
         }
       }

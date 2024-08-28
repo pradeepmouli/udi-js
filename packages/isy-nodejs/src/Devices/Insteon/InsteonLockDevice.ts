@@ -1,11 +1,11 @@
 import { ISY } from '../../ISY.js';
 import { Commands, States } from '../../ISYConstants.js';
-import { ISYUpdateableBinaryStateDevice } from '../ISYDevice.js';
+
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
 
-export class InsteonLockDevice extends ISYUpdateableBinaryStateDevice(InsteonBaseDevice) {
-	
+export class InsteonLockDevice extends InsteonBaseDevice {
+
 	public sendLockCommand(lockState: any, resultHandler: any) {
 
 			this.sendNonSecureLockCommand(lockState);
@@ -14,11 +14,11 @@ export class InsteonLockDevice extends ISYUpdateableBinaryStateDevice(InsteonBas
 
 	}
 	get isLocked() {
-		return this.state;
+		return this.drivers.ST.value > 0;
 	}
 
 	public async updateIsLocked(isLocked: boolean) {
-		return super.updateState(isLocked);
+		//return super.updateProperty(propertyName, value)
 	}
 
 	public async sendNonSecureLockCommand(lockState: any) {

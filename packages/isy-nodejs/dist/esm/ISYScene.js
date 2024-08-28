@@ -72,7 +72,7 @@ export class ISYScene extends ISYNode {
         for (const device of this.members) {
             if (device instanceof Insteon.Dimmer) {
                 lightDeviceCount++;
-                blevel += device.brightnessLevel;
+                //blevel += device.brightnessLevel;
             }
             else if (device instanceof Insteon.Relay) {
                 lightDeviceCount++;

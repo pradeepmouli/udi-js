@@ -46,9 +46,9 @@ export interface NodeNotes {
 
 export class ISYNode<
   T extends Family,
-  D extends DriverSignatures,
-  C extends CommandSignatures,
-  E extends string
+  D extends ISYNode.DriverSignatures | {},
+  C extends ISYNode.CommandSignatures | {} ,
+  E extends string = Extract<keyof C,string>
 > extends EventEmitter {
 	// #region Properties (32)
 
@@ -172,6 +172,7 @@ export class ISYNode<
 
 	public applyStatus(prop: DriverState) {
     var d = this.drivers[prop.id];
+
     if (d) {
       d.apply(prop);
 
@@ -286,8 +287,9 @@ export class ISYNode<
     propertyName: keyof D & string,
     value: any,
     uom: UnitOfMeasure,
-    prec: number,
-    formattedValue: string
+    formattedValue: string,
+    prec?: number
+
   ): boolean {
     this.lastChanged = new Date();
     const oldValue = this.drivers[propertyName].value;
@@ -368,7 +370,7 @@ export class ISYNode<
 
 	public async sendCommand(
     command: StringKeys<C>,
-    parameters?: Record<string | symbol, string | number> | string | number
+    parameters?: Record<string | symbol, string | number | undefined> | string | number
   ): Promise<any> {
     //@
     return this.isy.sendNodeCommand(this, command, parameters);
@@ -515,15 +517,7 @@ export type DriverMap<T extends NodeList> = Flatten<{[x in keyof T] : DriversOf<
 //   }
  //}
 
-export type DriverSignatures =
-   {
-      [x: string]: Driver.Signature
-    }
-  | {};
 
-export type CommandSignatures = {
-  [x: string]: Command.Signature<any,any,any>;
-} | {};
 
 export type NodeList = { [x: string]: ISYNode<any, any, any, any> };
 

@@ -1,4 +1,4 @@
-import { Converters } from "../../Converters.js";
+
 
 export enum UnitOfMeasure {
 	Unknown = 0,
@@ -108,15 +108,62 @@ export enum UnitOfMeasure {
 	Cent = 104,
 	Inch = 105,
 	MillimetersPerDay = 106,
+	Raw1ByteUnsignedValue = 107,
+	Raw2ByteUnsignedValue = 108,
+	Raw3ByteUnsignedValue = 109,
+	Raw4ByteUnsignedValue = 110,
+	Raw1ByteSignedValue = 111,
+	Raw2ByteSignedValue = 112,
+	Raw3ByteSignedValue = 113,
+	Raw4ByteSignedValue = 114,
+	MostRecentOnStyleActionTakenForLampControl = 115,
+	Mile = 116,
+	Millibar = 117,
+	Hectopascal = 118,
+	WattHour = 119,
+	InchesPerDay = 120,
+	MolePerCubicMeter = 121,
+	MicrogramPerCubicMeter = 122,
+	BecquerelPerCubicMeter = 123,
+	PicocuriesPerLiter = 124,
+	Acidity = 125,
+	BeatsPerMinute = 126,
+	MillimetersOfMercury = 127,
+	Joule = 128,
+	BodyMassIndex = 129,
+	LitersPerHour = 130,
+	DecibelMilliwatts = 131,
+	BreathsPerMinute = 132,
+	Kilohertz = 133,
+	MetersPerSquaredSeconds = 134,
+	ApparentPower = 135,
+	ReactivePower = 136,
+	NTPDateTime = 137,
+	PoundPerSquareInch = 138,
+	Degrees0To360 = 139,
+	MilligramPerLiter = 140,
+	Newton = 141,
+	USGallonsPerSecond = 142,
+	USGallonsPerMinute = 143,
+	USGallonsPerHour = 144,
+	Text = 145,
+	ReservedForSystemEditors1 = 146,
+	XML = 147,
+	ReservedForSystemEditors2 = 148,
+	DegreeOfHue0To360 = 149,
+	URLForStreaming = 150,
+	UnixTimestamp = 151
 }
 
 export function toString(this: UnitOfMeasure): keyof typeof UnitOfMeasure {
 	return UnitOfMeasure[this] as keyof typeof UnitOfMeasure;
 }
+
+//import { Converters } from "../../Converters.js";
 export namespace UnitOfMeasure {
 	export type ToType<X extends UnitOfMeasure> = X extends UnitOfMeasure.Boolean ? boolean : number;
 
-	export function convertTo<X extends UnitOfMeasure, Y extends UnitOfMeasure>(
+	/*export function convertTo<X extends UnitOfMeasure, Y extends UnitOfMeasure>(
 		this: X,
 		targetUOM: Y,
 		value: ToType<Y>
@@ -138,7 +185,7 @@ export namespace UnitOfMeasure {
 			return converter.from(value);
 		}
 		return value as unknown as ToType<X>;
-	}
+	}*/
 
-	
+
 }

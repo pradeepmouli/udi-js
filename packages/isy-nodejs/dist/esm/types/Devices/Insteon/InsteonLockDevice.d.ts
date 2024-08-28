@@ -1,11 +1,10 @@
+import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
-declare const InsteonLockDevice_base: any;
-export declare class InsteonLockDevice extends InsteonLockDevice_base {
+export declare class InsteonLockDevice extends InsteonBaseDevice {
     sendLockCommand(lockState: any, resultHandler: any): void;
-    get isLocked(): any;
-    updateIsLocked(isLocked: boolean): Promise<any>;
+    get isLocked(): boolean;
+    updateIsLocked(isLocked: boolean): Promise<void>;
     sendNonSecureLockCommand(lockState: any): Promise<any>;
     sendSecureLockCommand(lockState: any): Promise<any>;
 }
-export {};
 //# sourceMappingURL=InsteonLockDevice.d.ts.map

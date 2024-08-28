@@ -36,7 +36,7 @@
   "IX_TF": {
     "family": 14,
     "id": "IX_TF",
-    "name": "Tf",
+    "name": "TrueFalse",
     "values": {
       "False": 0,
       "True": 100

@@ -1,7 +1,7 @@
 import { timingSafeEqual } from 'crypto';
 import { Family } from '../../Definitions/Global/Families.js';
 import { ISY } from '../../ISY.js';
-import { ISYDeviceNode } from '../../ISYNode.js';
+import { ISYDeviceNode } from '../ISYDeviceNode.js';
 import { ElkAlarmSensorDevice } from './ElkAlarmSensorDevice.js';
 
 /////////////////////////////

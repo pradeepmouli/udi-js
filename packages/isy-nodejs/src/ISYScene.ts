@@ -2,7 +2,7 @@ import { Insteon } from './Devices/Insteon/index.js';
 import { Family } from './Definitions/Global/Families.js';
 import { Commands, LinkType } from './ISYConstants.js';
 import { ISYNode } from './ISYNode.js';
-import { type ISYDevice } from './ISYDevice.js';
+import {  ISYDevice } from './ISYDevice.js';
 import type { ISY } from './ISY.js';
 import type { Driver } from './Definitions/Global/Drivers.js';
 import type { Command } from './Definitions/Global/Commands.js';
@@ -91,7 +91,7 @@ export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>,Comm
 		for (const device of this.members) {
 			if (device instanceof Insteon.Dimmer) {
 				lightDeviceCount++;
-				blevel += device.brightnessLevel;
+				//blevel += device.brightnessLevel;
 			} else if (device instanceof Insteon.Relay) {
 				lightDeviceCount++;
 				blevel += device.drivers.ST ? 100 : 0;

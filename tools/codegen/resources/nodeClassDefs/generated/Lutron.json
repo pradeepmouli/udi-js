@@ -7,6 +7,7 @@
       "ST": {
         "label": "Status",
         "hidden": false,
+        "readonly": false,
         "id": "ST",
         "editorId": "LUT_OL_RELAY",
         "dataType": {
@@ -25,6 +26,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "readonly": true,
         "id": "ERR",
         "editorId": "LUT_ERR",
         "dataType": {
@@ -74,7 +76,9 @@
                 }
               }
             },
-            "name": "value"
+            "name": "value",
+            "optional": true,
+            "initialValue": "ST"
           }
         },
         "initialValue": "ST"

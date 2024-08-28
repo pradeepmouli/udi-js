@@ -17,10 +17,10 @@ export class EnumDefinition<T extends Family> {
   constructor(family: T, indexDef: { id: string; values: { [y: number]: string } }) {
     this.family = family;
     this.id = indexDef.id;
-    this.name = pascalCase(applyTranslations(family,indexDef.id.replace('IX_I_', '').replace('IX_', '').replace('IXA_','Alert')));
+    this.name = pascalCase(applyTranslations(family,indexDef.id.replace('IX_I_', '').replace('IX_', '').replace('IXA_','Alert')).replace('IXAV_','AlertValue'));
     for (const [index, value] of Object.entries(indexDef.values)) {
       this.values[pascalCase(value)] = parseInt(index)
-      
+
   }}
 
 }
@@ -36,6 +36,7 @@ export namespace EnumDefinition
            var enumDef = EnumDefinitionMap.get(family)[id];
            if(enumDef)
             {
+
                 enumDef.usages.add(`${nodeDefId}:${UnitOfMeasure[uom] as keyof typeof UnitOfMeasure}`);
                 return enumDef as EnumDefinition<T>;
             }
@@ -86,6 +87,7 @@ export namespace EnumDefinition
                  enumDefs = JSON.parse(fs.readFileSync(`${path}/generated/${fam}.json`, "utf8")) as {
                    [x: string]: EnumDefinition<Family>;
                  };
+
               }
 
               if (fs.existsSync(`${path}/custom/${fam}.json`)) {
@@ -95,7 +97,12 @@ export namespace EnumDefinition
                     [x: string]: EnumDefinition<Family>;
                   }
                 );
+
               }
+              for (const id in enumDefs)
+                 {
+                    enumDefs[id].usages = new Set();
+                 }
               EnumDefinitionMap.set(family, enumDefs);
         }
         return EnumDefinitionMap;

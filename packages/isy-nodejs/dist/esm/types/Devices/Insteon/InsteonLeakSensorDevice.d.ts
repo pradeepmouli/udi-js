@@ -1,10 +1,12 @@
 import type { NodeInfo } from '../../Model/NodeInfo.js';
 import { ISY } from '../../ISY.js';
+import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
-declare const InsteonLeakSensorDevice_base: any;
-export declare class InsteonLeakSensorDevice extends InsteonLeakSensorDevice_base {
+export declare class InsteonLeakSensorDevice extends InsteonBaseDevice {
     constructor(isy: ISY, deviceNode: NodeInfo);
-    get isDry(): any;
+    get isDry(): import("../../Definitions/index.js").Driver<"ST", import("../../Definitions/index.js").UnitOfMeasure, any, import("../../Definitions/index.js").UnitOfMeasure, number> & {
+        name: string;
+        label: string;
+    };
 }
-export {};
 //# sourceMappingURL=InsteonLeakSensorDevice.d.ts.map

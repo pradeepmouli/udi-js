@@ -31,7 +31,7 @@
         "type": "ST",
         "nlsId": "Generic",
         "value": "Responding",
-        "driver": "ERR",
+        "control": "ERR",
         "property": "NAME"
       }
     ],

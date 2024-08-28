@@ -7,12 +7,12 @@ import { Observable, EventEmitter } from "@project-chip/matter.js/util";
 import { ISY } from "../../ISY.js";
 import { MappingRegistry } from '../../Model/ClusterMap.js';
 export class ISYBridgedDeviceBehavior extends Behavior {
-    static id = "isyDevice";
+    static id = "isyNode";
     static early = true;
     async initialize(_options) {
         await super.initialize(_options);
         var address = this.state.address;
-        this.internal.device = ISY.instance.getDevice(this.state.address);
+        this.internal.device = ISY.instance.nodeMap.get(this.state.address);
         this.internal.map = MappingRegistry.getMapping(this.internal.device);
         ISY.instance.logger.debug(`Initializing ${this.constructor.name} for ${this.internal.device.constructor.name} ${this.internal.device.name} with address ${address}`);
         if (this.internal.device) {
@@ -20,7 +20,7 @@ export class ISYBridgedDeviceBehavior extends Behavior {
         }
     }
     get device() {
-        return (this.internal.device = this.internal.device ?? ISY.instance.getDevice(this.state.address));
+        return (this.internal.device = this.internal.device ?? ISY.instance.getNode(this.state.address));
     }
     get map() {
         return this.internal.map;

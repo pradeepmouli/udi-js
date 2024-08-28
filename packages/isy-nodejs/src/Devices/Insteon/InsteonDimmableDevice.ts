@@ -1,6 +1,6 @@
 import { Identity } from '@project-chip/matter.js/util';
 import { ISY } from '../../ISY.js';
-import { ISYUpdateableLevelDevice } from '../ISYDevice.js';
+
 import { MapsTo, type MapsToCluster } from '../MapsTo.js';
 import { EndpointFor } from '../EndpointFor.js';
 import { InsteonRelayDevice } from './InsteonRelayDevice.js';
@@ -17,16 +17,16 @@ type LevelControlBehavior = typeof DimmableLightRequirements.LevelControlServer
 type OnOffBehavior = typeof OOB
 //@ts-ignore
 export class InsteonDimmableDevice extends InsteonRelayDevice implements MapsTo<LevelControlBehavior,OnOffBehavior>{
-	isDimmable: boolean;
+
 
 	constructor (isy: ISY,node: NodeInfo) {
 		super(isy, node);
 		this.isDimmable = true;
 	}
 
-	public async updateBrightnessLevel(level: number): Promise<{}> {
-		return super.updateLevel(level);
-	}
+	// public async updateBrightnessLevel(level: number): Promise<{}> {
+	// 	return super.(level);
+	// }
 
 
 
@@ -35,15 +35,15 @@ export class InsteonDimmableDevice extends InsteonRelayDevice implements MapsTo<
 		try {
 			await super.initialize(endpoint);
 			const that = this;
-			endpoint.events.levelControl.onLevel$Changed.on((value) => that.updateLevel(that.convertFrom(value, UnitOfMeasure.LevelFrom0To255)));
+			// endpoint.events.levelControl.onLevel$Changed.on((value) => that.updateLevel(that.convertFrom(value, UnitOfMeasure.LevelFrom0To255)));
 
-			endpoint.set({levelControl: {onLevel: this.convertTo(this.level,UnitOfMeasure.LevelFrom0To255)}});
+			// endpoint.set({levelControl: {onLevel: this.convertTo(this.level,UnitOfMeasure.LevelFrom0To255)}});
 
-			this.on("PropertyChanged", (p,n,o,f) => endpoint.set({levelControl: {onLevel: that.convertTo(Number(n),UnitOfMeasure.LevelFrom0To255)}})
-			);
+			// this.on("PropertyChanged", (p,n,o,f) => endpoint.set({levelControl: {onLevel: that.convertTo(Number(n),UnitOfMeasure.LevelFrom0To255)}})
+			// );
 
-			//endpoint.events.levelCont
-			endpoint.events.levelControl.maxLevel$Changed.on((value) => that.sendCommand("OL",value));
+			// //endpoint.events.levelCont
+			// endpoint.events.levelControl.maxLevel$Changed.on((value) => that.sendCommand("OL",value));
 		} catch (error) {
 
 		}

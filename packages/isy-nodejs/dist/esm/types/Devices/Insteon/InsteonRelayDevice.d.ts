@@ -6,7 +6,7 @@ import type { OnOffBehavior } from '@project-chip/matter.js/behaviors/on-off';
 import 'winston';
 import { Driver } from '../../Definitions/Global/Drivers.js';
 import type { Command } from '../../Definitions/Global/Commands.js';
-export declare class InsteonRelayDevice extends InsteonBaseDevice<Driver.Signatures<'ST'>, Command.Signatures<'DON'>> {
+export declare class InsteonRelayDevice extends InsteonBaseDevice<Driver.Signatures<'ST'>, Command.Signatures<'DON' | 'DOF'>> {
     static family: Family.Insteon;
     constructor(isy: ISY, node: NodeInfo);
     initialize(endpoint: EndpointFor<typeof OnOffBehavior>): Promise<void>;

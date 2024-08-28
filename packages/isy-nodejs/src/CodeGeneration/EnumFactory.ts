@@ -1,4 +1,5 @@
-import ts, { factory } from "typescript";
+import { factory } from "typescript";
+import { createWrappedNode, ts, type EnumDeclaration, EnumMember, Identifier } from 'ts-morph'
 import { UnitOfMeasure } from "../Definitions/Global/UOM.js";
 import { Family } from "../ISY.js";
 import type {
@@ -10,7 +11,7 @@ import type {
 import { EnumDefinition, EnumDefinitionMap } from "../Model/EnumDefinition.js";
 import { isGeneratorFunction } from "util/types";
 import { Logger, loggers } from "winston";
-import type { tryCatch } from "@project-chip/matter.js/common";
+
 
 const logger = loggers.get("EnumFactory");
 
@@ -30,24 +31,26 @@ type GeneratedEnum<T extends Family> = {
   statements: ts.EnumDeclaration[];
 };
 
-export function createEnum<T extends Family>(enumDef: EnumDefinition<T>): GeneratedEnum<T> {
+export function createEnum<T extends Family>(enumDef: EnumDefinition<T>) : GeneratedEnum<T> {
   try {
-    return {
-      family: enumDef.family,
-      name: enumDef.name,
-      path: `/${Family[enumDef.family]}/${enumDef.name}.ts`,
-      id: enumDef.id,
-      statements: [
-        factory.createEnumDeclaration(
+
+    const enumNode : ts.EnumDeclaration = factory.createEnumDeclaration(
           [factory.createToken(ts.SyntaxKind.ExportKeyword)],
           factory.createIdentifier(enumDef.name),
           [
             ...Object.entries(enumDef.values).map(([name, value]) =>
-              factory.createEnumMember(factory.createIdentifier(name), factory.createNumericLiteral(value))
+
+              factory.createEnumMember(factory.createIdentifier(name ?? "Unknown"), factory.createNumericLiteral(value))
             ),
           ]
-        ),
-      ],
+        )
+
+    return {
+      family: enumDef.family,
+      name: enumDef.name,
+      path: `/${Family[enumDef.family]}/generated/${enumDef.name}.ts`,
+      id: enumDef.id,
+      statements: [enumNode]
     };
   } catch (e) {
     if (logger) logger.error(`Error creating ${Family[enumDef.family]} ${enumDef.name} enum: ${e.message}`, e.stack);
@@ -89,7 +92,7 @@ export class EnumFactory extends CodeFactory {
 function buildEnumIndex<T extends Family>(family: T, enums: GeneratedEnum<T>[]) {
   return {
     family,
-    path: `/${Family[family]}/index.ts`,
+    path: `/${Family[family]}/generated/index.ts`,
     statements: [
       ...enums.map((p) =>
         factory.createExportDeclaration(

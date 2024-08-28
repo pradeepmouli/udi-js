@@ -79,7 +79,7 @@
         "type": "ST",
         "nlsId": "Generic",
         "value": "Responding",
-        "driver": "ERR",
+        "control": "ERR",
         "property": "NAME"
       }
     ],
@@ -106,7 +106,7 @@
         "type": "ST",
         "nlsId": "TEMP",
         "value": "Temperature",
-        "driver": "ST",
+        "control": "ST",
         "property": "NAME"
       }
     ]

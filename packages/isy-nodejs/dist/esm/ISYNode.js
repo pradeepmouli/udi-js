@@ -199,7 +199,7 @@ export class ISYNode extends EventEmitter {
             return true;
         }
     }
-    handlePropertyChange(propertyName, value, uom, prec, formattedValue) {
+    handlePropertyChange(propertyName, value, uom, formattedValue, prec) {
         this.lastChanged = new Date();
         const oldValue = this.drivers[propertyName].value;
         if (this.drivers[propertyName].patch(value, formattedValue, uom, prec)) {

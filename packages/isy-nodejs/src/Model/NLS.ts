@@ -69,7 +69,7 @@ export abstract class NLSNodeDefFilteredRecord<T extends NLSRecordType> implemen
 }
 
 export class NLSCommandRecord extends NLSNodeDefFilteredRecord<NLSRecordType.Command> {
-  command: string;
+  control: string;
   property: string;
   constructor(tokens: string[], value: string) {
     super(NLSRecordType.Command, tokens, value);
@@ -79,13 +79,13 @@ export class NLSCommandRecord extends NLSNodeDefFilteredRecord<NLSRecordType.Com
   override parseKey(tokens: string[]) {
 
     this.property = tokens.pop();
-    this.command = tokens.pop();
+    this.control = tokens.pop();
     super.parseKey(tokens);
   }
 }
 
 export class NLSGenericRecord extends NLSNodeDefFilteredRecord<NLSRecordType.Generic> {
-  key: string;
+  control: string;
   property: string;
   constructor(tokens: string[], value: string) {
     super(NLSRecordType.Generic, tokens, value);
@@ -94,7 +94,7 @@ export class NLSGenericRecord extends NLSNodeDefFilteredRecord<NLSRecordType.Gen
   override parseKey(tokens: string[]) {
 
     this.property = tokens.pop() ?? 'NAME';
-    this.key = tokens.pop();
+    this.control = tokens.pop();
 
     super.parseKey(tokens);
     //this.property = tokens[1];
@@ -102,7 +102,7 @@ export class NLSGenericRecord extends NLSNodeDefFilteredRecord<NLSRecordType.Gen
 }
 
 export class NLSCommandParameterRecord extends NLSNodeDefFilteredRecord<NLSRecordType.CommandParameter | NLSRecordType.CommandParameterNLS> {
-  commandParameter: string;
+  control: string;
   property: string;
   editorId: string;
   constructor(type: NLSRecordType.CommandParameter | NLSRecordType.CommandParameterNLS, tokens: string[], value: string) {
@@ -114,7 +114,7 @@ export class NLSCommandParameterRecord extends NLSNodeDefFilteredRecord<NLSRecor
   override parseKey(tokens: string[]) {
 
     this.property = tokens.pop();
-    this.commandParameter = tokens.pop();
+    this.control = tokens.pop();
     if(this.type == NLSRecordType.CommandParameter)
     {
       this.editorId = tokens.pop() ?? undefined;
@@ -126,7 +126,7 @@ export class NLSCommandParameterRecord extends NLSNodeDefFilteredRecord<NLSRecor
 }
 
 export class NLSDriverRecord extends NLSNodeDefFilteredRecord<NLSRecordType.Driver> {
-  driver: DriverType;
+  control: DriverType;
   property: string;
   constructor(tokens: string[], value: string) {
     super(NLSRecordType.Driver, tokens, value);
@@ -135,7 +135,7 @@ export class NLSDriverRecord extends NLSNodeDefFilteredRecord<NLSRecordType.Driv
   override parseKey(tokens: string[]) {
 
     this.property = tokens.pop();
-    this.driver = tokens.pop() as DriverType;
+    this.control = tokens.pop() as DriverType;
     super.parseKey(tokens);
   }
 }
@@ -184,6 +184,14 @@ const StdTranslations = {
   TVOL: "ToneVolume",
   VIB: "Vibration",
   LGT: "Light",
+  SIRMD: 'SirenMode',
+  SIRTM: 'SirenTime',
+  SIRVL: 'SirenVolume',
+  SIL: 'Silent',
+  ALRT: 'Alert',
+  TF: 'TrueFalse',
+  FTU: 'TrueFalseUnknown',
+
 };
 
 NLSTranslations.set(Family.Generic, StdTranslations);
@@ -216,11 +224,11 @@ export function addToTranslationMap<T extends Family>(family: T, record: NLSGene
         if(record.nlsId == 'Generic')
         {
             if(record instanceof NLSGenericRecord)
-              translationMap[record.key] = record.value;
+              translationMap[record.control] = record.value;
             else if(record instanceof NLSDriverRecord)
-              translationMap[record.driver] = record.value;
+              translationMap[record.control] = record.value;
             else if(record instanceof NLSCommandRecord)
-              translationMap[record.command] = record.value;
+              translationMap[record.control] = record.value;
         }
         //translationMap[record.key] = record.value;
     }

@@ -57,7 +57,7 @@ export function registerConverter(from: UnitOfMeasure, to: UnitOfMeasure, conver
 }
 
 export namespace Converters {
-  export const Standard = StandardConverters;
+  export const Standard : typeof StandardConverters = StandardConverters;
 
   export const Matter: { [x in `${keyof typeof UnitOfMeasure}`]?: { [y: string]: Converter<any, any> } } = {
     LevelFrom0To255: {

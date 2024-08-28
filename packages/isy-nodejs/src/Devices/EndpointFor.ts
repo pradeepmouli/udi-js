@@ -5,7 +5,7 @@ import { MutableEndpoint, EndpointType } from '@project-chip/matter.js/endpoint/
 import type { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import { type ClusterType } from '@project-chip/matter.js/cluster';
 import type { Constructor } from './Constructor.js';
-import type { ISYDeviceNode } from '../ISYNode.js';
+import type { ISYDeviceNode } from '../Devices/ISYDeviceNode.js';
 
 import { BridgedDeviceBasicInformationBehavior, BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
 

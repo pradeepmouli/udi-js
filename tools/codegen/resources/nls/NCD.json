@@ -31,14 +31,14 @@
         "type": "ST",
         "nlsId": "Generic",
         "value": "Responding",
-        "driver": "ERR",
+        "control": "ERR",
         "property": "NAME"
       },
       {
         "type": "ST",
         "nlsId": "Generic",
         "value": "ADR",
-        "driver": "ADRPST",
+        "control": "ADRPST",
         "property": "NAME"
       }
     ],
@@ -63,7 +63,7 @@
         "type": "CMD",
         "nlsId": "Generic",
         "value": "ADR",
-        "command": "ADRPST",
+        "control": "ADRPST",
         "property": "NAME"
       }
     ],

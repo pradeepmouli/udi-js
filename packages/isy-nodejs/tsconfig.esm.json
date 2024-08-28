@@ -18,24 +18,8 @@
         "dist",
         "node_modules",
         "test",
-        "src/Devices/Insteon/*",
-        "**/Definitions/Insteon/*",
-        "src/Definitions/ZigBee/*",
-        "src/Definitions/ZWave/*",
-        "src/Definitions/ZWaveLegacy/*",
-        "src/Definitions/Insteon/Num.*",
-        "src/Definitions/Insteon/Clnrt.ts",
-        "src/Definitions/Insteon/RampRate.ts",
-        "src/Definitions/ZigBee/Cmm.ts",
-        "src/Definitions/ZigBee/Csm.ts",
-        "src/Definitions/ZWave/AlertHm.ts",
-        "src/Definitions/ZWave/Cbp.ts",
-        "src/Definitions/ZWave/Ixav01.ts",
-        "src/Definitions/ZWave/IxavVoc.ts",
-        "src/Definitions/ZWaveLegacy/AlertHm.ts",
-        "src/Definitions/ZWaveLegacy/Cbp.ts",
-        "src/Definitions/ZWaveLegacy/Ixav01.ts",
-        "src/Definitions/ZWaveLegacy/IxavVoc.ts",
+        "src/Devices/*/Generated/*",
+
 
 
     ]

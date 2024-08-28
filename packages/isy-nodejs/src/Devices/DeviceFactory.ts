@@ -15,7 +15,7 @@ export class DeviceFactory {
 
 		if ((node.family ?? Family.Insteon) == Family.Insteon) {
 
-			return InsteonDeviceFactory.getInsteonDeviceDetails(node);
+			return InsteonDeviceFactory.getInsteonDeviceDetails(node) as any;
 
 		} else { return {name: 'Unsupported Device', class: null, unsupported: true} }
 	}
@@ -25,42 +25,3 @@ export class DeviceFactory {
 export namespace NodeFactory {
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

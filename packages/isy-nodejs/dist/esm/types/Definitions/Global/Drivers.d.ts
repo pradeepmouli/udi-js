@@ -35,7 +35,6 @@ export declare enum DriverType {
     CustomControl1 = "GV1",
     CustomControl2 = "GV2",
     CustomControl3 = "GV3",
-    CustomControl30 = "GV30",
     CustomControl4 = "GV4",
     CustomControl5 = "GV5",
     CustomControl6 = "GV6",
@@ -62,6 +61,7 @@ export declare enum DriverType {
     CustomControl27 = "GV27",
     CustomControl28 = "GV28",
     CustomControl29 = "GV29",
+    CustomControl30 = "GV30",
     Delay = "DELAY",
     DewPoint = "DEWPT",
     DeviceIsBusy = "BUSY",
@@ -214,11 +214,11 @@ export declare function isTrue(x: true | false): x is true;
 export type DriverTypeLiteral = EnumLiteral<DriverType>;
 export type EnumWithLiteral<D extends string | bigint | number | boolean> = D | EnumLiteral<D>;
 export declare namespace Driver {
-    export type Signature = {
-        uom: UnitOfMeasure;
-        value: any;
-        name: string;
-        label: string;
+    export type Signature<U = UnitOfMeasure, V = any, N = string, L = N> = {
+        uom: U;
+        value: V;
+        name: N;
+        label: L;
     };
     export type Signatures<D> = UnionToIntersection<D extends LiteralWithExtensions ? {
         [K in D]: Signature;
@@ -235,7 +235,7 @@ export declare namespace Driver {
         label: L;
     }) : never;
     export type ForAll<T, S extends boolean = false> = {
-        [K in keyof T]: T[K] extends Signature ? K extends LiteralWithExtensions ? For<K, T[K], S> : undefined : undefined;
+        [K in keyof T]: T[K] extends Signature | undefined ? K extends LiteralWithExtensions ? For<K, T[K], S> : never : never;
     };
     export type Type = DriverType;
     export type Literal = EnumLiteral<DriverType>;

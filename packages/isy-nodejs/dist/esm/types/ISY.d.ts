@@ -81,6 +81,7 @@ export declare class ISY extends EventEmitter implements Disposable {
     get isDebugEnabled(): boolean;
     emit(event: "InitializeCompleted" | "NodeAdded" | "NodeRemoved" | "NodeChanged", node?: ISYNode<any, any, any, any>): boolean;
     getDevice<T extends ISYDevice<any, any, any, any> = ISYDevice<any, any, any, any>>(address: string, parentsOnly?: boolean): T;
+    getNode<T extends ISYNode<any, any, any, any> = ISYNode<any, any, any, any>>(address: string, parentsOnly?: boolean): T;
     getElkAlarmPanel(): ELKAlarmPanelDevice;
     getScene(address: string): ISYScene;
     getVariable<P extends VariableType>(type: P, id: number): ISYVariable<P>;

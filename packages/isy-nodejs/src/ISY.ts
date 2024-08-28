@@ -245,6 +245,25 @@ export class ISY extends EventEmitter implements Disposable {
     return s as T;
   }
 
+   public getNode<T extends ISYNode<any,any,any,any> = ISYNode<any,any,any,any>>(
+    address: string,
+    parentsOnly = false
+  ): T {
+    let s = this.nodeMap.get(address);
+    if (!parentsOnly) {
+      if (s === null) {
+        s = this.nodeMap[`${address.substr(0, address.length - 1)} 1`];
+      }
+    } else {
+      while (s.parentAddress !== undefined && s.parentAddress !== s.address && s.parentAddress !== null) {
+        s = this.nodeMap[s.parentAddress];
+      }
+    }
+
+    return s as T;
+  }
+
+
   public getElkAlarmPanel() {
     return this.elkAlarmPanel;
   }
@@ -756,13 +775,13 @@ export class ISY extends EventEmitter implements Disposable {
           // this.deviceList.push(newDevice);
         } else {
         }
-        this.deviceList.set(newDevice.address, newDevice);
+        this.nodeMap.set(newDevice.address, newDevice);
       } else {
         this.logger.info(`Ignoring disabled device: ${nodeInfo.name}`);
       }
     }
 
-    this.logger.info(`${this.deviceList.size} devices added.`);
+    this.logger.info(`${this.nodeMap.size} devices added.`);
   }
 
   async #readFolderNodes(result: { nodes: { folder: any } }) {

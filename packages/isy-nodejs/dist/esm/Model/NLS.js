@@ -37,7 +37,7 @@ export class NLSNodeDefFilteredRecord {
     }
 }
 export class NLSCommandRecord extends NLSNodeDefFilteredRecord {
-    command;
+    control;
     property;
     constructor(tokens, value) {
         super(NLSRecordType.Command, tokens, value);
@@ -45,12 +45,12 @@ export class NLSCommandRecord extends NLSNodeDefFilteredRecord {
     }
     parseKey(tokens) {
         this.property = tokens.pop();
-        this.command = tokens.pop();
+        this.control = tokens.pop();
         super.parseKey(tokens);
     }
 }
 export class NLSGenericRecord extends NLSNodeDefFilteredRecord {
-    key;
+    control;
     property;
     constructor(tokens, value) {
         super(NLSRecordType.Generic, tokens, value);
@@ -58,13 +58,13 @@ export class NLSGenericRecord extends NLSNodeDefFilteredRecord {
     }
     parseKey(tokens) {
         this.property = tokens.pop() ?? 'NAME';
-        this.key = tokens.pop();
+        this.control = tokens.pop();
         super.parseKey(tokens);
         //this.property = tokens[1];
     }
 }
 export class NLSCommandParameterRecord extends NLSNodeDefFilteredRecord {
-    commandParameter;
+    control;
     property;
     editorId;
     constructor(type, tokens, value) {
@@ -73,7 +73,7 @@ export class NLSCommandParameterRecord extends NLSNodeDefFilteredRecord {
     }
     parseKey(tokens) {
         this.property = tokens.pop();
-        this.commandParameter = tokens.pop();
+        this.control = tokens.pop();
         if (this.type == NLSRecordType.CommandParameter) {
             this.editorId = tokens.pop() ?? undefined;
         }
@@ -81,7 +81,7 @@ export class NLSCommandParameterRecord extends NLSNodeDefFilteredRecord {
     }
 }
 export class NLSDriverRecord extends NLSNodeDefFilteredRecord {
-    driver;
+    control;
     property;
     constructor(tokens, value) {
         super(NLSRecordType.Driver, tokens, value);
@@ -89,7 +89,7 @@ export class NLSDriverRecord extends NLSNodeDefFilteredRecord {
     }
     parseKey(tokens) {
         this.property = tokens.pop();
-        this.driver = tokens.pop();
+        this.control = tokens.pop();
         super.parseKey(tokens);
     }
 }
@@ -136,6 +136,13 @@ const StdTranslations = {
     TVOL: "ToneVolume",
     VIB: "Vibration",
     LGT: "Light",
+    SIRMD: 'SirenMode',
+    SIRTM: 'SirenTime',
+    SIRVL: 'SirenVolume',
+    SIL: 'Silent',
+    ALRT: 'Alert',
+    TF: 'TrueFalse',
+    FTU: 'TrueFalseUnknown',
 };
 NLSTranslations.set(Family.Generic, StdTranslations);
 export function addToIndexMap(family, record) {
@@ -156,11 +163,11 @@ export function addToTranslationMap(family, record) {
     if (record.property === 'NAME') {
         if (record.nlsId == 'Generic') {
             if (record instanceof NLSGenericRecord)
-                translationMap[record.key] = record.value;
+                translationMap[record.control] = record.value;
             else if (record instanceof NLSDriverRecord)
-                translationMap[record.driver] = record.value;
+                translationMap[record.control] = record.value;
             else if (record instanceof NLSCommandRecord)
-                translationMap[record.command] = record.value;
+                translationMap[record.control] = record.value;
         }
         //translationMap[record.key] = record.value;
     }

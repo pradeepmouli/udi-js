@@ -2,7 +2,7 @@
 import type { Driver } from '../Definitions/Global/Drivers.js';
 import { type Family, type ISY, Controls } from '../ISY.js';
 import type { ISYDevice } from '../ISYDevice.js';
-import { ISYNode, DriverSignatures, CommandSignatures} from '../ISYNode.js';
+import { ISYNode} from '../ISYNode.js';
 import type { ISYScene } from '../ISYScene.js';
 import type { DriverState } from '../Model/DriverState.js';
 import type { NodeInfo } from '../Model/NodeInfo.js';
@@ -12,12 +12,12 @@ import type { Command } from '../Definitions/Global/Commands.js';
 
 export class ISYDeviceNode<
   T extends Family,
-  D extends DriverSignatures | {},
-  C extends CommandSignatures | {},
+  D extends ISYNode.DriverSignatures,
+  C extends ISYNode.CommandSignatures,
   E extends string = string
 >
   extends ISYNode<T, D, C, E>
-  implements ISYDevice<T, D, C, E> {
+   {
   public declare family: T;
 
   public readonly typeCode: string;
@@ -37,7 +37,7 @@ export class ISYDeviceNode<
   constructor (isy: ISY, node: NodeInfo) {
 
     super(isy, node);
-    
+
     this.family = node.family as T;
     this.nodeType = 1;
     this.type = node.type;

@@ -8,7 +8,7 @@ import { Internal } from "@project-chip/matter.js/behavior/state/managed";
 import internal from "stream";
 import type { ISYDevice } from '../../ISYDevice.js';
 import { Observable, EventEmitter } from "@project-chip/matter.js/util";
-import { ISY, type Family } from "../../ISY.js";
+import { ISY, type Family, type ISYNode } from "../../ISY.js";
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import { MappingRegistry, DeviceToClusterMap, type ClusterMapping } from '../../Model/ClusterMap.js';
 import type { ClusterType,  ToClusterType, ToClusterTypeByName } from '../../Model/clusterEnum.js';
@@ -17,7 +17,7 @@ import type { Driver } from '../../Definitions/Global/Drivers.js';
 
 type ClusterForBehavior<B extends ClusterBehavior> = B extends ClusterBehavior.Type<infer C> ? C : never;
 export class ISYBridgedDeviceBehavior extends Behavior {
-  static override readonly id = "isyDevice";
+  static override readonly id = "isyNode";
 
   static override readonly early = true;
 
@@ -29,8 +29,8 @@ export class ISYBridgedDeviceBehavior extends Behavior {
   override async initialize(_options?: {}) {
     await super.initialize(_options);
     var address = this.state.address;
-    this.internal.device = ISY.instance.getDevice(this.state.address);
-    this.internal.map = MappingRegistry.getMapping(this.internal.device);
+    this.internal.device = ISY.instance.nodeMap.get(this.state.address);
+    this.internal.map = MappingRegistry.getMapping(this.internal.device as unknown as ISYDevice<Family,any,any,any>);
     ISY.instance.logger.debug(
       `Initializing ${this.constructor.name} for ${this.internal.device.constructor.name} ${this.internal.device.name} with address ${address}`
     );
@@ -39,8 +39,8 @@ export class ISYBridgedDeviceBehavior extends Behavior {
     }
   }
 
-  get device(): ISYDevice<any,any,any> {
-    return (this.internal.device = this.internal.device ?? ISY.instance.getDevice(this.state.address));
+  get device(): ISYNode<any,any,any,any> {
+    return (this.internal.device = this.internal.device ?? ISY.instance.getNode(this.state.address));
   }
 
   get map(){
@@ -66,7 +66,7 @@ export class ISYBridgedDeviceBehavior extends Behavior {
 
 export namespace ISYBridgedDeviceBehavior {
   export class Internal {
-    device?: ISYDevice<any,any,any>;
+    device?: ISYNode<any,any,any,any>;
     map? : DeviceToClusterMap<typeof this.device,any>
   }
 

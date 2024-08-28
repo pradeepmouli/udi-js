@@ -165,6 +165,20 @@ export class ISY extends EventEmitter {
         }
         return s;
     }
+    getNode(address, parentsOnly = false) {
+        let s = this.nodeMap.get(address);
+        if (!parentsOnly) {
+            if (s === null) {
+                s = this.nodeMap[`${address.substr(0, address.length - 1)} 1`];
+            }
+        }
+        else {
+            while (s.parentAddress !== undefined && s.parentAddress !== s.address && s.parentAddress !== null) {
+                s = this.nodeMap[s.parentAddress];
+            }
+        }
+        return s;
+    }
     getElkAlarmPanel() {
         return this.elkAlarmPanel;
     }
@@ -616,13 +630,13 @@ export class ISY extends EventEmitter {
                 }
                 else {
                 }
-                this.deviceList.set(newDevice.address, newDevice);
+                this.nodeMap.set(newDevice.address, newDevice);
             }
             else {
                 this.logger.info(`Ignoring disabled device: ${nodeInfo.name}`);
             }
         }
-        this.logger.info(`${this.deviceList.size} devices added.`);
+        this.logger.info(`${this.nodeMap.size} devices added.`);
     }
     async #readFolderNodes(result) {
         this.logger.info("Loading Folder Nodes");

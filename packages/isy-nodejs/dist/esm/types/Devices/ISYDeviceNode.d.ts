@@ -1,9 +1,9 @@
 import { type Family, type ISY } from '../ISY.js';
 import type { ISYDevice } from '../ISYDevice.js';
-import { ISYNode, DriverSignatures, CommandSignatures } from '../ISYNode.js';
+import { ISYNode } from '../ISYNode.js';
 import type { NodeInfo } from '../Model/NodeInfo.js';
 import type { Category } from '../Definitions/Global/Categories.js';
-export declare class ISYDeviceNode<T extends Family, D extends DriverSignatures | {}, C extends CommandSignatures | {}, E extends string = string> extends ISYNode<T, D, C, E> implements ISYDevice<T, D, C, E> {
+export declare class ISYDeviceNode<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends string = string> extends ISYNode<T, D, C, E> {
     family: T;
     readonly typeCode: string;
     readonly deviceClass: any;

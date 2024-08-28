@@ -1,15 +1,12 @@
 {
   "trailingComma": "none",
   "tabWidth": 2,
-  "singleQuote": false,
+  "singleQuote": true,
   "bracketSameLine": true,
   "printWidth": 120,
   "parser": "typescript",
   "embeddedLanguageFormatting": "auto",
   "arrowParens": "always",
   "semi":true,
-  "useTabs": true,
-  "plugins": [
-    "prettier-plugin-svelte"
-  ]
+  "useTabs": true
 }

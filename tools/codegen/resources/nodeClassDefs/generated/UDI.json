@@ -6,6 +6,7 @@
       "ST": {
         "label": "Status",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "EM3_WATTS",
         "dataType": {
@@ -23,6 +24,7 @@
       "TPW": {
         "label": "Total Energy",
         "hidden": false,
+        "readonly": true,
         "id": "TPW",
         "editorId": "EM3_KWH",
         "dataType": {
@@ -40,6 +42,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "readonly": true,
         "id": "ERR",
         "editorId": "EM3_ERR",
         "dataType": {
@@ -75,6 +78,7 @@
       "ST": {
         "label": "Status",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "EM3_RELAY",
         "dataType": {
@@ -93,6 +97,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "readonly": true,
         "id": "ERR",
         "editorId": "EM3_ERR",
         "dataType": {
@@ -138,6 +143,7 @@
       "ST": {
         "label": "Status",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "EM3_WATTS",
         "dataType": {
@@ -155,6 +161,7 @@
       "TPW": {
         "label": "Total Energy",
         "hidden": false,
+        "readonly": true,
         "id": "TPW",
         "editorId": "EM3_KWH",
         "dataType": {
@@ -172,6 +179,7 @@
       "CV": {
         "label": "Current Voltage",
         "hidden": false,
+        "readonly": true,
         "id": "CV",
         "editorId": "EM3_VOLTS",
         "dataType": {
@@ -189,6 +197,7 @@
       "CC": {
         "label": "Current Current",
         "hidden": false,
+        "readonly": true,
         "id": "CC",
         "editorId": "EM3_AMPS",
         "dataType": {
@@ -206,6 +215,7 @@
       "PF": {
         "label": "Power Factor",
         "hidden": false,
+        "readonly": true,
         "id": "PF",
         "editorId": "EM3_PF",
         "dataType": {
@@ -223,6 +233,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "readonly": true,
         "id": "ERR",
         "editorId": "EM3_ERR",
         "dataType": {
@@ -251,6 +262,7 @@
       "ST": {
         "label": "Status",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "EM3_WATTS",
         "dataType": {
@@ -268,6 +280,7 @@
       "TPW": {
         "label": "Total Energy",
         "hidden": false,
+        "readonly": true,
         "id": "TPW",
         "editorId": "EM3_KWH",
         "dataType": {
@@ -285,6 +298,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "readonly": true,
         "id": "ERR",
         "editorId": "EM3_ERR",
         "dataType": {
@@ -315,6 +329,7 @@
       "ST": {
         "label": "Temperature",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "EM3_TEMP_DEG",
         "dataType": {
@@ -332,6 +347,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "readonly": true,
         "id": "ERR",
         "editorId": "EM3_ERR",
         "dataType": {
@@ -361,6 +377,7 @@
       "ST": {
         "label": "Status",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "EM3_PULSE_COUNT",
         "dataType": {
@@ -376,6 +393,7 @@
       "CPW": {
         "label": "Current Power",
         "hidden": false,
+        "readonly": true,
         "id": "CPW",
         "editorId": "EM3_WATTS",
         "dataType": {
@@ -393,6 +411,7 @@
       "TPW": {
         "label": "Total Energy",
         "hidden": false,
+        "readonly": true,
         "id": "TPW",
         "editorId": "EM3_KWH",
         "dataType": {
@@ -410,6 +429,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "readonly": true,
         "id": "ERR",
         "editorId": "EM3_ERR",
         "dataType": {

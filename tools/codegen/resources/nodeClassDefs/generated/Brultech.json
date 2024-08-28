@@ -4,8 +4,9 @@
     "id": "BTMain",
     "drivers": {
       "ST": {
-        "label": "Current Power",
+        "label": "Status",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "BT_WATTS",
         "dataType": {
@@ -18,11 +19,12 @@
             "precision": 2
           }
         },
-        "name": "currentPower"
+        "name": "status"
       },
       "TPW": {
         "label": "Total Energy",
         "hidden": false,
+        "readonly": true,
         "id": "TPW",
         "editorId": "BT_KWH",
         "dataType": {
@@ -40,6 +42,7 @@
       "CV": {
         "label": "Current Voltage",
         "hidden": false,
+        "readonly": true,
         "id": "CV",
         "editorId": "BT_VOLTS",
         "dataType": {
@@ -57,6 +60,7 @@
       "CC": {
         "label": "Current Current",
         "hidden": false,
+        "readonly": true,
         "id": "CC",
         "editorId": "BT_AMPS",
         "dataType": {
@@ -74,6 +78,7 @@
       "PPW": {
         "label": "Polarized Power",
         "hidden": false,
+        "readonly": true,
         "id": "PPW",
         "editorId": "BT_WATTS",
         "dataType": {
@@ -91,6 +96,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "readonly": true,
         "id": "ERR",
         "editorId": "BT_ERR",
         "dataType": {
@@ -124,8 +130,9 @@
     "id": "BTChannel",
     "drivers": {
       "ST": {
-        "label": "Current Power",
+        "label": "Status",
         "hidden": false,
+        "readonly": true,
         "id": "ST",
         "editorId": "BT_WATTS",
         "dataType": {
@@ -138,11 +145,12 @@
             "precision": 2
           }
         },
-        "name": "currentPower"
+        "name": "status"
       },
       "TPW": {
         "label": "Total Energy",
         "hidden": false,
+        "readonly": true,
         "id": "TPW",
         "editorId": "BT_KWH",
         "dataType": {
@@ -160,6 +168,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "readonly": true,
         "id": "ERR",
         "editorId": "BT_ERR",
         "dataType": {

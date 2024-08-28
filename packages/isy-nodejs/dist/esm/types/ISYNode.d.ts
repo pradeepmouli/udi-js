@@ -14,7 +14,7 @@ export interface NodeNotes {
     location: string;
     spoken: string;
 }
-export declare class ISYNode<T extends Family, D extends DriverSignatures, C extends CommandSignatures, E extends string> extends EventEmitter {
+export declare class ISYNode<T extends Family, D extends ISYNode.DriverSignatures | {}, C extends ISYNode.CommandSignatures | {}, E extends string = Extract<keyof C, string>> extends EventEmitter {
     #private;
     readonly address: string;
     readonly baseLabel: string;
@@ -64,7 +64,7 @@ export declare class ISYNode<T extends Family, D extends DriverSignatures, C ext
         action?: any;
         fmtAct?: any;
     }): boolean;
-    handlePropertyChange(propertyName: keyof D & string, value: any, uom: UnitOfMeasure, prec: number, formattedValue: string): boolean;
+    handlePropertyChange(propertyName: keyof D & string, value: any, uom: UnitOfMeasure, formattedValue: string, prec?: number): boolean;
     on(event: "PropertyChanged", listener: (propertyName: keyof D, newValue: any, oldValue: any, formattedValue: string) => any): this;
     on(event: "ControlTriggered", listener: (controlName: keyof C) => any): this;
     parseResult(node: {
@@ -74,7 +74,7 @@ export declare class ISYNode<T extends Family, D extends DriverSignatures, C ext
     readProperty(propertyName: keyof D & string): Promise<DriverState>;
     refresh(): Promise<any>;
     refreshNotes(): Promise<void>;
-    sendCommand(command: StringKeys<C>, parameters?: Record<string | symbol, string | number> | string | number): Promise<any>;
+    sendCommand(command: StringKeys<C>, parameters?: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
     updateProperty(propertyName: StringKeys<D>, value: any): Promise<any>;
 }
 export type Flatten<T, Level extends Number = 2, K = keyof T> = UnionToIntersection<T extends Record<string, unknown> ? K extends string ? T[K] extends Record<string, unknown> ? keyof T[K] extends string ? {
@@ -84,12 +84,6 @@ type TakeLast<X> = X extends `${infer A}.${infer B}` ? TakeLast<B> : X;
 export type DriverMap<T extends NodeList> = Flatten<{
     [x in keyof T]: DriversOf<T[x]>;
 }>;
-export type DriverSignatures = {
-    [x: string]: Driver.Signature;
-} | {};
-export type CommandSignatures = {
-    [x: string]: Command.Signature<any, any, any>;
-} | {};
 export type NodeList = {
     [x: string]: ISYNode<any, any, any, any>;
 };

@@ -206,7 +206,7 @@
   "IX_SIL": {
     "family": 1,
     "id": "IX_SIL",
-    "name": "Sil",
+    "name": "Silent",
     "values": {
       "Beep": 0,
       "Silent": 1
@@ -216,7 +216,7 @@
   "IX_SIRMD": {
     "family": 1,
     "id": "IX_SIRMD",
-    "name": "Sirmd",
+    "name": "SirenMode",
     "values": {
       "Home": 1,
       "Away": 3,
@@ -227,7 +227,7 @@
   "IX_SIRMD_ST": {
     "family": 1,
     "id": "IX_SIRMD_ST",
-    "name": "SirmdQuery",
+    "name": "SirenModeQuery",
     "values": {
       "Disarmed": 0,
       "ArmedHome": 1,

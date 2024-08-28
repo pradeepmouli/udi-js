@@ -1,4 +1,5 @@
-import ts, { factory } from "typescript";
+import { factory } from "typescript";
+import { ts } from 'ts-morph';
 import { UnitOfMeasure } from "../Definitions/Global/UOM.js";
 import { Family } from "../ISY.js";
 import { EnumDefinitionMap } from "../Model/EnumDefinition.js";
@@ -13,16 +14,15 @@ export function buildEnums(map) {
 }
 export function createEnum(enumDef) {
     try {
+        const enumNode = factory.createEnumDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], factory.createIdentifier(enumDef.name), [
+            ...Object.entries(enumDef.values).map(([name, value]) => factory.createEnumMember(factory.createIdentifier(name ?? "Unknown"), factory.createNumericLiteral(value))),
+        ]);
         return {
             family: enumDef.family,
             name: enumDef.name,
-            path: `/${Family[enumDef.family]}/${enumDef.name}.ts`,
+            path: `/${Family[enumDef.family]}/generated/${enumDef.name}.ts`,
             id: enumDef.id,
-            statements: [
-                factory.createEnumDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], factory.createIdentifier(enumDef.name), [
-                    ...Object.entries(enumDef.values).map(([name, value]) => factory.createEnumMember(factory.createIdentifier(name), factory.createNumericLiteral(value))),
-                ]),
-            ],
+            statements: [enumNode]
         };
     }
     catch (e) {
@@ -61,7 +61,7 @@ export class EnumFactory extends CodeFactory {
 function buildEnumIndex(family, enums) {
     return {
         family,
-        path: `/${Family[family]}/index.ts`,
+        path: `/${Family[family]}/generated/index.ts`,
         statements: [
             ...enums.map((p) => factory.createExportDeclaration(undefined, false, undefined, factory.createStringLiteral(`./${p.name}.js`), undefined)),
         ],

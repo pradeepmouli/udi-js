@@ -13,7 +13,7 @@ export class EnumDefinition {
     constructor(family, indexDef) {
         this.family = family;
         this.id = indexDef.id;
-        this.name = pascalCase(applyTranslations(family, indexDef.id.replace('IX_I_', '').replace('IX_', '').replace('IXA_', 'Alert')));
+        this.name = pascalCase(applyTranslations(family, indexDef.id.replace('IX_I_', '').replace('IX_', '').replace('IXA_', 'Alert')).replace('IXAV_', 'AlertValue'));
         for (const [index, value] of Object.entries(indexDef.values)) {
             this.values[pascalCase(value)] = parseInt(index);
         }
@@ -66,6 +66,9 @@ export class EnumDefinition {
             }
             if (fs.existsSync(`${path}/custom/${fam}.json`)) {
                 merge(enumDefs, JSON.parse(fs.readFileSync(`${path}/custom/${fam}.json`, "utf8")));
+            }
+            for (const id in enumDefs) {
+                enumDefs[id].usages = new Set();
             }
             EnumDefinitionMap.set(family, enumDefs);
         }

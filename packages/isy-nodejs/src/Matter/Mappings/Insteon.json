@@ -1,0 +1,48 @@
+{
+  "InsteonRelayDevice": {
+    "deviceType": "OnOffDevice",
+    "mapping": {
+      "OnOffCluster": {
+        "attributes": {
+          "onOff": "ST",
+          "converter": "onOffConverter"
+        },
+        "commands": { "on": "DON", "off": "DOF" }
+      }
+    }
+  },
+  "InsteonDimmableDevice": {
+    "deviceType": "OnOffLightDevice",
+    "mapping": {
+      "OnOffCluster": {
+        "attributes": {
+          "onOff": "ST"
+        },
+        "commands": { "on": "DON", "off": "DOF" }
+      },
+      "LevelControlCluster": {
+        "attributes": {
+          "currentLevel": "ST"
+        },
+        "commands": { "setLevel": "DON" }
+      }
+    } 
+  },
+  "InsteonFanDevice": {
+    "deviceType": "FanDevice",
+    "mapping": {
+      "OnOffCluster": {
+        "attributes": {
+          "onOff": "ST"
+        },
+        "commands": { "on": "DON", "off": "DOF" }
+      },
+      "LevelControlCluster": {
+        "attributes": {
+          "currentLevel": "ST"
+        },
+        "commands": { "setLevel": "DON" }
+      }
+    }
+  }
+}

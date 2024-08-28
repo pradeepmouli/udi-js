@@ -1,0 +1,53 @@
+{
+    "compileOnSave": true,
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "target": "es2022",
+        "module": "NodeNext",
+
+        "rootDir": "./",
+        "outDir": "./",
+
+        //"declarationDir": "./dist/types",
+        "allowArbitraryExtensions": true,
+
+        "allowSyntheticDefaultImports": true,
+        "allowJs": false,
+        "skipLibCheck": true,
+        "noImplicitOverride": true,
+        "noImplicitThis": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "paths": {
+            "isy-nodejs": ["../../packages/isy-nodejs/dist/esm/types/", "../../packages/isy-nodejs/dist/esm/"],
+            "isy-nodejs/*": ["../../packages/isy-nodejs/dist/esm/types/*","../../packages/isy-nodejs/dist/esm/*"],
+        },
+    },
+
+      "include": ["**/*","./DeviceMap.json"],
+      "ts-node": {
+        "transpileOnly": true,
+        "compilerOptions": {
+          "module": "NodeNext",
+          "target": "ESNext"
+        }}
+      ,
+
+    "exclude": [
+        "generate_old.ts",
+        "node_modules/@project-chip/*",
+        "node_modules",
+        "dist",
+        "coverage",
+        "temp",
+        "scripts",
+        "test",
+        "bin",
+        "types",
+        "index.ts",
+        "index.js",
+        "index.d.ts",
+        "packages/**/*"
+
+    ]
+}

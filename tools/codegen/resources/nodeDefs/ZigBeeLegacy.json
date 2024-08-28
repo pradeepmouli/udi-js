@@ -1,0 +1,175 @@
+{
+  "nodeDefs": {
+    "$comment": [
+      " === Thermostat ============================================================  ",
+      " Relay Load Control "
+    ],
+    "nodeDef": [
+      {
+        "$comment": " sts optional=\"true\" - indicates that some of these may not ever be used for the thermostat ",
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "RCS_TEMP_DEG"
+            },
+            {
+              "id": "CLISPH",
+              "editor": "RCS_CLISPH_DEG"
+            },
+            {
+              "id": "CLISPC",
+              "editor": "RCS_CLISPC_DEG"
+            },
+            {
+              "id": "CLIMD",
+              "editor": "RCS_TSTAT_MODE"
+            },
+            {
+              "id": "CLIFS",
+              "editor": "RCS_TSTAT_FAN_MODE"
+            },
+            {
+              "id": "CLIHCS",
+              "editor": "RCS_TSTAT_HCS"
+            },
+            {
+              "id": "CLIFRS",
+              "editor": "RCS_CLIFRS"
+            },
+            {
+              "id": "CLISMD",
+              "editor": "RCS_SMD"
+            },
+            {
+              "id": "ERR",
+              "editor": "RCS_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "RCS_CLISPH_DEG",
+                  "init": "CLISPH"
+                },
+                "id": "CLISPH"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "RCS_CLISPC_DEG",
+                  "init": "CLISPC"
+                },
+                "id": "CLISPC"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "RCS_TSTAT_MODE",
+                  "init": "CLIMD"
+                },
+                "id": "CLIMD"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "RCS_TSTAT_FAN_MODE",
+                  "init": "CLIFS"
+                },
+                "id": "CLIFS"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "RCS_SMD",
+                  "init": "CLISMD"
+                },
+                "id": "CLISMD"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "RCS_DELTA_DEG"
+                },
+                "id": "CLISPHD"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "RCS_DELTA_DEG"
+                },
+                "id": "CLISPCD"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "RCS_ADRPST"
+                },
+                "id": "ADRPST"
+              }
+            ]
+          }
+        },
+        "id": "Thermostat",
+        "nls": "TSTAT"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "RCS_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "RCS_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "RCS_ADRPST"
+                },
+                "id": "ADRPST"
+              }
+            ]
+          }
+        },
+        "id": "RelayLoadControl",
+        "nls": "RELAY"
+      }
+    ]
+  }
+}

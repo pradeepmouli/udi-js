@@ -1,0 +1,464 @@
+{
+  "linkdefs": {
+    "$comment": [
+      " Test ",
+      " When you add more here, make sure to update NLS formatting entries for them ",
+      " Thermostats ",
+      " Dimmers ",
+      " Motor Dimmer ",
+      " Relays ",
+      " FanLinc Motor ",
+      " Keypad Buttons ",
+      " Dimmer controller ",
+      " Relay controller ",
+      " IRLinc TX ",
+      " Insteon Siren ",
+      " Link def may also define parameters for the command to be sent out (controller) rather than responder \n  <linkdef id=\"I_CTL_EXAMPLE\" protocol=\"????\">\n     <p id=\"OL\" editor=\"I_OL\"><init val=\"100.0\" uom=\"percent\" /></p>\n     <p id=\"RR\" editor=\"I_LEVEL_255\"><init val=\"0.2\" uom=\"seconds\" /></p>\n  </linkdef>\n  "
+    ],
+    "linkdef": [
+      {
+        "id": "I_CMD",
+        "protocol": "I_STD",
+        "cmd": true
+      },
+      {
+        "id": "I_CMD_ADV",
+        "protocol": "I_STD_ADV",
+        "cmd": true
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 70,
+              "uom": "F"
+            },
+            "id": "CLISPH",
+            "editor": "I_CLISPH_DEG"
+          },
+          {
+            "init": {
+              "val": 74,
+              "uom": "F"
+            },
+            "id": "CLISPC",
+            "editor": "I_CLISPC_DEG"
+          },
+          {
+            "init": {
+              "val": 0,
+              "uom": 99
+            },
+            "id": "CLIFS",
+            "editor": "I_TSTAT_FAN_MODE"
+          },
+          {
+            "init": {
+              "val": 74,
+              "uom": 98
+            },
+            "id": "CLIMD",
+            "editor": "I_TSTAT_MODE"
+          }
+        ],
+        "id": "I_TSTAT",
+        "protocol": "I_STD"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 70,
+              "uom": "F"
+            },
+            "id": "CLISPH",
+            "editor": "I_CLISPH_DEG"
+          },
+          {
+            "init": {
+              "val": 74,
+              "uom": "F"
+            },
+            "id": "CLISPC",
+            "editor": "I_CLISPC_DEG"
+          },
+          {
+            "init": {
+              "val": 0,
+              "uom": 99
+            },
+            "id": "CLIFS",
+            "editor": "I_TSTAT_FAN_MODE"
+          },
+          {
+            "init": {
+              "val": 74,
+              "uom": 98
+            },
+            "id": "CLIMD",
+            "editor": "I_TSTAT_MODE"
+          },
+          {
+            "init": {
+              "val": 0,
+              "uom": 25
+            },
+            "id": "CLNRT",
+            "editor": "I_CLNRT"
+          }
+        ],
+        "id": "I_TSTAT_ADV",
+        "protocol": "I_STD_ADV"
+      },
+      {
+        "p": [
+          {
+            "id": "CLISPH",
+            "editor": "I_CLISPH_DEG"
+          },
+          {
+            "id": "CLISPC",
+            "editor": "I_CLISPC_DEG"
+          },
+          {
+            "id": "CLIFS",
+            "editor": "I_TSTAT_FAN_MODE"
+          },
+          {
+            "id": "CLIMD",
+            "editor": "I_TEMPLINC_MODE"
+          },
+          {
+            "id": "CLIEMD",
+            "editor": "I_CLIEMD"
+          }
+        ],
+        "id": "I_TEMPLINC",
+        "protocol": "I_STD"
+      },
+      {
+        "p": [
+          {
+            "id": "CLISPH",
+            "editor": "I_CLISPH_DEG"
+          },
+          {
+            "id": "CLISPC",
+            "editor": "I_CLISPC_DEG"
+          },
+          {
+            "id": "CLIFS",
+            "editor": "I_TSTAT_FAN_MODE"
+          },
+          {
+            "id": "CLIMD",
+            "editor": "I_TEMPLINC_MODE"
+          },
+          {
+            "id": "CLIEMD",
+            "editor": "I_CLIEMD"
+          },
+          {
+            "init": {
+              "val": 0,
+              "uom": 25
+            },
+            "id": "CLNRT",
+            "editor": "I_CLNRT"
+          }
+        ],
+        "id": "I_TEMPLINC_ADV",
+        "protocol": "I_STD_ADV"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "I_OL"
+          },
+          {
+            "init": {
+              "val": 0.2,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "I_RR"
+          }
+        ],
+        "id": "I_DIMMER",
+        "protocol": "I_STD"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "I_OL"
+          },
+          {
+            "init": {
+              "val": 0.2,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "I_RR"
+          },
+          {
+            "init": {
+              "val": 0,
+              "uom": 25
+            },
+            "id": "CLNRT",
+            "editor": "I_CLNRT"
+          }
+        ],
+        "$comment": " Even though CLNRT is actually scoped to a master record, we show at as part of responder record ",
+        "id": "I_DIMMER_ADV",
+        "protocol": "I_STD_ADV"
+      },
+      {
+        "p": {
+          "init": {
+            "val": 100,
+            "uom": "percent"
+          },
+          "id": "OL",
+          "editor": "I_OL"
+        },
+        "id": "I_MDIMMER",
+        "protocol": "I_STD"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "I_OL"
+          },
+          {
+            "init": {
+              "val": 0,
+              "uom": 25
+            },
+            "id": "CLNRT",
+            "editor": "I_CLNRT"
+          }
+        ],
+        "$comment": " Even though CLNRT is actually scoped to a master record, we show at as part of responder record ",
+        "id": "I_MDIMMER_ADV",
+        "protocol": "I_STD_ADV"
+      },
+      {
+        "p": {
+          "init": {
+            "val": 100,
+            "uom": "percent"
+          },
+          "id": "OL",
+          "editor": "I_OL_RELAY"
+        },
+        "id": "I_RELAY",
+        "protocol": "I_STD"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "I_OL_RELAY"
+          },
+          {
+            "init": {
+              "val": 0,
+              "uom": 25
+            },
+            "id": "CLNRT",
+            "editor": "I_CLNRT"
+          }
+        ],
+        "id": "I_RELAY_ADV",
+        "protocol": "I_STD_ADV"
+      },
+      {
+        "p": {
+          "init": {
+            "val": 100,
+            "uom": "percent"
+          },
+          "id": "OL",
+          "editor": "I_FLM_LVL"
+        },
+        "id": "I_FLM",
+        "protocol": "I_STD"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "I_FLM_LVL"
+          },
+          {
+            "init": {
+              "val": 0,
+              "uom": 25
+            },
+            "id": "CLNRT",
+            "editor": "I_CLNRT"
+          }
+        ],
+        "id": "I_FLM_ADV",
+        "protocol": "I_STD_ADV"
+      },
+      {
+        "id": "I_KP_BUTTON",
+        "protocol": "I_STD"
+      },
+      {
+        "$comment": " Even though CLNRT is actually scoped to a master record, we show at as part of responder record ",
+        "p": {
+          "init": {
+            "val": 0,
+            "uom": 25
+          },
+          "id": "CLNRT",
+          "editor": "I_CLNRT"
+        },
+        "id": "I_KP_BUTTON_ADV",
+        "protocol": "I_STD_ADV"
+      },
+      {
+        "id": "I_CTL_DIMMER",
+        "protocol": "I_STD"
+      },
+      {
+        "id": "I_CTL_DIMMER_ADV",
+        "protocol": "I_STD_ADV"
+      },
+      {
+        "id": "I_CTL_RELAY",
+        "protocol": "I_STD"
+      },
+      {
+        "id": "I_CTL_RELAY_ADV",
+        "protocol": "I_STD_ADV"
+      },
+      {
+        "id": "I_IRLINC_TX",
+        "protocol": "I_STD"
+      },
+      {
+        "p": {
+          "init": {
+            "val": 0,
+            "uom": 25
+          },
+          "id": "CLNRT",
+          "editor": "I_CLNRT"
+        },
+        "id": "I_IRLINC_TX_ADV",
+        "protocol": "I_STD_ADV"
+      },
+      {
+        "id": "I_SIREN_ARM",
+        "protocol": "I_STD"
+      },
+      {
+        "p": {
+          "init": {
+            "val": 0,
+            "uom": 25
+          },
+          "id": "CLNRT",
+          "editor": "I_CLNRT"
+        },
+        "id": "I_SIREN_ARM_ADV",
+        "protocol": "I_STD_ADV"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 0,
+              "uom": 58
+            },
+            "id": "DUR",
+            "editor": "I_DUR_127"
+          },
+          {
+            "init": {
+              "val": 0,
+              "uom": 25
+            },
+            "id": "DLY",
+            "editor": "I_DELAY"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": 25
+            },
+            "id": "TT",
+            "editor": "I_TONE_TYPE"
+          }
+        ],
+        "id": "I_SIREN_ALERT",
+        "protocol": "I_STD"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 0,
+              "uom": 58
+            },
+            "id": "DUR",
+            "editor": "I_DUR_127"
+          },
+          {
+            "init": {
+              "val": 0,
+              "uom": 25
+            },
+            "id": "DLY",
+            "editor": "I_DELAY"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": 25
+            },
+            "id": "TT",
+            "editor": "I_TONE_TYPE"
+          },
+          {
+            "init": {
+              "val": 0,
+              "uom": 25
+            },
+            "id": "CLNRT",
+            "editor": "I_CLNRT"
+          }
+        ],
+        "id": "I_SIREN_ALERT_ADV",
+        "protocol": "I_STD_ADV"
+      }
+    ]
+  }
+}

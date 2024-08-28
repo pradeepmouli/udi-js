@@ -18,5 +18,5 @@ ISYNodeInfo.xml
 ISYNodes.json
 ISYNodes.xml
 .vscode
-.jshintrc
-.eslintrc*
+CLI/resources/*
+**/resources_old/*

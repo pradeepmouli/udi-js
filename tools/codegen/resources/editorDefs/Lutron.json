@@ -1,0 +1,18 @@
+{
+  "LUT_ERR": {
+    "range": {
+      "uom": 25,
+      "subset": "0,1",
+      "nls": "IX_ERR"
+    },
+    "id": "LUT_ERR"
+  },
+  "LUT_OL_RELAY": {
+    "range": {
+      "uom": 51,
+      "subset": "0,100",
+      "nls": "LUT_OL"
+    },
+    "id": "LUT_OL_RELAY"
+  }
+}

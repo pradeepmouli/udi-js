@@ -1,0 +1,114 @@
+{
+  "Generic": {
+    "ND": [
+      {
+        "type": "ND",
+        "value": "Main",
+        "nodeDefId": "EM3Main",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Channel",
+        "nodeDefId": "EM3Channel",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Relay",
+        "nodeDefId": "EM3Relay",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Temperature Sensor",
+        "nodeDefId": "EM3TempSensor",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Pulse Counter",
+        "nodeDefId": "EM3PulseCounter",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "EnergyMonitor",
+        "nodeDefId": "EM3Main",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "EnergyMonitor",
+        "nodeDefId": "EM3Channel",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "Lamp",
+        "nodeDefId": "EM3Relay",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "TempSensor",
+        "nodeDefId": "EM3TempSensor",
+        "property": "ICON"
+      },
+      {
+        "type": "ND",
+        "value": "PulseCounter",
+        "nodeDefId": "EM3PulseCounter",
+        "property": "ICON"
+      }
+    ],
+    "EM3_OL": [
+      {
+        "type": "EM3_OL",
+        "key": "0",
+        "value": "Off"
+      },
+      {
+        "type": "EM3_OL",
+        "key": "100",
+        "value": "On"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Responding",
+        "control": "ERR",
+        "property": "NAME"
+      }
+    ],
+    "IX": [
+      {
+        "comment": "# Communication Error",
+        "type": "IX",
+        "value": "True",
+        "indexType": "IX_ERR",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Communication Error",
+        "type": "IX",
+        "value": "False",
+        "indexType": "IX_ERR",
+        "indexValue": 1
+      }
+    ]
+  },
+  "TEMP": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "TEMP",
+        "value": "Temperature",
+        "control": "ST",
+        "property": "NAME"
+      }
+    ]
+  }
+}

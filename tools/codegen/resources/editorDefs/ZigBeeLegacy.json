@@ -1,0 +1,154 @@
+{
+  "RCS_ERR": {
+    "range": {
+      "uom": 25,
+      "subset": "0,1",
+      "nls": "IX_ERR"
+    },
+    "id": "RCS_ERR"
+  },
+  "RCS_ADRPST": {
+    "range": {
+      "uom": 25,
+      "subset": "0,1",
+      "nls": "R_ADRPST"
+    },
+    "id": "RCS_ADRPST"
+  },
+  "RCS_OL_RELAY": {
+    "range": {
+      "uom": 51,
+      "subset": "0,100",
+      "nls": "R_OL"
+    },
+    "id": "RCS_OL_RELAY"
+  },
+  "RCS_SMD": {
+    "range": {
+      "uom": 25,
+      "min": 0,
+      "max": 2,
+      "nls": "R_SMD"
+    },
+    "id": "RCS_SMD"
+  },
+  "RCS_TEMP_DEG": {
+    "range": {
+      "uom": 14,
+      "min": -64,
+      "max": 191
+    },
+    "id": "RCS_TEMP_DEG"
+  },
+  "RCS_DELTA_DEG": {
+    "range": {
+      "uom": 14,
+      "min": -25,
+      "max": 25,
+      "init": 1
+    },
+    "id": "RCS_DELTA_DEG"
+  },
+  "RCS_DELTA_C": {
+    "range": {
+      "uom": 4,
+      "min": -25,
+      "max": 25,
+      "step": 0.5,
+      "prec": 1,
+      "init": 1
+    },
+    "id": "RCS_DELTA_C"
+  },
+  "RCS_DELTA_F": {
+    "range": {
+      "uom": 17,
+      "min": -25,
+      "max": 25,
+      "step": 0.5,
+      "prec": 1,
+      "init": 1
+    },
+    "id": "RCS_DELTA_F"
+  },
+  "RCS_CLISPC_DEG": {
+    "range": {
+      "uom": 14,
+      "min": 0,
+      "max": 120
+    },
+    "id": "RCS_CLISPC_DEG"
+  },
+  "RCS_CLISPC_C": {
+    "range": {
+      "uom": 4,
+      "min": 0,
+      "max": 45,
+      "step": 0.5,
+      "prec": 1
+    },
+    "id": "RCS_CLISPC_C"
+  },
+  "RCS_CLISPC_F": {
+    "range": {
+      "uom": 17,
+      "min": 44,
+      "max": 113
+    },
+    "id": "RCS_CLISPC_F"
+  },
+  "RCS_CLISPH_DEG": {
+    "range": {
+      "uom": 14,
+      "min": 0,
+      "max": 120
+    },
+    "id": "RCS_CLISPH_DEG"
+  },
+  "RCS_CLISPH_C": {
+    "range": {
+      "uom": 4,
+      "min": 0,
+      "max": 45,
+      "step": 0.5,
+      "prec": 1
+    },
+    "id": "RCS_CLISPH_C"
+  },
+  "RCS_CLISPH_F": {
+    "range": {
+      "uom": 17,
+      "min": 40,
+      "max": 109
+    },
+    "id": "RCS_CLISPH_F"
+  },
+  "RCS_TSTAT_MODE": {
+    "range": {
+      "uom": 67,
+      "subset": "0-3"
+    },
+    "id": "RCS_TSTAT_MODE"
+  },
+  "RCS_TSTAT_FAN_MODE": {
+    "range": {
+      "uom": 68,
+      "subset": "0,1"
+    },
+    "id": "RCS_TSTAT_FAN_MODE"
+  },
+  "RCS_CLIFRS": {
+    "range": {
+      "uom": 80,
+      "subset": "0,1"
+    },
+    "id": "RCS_CLIFRS"
+  },
+  "RCS_TSTAT_HCS": {
+    "range": {
+      "uom": 66,
+      "subset": "0-2"
+    },
+    "id": "RCS_TSTAT_HCS"
+  }
+}

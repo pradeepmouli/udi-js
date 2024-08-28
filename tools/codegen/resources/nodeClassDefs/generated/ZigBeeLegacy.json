@@ -1,0 +1,310 @@
+{
+  "Thermostat": {
+    "className": "ThermostatNode",
+    "id": "Thermostat",
+    "nlsId": "TSTAT",
+    "drivers": {
+      "ST": {
+        "label": "Temperature",
+        "hidden": false,
+        "readonly": true,
+        "id": "ST",
+        "editorId": "RCS_TEMP_DEG",
+        "dataType": {},
+        "name": "temperature"
+      },
+      "CLISPH": {
+        "label": "Heat Setpoint",
+        "hidden": false,
+        "readonly": false,
+        "id": "CLISPH",
+        "editorId": "RCS_CLISPH_DEG",
+        "dataType": {},
+        "name": "heatSetpoint"
+      },
+      "CLISPC": {
+        "label": "Cool Setpoint",
+        "hidden": false,
+        "readonly": false,
+        "id": "CLISPC",
+        "editorId": "RCS_CLISPC_DEG",
+        "dataType": {},
+        "name": "coolSetpoint"
+      },
+      "CLIMD": {
+        "label": "Mode",
+        "hidden": false,
+        "readonly": false,
+        "id": "CLIMD",
+        "editorId": "RCS_TSTAT_MODE",
+        "dataType": {},
+        "name": "mode"
+      },
+      "CLIFS": {
+        "label": "Fan Mode",
+        "hidden": false,
+        "readonly": false,
+        "id": "CLIFS",
+        "editorId": "RCS_TSTAT_FAN_MODE",
+        "dataType": {},
+        "name": "fanMode"
+      },
+      "CLIHCS": {
+        "label": "Heat/Cool State",
+        "hidden": false,
+        "readonly": true,
+        "id": "CLIHCS",
+        "editorId": "RCS_TSTAT_HCS",
+        "dataType": {},
+        "name": "heatCoolState"
+      },
+      "CLIFRS": {
+        "label": "Fan State",
+        "hidden": false,
+        "readonly": true,
+        "id": "CLIFRS",
+        "editorId": "RCS_CLIFRS",
+        "dataType": {},
+        "name": "fanState"
+      },
+      "CLISMD": {
+        "label": "Schedule Mode",
+        "hidden": false,
+        "readonly": false,
+        "id": "CLISMD",
+        "editorId": "RCS_SMD",
+        "dataType": {},
+        "name": "scheduleMode"
+      },
+      "ERR": {
+        "label": "Responding",
+        "hidden": true,
+        "readonly": true,
+        "id": "ERR",
+        "editorId": "RCS_ERR",
+        "dataType": {},
+        "name": "responding"
+      }
+    },
+    "commands": {
+      "CLISPH": {
+        "label": "Heat Setpoint",
+        "id": "CLISPH",
+        "editorId": "RCS_CLISPH_DEG",
+        "name": "updateHeatSetpoint",
+        "optional": false,
+        "parameters": {
+          "value": {
+            "id": "value",
+            "editorId": "RCS_CLISPH_DEG",
+            "dataType": {},
+            "name": "value",
+            "optional": false,
+            "initialValue": "CLISPH"
+          }
+        },
+        "initialValue": "CLISPH"
+      },
+      "CLISPC": {
+        "label": "Cool Setpoint",
+        "id": "CLISPC",
+        "editorId": "RCS_CLISPC_DEG",
+        "name": "updateCoolSetpoint",
+        "optional": false,
+        "parameters": {
+          "value": {
+            "id": "value",
+            "editorId": "RCS_CLISPC_DEG",
+            "dataType": {},
+            "name": "value",
+            "optional": false,
+            "initialValue": "CLISPC"
+          }
+        },
+        "initialValue": "CLISPC"
+      },
+      "CLIMD": {
+        "label": "Mode",
+        "id": "CLIMD",
+        "editorId": "RCS_TSTAT_MODE",
+        "name": "updateMode",
+        "optional": false,
+        "parameters": {
+          "value": {
+            "id": "value",
+            "editorId": "RCS_TSTAT_MODE",
+            "dataType": {},
+            "name": "value",
+            "optional": false,
+            "initialValue": "CLIMD"
+          }
+        },
+        "initialValue": "CLIMD"
+      },
+      "CLIFS": {
+        "label": "Fan Mode",
+        "id": "CLIFS",
+        "editorId": "RCS_TSTAT_FAN_MODE",
+        "name": "updateFanMode",
+        "optional": false,
+        "parameters": {
+          "value": {
+            "id": "value",
+            "editorId": "RCS_TSTAT_FAN_MODE",
+            "dataType": {},
+            "name": "value",
+            "optional": false,
+            "initialValue": "CLIFS"
+          }
+        },
+        "initialValue": "CLIFS"
+      },
+      "CLISMD": {
+        "label": "Schedule Mode",
+        "id": "CLISMD",
+        "editorId": "RCS_SMD",
+        "name": "updateScheduleMode",
+        "optional": false,
+        "parameters": {
+          "value": {
+            "id": "value",
+            "editorId": "RCS_SMD",
+            "dataType": {},
+            "name": "value",
+            "optional": false,
+            "initialValue": "CLISMD"
+          }
+        },
+        "initialValue": "CLISMD"
+      },
+      "CLISPHD": {
+        "label": "Heat Setpoint Shift",
+        "id": "CLISPHD",
+        "editorId": "RCS_DELTA_DEG",
+        "name": "heatSetpointShift",
+        "optional": false,
+        "parameters": {
+          "value": {
+            "id": "value",
+            "editorId": "RCS_DELTA_DEG",
+            "dataType": {},
+            "name": "value",
+            "optional": false
+          }
+        }
+      },
+      "CLISPCD": {
+        "label": "Cool Setpoint Shift",
+        "id": "CLISPCD",
+        "editorId": "RCS_DELTA_DEG",
+        "name": "coolSetpointShift",
+        "optional": false,
+        "parameters": {
+          "value": {
+            "id": "value",
+            "editorId": "RCS_DELTA_DEG",
+            "dataType": {},
+            "name": "value",
+            "optional": false
+          }
+        }
+      },
+      "QUERY": {
+        "label": "Query",
+        "id": "QUERY",
+        "name": "query"
+      },
+      "ADRPST": {
+        "label": "ADR",
+        "id": "ADRPST",
+        "editorId": "RCS_ADRPST",
+        "name": "adr",
+        "optional": false,
+        "parameters": {
+          "value": {
+            "id": "value",
+            "editorId": "RCS_ADRPST",
+            "dataType": {},
+            "name": "value",
+            "optional": false
+          }
+        }
+      }
+    },
+    "events": {},
+    "family": 3,
+    "label": "Thermostat",
+    "name": "ThermostatNode"
+  },
+  "RelayLoadControl": {
+    "className": "LampAndSwitchNode",
+    "id": "RelayLoadControl",
+    "nlsId": "RELAY",
+    "drivers": {
+      "ST": {
+        "label": "Status",
+        "hidden": false,
+        "readonly": true,
+        "id": "ST",
+        "editorId": "RCS_OL_RELAY",
+        "dataType": {},
+        "name": "status"
+      },
+      "ERR": {
+        "label": "Responding",
+        "hidden": true,
+        "readonly": true,
+        "id": "ERR",
+        "editorId": "RCS_ERR",
+        "dataType": {},
+        "name": "responding"
+      }
+    },
+    "commands": {
+      "DON": {
+        "label": "On",
+        "id": "DON",
+        "name": "on"
+      },
+      "DOF": {
+        "label": "Off",
+        "id": "DOF",
+        "name": "off"
+      },
+      "QUERY": {
+        "label": "Query",
+        "id": "QUERY",
+        "name": "query"
+      },
+      "ADRPST": {
+        "label": "ADR",
+        "id": "ADRPST",
+        "editorId": "RCS_ADRPST",
+        "name": "adr",
+        "optional": false,
+        "parameters": {
+          "value": {
+            "id": "value",
+            "editorId": "RCS_ADRPST",
+            "dataType": {},
+            "name": "value",
+            "optional": false
+          }
+        }
+      }
+    },
+    "events": {
+      "DON": {
+        "id": "DON",
+        "name": "don"
+      },
+      "DOF": {
+        "id": "DOF",
+        "name": "dof"
+      }
+    },
+    "family": 3,
+    "label": "LampAndSwitch",
+    "name": "LampAndSwitchNode"
+  }
+}

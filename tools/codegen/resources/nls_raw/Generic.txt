@@ -1,0 +1,297 @@
+# -------------------------------------------------
+# Status Condition Comparison
+#
+CMP-OP-IS = is
+CMP-OP-ISNOT = is not
+CMP-OP-LT = <
+CMP-OP-GT = >
+CMP-OP-LE = <=
+CMP-OP-GE = >=
+
+# -------------------------------------------------
+# Control Condition Comparison
+#
+CMP-CTL-OP-IS = is switched
+CMP-CTL-OP-ISNOT = is not switched
+
+# -------------------------------------------------
+# Program status conditions
+#
+# All currently use default of ${c} ${op} ${v}
+#
+#PGM-ST-CLISPC-FMT = ${c} ${op} ${v}
+#PGM-ST-CLISPH-FMT = ${c} ${op} ${v}
+#PGM-ST-.....
+
+# -------------------------------------------------
+# Program actions (commands)
+#
+# Most currently use default of ///${c} ${v}/
+#
+#PGM-CMD-CLISPC-FMT = ///${c} ${v}/
+#PGM-CMD-CLISPH-FMT = ///${c} ${v}/
+#PGM-CMD-CLIMD-FMT = ///${c} ${v}/
+#PGM-CMD-CLIFS-FMT = ///${c} ${v}/
+#PGM-CTL-DON-FMT = ///${c} ${v}/
+#PGM-CMD-BRT-FMT = ///${c} ${v}/ /amount/${c}/${c} ${v}/
+#PGM-CMD-DIM-FMT = ///${c} ${v}/ /amount/${c}/${c} ${v}/
+#PGM-CTL-RR-FMT = ///${c} ${v}/
+
+
+#
+# Custom ST names
+#
+ST-ST-143-NAME = Temperature
+
+#
+# Common names
+#
+GEN-MODE = Mode
+GEN-AMOUNT = Amount
+GEN-DIR = Direction
+
+#
+# Common Status Names
+#
+ST-ACCX-NAME = Acceleration x axis
+ST-ACCY-NAME = Acceleration y axis
+ST-ACCZ-NAME = Acceleration z axis
+ST-AIRFLOW-NAME = Air Flow
+ST-ALARM-NAME = Alarm
+ST-ANGLPOS-NAME = Angle Position
+ST-AQI-NAME = Air Quality Index
+ST-ATMPRES-NAME = Atmospheric Pressure
+ST-BARPRES-NAME = Barometric Pressure
+ST-BATLVL-NAME = Battery Level
+ST-BEEP-NAME = Beep
+ST-BMAN-NAME = Fade Start
+ST-BMI-NAME = Body mass index
+ST-BMR-NAME = Basic metabolic rate
+ST-BONEM-NAME = Bone mass
+ST-BPDIA-NAME = Diastolic blood pressure
+ST-BPSYS-NAME = Systolic blood pressure
+ST-BRT-NAME = Brighten
+ST-BUSY-NAME = Busy
+ST-CC-NAME = Current Current
+ST-CH20-NAME = Formaldehyde ch2o level
+ST-CLIEMD-NAME = Energy Mode
+ST-CLIFRS-NAME = Fan State
+ST-CLIFS-NAME = Fan Mode
+ST-CLIFSO-NAME = Fan Mode Override
+ST-CLIHCS-NAME = Heat/Cool State
+ST-CLIHUM-NAME = Humidity
+ST-CLIMD-NAME = Mode
+ST-CLISB-NAME = Setback
+ST-CLISBO-NAME = Setback Offset
+ST-CLISBS-NAME = Setback State
+ST-CLISBT-NAME = Setback Type
+ST-CLISMD-NAME = Schedule Mode
+ST-CLISPC-NAME = Cool Setpoint
+ST-CLISPH-NAME = Heat Setpoint
+ST-CLISPF-NAME = Furnace Setpoint
+ST-CLISPDA-NAME = Dry Air Setpoint
+ST-CLISPMA-NAME = Moist Air
+ST-CLISPAC-NAME = Auto Changeover Setpoint
+ST-CLISPEH-NAME = Energy Save Heat Setpoint
+ST-CLISPEC-NAME = Energy Save Cool Setpoint
+ST-CLISPWH-NAME = Away Heat Setpoint
+ST-CLISPWC-NAME = Away Cool Setpoint
+ST-CLISPFP-NAME = Full Power Setpoint
+ST-CLITEMP-NAME = Temperature
+ST-CO-NAME = Carbon monoxide level
+ST-CO2LVL-NAME = CO\u2082 Level
+ST-CPW-NAME = Current Power
+ST-CTL-NAME = Last Action
+ST-CV-NAME = Current Voltage
+ST-DELAY-NAME = Delay
+ST-DEWPT-NAME = Dew Point
+ST-DFOF-NAME = Fast Off
+ST-DFON-NAME = Fast On
+ST-DIM-NAME = Dim
+ST-DISTANC-NAME = Distance
+ST-DOF-NAME = Off
+ST-DOF3-NAME = Off 3 Key Presses
+ST-DOF4-NAME = Off 4 Key Presses
+ST-DOF5-NAME = Off 5 Key Presses
+ST-DON-NAME = On
+ST-DON3-NAME = On 3 Key Presses
+ST-DON4-NAME = On 4 Key Presses
+ST-DON5-NAME = On 5 Key Presses
+ST-DUR-NAME = Duration
+ST-ELECCON-NAME = Electrical Conductivity
+ST-ELECRES-NAME = Electrical Resistivity
+ST-ETO-NAME = Evapotranspiration
+ST-FATM-NAME = Fat mass
+ST-FDDOWN-NAME = Fade Down
+ST-FDSTOP-NAME = Fade Stop
+ST-FDUP-NAME = Fade Up
+ST-FREQ-NAME = Frequency
+ST-GPV-NAME = General Purpose
+ST-GUST-NAME = Gust
+ST-GVOL-NAME = Gas Volume
+ST-HAIL-NAME = Hail
+ST-HEATIX-NAME = Heat Index
+ST-HR-NAME = Heart rate
+ST-LUMIN-NAME = Luminance
+ST-METHANE-NAME = Methane density ch4
+ST-MODE-NAME = Mode
+ST-MOIST-NAME = Moisture
+ST-MOON-NAME = Moon Phase
+ST-MUSCLEM-NAME = Muscle mass
+ST-OL-NAME = On Level
+ST-OZONE-NAME = Ozone
+ST-PCNT-NAME = Pulse Count
+ST-PF-NAME = Power Factor
+ST-PM10-NAME = Particulate matter
+ST-PM25-NAME = Particulate matter 2 5
+ST-POP-NAME = Percent chance of precipitation
+ST-PPW-NAME = Polarized Power
+ST-PRECIP-NAME = Precipitation
+ST-PULSCNT-NAME = Pulse Count
+ST-QUERY-NAME = Query
+ST-RADON-NAME = Radon concentration
+ST-RAINRT-NAME = Rain Rate
+ST-RELMOD-NAME = Relative modulation level
+ST-RESET-NAME = Reset
+ST-RESPR-NAME = Respiratory rate
+ST-RFSS-NAME = Rf signal strength
+ST-ROTATE-NAME = Rotation
+ST-RR-NAME = Ramp Rate
+ST-SECMD-NAME = Secure Mode
+ST-SEISINT-NAME = Seismic Intensity
+ST-SEISMAG-NAME = Seismic Magnitude
+ST-SMAN-NAME = Fade Stop
+ST-SMOKED-NAME = Smoke density
+ST-SOILH-NAME = Soil humidity
+ST-SOILR-NAME = Soil reactivity
+ST-SOILS-NAME = Soil salinity
+ST-SOILT-NAME = Soil Temperature
+ST-SOLRAD-NAME = Solar Radiation
+ST-SPEED-NAME = Speed
+ST-ST-NAME = Status
+ST-SVOL-NAME = Sound Volume
+ST-TANKCAP-NAME = Tank Capacity
+ST-TBW-NAME = Total body water
+ST-TEMPEXH-NAME = Exhaust temperature
+ST-TEMPOUT-NAME = Outside temperature
+ST-TIDELVL-NAME = Tide Level
+ST-TIME-NAME = Time
+ST-TIMEREM-NAME = Time Remaining
+ST-TPW-NAME = Total Energy
+ST-TTEMP-NAME = Target temperature
+ST-UAC-NAME = User Number
+ST-UOM-NAME = Unit of Measure
+ST-USRNUM-NAME = User Number
+ST-UV-NAME = UV Light
+ST-VOCLVL-NAME = VOC Level
+ST-WATERF-NAME = Water flow
+ST-WATERP-NAME = Water pressure
+ST-WATERTB-NAME = Boiler water temperature
+ST-WATERTD-NAME = Domestic hot water temperature
+ST-WEIGHT-NAME = Weight
+ST-WINDCH-NAME = Wind Chill
+ST-WINDDIR-NAME = Wind Direction
+ST-WVOL-NAME = Water Volume
+
+#
+# Common Command Names
+#
+CMD-ALARM-NAME = Alarm
+CMD-ALLON-NAME = All On
+CMD-ALLOFF-NAME = All Off
+CMD-BEEP-NAME = Beep
+CMD-BL-NAME = Backlight
+CMD-BMAN-NAME = Fade Start
+CMD-BRT-NAME = Brighten
+CMD-CLIEMD-NAME = Energy Mode
+CMD-CLIFRS-NAME = Fan State
+CMD-CLIFS-NAME = Fan Mode
+CMD-CLIFSO-NAME = Fan Mode Override
+CMD-CLIHCS-NAME = Heat/Cool State
+CMD-CLIHUM-NAME = Humidity
+CMD-CLIMD-NAME = Mode
+CMD-CLISB-NAME = Setback
+CMD-CLISBS-NAME = Setback State
+CMD-CLISBT-NAME = Setback Type
+CMD-CLISMD-NAME = Schedule Mode
+CMD-CLISPC-NAME = Cool Setpoint
+CMD-CLISPH-NAME = Heat Setpoint
+CMD-CLISPCD-NAME = Cool Setpoint Shift
+CMD-CLISPHD-NAME = Heat Setpoint Shift
+CMD-CLISPF-NAME = Furnace Setpoint
+CMD-CLISPDA-NAME = Dry Air Setpoint
+CMD-CLISPMA-NAME = Moist Air
+CMD-CLISPAC-NAME = Auto Changeover Setpoint
+CMD-CLISPEH-NAME = Energy Save Heat Setpoint
+CMD-CLISPEC-NAME = Energy Save Cool Setpoint
+CMD-CLISPWH-NAME = Away Heat Setpoint
+CMD-CLISPWC-NAME = Away Cool Setpoint
+CMD-CLISPFP-NAME = Full Power Setpoint
+CMD-DELAY-NAME = Delay
+CMD-DFOF-NAME = Fast Off
+CMD-DFON-NAME = Fast On
+CMD-DIM-NAME = Dim
+CMD-DOF-NAME = Off
+CMD-DOF3-NAME = Triple Press (Off)
+CMD-DOF4-NAME = 4 x Press (Off)
+CMD-DOF5-NAME = 5 x Press (Off)
+CMD-DON-NAME = On
+CMD-DON3-NAME = Triple Press (On)
+CMD-DON4-NAME = 4 x Press (On)
+CMD-DON5-NAME = 5 x Press (On)
+CMD-ERR-NAME = Error
+CMD-FDUP-NAME = Fade Up
+CMD-FDDOWN-NAME = Fade Down
+CMD-FDSTOP-NAME = Fade Stop
+CMD-HAIL-NAME = Hail
+CMD-OL-NAME = On Level
+CMD-QUERY-NAME = Query
+CMD-RESET-NAME = Reset
+CMD-RR-NAME = Ramp Rate
+CMD-SECMD-NAME = Secure Mode
+CMD-SMAN-NAME = Fade Stop
+CMD-ST-NAME = Query
+CMD-SVOL-NAME = Sound Volume
+CMD-UAC-NAME = Access Code
+# Device Specific
+CMD-SETTIME-NAME = Set Time
+CMD-WDU-NAME = Write Changes
+CMD-MODE-NAME = Mode
+
+CMDP-ALARM-NAME = Alarm
+CMDP-BEEP-NAME = Beep
+CMDP-BMAN-NAME = Fade Start
+CMDP-BRT-NAME = Brighten
+CMDP-CLIEMD-NAME = Energy Mode
+CMDP-CLIFRS-NAME = Fan State
+CMDP-CLIFS-NAME = Fan Mode
+CMDP-CLIFSO-NAME = Fan Mode Override
+CMDP-CLIHCS-NAME = Heat/Cool State
+CMDP-CLIHUM-NAME = Humidity
+CMDP-CLIMD-NAME = Mode
+CMDP-CLISB-NAME = Setback
+CMDP-CLISBS-NAME = Setback State
+CMDP-CLISBT-NAME = Setback Type
+CMDP-CLISMD-NAME = Schedule Mode
+CMDP-CLISPC-NAME = Cool Setpoint
+CMDP-CLISPH-NAME = Heat Setpoint
+CMDP-DFOF-NAME = Fast Off
+CMDP-DFON-NAME = Fast On
+CMDP-DIM-NAME = Dim
+CMDP-DOF-NAME = Off
+CMDP-DON-NAME = On
+CMDP-ERR-NAME = Error
+CMDP-FDUP-NAME = Fade Up
+CMDP-FDDOWN-NAME = Fade Down
+CMDP-FDSTOP-NAME = Fade Stop
+CMDP-OL-NAME = On Level
+CMDP-QUERY-NAME = Query
+CMDP-RESET-NAME = Reset
+CMDP-RR-NAME = Ramp Rate
+CMDP-SECMD-NAME = Secure Mode
+CMDP-SMAN-NAME = Fade Stop
+CMDP-ST-NAME = Query
+CMDP-SVOL-NAME = Sound Volume
+CMDP-UAC-NAME = Access Code
+CMDP-SETTIME-NAME = Set Time
+

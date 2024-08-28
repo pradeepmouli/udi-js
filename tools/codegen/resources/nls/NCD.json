@@ -1,0 +1,83 @@
+{
+  "Generic": {
+    "ND": [
+      {
+        "type": "ND",
+        "value": "Relay",
+        "nodeDefId": "NCDRelay",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "LampAndSwitch",
+        "nodeDefId": "NCDRelay",
+        "property": "ICON"
+      }
+    ],
+    "R_OL": [
+      {
+        "type": "R_OL",
+        "key": "0",
+        "value": "Off"
+      },
+      {
+        "type": "R_OL",
+        "key": "100",
+        "value": "On"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Responding",
+        "control": "ERR",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "ADR",
+        "control": "ADRPST",
+        "property": "NAME"
+      }
+    ],
+    "IX": [
+      {
+        "comment": "# Communication Error",
+        "type": "IX",
+        "value": "True",
+        "indexType": "IX_ERR",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Communication Error",
+        "type": "IX",
+        "value": "False",
+        "indexType": "IX_ERR",
+        "indexValue": 1
+      }
+    ],
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "ADR",
+        "control": "ADRPST",
+        "property": "NAME"
+      }
+    ],
+    "R_ADRPST": [
+      {
+        "type": "R_ADRPST",
+        "key": "0",
+        "value": "Off"
+      },
+      {
+        "type": "R_ADRPST",
+        "key": "1",
+        "value": "Auto Apply"
+      }
+    ]
+  }
+}

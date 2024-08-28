@@ -1,0 +1,175 @@
+{
+  "nodeDefs": {
+    "nodeDef": [
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "EM3_WATTS"
+            },
+            {
+              "id": "TPW",
+              "editor": "EM3_KWH"
+            },
+            {
+              "id": "ERR",
+              "editor": "EM3_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": {
+              "id": "QUERY"
+            }
+          }
+        },
+        "id": "EM3Main"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "EM3_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "EM3_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "QUERY"
+              }
+            ]
+          }
+        },
+        "id": "EM3Relay"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "EM3_WATTS"
+            },
+            {
+              "id": "TPW",
+              "editor": "EM3_KWH"
+            },
+            {
+              "id": "CV",
+              "editor": "EM3_VOLTS"
+            },
+            {
+              "id": "CC",
+              "editor": "EM3_AMPS"
+            },
+            {
+              "id": "PF",
+              "editor": "EM3_PF"
+            },
+            {
+              "id": "ERR",
+              "editor": "EM3_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": ""
+        },
+        "id": "EM3MainChannel"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "EM3_WATTS"
+            },
+            {
+              "id": "TPW",
+              "editor": "EM3_KWH"
+            },
+            {
+              "id": "ERR",
+              "editor": "EM3_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": ""
+        },
+        "id": "EM3Channel"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "EM3_TEMP_DEG"
+            },
+            {
+              "id": "ERR",
+              "editor": "EM3_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": ""
+        },
+        "id": "EM3TempSensor",
+        "nls": "TEMP"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "EM3_PULSE_COUNT"
+            },
+            {
+              "id": "CPW",
+              "editor": "EM3_WATTS"
+            },
+            {
+              "id": "TPW",
+              "editor": "EM3_KWH"
+            },
+            {
+              "id": "ERR",
+              "editor": "EM3_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": ""
+        },
+        "id": "EM3PulseCounter"
+      }
+    ]
+  }
+}

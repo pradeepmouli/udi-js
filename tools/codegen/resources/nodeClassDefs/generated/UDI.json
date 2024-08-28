@@ -1,0 +1,455 @@
+{
+  "EM3Main": {
+    "className": "EnergyMonitorNode",
+    "id": "EM3Main",
+    "drivers": {
+      "ST": {
+        "label": "Status",
+        "hidden": false,
+        "readonly": true,
+        "id": "ST",
+        "editorId": "EM3_WATTS",
+        "dataType": {
+          "73": {
+            "uom": 73,
+            "enum": false,
+            "min": 0,
+            "max": 100000,
+            "step": 0.01,
+            "precision": 2
+          }
+        },
+        "name": "status"
+      },
+      "TPW": {
+        "label": "Total Energy",
+        "hidden": false,
+        "readonly": true,
+        "id": "TPW",
+        "editorId": "EM3_KWH",
+        "dataType": {
+          "33": {
+            "uom": 33,
+            "enum": false,
+            "min": 0,
+            "max": 100000,
+            "step": 0.01,
+            "precision": 2
+          }
+        },
+        "name": "totalEnergy"
+      },
+      "ERR": {
+        "label": "Responding",
+        "hidden": true,
+        "readonly": true,
+        "id": "ERR",
+        "editorId": "EM3_ERR",
+        "dataType": {
+          "25": {
+            "uom": 25,
+            "indexId": "IX_ERR",
+            "enum": true,
+            "values": {
+              "0": "True",
+              "1": "False"
+            }
+          }
+        },
+        "name": "responding"
+      }
+    },
+    "commands": {
+      "QUERY": {
+        "label": "Query",
+        "id": "QUERY",
+        "name": "query"
+      }
+    },
+    "events": {},
+    "family": 7,
+    "label": "EnergyMonitor",
+    "name": "EnergyMonitorNode"
+  },
+  "EM3Relay": {
+    "className": "LampNode",
+    "id": "EM3Relay",
+    "drivers": {
+      "ST": {
+        "label": "Status",
+        "hidden": false,
+        "readonly": true,
+        "id": "ST",
+        "editorId": "EM3_RELAY",
+        "dataType": {
+          "51": {
+            "uom": 51,
+            "indexId": "EM3_OL",
+            "enum": true,
+            "values": {
+              "0": "",
+              "100": ""
+            }
+          }
+        },
+        "name": "status"
+      },
+      "ERR": {
+        "label": "Responding",
+        "hidden": true,
+        "readonly": true,
+        "id": "ERR",
+        "editorId": "EM3_ERR",
+        "dataType": {
+          "25": {
+            "uom": 25,
+            "indexId": "IX_ERR",
+            "enum": true,
+            "values": {
+              "0": "True",
+              "1": "False"
+            }
+          }
+        },
+        "name": "responding"
+      }
+    },
+    "commands": {
+      "DON": {
+        "label": "On",
+        "id": "DON",
+        "name": "on"
+      },
+      "DOF": {
+        "label": "Off",
+        "id": "DOF",
+        "name": "off"
+      },
+      "QUERY": {
+        "label": "Query",
+        "id": "QUERY",
+        "name": "query"
+      }
+    },
+    "events": {},
+    "family": 7,
+    "label": "Lamp",
+    "name": "LampNode"
+  },
+  "EM3MainChannel": {
+    "className": "Em3MainChannelNode",
+    "id": "EM3MainChannel",
+    "drivers": {
+      "ST": {
+        "label": "Status",
+        "hidden": false,
+        "readonly": true,
+        "id": "ST",
+        "editorId": "EM3_WATTS",
+        "dataType": {
+          "73": {
+            "uom": 73,
+            "enum": false,
+            "min": 0,
+            "max": 100000,
+            "step": 0.01,
+            "precision": 2
+          }
+        },
+        "name": "status"
+      },
+      "TPW": {
+        "label": "Total Energy",
+        "hidden": false,
+        "readonly": true,
+        "id": "TPW",
+        "editorId": "EM3_KWH",
+        "dataType": {
+          "33": {
+            "uom": 33,
+            "enum": false,
+            "min": 0,
+            "max": 100000,
+            "step": 0.01,
+            "precision": 2
+          }
+        },
+        "name": "totalEnergy"
+      },
+      "CV": {
+        "label": "Current Voltage",
+        "hidden": false,
+        "readonly": true,
+        "id": "CV",
+        "editorId": "EM3_VOLTS",
+        "dataType": {
+          "72": {
+            "uom": 72,
+            "enum": false,
+            "min": 0,
+            "max": 100000,
+            "step": 0.01,
+            "precision": 2
+          }
+        },
+        "name": "currentVoltage"
+      },
+      "CC": {
+        "label": "Current Current",
+        "hidden": false,
+        "readonly": true,
+        "id": "CC",
+        "editorId": "EM3_AMPS",
+        "dataType": {
+          "1": {
+            "uom": 1,
+            "enum": false,
+            "min": 0,
+            "max": 100000,
+            "step": 0.01,
+            "precision": 2
+          }
+        },
+        "name": "currentCurrent"
+      },
+      "PF": {
+        "label": "Power Factor",
+        "hidden": false,
+        "readonly": true,
+        "id": "PF",
+        "editorId": "EM3_PF",
+        "dataType": {
+          "53": {
+            "uom": 53,
+            "enum": false,
+            "min": 0,
+            "max": 1,
+            "step": 0.01,
+            "precision": 2
+          }
+        },
+        "name": "powerFactor"
+      },
+      "ERR": {
+        "label": "Responding",
+        "hidden": true,
+        "readonly": true,
+        "id": "ERR",
+        "editorId": "EM3_ERR",
+        "dataType": {
+          "25": {
+            "uom": 25,
+            "indexId": "IX_ERR",
+            "enum": true,
+            "values": {
+              "0": "True",
+              "1": "False"
+            }
+          }
+        },
+        "name": "responding"
+      }
+    },
+    "commands": {},
+    "events": {},
+    "family": 7,
+    "name": "Em3MainChannelNode"
+  },
+  "EM3Channel": {
+    "className": "EnergyMonitorNode",
+    "id": "EM3Channel",
+    "drivers": {
+      "ST": {
+        "label": "Status",
+        "hidden": false,
+        "readonly": true,
+        "id": "ST",
+        "editorId": "EM3_WATTS",
+        "dataType": {
+          "73": {
+            "uom": 73,
+            "enum": false,
+            "min": 0,
+            "max": 100000,
+            "step": 0.01,
+            "precision": 2
+          }
+        },
+        "name": "status"
+      },
+      "TPW": {
+        "label": "Total Energy",
+        "hidden": false,
+        "readonly": true,
+        "id": "TPW",
+        "editorId": "EM3_KWH",
+        "dataType": {
+          "33": {
+            "uom": 33,
+            "enum": false,
+            "min": 0,
+            "max": 100000,
+            "step": 0.01,
+            "precision": 2
+          }
+        },
+        "name": "totalEnergy"
+      },
+      "ERR": {
+        "label": "Responding",
+        "hidden": true,
+        "readonly": true,
+        "id": "ERR",
+        "editorId": "EM3_ERR",
+        "dataType": {
+          "25": {
+            "uom": 25,
+            "indexId": "IX_ERR",
+            "enum": true,
+            "values": {
+              "0": "True",
+              "1": "False"
+            }
+          }
+        },
+        "name": "responding"
+      }
+    },
+    "commands": {},
+    "events": {},
+    "family": 7,
+    "label": "EnergyMonitor",
+    "name": "EnergyMonitorNode"
+  },
+  "EM3TempSensor": {
+    "className": "TempSensorNode",
+    "id": "EM3TempSensor",
+    "nlsId": "TEMP",
+    "drivers": {
+      "ST": {
+        "label": "Temperature",
+        "hidden": false,
+        "readonly": true,
+        "id": "ST",
+        "editorId": "EM3_TEMP_DEG",
+        "dataType": {
+          "14": {
+            "uom": 14,
+            "enum": false,
+            "min": -1000,
+            "max": 1000,
+            "step": 0.01,
+            "precision": 2
+          }
+        },
+        "name": "temperature"
+      },
+      "ERR": {
+        "label": "Responding",
+        "hidden": true,
+        "readonly": true,
+        "id": "ERR",
+        "editorId": "EM3_ERR",
+        "dataType": {
+          "25": {
+            "uom": 25,
+            "indexId": "IX_ERR",
+            "enum": true,
+            "values": {
+              "0": "True",
+              "1": "False"
+            }
+          }
+        },
+        "name": "responding"
+      }
+    },
+    "commands": {},
+    "events": {},
+    "family": 7,
+    "label": "TempSensor",
+    "name": "TempSensorNode"
+  },
+  "EM3PulseCounter": {
+    "className": "PulseCounterNode",
+    "id": "EM3PulseCounter",
+    "drivers": {
+      "ST": {
+        "label": "Status",
+        "hidden": false,
+        "readonly": true,
+        "id": "ST",
+        "editorId": "EM3_PULSE_COUNT",
+        "dataType": {
+          "55": {
+            "uom": 55,
+            "enum": false,
+            "min": 0,
+            "max": 1000000
+          }
+        },
+        "name": "status"
+      },
+      "CPW": {
+        "label": "Current Power",
+        "hidden": false,
+        "readonly": true,
+        "id": "CPW",
+        "editorId": "EM3_WATTS",
+        "dataType": {
+          "73": {
+            "uom": 73,
+            "enum": false,
+            "min": 0,
+            "max": 100000,
+            "step": 0.01,
+            "precision": 2
+          }
+        },
+        "name": "currentPower"
+      },
+      "TPW": {
+        "label": "Total Energy",
+        "hidden": false,
+        "readonly": true,
+        "id": "TPW",
+        "editorId": "EM3_KWH",
+        "dataType": {
+          "33": {
+            "uom": 33,
+            "enum": false,
+            "min": 0,
+            "max": 100000,
+            "step": 0.01,
+            "precision": 2
+          }
+        },
+        "name": "totalEnergy"
+      },
+      "ERR": {
+        "label": "Responding",
+        "hidden": true,
+        "readonly": true,
+        "id": "ERR",
+        "editorId": "EM3_ERR",
+        "dataType": {
+          "25": {
+            "uom": 25,
+            "indexId": "IX_ERR",
+            "enum": true,
+            "values": {
+              "0": "True",
+              "1": "False"
+            }
+          }
+        },
+        "name": "responding"
+      }
+    },
+    "commands": {},
+    "events": {},
+    "family": 7,
+    "label": "PulseCounter",
+    "name": "PulseCounterNode"
+  }
+}

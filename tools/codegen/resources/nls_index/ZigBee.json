@@ -1,0 +1,75 @@
+{
+  "IX_ID_EFFECT": {
+    "0": "Blink",
+    "1": "Breath",
+    "2": "Okay",
+    "11": "Channel Change",
+    "254": "Finish",
+    "255": "Stop"
+  },
+  "IX_ONOFF": {
+    "0": "Off",
+    "100": "On"
+  },
+  "IX_ERR": {
+    "0": "True",
+    "1": "False"
+  },
+  "IX_TF": {
+    "0": "False",
+    "100": "True"
+  },
+  "IX_PCT_OPT": {
+    "1": "Previous Value"
+  },
+  "IX_MLS_DIR": {
+    "0": "Up",
+    "1": "Down",
+    "3": "None"
+  },
+  "IX_DIM": {
+    "0": "Off"
+  },
+  "IX_DIM_REP": {
+    "0": "Off",
+    "101": "Unknown"
+  },
+  "IX_OL": {
+    "0": "Off",
+    "101": "Previous"
+  },
+  "IX_CMM": {
+    "0": "Stop",
+    "1": "Up",
+    "2": "2-Reserved",
+    "3": "Down"
+  },
+  "IX_CSM": {
+    "0": "0-Reserved",
+    "1": "Up",
+    "2": "2-Reserved",
+    "3": "Down"
+  },
+  "IX_HUESAT": {
+    "0": "Hue",
+    "1": "Saturation"
+  },
+  "IX_CTUNIT": {
+    "0": "Kelvin",
+    "1": "Mired"
+  },
+  "IX_HUEDIR": {
+    "0": "Shortest Distance",
+    "1": "Longest Distance",
+    "2": "Up",
+    "3": "Down"
+  },
+  "IX_DOOR_STS": {
+    "0": "Open",
+    "1": "Closed",
+    "2": "Jammed",
+    "3": "Forced Open",
+    "4": "Unspecified",
+    "255": "Undefined"
+  }
+}

@@ -1,0 +1,18 @@
+# NLS For Brultech
+
+# NodeDef names
+ND-BTMain-NAME = Main
+ND-BTChannel-NAME = Channel
+
+#
+ND-BTMain-ICON = EnergyMonitor
+ND-BTChannel-ICON = EnergyMonitor
+
+# Status
+ST-ST-NAME = Current Power
+
+# Communication Error
+ST-ERR-NAME = Responding
+IX_ERR-0 = True
+IX_ERR-1 = False
+

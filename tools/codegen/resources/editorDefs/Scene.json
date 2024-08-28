@@ -1,0 +1,50 @@
+{
+  "I_OL_PARAM": {
+    "range": {
+      "uom": 51,
+      "min": 0,
+      "max": 100
+    },
+    "$comment": " range uom=\"100\" min=\"0\" max=\"255\" nls=\"IX_I_L255\" / ",
+    "id": "I_OL_PARAM"
+  },
+  "GNC_DELTA_DEG": {
+    "range": {
+      "uom": 14,
+      "min": -25,
+      "max": 25,
+      "init": 1
+    },
+    "id": "GNC_DELTA_DEG"
+  },
+  "GNC_CLISPH_DEG": {
+    "range": {
+      "uom": 14,
+      "min": 0,
+      "max": 120
+    },
+    "id": "GNC_CLISPH_DEG"
+  },
+  "GNC_CLISPC_DEG": {
+    "range": {
+      "uom": 14,
+      "min": 0,
+      "max": 120
+    },
+    "id": "GNC_CLISPC_DEG"
+  },
+  "GNC_TSTAT_MODE": {
+    "range": {
+      "uom": 67,
+      "subset": "0-3"
+    },
+    "id": "GNC_TSTAT_MODE"
+  },
+  "GNC_TSTAT_FAN_MODE": {
+    "range": {
+      "uom": 68,
+      "subset": "0,1"
+    },
+    "id": "GNC_TSTAT_FAN_MODE"
+  }
+}

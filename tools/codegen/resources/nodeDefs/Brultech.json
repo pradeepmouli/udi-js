@@ -1,0 +1,70 @@
+{
+  "nodeDefs": {
+    "nodeDef": [
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "BT_WATTS"
+            },
+            {
+              "id": "TPW",
+              "editor": "BT_KWH"
+            },
+            {
+              "id": "CV",
+              "editor": "BT_VOLTS"
+            },
+            {
+              "id": "CC",
+              "editor": "BT_AMPS"
+            },
+            {
+              "id": "PPW",
+              "editor": "BT_WATTS"
+            },
+            {
+              "id": "ERR",
+              "editor": "BT_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": {
+              "id": "QUERY"
+            }
+          }
+        },
+        "id": "BTMain"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "BT_WATTS"
+            },
+            {
+              "id": "TPW",
+              "editor": "BT_KWH"
+            },
+            {
+              "id": "ERR",
+              "editor": "BT_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": ""
+        },
+        "id": "BTChannel"
+      }
+    ]
+  }
+}

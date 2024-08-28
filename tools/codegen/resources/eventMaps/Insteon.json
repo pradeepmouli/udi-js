@@ -1,0 +1,41 @@
+{
+  "eventMaps": {
+    "$comment": " In all events, convert values from given UOM to new UOM ",
+    "eventMap": {
+      "uomMap": {
+        "uom": [
+          {
+            "from": 98,
+            "to": 67
+          },
+          {
+            "from": 99,
+            "to": 68
+          },
+          {
+            "from": 100,
+            "to": 51
+          },
+          {
+            "from": 101,
+            "to": 14,
+            "prec": 1
+          },
+          {
+            "from": 102,
+            "to": 33,
+            "prec": 4
+          }
+        ],
+        "$comment": [
+          " Insteon Thermostat Mode to Common Thermostat Mode ",
+          " Insteon Thermostat Fan Mode to Common Thermostat Fan Mode ",
+          " LEVEL_255 to Percent ",
+          " Degree_X_2 to Degree ",
+          " kW Second to kWh "
+        ]
+      },
+      "id": "I_STD"
+    }
+  }
+}

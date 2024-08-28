@@ -1,0 +1,55 @@
+{
+  "Generic": {
+    "ND": [
+      {
+        "type": "ND",
+        "value": "Load Shed",
+        "nodeDefId": "LUTLoadShed",
+        "property": "NAME"
+      },
+      {
+        "type": "ND",
+        "value": "Lamp",
+        "nodeDefId": "LUTRelay",
+        "property": "ICON"
+      }
+    ],
+    "LUT_OL": [
+      {
+        "type": "LUT_OL",
+        "key": "0",
+        "value": "Off"
+      },
+      {
+        "type": "LUT_OL",
+        "key": "100",
+        "value": "On"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Responding",
+        "control": "ERR",
+        "property": "NAME"
+      }
+    ],
+    "IX": [
+      {
+        "comment": "# Communication Error",
+        "type": "IX",
+        "value": "True",
+        "indexType": "IX_ERR",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Communication Error",
+        "type": "IX",
+        "value": "False",
+        "indexType": "IX_ERR",
+        "indexValue": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,431 @@
+{
+  "linkdefs": {
+    "$comment": " Central Scene Controller\n         - Indicates device can be used as a controller in an ISY scene even though\n           it has no native link support \n   ",
+    "linkdef": [
+      {
+        "id": "CSC",
+        "protocol": "NONE"
+      },
+      {
+        "id": "ASSOC",
+        "protocol": "ASSOC"
+      },
+      {
+        "id": "BASIC",
+        "protocol": "BASIC"
+      },
+      {
+        "id": "BSW",
+        "protocol": "BSW"
+      },
+      {
+        "id": "MLSW",
+        "protocol": "MLSW"
+      },
+      {
+        "id": "SCENE_CTL",
+        "protocol": "SCENE"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "ZY_OL"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "ZY_RR"
+          }
+        ],
+        "id": "SCENE_RSP",
+        "protocol": "SCENE"
+      },
+      {
+        "id": "ASSOC_S2AC",
+        "protocol": "ASSOC_S2AC"
+      },
+      {
+        "id": "BASIC_S2AC",
+        "protocol": "BASIC_S2AC"
+      },
+      {
+        "id": "BSW_S2AC",
+        "protocol": "BSW_S2AC"
+      },
+      {
+        "id": "MLSW_S2AC",
+        "protocol": "MLSW_S2AC"
+      },
+      {
+        "id": "SCENE_CTL_S2AC",
+        "protocol": "SCENE_S2AC"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "ZY_OL"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "ZY_RR"
+          }
+        ],
+        "id": "SCENE_RSP_S2AC",
+        "protocol": "SCENE_S2AC"
+      },
+      {
+        "id": "ASSOC_S2AU",
+        "protocol": "ASSOC_S2AU"
+      },
+      {
+        "id": "BASIC_S2AU",
+        "protocol": "BASIC_S2AU"
+      },
+      {
+        "id": "BSW_S2AU",
+        "protocol": "BSW_S2AU"
+      },
+      {
+        "id": "MLSW_S2AU",
+        "protocol": "MLSW_S2AU"
+      },
+      {
+        "id": "SCENE_CTL_S2AU",
+        "protocol": "SCENE_S2AU"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "ZY_OL"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "ZY_RR"
+          }
+        ],
+        "id": "SCENE_RSP_S2AU",
+        "protocol": "SCENE_S2AU"
+      },
+      {
+        "id": "ASSOC_S2UN",
+        "protocol": "ASSOC_S2UN"
+      },
+      {
+        "id": "BASIC_S2UN",
+        "protocol": "BASIC_S2UN"
+      },
+      {
+        "id": "BSW_S2UN",
+        "protocol": "BSW_S2UN"
+      },
+      {
+        "id": "MLSW_S2UN",
+        "protocol": "MLSW_S2UN"
+      },
+      {
+        "id": "SCENE_CTL_S2UN",
+        "protocol": "SCENE_S2UN"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "ZY_OL"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "ZY_RR"
+          }
+        ],
+        "id": "SCENE_RSP_S2UN",
+        "protocol": "SCENE_S2UN"
+      },
+      {
+        "id": "ASSOC_S0",
+        "protocol": "ASSOC_S0"
+      },
+      {
+        "id": "BASIC_S0",
+        "protocol": "BASIC_S0"
+      },
+      {
+        "id": "BSW_S0",
+        "protocol": "BSW_S0"
+      },
+      {
+        "id": "MLSW_S0",
+        "protocol": "MLSW_S0"
+      },
+      {
+        "id": "SCENE_CTL_S0",
+        "protocol": "SCENE_S0"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "ZY_OL"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "ZY_RR"
+          }
+        ],
+        "id": "SCENE_RSP_S0",
+        "protocol": "SCENE_S0"
+      },
+      {
+        "id": "ASSOC_MC",
+        "protocol": "ASSOC_MC"
+      },
+      {
+        "id": "BASIC_MC",
+        "protocol": "BASIC_MC"
+      },
+      {
+        "id": "BSW_MC",
+        "protocol": "BSW_MC"
+      },
+      {
+        "id": "MLSW_MC",
+        "protocol": "MLSW_MC"
+      },
+      {
+        "id": "SCENE_CTL_MC",
+        "protocol": "SCENE_MC"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "ZY_OL"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "ZY_RR"
+          }
+        ],
+        "id": "SCENE_RSP_MC",
+        "protocol": "SCENE_MC"
+      },
+      {
+        "id": "ASSOC_MC_S2AC",
+        "protocol": "ASSOC_MC_S2AC"
+      },
+      {
+        "id": "BASIC_MC_S2AC",
+        "protocol": "BASIC_MC_S2AC"
+      },
+      {
+        "id": "BSW_MC_S2AC",
+        "protocol": "BSW_MC_S2AC"
+      },
+      {
+        "id": "MLSW_MC_S2AC",
+        "protocol": "MLSW_MC_S2AC"
+      },
+      {
+        "id": "SCENE_CTL_MC_S2AC",
+        "protocol": "SCENE_MC_S2AC"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "ZY_OL"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "ZY_RR"
+          }
+        ],
+        "id": "SCENE_RSP_MC_S2AC",
+        "protocol": "SCENE_MC_S2AC"
+      },
+      {
+        "id": "ASSOC_MC_S2AU",
+        "protocol": "ASSOC_MC_S2AU"
+      },
+      {
+        "id": "BASIC_MC_S2AU",
+        "protocol": "BASIC_MC_S2AU"
+      },
+      {
+        "id": "BSW_MC_S2AU",
+        "protocol": "BSW_MC_S2AU"
+      },
+      {
+        "id": "MLSW_MC_S2AU",
+        "protocol": "MLSW_MC_S2AU"
+      },
+      {
+        "id": "SCENE_CTL_MC_S2AU",
+        "protocol": "SCENE_MC_S2AU"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "ZY_OL"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "ZY_RR"
+          }
+        ],
+        "id": "SCENE_RSP_MC_S2AU",
+        "protocol": "SCENE_MC_S2AU"
+      },
+      {
+        "id": "ASSOC_MC_S2UN",
+        "protocol": "ASSOC_MC_S2UN"
+      },
+      {
+        "id": "BASIC_MC_S2UN",
+        "protocol": "BASIC_MC_S2UN"
+      },
+      {
+        "id": "BSW_MC_S2UN",
+        "protocol": "BSW_MC_S2UN"
+      },
+      {
+        "id": "MLSW_MC_S2UN",
+        "protocol": "MLSW_MC_S2UN"
+      },
+      {
+        "id": "SCENE_CTL_MC_S2UN",
+        "protocol": "SCENE_MC_S2UN"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "ZY_OL"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "ZY_RR"
+          }
+        ],
+        "id": "SCENE_RSP_MC_S2UN",
+        "protocol": "SCENE_MC_S2UN"
+      },
+      {
+        "id": "ASSOC_MC_S0",
+        "protocol": "ASSOC_MC_S0"
+      },
+      {
+        "id": "BASIC_MC_S0",
+        "protocol": "BASIC_MC_S0"
+      },
+      {
+        "id": "BSW_MC_S0",
+        "protocol": "BSW_MC_S0"
+      },
+      {
+        "id": "MLSW_MC_S0",
+        "protocol": "MLSW_MC_S0"
+      },
+      {
+        "id": "SCENE_CTL_MC_S0",
+        "protocol": "SCENE_MC_S0"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "ZY_OL"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "ZY_RR"
+          }
+        ],
+        "id": "SCENE_RSP_MC_S0",
+        "protocol": "SCENE_MC_S0"
+      }
+    ]
+  }
+}

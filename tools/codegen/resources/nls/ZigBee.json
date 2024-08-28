@@ -1,0 +1,1940 @@
+{
+  "103": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "103",
+        "value": "On Time",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "103",
+        "value": "Off Wait Time",
+        "control": "GV2",
+        "property": "NAME"
+      }
+    ]
+  },
+  "106": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "106",
+        "value": "Hue",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "106",
+        "value": "Saturation",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "106",
+        "value": "Enhanced Hue",
+        "control": "GV2",
+        "property": "NAME"
+      }
+    ]
+  },
+  "108": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "108",
+        "value": "Color Temperature",
+        "control": "GV0",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "108",
+        "value": "Color X",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "108",
+        "value": "Color Y",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "108",
+        "value": "Color X",
+        "control": "GV0",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "108",
+        "value": "Color Y",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "108",
+        "value": "Color Temperature K",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "108",
+        "value": "Color Temperature Mired",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "108",
+        "value": "Preferred Units",
+        "control": "GV4",
+        "property": "NAME"
+      }
+    ]
+  },
+  "120": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "120",
+        "value": "Alarm 1",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "120",
+        "value": "Alarm 2",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "120",
+        "value": "Tamper",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "120",
+        "value": "Low Battery",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "120",
+        "value": "Reports Supervision",
+        "control": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "120",
+        "value": "Reports Restore",
+        "control": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "120",
+        "value": "Trouble",
+        "control": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "120",
+        "value": "AC/Mains Fault",
+        "control": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "120",
+        "value": "Test",
+        "control": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "120",
+        "value": "Battery Defect",
+        "control": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "121": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "121",
+        "value": "System Alarm",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "121",
+        "value": "Alarm 2",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "121",
+        "value": "Tamper",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "121",
+        "value": "Low Battery",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "121",
+        "value": "Reports Supervision",
+        "control": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "121",
+        "value": "Reports Restore",
+        "control": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "121",
+        "value": "Trouble",
+        "control": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "121",
+        "value": "AC/Mains Fault",
+        "control": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "121",
+        "value": "Test",
+        "control": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "121",
+        "value": "Battery Defect",
+        "control": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "122": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "122",
+        "value": "Intrusion",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "122",
+        "value": "Presence",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "122",
+        "value": "Tamper",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "122",
+        "value": "Low Battery",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "122",
+        "value": "Reports Supervision",
+        "control": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "122",
+        "value": "Reports Restore",
+        "control": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "122",
+        "value": "Trouble",
+        "control": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "122",
+        "value": "AC/Mains Fault",
+        "control": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "122",
+        "value": "Test",
+        "control": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "122",
+        "value": "Battery Defect",
+        "control": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "123": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "123",
+        "value": "Door/Window #1 Open",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "123",
+        "value": "Door/Window #2 Open",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "123",
+        "value": "Tamper",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "123",
+        "value": "Low Battery",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "123",
+        "value": "Reports Supervision",
+        "control": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "123",
+        "value": "Reports Restore",
+        "control": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "123",
+        "value": "Trouble",
+        "control": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "123",
+        "value": "AC/Mains Fault",
+        "control": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "123",
+        "value": "Test",
+        "control": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "123",
+        "value": "Battery Defect",
+        "control": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "124": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "124",
+        "value": "Fire Indication",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "124",
+        "value": "Alarm 2",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "124",
+        "value": "Tamper",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "124",
+        "value": "Low Battery",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "124",
+        "value": "Reports Supervision",
+        "control": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "124",
+        "value": "Reports Restore",
+        "control": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "124",
+        "value": "Trouble",
+        "control": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "124",
+        "value": "AC/Mains Fault",
+        "control": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "124",
+        "value": "Test",
+        "control": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "124",
+        "value": "Battery Defect",
+        "control": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "125": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "125",
+        "value": "Water Overflow",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "125",
+        "value": "Alarm 2",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "125",
+        "value": "Tamper",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "125",
+        "value": "Low Battery",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "125",
+        "value": "Reports Supervision",
+        "control": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "125",
+        "value": "Reports Restore",
+        "control": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "125",
+        "value": "Trouble",
+        "control": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "125",
+        "value": "AC/Mains Fault",
+        "control": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "125",
+        "value": "Test",
+        "control": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "125",
+        "value": "Battery Defect",
+        "control": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "126": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "126",
+        "value": "CO Alarm",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "126",
+        "value": "Cooking Indication",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "126",
+        "value": "Tamper",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "126",
+        "value": "Low Battery",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "126",
+        "value": "Reports Supervision",
+        "control": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "126",
+        "value": "Reports Restore",
+        "control": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "126",
+        "value": "Trouble",
+        "control": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "126",
+        "value": "AC/Mains Fault",
+        "control": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "126",
+        "value": "Test",
+        "control": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "126",
+        "value": "Battery Defect",
+        "control": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "127": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "127",
+        "value": "Fall/Concussion",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "127",
+        "value": "Emergency Button",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "127",
+        "value": "Tamper",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "127",
+        "value": "Low Battery",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "127",
+        "value": "Reports Supervision",
+        "control": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "127",
+        "value": "Reports Restore",
+        "control": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "127",
+        "value": "Trouble",
+        "control": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "127",
+        "value": "AC/Mains Fault",
+        "control": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "127",
+        "value": "Test",
+        "control": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "127",
+        "value": "Battery Defect",
+        "control": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "128": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "128",
+        "value": "Movement",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "128",
+        "value": "Vibration",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "128",
+        "value": "Tamper",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "128",
+        "value": "Low Battery",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "128",
+        "value": "Reports Supervision",
+        "control": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "128",
+        "value": "Reports Restore",
+        "control": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "128",
+        "value": "Trouble",
+        "control": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "128",
+        "value": "AC/Mains Fault",
+        "control": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "128",
+        "value": "Test",
+        "control": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "128",
+        "value": "Battery Defect",
+        "control": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "129": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "129",
+        "value": "Panic",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "129",
+        "value": "Emergency",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "129",
+        "value": "Tamper",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "129",
+        "value": "Low Battery",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "129",
+        "value": "Reports Supervision",
+        "control": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "129",
+        "value": "Reports Restore",
+        "control": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "129",
+        "value": "Trouble",
+        "control": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "129",
+        "value": "AC/Mains Fault",
+        "control": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "129",
+        "value": "Test",
+        "control": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "129",
+        "value": "Battery Defect",
+        "control": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "130": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "130",
+        "value": "Panic",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "130",
+        "value": "Emergency",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "130",
+        "value": "Tamper",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "130",
+        "value": "Low Battery",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "130",
+        "value": "Reports Supervision",
+        "control": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "130",
+        "value": "Reports Restore",
+        "control": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "130",
+        "value": "Trouble",
+        "control": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "130",
+        "value": "AC/Mains Fault",
+        "control": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "130",
+        "value": "Test",
+        "control": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "130",
+        "value": "Battery Defect",
+        "control": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "131": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "131",
+        "value": "Panic",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "131",
+        "value": "Emergency",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "131",
+        "value": "Tamper",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "131",
+        "value": "Low Battery",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "131",
+        "value": "Reports Supervision",
+        "control": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "131",
+        "value": "Reports Restore",
+        "control": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "131",
+        "value": "Trouble",
+        "control": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "131",
+        "value": "AC/Mains Fault",
+        "control": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "131",
+        "value": "Test",
+        "control": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "131",
+        "value": "Battery Defect",
+        "control": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "132": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "132",
+        "value": "Alarm 1",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "132",
+        "value": "Alarm 2",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "132",
+        "value": "Tamper",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "132",
+        "value": "Low Battery",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "132",
+        "value": "Reports Supervision",
+        "control": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "132",
+        "value": "Reports Restore",
+        "control": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "132",
+        "value": "Trouble",
+        "control": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "132",
+        "value": "AC/Mains Fault",
+        "control": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "132",
+        "value": "Test",
+        "control": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "132",
+        "value": "Battery Defect",
+        "control": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "133": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "133",
+        "value": "Glass Break",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "133",
+        "value": "Alarm 2",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "133",
+        "value": "Tamper",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "133",
+        "value": "Low Battery",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "133",
+        "value": "Reports Supervision",
+        "control": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "133",
+        "value": "Reports Restore",
+        "control": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "133",
+        "value": "Trouble",
+        "control": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "133",
+        "value": "AC/Mains Fault",
+        "control": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "133",
+        "value": "Test",
+        "control": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "133",
+        "value": "Battery Defect",
+        "control": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "134": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "134",
+        "value": "Glass Break",
+        "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "134",
+        "value": "Alarm 2",
+        "control": "GV1",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "134",
+        "value": "Tamper",
+        "control": "GV2",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "134",
+        "value": "Low Battery",
+        "control": "GV3",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "134",
+        "value": "Reports Supervision",
+        "control": "GV4",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "134",
+        "value": "Reports Restore",
+        "control": "GV5",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "134",
+        "value": "Trouble",
+        "control": "GV6",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "134",
+        "value": "AC/Mains Fault",
+        "control": "GV7",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "134",
+        "value": "Test",
+        "control": "GV8",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "134",
+        "value": "Battery Defect",
+        "control": "GV9",
+        "property": "NAME"
+      }
+    ]
+  },
+  "140": {
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "140",
+        "value": "Temperature",
+        "control": "ST",
+        "property": "NAME"
+      }
+    ]
+  },
+  "184": {
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "184",
+        "value": "Open",
+        "control": "DON",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "184",
+        "value": "Close",
+        "control": "DOF",
+        "property": "NAME"
+      }
+    ]
+  },
+  "Generic": {
+    "GEN": [
+      {
+        "type": "GEN",
+        "nlsId": "Generic",
+        "value": "Timer",
+        "control": "TIMER",
+        "property": "NAME"
+      }
+    ],
+    "CMD": [
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Set Time",
+        "control": "SETTP",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Toggle",
+        "control": "TOGGLE",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Identify",
+        "control": "IDENTIFY",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Lock",
+        "control": "LOCK",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Unlock",
+        "control": "UNLOCK",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Toggle",
+        "control": "TOGGLE",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Fade",
+        "control": "FADE",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Enhanced Hue",
+        "control": "EHUE",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Preferred Units",
+        "control": "UNITS",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Stop",
+        "control": "STOP",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Move To",
+        "control": "MOVETO",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Move To Hue",
+        "control": "MOVETOHUE",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Move To Saturation",
+        "control": "MOVETOSAT",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Move Hue",
+        "control": "MOVEHUE",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Move Saturation",
+        "control": "MOVESAT",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Step Hue",
+        "control": "STEPHUE",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Step Saturation",
+        "control": "STEPSAT",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Move To XY",
+        "control": "MOVETOXY",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Move XY",
+        "control": "MOVEXY",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Step XY",
+        "control": "STEPXY",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Move To Temperature",
+        "control": "MOVETOCT",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Move Temperature",
+        "control": "MOVECT",
+        "property": "NAME"
+      },
+      {
+        "type": "CMD",
+        "nlsId": "Generic",
+        "value": "Step Temperature",
+        "control": "STEPCT",
+        "property": "NAME"
+      }
+    ],
+    "IX": [
+      {
+        "comment": "# Identify trigger effects",
+        "type": "IX",
+        "value": "Blink",
+        "indexType": "IX_ID_EFFECT",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Identify trigger effects",
+        "type": "IX",
+        "value": "Breath",
+        "indexType": "IX_ID_EFFECT",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Identify trigger effects",
+        "type": "IX",
+        "value": "Okay",
+        "indexType": "IX_ID_EFFECT",
+        "indexValue": 2
+      },
+      {
+        "comment": "# Identify trigger effects",
+        "type": "IX",
+        "value": "Channel Change",
+        "indexType": "IX_ID_EFFECT",
+        "indexValue": 11
+      },
+      {
+        "comment": "# Identify trigger effects",
+        "type": "IX",
+        "value": "Finish",
+        "indexType": "IX_ID_EFFECT",
+        "indexValue": 254
+      },
+      {
+        "comment": "# Identify trigger effects",
+        "type": "IX",
+        "value": "Stop",
+        "indexType": "IX_ID_EFFECT",
+        "indexValue": 255
+      },
+      {
+        "comment": "# 0-100% 0=Off 100=On",
+        "type": "IX",
+        "value": "Off",
+        "indexType": "IX_ONOFF",
+        "indexValue": 0
+      },
+      {
+        "comment": "# 0-100% 0=Off 100=On",
+        "type": "IX",
+        "value": "On",
+        "indexType": "IX_ONOFF",
+        "indexValue": 100
+      },
+      {
+        "comment": "# Communication Error",
+        "type": "IX",
+        "value": "True",
+        "indexType": "IX_ERR",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Communication Error",
+        "type": "IX",
+        "value": "False",
+        "indexType": "IX_ERR",
+        "indexValue": 1
+      },
+      {
+        "comment": "# True=100, False=0",
+        "type": "IX",
+        "value": "False",
+        "indexType": "IX_TF",
+        "indexValue": 0
+      },
+      {
+        "comment": "# True=100, False=0",
+        "type": "IX",
+        "value": "True",
+        "indexType": "IX_TF",
+        "indexValue": 100
+      },
+      {
+        "comment": "# ZY_DIM_PERCENT Index",
+        "type": "IX",
+        "value": "Previous Value",
+        "indexType": "IX_PCT_OPT",
+        "indexValue": 1
+      },
+      {
+        "comment": "# ZY_MLS_DIR (Fade direction) Index",
+        "type": "IX",
+        "value": "Up",
+        "indexType": "IX_MLS_DIR",
+        "indexValue": 0
+      },
+      {
+        "comment": "# ZY_MLS_DIR (Fade direction) Index",
+        "type": "IX",
+        "value": "Down",
+        "indexType": "IX_MLS_DIR",
+        "indexValue": 1
+      },
+      {
+        "comment": "# ZY_MLS_DIR (Fade direction) Index",
+        "type": "IX",
+        "value": "None",
+        "indexType": "IX_MLS_DIR",
+        "indexValue": 3
+      },
+      {
+        "comment": "# On/Off Percent",
+        "type": "IX",
+        "value": "Off",
+        "indexType": "IX_ONOFF",
+        "indexValue": 0
+      },
+      {
+        "comment": "# On/Off Percent",
+        "type": "IX",
+        "value": "On",
+        "indexType": "IX_ONOFF",
+        "indexValue": 100
+      },
+      {
+        "comment": "# Dimmer",
+        "type": "IX",
+        "value": "Off",
+        "indexType": "IX_DIM",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Dimmer 0-100, 101= Unknown",
+        "type": "IX",
+        "value": "Off",
+        "indexType": "IX_DIM_REP",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Dimmer 0-100, 101= Unknown",
+        "type": "IX",
+        "value": "Unknown",
+        "indexType": "IX_DIM_REP",
+        "indexValue": 101
+      },
+      {
+        "comment": "# OL (On Level)",
+        "type": "IX",
+        "value": "Off",
+        "indexType": "IX_OL",
+        "indexValue": 0
+      },
+      {
+        "comment": "# OL (On Level)",
+        "type": "IX",
+        "value": "Previous",
+        "indexType": "IX_OL",
+        "indexValue": 101
+      },
+      {
+        "comment": "# Color Move Mode",
+        "type": "IX",
+        "value": "Stop",
+        "indexType": "IX_CMM",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Color Move Mode",
+        "type": "IX",
+        "value": "Up",
+        "indexType": "IX_CMM",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Color Move Mode",
+        "type": "IX",
+        "value": "2-Reserved",
+        "indexType": "IX_CMM",
+        "indexValue": 2
+      },
+      {
+        "comment": "# Color Move Mode",
+        "type": "IX",
+        "value": "Down",
+        "indexType": "IX_CMM",
+        "indexValue": 3
+      },
+      {
+        "comment": "# Color Step Mode",
+        "type": "IX",
+        "value": "0-Reserved",
+        "indexType": "IX_CSM",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Color Step Mode",
+        "type": "IX",
+        "value": "Up",
+        "indexType": "IX_CSM",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Color Step Mode",
+        "type": "IX",
+        "value": "2-Reserved",
+        "indexType": "IX_CSM",
+        "indexValue": 2
+      },
+      {
+        "comment": "# Color Step Mode",
+        "type": "IX",
+        "value": "Down",
+        "indexType": "IX_CSM",
+        "indexValue": 3
+      },
+      {
+        "comment": "# Color Hue/Sat",
+        "type": "IX",
+        "value": "Hue",
+        "indexType": "IX_HUESAT",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Color Hue/Sat",
+        "type": "IX",
+        "value": "Saturation",
+        "indexType": "IX_HUESAT",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Color Temperature Units",
+        "type": "IX",
+        "value": "Kelvin",
+        "indexType": "IX_CTUNIT",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Color Temperature Units",
+        "type": "IX",
+        "value": "Mired",
+        "indexType": "IX_CTUNIT",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Hue Direction",
+        "type": "IX",
+        "value": "Shortest Distance",
+        "indexType": "IX_HUEDIR",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Hue Direction",
+        "type": "IX",
+        "value": "Longest Distance",
+        "indexType": "IX_HUEDIR",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Hue Direction",
+        "type": "IX",
+        "value": "Up",
+        "indexType": "IX_HUEDIR",
+        "indexValue": 2
+      },
+      {
+        "comment": "# Hue Direction",
+        "type": "IX",
+        "value": "Down",
+        "indexType": "IX_HUEDIR",
+        "indexValue": 3
+      },
+      {
+        "comment": "# Door Status",
+        "type": "IX",
+        "value": "Open",
+        "indexType": "IX_DOOR_STS",
+        "indexValue": 0
+      },
+      {
+        "comment": "# Door Status",
+        "type": "IX",
+        "value": "Closed",
+        "indexType": "IX_DOOR_STS",
+        "indexValue": 1
+      },
+      {
+        "comment": "# Door Status",
+        "type": "IX",
+        "value": "Jammed",
+        "indexType": "IX_DOOR_STS",
+        "indexValue": 2
+      },
+      {
+        "comment": "# Door Status",
+        "type": "IX",
+        "value": "Forced Open",
+        "indexType": "IX_DOOR_STS",
+        "indexValue": 3
+      },
+      {
+        "comment": "# Door Status",
+        "type": "IX",
+        "value": "Unspecified",
+        "indexType": "IX_DOOR_STS",
+        "indexValue": 4
+      },
+      {
+        "comment": "# Door Status",
+        "type": "IX",
+        "value": "Undefined",
+        "indexType": "IX_DOOR_STS",
+        "indexValue": 255
+      }
+    ],
+    "# 0": [
+      {
+        "type": "# 0",
+        "key": "100% 0",
+        "value": "Off 100"
+      }
+    ],
+    "PGM": [
+      {
+        "type": "PGM",
+        "key": "CMD-DON-FMT",
+        "value": "///${v}/ /rr// in ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-FDUP-FMT",
+        "value": "/startlevel/${c}/Fade Up starting at ${v}/ /rr// in ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-FDDOWN-FMT",
+        "value": "/startlevel/${c}/Fade Down starting at ${v}/ /rr// in ${v}/"
+      },
+      {
+        "type": "PGM",
+        "key": "CMD-FADE-FMT",
+        "value": "/DIR/${c}/${c} ${v}/ /STARTLEVEL// starting at ${v}/ /RR// in ${v}/ /DIR2/ 2nd/ 2nd ${v}/ /STEP2// in ${v}/"
+      }
+    ],
+    "CMDP": [
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Start Level",
+        "control": "STARTLEVEL",
+        "property": "NAME"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Direction",
+        "control": "DIR",
+        "property": "NAME",
+        "editorId": "ZY_MLS_DIR"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "2nd Direction",
+        "control": "DIR2",
+        "property": "NAME",
+        "editorId": "ZY_MLS_DIR"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "Fade Rate",
+        "control": "RR",
+        "property": "NAME",
+        "editorId": "ZY_RR"
+      },
+      {
+        "type": "CMDP",
+        "nlsId": "Generic",
+        "value": "2nd Fade Rate",
+        "control": "STEP2",
+        "property": "NAME",
+        "editorId": "ZY_RR"
+      }
+    ],
+    "ST": [
+      {
+        "type": "ST",
+        "nlsId": "Generic",
+        "value": "Responding",
+        "control": "ERR",
+        "property": "NAME"
+      }
+    ],
+    "# True": [
+      {
+        "type": "# True",
+        "key": "",
+        "value": "100, False"
+      }
+    ],
+    "# Dimmer 0": [
+      {
+        "type": "# Dimmer 0",
+        "key": "100, 101",
+        "value": "Unknown"
+      }
+    ],
+    "CMDPN": [
+      {
+        "type": "CMDPN",
+        "key": "106-HUE-NAME",
+        "value": "Hue"
+      },
+      {
+        "type": "CMDPN",
+        "key": "106-SAT-NAME",
+        "value": "Saturation"
+      },
+      {
+        "type": "CMDPN",
+        "key": "106-MODE-NAME",
+        "value": "Mode"
+      },
+      {
+        "type": "CMDPN",
+        "key": "106-RATE-NAME",
+        "value": "Rate"
+      },
+      {
+        "type": "CMDPN",
+        "key": "106-DIR-NAME",
+        "value": "Direction"
+      },
+      {
+        "type": "CMDPN",
+        "key": "106-DUR-NAME",
+        "value": "Duration"
+      },
+      {
+        "type": "CMDPN",
+        "key": "106-SIZE-NAME",
+        "value": "Step Size"
+      },
+      {
+        "type": "CMDPN",
+        "key": "108-X-NAME",
+        "value": "X"
+      },
+      {
+        "type": "CMDPN",
+        "key": "108-Y-NAME",
+        "value": "Y"
+      },
+      {
+        "type": "CMDPN",
+        "key": "108-RATEX-NAME",
+        "value": "Rate X"
+      },
+      {
+        "type": "CMDPN",
+        "key": "108-RATEY-NAME",
+        "value": "Rate Y"
+      },
+      {
+        "type": "CMDPN",
+        "key": "108-STEPX-NAME",
+        "value": "Step X"
+      },
+      {
+        "type": "CMDPN",
+        "key": "108-STEPY-NAME",
+        "value": "Step Y"
+      },
+      {
+        "type": "CMDPN",
+        "key": "108-DUR-NAME",
+        "value": "Duration"
+      },
+      {
+        "type": "CMDPN",
+        "key": "108-COLOR-NAME",
+        "value": "Color"
+      },
+      {
+        "type": "CMDPN",
+        "key": "108-RATE-NAME",
+        "value": "Rate"
+      },
+      {
+        "type": "CMDPN",
+        "key": "108-STEP-NAME",
+        "value": "Step"
+      },
+      {
+        "type": "CMDPN",
+        "key": "108-SIZE-NAME",
+        "value": "Step Size"
+      },
+      {
+        "type": "CMDPN",
+        "key": "108-MODE-NAME",
+        "value": "Mode"
+      },
+      {
+        "type": "CMDPN",
+        "key": "108-MIN-NAME",
+        "value": "Min"
+      },
+      {
+        "type": "CMDPN",
+        "key": "108-MAX-NAME",
+        "value": "Max"
+      },
+      {
+        "type": "CMDPN",
+        "key": "108-DUR-NAME",
+        "value": "Duration"
+      }
+    ]
+  }
+}

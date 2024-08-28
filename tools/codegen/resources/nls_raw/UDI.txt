@@ -1,0 +1,27 @@
+# NLS For RCS
+
+# NodeDef names
+ND-EM3Main-NAME = Main
+ND-EM3Channel-NAME = Channel
+ND-EM3Relay-NAME = Relay
+ND-EM3TempSensor-NAME = Temperature Sensor
+ND-EM3PulseCounter-NAME = Pulse Counter
+
+# Icons
+ND-EM3Main-ICON = EnergyMonitor
+ND-EM3Channel-ICON = EnergyMonitor
+ND-EM3Relay-ICON = Lamp
+ND-EM3TempSensor-ICON = TempSensor
+ND-EM3PulseCounter-ICON = PulseCounter
+
+# Status
+ST-TEMP-ST-NAME = Temperature
+
+# On/Off Relay
+EM3_OL-0 = Off
+EM3_OL-100 = On
+
+# Communication Error
+ST-ERR-NAME = Responding
+IX_ERR-0 = True
+IX_ERR-1 = False

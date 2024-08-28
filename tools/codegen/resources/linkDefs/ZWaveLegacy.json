@@ -1,0 +1,205 @@
+{
+  "linkdefs": {
+    "$comment": [
+      " Central Scene Controller\n        - Indicates device can be used as a controller in an ISY scene even though\n          it has no native link support \n  ",
+      " Association - Controller sends a command to all associated devices ",
+      " Association - Controller sends a command to all associated devices ",
+      " MultiChannel Association - Controller sends a command to all associated devices or their endpoints ",
+      " MultiChannel Association - Controller sends a command to all associated devices or their endpoints ",
+      " Association - Controller sends a different command to each associated device ",
+      " Association - Controller sends a different command to each associated device ",
+      " Scene - no parameters ",
+      " Scene actuator config - Setting to use when scene is activated by a controller ",
+      " Scene (multichannel) - no parameters ",
+      " Scene actuator config (multichannel) - Setting to use when scene is activated by a controller ",
+      " Scene - no parameters ",
+      " Scene actuator config - Setting to use when scene is activated by a controller ",
+      " Scene (multichannel) - no parameters ",
+      " Scene actuator config (multichannel) - Setting to use when scene is activated by a controller "
+    ],
+    "linkdef": [
+      {
+        "id": "CSC",
+        "protocol": "NONE"
+      },
+      {
+        "id": "ASSOC",
+        "protocol": "ASSOC"
+      },
+      {
+        "id": "BASIC",
+        "protocol": "BASIC"
+      },
+      {
+        "id": "BSW",
+        "protocol": "BSW"
+      },
+      {
+        "id": "MLSW",
+        "protocol": "MLSW"
+      },
+      {
+        "id": "S0",
+        "protocol": "S0"
+      },
+      {
+        "id": "S0_BASIC",
+        "protocol": "S0_BASIC"
+      },
+      {
+        "id": "S0_BSW",
+        "protocol": "S0_BSW"
+      },
+      {
+        "id": "S0_MLSW",
+        "protocol": "S0_MLSW"
+      },
+      {
+        "id": "ASSOC_MC",
+        "protocol": "MC"
+      },
+      {
+        "id": "MC_BASIC",
+        "protocol": "MC_BASIC"
+      },
+      {
+        "id": "MC_BSW",
+        "protocol": "MC_BSW"
+      },
+      {
+        "id": "MC_MLSW",
+        "protocol": "MC_MLSW"
+      },
+      {
+        "id": "MC_S0",
+        "protocol": "MC_S0"
+      },
+      {
+        "id": "MC_S0_BASIC",
+        "protocol": "MC_S0_BASIC"
+      },
+      {
+        "id": "MC_S0_BSW",
+        "protocol": "MC_S0_BSW"
+      },
+      {
+        "id": "MC_S0_MLSW",
+        "protocol": "MC_S0_MLSW"
+      },
+      {
+        "id": "ASSOC_CMD",
+        "protocol": "ASSOC_CMD",
+        "cmd": true
+      },
+      {
+        "id": "S0_CMD",
+        "protocol": "S0_CMD",
+        "cmd": true
+      },
+      {
+        "id": "SCENE",
+        "protocol": "SCENE"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "ZW_OL"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "ZW_RR"
+          }
+        ],
+        "id": "SCENE_R_CFG",
+        "protocol": "SCENE"
+      },
+      {
+        "id": "SCENE_MC",
+        "protocol": "SCENE_MC"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "ZW_OL"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "ZW_RR"
+          }
+        ],
+        "id": "SCENE_MC_R_CFG",
+        "protocol": "SCENE_MC"
+      },
+      {
+        "id": "SCENE_S0",
+        "protocol": "SCENE_S0"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "ZW_OL"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "ZW_RR"
+          }
+        ],
+        "id": "SCENE_S0_R_CFG",
+        "protocol": "SCENE_S0"
+      },
+      {
+        "id": "SCENE_MC_S0",
+        "protocol": "SCENE_MC_S0"
+      },
+      {
+        "p": [
+          {
+            "init": {
+              "val": 100,
+              "uom": "percent"
+            },
+            "id": "OL",
+            "editor": "ZW_OL"
+          },
+          {
+            "init": {
+              "val": 1,
+              "uom": "seconds"
+            },
+            "id": "RR",
+            "editor": "ZW_RR"
+          }
+        ],
+        "id": "SCENE_MC_S0_R_CFG",
+        "protocol": "SCENE_MC_S0"
+      }
+    ]
+  }
+}

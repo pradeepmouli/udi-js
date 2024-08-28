@@ -1,0 +1,32 @@
+# NLS For RCS
+
+# NodeDef names
+ND-RelayLoadControl-NAME = Relay
+ND-Thermostat-NAME = Thermostat
+
+#
+ND-RelayLoadControl-ICON = LampAndSwitch
+ND-Thermostat-ICON = Thermostat
+
+# Status
+ST-TSTAT-ST-NAME = Temperature
+
+# On/Off Relay
+R_OL-0 = Off
+R_OL-100 = On
+
+# Schedule Mode
+R_SMD-0 = Hold
+R_SMD-1 = Run
+R_SMD-2 = Away
+
+# Communication Error
+ST-ERR-NAME = Responding
+IX_ERR-0 = True
+IX_ERR-1 = False
+
+# ADR on/off
+CMD-ADRPST-NAME = ADR
+ST-ADRPST-NAME = ADR
+R_ADRPST-0 = Off
+R_ADRPST-1 = Auto Apply

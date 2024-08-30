@@ -2,10 +2,10 @@ export var AlertWqm;
 (function (AlertWqm) {
     AlertWqm[AlertWqm["Idle"] = 0] = "Idle";
     AlertWqm[AlertWqm["Chlorine"] = 1] = "Chlorine";
-    AlertWqm[AlertWqm["AcidityPH"] = 2] = "AcidityPH";
+    AlertWqm[AlertWqm["AcidityPh"] = 2] = "AcidityPh";
     AlertWqm[AlertWqm["Oxidation"] = 3] = "Oxidation";
     AlertWqm[AlertWqm["ChlorineEmpty"] = 4] = "ChlorineEmpty";
-    AlertWqm[AlertWqm["AcidityPHEmpty"] = 5] = "AcidityPHEmpty";
+    AlertWqm[AlertWqm["AcidityPhEmpty"] = 5] = "AcidityPhEmpty";
     AlertWqm[AlertWqm["WaterflowShortage"] = 6] = "WaterflowShortage";
     AlertWqm[AlertWqm["WaterflowClearWaterShortage"] = 7] = "WaterflowClearWaterShortage";
     AlertWqm[AlertWqm["DisinfectionError"] = 8] = "DisinfectionError";

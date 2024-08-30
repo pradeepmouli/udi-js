@@ -1,5 +1,4 @@
-//import { generateTemplateClassesFromXSD } from 'xsd2ts';
-//generateTemplateClassesFromXSD('./dependency.xsd');
+
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { Family } from "isy-nodejs/Definitions/Global/Families";
 import { InsteonDeviceFactory } from 'isy-nodejs/Devices/Insteon/InsteonDeviceFactory';
@@ -39,8 +38,7 @@ const myFormat = format.combine(
 function zPad2(str: number) {
     return str.toString().padStart(2, '0');
 }
-// Creates a debug.log symLink to the real log file to be used by Polyglot UI
-// Log message formatter
+
 setUncaughtExceptionCaptureCallback(cb => logger.error(cb));
 const isy = new ISY({ host: '192.168.1.50', username: 'admin', password: 'qazWSX12', port: 8080, protocol: 'http' }, logger);
 isy.initialize().catch(p => logger.error(p)).finally(() => isy.sendRequest('profiles/files').then(p => parseProfileFiles(p)));

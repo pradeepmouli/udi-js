@@ -61,8 +61,9 @@ export class NodeClassDefinition {
     events = {};
     family;
     label;
+    dynamic;
     get name() {
-        return `${pascalCase(this.label ?? this.id ?? "Unknown")}Node`;
+        return `${pascalCase(this.label ?? this.id ?? "Unknown")}`;
     }
     toJSON() {
         return {
@@ -74,7 +75,8 @@ export class NodeClassDefinition {
             events: this.events,
             family: this.family,
             label: this.label,
-            name: this.name
+            name: this.name,
+            dynamic: this.dynamic
         };
     }
     constructor(nodeDef, family) {
@@ -374,6 +376,7 @@ export class DriverDefinition extends NodeMemberDefinition {
         this.id = def.id;
         this.hidden = def.hide === 'T';
         this.editorId = def.editor;
+        this.optional = false;
     }
     applyNLSRecord(nls) {
         if (nls.type === NLSRecordType.Driver) {
@@ -552,15 +555,15 @@ export class EventDefinition extends NodeMemberDefinition {
     }
     NodeClassDefinition.generate = generate;
     function load(path) {
-        for (const file of new Set(fs.readdirSync(path + "/generated").concat(fs.readdirSync(path + "/custom")))) {
+        for (const file of new Set(fs.readdirSync(path + "/generated").concat(fs.readdirSync(path + "/overrides")))) {
             let fam = file.replace(".json", "");
             const family = Family[fam];
             let nodeClassDefs = {};
             if (fs.existsSync(`${path}/generated/${fam}.json`)) {
                 nodeClassDefs = JSON.parse(fs.readFileSync(`${path}/generated/${fam}.json`, "utf8"));
             }
-            if (fs.existsSync(`${path}/custom/${fam}.json`)) {
-                merge(nodeClassDefs, JSON.parse(fs.readFileSync(`${path}/custom/${fam}.json`, "utf8")));
+            if (fs.existsSync(`${path}/overrides/${fam}.json`)) {
+                nodeClassDefs = merge(nodeClassDefs, JSON.parse(fs.readFileSync(`${path}/overrides/${fam}.json`, "utf8")));
             }
             populateClassDefinitions(nodeClassDefs);
             NodeClassMap.set(family, nodeClassDefs);

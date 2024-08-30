@@ -16,7 +16,7 @@ import type { Merge } from '@project-chip/matter.js/util';
 export class InsteonBaseDevice<D extends ISYNode.DriverSignatures = {}, C extends ISYNode.CommandSignatures = {}> extends ISYDeviceNode<
   Family.Insteon,
   Merge<Driver.Signatures<"ST">,D>,
-  Merge<Command.Signatures<"BEEP">,C>
+  C
 > {
   constructor(isy: ISY, deviceNode: NodeInfo) {
     super(isy, deviceNode);

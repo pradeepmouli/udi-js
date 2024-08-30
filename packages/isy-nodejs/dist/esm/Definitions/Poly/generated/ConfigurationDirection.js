@@ -1,6 +1,6 @@
 export var ConfigurationDirection;
 (function (ConfigurationDirection) {
-    ConfigurationDirection[ConfigurationDirection["NA"] = 0] = "NA";
+    ConfigurationDirection[ConfigurationDirection["Na"] = 0] = "Na";
     ConfigurationDirection[ConfigurationDirection["Forward"] = 1] = "Forward";
     ConfigurationDirection[ConfigurationDirection["Reverse"] = 2] = "Reverse";
 })(ConfigurationDirection || (ConfigurationDirection = {}));

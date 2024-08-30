@@ -1,12 +1,13 @@
 {
   "Thermostat": {
-    "className": "ThermostatNode",
+    "className": "Thermostat",
     "id": "Thermostat",
     "nlsId": "TSTAT",
     "drivers": {
       "ST": {
         "label": "Temperature",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "RCS_TEMP_DEG",
@@ -16,6 +17,7 @@
       "CLISPH": {
         "label": "Heat Setpoint",
         "hidden": false,
+        "optional": false,
         "readonly": false,
         "id": "CLISPH",
         "editorId": "RCS_CLISPH_DEG",
@@ -25,6 +27,7 @@
       "CLISPC": {
         "label": "Cool Setpoint",
         "hidden": false,
+        "optional": false,
         "readonly": false,
         "id": "CLISPC",
         "editorId": "RCS_CLISPC_DEG",
@@ -34,6 +37,7 @@
       "CLIMD": {
         "label": "Mode",
         "hidden": false,
+        "optional": false,
         "readonly": false,
         "id": "CLIMD",
         "editorId": "RCS_TSTAT_MODE",
@@ -43,6 +47,7 @@
       "CLIFS": {
         "label": "Fan Mode",
         "hidden": false,
+        "optional": false,
         "readonly": false,
         "id": "CLIFS",
         "editorId": "RCS_TSTAT_FAN_MODE",
@@ -52,6 +57,7 @@
       "CLIHCS": {
         "label": "Heat/Cool State",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "CLIHCS",
         "editorId": "RCS_TSTAT_HCS",
@@ -61,6 +67,7 @@
       "CLIFRS": {
         "label": "Fan State",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "CLIFRS",
         "editorId": "RCS_CLIFRS",
@@ -70,6 +77,7 @@
       "CLISMD": {
         "label": "Schedule Mode",
         "hidden": false,
+        "optional": false,
         "readonly": false,
         "id": "CLISMD",
         "editorId": "RCS_SMD",
@@ -79,6 +87,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "optional": false,
         "readonly": true,
         "id": "ERR",
         "editorId": "RCS_ERR",
@@ -234,16 +243,17 @@
     "events": {},
     "family": 3,
     "label": "Thermostat",
-    "name": "ThermostatNode"
+    "name": "Thermostat"
   },
   "RelayLoadControl": {
-    "className": "LampAndSwitchNode",
+    "className": "LampAndSwitch",
     "id": "RelayLoadControl",
     "nlsId": "RELAY",
     "drivers": {
       "ST": {
         "label": "Status",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "RCS_OL_RELAY",
@@ -253,6 +263,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "optional": false,
         "readonly": true,
         "id": "ERR",
         "editorId": "RCS_ERR",
@@ -305,6 +316,6 @@
     },
     "family": 3,
     "label": "LampAndSwitch",
-    "name": "LampAndSwitchNode"
+    "name": "LampAndSwitch"
   }
 }

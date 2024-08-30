@@ -1,12 +1,13 @@
 {
   "119": {
-    "className": "DimmerSwitchNode",
+    "className": "DimmerSwitch",
     "id": "119",
     "nlsId": "119",
     "drivers": {
       "ST": {
         "label": "Status",
         "hidden": false,
+        "optional": false,
         "readonly": false,
         "id": "ST",
         "editorId": "_51_0_R_0_101_N_IX_DIM_REP",
@@ -26,6 +27,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "optional": false,
         "readonly": true,
         "id": "ERR",
         "editorId": "ZY_ERR",
@@ -285,16 +287,17 @@
     },
     "family": 12,
     "label": "Dimmer Switch",
-    "name": "DimmerSwitchNode"
+    "name": "DimmerSwitch"
   },
   "186": {
-    "className": "ColorSwitchNode",
+    "className": "ColorSwitch",
     "id": "186",
     "nlsId": "186",
     "drivers": {
       "GV0": {
         "label": "Warm White",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "GV0",
         "editorId": "_107_0_R_0_255",
@@ -312,6 +315,7 @@
       "GV2": {
         "label": "Red",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "GV2",
         "editorId": "_107_0_R_0_255",
@@ -329,6 +333,7 @@
       "GV3": {
         "label": "Green",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "GV3",
         "editorId": "_107_0_R_0_255",
@@ -346,6 +351,7 @@
       "GV4": {
         "label": "Blue",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "GV4",
         "editorId": "_107_0_R_0_255",
@@ -558,6 +564,6 @@
     "events": {},
     "family": 12,
     "label": "Color Switch",
-    "name": "ColorSwitchNode"
+    "name": "ColorSwitch"
   }
 }

@@ -22,13 +22,13 @@ export class InsteonFanMotorDevice extends InsteonBaseDevice {
 	}
 
 	public async updateFanSpeed(level: number) {
-		return this.commands.BEEP(level);
+		return (level);
 	}
 	public async updateIsOn(isOn: boolean) {
 		if (!isOn) {
-			return this.commands.BEEP(States.Level.Min);
+			//return this.commands.BEEP(States.Level.Min);
 		} else {
-			return this.commands.BEEP(States.Level.Max);
+			//return this.commands.BEEP(States.Level.Max);
 		}
 	}
 
@@ -65,6 +65,6 @@ export class InsteonFanDevice extends InsteonBaseDevice {
 	public async updateFanSpeed(level: number) {
 		return this.motor.updateFanSpeed(level);
 	}
-	
+
 
 }

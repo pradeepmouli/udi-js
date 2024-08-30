@@ -1,6 +1,6 @@
 {
   "InsteonDimmer": {
-    "className": "InsteonDimmerNode",
+    "className": "InsteonDimmer",
     "id": "InsteonDimmer",
     "drivers": {},
     "commands": {
@@ -278,6 +278,6 @@
     },
     "events": {},
     "family": 6,
-    "name": "InsteonDimmerNode"
+    "name": "InsteonDimmer"
   }
 }

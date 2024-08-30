@@ -1,6 +1,6 @@
 export enum Csm {
-    0Reserved = 0,
+    _0Reserved = 0,
     Up = 1,
-    2Reserved = 2,
+    _2Reserved = 2,
     Down = 3
 }

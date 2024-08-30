@@ -27,7 +27,7 @@ import { create } from 'domain';
 import camelcase from 'camelcase';
 import { EnumDefinition, EnumDefinitionMap } from './EnumDefinition.js';
 import * as fs from 'fs';
-import { ThisTypeNode } from 'ts-morph';
+import { ThisTypeNode, type TryStatement } from 'ts-morph';
 
 
 
@@ -98,9 +98,10 @@ export class NodeClassDefinition<T extends Family> {
   events: { [x: string]: EventDefinition; } = {};
   family: T;
   label: string;
+  dynamic: boolean;
 
   public get name(): string {
-    return `${pascalCase(this.label ?? this.id ?? "Unknown")}Node`;
+    return `${pascalCase(this.label ?? this.id ?? "Unknown")}`;
   }
 
   toJSON() {
@@ -113,7 +114,8 @@ export class NodeClassDefinition<T extends Family> {
       events: this.events,
       family: this.family,
       label: this.label,
-      name:  this.name
+      name:  this.name,
+      dynamic: this.dynamic
     };
   }
 
@@ -476,11 +478,13 @@ export abstract class NodeMemberDefinition<TId extends string> {
 export class DriverDefinition extends NodeMemberDefinition<Driver.Type> {
 	readonly = true;
 
+
 	constructor(def: DriverDef, classDef: NodeClassDefinition<any>) {
 		super(classDef, def);
 		this.id = def.id;
 		this.hidden = def.hide === 'T';
 		this.editorId = def.editor;
+    this.optional = false;
 	}
 
 	applyNLSRecord(nls: NLSGenericRecord | NLSDriverRecord) {
@@ -708,7 +712,7 @@ export namespace NodeClassDefinition
 
     export function load(path: string)
     {
-          for (const file of new Set(fs.readdirSync(path + "/generated").concat(fs.readdirSync(path + "/custom")))) {
+          for (const file of new Set(fs.readdirSync(path + "/generated").concat(fs.readdirSync(path + "/overrides")))) {
             let fam = file.replace(".json", "");
             const family = Family[fam];
             let nodeClassDefs: {
@@ -720,10 +724,10 @@ export namespace NodeClassDefinition
               };
 
             }
-            if (fs.existsSync(`${path}/custom/${fam}.json`)) {
-              merge(
+            if (fs.existsSync(`${path}/overrides/${fam}.json`)) {
+              nodeClassDefs = merge(
                 nodeClassDefs,
-                JSON.parse(fs.readFileSync(`${path}/custom/${fam}.json`, "utf8")) as {
+                JSON.parse(fs.readFileSync(`${path}/overrides/${fam}.json`, "utf8")) as {
                   [x: string]: NodeClassDefinition<Family>;
                 }
               );

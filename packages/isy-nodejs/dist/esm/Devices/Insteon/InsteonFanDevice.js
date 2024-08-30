@@ -1,4 +1,3 @@
-import { States } from '../../ISYConstants.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import 'winston';
@@ -14,14 +13,14 @@ export class InsteonFanMotorDevice extends InsteonBaseDevice {
         return this.drivers.ST.value;
     }
     async updateFanSpeed(level) {
-        return this.commands.BEEP(level);
+        return (level);
     }
     async updateIsOn(isOn) {
         if (!isOn) {
-            return this.commands.BEEP(States.Level.Min);
+            //return this.commands.BEEP(States.Level.Min);
         }
         else {
-            return this.commands.BEEP(States.Level.Max);
+            //return this.commands.BEEP(States.Level.Max);
         }
     }
 }

@@ -1,2 +1,2 @@
-export * from "./Error.js";
+export {};
 //# sourceMappingURL=index.d.ts.map

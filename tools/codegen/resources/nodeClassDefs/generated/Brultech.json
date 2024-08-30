@@ -1,11 +1,12 @@
 {
   "BTMain": {
-    "className": "EnergyMonitorNode",
+    "className": "EnergyMonitor",
     "id": "BTMain",
     "drivers": {
       "ST": {
         "label": "Status",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "BT_WATTS",
@@ -24,6 +25,7 @@
       "TPW": {
         "label": "Total Energy",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "TPW",
         "editorId": "BT_KWH",
@@ -42,6 +44,7 @@
       "CV": {
         "label": "Current Voltage",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "CV",
         "editorId": "BT_VOLTS",
@@ -60,6 +63,7 @@
       "CC": {
         "label": "Current Current",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "CC",
         "editorId": "BT_AMPS",
@@ -78,6 +82,7 @@
       "PPW": {
         "label": "Polarized Power",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "PPW",
         "editorId": "BT_WATTS",
@@ -96,6 +101,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "optional": false,
         "readonly": true,
         "id": "ERR",
         "editorId": "BT_ERR",
@@ -123,15 +129,16 @@
     "events": {},
     "family": 8,
     "label": "EnergyMonitor",
-    "name": "EnergyMonitorNode"
+    "name": "EnergyMonitor"
   },
   "BTChannel": {
-    "className": "EnergyMonitorNode",
+    "className": "EnergyMonitor",
     "id": "BTChannel",
     "drivers": {
       "ST": {
         "label": "Status",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "BT_WATTS",
@@ -150,6 +157,7 @@
       "TPW": {
         "label": "Total Energy",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "TPW",
         "editorId": "BT_KWH",
@@ -168,6 +176,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "optional": false,
         "readonly": true,
         "id": "ERR",
         "editorId": "BT_ERR",
@@ -189,6 +198,6 @@
     "events": {},
     "family": 8,
     "label": "EnergyMonitor",
-    "name": "EnergyMonitorNode"
+    "name": "EnergyMonitor"
   }
 }

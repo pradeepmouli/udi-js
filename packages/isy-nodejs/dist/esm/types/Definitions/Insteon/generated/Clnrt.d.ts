@@ -1,22 +1,13 @@
 export declare enum Clnrt {
     NoRetries = 0,
-    1 = 1,
-    Retry = 1,
-    2 = 2,
-    Retries = 2,
-    3 = 3,
-    Retries = 3,
-    4 = 4,
-    Retries = 4,
-    5 = 5,
-    Retries = 5,
-    6 = 6,
-    Retries = 6,
-    7 = 7,
-    Retries = 7,
-    8 = 8,
-    Retries = 8,
-    9 = 9,
-    Retries = 9
+    _1Retry = 1,
+    _2Retries = 2,
+    _3Retries = 3,
+    _4Retries = 4,
+    _5Retries = 5,
+    _6Retries = 6,
+    _7Retries = 7,
+    _8Retries = 8,
+    _9Retries = 9
 }
 //# sourceMappingURL=Clnrt.d.ts.map

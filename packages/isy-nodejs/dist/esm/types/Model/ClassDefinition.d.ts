@@ -24,6 +24,7 @@ export declare class NodeClassDefinition<T extends Family> {
     };
     family: T;
     label: string;
+    dynamic: boolean;
     get name(): string;
     toJSON(): {
         className: string;
@@ -194,6 +195,7 @@ export declare class NodeClassDefinition<T extends Family> {
         family: T;
         label: string;
         name: string;
+        dynamic: boolean;
     };
     constructor(nodeDef: NodeDef, family: T);
     applyEditorDefs(): void;

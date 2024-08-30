@@ -1,5 +1,5 @@
 export declare enum AlertValue01 {
-    0 = 0,
+    "" = 0,
     NoData = 1,
     BelowLowThreshold = 2,
     AboveHighThreshold = 3,

@@ -48,9 +48,13 @@ export class NodeClassFactory {
                 factory.createImportSpecifier(false, undefined, factory.createIdentifier('NodeInfo'))
             ])), factory.createStringLiteral('../../../Model/NodeInfo.js'), undefined),
             factory.createImportDeclaration(undefined, factory.createImportClause(true, undefined, factory.createNamedImports([factory.createImportSpecifier(false, undefined, factory.createIdentifier('ISY'))])), factory.createStringLiteral('../../../ISY.js'), undefined),
+            factory.createImportDeclaration(undefined, factory.createImportClause(true, undefined, factory.createNamedImports([factory.createImportSpecifier(false, undefined, factory.createIdentifier('ISYNode'))])), factory.createStringLiteral('../../../ISYNode.js'), undefined),
             factory.createImportDeclaration(undefined, factory.createImportClause(false, undefined, factory.createNamedImports([
                 factory.createImportSpecifier(false, undefined, factory.createIdentifier('Base'))
             ])), factory.createStringLiteral('../index.js'), undefined),
+            factory.createImportDeclaration(undefined, factory.createImportClause(false, undefined, factory.createNamedImports([
+                factory.createImportSpecifier(false, undefined, factory.createIdentifier('ISYDeviceNode'))
+            ])), factory.createStringLiteral('../../ISYDeviceNode.js'), undefined),
             factory.createImportDeclaration(undefined, factory.createImportClause(false, undefined, factory.createNamedImports([
                 factory.createImportSpecifier(false, undefined, factory.createIdentifier('Driver'))
             ])), factory.createStringLiteral('../../../Definitions/Global/Drivers.js'), undefined),
@@ -68,12 +72,15 @@ export class NodeClassFactory {
             ], ts.NodeFlags.Const)),
             factory.createTypeAliasDeclaration(undefined, factory.createIdentifier('Commands'), undefined, factory.createTypeReferenceNode(factory.createQualifiedName(factory.createIdentifier(nodeClassDef.name), factory.createIdentifier('Commands')), undefined)),
             factory.createTypeAliasDeclaration(undefined, factory.createIdentifier('Drivers'), undefined, factory.createTypeReferenceNode(factory.createQualifiedName(factory.createIdentifier(nodeClassDef.name), factory.createIdentifier('Drivers')), undefined)),
-            factory.createClassDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], factory.createIdentifier(nodeClassDef.name), undefined, [
+            factory.createClassDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], factory.createIdentifier(`${nodeClassDef.name}Node`), undefined, [
                 factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
                     factory.createExpressionWithTypeArguments(factory.createIdentifier('Base'), [
                         factory.createTypeReferenceNode(factory.createIdentifier('Drivers'), undefined),
                         factory.createTypeReferenceNode(factory.createIdentifier('Commands'), undefined)
                     ])
+                ]),
+                factory.createHeritageClause(ts.SyntaxKind.ImplementsKeyword, [
+                    factory.createExpressionWithTypeArguments(factory.createPropertyAccessExpression(factory.createIdentifier(nodeClassDef.name), factory.createIdentifier('Interface')), undefined)
                 ])
             ], [
                 factory.createPropertyDeclaration([factory.createToken(ts.SyntaxKind.PublicKeyword), factory.createToken(ts.SyntaxKind.ReadonlyKeyword)], factory.createIdentifier('commands'), undefined, undefined, factory.createObjectLiteralExpression([
@@ -87,6 +94,7 @@ export class NodeClassFactory {
                 //   factory.createObjectLiteralExpression([], false)
                 // ),
                 factory.createPropertyDeclaration([factory.createToken(ts.SyntaxKind.StaticKeyword)], factory.createIdentifier('nodeDefId'), undefined, undefined, factory.createStringLiteral(nodeClassDef.id)),
+                factory.createPropertyDeclaration([factory.createToken(ts.SyntaxKind.DeclareKeyword), factory.createToken(ts.SyntaxKind.ReadonlyKeyword)], factory.createIdentifier('nodeDefId'), undefined, factory.createLiteralTypeNode(factory.createStringLiteral(nodeClassDef.id)), undefined),
                 factory.createConstructorDeclaration(undefined, [
                     factory.createParameterDeclaration(undefined, undefined, factory.createIdentifier('isy'), undefined, factory.createTypeReferenceNode(factory.createIdentifier('ISY'), undefined), undefined),
                     factory.createParameterDeclaration(undefined, undefined, factory.createIdentifier('nodeInfo'), undefined, factory.createTypeReferenceNode(factory.createIdentifier('NodeInfo'), undefined), undefined)
@@ -100,8 +108,47 @@ export class NodeClassFactory {
                 ...Object.values(nodeClassDef.commands).map(createCommandMethodDeclaration),
                 ...Object.values(nodeClassDef.drivers).map(createDriverGetDeclaration)
             ]),
-            factory.createExpressionStatement(factory.createCallExpression(factory.createPropertyAccessExpression(factory.createIdentifier('NodeFactory'), factory.createIdentifier('register')), undefined, [factory.createIdentifier(nodeClassDef.name)])),
+            factory.createExpressionStatement(factory.createCallExpression(factory.createPropertyAccessExpression(factory.createIdentifier('NodeFactory'), factory.createIdentifier('register')), undefined, [factory.createIdentifier(`${nodeClassDef.name}Node`)])),
             factory.createModuleDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], factory.createIdentifier(nodeClassDef.name), factory.createModuleBlock([
+                factory.createInterfaceDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], factory.createIdentifier('Interface'), undefined, [
+                    factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
+                        factory.createExpressionWithTypeArguments(factory.createIdentifier('Omit'), [
+                            factory.createTypeReferenceNode(factory.createIdentifier('InstanceType'), [
+                                factory.createTypeQueryNode(factory.createIdentifier(`${nodeClassDef.name}Node`), undefined)
+                            ]),
+                            factory.createTypeOperatorNode(ts.SyntaxKind.KeyOfKeyword, factory.createTypeReferenceNode(factory.createIdentifier('ISYDeviceNode'), [
+                                factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword),
+                                factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword),
+                                factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword),
+                                factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword)
+                            ]))
+                        ])
+                    ])
+                ], [
+                    factory.createPropertySignature(undefined, factory.createIdentifier('nodeDefId'), undefined, factory.createLiteralTypeNode(factory.createStringLiteral(nodeClassDef.id)))
+                ]),
+                factory.createFunctionDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], undefined, factory.createIdentifier('is'), undefined, [
+                    factory.createParameterDeclaration(undefined, undefined, factory.createIdentifier('node'), undefined, factory.createTypeReferenceNode(factory.createIdentifier('ISYNode'), [
+                        factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword),
+                        factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword),
+                        factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword),
+                        factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword)
+                    ]), undefined)
+                ], factory.createTypePredicateNode(undefined, factory.createIdentifier('node'), factory.createTypeReferenceNode(factory.createIdentifier(`${nodeClassDef.name}Node`), undefined)), factory.createBlock([
+                    factory.createReturnStatement(factory.createBinaryExpression(factory.createPropertyAccessExpression(factory.createIdentifier('node'), factory.createIdentifier('nodeDefId')), factory.createToken(ts.SyntaxKind.EqualsEqualsEqualsToken), factory.createIdentifier('nodeDefId')))
+                ], true)),
+                factory.createFunctionDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], undefined, factory.createIdentifier('create'), undefined, [
+                    factory.createParameterDeclaration(undefined, undefined, factory.createIdentifier('isy'), undefined, factory.createTypeReferenceNode(factory.createIdentifier('ISY'), undefined), undefined),
+                    factory.createParameterDeclaration(undefined, undefined, factory.createIdentifier('nodeInfo'), undefined, factory.createTypeReferenceNode(factory.createIdentifier('NodeInfo'), undefined), undefined)
+                ], undefined, factory.createBlock([
+                    factory.createReturnStatement(factory.createNewExpression(factory.createIdentifier(`${nodeClassDef.name}Node`), undefined, [
+                        factory.createIdentifier('isy'),
+                        factory.createIdentifier('nodeInfo')
+                    ]))
+                ], true)),
+                factory.createVariableStatement([factory.createToken(ts.SyntaxKind.ExportKeyword)], factory.createVariableDeclarationList([
+                    factory.createVariableDeclaration(factory.createIdentifier('Node'), undefined, undefined, factory.createIdentifier(`${nodeClassDef.name}Node`))
+                ], ts.NodeFlags.Const)),
                 factory.createTypeAliasDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], factory.createIdentifier('Commands'), undefined, factory.createTypeLiteralNode([...Object.values(nodeClassDef.commands).map(createCommandSignature)])),
                 factory.createTypeAliasDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], factory.createIdentifier('Drivers'), undefined, factory.createTypeLiteralNode([...Object.values(nodeClassDef.drivers).map(createDriverSignature)]))
             ]), ts.NodeFlags.Namespace)
@@ -131,7 +178,7 @@ export class NodeClassFactory {
                 currentKind = s.getKind();
             }
         }
-        f.insertText(0, '/*THIS FILE WAS GENERATED BY A SCRIPT. DO NOT EDIT DIRECTLY.*/\n\n');
+        f.insertText(0, '/* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */\n\n');
         return {
             family: nodeClassDef.family,
             name: nodeClassDef.name,
@@ -257,7 +304,7 @@ function createDriverPropertyReturnType(def, parent) {
     return factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
 }
 function createDriverSignature(def) {
-    return factory.createPropertySignature(undefined, factory.createIdentifier(def.id), factory.createToken(ts.SyntaxKind.QuestionToken), factory.createTypeLiteralNode([
+    return factory.createPropertySignature(undefined, factory.createIdentifier(def.id), undefined, factory.createTypeLiteralNode([
         factory.createPropertySignature(undefined, factory.createIdentifier('uom'), undefined, def.dataType
             ? factory.createUnionTypeNode(Object.values(def.dataType).map((p) => createTypeNodeForUOM(p.uom)))
             : factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword)),

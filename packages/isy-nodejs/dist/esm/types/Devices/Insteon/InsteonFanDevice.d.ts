@@ -7,8 +7,8 @@ export declare class InsteonFanMotorDevice extends InsteonBaseDevice {
     constructor(isy: ISY, deviceNode: NodeInfo);
     get isOn(): boolean;
     get fanSpeed(): any;
-    updateFanSpeed(level: number): Promise<Boolean>;
-    updateIsOn(isOn: boolean): Promise<Boolean>;
+    updateFanSpeed(level: number): Promise<number>;
+    updateIsOn(isOn: boolean): Promise<void>;
 }
 export declare class InsteonFanDevice extends InsteonBaseDevice {
     light?: InsteonDimmableDevice;
@@ -20,6 +20,6 @@ export declare class InsteonFanDevice extends InsteonBaseDevice {
         node?: any;
     }): boolean;
     addChild(childDevice: any): void;
-    updateFanSpeed(level: number): Promise<Boolean>;
+    updateFanSpeed(level: number): Promise<number>;
 }
 //# sourceMappingURL=InsteonFanDevice.d.ts.map

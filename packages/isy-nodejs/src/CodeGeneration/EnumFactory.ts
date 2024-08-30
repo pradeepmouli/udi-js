@@ -11,6 +11,7 @@ import type {
 import { EnumDefinition, EnumDefinitionMap } from "../Model/EnumDefinition.js";
 import { isGeneratorFunction } from "util/types";
 import { Logger, loggers } from "winston";
+import { pascalCase } from 'moderndash';
 
 
 const logger = loggers.get("EnumFactory");
@@ -40,7 +41,7 @@ export function createEnum<T extends Family>(enumDef: EnumDefinition<T>) : Gener
           [
             ...Object.entries(enumDef.values).map(([name, value]) =>
 
-              factory.createEnumMember(factory.createIdentifier(name ?? "Unknown"), factory.createNumericLiteral(value))
+              factory.createEnumMember(createMemberName(name), factory.createNumericLiteral(value))
             ),
           ]
         )
@@ -529,4 +530,16 @@ export function createNodeClass<T extends Family>(nodeClassDef: NodeClassDefinit
       ),
     ],
   };
+}
+
+function createMemberName(name: string, mapNullishTo: string = 'Unknown'): any {
+	let label = pascalCase(name) ?? 'Unknown';
+	if (!label.substring(0, 1).match(/[a-zA-Z]/)) {
+    if(!isNaN(Number.parseInt(label)))
+    {
+        return factory.createIdentifier(`_${label}`);
+    }
+		return factory.createStringLiteral(label);
+	}
+	return factory.createIdentifier(label);
 }

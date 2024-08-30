@@ -1,12 +1,13 @@
 {
   "NCDRelay": {
-    "className": "LampAndSwitchNode",
+    "className": "LampAndSwitch",
     "id": "NCDRelay",
     "nlsId": "RELAY",
     "drivers": {
       "ST": {
         "label": "Status",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "NCD_OL_RELAY",
@@ -26,6 +27,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "optional": false,
         "readonly": true,
         "id": "ERR",
         "editorId": "NCD_ERR",
@@ -109,6 +111,6 @@
     },
     "family": 9,
     "label": "LampAndSwitch",
-    "name": "LampAndSwitchNode"
+    "name": "LampAndSwitch"
   }
 }

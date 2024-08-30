@@ -8,5 +8,6 @@
   "embeddedLanguageFormatting": "auto",
   "arrowParens": "always",
   "semi":true,
-  "useTabs": true
+  "useTabs": true,
+  "experimentalTernaries": true
 }

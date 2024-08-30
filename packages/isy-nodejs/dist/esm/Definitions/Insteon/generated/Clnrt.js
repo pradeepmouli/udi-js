@@ -1,23 +1,14 @@
 export var Clnrt;
 (function (Clnrt) {
     Clnrt[Clnrt["NoRetries"] = 0] = "NoRetries";
-    Clnrt[Clnrt[1] = 1] = 1;
-    Clnrt[Clnrt["Retry"] = 1] = "Retry";
-    Clnrt[Clnrt[2] = 2] = 2;
-    Clnrt[Clnrt["Retries"] = 2] = "Retries";
-    Clnrt[Clnrt[3] = 3] = 3;
-    Clnrt[Clnrt["Retries"] = 3] = "Retries";
-    Clnrt[Clnrt[4] = 4] = 4;
-    Clnrt[Clnrt["Retries"] = 4] = "Retries";
-    Clnrt[Clnrt[5] = 5] = 5;
-    Clnrt[Clnrt["Retries"] = 5] = "Retries";
-    Clnrt[Clnrt[6] = 6] = 6;
-    Clnrt[Clnrt["Retries"] = 6] = "Retries";
-    Clnrt[Clnrt[7] = 7] = 7;
-    Clnrt[Clnrt["Retries"] = 7] = "Retries";
-    Clnrt[Clnrt[8] = 8] = 8;
-    Clnrt[Clnrt["Retries"] = 8] = "Retries";
-    Clnrt[Clnrt[9] = 9] = 9;
-    Clnrt[Clnrt["Retries"] = 9] = "Retries";
+    Clnrt[Clnrt["_1Retry"] = 1] = "_1Retry";
+    Clnrt[Clnrt["_2Retries"] = 2] = "_2Retries";
+    Clnrt[Clnrt["_3Retries"] = 3] = "_3Retries";
+    Clnrt[Clnrt["_4Retries"] = 4] = "_4Retries";
+    Clnrt[Clnrt["_5Retries"] = 5] = "_5Retries";
+    Clnrt[Clnrt["_6Retries"] = 6] = "_6Retries";
+    Clnrt[Clnrt["_7Retries"] = 7] = "_7Retries";
+    Clnrt[Clnrt["_8Retries"] = 8] = "_8Retries";
+    Clnrt[Clnrt["_9Retries"] = 9] = "_9Retries";
 })(Clnrt || (Clnrt = {}));
 //# sourceMappingURL=Clnrt.js.map

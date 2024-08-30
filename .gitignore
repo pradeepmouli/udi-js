@@ -20,3 +20,4 @@ ISYNodes.xml
 .vscode
 CLI/resources/*
 **/resources_old/*
+packages/isy-nodejs/dist/tsconfig.esm.tsbuildinfo

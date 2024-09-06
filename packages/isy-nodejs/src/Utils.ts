@@ -1,55 +1,70 @@
-
 import axios, { AxiosRequestConfig } from 'axios';
 
-
 import * as log4js from '@log4js-node/log4js-api';
-import winston, { Logger, format}from 'winston'
+import winston, { Logger, format } from 'winston';
 
-import { Category } from './Definitions/Global/Categories.js';
-import { EventEmitter as BaseEventEmitter } from 'events';
 import { Axios } from 'axios';
-
-
+import { EventEmitter as BaseEventEmitter } from 'events';
+import { Category } from './Definitions/Global/Categories.js';
 
 //import { get } from 'http';
-import { EventType } from './Events/EventType.js';
 import type { Identity } from '@project-chip/matter.js/util';
 import { isBoxedPrimitive } from 'util/types';
-import { Family } from './Definitions/index.js';
+import {  Family, type Driver, type DriverType, type EnumLiteral } from './Definitions/index.js';
+import { EventType } from './Events/EventType.js';
 
 export interface Converter<F, T> {
+	// #region Properties (2)
 
-  from: (value: F) => T;
-  to: (value: T) => F;
+	from: (value: F) => T;
+	to: (value: T) => F;
+
+	// #endregion Properties (2)
 }
 
 export type StringKeys<T> = Extract<keyof T, string>;
 
-
-export function invert<F, T>(converter: Converter<F, T>): Converter<T, F> {
-  return {
-    from: converter.to,
-    to: converter.from,
-  };
+export function getEnumValueByEnumKey<E extends { [index: string]: number }, T extends keyof E>(enumType: E, enumKey: T): E[T] {
+	return enumType[enumKey];
 }
 
+export function getEnumKeyByEnumValue<E extends { [index: string]: number }, T extends E[keyof E]>(enumType: E, enumValue: E[T]): T {
+	return Object.keys(enumType).find((key) => enumType[key] === enumValue) as unknown as T;
+}
 
+export type ValuesOf<TEnum extends number | string | boolean | bigint> = `${TEnum}` extends `${infer R extends number}` ? R : `${TEnum}`;
+
+type s = ValuesOf<Family>;
+
+type test = IdentityOf<Family>;
+export type IdentityOf<T> = T extends (...args: any[]) => infer R ? R : T;
+
+export type LabelsOf<TEnum> = keyof IdentityOf<TEnum>;
+type d = LabelsOf<Family>;
+
+//onst D: d = 'ST';
+//type DriverLabel = Values<IdentityOf<DriverType>>;
+export function invert<F, T>(converter: Converter<F, T>): Converter<T, F> {
+	return {
+		from: converter.to,
+		to: converter.from
+	};
+}
 
 export type MaybeArray<T> = T | T[];
 
+export type ObjectToUnion<T> = T[keyof T];
 
 export function toArray<T>(value: MaybeArray<T>): T[] {
-	if(undefined === value)	return [];
-  return Array.isArray(value) ? value : [value];
+	if (undefined === value) return [];
+	return Array.isArray(value) ? value : [value];
 }
 
 export function fromArray<T>(...value: T[]): MaybeArray<T> {
-  if(value.length === 1)
-  {
-	return value[0] ?? undefined;
-  }
-  return value;
-
+	if (value.length === 1) {
+		return value[0] ?? undefined;
+	}
+	return value;
 }
 
 export function byteToPct(value) {
@@ -66,39 +81,27 @@ export function byteToDegree(value) {
 
 let lastrequest = Promise.resolve();
 
-
-
-
 declare module 'winston' {
-	interface Logger extends LoggerLike{
-
-	}
-
-
+	interface Logger extends LoggerLike {}
 }
 
-declare  global {
+declare global {
 	interface String {
-		remove(string: string) : string;
-		removeAll(string: string) : string;
+		// #region Public Methods (6)
 
-		right(numChars: number) : string;
-
-		left(numChars: number) : string;
-
-		rightWithToken(numChars: number, token?: string) : string;
-
+		left(numChars: number): string;
 		leftWithToken(numChars: number, token?: string): string;
+		remove(string: string): string;
+		removeAll(string: string): string;
+		right(numChars: number): string;
+		rightWithToken(numChars: number, token?: string): string;
+
+		// #endregion Public Methods (6)
 	}
-
-
 }
 
 export interface LoggerLike extends Partial<log4js.Logger> {
-
-	(msg: any, level?: string, ...data: any[]): void;
 	//default(msg: any): void;
-
 }
 // `${`${const origCreateLogger = winston.createLogger.bind(winston)
 // Logger.prototwinston.createLogger = (options) =>
@@ -108,28 +111,20 @@ export interface LoggerLike extends Partial<log4js.Logger> {
 // }
 // }`}`
 
-
-	export function valueOf<E,T extends Extract<keyof E, string>>(e: E, val: T) : E[T]
-	{
-		return e[val];
-	}
-
-
+export function valueOf<E, T extends Extract<keyof E, string>>(e: E, val: T): E[T] {
+	return e[val];
+}
 
 export function clone(logger: Logger, label: string): Logger {
-
-
 	return winston.createLogger({
-		format: format.label({label}),
+		format: format.label({ label }),
 		transports: logger.transports,
 		level: logger.level,
 		levels: logger.levels,
 		exitOnError: logger.exitOnError,
 		exceptionHandlers: logger.exceptions,
 		...logger
-	})
-
-
+	});
 
 	// `${const copy1 = { ...logger };copy1.prefix = copy1.prefix = prefix ?? logger.prototype;
 
@@ -169,11 +164,9 @@ export function clone(logger: Logger, label: string): Logger {
 	// }).bind(copy);}`
 
 	//return copy;
-
 }
 
 // export function wire(logger: Logger) {
-
 // 	logger.isDebugEnabled = () => ISYPlatform.Instance.debugLoggingEnabled;
 
 // 	logger.isErrorEnabled = () => true;
@@ -200,80 +193,65 @@ export function clone(logger: Logger, label: string): Logger {
 
 // }
 
+type TEventType = keyof typeof EventType;
 
-type TEventType = keyof typeof EventType
+export interface PropertyChangedEventEmitter extends EventEmitter<'PropertyChanged'> {
+	// #region Public Methods (1)
 
-export interface PropertyChangedEventEmitter extends EventEmitter<"PropertyChanged">
-{
+	on(event: 'PropertyChanged', listener: (propertyName: string, newValue: any, oldValue: any, formattedValue: string) => void): this;
 
-	on(event:'PropertyChanged', listener: (propertyName : string, newValue: any, oldValue: any, formattedValue: string) => void) : this;
-
+	// #endregion Public Methods (1)
 }
 
-export class EventEmitter<T extends TEventType> extends BaseEventEmitter
-{
-	override on(event: T, listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any) | ((controlName: string) => any)) : this
-	{
-		return super.on(event,listener);
+export class EventEmitter<T extends TEventType> extends BaseEventEmitter {
+	// #region Public Methods (1)
+
+	public override on(event: T, listener: ((propertyName: string, newValue: any, oldValue: any, formattedValue: string) => any) | ((controlName: string) => any)): this {
+		return super.on(event, listener);
 	}
+
+	// #endregion Public Methods (1)
 }
 
-export function right(this: string, numChars: number)
-{
+export function right(this: string, numChars: number) {
 	var l = this.length;
-	return this.substring(length - numChars)
+	return this.substring(length - numChars);
 }
 
-export function left(this: string, numChars: number)
-{
-
-	return this.substring(0,numChars - 1)
+export function left(this: string, numChars: number) {
+	return this.substring(0, numChars - 1);
 }
 
-export function rightWithToken(this: string, maxNumChars: number, token: string = ' ')
-{
-
+export function rightWithToken(this: string, maxNumChars: number, token: string = ' ') {
 	var s = this.split(token);
 	var sb = s.pop();
-	var sp = s.pop()
-	while(sp !== undefined && sb.length + sp.length + token.length <= maxNumChars )
-	{
+	var sp = s.pop();
+	while (sp !== undefined && sb.length + sp.length + token.length <= maxNumChars) {
 		sb = sp + token + sb;
 		sp = s.pop();
 	}
-
-
 }
 
-export function leftWithToken(this: string, maxNumChars: number, token: string = ' ')
-{
+export function leftWithToken(this: string, maxNumChars: number, token: string = ' ') {
 	var s = this.split(token).reverse();
 	var sb = s.pop();
 	var sp = s.pop();
-	while(sp !== undefined && sb.length + sp?.length + token.length <= maxNumChars)
-	{
-
+	while (sp !== undefined && sb.length + sp?.length + token.length <= maxNumChars) {
 		sb = sb + token + sp;
 
 		sp = s.pop();
 	}
 }
 
-export function remove(this: string, searchValue: string | RegExp)
-{
-
+export function remove(this: string, searchValue: string | RegExp) {
 	return this.replace(searchValue, '');
 }
 
-export function removeAll(this: string, searchValue: string | RegExp)
-{
-
+export function removeAll(this: string, searchValue: string | RegExp) {
 	return this.replaceAll(searchValue, '');
 }
 
-
-export function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}`) : {category: Category, deviceCode: number, firmwareVersion: number, minorVersion: number }
-{
+export function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}`): { category: Category; deviceCode: number; firmwareVersion: number; minorVersion: number } {
 	try {
 		const s = typeCode.split('.');
 
@@ -281,12 +259,11 @@ export function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}
 
 		return output;
 	} catch (err) {
-
 		return null;
 	}
 }
 
-export function getCategory(device: { type: string; }) {
+export function getCategory(device: { type: string }) {
 	try {
 		const s = device.type.split('.');
 		return Number(s[0]);
@@ -294,7 +271,7 @@ export function getCategory(device: { type: string; }) {
 		return Category.Unknown;
 	}
 }
-export function getSubcategory(device: { type: string; }) {
+export function getSubcategory(device: { type: string }) {
 	try {
 		const s = device.type.split('.');
 		return Number(s[1]);

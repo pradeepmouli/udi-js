@@ -4,6 +4,8 @@ export class ISYDeviceNode extends ISYNode {
     deviceClass;
     category;
     subCategory;
+    declare;
+    //public readonly isDimmable: boolean;
     //public _parentDevice: ISYDeviceNode<T, any, any, any>;
     //public readonly children: Array<ISYDeviceNode<T, any, any, any>> = [];
     _enabled;

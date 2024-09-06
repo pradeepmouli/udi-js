@@ -8398,7 +8398,14 @@
             "label": "On Level",
             "id": "OL",
             "editorId": "I_RAW_255",
-            "dataType": {},
+            "dataType": {
+              "56": {
+                "uom": 56,
+                "enum": false,
+                "min": 0,
+                "max": 255
+              }
+            },
             "name": "onLevel",
             "optional": true,
             "initialValue": "OL"
@@ -8522,7 +8529,14 @@
             "label": "On Level",
             "id": "OL",
             "editorId": "I_RAW_255",
-            "dataType": {},
+            "dataType": {
+              "56": {
+                "uom": 56,
+                "enum": false,
+                "min": 0,
+                "max": 255
+              }
+            },
             "name": "onLevel",
             "optional": true,
             "initialValue": "OL"
@@ -8804,7 +8818,14 @@
             "label": "Duration",
             "id": "DUR",
             "editorId": "I_DUR_127",
-            "dataType": {},
+            "dataType": {
+              "58": {
+                "uom": 58,
+                "enum": false,
+                "min": 0,
+                "max": 127
+              }
+            },
             "name": "duration",
             "optional": true
           }
@@ -9027,7 +9048,14 @@
             "label": "Duration",
             "id": "DUR",
             "editorId": "I_DUR_127",
-            "dataType": {},
+            "dataType": {
+              "58": {
+                "uom": 58,
+                "enum": false,
+                "min": 0,
+                "max": 127
+              }
+            },
             "name": "duration",
             "optional": true
           }

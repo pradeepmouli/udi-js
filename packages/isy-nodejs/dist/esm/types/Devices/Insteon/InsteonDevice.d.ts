@@ -13,6 +13,7 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         readonly deviceClass: any;
         readonly category: import("../../ISY.js").Categories;
         readonly subCategory: number;
+        declare: any;
         _enabled: any;
         productName: string;
         model: string;
@@ -21,7 +22,7 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#330883@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#72@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -30,10 +31,17 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         baseName: any;
         commands: import("../../Definitions/index.js").Command.ForAll<{}>;
         drivers: import("../../Definitions/index.js").Driver.ForAll<{
-            ST: import("../../Definitions/index.js").Driver.Signature<import("../../Definitions/index.js").UnitOfMeasure, any, string, string>;
+            ST: {
+                name: "status";
+                label: "Status";
+                value: number;
+                uom: import("../../Definitions/index.js").UnitOfMeasure;
+            };
         }, false>;
         enabled: boolean;
-        events: string;
+        events: {
+            on(eventName: "statusChanged", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter<any>;
+        } & Omit<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter<any>, "on">;
         folder: string;
         hidden: boolean;
         isLoad: boolean;
@@ -54,10 +62,10 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         addLink(isyScene: import("../../ISYScene.js").ISYScene): void;
         applyStatus(prop: import("../../Model/DriverState.js").DriverState): void;
         convert(value: any, from: import("../../Definitions/index.js").UnitOfMeasure, to: import("../../Definitions/index.js").UnitOfMeasure): any;
-        emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): boolean;
+        emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
         generateLabel(template: string): string;
         getNotes(): Promise<import("../../ISYNode.js").NodeNotes>;
-        handleControlTrigger(controlName: string): boolean;
+        handleControlTrigger(controlName: never): boolean;
         handleEvent(event: {
             control?: any;
             data?: any;
@@ -66,8 +74,6 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
             fmtAct?: any;
         }): boolean;
         handlePropertyChange(propertyName: "ST", value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, formattedValue: string, prec?: number): boolean;
-        on(event: "PropertyChanged", listener: (propertyName: "ST", newValue: any, oldValue: any, formattedValue: string) => any): any;
-        on(event: "ControlTriggered", listener: (controlName: never) => any): any;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -76,21 +82,7 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
         sendCommand(command: never, parameters?: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
-        updateProperty(propertyName: "ST", value: any): Promise<any>;
-        [EventEmitter.captureRejectionSymbol]?(error: Error, event: string, ...args: any[]): void;
-        addListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        once(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        removeListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        off(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        removeAllListeners(event?: string | symbol): any;
-        setMaxListeners(n: number): any;
-        getMaxListeners(): number;
-        listeners(eventName: string | symbol): Function[];
-        rawListeners(eventName: string | symbol): Function[];
-        listenerCount(eventName: string | symbol, listener?: Function): number;
-        prependListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        eventNames(): Array<string | symbol>;
+        updateProperty(propertyName: string, value: any): Promise<any>;
     };
 } & T;
 export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB: T) => {
@@ -103,6 +95,7 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         readonly deviceClass: any;
         readonly category: import("../../ISY.js").Categories;
         readonly subCategory: number;
+        declare: any;
         _enabled: any;
         productName: string;
         model: string;
@@ -111,7 +104,7 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#330883@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#72@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -120,10 +113,17 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         baseName: any;
         commands: import("../../Definitions/index.js").Command.ForAll<{}>;
         drivers: import("../../Definitions/index.js").Driver.ForAll<{
-            ST: import("../../Definitions/index.js").Driver.Signature<import("../../Definitions/index.js").UnitOfMeasure, any, string, string>;
+            ST: {
+                name: "status";
+                label: "Status";
+                value: number;
+                uom: import("../../Definitions/index.js").UnitOfMeasure;
+            };
         }, false>;
         enabled: boolean;
-        events: string;
+        events: {
+            on(eventName: "statusChanged", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter<any>;
+        } & Omit<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter<any>, "on">;
         folder: string;
         hidden: boolean;
         isDimmable: boolean;
@@ -145,10 +145,10 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         addLink(isyScene: import("../../ISYScene.js").ISYScene): void;
         applyStatus(prop: import("../../Model/DriverState.js").DriverState): void;
         convert(value: any, from: import("../../Definitions/index.js").UnitOfMeasure, to: import("../../Definitions/index.js").UnitOfMeasure): any;
-        emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): boolean;
+        emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
         generateLabel(template: string): string;
         getNotes(): Promise<import("../../ISYNode.js").NodeNotes>;
-        handleControlTrigger(controlName: string): boolean;
+        handleControlTrigger(controlName: never): boolean;
         handleEvent(event: {
             control?: any;
             data?: any;
@@ -157,8 +157,6 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
             fmtAct?: any;
         }): boolean;
         handlePropertyChange(propertyName: "ST", value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, formattedValue: string, prec?: number): boolean;
-        on(event: "PropertyChanged", listener: (propertyName: "ST", newValue: any, oldValue: any, formattedValue: string) => any): any;
-        on(event: "ControlTriggered", listener: (controlName: never) => any): any;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -167,21 +165,7 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
         sendCommand(command: never, parameters?: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
-        updateProperty(propertyName: "ST", value: any): Promise<any>;
-        [EventEmitter.captureRejectionSymbol]?(error: Error, event: string, ...args: any[]): void;
-        addListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        once(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        removeListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        off(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        removeAllListeners(event?: string | symbol): any;
-        setMaxListeners(n: number): any;
-        getMaxListeners(): number;
-        listeners(eventName: string | symbol): Function[];
-        rawListeners(eventName: string | symbol): Function[];
-        listenerCount(eventName: string | symbol, listener?: Function): number;
-        prependListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        eventNames(): Array<string | symbol>;
+        updateProperty(propertyName: string, value: any): Promise<any>;
     };
 } & T;
 export declare class InsteonOutletDevice extends InsteonRelayDevice {

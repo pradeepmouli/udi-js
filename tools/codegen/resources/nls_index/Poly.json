@@ -4,6 +4,11 @@
     "1": "True",
     "101": "Unknown"
   },
+  "IX_NS_STATUS": {
+    "0": "Disconnected",
+    "1": "Connected",
+    "2": "Failed"
+  },
   "IX_CFN_ST": {
     "0": "Off",
     "101": "Unknown"

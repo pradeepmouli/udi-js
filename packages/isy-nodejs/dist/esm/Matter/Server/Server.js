@@ -1,19 +1,20 @@
-import { ServerNode } from '@project-chip/matter.js/node';
-import { ISY, InsteonDimmableDevice, InsteonKeypadButtonDevice, InsteonRelayDevice } from '../../ISY.js';
 import { NodeJsEnvironment } from '@project-chip/matter-node.js/environment';
-import { StorageService } from '@project-chip/matter.js/environment';
 import { StorageBackendDisk } from '@project-chip/matter-node.js/storage';
-import { resolve } from 'path';
 import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
 import { VendorId } from '@project-chip/matter.js/datatype';
 import { logEndpoint } from '@project-chip/matter.js/device';
-import { EndpointServer, Endpoint } from '@project-chip/matter.js/endpoint';
+import { Endpoint, EndpointServer } from '@project-chip/matter.js/endpoint';
+import { DimmableLightDevice, OnOffLightDevice } from '@project-chip/matter.js/endpoint/definitions';
 import { AggregatorEndpoint } from '@project-chip/matter.js/endpoints/AggregatorEndpoint';
-import { Logger as MatterLogger, Level, levelFromString } from '@project-chip/matter.js/log';
+import { StorageService } from '@project-chip/matter.js/environment';
+import { Level, levelFromString, Logger as MatterLogger } from '@project-chip/matter.js/log';
+import { ServerNode } from '@project-chip/matter.js/node';
 import { QrCode } from '@project-chip/matter.js/schema';
-import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
-import { OnOffLightDevice, DimmableLightDevice } from '@project-chip/matter.js/endpoint/definitions';
+import { resolve } from 'path';
+import { InsteonDimmableDevice, InsteonKeypadButtonDevice, InsteonRelayDevice, ISY } from '../../ISY.js';
 import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
+import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
+// #region Functions (2)
 //import {clone} from 'isy-nodejs/Utils';
 //let { Utils } = await import ('isy-nodejs');
 // function plainLogFormatter(now: Date, level: Level, facility: string, prefix: string, values: any[]) {
@@ -34,7 +35,7 @@ import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.
 export async function createServerNode(isy = ISY.instance) {
     var logger = isy.logger;
     try {
-        MatterLogger.addLogger("polyLogger", (level, message) => logger.log(Level[level].toLowerCase().replace('notice', 'info'), message.slice(23).remove(Level[level]).trimStart()), /*Preserve existing formatting, but trim off date*/ {
+        MatterLogger.addLogger('polyLogger', (level, message) => logger.log(Level[level].toLowerCase().replace('notice', 'info'), message.slice(23).remove(Level[level]).trimStart()) /*Preserve existing formatting, but trim off date*/, {
             defaultLogLevel: levelFromString(logger.level),
             logFormat: 'plain'
         });
@@ -60,13 +61,13 @@ export async function createServerNode(isy = ISY.instance) {
         // Optional for development/testing purposes
         commissioning: {
             passcode: config.passcode,
-            discriminator: config.discriminator,
+            discriminator: config.discriminator
         },
         // Provide Node announcement settings
         // Optional: If Ommitted some development defaults are used
         productDescription: {
             name: isy.model,
-            deviceType: AggregatorEndpoint.deviceType,
+            deviceType: AggregatorEndpoint.deviceType
         },
         // Provide defaults for the BasicInformation cluster on the Root endpoint
         // Optional: If Omitted some development defaults are used
@@ -79,7 +80,7 @@ export async function createServerNode(isy = ISY.instance) {
             productId: config.productId,
             serialNumber: isy.id,
             uniqueId: config.uniqueId
-        },
+        }
     });
     logger.info(`Bridge Server Added`);
     /**
@@ -91,7 +92,7 @@ export async function createServerNode(isy = ISY.instance) {
      * In this case we directly use the default command implementation from matter.js. Check out the DeviceNodeFull example
      * to see how to customize the command handlers.
      */
-    const aggregator = new Endpoint(AggregatorEndpoint, { id: "aggregator" });
+    const aggregator = new Endpoint(AggregatorEndpoint, { id: 'aggregator' });
     await server.add(aggregator);
     logger.info(`Bridge Aggregator Added`);
     const endpoints = [];
@@ -99,6 +100,7 @@ export async function createServerNode(isy = ISY.instance) {
         let serialNumber = `${device.address.replaceAll(' ', '_').replaceAll('.', '_')}`;
         if (device.enabled && !(device instanceof InsteonKeypadButtonDevice)) {
             //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
+            //@ts-expect-error
             let baseBehavior;
             if (device instanceof InsteonDimmableDevice) {
                 baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior);
@@ -118,7 +120,7 @@ export async function createServerNode(isy = ISY.instance) {
                 const endpoint = new Endpoint(baseBehavior, {
                     id: serialNumber,
                     isyNode: {
-                        address: device.address,
+                        address: device.address
                     },
                     bridgedDeviceBasicInformation: {
                         nodeLabel: device.label.rightWithToken(32),
@@ -196,22 +198,22 @@ async function getConfiguration(isy) {
      */
     const environment = NodeJsEnvironment();
     const storageService = environment.get(StorageService);
-    environment.vars.set("storage.path", ISY.instance.storagePath + "/matter");
+    environment.vars.set('storage.path', ISY.instance.storagePath + '/matter');
     environment.vars.use(() => {
-        const location = environment.vars.get("storage.path", environment.vars.get("path.root", "."));
+        const location = environment.vars.get('storage.path', environment.vars.get('path.root', '.'));
         storageService.location = location;
     });
-    storageService.factory = namespace => new StorageBackendDisk(resolve(storageService.location ?? ".", namespace), environment.vars.get("storage.clear", false));
+    storageService.factory = (namespace) => new StorageBackendDisk(resolve(storageService.location ?? '.', namespace), environment.vars.get('storage.clear', false));
     logger.info(`Matter storage location: ${storageService.location} (Directory)`);
-    const deviceStorage = (await storageService.open("device")).createContext("data");
+    const deviceStorage = (await storageService.open('device')).createContext('data');
     const vendorName = isy.vendorName;
-    const passcode = environment.vars.number("passcode") ?? (await deviceStorage.get("passcode", 20202021));
-    const discriminator = environment.vars.number("discriminator") ?? (await deviceStorage.get("discriminator", 3840));
+    const passcode = environment.vars.number('passcode') ?? (await deviceStorage.get('passcode', 20202021));
+    const discriminator = environment.vars.number('discriminator') ?? (await deviceStorage.get('discriminator', 3840));
     // product name / id and vendor id should match what is in the device certificate
-    const vendorId = environment.vars.number("vendorid") ?? (await deviceStorage.get("vendorid", 0xfff1));
-    const productId = environment.vars.number("productid") ?? (await deviceStorage.get("productid", 0x8000));
+    const vendorId = environment.vars.number('vendorid') ?? (await deviceStorage.get('vendorid', 0xfff1));
+    const productId = environment.vars.number('productid') ?? (await deviceStorage.get('productid', 0x8000));
     const productName = isy.productName;
-    const port = environment.vars.number("port") ?? 5540;
+    const port = environment.vars.number('port') ?? 5540;
     const uniqueId = isy.id;
     //environment.vars.string("uniqueid") ?? (await deviceStorage.get("uniqueid", Time.nowMs().toString()));
     // Persist basic data to keep them also on restart
@@ -220,7 +222,7 @@ async function getConfiguration(isy) {
         discriminator,
         vendorid: vendorId,
         productid: productId,
-        uniqueid: uniqueId,
+        uniqueid: uniqueId
     });
     return {
         //deviceName,
@@ -231,7 +233,8 @@ async function getConfiguration(isy) {
         productName,
         productId,
         port,
-        uniqueId,
+        uniqueId
     };
 }
+// #endregion Functions (2)
 //# sourceMappingURL=Server.js.map

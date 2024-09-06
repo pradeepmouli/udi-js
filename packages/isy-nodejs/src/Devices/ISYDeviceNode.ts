@@ -8,13 +8,15 @@ import type { DriverState } from '../Model/DriverState.js';
 import type { NodeInfo } from '../Model/NodeInfo.js';
 import type { Category } from '../Definitions/Global/Categories.js';
 import type { Command } from '../Definitions/Global/Commands.js';
+import type { Event } from '../Definitions/Global/Events.js';
+import type { StringKeys } from '../Utils.js';
 
 
 export class ISYDeviceNode<
   T extends Family,
   D extends ISYNode.DriverSignatures,
   C extends ISYNode.CommandSignatures,
-  E extends string = string
+  E extends ISYNode.EventSignatures = {[x in keyof D]: Event.DriverToEvent<D[x]> & {driver: x}} & {[x in keyof C]: Event.CommandToEvent<C[x]> & {command: x}}
 >
   extends ISYNode<T, D, C, E>
    {
@@ -24,6 +26,12 @@ export class ISYDeviceNode<
   public readonly deviceClass: any;
   public readonly category: Category;
   public readonly subCategory: number;
+
+
+  declare
+
+  //public readonly isDimmable: boolean;
+
   //public _parentDevice: ISYDeviceNode<T, any, any, any>;
   //public readonly children: Array<ISYDeviceNode<T, any, any, any>> = [];
 

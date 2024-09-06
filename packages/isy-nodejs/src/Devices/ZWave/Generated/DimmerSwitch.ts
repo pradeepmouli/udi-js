@@ -40,7 +40,7 @@ export class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerS
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: number | number, rampRate?: ) {
+	async on(value?: number | number, rampRate?: number | number) {
 		return this.sendCommand("DON", { value: value, RR: rampRate });
 	}
 	async off() {
@@ -58,14 +58,14 @@ export class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerS
 	async dim() {
 		return this.sendCommand("DIM");
 	}
-	async fadeUp(startLevel?: , rampRate?: ) {
+	async fadeUp(startLevel?: number | number, rampRate?: number | number) {
 		return this.sendCommand("FDUP", { STARTLEVEL: startLevel, RR: rampRate });
 	}
-	async fadeDown(startLevel?: , rampRate?: ) {
+	async fadeDown(startLevel?: number | number, rampRate?: number | number) {
 		return this.sendCommand("FDDOWN", { STARTLEVEL: startLevel, RR: rampRate });
 	}
-	async fade(direction: , startLevel?: , rampRate?: , 2ndDirection?: , 2ndFadeRate?: ) {
-		return this.sendCommand("FADE", { DIR: direction, STARTLEVEL: startLevel, RR: rampRate, DIR2: 2ndDirection, STEP2: 2ndFadeRate });
+	async fade(direction: ZWave.FadeDirection, startLevel?: number | number, rampRate?: number, Direction2?: ZWave.FadeDirection,FadeRate2?: number | number) {
+		return this.sendCommand("FADE", { DIR: direction, STARTLEVEL: startLevel, RR: rampRate, DIR2: Direction2, STEP2: FadeRate2 });
 	}
 	async fadeStop() {
 		return this.sendCommand("FDSTOP");
@@ -73,7 +73,7 @@ export class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerS
 	async query() {
 		return this.sendCommand("QUERY");
 	}
-	async setConfiguration(parameterNumber: number, parameterValue: ) {
+	async setConfiguration(parameterNumber: number, parameterValue: number | number | number | number | number | number) {
 		return this.sendCommand("CONFIG", { NUM: parameterNumber, VAL: parameterValue });
 	}
 	async writeChanges() {
@@ -101,7 +101,7 @@ export namespace DimmerSwitch {
 	}
 	export const Node = DimmerSwitchNode;
 	export type Commands = {
-		DON: ((value?: number | number, RR?: ) => Promise<boolean>) & {
+		DON: ((value?: number | number, RR?: number | number) => Promise<boolean>) & {
 			label: "On";
 			name: "on";
 		};
@@ -125,15 +125,15 @@ export namespace DimmerSwitch {
 			label: "Dim";
 			name: "dim";
 		};
-		FDUP: ((STARTLEVEL?: , RR?: ) => Promise<boolean>) & {
+		FDUP: ((STARTLEVEL?: number | number, RR?: number | number) => Promise<boolean>) & {
 			label: "Fade Up";
 			name: "fadeUp";
 		};
-		FDDOWN: ((STARTLEVEL?: , RR?: ) => Promise<boolean>) & {
+		FDDOWN: ((STARTLEVEL?: number | number, RR?: number | number) => Promise<boolean>) & {
 			label: "Fade Down";
 			name: "fadeDown";
 		};
-		FADE: ((DIR: , STARTLEVEL?: , RR?: , DIR2?: , STEP2?: ) => Promise<boolean>) & {
+		FADE: ((DIR: ZWave.FadeDirection, STARTLEVEL?: number | number, RR?: number | number, DIR2?: ZWave.FadeDirection, STEP2?: number | number) => Promise<boolean>) & {
 			label: "Fade";
 			name: "fade";
 		};
@@ -145,7 +145,7 @@ export namespace DimmerSwitch {
 			label: "Query";
 			name: "query";
 		};
-		CONFIG: ((NUM: number, VAL: ) => Promise<boolean>) & {
+		CONFIG: ((NUM: number, VAL: number | number | number | number | number | number) => Promise<boolean>) & {
 			label: "Set Configuration";
 			name: "setConfiguration";
 		};

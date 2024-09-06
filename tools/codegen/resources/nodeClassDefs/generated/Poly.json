@@ -172,7 +172,14 @@
           "FAN_SPEED": {
             "id": "FAN_SPEED",
             "editorId": "CFN_SPEED",
-            "dataType": {},
+            "dataType": {
+              "56": {
+                "uom": 56,
+                "enum": false,
+                "min": 1,
+                "max": 10
+              }
+            },
             "name": "fanSpeed",
             "optional": false,
             "initialValue": "GV1"

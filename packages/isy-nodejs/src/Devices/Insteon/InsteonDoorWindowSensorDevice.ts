@@ -13,6 +13,6 @@ export class InsteonDoorWindowSensorDevice extends InsteonBaseDevice {
 
 	}
 	get isOpen() {
-		return this.drivers.ST.value === '0';
+		return this.drivers.ST.value === 0;
 	}
 }

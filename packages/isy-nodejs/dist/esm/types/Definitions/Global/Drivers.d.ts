@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from './UOM.js';
 import type { ISYNode } from '../../ISYNode.js';
+import { UnitOfMeasure } from './UOM.js';
 import type { UnionToIntersection } from '@project-chip/matter.js/util';
 import type { DriverState } from '../../Model/DriverState.js';
+import type { Converter, StringKeys } from '../../Utils.js';
 import type { Family } from './Families.js';
-import type { Converter } from '../../Utils.js';
 export declare enum DriverType {
     AccelerationXAxis = "ACCX",
     AccelerationYAxis = "ACCY",
@@ -162,7 +162,7 @@ export declare enum DriverType {
     OutsideTemperature = "TEMPOUT"
 }
 export type EnumLiteral<T> = T extends string ? `${T}` : T extends boolean ? T extends true ? true : false : T;
-export type DriverList<D> = (D extends DriverType ? {
+export type DriverList<D> = D extends DriverType ? {
     [K in D]?: Driver<K, any, any>;
 } & {
     add(driver: Driver<D, any, any>): void;
@@ -170,16 +170,18 @@ export type DriverList<D> = (D extends DriverType ? {
     [K in R]?: Driver<R, any, any>;
 } & {
     add(driver: Driver<R, any, any>): void;
-} : {});
+} : {};
 export declare class Drivers<D extends DriverType> {
-    [x: string]: any;
     DriverHandler: ProxyHandler<Drivers<D>>;
     constructor();
     add<K extends D>(driver: Driver<K, any, any>): void;
 }
-export interface Driver<D extends DriverType | EnumLiteral<DriverType> | `${string}.${EnumLiteral<DriverType>}`, U extends UnitOfMeasure, T = number, SU extends UnitOfMeasure = U, ST = number> {
+export interface Driver<D extends DriverType | EnumLiteral<DriverType> | `${string}.${EnumLiteral<DriverType>}` | string, U extends UnitOfMeasure, T = number, SU extends UnitOfMeasure = U, ST = number, N = string, L = string> {
+    readonly value: T;
     id: D;
-    uom: U;
+    label: L;
+    name: N;
+    query: () => Promise<DriverState>;
     serverUom?: SU;
     state: {
         initial: boolean;
@@ -187,69 +189,57 @@ export interface Driver<D extends DriverType | EnumLiteral<DriverType> | `${stri
         formattedValue?: any;
         pendingValue: T;
     };
-    readonly value: T;
+    uom: U;
     apply(state: DriverState, notify?: boolean): boolean;
     patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number): boolean;
-    query: () => Promise<DriverState>;
-    name: string;
-    label: string;
 }
-export interface StatelessDriver<D extends DriverType | EnumLiteral<DriverType> | `${string}.${EnumLiteral<DriverType>}`, U extends UnitOfMeasure, T = number> {
+export interface StatelessDriver<D extends DriverType | EnumLiteral<DriverType> | `${string}.${EnumLiteral<DriverType>}` | string, U extends UnitOfMeasure, T = number, SU extends UnitOfMeasure = U, N = string, L = string> {
+    readonly value: Promise<T>;
     id: D;
-    stateless: true;
-    uom: U;
+    label: L;
+    name: N;
+    query: () => Promise<DriverState>;
+    serverUom?: SU;
     state: {
         initial: boolean;
         value: T;
         formattedValue?: any;
         pendingValue: T;
     };
-    readonly value: Promise<T>;
-    query: () => Promise<DriverState>;
-    name: string;
-    label: string;
+    stateless: true;
+    uom: U;
 }
 export declare function isStateless(x: any): x is StatelessDriver<any, any, any>;
 export declare function isTrue(x: true | false): x is true;
 export type DriverTypeLiteral = EnumLiteral<DriverType>;
 export type EnumWithLiteral<D extends string | bigint | number | boolean> = D | EnumLiteral<D>;
 export declare namespace Driver {
-    export type Signature<U = UnitOfMeasure, V = any, N = string, L = N> = {
+    export type Signature<U extends UnitOfMeasure = UnitOfMeasure, V = any, SU = U, N = string, L = N> = {
         uom: U;
         value: V;
         name: N;
         label: L;
+        serverUom?: SU;
     };
-    export type Signatures<D> = UnionToIntersection<D extends LiteralWithExtensions ? {
-        [K in D]: Signature;
+    export type Signatures<D> = UnionToIntersection<D extends string ? {
+        [K in D]: Signature<UnitOfMeasure, any, UnitOfMeasure, string, string>;
     } : D extends {
         [K in keyof D]: Signature;
     } ? D : never>;
-    export type For<D extends LiteralWithExtensions, T, S extends boolean = false> = T extends {
-        uom: infer U extends UnitOfMeasure;
-        value: infer V;
-        name: infer N;
-        label: infer L;
-    } ? (StatelessOrStateful<D, U, V, S> & {
-        name: N;
-        label: L;
-    }) : never;
+    export type For<D extends string, T, S extends boolean = false> = T extends Signature<infer U, infer V, infer SU, infer N, infer L> ? StatelessOrStateful<D, U, V, N, L, S> : never;
     export type ForAll<T, S extends boolean = false> = {
-        [K in keyof T]: T[K] extends Signature | undefined ? K extends LiteralWithExtensions ? For<K, T[K], S> : never : never;
+        [K in StringKeys<T>]: T[K] extends Signature<UnitOfMeasure, any, UnitOfMeasure, string, string> ? For<K, T[K], S> : never;
     };
     export type Type = DriverType;
     export type Literal = EnumLiteral<DriverType>;
     export type LiteralWithExtensions = Literal | `${string}.${Literal}`;
     export type LiteralWithType = EnumWithLiteral<DriverType>;
-    type StatelessOrStateful<D extends LiteralWithExtensions, U extends UnitOfMeasure, T = number, S extends boolean = false> = S extends true ? StatelessDriver<D, U, T> : Driver<D, U, T>;
-    export function create<D extends Literal, U extends UnitOfMeasure, T = number, S extends boolean = false, L extends string = string, N extends string = string>(driver: EnumWithLiteral<D>, node?: ISYNode<Family, any, any, any>, initState?: DriverState, driverSignature?: {
+    type StatelessOrStateful<D extends string, U extends UnitOfMeasure, T = number, N = string, L = string, S extends boolean = false> = S extends true ? StatelessDriver<D, U, T, U, N, L> : Driver<D, U, T, U, N, L>;
+    export function create<D extends Literal, U extends UnitOfMeasure, T = number, L extends string = string, N extends string = string, S extends boolean = false>(driver: EnumWithLiteral<D>, node?: ISYNode<Family, any, any, any>, initState?: DriverState, driverSignature?: {
         uom: U;
         label: L;
         name: N;
-    }, stateless?: S, converter?: Converter<any, T>): StatelessOrStateful<D, U, T, S> & {
-        label: L;
-        name: N;
-    };
+    }, stateless?: S, converter?: Converter<any, T>): StatelessOrStateful<D, U, T, N, L, S>;
     export {};
 }
 //# sourceMappingURL=Drivers.d.ts.map

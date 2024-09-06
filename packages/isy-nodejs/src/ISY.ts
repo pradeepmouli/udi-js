@@ -44,6 +44,7 @@ import * as Utils from "./Utils.js";
 import { X2jOptions, XMLParser } from "fast-xml-parser";
 import { NodeFactory } from './Devices/NodeFactory.js';
 
+
 export {
   Category as Categories,
   ELKAlarmPanelDevice,
@@ -554,8 +555,8 @@ export class ISY extends EventEmitter implements Disposable {
     return this.sendRequest(path);
   }
 
-  public async sendNodeCommand<P extends string | symbol>(
-    node: ISYNode<any,any,any,any>,
+  public async sendNodeCommand<P extends string | symbol, N extends ISYNode<any,any,any,any>>(
+    node: N,
     command: string,
     parameters?: Record<P, string | number> | string | number
   ): Promise<any> {

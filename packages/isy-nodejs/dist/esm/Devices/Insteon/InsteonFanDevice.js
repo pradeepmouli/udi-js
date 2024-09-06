@@ -7,7 +7,7 @@ export class InsteonFanMotorDevice extends InsteonBaseDevice {
         this.hidden = true;
     }
     get isOn() {
-        return this.drivers.ST.value !== '0';
+        return this.drivers.ST.value !== 0;
     }
     get fanSpeed() {
         return this.drivers.ST.value;
@@ -30,7 +30,7 @@ export class InsteonFanDevice extends InsteonBaseDevice {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
         this.light = new InsteonDimmableDevice(isy, deviceNode);
-        this.light.on('PropertyChanged', ((a, b, c, d) => { this.emit('PropertyChanged', `light.${a}`, b, c, d); }).bind(this));
+        this.light.events.on('PropertyChanged', ((a, b, c, d) => { this.emit('PropertyChanged', `light.${a}`, b, c, d); }).bind(this));
         this.addChild(this.light);
     }
     handleEvent(event) {
@@ -46,7 +46,7 @@ export class InsteonFanDevice extends InsteonBaseDevice {
         if (childDevice instanceof InsteonFanMotorDevice) {
             this.logger('Fan Motor Found');
             this.motor = childDevice;
-            this.motor.on('PropertyChanged', ((a, b, c, d) => { this.emit('PropertyChanged', `motor.${a}`, b, c, d); }).bind(this));
+            this.motor.events.on('statusChanged', ((a, b, c, d) => { this.emit('PropertyChanged', `motor.${a}`, b, c, d); }).bind(this));
         }
     }
     async updateFanSpeed(level) {

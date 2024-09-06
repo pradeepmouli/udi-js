@@ -6,7 +6,7 @@ import type { NodeInfo } from '../../Model/NodeInfo.js';
 export declare class InsteonFanMotorDevice extends InsteonBaseDevice {
     constructor(isy: ISY, deviceNode: NodeInfo);
     get isOn(): boolean;
-    get fanSpeed(): any;
+    get fanSpeed(): number;
     updateFanSpeed(level: number): Promise<number>;
     updateIsOn(isOn: boolean): Promise<void>;
 }

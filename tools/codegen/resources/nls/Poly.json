@@ -123,6 +123,34 @@
       {
         "comment": "",
         "type": "IX",
+        "value": "Not Tracked",
+        "indexType": "IX_NS_STATUS",
+        "indexValue": 0
+      },
+      {
+        "comment": "",
+        "type": "IX",
+        "value": "Disconnected",
+        "indexType": "IX_NS_STATUS",
+        "indexValue": 0
+      },
+      {
+        "comment": "",
+        "type": "IX",
+        "value": "Connected",
+        "indexType": "IX_NS_STATUS",
+        "indexValue": 1
+      },
+      {
+        "comment": "",
+        "type": "IX",
+        "value": "Failed",
+        "indexType": "IX_NS_STATUS",
+        "indexValue": 2
+      },
+      {
+        "comment": "",
+        "type": "IX",
         "value": "Off",
         "indexType": "IX_CFN_ST",
         "indexValue": 0
@@ -194,6 +222,13 @@
         "nlsId": "BRD",
         "value": "Connected",
         "control": "ST",
+        "property": "NAME"
+      },
+      {
+        "type": "ST",
+        "nlsId": "BRD",
+        "value": "Plugin Status",
+        "control": "GPV",
         "property": "NAME"
       }
     ],

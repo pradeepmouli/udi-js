@@ -34,13 +34,13 @@ export class ColorSwitchNode extends Base<Drivers, Commands> implements ColorSwi
 		this.drivers.GV3 = Driver.create("GV3", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Green", name: "green" });
 		this.drivers.GV4 = Driver.create("GV4", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Blue", name: "blue" });
 	}
-	async set(warmWhite?: number, red?: number, green?: number, blue?: number, duration?: ) {
+	async set(warmWhite?: number, red?: number, green?: number, blue?: number, duration?: number | number) {
 		return this.sendCommand("DON", { GV0: warmWhite, GV2: red, GV3: green, GV4: blue, RR: duration });
 	}
-	async fadeUp(component: number, startLevel?: number, duration?: ) {
+	async fadeUp(component: number, startLevel?: number, duration?: number | number) {
 		return this.sendCommand("FDUP", { ID: component, STARTLEVEL: startLevel, RR: duration });
 	}
-	async fadeDown(component: number, startLevel?: number, duration?: ) {
+	async fadeDown(component: number, startLevel?: number, duration?: number | number) {
 		return this.sendCommand("FDDOWN", { ID: component, STARTLEVEL: startLevel, RR: duration });
 	}
 	async fadeStop(component: number) {
@@ -77,15 +77,15 @@ export namespace ColorSwitch {
 	}
 	export const Node = ColorSwitchNode;
 	export type Commands = {
-		DON: ((GV0?: number, GV2?: number, GV3?: number, GV4?: number, RR?: ) => Promise<boolean>) & {
+		DON: ((GV0?: number, GV2?: number, GV3?: number, GV4?: number, RR?: number | number) => Promise<boolean>) & {
 			label: "Set";
 			name: "set";
 		};
-		FDUP: ((ID: number, STARTLEVEL?: number, RR?: ) => Promise<boolean>) & {
+		FDUP: ((ID: number, STARTLEVEL?: number, RR?: number | number) => Promise<boolean>) & {
 			label: "Fade Up";
 			name: "fadeUp";
 		};
-		FDDOWN: ((ID: number, STARTLEVEL?: number, RR?: ) => Promise<boolean>) & {
+		FDDOWN: ((ID: number, STARTLEVEL?: number, RR?: number | number) => Promise<boolean>) & {
 			label: "Fade Down";
 			name: "fadeDown";
 		};

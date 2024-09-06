@@ -1,10 +1,18 @@
 import winston, { format } from 'winston';
-import { Category } from './Definitions/Global/Categories.js';
 import { EventEmitter as BaseEventEmitter } from 'events';
+import { Category } from './Definitions/Global/Categories.js';
+export function getEnumValueByEnumKey(enumType, enumKey) {
+    return enumType[enumKey];
+}
+export function getEnumKeyByEnumValue(enumType, enumValue) {
+    return Object.keys(enumType).find((key) => enumType[key] === enumValue);
+}
+//onst D: d = 'ST';
+//type DriverLabel = Values<IdentityOf<DriverType>>;
 export function invert(converter) {
     return {
         from: converter.to,
-        to: converter.from,
+        to: converter.from
     };
 }
 export function toArray(value) {
@@ -78,6 +86,7 @@ export function clone(logger, label) {
     //return copy;
 }
 export class EventEmitter extends BaseEventEmitter {
+    // #region Public Methods (1)
     on(event, listener) {
         return super.on(event, listener);
     }

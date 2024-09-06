@@ -29,6 +29,7 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         readonly deviceClass: any;
         readonly category: import("../ISY.js").Categories;
         readonly subCategory: number;
+        declare: any;
         _enabled: any;
         productName: string;
         model: string;
@@ -37,7 +38,7 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         _parentDevice: import("../ISYDevice.js").ISYDevice<any, any, any, any>;
         children: import("../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#330883@#parentNode": import("../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#72@#parentNode": import("../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -47,7 +48,9 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         commands: import("../Definitions/index.js").Command.ForAll<any>;
         drivers: import("../Definitions/index.js").Driver.ForAll<any, false>;
         enabled: boolean;
-        events: string;
+        events: {
+            on(eventName: `${any}Changed` & `${any}Triggered`, listener: (driver: string, newValue: any, oldValue: any, formatted: string, uom: any) => void): import("../Definitions/Global/Events.js").Event.NodeEventEmitter<any>;
+        } & Omit<import("../Definitions/Global/Events.js").Event.NodeEventEmitter<any>, "on">;
         folder: string;
         hidden: boolean;
         isDimmable: boolean;
@@ -69,12 +72,12 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         addLink(isyScene: import("../ISYScene.js").ISYScene): void;
         applyStatus(prop: import("../Model/DriverState.js").DriverState): void;
         convert(value: any, from: import("../Definitions/index.js").UnitOfMeasure, to: import("../Definitions/index.js").UnitOfMeasure): any;
-        convertFrom(value: any, uom: import("../Definitions/index.js").UnitOfMeasure, propertyName?: string | number | symbol): any;
-        convertTo(value: any, uom: import("../Definitions/index.js").UnitOfMeasure, propertyName?: string | number | symbol): any;
-        emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): boolean;
+        convertFrom(value: any, uom: import("../Definitions/index.js").UnitOfMeasure, propertyName?: string): any;
+        convertTo(value: any, uom: import("../Definitions/index.js").UnitOfMeasure, propertyName?: string): any;
+        emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
         generateLabel(template: string): string;
         getNotes(): Promise<import("../ISYNode.js").NodeNotes>;
-        handleControlTrigger(controlName: string): boolean;
+        handleControlTrigger(controlName: string | number | symbol): boolean;
         handleEvent(event: {
             control?: any;
             data?: any;
@@ -83,8 +86,6 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
             fmtAct?: any;
         }): boolean;
         handlePropertyChange(propertyName: string, value: any, uom: import("../Definitions/index.js").UnitOfMeasure, formattedValue: string, prec?: number): boolean;
-        on(event: "PropertyChanged", listener: (propertyName: string | number | symbol, newValue: any, oldValue: any, formattedValue: string) => any): any;
-        on(event: "ControlTriggered", listener: (controlName: string | number | symbol) => any): any;
         parseResult(node: {
             property: import("../Model/DriverState.js").DriverState | import("../Model/DriverState.js").DriverState[];
         }): void;
@@ -94,20 +95,6 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         refreshNotes(): Promise<void>;
         sendCommand(command: string, parameters?: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
-        [EventEmitter.captureRejectionSymbol]?(error: Error, event: string, ...args: any[]): void;
-        addListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        once(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        removeListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        off(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        removeAllListeners(event?: string | symbol): any;
-        setMaxListeners(n: number): any;
-        getMaxListeners(): number;
-        listeners(eventName: string | symbol): Function[];
-        rawListeners(eventName: string | symbol): Function[];
-        listenerCount(eventName: string | symbol, listener?: Function): number;
-        prependListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        prependOnceListener(eventName: string | symbol, listener: (...args: any[]) => void): any;
-        eventNames(): Array<string | symbol>;
     };
 } & T;
 export declare class BridgedISYNodeInformationServer extends BridgedDeviceBasicInformationServer {

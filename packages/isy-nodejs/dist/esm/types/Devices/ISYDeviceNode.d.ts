@@ -3,12 +3,22 @@ import type { ISYDevice } from '../ISYDevice.js';
 import { ISYNode } from '../ISYNode.js';
 import type { NodeInfo } from '../Model/NodeInfo.js';
 import type { Category } from '../Definitions/Global/Categories.js';
-export declare class ISYDeviceNode<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends string = string> extends ISYNode<T, D, C, E> {
+import type { Event } from '../Definitions/Global/Events.js';
+export declare class ISYDeviceNode<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures = {
+    [x in keyof D]: Event.DriverToEvent<D[x]> & {
+        driver: x;
+    };
+} & {
+    [x in keyof C]: Event.CommandToEvent<C[x]> & {
+        command: x;
+    };
+}> extends ISYNode<T, D, C, E> {
     family: T;
     readonly typeCode: string;
     readonly deviceClass: any;
     readonly category: Category;
     readonly subCategory: number;
+    declare: any;
     _enabled: any;
     productName: string;
     model: string;

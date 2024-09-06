@@ -10,6 +10,17 @@
     },
     "usages": {}
   },
+  "IX_NS_STATUS": {
+    "family": 10,
+    "id": "IX_NS_STATUS",
+    "name": "NsStatus",
+    "values": {
+      "Disconnected": 0,
+      "Connected": 1,
+      "Failed": 2
+    },
+    "usages": {}
+  },
   "IX_CFN_ST": {
     "family": 10,
     "id": "IX_CFN_ST",

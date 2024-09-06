@@ -34,7 +34,7 @@ export class AlertModuleSirenNode extends Base<Drivers, Commands> implements Ale
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(onLevel?: ) {
+	async on(onLevel?: number) {
 		return this.sendCommand("DON", { OL: onLevel });
 	}
 	async off() {
@@ -77,7 +77,7 @@ export namespace AlertModuleSiren {
 	}
 	export const Node = AlertModuleSirenNode;
 	export type Commands = {
-		DON: ((OL?: ) => Promise<boolean>) & {
+		DON: ((OL?: number) => Promise<boolean>) & {
 			label: "On";
 			name: "on";
 		};

@@ -5,7 +5,7 @@ export class InsteonDoorWindowSensorDevice extends InsteonBaseDevice {
         super(isy, deviceNode);
     }
     get isOpen() {
-        return this.drivers.ST.value === '0';
+        return this.drivers.ST.value === 0;
     }
 }
 //# sourceMappingURL=InsteonDoorWindowSensorDevice.js.map

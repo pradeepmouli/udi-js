@@ -5,9 +5,15 @@ import { NodeInfo } from '../../Model/NodeInfo.js';
 import { ISYDeviceNode } from '../ISYDeviceNode.js';
 import { ISYNode } from '../../ISYNode.js';
 import 'winston';
-import type { Driver } from '../../Definitions/Global/Drivers.js';
 import type { Merge } from '@project-chip/matter.js/util';
-export declare class InsteonBaseDevice<D extends ISYNode.DriverSignatures = {}, C extends ISYNode.CommandSignatures = {}> extends ISYDeviceNode<Family.Insteon, Merge<Driver.Signatures<"ST">, D>, C> {
+export declare class InsteonBaseDevice<D extends ISYNode.DriverSignatures = {}, C extends ISYNode.CommandSignatures = {}> extends ISYDeviceNode<Family.Insteon, Merge<{
+    "ST": {
+        name: "status";
+        label: "Status";
+        value: number;
+        uom: UnitOfMeasure;
+    };
+}, D>, C> {
     constructor(isy: ISY, deviceNode: NodeInfo);
     convertFrom(value: any, uom: UnitOfMeasure, driver?: keyof D): any;
     convertTo(value: any, uom: UnitOfMeasure, propertyName?: keyof D): any;

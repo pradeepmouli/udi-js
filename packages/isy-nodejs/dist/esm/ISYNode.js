@@ -1,8 +1,9 @@
-import { EventEmitter } from 'events';
-import { NodeType } from './ISY.js';
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
+import { NodeType } from './ISY.js';
+//import type { DriversOf } from './Model/ClusterMap.js';
+import { Event } from './Definitions/Global/Events.js';
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
-export class ISYNode extends EventEmitter {
+export class ISYNode {
     // #region Properties (32)
     static #displayNameFunction;
     #parentNode;
@@ -12,7 +13,7 @@ export class ISYNode extends EventEmitter {
     isy;
     nodeDefId;
     static family;
-    static nodeDefId = "Unknown";
+    static nodeDefId = 'Unknown';
     baseName;
     commands;
     //public readonly formatted: DriverValues<keyof D,string> = {};
@@ -21,9 +22,16 @@ export class ISYNode extends EventEmitter {
     //public readonly local: DriverValues<keyof D> = {};
     drivers = {};
     enabled;
+    //TODO: add signature for non-command/non-driver events
     events;
+    //Event.FunctionSigFor<Event.ForAll<E,typeof this>> & Omit<EventEmitter,'on'>
+    /*{
+        [x in E]: x extends keyof D ? {name:`${D[x]["name"]}Changed`, driver: x, value: D[x]["value"], formatted: string, uom: UnitOfMeasure}
+        : x extends keyof C ? {name: `${C[x]['name']}Triggered`, command: x}
+        : {name: E};
+    };*/
     family;
-    folder = "";
+    folder = '';
     hidden;
     isDimmable;
     isLoad;
@@ -44,7 +52,6 @@ export class ISYNode extends EventEmitter {
     // #endregion Properties (32)
     // #region Constructors (1)
     constructor(isy, node) {
-        super();
         this.isy = isy;
         this.nodeType = 0;
         this.flag = node.flag;
@@ -56,19 +63,19 @@ export class ISYNode extends EventEmitter {
         this.parentType = Number(this.parent?.type);
         this.enabled = node.enabled ?? true;
         this.propsInitialized = false;
-        const s = this.name.split(".");
+        const s = this.name.split('.');
         //if (s.length > 1)
         //s.shift();
         this.baseLabel = s
-            .join(" ")
-            .replace(/([A-Z])/g, " $1")
-            .replace("  ", " ")
-            .replace("  ", " ")
+            .join(' ')
+            .replace(/([A-Z])/g, ' $1')
+            .replace('  ', ' ')
+            .replace('  ', ' ')
             .trim();
         if (this.parentType === NodeType.Folder) {
             this.folder = isy.folderMap.get(this.parent._);
             isy.logger.info(`${this.name} this node is in folder ${this.folder}`);
-            this.logger = (msg, level = "debug", ...meta) => {
+            this.logger = (msg, level = 'debug', ...meta) => {
                 isy.logger[level](`${this.folder} ${this.name} (${this.address}): ${msg}`, meta);
                 return isy.logger;
             };
@@ -76,11 +83,12 @@ export class ISYNode extends EventEmitter {
         }
         else {
             this.label = this.baseLabel;
-            this.logger = (msg, level = "debug", ...meta) => {
+            this.logger = (msg, level = 'debug', ...meta) => {
                 isy.logger[level](`${this.name} (${this.address}): ${msg}`, meta);
                 return isy.logger;
             };
         }
+        this.events = Event.createEmitter(this);
         //this.logger(this.nodeDefId);
         this.lastChanged = new Date();
     }
@@ -99,7 +107,7 @@ export class ISYNode extends EventEmitter {
         return this.#parentNode;
     }
     // #endregion Public Getters And Setters (1)
-    // #region Public Methods (21)
+    // #region Public Methods (18)
     addLink(isyScene) {
         this.scenes.push(isyScene);
     }
@@ -117,7 +125,7 @@ export class ISYNode extends EventEmitter {
         return value;
     }
     convertFrom(value, uom, propertyName) {
-        throw new Error("Method not implemented.");
+        throw new Error('Method not implemented.');
     }
     convertTo(value, uom, propertyName) {
         if (this.drivers[propertyName].uom != uom) {
@@ -126,10 +134,8 @@ export class ISYNode extends EventEmitter {
         }
     }
     emit(event, propertyName, newValue, oldValue, formattedValue, controlName) {
-        if ("PropertyChanged")
-            return super.emit(event, propertyName, newValue, oldValue, formattedValue);
-        else if ("ControlTriggered")
-            return super.emit(event, controlName);
+        //if ('PropertyChanged') return super.emit(event, propertyName, newValue, oldValue, formattedValue);
+        //else if ('ControlTriggered') return super.emit(event, controlName);
     }
     generateLabel(template) {
         // tslint:disable-next-line: only-arrow-functions
@@ -140,12 +146,12 @@ export class ISYNode extends EventEmitter {
             let newttemp = template.replace(regex, "this.$<op1> === null || this.$<op1> === undefined || this.$<op1> === '' ? this.$<op2> : this.$<op1>");
             this.logger(`Template format updated to: ${newttemp}`);
             const s = {
-                location: this.location ?? "",
-                folder: this.folder ?? "",
+                location: this.location ?? '',
+                folder: this.folder ?? '',
                 spokenName: this.spokenName ?? this.name,
-                name: this.name ?? "",
+                name: this.name ?? ''
             };
-            newttemp = newttemp.replace("this.name", "this.baseLabel");
+            newttemp = newttemp.replace('this.name', 'this.baseLabel');
             ISYNode.#displayNameFunction = new Function(`return \`${newttemp}\`.trim();`);
         }
         return ISYNode.#displayNameFunction.call(this);
@@ -166,7 +172,7 @@ export class ISYNode extends EventEmitter {
     }
     handleControlTrigger(controlName) {
         //this.lastChanged = new Date();
-        this.emit("ControlTriggered", controlName);
+        this.events.emit('ControlTriggered', controlName);
         return true;
     }
     handleEvent(event) {
@@ -179,11 +185,11 @@ export class ISYNode extends EventEmitter {
         }
         if (event.control in this.drivers) {
             // property not command
-            const formatted = "fmtAct" in event ? event.fmtAct : actionValue;
+            const formatted = 'fmtAct' in event ? event.fmtAct : actionValue;
             return this.handlePropertyChange(event.control, actionValue, event.action.uom, event.action.prec, formatted);
         }
-        else if (event.control === "_3") {
-            this.logger(`Received Node Change Event: ${JSON.stringify(event)}. These are currently unsupported.`, "debug");
+        else if (event.control === '_3') {
+            this.logger(`Received Node Change Event: ${JSON.stringify(event)}. These are currently unsupported.`, 'debug');
         }
         else {
             // this.logger(event.control);
@@ -203,7 +209,7 @@ export class ISYNode extends EventEmitter {
         this.lastChanged = new Date();
         const oldValue = this.drivers[propertyName].value;
         if (this.drivers[propertyName].patch(value, formattedValue, uom, prec)) {
-            this.emit("PropertyChanged", propertyName, value, oldValue, formattedValue);
+            this.emit('PropertyChanged', propertyName, value, oldValue, formattedValue);
             this.scenes.forEach((element) => {
                 this.logger(`Recalulating ${element.deviceFriendlyName}`);
                 element.recalculateState();
@@ -211,10 +217,12 @@ export class ISYNode extends EventEmitter {
         }
         return true;
     }
-    on(event, listener) {
+    /*public override on(event: 'PropertyChanged', listener: (propertyName: keyof D, newValue: any, oldValue: any, formattedValue: string) => any): this;
+    public override on(event: 'ControlTriggered', listener: (controlName: keyof C) => any): this;
+    public override on(event: string | symbol, listener: (...args: any[]) => void): this {
         super.on(event, listener);
         return this;
-    }
+    }*/
     parseResult(node) {
         if (Array.isArray(node.property)) {
             for (const prop of node.property) {
@@ -230,7 +238,7 @@ export class ISYNode extends EventEmitter {
     }
     async readProperties() {
         var result = await this.isy.sendRequest(`nodes/${this.address}/status`);
-        this.logger(JSON.stringify(result), "debug");
+        this.logger(JSON.stringify(result), 'debug');
         return result.property;
     }
     /*public addChild<K extends ISYDeviceNode<T, any, any, any>>(childDevice: K) {
@@ -252,12 +260,12 @@ export class ISYNode extends EventEmitter {
         try {
             const result = await this.getNotes();
             if (result !== null && result !== undefined) {
-                that.location = result.location ?? this.folder ?? "";
-                that.spokenName = result.spoken ?? this.folder ?? "";
+                that.location = result.location ?? this.folder ?? '';
+                that.spokenName = result.spoken ?? this.folder ?? '';
                 // if(result.spoken)
             }
             else {
-                that.logger("No notes found.");
+                that.logger('No notes found.');
             }
             that.label = that.generateLabel.bind(that)(that.isy.displayNameFormat);
             that.label = that.label ?? this.baseLabel;

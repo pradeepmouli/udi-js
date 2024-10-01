@@ -56,7 +56,7 @@
         "@project-chip/matter-node.js": "^0.10.0",
         "@project-chip/matter.js": "^0.10.0",
         "axios": "^1.7.4",
-        "fast-xml-parser": "^4.4.1",
+        "fast-xml-parser": "^4.5.0",
         "faye-websocket": "^0.11.4",
         "mocha": "^7.2.0",
         "p-queue": "^6.6.1",

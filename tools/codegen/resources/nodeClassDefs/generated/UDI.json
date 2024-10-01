@@ -1,11 +1,12 @@
 {
   "EM3Main": {
-    "className": "EnergyMonitorNode",
+    "className": "EnergyMonitor",
     "id": "EM3Main",
     "drivers": {
       "ST": {
         "label": "Status",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "EM3_WATTS",
@@ -24,6 +25,7 @@
       "TPW": {
         "label": "Total Energy",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "TPW",
         "editorId": "EM3_KWH",
@@ -42,6 +44,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "optional": false,
         "readonly": true,
         "id": "ERR",
         "editorId": "EM3_ERR",
@@ -69,15 +72,16 @@
     "events": {},
     "family": 7,
     "label": "EnergyMonitor",
-    "name": "EnergyMonitorNode"
+    "name": "EnergyMonitor"
   },
   "EM3Relay": {
-    "className": "LampNode",
+    "className": "Lamp",
     "id": "EM3Relay",
     "drivers": {
       "ST": {
         "label": "Status",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "EM3_RELAY",
@@ -97,6 +101,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "optional": false,
         "readonly": true,
         "id": "ERR",
         "editorId": "EM3_ERR",
@@ -134,15 +139,16 @@
     "events": {},
     "family": 7,
     "label": "Lamp",
-    "name": "LampNode"
+    "name": "Lamp"
   },
   "EM3MainChannel": {
-    "className": "Em3MainChannelNode",
+    "className": "Em3MainChannel",
     "id": "EM3MainChannel",
     "drivers": {
       "ST": {
         "label": "Status",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "EM3_WATTS",
@@ -161,6 +167,7 @@
       "TPW": {
         "label": "Total Energy",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "TPW",
         "editorId": "EM3_KWH",
@@ -179,6 +186,7 @@
       "CV": {
         "label": "Current Voltage",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "CV",
         "editorId": "EM3_VOLTS",
@@ -197,6 +205,7 @@
       "CC": {
         "label": "Current Current",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "CC",
         "editorId": "EM3_AMPS",
@@ -215,6 +224,7 @@
       "PF": {
         "label": "Power Factor",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "PF",
         "editorId": "EM3_PF",
@@ -233,6 +243,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "optional": false,
         "readonly": true,
         "id": "ERR",
         "editorId": "EM3_ERR",
@@ -253,15 +264,16 @@
     "commands": {},
     "events": {},
     "family": 7,
-    "name": "Em3MainChannelNode"
+    "name": "Em3MainChannel"
   },
   "EM3Channel": {
-    "className": "EnergyMonitorNode",
+    "className": "EnergyMonitor",
     "id": "EM3Channel",
     "drivers": {
       "ST": {
         "label": "Status",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "EM3_WATTS",
@@ -280,6 +292,7 @@
       "TPW": {
         "label": "Total Energy",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "TPW",
         "editorId": "EM3_KWH",
@@ -298,6 +311,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "optional": false,
         "readonly": true,
         "id": "ERR",
         "editorId": "EM3_ERR",
@@ -319,16 +333,17 @@
     "events": {},
     "family": 7,
     "label": "EnergyMonitor",
-    "name": "EnergyMonitorNode"
+    "name": "EnergyMonitor"
   },
   "EM3TempSensor": {
-    "className": "TempSensorNode",
+    "className": "TempSensor",
     "id": "EM3TempSensor",
     "nlsId": "TEMP",
     "drivers": {
       "ST": {
         "label": "Temperature",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "EM3_TEMP_DEG",
@@ -347,6 +362,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "optional": false,
         "readonly": true,
         "id": "ERR",
         "editorId": "EM3_ERR",
@@ -368,15 +384,16 @@
     "events": {},
     "family": 7,
     "label": "TempSensor",
-    "name": "TempSensorNode"
+    "name": "TempSensor"
   },
   "EM3PulseCounter": {
-    "className": "PulseCounterNode",
+    "className": "PulseCounter",
     "id": "EM3PulseCounter",
     "drivers": {
       "ST": {
         "label": "Status",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "EM3_PULSE_COUNT",
@@ -393,6 +410,7 @@
       "CPW": {
         "label": "Current Power",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "CPW",
         "editorId": "EM3_WATTS",
@@ -411,6 +429,7 @@
       "TPW": {
         "label": "Total Energy",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "TPW",
         "editorId": "EM3_KWH",
@@ -429,6 +448,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "optional": false,
         "readonly": true,
         "id": "ERR",
         "editorId": "EM3_ERR",
@@ -450,6 +470,6 @@
     "events": {},
     "family": 7,
     "label": "PulseCounter",
-    "name": "PulseCounterNode"
+    "name": "PulseCounter"
   }
 }

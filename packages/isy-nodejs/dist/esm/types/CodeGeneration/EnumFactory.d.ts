@@ -22,7 +22,7 @@ export declare class EnumFactory extends CodeFactory {
 export declare function createNodeClass<T extends Family>(nodeClassDef: NodeClassDefinition<T>): {
     name: string;
     id: string;
-    statements: (import("typescript").VariableStatement | import("typescript").ClassDeclaration | import("typescript").TypeAliasDeclaration | import("typescript").ImportDeclaration)[];
+    statements: (import("typescript").ImportDeclaration | import("typescript").VariableStatement | import("typescript").TypeAliasDeclaration | import("typescript").ClassDeclaration)[];
 };
 export {};
 //# sourceMappingURL=EnumFactory.d.ts.map

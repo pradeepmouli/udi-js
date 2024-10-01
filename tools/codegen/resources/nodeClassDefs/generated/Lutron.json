@@ -1,12 +1,13 @@
 {
   "LUTLoadShed": {
-    "className": "LoadShedNode",
+    "className": "LoadShed",
     "id": "LUTLoadShed",
     "nlsId": "RELAY",
     "drivers": {
       "ST": {
         "label": "Status",
         "hidden": false,
+        "optional": false,
         "readonly": false,
         "id": "ST",
         "editorId": "LUT_OL_RELAY",
@@ -26,6 +27,7 @@
       "ERR": {
         "label": "Responding",
         "hidden": true,
+        "optional": false,
         "readonly": true,
         "id": "ERR",
         "editorId": "LUT_ERR",
@@ -97,6 +99,6 @@
     "events": {},
     "family": 11,
     "label": "Load Shed",
-    "name": "LoadShedNode"
+    "name": "LoadShed"
   }
 }

@@ -38,7 +38,7 @@ export class InsteonRelayDevice extends InsteonBaseDevice<Driver.Signatures<'ST'
 		endpoint.set({onOff:{onOff: await this.drivers.ST.value > 0}});
 		const that = this;
 
-		this.on("PropertyChanged", (propertyName, newValue, _oldValue, formattedValue) => {
+		this.events.on("PropertyChanged", (propertyName, newValue, _oldValue, formattedValue) => {
 			if (propertyName === "ST") {
 				endpoint.set({onOff:{onOff: newValue > 0}});
 				//endpoint.setSt onOff: newValue });

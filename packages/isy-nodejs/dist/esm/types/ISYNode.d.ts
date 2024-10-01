@@ -1,20 +1,28 @@
-import { EventEmitter } from 'events';
-import { Family } from './Definitions/Global/Families.js';
-import { NodeInfo } from './Model/NodeInfo.js';
-import { Driver } from './Definitions/Global/Drivers.js';
-import { ISY, NodeType, type ISYScene } from './ISY.js';
-import { type StringKeys } from './Utils.js';
-import { Logger } from 'winston';
-import { UnitOfMeasure } from './Definitions/Global/UOM.js';
 import type { UnionToIntersection } from '@project-chip/matter.js/util';
+import { Logger } from 'winston';
+import { Driver } from './Definitions/Global/Drivers.js';
+import { Family } from './Definitions/Global/Families.js';
+import { UnitOfMeasure } from './Definitions/Global/UOM.js';
+import { ISY, NodeType, type ISYScene } from './ISY.js';
 import type { DriverState } from './Model/DriverState.js';
-import type { Command } from './Definitions/Global/Commands.js';
+import { NodeInfo } from './Model/NodeInfo.js';
+import { type StringKeys } from './Utils.js';
 import { CliConfigSetLevels } from 'winston/lib/winston/config/index.js';
+import type { Command } from './Definitions/Global/Commands.js';
+import { Event } from './Definitions/Global/Events.js';
 export interface NodeNotes {
     location: string;
     spoken: string;
 }
-export declare class ISYNode<T extends Family, D extends ISYNode.DriverSignatures | {}, C extends ISYNode.CommandSignatures | {}, E extends string = Extract<keyof C, string>> extends EventEmitter {
+export declare class ISYNode<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures = {
+    [x in keyof D]: Event.DriverToEvent<D[x]> & {
+        driver: x;
+    };
+} & {
+    [x in keyof C]: Event.CommandToEvent<C[x]> & {
+        command: x;
+    };
+}> {
     #private;
     readonly address: string;
     readonly baseLabel: string;
@@ -27,7 +35,7 @@ export declare class ISYNode<T extends Family, D extends ISYNode.DriverSignature
     commands: Command.ForAll<C>;
     drivers: Driver.ForAll<D>;
     enabled: boolean;
-    events: E;
+    events: Event.FunctionSigFor<E, Event.NodeEventEmitter<this>> & Omit<Event.NodeEventEmitter<this>, 'on'>;
     family: T;
     folder: string;
     hidden: boolean;
@@ -51,12 +59,12 @@ export declare class ISYNode<T extends Family, D extends ISYNode.DriverSignature
     addLink(isyScene: ISYScene): void;
     applyStatus(prop: DriverState): void;
     convert(value: any, from: UnitOfMeasure, to: UnitOfMeasure): any;
-    convertFrom(value: any, uom: UnitOfMeasure, propertyName?: keyof D): any;
-    convertTo(value: any, uom: UnitOfMeasure, propertyName?: keyof D): any;
-    emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): boolean;
+    convertFrom(value: any, uom: UnitOfMeasure, propertyName?: StringKeys<D>): any;
+    convertTo(value: any, uom: UnitOfMeasure, propertyName?: StringKeys<D>): any;
+    emit(event: 'PropertyChanged' | 'ControlTriggered', propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
     generateLabel(template: string): string;
     getNotes(): Promise<NodeNotes>;
-    handleControlTrigger(controlName: E): boolean;
+    handleControlTrigger(controlName: keyof E & keyof C): boolean;
     handleEvent(event: {
         control?: any;
         data?: any;
@@ -64,9 +72,7 @@ export declare class ISYNode<T extends Family, D extends ISYNode.DriverSignature
         action?: any;
         fmtAct?: any;
     }): boolean;
-    handlePropertyChange(propertyName: keyof D & string, value: any, uom: UnitOfMeasure, formattedValue: string, prec?: number): boolean;
-    on(event: "PropertyChanged", listener: (propertyName: keyof D, newValue: any, oldValue: any, formattedValue: string) => any): this;
-    on(event: "ControlTriggered", listener: (controlName: keyof C) => any): this;
+    handlePropertyChange(propertyName: StringKeys<D>, value: any, uom: UnitOfMeasure, formattedValue: string, prec?: number): boolean;
     parseResult(node: {
         property: DriverState | DriverState[];
     }): void;
@@ -75,7 +81,7 @@ export declare class ISYNode<T extends Family, D extends ISYNode.DriverSignature
     refresh(): Promise<any>;
     refreshNotes(): Promise<void>;
     sendCommand(command: StringKeys<C>, parameters?: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
-    updateProperty(propertyName: StringKeys<D>, value: any): Promise<any>;
+    updateProperty(propertyName: string, value: any): Promise<any>;
 }
 export type Flatten<T, Level extends Number = 2, K = keyof T> = UnionToIntersection<T extends Record<string, unknown> ? K extends string ? T[K] extends Record<string, unknown> ? keyof T[K] extends string ? {
     [x in `${K}.${keyof T[K]}`]: T[K][TakeLast<x>];
@@ -106,16 +112,15 @@ export declare namespace ISYNode {
     type EventMap<T extends NodeList> = Flatten<{
         [x in keyof T]: EventsOf<T[x]>;
     }>;
-    type DriverSignatures = {
-        [x: string]: Driver.Signature;
-    };
-    type CommandSignatures = {
+    type DriverSignatures = Record<string, Driver.Signature<UnitOfMeasure, any, UnitOfMeasure, string, string>>;
+    type CommandSignatures = Partial<{
         [x: string]: Command.Signature<any, any, any>;
-    };
+    }>;
+    type EventSignatures = Record<string, Event.Signature>;
     type WithDrivers<D extends DriverSignatures> = D extends Driver.Signatures<infer U extends keyof D> ? {
-        [K in D[U]["name"]]: D[U] extends {
+        [K in D[U]['name']]: D[U] extends {
             name: K;
-        } ? D[U]["value"] : unknown;
+        } ? D[U]['value'] : unknown;
     } : never;
 }
 export {};

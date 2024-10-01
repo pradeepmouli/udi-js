@@ -87,7 +87,10 @@ function loadEnumDefs() {
 export async function generateEnums() {
     let enumDefs = loadEnumDefs();
     let enums = EnumFactory.generateAll();
-    saveSourceFiles("../../packages/isy-nodejs/src/Definitions", enums);
+    for (const [family, defs] of enumDefs) {
+        generateEnumsForFamily(defs, family);
+    }
+    //saveSourceFiles("../../packages/isy-nodejs/src/Definitions", enums);
 
 }
 
@@ -95,7 +98,7 @@ export async function generateEnumsForFamily(enumDefs: { [x: string]: EnumDefini
 
     try {
         const enums = EnumFactory.generateAll();
-        saveSourceFiles('../../packages/isy-nodejs/src/Definitions', enums);
+        saveSourceFiles('../../packages/isy-nodejs/src/Definitions', family, enums);
     }
     catch (e) {
         logger.error(`Error generating enums for ${Family[family]}: ${e.message}`, e.stack);
@@ -103,15 +106,18 @@ export async function generateEnumsForFamily(enumDefs: { [x: string]: EnumDefini
 
 }
 
-function saveSourceFiles(path: string, enums: { family: Family; name: string; id: string; path: string; statements: ts.EnumDeclaration[]; }[]) {
+function saveSourceFiles(path: string, family: Family, enums: { family: Family; name: string; id: string; path: string; statements: ts.EnumDeclaration[]; }[]) {
 
+     if (existsSync(`${path}/${Family[family]}/generated`)) {
+				fs.rmdirSync(`${path}/${Family[family]}/generated`);
+			}
+			mkdirSync(`${path}/${Family[family]}/generated`, { recursive: true });
     for (const c of enums) {
-        if (!existsSync(`${path}/${Family[c.family]}/generated/`))
-            mkdirSync(`${path}/${Family[c.family]}/generated`, { recursive: true });
+
         try {
             saveFile(path, c);
         } catch (e) {
-            logger.error(`Error creating ${Family[c.family]} ${c.name} enum: ${e.message}`, e.stack);
+            logger.error(`Error creating ${Family[family]} ${c.name} enum: ${e.message}`, e.stack);
         }
     }
 }

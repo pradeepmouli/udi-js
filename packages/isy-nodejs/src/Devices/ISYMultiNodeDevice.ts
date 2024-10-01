@@ -1,4 +1,4 @@
-import type { UnionToIntersection } from '@project-chip/matter-node.js/util';
+//import type { UnionToIntersection } from '@project-chip/matter-node.js/util.js';
 import type { Driver } from '../Definitions/Global/Drivers.js';
 import type { UnitOfMeasure } from '../Definitions/Global/UOM.js';
 import type { Family } from '../ISY.js';
@@ -8,8 +8,6 @@ import type { ISYScene } from '../ISYScene.js';
 import type { DriverState } from '../Model/DriverState.js';
 
 /*
-
-
 
 export class ISYMultiNodeDevice<T extends Family, N extends NodeList>
   implements ISYDevice<T, ISYNode.DriverMap<N>, ISYNode.CommandMap<N>, string> {
@@ -66,7 +64,6 @@ export class ISYMultiNodeDevice<T extends Family, N extends NodeList>
     throw new Error('Method not implemented.');
   }
 
-
   logger(arg0: string): unknown {
     throw new Error('Method not implemented.');
   }
@@ -95,6 +92,5 @@ export class ISYMultiNodeDevice<T extends Family, N extends NodeList>
   version: string;
   isDimmable: boolean;
   label: string;
-
 
 } */

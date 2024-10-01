@@ -1,0 +1,12 @@
+{
+    "IX_CCI": {
+        "name": "ColorComponent"
+    },
+    "IX_CBP": {
+        "name": "CustomButtonPress"
+    },
+    "IX_MLS_DIR": {
+        "name": "FadeDirection"
+    }
+
+}

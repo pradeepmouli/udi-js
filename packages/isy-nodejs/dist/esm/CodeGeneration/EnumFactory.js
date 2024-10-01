@@ -4,6 +4,7 @@ import { UnitOfMeasure } from "../Definitions/Global/UOM.js";
 import { Family } from "../ISY.js";
 import { EnumDefinitionMap } from "../Model/EnumDefinition.js";
 import { loggers } from "winston";
+import { pascalCase } from 'moderndash';
 const logger = loggers.get("EnumFactory");
 export function buildEnums(map) {
     let enums = [];
@@ -15,7 +16,7 @@ export function buildEnums(map) {
 export function createEnum(enumDef) {
     try {
         const enumNode = factory.createEnumDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], factory.createIdentifier(enumDef.name), [
-            ...Object.entries(enumDef.values).map(([name, value]) => factory.createEnumMember(factory.createIdentifier(name ?? "Unknown"), factory.createNumericLiteral(value))),
+            ...Object.entries(enumDef.values).map(([name, value]) => factory.createEnumMember(createMemberName(name), factory.createNumericLiteral(value))),
         ]);
         return {
             family: enumDef.family,
@@ -207,5 +208,15 @@ export function createNodeClass(nodeClassDef) {
             ]),
         ],
     };
+}
+function createMemberName(name, mapNullishTo = 'Unknown') {
+    let label = pascalCase(name) ?? 'Unknown';
+    if (!label.substring(0, 1).match(/[a-zA-Z]/)) {
+        if (!isNaN(Number.parseInt(label))) {
+            return factory.createIdentifier(`_${label}`);
+        }
+        return factory.createStringLiteral(label);
+    }
+    return factory.createIdentifier(label);
 }
 //# sourceMappingURL=EnumFactory.js.map

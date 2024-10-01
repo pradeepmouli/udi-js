@@ -1,15 +1,25 @@
 import * as log4js from '@log4js-node/log4js-api';
 import { Logger } from 'winston';
-import { Category } from './Definitions/Global/Categories.js';
 import { EventEmitter as BaseEventEmitter } from 'events';
+import { Category } from './Definitions/Global/Categories.js';
 import { EventType } from './Events/EventType.js';
 export interface Converter<F, T> {
     from: (value: F) => T;
     to: (value: T) => F;
 }
 export type StringKeys<T> = Extract<keyof T, string>;
+export declare function getEnumValueByEnumKey<E extends {
+    [index: string]: number;
+}, T extends keyof E>(enumType: E, enumKey: T): E[T];
+export declare function getEnumKeyByEnumValue<E extends {
+    [index: string]: number;
+}, T extends E[keyof E]>(enumType: E, enumValue: E[T]): T;
+export type ValuesOf<TEnum extends number | string | boolean | bigint> = `${TEnum}` extends `${infer R extends number}` ? R : `${TEnum}`;
+export type IdentityOf<T> = T extends (...args: any[]) => infer R ? R : T;
+export type LabelsOf<TEnum> = keyof IdentityOf<TEnum>;
 export declare function invert<F, T>(converter: Converter<F, T>): Converter<T, F>;
 export type MaybeArray<T> = T | T[];
+export type ObjectToUnion<T> = T[keyof T];
 export declare function toArray<T>(value: MaybeArray<T>): T[];
 export declare function fromArray<T>(...value: T[]): MaybeArray<T>;
 export declare function byteToPct(value: any): number;
@@ -21,21 +31,20 @@ declare module 'winston' {
 }
 declare global {
     interface String {
+        left(numChars: number): string;
+        leftWithToken(numChars: number, token?: string): string;
         remove(string: string): string;
         removeAll(string: string): string;
         right(numChars: number): string;
-        left(numChars: number): string;
         rightWithToken(numChars: number, token?: string): string;
-        leftWithToken(numChars: number, token?: string): string;
     }
 }
 export interface LoggerLike extends Partial<log4js.Logger> {
-    (msg: any, level?: string, ...data: any[]): void;
 }
 export declare function valueOf<E, T extends Extract<keyof E, string>>(e: E, val: T): E[T];
 export declare function clone(logger: Logger, label: string): Logger;
 type TEventType = keyof typeof EventType;
-export interface PropertyChangedEventEmitter extends EventEmitter<"PropertyChanged"> {
+export interface PropertyChangedEventEmitter extends EventEmitter<'PropertyChanged'> {
     on(event: 'PropertyChanged', listener: (propertyName: string, newValue: any, oldValue: any, formattedValue: string) => void): this;
 }
 export declare class EventEmitter<T extends TEventType> extends BaseEventEmitter {

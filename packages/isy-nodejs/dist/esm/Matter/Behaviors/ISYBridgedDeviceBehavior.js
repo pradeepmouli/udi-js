@@ -16,7 +16,7 @@ export class ISYBridgedDeviceBehavior extends Behavior {
         this.internal.map = MappingRegistry.getMapping(this.internal.device);
         ISY.instance.logger.debug(`Initializing ${this.constructor.name} for ${this.internal.device.constructor.name} ${this.internal.device.name} with address ${address}`);
         if (this.internal.device) {
-            this.internal.device.on("PropertyChanged", this.handlePropertyChange.bind(this));
+            this.internal.device.events.on("PropertyChanged", this.handlePropertyChange.bind(this));
         }
     }
     get device() {

@@ -1,18 +1,18 @@
-import { isBoxedPrimitive } from 'util/types';
-import { UnitOfMeasure } from './UOM.js';
 import EventEmitter from 'events';
+import { isBoxedPrimitive } from 'util/types';
 import type { ISYNode } from '../../ISYNode.js';
+import { UnitOfMeasure } from './UOM.js';
 
-import type { Identity, MaybePromise, UnionToIntersection } from '@project-chip/matter.js/util';
-import type { DriverState } from '../../Model/DriverState.js';
-import { init } from 'homebridge';
+import { KeyType } from '@project-chip/matter.js/crypto';
 import type { TlvNumberSchema } from '@project-chip/matter.js/tlv';
-import type { Family } from './Families.js';
-import type { Converter } from '../../Utils.js';
+import type { Identity, MaybePromise, UnionToIntersection } from '@project-chip/matter.js/util';
 import exp from 'constants';
+import { init } from 'homebridge';
 import { server } from 'typescript';
 import type { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
-import { KeyType } from '@project-chip/matter.js/crypto';
+import type { DriverState } from '../../Model/DriverState.js';
+import type { Converter, StringKeys } from '../../Utils.js';
+import type { Family } from './Families.js';
 
 export enum DriverType {
 	AccelerationXAxis = 'ACCX',
@@ -173,20 +173,22 @@ export enum DriverType {
 	OutsideTemperature = 'TEMPOUT'
 }
 
-
-
 type a = keyof typeof DriverType;
 
+type EnumFromLabel<L extends keyof N, N> = N[L];
 
-
- type EnumFromLabel<L extends keyof N,N> = N[L];
-
- type DriverTypeFromName<N extends keyof typeof DriverType> = EnumFromLabel<N,typeof DriverType>;
-type x = DriverTypeFromName<"Status"|"SoilTemperature">;
+type DriverTypeFromName<N extends keyof typeof DriverType> = EnumFromLabel<N, typeof DriverType>;
+type x = DriverTypeFromName<'Status' | 'SoilTemperature'>;
 
 //export type DriverLabel<T extends DriverType> = ReturnType>LabelMap.get>
 
-export type EnumLiteral<T> = T extends string ? `${T}` : T extends boolean ? T extends true ? true : false : T;
+export type EnumLiteral<T> =
+	T extends string ? `${T}`
+	: T extends boolean ?
+		T extends true ?
+			true
+		:	false
+	:	T;
 
 type y = EnumLiteral<DriverType.Status>;
 
@@ -196,288 +198,286 @@ type T = DriverTypeFromName<keyof typeof DriverType>;
 
 //type Driver<D extends DriverType> = D extends D[0] | infer K extends DriverType ? D[0] | DriverLabels<K> : never;
 
-type s = EnumLiteral<DriverType.AccelerationXAxis | DriverType.AccelerationYAxis>;
+type s = EnumLiteral<{ 100: true; 200: false }>;
 
-export type DriverList<D> = (D extends DriverType
-  ? { [K in D]?: Driver<K,any,any> } & { add(driver: Driver<D,any,any>): void }
-  : D extends EnumLiteral<infer R extends DriverType>
-  ? { [K in R]?: Driver<R,any,any> } & { add(driver: Driver<R,any,any>): void }
-  : {}) //& { [N in keyof typeof DriverType]?: Driver<DriverTypeFromName<N>> };
+export type DriverList<D> =
+	D extends DriverType ? { [K in D]?: Driver<K, any, any> } & { add(driver: Driver<D, any, any>): void }
+	: D extends EnumLiteral<infer R extends DriverType> ? { [K in R]?: Driver<R, any, any> } & { add(driver: Driver<R, any, any>): void }
+	: {}; //& { [N in keyof typeof DriverType]?: Driver<DriverTypeFromName<N>> };
 
-type KeyOrValue<K,D> = K extends D ? D : K extends keyof D ? D[K] : never;
+type KeyOrValue<K, D> =
+	K extends D ? D
+	: K extends keyof D ? D[K]
+	: never;
 
-
-
-const LabelMap = new Map<DriverType,keyof typeof DriverType>(Object.entries(DriverType).map(([a,b])=>[b,a]) as any);
-
-
-
-
+const LabelMap = new Map<DriverType, keyof typeof DriverType>(Object.entries(DriverType).map(([a, b]) => [b, a]) as any);
 
 ///onst DriverNames = Object.entries(DriverType).(a)=>[a[1],a[0]]) as [DriverType,(keyof typeof DriverType)][];
 type DriverListType<D extends DriverType> = Identity<DriverList<D>>;
 
-
 export class Drivers<D extends DriverType> {
+	// #region Properties (1)
 
-  [x: string]: any;
+	public DriverHandler: ProxyHandler<Drivers<D>> = {
+		set(target, p: DriverType | keyof typeof DriverType, newValue, receiver) {
+			if (p in target) {
+				if (p in DriverType) {
+					target[p] = newValue;
+					target[LabelMap.get(p as DriverType)] = newValue;
+					return true;
+				} else if (typeof p === 'string' && p in LabelMap.values()) {
+					target[DriverType[p]] = newValue;
+					target[p] = newValue;
+					return true;
+				}
+				return true;
+			}
+			return false;
+		},
+		get(target, p: DriverType | keyof typeof DriverType, receiver) {
+			if (p in target) {
+				return target[p];
+			}
+			return undefined;
+		}
+	};
 
+	// #endregion Properties (1)
 
-  DriverHandler: ProxyHandler<Drivers<D>> = {
-    set(target, p: DriverType | keyof typeof DriverType, newValue, receiver) {
-      if (p in target) {
-        if(p in DriverType)
-        {
-            target[p] = newValue;
-            target[LabelMap.get(p as DriverType)] = newValue;
-            return true;
-        }
-        else if(typeof p === 'string' && p in LabelMap.values())
-        {
-            target[DriverType[p]] = newValue;
-            target[p] = newValue;
-            return true;
-        }
-        return true;
-      }
-      return false;
+	// #region Constructors (1)
 
-    },
-    get(target,p: DriverType | keyof typeof DriverType, receiver) {
-      if(p in target)
-      {
-        return target[p];
-      }
-      return undefined;
-    }
-  }
+	constructor() {
+		return new Proxy(this, this.DriverHandler);
+	}
 
-  constructor() {
+	// #endregion Constructors (1)
 
-      return new Proxy(this, this.DriverHandler);
-  }
+	// #region Public Methods (1)
 
-   add<K extends D>(driver: Driver<K,any, any>) {
-      (this as unknown)[driver.id] = driver;
-      (this as unknown)[LabelMap.get(driver.id)]= driver;
+	public add<K extends D>(driver: Driver<K, any, any>) {
+		(this as unknown)[driver.id] = driver;
+		(this as unknown)[LabelMap.get(driver.id)] = driver;
+	}
 
-   }
+	// #endregion Public Methods (1)
 }
 
+export interface Driver<
+	D extends DriverType | EnumLiteral<DriverType> | `${string}.${EnumLiteral<DriverType>}` | string,
+	U extends UnitOfMeasure,
+	T = number,
+	SU extends UnitOfMeasure = U,
+	ST = number,
+	N = string,
+	L = string
+> {
+	// #region Properties (8)
 
+	readonly value: T;
 
+	id: D;
+	label: L;
+	name: N;
+	query: () => Promise<DriverState>;
+	serverUom?: SU;
+	state: {
+		initial: boolean;
+		value: T;
+		formattedValue?: any;
+		pendingValue: T;
+	};
+	uom: U;
 
+	// #endregion Properties (8)
 
+	// #region Public Methods (2)
 
-export interface Driver<D extends DriverType | EnumLiteral<DriverType> | `${string}.${EnumLiteral<DriverType>}` ,U extends UnitOfMeasure, T = number, SU extends UnitOfMeasure = U, ST = number> {
+	apply(state: DriverState, notify?: boolean): boolean;
+	patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number): boolean;
 
-    id: D;
-    uom: U;
-    serverUom?: SU;
-    state: {
-      initial: boolean;
-      value: T;
-      formattedValue?: any;
-      pendingValue: T;
-    }
-    readonly value:  T;
-    apply(state: DriverState, notify?: boolean): boolean;
-    patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number): boolean;
-    query: () => Promise<DriverState>
-    name: string;
-    label: string;
-    //override on('change', listener: (value: any) => void): this;
+	// #endregion Public Methods (2)
+//override on('change', listener: (value: any) => void): this;
 }
 
-export interface StatelessDriver<D extends DriverType | EnumLiteral<DriverType> | `${string}.${EnumLiteral<DriverType>}` ,U extends UnitOfMeasure, T = number>
-{
-    id: D;
-    stateless: true;
-    uom: U;
-    state: {
-      initial: boolean;
-      value: T;
-      formattedValue?: any;
-      pendingValue: T;
-    }
-    readonly value:  Promise<T>
-    query: () => Promise<DriverState>
-    name: string;
-    label: string;
-    //override on('change', listener: (value: any) => void): this;
+export interface StatelessDriver<
+	D extends DriverType | EnumLiteral<DriverType> | `${string}.${EnumLiteral<DriverType>}` | string,
+	U extends UnitOfMeasure,
+	T = number,
+	SU extends UnitOfMeasure = U,
+	N = string,
+	L = string
+> {
+	// #region Properties (9)
+
+	readonly value: Promise<T>;
+
+	id: D;
+	label: L;
+	name: N;
+	query: () => Promise<DriverState>;
+	serverUom?: SU;
+	state: {
+		initial: boolean;
+		value: T;
+		formattedValue?: any;
+		pendingValue: T;
+	};
+	stateless: true;
+	uom: U;
+
+	// #endregion Properties (9)
+//override on('change', listener: (value: any) => void): this;
 }
 
-export function isStateless(x : any) : x is StatelessDriver<any,any,any>
-{
-    return x.stateless;
+export function isStateless(x: any): x is StatelessDriver<any, any, any> {
+	return x.stateless;
 }
 
-export function isTrue(x: true | false) : x is true
-{
-    return x;
+export function isTrue(x: true | false): x is true {
+	return x;
 }
-
-
 
 export type DriverTypeLiteral = EnumLiteral<DriverType>;
 
-
 type DriverTypeWithLiteral = DriverType | EnumLiteral<DriverType>;
 
-export type EnumWithLiteral<D extends string | bigint | number | boolean> = D | EnumLiteral<D>
+export type EnumWithLiteral<D extends string | bigint | number | boolean> = D | EnumLiteral<D>;
 export namespace Driver {
+	export type Signature<U extends UnitOfMeasure = UnitOfMeasure, V = any, SU = U, N = string, L = N> = { uom: U; value: V; name: N; label: L; serverUom?: SU };
 
-    export type Signature<U = UnitOfMeasure,V = any,N = string,L = N> = { uom: U, value: V, name: N, label: L };
+	export type Signatures<D> = UnionToIntersection<
+		D extends string ? { [K in D]: Signature<UnitOfMeasure, any, UnitOfMeasure, string, string> }
+		: D extends { [K in keyof D]: Signature } ? D
+		: never
+	>;
 
-    export type Signatures<D> = UnionToIntersection<D extends LiteralWithExtensions ? { [K in D]: Signature } : D extends {[K in keyof D]: Signature} ? D : never>
+	///D extends (infer R extends string | infer K extends {[L in keyof K]: Signature}) ? {[J in R & string]: Signature} & K : D extends string ? { [K in D]: Signature } : D extends {[K in keyof D]: Signature} ? D : never;
 
-    ///D extends (infer R extends LiteralWithExtensions | infer K extends {[L in keyof K]: Signature}) ? {[J in R & string]: Signature} & K : D extends LiteralWithExtensions ? { [K in D]: Signature } : D extends {[K in keyof D]: Signature} ? D : never;
+	type test = Signatures<DriverType.Status | { ERR: Signature; BUSY: Signature } | { ERR: Signature; BUSY: Signature } | { ERR: Signature; BUSY: Signature }>;
 
+	type Drivers = {
+		ST?: {
+			uom: UnitOfMeasure.Percent;
+			value: number;
+			name: 'status';
+			label: 'Status';
+		};
+		ERR?: {
+			uom: UnitOfMeasure.Index;
+			value: number;
+			name: 'responding';
+			label: 'Responding';
+		};
+	};
 
-    type test = Signatures<
-      DriverType.Status | { ERR: Signature; BUSY: Signature } | { ERR: Signature; BUSY: Signature } | { ERR: Signature; BUSY: Signature }
-    >;
+	export type For<D extends string, T, S extends boolean = false> = T extends Signature<infer U, infer V, infer SU, infer N, infer L> ? StatelessOrStateful<D, U, V, N, L, S> : never;
 
-     type Drivers = {
-			ST?: {
-				uom: UnitOfMeasure.Percent;
-				value: number;
-				name: 'status';
-				label: 'Status';
-			};
-			ERR?: {
-				uom: UnitOfMeasure.Index;
-				value: number;
-				name: 'responding';
-				label: 'Responding';
-			};
+	export type ForAll<T, S extends boolean = false> = {
+		[K in StringKeys<T>]: T[K] extends Signature<UnitOfMeasure, any, UnitOfMeasure, string, string> ? For<K, T[K], S> : never;
+	};
+
+	type test2 = ForAll<Drivers>;
+
+	export type Type = DriverType;
+	export type Literal = EnumLiteral<DriverType>;
+	export type LiteralWithExtensions = Literal | `${string}.${Literal}`;
+	export type LiteralWithType = EnumWithLiteral<DriverType>;
+	type StatelessOrStateful<D extends string, U extends UnitOfMeasure, T = number, N = string, L = string, S extends boolean = false> =
+		S extends true ? StatelessDriver<D, U, T, U, N, L> : Driver<D, U, T, U, N, L>;
+
+	export function create<D extends Literal, U extends UnitOfMeasure, T = number, L extends string = string, N extends string = string, S extends boolean = false>(
+		driver: EnumWithLiteral<D>,
+
+		node?: ISYNode<Family, any, any, any>,
+		initState?: DriverState,
+		driverSignature?: { uom: U; label: L; name: N },
+		stateless?: S,
+		converter?: Converter<any, T>
+	): StatelessOrStateful<D, U, T, N, L, S> {
+		const query = async () => {
+			return await node.readProperty(driver as D);
 		};
 
-    export type For<D extends LiteralWithExtensions,T, S extends boolean = false> = T extends { uom: infer U extends UnitOfMeasure, value: infer V, name: infer N, label: infer L } ? (StatelessOrStateful<D,U,V,S> & {name: N, label: L}): never;
+		if (isTrue(stateless)) {
+			return {
+				id: driver as D,
+				stateless: true,
+				uom: initState.uom as U,
+				state: {
+					initial: true,
+					value: node.convertFrom(initState?.value, initState?.uom, driver as D) as T,
+					formattedValue: initState.formatted,
+					pendingValue: null
+				},
+				query,
+				get value() {
+					return query().then((p) => p.value) as Promise<T>;
+				},
+				name: initState.name ?? driverSignature.name ?? driverSignature.label ?? driver,
+				label: driverSignature.label ?? driver
+			} as unknown as StatelessOrStateful<D, U, T, N, L, typeof stateless>;
+		}
+		var c = {
+			id: driver as D,
+			uom: driverSignature?.uom as U,
+			serverUom: initState?.uom != driverSignature?.uom ? initState?.uom : undefined,
+			state: {
+				initial: true,
+				value:
+					initState ?
+						converter ? converter.from(initState.value)
+						:	(node.convertFrom(initState?.value, initState?.uom, driver as D) as T)
+					:	null,
+				formattedValue: initState ? initState.formatted : null,
+				pendingValue: null
+			},
+			async query() {
+				let s = await query();
+				this.state.value = converter ? converter.from(s.value) : node.convertFrom(s.value, s.uom, driver as D);
+				this.state.formattedValue = s.formatted;
+				return s;
+			},
+			apply(state: DriverState, notify = false) {
+				let previousValue = this.state.value;
+				this.state.value = converter ? converter.from(state.value) : node.convertFrom(state.value, state.uom, driver as D);
+				this.state.formattedValue = state.formatted;
+				if (previousValue == this.state.value) {
+					return false;
+				}
+				if (notify) node.events.emit(`${this.name}Changed`, driver as D, this.state.value, previousValue, this.state.formattedValue);
+				return true;
+			},
+			patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number, notify = false) {
+				let previousValue = this.state.value;
 
-    export type ForAll<T, S extends boolean = false> = {
-      [K in keyof T]: T[K] extends Signature | undefined
-        ? K extends LiteralWithExtensions
-          ? For<K, T[K], S>
-          : never
-        : never;
-    };
+				this.state.formattedValue = formattedValue;
+				if (uom != this.uom) {
+					this.serverUom = uom;
+					this.state.value = converter ? converter.from(value) : node.convertFrom(value, uom, driver as D);
+				}
+				if (previousValue == this.state.value) {
+					return false;
+				}
+				if (notify) node.events.emit(`${this.name}Changed`, driver as D, value, previousValue, formattedValue);
+				return true;
+			},
+			get value() {
+				return c.state.value;
+			},
+			name: initState?.name ?? driverSignature?.name ?? driver,
+			label: driverSignature?.label ?? driver
+		};
+		//  node.on('PropertyChanged', (propertyName, newValue, oldValue, formattedValue) => {
+		//     if (propertyName === driver) {
+		//         c.state.initial = false;
+		//         c.state.value = node.convertFrom(newValue,c.uom,driver as D);
+		//         c.state.formattedValue = formattedValue;
+		//     }
 
-    type test2 = ForAll<Drivers>;
-
-    export type Type = DriverType;
-    export type Literal = EnumLiteral<DriverType>;
-    export type LiteralWithExtensions = Literal | `${string}.${Literal}`;
-    export type LiteralWithType = EnumWithLiteral<DriverType>;
-    type StatelessOrStateful<
-      D extends LiteralWithExtensions,
-      U extends UnitOfMeasure,
-      T = number,
-      S extends boolean = false
-    > = S extends true ? StatelessDriver<D, U, T> : Driver<D, U, T>;
-
-
-    export function create<D extends Literal, U extends UnitOfMeasure, T = number, S extends boolean = false, L extends string = string, N extends string = string>(
-      driver: EnumWithLiteral<D>,
-
-      node?: ISYNode<Family, any, any, any>,
-      initState?: DriverState,
-      driverSignature?: { uom: U; label: L; name: N },
-      stateless?: S,
-      converter?: Converter<any, T>
-    ): StatelessOrStateful<D, U, T, S> & {label: L, name: N}{
-      const query = async () => {
-        return await node.readProperty(driver as D);
-      };
-
-      if (isTrue(stateless)) {
-        return {
-          id: driver as D,
-          stateless: true,
-          uom: initState.uom as U,
-          state: {
-            initial: true,
-            value: node.convertFrom(initState?.value, initState?.uom, driver as D) as T,
-            formattedValue: initState.formatted,
-            pendingValue: null,
-          },
-          query,
-          get value() {
-            return query().then((p) => p.value) as Promise<T>;
-          },
-          name: initState.name ?? driverSignature.name ?? driverSignature.label ?? driver,
-          label: driverSignature.label ?? driver,
-        } as unknown as StatelessOrStateful<D, U, T, typeof stateless> & { label: L; name: N };
-      }
-      var c = {
-        id: driver as D,
-        uom: (initState?.uom ?? driverSignature?.uom) as U,
-        serverUom: initState?.uom != driverSignature?.uom ? initState?.uom : undefined,
-        state: {
-          initial: true,
-          value: initState
-            ? converter
-              ? converter.from(initState.value)
-              : (node.convertFrom(initState?.value, initState?.uom, driver as D) as T)
-            : null,
-          formattedValue: initState ? initState.formatted : null,
-          pendingValue: null,
-        },
-        async query() {
-          let s = await query();
-          this.state.value = converter ? converter.from(s.value) : node.convertFrom(s.value, s.uom, driver as D);
-          this.state.formattedValue = s.formatted;
-          return s;
-        },
-        apply(state: DriverState, notify = false) {
-          let previousValue = this.state.value;
-          this.state.value = converter
-            ? converter.from(state.value)
-            : node.convertFrom(state.value, state.uom, driver as D);
-          this.state.formattedValue = state.formatted;
-          if (previousValue == this.state.value) {
-            return false;
-          }
-          if (notify) node.emit("PropertyChanged", driver as D, state.value, previousValue, state.formatted);
-          return true;
-        },
-        patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number, notify = false) {
-          let previousValue = this.state.value;
-
-          this.state.formattedValue = formattedValue;
-          if (uom != this.uom) {
-            this.serverUom = uom;
-            this.state.value = converter ? converter.from(value) : node.convertFrom(value, uom, driver as D);
-          }
-          if (previousValue == this.state.value) {
-            return false;
-          }
-          if (notify) node.emit("PropertyChanged", driver as D, value, previousValue, formattedValue);
-          return true;
-        },
-        get value() {
-          return c.state.value;
-        },
-        name: initState?.name ?? driverSignature?.name ?? driver,
-        label: driverSignature?.label ?? driver,
-      };
-      //  node.on('PropertyChanged', (propertyName, newValue, oldValue, formattedValue) => {
-      //     if (propertyName === driver) {
-      //         c.state.initial = false;
-      //         c.state.value = node.convertFrom(newValue,c.uom,driver as D);
-      //         c.state.formattedValue = formattedValue;
-      //     }
-
-      //});
-      return c as unknown as StatelessOrStateful<D, U, T, typeof stateless> & { label: L; name: N };
-    }
-
-
-
+		//});
+		return c as unknown as StatelessOrStateful<D, U, T, N, L, typeof stateless>;
+	}
 }
-
-
-
 
 // type EnumValues2<T extends string> = T extends { [Type in keyof T]: string } ? T extenDrivers[0] |  : never;
 

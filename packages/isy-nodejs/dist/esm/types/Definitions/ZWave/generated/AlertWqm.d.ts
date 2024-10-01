@@ -1,10 +1,10 @@
 export declare enum AlertWqm {
     Idle = 0,
     Chlorine = 1,
-    AcidityPH = 2,
+    AcidityPh = 2,
     Oxidation = 3,
     ChlorineEmpty = 4,
-    AcidityPHEmpty = 5,
+    AcidityPhEmpty = 5,
     WaterflowShortage = 6,
     WaterflowClearWaterShortage = 7,
     DisinfectionError = 8,

@@ -1,1 +1,1 @@
-export * from "./Error.js";
+export * from './generated/index.js'

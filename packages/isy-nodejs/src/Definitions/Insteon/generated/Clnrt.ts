@@ -1,12 +1,12 @@
 export enum Clnrt {
     NoRetries = 0,
-    1Retry = 1,
-    2Retries = 2,
-    3Retries = 3,
-    4Retries = 4,
-    5Retries = 5,
-    6Retries = 6,
-    7Retries = 7,
-    8Retries = 8,
-    9Retries = 9
+    _1Retry = 1,
+    _2Retries = 2,
+    _3Retries = 3,
+    _4Retries = 4,
+    _5Retries = 5,
+    _6Retries = 6,
+    _7Retries = 7,
+    _8Retries = 8,
+    _9Retries = 9
 }

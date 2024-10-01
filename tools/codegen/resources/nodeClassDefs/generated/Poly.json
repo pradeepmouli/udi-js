@@ -1,12 +1,13 @@
 {
   "BRIDGE": {
-    "className": "OutputNode",
+    "className": "Output",
     "id": "BRIDGE",
     "nlsId": "BRD",
     "drivers": {
       "ST": {
         "label": "Connected",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "BRD_ST",
@@ -35,16 +36,17 @@
     "events": {},
     "family": 10,
     "label": "Output",
-    "name": "OutputNode"
+    "name": "Output"
   },
   "CEILING_FAN": {
-    "className": "GenericRspNode",
+    "className": "GenericRsp",
     "id": "CEILING_FAN",
     "nlsId": "CFN",
     "drivers": {
       "ST": {
         "label": "Fan Speed (%)",
         "hidden": false,
+        "optional": false,
         "readonly": false,
         "id": "ST",
         "editorId": "CFN_ST",
@@ -64,6 +66,7 @@
       "GV0": {
         "label": "Fan Direction",
         "hidden": false,
+        "optional": false,
         "readonly": false,
         "id": "GV0",
         "editorId": "CFN_DIR",
@@ -81,6 +84,7 @@
       "GV1": {
         "label": "Fan Speed (#)",
         "hidden": false,
+        "optional": false,
         "readonly": false,
         "id": "GV1",
         "editorId": "CFN_SPEED",
@@ -168,7 +172,14 @@
           "FAN_SPEED": {
             "id": "FAN_SPEED",
             "editorId": "CFN_SPEED",
-            "dataType": {},
+            "dataType": {
+              "56": {
+                "uom": 56,
+                "enum": false,
+                "min": 1,
+                "max": 10
+              }
+            },
             "name": "fanSpeed",
             "optional": false,
             "initialValue": "GV1"
@@ -214,16 +225,17 @@
     "events": {},
     "family": 10,
     "label": "GenericRsp",
-    "name": "GenericRspNode"
+    "name": "GenericRsp"
   },
   "LIGHT": {
-    "className": "LampNode",
+    "className": "Lamp",
     "id": "LIGHT",
     "nlsId": "LGT",
     "drivers": {
       "ST": {
         "label": "Light",
         "hidden": false,
+        "optional": false,
         "readonly": false,
         "id": "ST",
         "editorId": "LGT_ST",
@@ -310,16 +322,17 @@
     "events": {},
     "family": 10,
     "label": "Lamp",
-    "name": "LampNode"
+    "name": "Lamp"
   },
   "NODIM_LIGHT": {
-    "className": "LampNode",
+    "className": "Lamp",
     "id": "NODIM_LIGHT",
     "nlsId": "NDL",
     "drivers": {
       "ST": {
         "label": "Light",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "NDL_ST",
@@ -362,16 +375,17 @@
     "events": {},
     "family": 10,
     "label": "Lamp",
-    "name": "LampNode"
+    "name": "Lamp"
   },
   "SHADE": {
-    "className": "GenericRspNode",
+    "className": "GenericRsp",
     "id": "SHADE",
     "nlsId": "SHD",
     "drivers": {
       "ST": {
         "label": "Status",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "SHD_ST",
@@ -503,16 +517,17 @@
     "events": {},
     "family": 10,
     "label": "GenericRsp",
-    "name": "GenericRspNode"
+    "name": "GenericRsp"
   },
   "FIREPLACE": {
-    "className": "SmokeSensorNode",
+    "className": "SmokeSensor",
     "id": "FIREPLACE",
     "nlsId": "FPL",
     "drivers": {
       "ST": {
         "label": "Status",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "FPL_ST",
@@ -545,16 +560,17 @@
     "events": {},
     "family": 10,
     "label": "SmokeSensor",
-    "name": "SmokeSensorNode"
+    "name": "SmokeSensor"
   },
   "GENERIC": {
-    "className": "GenericRspNode",
+    "className": "GenericRsp",
     "id": "GENERIC",
     "nlsId": "GNR",
     "drivers": {
       "ST": {
         "label": "Status",
         "hidden": false,
+        "optional": false,
         "readonly": true,
         "id": "ST",
         "editorId": "GNR_ST",
@@ -587,10 +603,10 @@
     "events": {},
     "family": 10,
     "label": "GenericRsp",
-    "name": "GenericRspNode"
+    "name": "GenericRsp"
   },
   "KEYPAD_BTN": {
-    "className": "SwitchNode",
+    "className": "Switch",
     "id": "KEYPAD_BTN",
     "nlsId": "BTN",
     "drivers": {},
@@ -615,6 +631,6 @@
     },
     "family": 10,
     "label": "Switch",
-    "name": "SwitchNode"
+    "name": "Switch"
   }
 }

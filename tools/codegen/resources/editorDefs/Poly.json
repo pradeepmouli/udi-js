@@ -8,6 +8,15 @@
     "$comment": " ISY Index UOM with custom labels in NLS ",
     "id": "BRD_ST"
   },
+  "NS_STATUS": {
+    "range": {
+      "uom": 25,
+      "subset": "-1,0-2",
+      "nls": "IX_NS_STATUS"
+    },
+    "$comment": " ISY Index UOM custom labels in NLS ",
+    "id": "NS_STATUS"
+  },
   "CFN_ST": {
     "range": {
       "uom": 51,

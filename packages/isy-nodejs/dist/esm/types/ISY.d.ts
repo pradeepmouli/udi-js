@@ -100,7 +100,7 @@ export declare class ISY extends EventEmitter implements Disposable {
     refreshStatuses(): Promise<void>;
     sendGetVariable(id: any, type: any, handleResult: (arg0: number, arg1: number) => void): Promise<void>;
     sendISYCommand(path: string): Promise<any>;
-    sendNodeCommand<P extends string | symbol>(node: ISYNode<any, any, any, any>, command: string, parameters?: Record<P, string | number> | string | number): Promise<any>;
+    sendNodeCommand<P extends string | symbol, N extends ISYNode<any, any, any, any>>(node: N, command: string, parameters?: Record<P, string | number> | string | number): Promise<any>;
     sendRequest(url: string, options?: {
         parserOptions?: ParserOptions;
         trailingSlash: boolean;

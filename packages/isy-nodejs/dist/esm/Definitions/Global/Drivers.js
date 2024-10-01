@@ -158,6 +158,7 @@ export var DriverType;
 })(DriverType || (DriverType = {}));
 const LabelMap = new Map(Object.entries(DriverType).map(([a, b]) => [b, a]));
 export class Drivers {
+    // #region Properties (1)
     DriverHandler = {
         set(target, p, newValue, receiver) {
             if (p in target) {
@@ -182,9 +183,13 @@ export class Drivers {
             return undefined;
         }
     };
+    // #endregion Properties (1)
+    // #region Constructors (1)
     constructor() {
         return new Proxy(this, this.DriverHandler);
     }
+    // #endregion Constructors (1)
+    // #region Public Methods (1)
     add(driver) {
         this[driver.id] = driver;
         this[LabelMap.get(driver.id)] = driver;
@@ -211,29 +216,28 @@ export var Driver;
                     initial: true,
                     value: node.convertFrom(initState?.value, initState?.uom, driver),
                     formattedValue: initState.formatted,
-                    pendingValue: null,
+                    pendingValue: null
                 },
                 query,
                 get value() {
                     return query().then((p) => p.value);
                 },
                 name: initState.name ?? driverSignature.name ?? driverSignature.label ?? driver,
-                label: driverSignature.label ?? driver,
+                label: driverSignature.label ?? driver
             };
         }
         var c = {
             id: driver,
-            uom: (initState?.uom ?? driverSignature?.uom),
+            uom: driverSignature?.uom,
             serverUom: initState?.uom != driverSignature?.uom ? initState?.uom : undefined,
             state: {
                 initial: true,
-                value: initState
-                    ? converter
-                        ? converter.from(initState.value)
+                value: initState ?
+                    converter ? converter.from(initState.value)
                         : node.convertFrom(initState?.value, initState?.uom, driver)
                     : null,
                 formattedValue: initState ? initState.formatted : null,
-                pendingValue: null,
+                pendingValue: null
             },
             async query() {
                 let s = await query();
@@ -243,15 +247,13 @@ export var Driver;
             },
             apply(state, notify = false) {
                 let previousValue = this.state.value;
-                this.state.value = converter
-                    ? converter.from(state.value)
-                    : node.convertFrom(state.value, state.uom, driver);
+                this.state.value = converter ? converter.from(state.value) : node.convertFrom(state.value, state.uom, driver);
                 this.state.formattedValue = state.formatted;
                 if (previousValue == this.state.value) {
                     return false;
                 }
                 if (notify)
-                    node.emit("PropertyChanged", driver, state.value, previousValue, state.formatted);
+                    node.events.emit(`${this.name}Changed`, driver, this.state.value, previousValue, this.state.formattedValue);
                 return true;
             },
             patch(value, formattedValue, uom, prec, notify = false) {
@@ -265,14 +267,14 @@ export var Driver;
                     return false;
                 }
                 if (notify)
-                    node.emit("PropertyChanged", driver, value, previousValue, formattedValue);
+                    node.events.emit(`${this.name}Changed`, driver, value, previousValue, formattedValue);
                 return true;
             },
             get value() {
                 return c.state.value;
             },
             name: initState?.name ?? driverSignature?.name ?? driver,
-            label: driverSignature?.label ?? driver,
+            label: driverSignature?.label ?? driver
         };
         //  node.on('PropertyChanged', (propertyName, newValue, oldValue, formattedValue) => {
         //     if (propertyName === driver) {

@@ -1,11 +1,11 @@
-import { Family } from "../Definitions/Global/Families.js";
-import { toArray } from "../Utils.js";
-import { capitalize } from "@project-chip/matter.js/util";
-import { camelCase, merge, pascalCase } from 'moderndash';
-import { NLSRecordType, NLS, IndexDef, } from "./NLS.js";
-import { EditorDef } from "./EditorDef.js";
-import { EnumDefinition } from './EnumDefinition.js';
+import { capitalize } from '@project-chip/matter.js/util';
 import * as fs from 'fs';
+import { camelCase, merge, pascalCase } from 'moderndash';
+import { Family } from '../Definitions/Global/Families.js';
+import { toArray } from '../Utils.js';
+import { EditorDef } from './EditorDef.js';
+import { EnumDefinition } from './EnumDefinition.js';
+import { IndexDef, NLS, NLSRecordType } from './NLS.js';
 const NodeClassMap = new Map();
 function buildNodeClassDefinitions(nodeDefs, family) {
     const map = {};
@@ -34,49 +34,17 @@ function buildNodeClassDefinitions(nodeDefs, family) {
     return map;
 }
 export class NodeClassDefinition {
-    applyIndexDefs() {
-        let NLSIndexMap = IndexDef.Map;
-        if (NLSIndexMap.has(Family.Generic)) {
-            this.applyIndexMap(NLSIndexMap.get(Family.Generic));
-        }
-        if (NLSIndexMap.has(this.family)) {
-            this.applyIndexMap(NLSIndexMap.get(this.family));
-        }
-    }
-    applyIndexMap(indexDef) {
-        for (const driver in this.drivers) {
-            this.drivers[driver].applyIndexDef(indexDef);
-        }
-        for (const cmd in this.commands) {
-            this.commands[cmd].applyIndexDef(indexDef);
-        }
-        for (const cmd in this.events) {
-            this.events[cmd].applyIndexDef(indexDef);
-        }
-    }
-    id;
-    nlsId;
-    drivers = {};
+    // #region Properties (8)
     commands = {};
+    drivers = {};
+    dynamic;
     events = {};
     family;
+    id;
     label;
-    get name() {
-        return `${pascalCase(this.label ?? this.id ?? "Unknown")}Node`;
-    }
-    toJSON() {
-        return {
-            className: this.name ?? this.label,
-            id: this.id,
-            nlsId: this.nlsId,
-            drivers: this.drivers,
-            commands: this.commands,
-            events: this.events,
-            family: this.family,
-            label: this.label,
-            name: this.name
-        };
-    }
+    nlsId;
+    // #endregion Properties (8)
+    // #region Constructors (1)
     constructor(nodeDef, family) {
         this.id = nodeDef.id;
         this.nlsId = nodeDef.nls;
@@ -106,6 +74,13 @@ export class NodeClassDefinition {
             //                 configurable: true});
         }
     }
+    // #endregion Constructors (1)
+    // #region Public Getters And Setters (1)
+    get name() {
+        return `${pascalCase(this.label ?? this.id ?? 'Unknown')}`;
+    }
+    // #endregion Public Getters And Setters (1)
+    // #region Public Methods (6)
     applyEditorDefs() {
         for (const driver of Object.values(this.drivers)) {
             if (driver.editorId) {
@@ -120,6 +95,33 @@ export class NodeClassDefinition {
                 if (d)
                     cmd.applyEditorDef(d);
             }
+            for (const p of Object.values(cmd.parameters ?? {})) {
+                if (p.editorId) {
+                    let d = EditorDef.get(this.family, p.editorId);
+                    if (d)
+                        p.applyEditorDef(d);
+                }
+            }
+        }
+    }
+    applyIndexDefs() {
+        let NLSIndexMap = IndexDef.Map;
+        if (NLSIndexMap.has(Family.Generic)) {
+            this.applyIndexMap(NLSIndexMap.get(Family.Generic));
+        }
+        if (NLSIndexMap.has(this.family)) {
+            this.applyIndexMap(NLSIndexMap.get(this.family));
+        }
+    }
+    applyIndexMap(indexDef) {
+        for (const driver in this.drivers) {
+            this.drivers[driver].applyIndexDef(indexDef);
+        }
+        for (const cmd in this.commands) {
+            this.commands[cmd].applyIndexDef(indexDef);
+        }
+        for (const cmd in this.events) {
+            this.events[cmd].applyIndexDef(indexDef);
         }
     }
     applyNLS() {
@@ -133,8 +135,8 @@ export class NodeClassDefinition {
     }
     applyNLSMap(nlsm) {
         let nls = null;
-        if (nlsm["Generic"]) {
-            nls = nlsm["Generic"];
+        if (nlsm['Generic']) {
+            nls = nlsm['Generic'];
             this.applyNLSRecords(nls);
         }
         if (this.nlsId && nlsm[this.nlsId]) {
@@ -142,6 +144,22 @@ export class NodeClassDefinition {
             this.applyNLSRecords(nls);
         }
     }
+    toJSON() {
+        return {
+            className: this.name ?? this.label,
+            id: this.id,
+            nlsId: this.nlsId,
+            drivers: this.drivers,
+            commands: this.commands,
+            events: this.events,
+            family: this.family,
+            label: this.label,
+            name: this.name,
+            dynamic: this.dynamic
+        };
+    }
+    // #endregion Public Methods (6)
+    // #region Private Methods (1)
     applyNLSRecords(nls) {
         for (const entry of nls.GEN ?? []) {
             //if (this.commands.hasOwnProperty(entry.key)) {
@@ -209,13 +227,16 @@ export class NodeClassDefinition {
     }
 }
 export class NodeMemberDefinition {
-    label;
+    // #region Properties (7)
+    classDef;
+    dataType;
+    editorId;
     hidden;
     id;
-    editorId;
-    dataType;
+    label;
     optional;
-    classDef;
+    // #endregion Properties (7)
+    // #region Constructors (1)
     constructor(classDef, def) {
         this.classDef = classDef;
         if (def) {
@@ -226,105 +247,18 @@ export class NodeMemberDefinition {
                 this.applyEditorDef({ id: def.editor, range: r });
         }
     }
-    selectValue(currentValue, newValue, nlsId) {
-        if (currentValue === undefined || currentValue === null) {
-            return newValue;
-        }
-        else if (this.classDef.nlsId == nlsId) {
-            return newValue;
-        }
-        return currentValue;
-    }
-    parseEditorId(e) {
-        if (e.startsWith("_")) {
-            var rangeDef = {};
-            let field = "uom";
-            const tokens = e.split("_").slice(1);
-            for (let token of tokens) {
-                const curField = field;
-                if (token == "R") {
-                    field = "min";
-                    continue;
-                }
-                else if (token == "S") {
-                    field = "lowMask";
-                    continue;
-                }
-                else if (token == "N") {
-                    field = "nls";
-                    continue;
-                }
-                if (curField == "uom") {
-                    field = "prec";
-                }
-                else if (curField == "prec" || curField == "max" || curField == "highMask") {
-                    field = null;
-                }
-                else if (curField == "min") {
-                    field = "max";
-                }
-                else if (curField == "lowMask") {
-                    field = "highMask";
-                }
-                if (curField == "lowMask") {
-                    rangeDef["subset"] = token;
-                }
-                else if (curField == "highMask") {
-                    if (rangeDef["subset"] !== undefined) {
-                        rangeDef["subset"] += `,${token}`;
-                    }
-                    else {
-                        rangeDef["subset"] = token;
-                    }
-                }
-                else if (curField == "nls") {
-                    if (rangeDef[curField])
-                        rangeDef[curField] += "_" + token;
-                    else
-                        rangeDef[curField] = token;
-                }
-                else if (curField !== null && curField !== undefined) {
-                    rangeDef[curField] = Number(token.replace("m", "-"));
-                }
-            }
-            return rangeDef;
-        }
-    }
+    // #endregion Constructors (1)
+    // #region Public Getters And Setters (1)
     get name() {
         return camelCase(this.label ?? this.id);
     }
-    primaryDataType() {
-        return Object.values(this.dataType)[0];
-    }
-    #parseSubset(e) {
-        if ("subset" in e.range) {
-            if (e.range.subset.includes(",")) {
-                var values = {};
-                for (const v of e.range.subset.split(",")) {
-                    let val = Number(v);
-                    if (Number.isNaN(val)) {
-                        let [k, q] = v.split("-");
-                        for (let i = Number(k); i <= Number(q); i++) {
-                            values[i] = "";
-                        }
-                    }
-                    else {
-                        values[Number(v)] = "";
-                    }
-                }
-                return { enum: true, values: values };
-            }
-            if (e.range.subset.includes("-")) {
-                const r = e.range.subset.split("-");
-                return { enum: false, min: Number(r[0]), max: Number(r[1]) };
-            }
-        }
-    }
+    // #endregion Public Getters And Setters (1)
+    // #region Public Methods (6)
     applyEditorDef(e) {
         if (e.id === this.editorId) {
             var d = {};
             for (const rangeDef of toArray(e.range)) {
-                if ("subset" in rangeDef) {
+                if ('subset' in rangeDef) {
                     d[rangeDef.uom] = { uom: rangeDef.uom, indexId: rangeDef.nls, ...this.#parseSubset(e) };
                 }
                 else {
@@ -355,6 +289,73 @@ export class NodeMemberDefinition {
             }
         }
     }
+    parseEditorId(e) {
+        if (e.startsWith('_')) {
+            var rangeDef = {};
+            let field = 'uom';
+            const tokens = e.split('_').slice(1);
+            for (let token of tokens) {
+                const curField = field;
+                if (token == 'R') {
+                    field = 'min';
+                    continue;
+                }
+                else if (token == 'S') {
+                    field = 'lowMask';
+                    continue;
+                }
+                else if (token == 'N') {
+                    field = 'nls';
+                    continue;
+                }
+                if (curField == 'uom') {
+                    field = 'prec';
+                }
+                else if (curField == 'prec' || curField == 'max' || curField == 'highMask') {
+                    field = null;
+                }
+                else if (curField == 'min') {
+                    field = 'max';
+                }
+                else if (curField == 'lowMask') {
+                    field = 'highMask';
+                }
+                if (curField == 'lowMask') {
+                    rangeDef['subset'] = token;
+                }
+                else if (curField == 'highMask') {
+                    if (rangeDef['subset'] !== undefined) {
+                        rangeDef['subset'] += `,${token}`;
+                    }
+                    else {
+                        rangeDef['subset'] = token;
+                    }
+                }
+                else if (curField == 'nls') {
+                    if (rangeDef[curField])
+                        rangeDef[curField] += '_' + token;
+                    else
+                        rangeDef[curField] = token;
+                }
+                else if (curField !== null && curField !== undefined) {
+                    rangeDef[curField] = Number(token.replace('m', '-'));
+                }
+            }
+            return rangeDef;
+        }
+    }
+    primaryDataType() {
+        return Object.values(this.dataType)[0];
+    }
+    selectValue(currentValue, newValue, nlsId) {
+        if (currentValue === undefined || currentValue === null) {
+            return newValue;
+        }
+        else if (this.classDef.nlsId == nlsId) {
+            return newValue;
+        }
+        return currentValue;
+    }
     toJSON() {
         return {
             label: this.label,
@@ -363,18 +364,50 @@ export class NodeMemberDefinition {
             id: this.id,
             editorId: this.editorId,
             dataType: this.dataType,
-            name: this.name,
+            name: this.name
         };
+    }
+    // #endregion Public Methods (6)
+    // #region Private Methods (1)
+    #parseSubset(e) {
+        if ('subset' in e.range) {
+            if (e.range.subset.includes(',')) {
+                var values = {};
+                for (const v of e.range.subset.split(',')) {
+                    let val = Number(v);
+                    if (Number.isNaN(val)) {
+                        let [k, q] = v.split('-');
+                        for (let i = Number(k); i <= Number(q); i++) {
+                            values[i] = '';
+                        }
+                    }
+                    else {
+                        values[Number(v)] = '';
+                    }
+                }
+                return { enum: true, values: values };
+            }
+            if (e.range.subset.includes('-')) {
+                const r = e.range.subset.split('-');
+                return { enum: false, min: Number(r[0]), max: Number(r[1]) };
+            }
+        }
     }
 }
 export class DriverDefinition extends NodeMemberDefinition {
+    // #region Properties (1)
     readonly = true;
+    // #endregion Properties (1)
+    // #region Constructors (1)
     constructor(def, classDef) {
         super(classDef, def);
         this.id = def.id;
         this.hidden = def.hide === 'T';
         this.editorId = def.editor;
+        this.optional = false;
     }
+    // #endregion Constructors (1)
+    // #region Public Methods (2)
     applyNLSRecord(nls) {
         if (nls.type === NLSRecordType.Driver) {
             if (nls.control === this.id) {
@@ -405,41 +438,60 @@ export class DriverDefinition extends NodeMemberDefinition {
     }
 }
 export class CommandDefinition extends NodeMemberDefinition {
-    parameters;
+    // #region Properties (2)
     initialValue;
-    get name() {
-        if (Object.values(this.classDef.drivers).find(d => d.name === super.name)) {
-            return "update" + capitalize(super.name);
-        }
-        return super.name;
-    }
+    parameters;
+    // #endregion Properties (2)
+    // #region Constructors (1)
     constructor(def, classDef) {
         super(classDef);
         this.id = def.id;
         if (def.p) {
             this.parameters = {};
             for (const p of toArray(def.p)) {
-                if (p.id === "") {
+                if (p.id === '') {
                     this.editorId = p.editor;
                     this.initialValue = p.init;
-                    this.optional = p.optional === "T";
-                    p.id = "value";
+                    this.optional = p.optional === 'T';
+                    p.id = 'value';
                 }
                 this.parameters[p.id] = new ParameterDefinition(p, classDef);
             }
         }
     }
+    // #endregion Constructors (1)
+    // #region Public Getters And Setters (1)
+    get name() {
+        if (Object.values(this.classDef.drivers).find((d) => d.name === super.name)) {
+            return 'update' + capitalize(super.name);
+        }
+        return super.name;
+    }
+    // #endregion Public Getters And Setters (1)
+    // #region Public Methods (4)
+    applyEditorDef(e) {
+        super.applyEditorDef(e);
+        for (const p in this.parameters) {
+            this.parameters[p].applyEditorDef(e);
+        }
+    }
+    applyIndexDef(e) {
+        super.applyIndexDef(e);
+        for (const p in this.parameters) {
+            this.parameters[p].applyIndexDef(e);
+        }
+    }
     applyNLSRecord(nls) {
         if (nls.type === NLSRecordType.Command) {
             if (nls.control === this.id) {
-                if (nls.property === "NAME") {
+                if (nls.property === 'NAME') {
                     this.label = this.selectValue(this.label, nls.value, nls.nlsId);
                 }
             }
         }
         else if (nls.type === NLSRecordType.Generic) {
             if (nls.control === this.id) {
-                if (nls.property === "NAME") {
+                if (nls.property === 'NAME') {
                     this.label = this.selectValue(this.label, nls.value, nls.nlsId);
                 }
             }
@@ -451,18 +503,6 @@ export class CommandDefinition extends NodeMemberDefinition {
             if (this.parameters && this.parameters[nls.control]) {
                 this.parameters[nls.control].applyNLSRecord(nls);
             }
-        }
-    }
-    applyEditorDef(e) {
-        super.applyEditorDef(e);
-        for (const p in this.parameters) {
-            this.parameters[p].applyEditorDef(e);
-        }
-    }
-    applyIndexDef(e) {
-        super.applyIndexDef(e);
-        for (const p in this.parameters) {
-            this.parameters[p].applyIndexDef(e);
         }
     }
     // applyEditorDef(e: EditorDef) {
@@ -493,16 +533,21 @@ export class CommandDefinition extends NodeMemberDefinition {
     }
 }
 export class ParameterDefinition extends NodeMemberDefinition {
+    // #region Properties (1)
     initialValue;
+    // #endregion Properties (1)
+    // #region Constructors (1)
     constructor(def, classDef) {
         super(classDef, def);
         this.id = def.id;
         this.editorId = def.editor;
         this.initialValue = def.init;
-        this.optional = def.optional === "T";
+        this.optional = def.optional === 'T';
     }
+    // #endregion Constructors (1)
+    // #region Public Methods (2)
     applyNLSRecord(nls) {
-        if (nls.property === "NAME") {
+        if (nls.property === 'NAME') {
             this.label = this.selectValue(this.label, nls.value, nls.nlsId);
         }
     }
@@ -520,21 +565,24 @@ export class ParameterDefinition extends NodeMemberDefinition {
     }
 }
 export class EventDefinition extends NodeMemberDefinition {
+    // #region Constructors (1)
     constructor(def, classDef) {
         super(classDef);
         this.id = def.id;
     }
+    // #endregion Constructors (1)
+    // #region Public Methods (1)
     applyNLSRecord(nls) {
         if (nls.type === NLSRecordType.Command) {
             if (nls.control === this.id) {
-                if (nls.property === "NAME") {
+                if (nls.property === 'NAME') {
                     this.label = this.selectValue(this.label, nls.value, nls.nlsId);
                 }
             }
         }
         else if (nls.type === NLSRecordType.Generic) {
             if (nls.control === this.id) {
-                if (nls.property === "NAME") {
+                if (nls.property === 'NAME') {
                     this.label = this.selectValue(this.label, nls.value, nls.nlsId);
                 }
             }
@@ -552,15 +600,15 @@ export class EventDefinition extends NodeMemberDefinition {
     }
     NodeClassDefinition.generate = generate;
     function load(path) {
-        for (const file of new Set(fs.readdirSync(path + "/generated").concat(fs.readdirSync(path + "/custom")))) {
-            let fam = file.replace(".json", "");
+        for (const file of new Set(fs.readdirSync(path + '/generated').concat(fs.readdirSync(path + '/overrides')))) {
+            let fam = file.replace('.json', '');
             const family = Family[fam];
             let nodeClassDefs = {};
             if (fs.existsSync(`${path}/generated/${fam}.json`)) {
-                nodeClassDefs = JSON.parse(fs.readFileSync(`${path}/generated/${fam}.json`, "utf8"));
+                nodeClassDefs = JSON.parse(fs.readFileSync(`${path}/generated/${fam}.json`, 'utf8'));
             }
-            if (fs.existsSync(`${path}/custom/${fam}.json`)) {
-                merge(nodeClassDefs, JSON.parse(fs.readFileSync(`${path}/custom/${fam}.json`, "utf8")));
+            if (fs.existsSync(`${path}/overrides/${fam}.json`)) {
+                nodeClassDefs = merge(nodeClassDefs, JSON.parse(fs.readFileSync(`${path}/overrides/${fam}.json`, 'utf8')));
             }
             populateClassDefinitions(nodeClassDefs);
             NodeClassMap.set(family, nodeClassDefs);
@@ -582,8 +630,7 @@ export class EventDefinition extends NodeMemberDefinition {
         }
     }
     NodeClassDefinition.load = load;
-    function save(path) {
-    }
+    function save(path) { }
     NodeClassDefinition.save = save;
 })(NodeClassDefinition || (NodeClassDefinition = {}));
 //# sourceMappingURL=ClassDefinition.js.map

@@ -1,4 +1,3 @@
-import { Family } from '../../Definitions/Global/Families.js';
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
 import { ISYDeviceNode } from '../ISYDeviceNode.js';
 import 'winston';
@@ -6,11 +5,6 @@ import 'winston';
 export class ZWaveBaseDevice extends ISYDeviceNode {
     async getNodeDef() {
         return this.isy.sendRequest(`zmatter/zwave/node/${this.address}/def/get?full=true`);
-    }
-    constructor(isy, deviceNode) {
-        super(isy, deviceNode);
-        this.family = Family.ZWave;
-        //// this.productName = InsteonNLS.getDeviceDescription(String.fromCharCode(category,device,version));
     }
     convertFrom(value, uom) {
         switch (uom) {

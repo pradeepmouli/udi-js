@@ -2,3 +2,4 @@ scripts
 build
 tmp
 dist
+/.nx/workspace-data

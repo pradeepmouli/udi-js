@@ -3,19 +3,21 @@ import { applyTranslations, NLSIndexMap } from './NLS.js';
 import { merge, pascalCase } from 'moderndash';
 import { UnitOfMeasure } from '../Definitions/Global/UOM.js';
 import fs from 'fs';
+import { factory } from 'typescript';
 export class EnumDefinition {
     family;
     id;
     name;
     values = {};
     usages = new Set();
-    booleanValues;
+    repType;
     constructor(family, indexDef) {
         this.family = family;
         this.id = indexDef.id;
         this.name = pascalCase(applyTranslations(family, indexDef.id.replace('IX_I_', '').replace('IX_', '').replace('IXA_', 'Alert')).replace('IXAV_', 'AlertValue'));
         for (const [index, value] of Object.entries(indexDef.values)) {
-            this.values[pascalCase(value)] = parseInt(index);
+            const label = sanitize(value);
+            this.values[label] = parseInt(index);
         }
     }
 }
@@ -51,21 +53,21 @@ export class EnumDefinition {
     }
     EnumDefinition.generateAll = generateAll;
     function load(path) {
-        if (!fs.existsSync(path + "/generated")) {
-            fs.mkdirSync(path + "/generated", { recursive: true });
+        if (!fs.existsSync(path + '/generated')) {
+            fs.mkdirSync(path + '/generated', { recursive: true });
         }
-        if (!fs.existsSync(path + "/custom")) {
-            fs.mkdirSync(path + "/custom");
+        if (!fs.existsSync(path + '/overrides')) {
+            fs.mkdirSync(path + '/overrides');
         }
-        for (const file of new Set(fs.readdirSync(path + "/generated").concat(fs.readdirSync(path + "/custom")))) {
-            const fam = file.replace(".json", "");
+        for (const file of new Set(fs.readdirSync(path + '/generated').concat(fs.readdirSync(path + '/overrides')))) {
+            const fam = file.replace('.json', '');
             const family = Family[fam];
             let enumDefs = {};
             if (fs.existsSync(`${path}/generated/${fam}.json`)) {
-                enumDefs = JSON.parse(fs.readFileSync(`${path}/generated/${fam}.json`, "utf8"));
+                enumDefs = JSON.parse(fs.readFileSync(`${path}/generated/${fam}.json`, 'utf8'));
             }
-            if (fs.existsSync(`${path}/custom/${fam}.json`)) {
-                merge(enumDefs, JSON.parse(fs.readFileSync(`${path}/custom/${fam}.json`, "utf8")));
+            if (fs.existsSync(`${path}/overrides/${fam}.json`)) {
+                enumDefs = merge(enumDefs, JSON.parse(fs.readFileSync(`${path}/overrides/${fam}.json`, 'utf8')));
             }
             for (const id in enumDefs) {
                 enumDefs[id].usages = new Set();
@@ -87,5 +89,15 @@ export function buildEnumDefinitions(NLSIndexMap) {
         enumDefs.set(family, familyEnumDefs);
     }
     return enumDefs;
+}
+function createMemberName(name, mapNullishTo = 'Unknown') {
+    let label = pascalCase(name) ?? 'Unknown';
+    if (!label.substring(0, 1).match(/[a-zA-Z]/)) {
+        return factory.createStringLiteral(label);
+    }
+    return factory.createIdentifier(label);
+}
+function sanitize(value) {
+    return pascalCase(value).replace(/[^a-zA-Z0-9]/g, '');
 }
 //# sourceMappingURL=EnumDefinition.js.map

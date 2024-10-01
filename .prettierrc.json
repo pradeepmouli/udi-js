@@ -3,10 +3,14 @@
   "tabWidth": 2,
   "singleQuote": true,
   "bracketSameLine": true,
-  "printWidth": 120,
+  "printWidth": 200,
   "parser": "typescript",
   "embeddedLanguageFormatting": "auto",
   "arrowParens": "always",
   "semi":true,
-  "useTabs": true
+  "useTabs": true,
+  "experimentalTernaries": true,
+  "quoteProps": "as-needed",
+  "proseWrap": "preserve",
+  "plugins": ["prettier-plugin-packagejson"]
 }

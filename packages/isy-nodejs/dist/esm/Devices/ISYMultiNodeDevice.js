@@ -1,8 +1,6 @@
 export {};
 /*
 
-
-
 export class ISYMultiNodeDevice<T extends Family, N extends NodeList>
   implements ISYDevice<T, ISYNode.DriverMap<N>, ISYNode.CommandMap<N>, string> {
   commands: UnionToIntersection<{ [x in keyof N]: ISYNode.CommandsOf<N[x]>; } extends Record<string, unknown> ? keyof N extends string ? { [x in keyof N]: ISYNode.CommandsOf<N[x]>; }[string & keyof N] extends Record<string, unknown> ? keyof { [x in keyof N]: ISYNode.CommandsOf<N[x]>; }[string & keyof N] extends string ? { [x in `${string & keyof N}.${string & keyof { [x in keyof N]: ISYNode.CommandsOf<N[x]>; }[string & keyof N]}`]: { [x in keyof N]: ISYNode.CommandsOf<N[x]>; }[string & keyof N][x extends `${infer A}.${infer B}` ? B extends `${infer A}.${infer B}` ? B extends `${infer A}.${infer B}` ? B extends `${infer A}.${infer B}` ? B extends `${infer A}.${infer B}` ? B extends `${infer A}.${infer B}` ? B extends `${infer A}.${infer B}` ? B extends `${infer A}.${infer B}` ? B extends `${infer A}.${infer B}` ? B extends `${infer A}.${infer B}` ? B extends `${infer A}.${infer B}` ? any : B : B : B : B : B : B : B : B : B : B : x]; } : never : never : never : never>;
@@ -58,7 +56,6 @@ export class ISYMultiNodeDevice<T extends Family, N extends NodeList>
     throw new Error('Method not implemented.');
   }
 
-
   logger(arg0: string): unknown {
     throw new Error('Method not implemented.');
   }
@@ -87,7 +84,6 @@ export class ISYMultiNodeDevice<T extends Family, N extends NodeList>
   version: string;
   isDimmable: boolean;
   label: string;
-
 
 } */
 //# sourceMappingURL=ISYMultiNodeDevice.js.map

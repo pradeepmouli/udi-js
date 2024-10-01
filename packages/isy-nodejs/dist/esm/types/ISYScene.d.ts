@@ -4,8 +4,8 @@ import { ISYDevice } from './ISYDevice.js';
 import type { ISY } from './ISY.js';
 import type { Driver } from './Definitions/Global/Drivers.js';
 import type { Command } from './Definitions/Global/Commands.js';
-import type { NodeInfo } from './Model/NodeInfo.js';
-interface SceneInfo extends NodeInfo {
+import type { StaticNodeInfo } from './Model/NodeInfo.js';
+interface SceneInfo extends StaticNodeInfo {
     members?: {
         link: any;
     };
@@ -18,7 +18,7 @@ interface SceneInfo extends NodeInfo {
     enabled: boolean;
     startDelay: number;
 }
-export declare class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>, Command.Signatures<'DON' | 'DOF'>, string> {
+export declare class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>, Command.Signatures<'DON' | 'DOF'>> {
     connectionType: string;
     batteryOperated: boolean;
     deviceType: any;

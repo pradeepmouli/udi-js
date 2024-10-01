@@ -2,7 +2,7 @@
     "compileOnSave": true,
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
-        "target": "es2022",
+        "target": "ESNext",
         "module": "NodeNext",
 
         "rootDir": "./",
@@ -10,12 +10,15 @@
 
         //"declarationDir": "./dist/types",
         "allowArbitraryExtensions": true,
-
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
         "allowSyntheticDefaultImports": true,
         "allowJs": false,
         "skipLibCheck": true,
         "noImplicitOverride": true,
         "noImplicitThis": true,
+        "suppressImplicitAnyIndexErrors": true,
         "esModuleInterop": true,
         "resolveJsonModule": true,
         "paths": {

@@ -4,12 +4,13 @@
   "description": "Node codegen for UDI.js",
   "main": "generate.js",
   "scripts": {
-    "codegen": "ts-node generate.ts"
+    "codegen": "ts-node generate.ts",
+    "build:watch": "tsc -p ./tsconfig.json --watch"
   },
   "dependencies": {
     "isy-nodejs": "../../packages/isy-nodejs"
   },
   "type": "module",
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }

@@ -16,14 +16,7 @@ export class ZWaveBaseDevice<D extends ISYNode.DriverSignatures = {}, C extends 
 		return this.isy.sendRequest(`zmatter/zwave/node/${this.address}/def/get?full=true`)
 	}
 
-	constructor(isy: ISY, deviceNode: NodeInfo) {
 
-		super(isy, deviceNode);
-		this.family = Family.ZWave;
-
-		//// this.productName = InsteonNLS.getDeviceDescription(String.fromCharCode(category,device,version));
-
-	}
 	public override convertFrom(value: any, uom: number): any {
 		switch (uom) {
 			case 101:

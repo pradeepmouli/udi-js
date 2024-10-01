@@ -12,7 +12,7 @@
   },
   "devDependencies": {
     "lerna": "^8.1.8",
-    "mocha": "^10.2.0",
+    "mocha": "^10.7.3",
     "moderndash": "^3.12.0",
     "prettier": "^3.3.3",
     "prettier-plugin-packagejson": "^2.5.2",

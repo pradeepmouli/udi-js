@@ -45,7 +45,7 @@
     "module": "./dist/esm/ISY.js",
     "type": "module",
     "devDependencies": {
-        "@types/node": "^18.18.2",
+        "@types/node": "^22.7.4",
         "@types/xml2js": "",
         "@types/xmldoc": "",
         "mocha": "",

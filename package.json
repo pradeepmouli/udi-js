@@ -15,7 +15,7 @@
     "mocha": "^10.7.3",
     "moderndash": "^3.12.0",
     "prettier": "^3.3.3",
-    "prettier-plugin-packagejson": "^2.5.2",
+    "prettier-plugin-packagejson": "^2.5.3",
     "ts-morph": "^24.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.2",

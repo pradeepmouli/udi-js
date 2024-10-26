@@ -1,6 +1,6 @@
 {
   "119": {
-    "className": "DimmerSwitch",
+    "className": "119",
     "id": "119",
     "nlsId": "119",
     "drivers": {
@@ -25,24 +25,13 @@
         "name": "status"
       },
       "ERR": {
-        "label": "Responding",
         "hidden": true,
         "optional": false,
         "readonly": true,
         "id": "ERR",
         "editorId": "ZY_ERR",
-        "dataType": {
-          "25": {
-            "uom": 25,
-            "indexId": "IX_ERR",
-            "enum": true,
-            "values": {
-              "0": "True",
-              "1": "False"
-            }
-          }
-        },
-        "name": "responding"
+        "dataType": {},
+        "name": "err"
       }
     },
     "commands": {
@@ -50,36 +39,13 @@
         "label": "On",
         "id": "DON",
         "editorId": "ZY_DIM_PERCENT",
-        "dataType": {
-          "25": {
-            "uom": 25,
-            "indexId": "IX_PCT_OPT"
-          },
-          "51": {
-            "uom": 51,
-            "enum": false,
-            "min": 0,
-            "max": 100
-          }
-        },
         "name": "on",
         "optional": true,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "ZY_DIM_PERCENT",
-            "dataType": {
-              "25": {
-                "uom": 25,
-                "indexId": "IX_PCT_OPT"
-              },
-              "51": {
-                "uom": 51,
-                "enum": false,
-                "min": 0,
-                "max": 100
-              }
-            },
+            "dataType": {},
             "name": "value",
             "optional": true,
             "initialValue": "ST"
@@ -88,20 +54,7 @@
             "label": "Ramp Rate",
             "id": "RR",
             "editorId": "ZY_RR",
-            "dataType": {
-              "45": {
-                "uom": 45,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              },
-              "58": {
-                "uom": 58,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              }
-            },
+            "dataType": {},
             "name": "rampRate",
             "optional": true
           }
@@ -139,22 +92,10 @@
         "name": "fadeUp",
         "parameters": {
           "STARTLEVEL": {
-            "label": "Start Level",
             "id": "STARTLEVEL",
             "editorId": "ZY_DIM_PERCENT",
-            "dataType": {
-              "25": {
-                "uom": 25,
-                "indexId": "IX_PCT_OPT"
-              },
-              "51": {
-                "uom": 51,
-                "enum": false,
-                "min": 0,
-                "max": 100
-              }
-            },
-            "name": "startLevel",
+            "dataType": {},
+            "name": "startlevel",
             "optional": true,
             "initialValue": "ST"
           },
@@ -162,20 +103,7 @@
             "label": "Ramp Rate",
             "id": "RR",
             "editorId": "ZY_RR",
-            "dataType": {
-              "45": {
-                "uom": 45,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              },
-              "58": {
-                "uom": 58,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              }
-            },
+            "dataType": {},
             "name": "rampRate",
             "optional": true
           }
@@ -187,22 +115,10 @@
         "name": "fadeDown",
         "parameters": {
           "STARTLEVEL": {
-            "label": "Start Level",
             "id": "STARTLEVEL",
             "editorId": "ZY_DIM_PERCENT",
-            "dataType": {
-              "25": {
-                "uom": 25,
-                "indexId": "IX_PCT_OPT"
-              },
-              "51": {
-                "uom": 51,
-                "enum": false,
-                "min": 0,
-                "max": 100
-              }
-            },
-            "name": "startLevel",
+            "dataType": {},
+            "name": "startlevel",
             "optional": true,
             "initialValue": "ST"
           },
@@ -210,66 +126,28 @@
             "label": "Ramp Rate",
             "id": "RR",
             "editorId": "ZY_RR",
-            "dataType": {
-              "45": {
-                "uom": 45,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              },
-              "58": {
-                "uom": 58,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              }
-            },
+            "dataType": {},
             "name": "rampRate",
             "optional": true
           }
         }
       },
       "FADE": {
-        "label": "Fade",
         "id": "FADE",
         "name": "fade",
         "parameters": {
           "DIR": {
-            "label": "Direction",
             "id": "DIR",
             "editorId": "ZY_MLS_DIR",
-            "dataType": {
-              "25": {
-                "uom": 25,
-                "indexId": "IX_MLS_DIR",
-                "enum": true,
-                "values": {
-                  "0": "Up",
-                  "1": "Down",
-                  "3": "None"
-                }
-              }
-            },
-            "name": "direction",
+            "dataType": {},
+            "name": "dir",
             "optional": false
           },
           "STARTLEVEL": {
-            "label": "Start Level",
             "id": "STARTLEVEL",
             "editorId": "ZY_DIM_PERCENT",
-            "dataType": {
-              "25": {
-                "uom": 25,
-                "indexId": "IX_PCT_OPT"
-              },
-              "51": {
-                "uom": 51,
-                "enum": false,
-                "min": 0,
-                "max": 100
-              }
-            },
-            "name": "startLevel",
+            "dataType": {},
+            "name": "startlevel",
             "optional": true,
             "initialValue": "ST"
           },
@@ -277,61 +155,22 @@
             "label": "Ramp Rate",
             "id": "RR",
             "editorId": "ZY_RR",
-            "dataType": {
-              "45": {
-                "uom": 45,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              },
-              "58": {
-                "uom": 58,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              }
-            },
+            "dataType": {},
             "name": "rampRate",
             "optional": true
           },
           "DIR2": {
-            "label": "2nd Direction",
             "id": "DIR2",
             "editorId": "ZY_MLS_DIR",
-            "dataType": {
-              "25": {
-                "uom": 25,
-                "indexId": "IX_MLS_DIR",
-                "enum": true,
-                "values": {
-                  "0": "Up",
-                  "1": "Down",
-                  "3": "None"
-                }
-              }
-            },
-            "name": "2ndDirection",
+            "dataType": {},
+            "name": "dir2",
             "optional": true
           },
           "STEP2": {
-            "label": "2nd Fade Rate",
             "id": "STEP2",
             "editorId": "ZY_RR",
-            "dataType": {
-              "45": {
-                "uom": 45,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              },
-              "58": {
-                "uom": 58,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              }
-            },
-            "name": "2ndFadeRate",
+            "dataType": {},
+            "name": "step2",
             "optional": true
           }
         }
@@ -347,12 +186,10 @@
         "name": "query"
       },
       "CONFIG": {
-        "label": "Set Configuration",
         "id": "CONFIG",
-        "name": "setConfiguration",
+        "name": "config",
         "parameters": {
           "NUM": {
-            "label": "Parameter Number",
             "id": "NUM",
             "editorId": "_107_0_R_0_255",
             "dataType": {
@@ -364,52 +201,14 @@
                 "precision": 0
               }
             },
-            "name": "parameterNumber",
+            "name": "num",
             "optional": false
           },
           "VAL": {
-            "label": "Parameter Value",
             "id": "VAL",
             "editorId": "ZY_CONFIG",
-            "dataType": {
-              "107": {
-                "uom": 107,
-                "enum": false,
-                "min": 0,
-                "max": 255
-              },
-              "108": {
-                "uom": 108,
-                "enum": false,
-                "min": 0,
-                "max": 65535
-              },
-              "110": {
-                "uom": 110,
-                "enum": false,
-                "min": 0,
-                "max": 4294967295
-              },
-              "111": {
-                "uom": 111,
-                "enum": false,
-                "min": -128,
-                "max": 127
-              },
-              "112": {
-                "uom": 112,
-                "enum": false,
-                "min": -32768,
-                "max": 32767
-              },
-              "114": {
-                "uom": 114,
-                "enum": false,
-                "min": -2147483648,
-                "max": 214748647
-              }
-            },
-            "name": "parameterValue",
+            "dataType": {},
+            "name": "val",
             "optional": false
           }
         }
@@ -443,16 +242,16 @@
       }
     },
     "family": 12,
-    "label": "Dimmer Switch",
-    "name": "DimmerSwitch"
+    "label": "119",
+    "name": "119",
+    "dynamic": false
   },
   "186": {
-    "className": "ColorSwitch",
+    "className": "186",
     "id": "186",
     "nlsId": "186",
     "drivers": {
       "GV0": {
-        "label": "Warm White",
         "hidden": false,
         "optional": false,
         "readonly": true,
@@ -467,10 +266,9 @@
             "precision": 0
           }
         },
-        "name": "warmWhite"
+        "name": "gv0"
       },
       "GV2": {
-        "label": "Red",
         "hidden": false,
         "optional": false,
         "readonly": true,
@@ -485,10 +283,9 @@
             "precision": 0
           }
         },
-        "name": "red"
+        "name": "gv2"
       },
       "GV3": {
-        "label": "Green",
         "hidden": false,
         "optional": false,
         "readonly": true,
@@ -503,10 +300,9 @@
             "precision": 0
           }
         },
-        "name": "green"
+        "name": "gv3"
       },
       "GV4": {
-        "label": "Blue",
         "hidden": false,
         "optional": false,
         "readonly": true,
@@ -521,17 +317,16 @@
             "precision": 0
           }
         },
-        "name": "blue"
+        "name": "gv4"
       }
     },
     "commands": {
       "DON": {
-        "label": "Set",
+        "label": "On",
         "id": "DON",
-        "name": "set",
+        "name": "on",
         "parameters": {
           "GV0": {
-            "label": "Warm White",
             "id": "GV0",
             "editorId": "_107_0_R_0_255",
             "dataType": {
@@ -543,11 +338,10 @@
                 "precision": 0
               }
             },
-            "name": "warmWhite",
+            "name": "gv0",
             "optional": true
           },
           "GV2": {
-            "label": "Red",
             "id": "GV2",
             "editorId": "_107_0_R_0_255",
             "dataType": {
@@ -559,11 +353,10 @@
                 "precision": 0
               }
             },
-            "name": "red",
+            "name": "gv2",
             "optional": true
           },
           "GV3": {
-            "label": "Green",
             "id": "GV3",
             "editorId": "_107_0_R_0_255",
             "dataType": {
@@ -575,11 +368,10 @@
                 "precision": 0
               }
             },
-            "name": "green",
+            "name": "gv3",
             "optional": true
           },
           "GV4": {
-            "label": "Blue",
             "id": "GV4",
             "editorId": "_107_0_R_0_255",
             "dataType": {
@@ -591,28 +383,15 @@
                 "precision": 0
               }
             },
-            "name": "blue",
+            "name": "gv4",
             "optional": true
           },
           "RR": {
-            "label": "Duration",
+            "label": "Ramp Rate",
             "id": "RR",
             "editorId": "ZY_RR",
-            "dataType": {
-              "45": {
-                "uom": 45,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              },
-              "58": {
-                "uom": 58,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              }
-            },
-            "name": "duration",
+            "dataType": {},
+            "name": "rampRate",
             "optional": true
           }
         }
@@ -623,7 +402,6 @@
         "name": "fadeUp",
         "parameters": {
           "ID": {
-            "label": "Component",
             "id": "ID",
             "editorId": "_25_0_S_001D_N_IX_CCI",
             "dataType": {
@@ -632,11 +410,10 @@
                 "indexId": "IX_CCI"
               }
             },
-            "name": "component",
+            "name": "id",
             "optional": false
           },
           "STARTLEVEL": {
-            "label": "Start Level",
             "id": "STARTLEVEL",
             "editorId": "_107_0_R_0_255",
             "dataType": {
@@ -648,28 +425,15 @@
                 "precision": 0
               }
             },
-            "name": "startLevel",
+            "name": "startlevel",
             "optional": true
           },
           "RR": {
-            "label": "Duration",
+            "label": "Ramp Rate",
             "id": "RR",
             "editorId": "ZY_RR",
-            "dataType": {
-              "45": {
-                "uom": 45,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              },
-              "58": {
-                "uom": 58,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              }
-            },
-            "name": "duration",
+            "dataType": {},
+            "name": "rampRate",
             "optional": true
           }
         }
@@ -680,7 +444,6 @@
         "name": "fadeDown",
         "parameters": {
           "ID": {
-            "label": "Component",
             "id": "ID",
             "editorId": "_25_0_S_001D_N_IX_CCI",
             "dataType": {
@@ -689,11 +452,10 @@
                 "indexId": "IX_CCI"
               }
             },
-            "name": "component",
+            "name": "id",
             "optional": false
           },
           "STARTLEVEL": {
-            "label": "Start Level",
             "id": "STARTLEVEL",
             "editorId": "_107_0_R_0_255",
             "dataType": {
@@ -705,28 +467,15 @@
                 "precision": 0
               }
             },
-            "name": "startLevel",
+            "name": "startlevel",
             "optional": true
           },
           "RR": {
-            "label": "Duration",
+            "label": "Ramp Rate",
             "id": "RR",
             "editorId": "ZY_RR",
-            "dataType": {
-              "45": {
-                "uom": 45,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              },
-              "58": {
-                "uom": 58,
-                "enum": false,
-                "min": 0,
-                "max": 127
-              }
-            },
-            "name": "duration",
+            "dataType": {},
+            "name": "rampRate",
             "optional": true
           }
         }
@@ -737,7 +486,6 @@
         "name": "fadeStop",
         "parameters": {
           "ID": {
-            "label": "Component",
             "id": "ID",
             "editorId": "_25_0_S_001D_N_IX_CCI",
             "dataType": {
@@ -746,7 +494,7 @@
                 "indexId": "IX_CCI"
               }
             },
-            "name": "component",
+            "name": "id",
             "optional": false
           }
         }
@@ -759,7 +507,8 @@
     },
     "events": {},
     "family": 12,
-    "label": "Color Switch",
-    "name": "ColorSwitch"
+    "label": "186",
+    "name": "186",
+    "dynamic": false
   }
 }

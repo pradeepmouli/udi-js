@@ -17,7 +17,7 @@ export const nodeDefId = "TempLinc";
 type Commands = TempLinc.Commands;
 type Drivers = TempLinc.Drivers;
 
-export class TempLincNode extends Base<Drivers, Commands> implements TempLinc.Interface {
+export class TempLincNode extends IrLincTx implements TempLinc.Interface {
 	public readonly commands = {
 		CLISPH: this.updateHeatSetpoint,
 		CLISPC: this.updateCoolSetpoint,

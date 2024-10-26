@@ -17,7 +17,7 @@ export const nodeDefId = "I3PaddleFlags";
 type Commands = I3PaddleFlags.Commands;
 type Drivers = I3PaddleFlags.Drivers;
 
-export class I3PaddleFlagsNode extends Base<Drivers, Commands> implements I3PaddleFlags.Interface {
+export class I3PaddleFlagsNode extends SirenAlert implements I3PaddleFlags.Interface {
 	public readonly commands = {
 		GV0: this.updateMode,
 		GV1: this.updateProgramLock,

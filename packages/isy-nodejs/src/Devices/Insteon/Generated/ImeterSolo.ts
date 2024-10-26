@@ -17,7 +17,7 @@ export const nodeDefId = "IMETER_SOLO";
 type Commands = ImeterSolo.Commands;
 type Drivers = ImeterSolo.Drivers;
 
-export class ImeterSoloNode extends Base<Drivers, Commands> implements ImeterSolo.Interface {
+export class ImeterSoloNode extends SirenAlert implements ImeterSolo.Interface {
 	public readonly commands = {
 		RESET: this.resetTotalEnergy,
 		QUERY: this.query,

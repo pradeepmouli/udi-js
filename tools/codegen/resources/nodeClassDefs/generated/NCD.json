@@ -1,6 +1,6 @@
 {
   "NCDRelay": {
-    "className": "LampAndSwitch",
+    "className": "Relay",
     "id": "NCDRelay",
     "nlsId": "RELAY",
     "drivers": {
@@ -110,7 +110,8 @@
       }
     },
     "family": 9,
-    "label": "LampAndSwitch",
-    "name": "LampAndSwitch"
+    "label": "Relay",
+    "name": "Relay",
+    "dynamic": false
   }
 }

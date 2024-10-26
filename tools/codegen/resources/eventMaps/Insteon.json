@@ -1,41 +1,5265 @@
 {
-  "eventMaps": {
-    "$comment": " In all events, convert values from given UOM to new UOM ",
-    "eventMap": {
-      "uomMap": {
-        "uom": [
-          {
-            "from": 98,
-            "to": 67
+  "nodeDefs": {
+    "$comment": [
+      " === X10/A10 =================================================== ",
+      " === Thermostat - Basic ======================================================  ",
+      " === Thermostat - TempLinc ========================================================  ",
+      " === Thermostat - Heat Control ===================================================  ",
+      " Advanced ",
+      " === Dimmer Motor & Switch =================================================== ",
+      " Advanced ",
+      " === Dimmer Lamp & Switch =================================================== ",
+      " Advanced ",
+      " === Dimmer Lamp & Switch with LED ========================================== ",
+      " Advanced ",
+      " === Dimmer Switch Only with LED ========================================== ",
+      " Advanced ",
+      " === Dimmer Lamp Only =================================================== ",
+      " === Keypad Dimmer Lamp & Switch (Main button) ============================== ",
+      " Advanced ",
+      " === Ballast Relay Lamp & Switch =================================================== ",
+      " Advanced ",
+      " === Relay Lamp & Switch =================================================== ",
+      " Advanced ",
+      " === Relay Lamp & Switch with LED =========================================== ",
+      " Advanced ",
+      " === Relay Switch Only + Query =================================================== ",
+      " Advanced ",
+      " === Relay Switch Only  =================================================== ",
+      " Advanced ",
+      " === Relay Lamp Only  =================================================== ",
+      " Advanced ",
+      " === Keypad Relay Lamp & Switch =================================================== ",
+      " Advanced ",
+      " === RemoteLinc2  =================================================== ",
+      " Advanced ",
+      " === IRLinc Tx  =================================================== ",
+      " === FanLinc Motor  =================================================== ",
+      " === Keypad Button  =================================================== ",
+      " Advanced ",
+      " === EZRain OUTPUT  =================================================== ",
+      " === EZRAIN INPUT  =================================================== ",
+      " Advanced ",
+      " === EZIO 2x4 OUTPUT  =================================================== ",
+      " === EZIO 2x4 INPUT  =================================================== ",
+      " Advanced ",
+      " === iMeter Solo  =================================================== ",
+      " === MorningLinc  =================================================== ",
+      " === Binary Alarm  =================================================== ",
+      " Advanced ",
+      " === Binary Control  =================================================== ",
+      " Advanced ",
+      " === Alert Module  =================================================== ",
+      " Alert Module Siren ",
+      " Alert Module Armed ",
+      " === Siren  =================================================== ",
+      " Siren triggered ",
+      " Advanced ",
+      " Siren Triggered Responder ",
+      " Siren Armed Responder ",
+      " === PIR 2844 Primary Node  =================================================== ",
+      " Advanced ",
+      " === PIR 2844 Primary Node  (Celsius) ========================================== ",
+      " Advanced ",
+      " === PIR 2844 On/Off + Status  =================================================== ",
+      " Advanced ",
+      " === I3 Paddle Flags ========================================================  ",
+      " === I3 Keypad Flags ========================================================  "
+    ],
+    "nodeDef": [
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
           },
-          {
-            "from": 99,
-            "to": 68
-          },
-          {
-            "from": 100,
-            "to": 51
-          },
-          {
-            "from": 101,
-            "to": 14,
-            "prec": 1
-          },
-          {
-            "from": 102,
-            "to": 33,
-            "prec": 4
+          "accepts": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              },
+              {
+                "id": "QUERY"
+              }
+            ]
           }
-        ],
-        "$comment": [
-          " Insteon Thermostat Mode to Common Thermostat Mode ",
-          " Insteon Thermostat Fan Mode to Common Thermostat Fan Mode ",
-          " LEVEL_255 to Percent ",
-          " Degree_X_2 to Degree ",
-          " kW Second to kWh "
-        ]
+        },
+        "links": "",
+        "id": "X10",
+        "eventMap": "I_STD"
       },
-      "id": "I_STD"
-    }
+      {
+        "$comment": " sts optional=\"true\" - indicates that some of these may not ever be used for the thermostat ",
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_TEMP_DEG_1"
+            },
+            {
+              "id": "CLISPH",
+              "editor": "I_CLISPH_DEG"
+            },
+            {
+              "id": "CLISPC",
+              "editor": "I_CLISPC_DEG"
+            },
+            {
+              "id": "CLIMD",
+              "editor": "I_TSTAT_MODE"
+            },
+            {
+              "id": "CLIFS",
+              "editor": "I_TSTAT_FAN_MODE"
+            },
+            {
+              "id": "CLIHUM",
+              "editor": "I_TSTAT_HUM"
+            },
+            {
+              "id": "CLIHCS",
+              "editor": "I_TSTAT_HCS"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_CLISPH_DEG",
+                  "init": "CLISPH"
+                },
+                "id": "CLISPH"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_CLISPC_DEG",
+                  "init": "CLISPC"
+                },
+                "id": "CLISPC"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_TSTAT_MODE",
+                  "init": "CLIMD"
+                },
+                "id": "CLIMD"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_TSTAT_FAN_MODE",
+                  "init": "CLIFS"
+                },
+                "id": "CLIFS"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "id": "SETTIME"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": "",
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_TSTAT"
+              },
+              {
+                "linkdef": "I_TSTAT_ADV"
+              }
+            ]
+          }
+        },
+        "id": "Thermostat",
+        "nodeType": 143,
+        "nls": 143,
+        "eventMap": "I_STD"
+      },
+      {
+        "$comment": " sts optional=\"true\" - indicates that some of these may not ever be used for the thermostat ",
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_TEMP_DEG_1"
+            },
+            {
+              "id": "CLISPH",
+              "editor": "I_CLISPH_DEG"
+            },
+            {
+              "id": "CLISPC",
+              "editor": "I_CLISPC_DEG"
+            },
+            {
+              "id": "CLIMD",
+              "editor": "I_TEMPLINC_MODE"
+            },
+            {
+              "id": "CLIFS",
+              "editor": "I_TSTAT_FAN_MODE"
+            },
+            {
+              "id": "CLIHUM",
+              "editor": "I_TSTAT_HUM"
+            },
+            {
+              "id": "CLIHCS",
+              "editor": "I_TSTAT_HCS"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_CLISPH_DEG",
+                  "init": "CLISPH"
+                },
+                "id": "CLISPH"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_CLISPC_DEG",
+                  "init": "CLISPC"
+                },
+                "id": "CLISPC"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_TEMPLINC_MODE",
+                  "init": "CLIMD"
+                },
+                "id": "CLIMD"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_TSTAT_FAN_MODE",
+                  "init": "CLIFS"
+                },
+                "id": "CLIFS"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "id": "SETTIME"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": "",
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_TEMPLINC"
+              },
+              {
+                "linkdef": "I_TEMPLINC_ADV"
+              }
+            ]
+          }
+        },
+        "id": "TempLinc",
+        "nodeType": 143,
+        "nls": 143,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          },
+          "accepts": ""
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            }
+          }
+        },
+        "id": "OnOffControl",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          },
+          "accepts": ""
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            }
+          }
+        },
+        "id": "OnOffControl_ADV",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL"
+            },
+            {
+              "id": "OL",
+              "editor": "I_OL"
+            },
+            {
+              "id": "DUR",
+              "editor": "I_MOTOR_DUR"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL_PARAM",
+                  "optional": "T",
+                  "init": "ST"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL",
+                  "init": "OL"
+                },
+                "id": "OL"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_MOTOR_DUR",
+                  "init": "DUR"
+                },
+                "id": "DUR"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            }
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_MDIMMER"
+              },
+              {
+                "linkdef": "I_MDIMMER_ADV"
+              }
+            ]
+          }
+        },
+        "id": "DimmerMotorSwitch",
+        "nls": "MOC",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL"
+            },
+            {
+              "id": "OL",
+              "editor": "I_OL"
+            },
+            {
+              "id": "DUR",
+              "editor": "I_MOTOR_DUR"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL_PARAM",
+                  "optional": "T",
+                  "init": "ST"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL",
+                  "init": "OL"
+                },
+                "id": "OL"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_MOTOR_DUR",
+                  "init": "DUR"
+                },
+                "id": "DUR"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            }
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_MDIMMER"
+              },
+              {
+                "linkdef": "I_MDIMMER_ADV"
+              }
+            ]
+          }
+        },
+        "id": "DimmerMotorSwitch_ADV",
+        "nls": "MOC",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL"
+            },
+            {
+              "id": "OL",
+              "editor": "I_OL"
+            },
+            {
+              "id": "RR",
+              "editor": "I_RR"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL_PARAM",
+                  "optional": "T",
+                  "init": "ST"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL",
+                  "init": "OL"
+                },
+                "id": "OL"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_RR",
+                  "init": "RR"
+                },
+                "id": "RR"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            }
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_DIMMER"
+              },
+              {
+                "linkdef": "I_DIMMER_ADV"
+              }
+            ]
+          }
+        },
+        "id": "DimmerLampSwitch",
+        "nls": 109,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL"
+            },
+            {
+              "id": "OL",
+              "editor": "I_OL"
+            },
+            {
+              "id": "RR",
+              "editor": "I_RR"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL_PARAM",
+                  "optional": "T",
+                  "init": "ST"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL",
+                  "init": "OL"
+                },
+                "id": "OL"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_RR",
+                  "init": "RR"
+                },
+                "id": "RR"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            }
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_DIMMER"
+              },
+              {
+                "linkdef": "I_DIMMER_ADV"
+              }
+            ]
+          }
+        },
+        "id": "DimmerLampSwitch_ADV",
+        "nls": 109,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL"
+            },
+            {
+              "id": "OL",
+              "editor": "I_OL"
+            },
+            {
+              "id": "RR",
+              "editor": "I_RR"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL_PARAM",
+                  "optional": "T",
+                  "init": "ST"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL",
+                  "init": "OL"
+                },
+                "id": "OL"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_RR",
+                  "init": "RR"
+                },
+                "id": "RR"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_RGB_LED"
+                },
+                "id": "LED"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            }
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_DIMMER"
+              },
+              {
+                "linkdef": "I_DIMMER_ADV"
+              }
+            ]
+          }
+        },
+        "id": "DimmerLampSwitchLED",
+        "nls": 109,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL"
+            },
+            {
+              "id": "OL",
+              "editor": "I_OL"
+            },
+            {
+              "id": "RR",
+              "editor": "I_RR"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL_PARAM",
+                  "optional": "T",
+                  "init": "ST"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL",
+                  "init": "OL"
+                },
+                "id": "OL"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_RR",
+                  "init": "RR"
+                },
+                "id": "RR"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_RGB_LED"
+                },
+                "id": "LED"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            }
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_DIMMER"
+              },
+              {
+                "linkdef": "I_DIMMER_ADV"
+              }
+            ]
+          }
+        },
+        "id": "DimmerLampSwitchLED_ADV",
+        "nls": 109,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": {
+            "id": "ERR",
+            "editor": "I_ERR",
+            "hide": "T"
+          }
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "DimmerSwitchOnly",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": {
+            "id": "ERR",
+            "editor": "I_ERR",
+            "hide": "T"
+          }
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "DimmerSwitchOnly_ADV",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL"
+            },
+            {
+              "id": "OL",
+              "editor": "I_OL"
+            },
+            {
+              "id": "RR",
+              "editor": "I_RR"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL_PARAM",
+                  "optional": "T",
+                  "init": "ST"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL",
+                  "init": "OL"
+                },
+                "id": "OL"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_RR",
+                  "init": "RR"
+                },
+                "id": "RR"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": "",
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_DIMMER"
+              },
+              {
+                "linkdef": "I_DIMMER_ADV"
+              }
+            ]
+          }
+        },
+        "id": "DimmerLampOnly",
+        "nls": 109,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL"
+            },
+            {
+              "id": "OL",
+              "editor": "I_OL"
+            },
+            {
+              "id": "RR",
+              "editor": "I_RR"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL_PARAM",
+                  "optional": "T",
+                  "init": "ST"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL",
+                  "init": "OL"
+                },
+                "id": "OL"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_RR",
+                  "init": "RR"
+                },
+                "id": "RR"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL_KP"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            }
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_DIMMER"
+              },
+              {
+                "linkdef": "I_DIMMER_ADV"
+              }
+            ]
+          }
+        },
+        "id": "KeypadDimmer",
+        "nls": 109,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL"
+            },
+            {
+              "id": "OL",
+              "editor": "I_OL"
+            },
+            {
+              "id": "RR",
+              "editor": "I_RR"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL_PARAM",
+                  "optional": "T",
+                  "init": "ST"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "BRT"
+              },
+              {
+                "id": "DIM"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_OL",
+                  "init": "OL"
+                },
+                "id": "OL"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_RR",
+                  "init": "RR"
+                },
+                "id": "RR"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL_KP"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            }
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_DIMMER"
+              },
+              {
+                "linkdef": "I_DIMMER_ADV"
+              }
+            ]
+          }
+        },
+        "id": "KeypadDimmer_ADV",
+        "nls": 109,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_LEVEL_100_OFF_MID_ON"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_0_100_PERCENT",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "BallastRelayLampSwitch",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_LEVEL_100_OFF_MID_ON"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_0_100_PERCENT",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "BallastRelayLampSwitch_ADV",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_0_100_PERCENT",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "RelayLampSwitch",
+        "nls": 147,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_0_100_PERCENT",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "RelayLampSwitch_ADV",
+        "nls": 147,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_0_100_PERCENT",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_RGB_LED"
+                },
+                "id": "LED"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "RelayLampSwitchLED",
+        "nls": 147,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_0_100_PERCENT",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_RGB_LED"
+                },
+                "id": "LED"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "RelayLampSwitchLED_ADV",
+        "nls": 147,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": {
+            "id": "ERR",
+            "editor": "I_ERR",
+            "hide": "T"
+          }
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": ""
+        },
+        "id": "RelaySwitchOnlyPlusQuery",
+        "nls": 147,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": {
+            "id": "ERR",
+            "editor": "I_ERR",
+            "hide": "T"
+          }
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": ""
+        },
+        "id": "RelaySwitchOnlyPlusQuery_ADV",
+        "nls": 147,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": {
+            "id": "ERR",
+            "editor": "I_ERR",
+            "hide": "T"
+          }
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": ""
+        },
+        "id": "RelaySwitchOnly",
+        "nls": 147,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": {
+            "id": "ERR",
+            "editor": "I_ERR",
+            "hide": "T"
+          }
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": ""
+        },
+        "id": "RelaySwitchOnly_ADV",
+        "nls": 147,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_0_100_PERCENT",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "RelayLampOnly",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_0_100_PERCENT",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "RelayLampOnly_ADV",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_0_100_PERCENT",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL_KP"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "KeypadRelay",
+        "nls": 147,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_0_100_PERCENT",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL_KP"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "KeypadRelay_ADV",
+        "nls": 147,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_ON_OFF_PERCENT"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": {
+              "id": "WDU"
+            }
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": ""
+        },
+        "id": "RemoteLinc2",
+        "nls": 147,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_ON_OFF_PERCENT"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": {
+              "id": "WDU"
+            }
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": ""
+        },
+        "id": "RemoteLinc2_ADV",
+        "nls": 147,
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": {
+            "id": "ERR",
+            "editor": "I_ERR",
+            "hide": "T"
+          }
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": "",
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_IRLINC_TX"
+              },
+              {
+                "linkdef": "I_IRLINC_TX_ADV"
+              }
+            ]
+          }
+        },
+        "id": "IRLincTx",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_FLM_LVL"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_FLM_LVL",
+                  "init": "ST"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": "",
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_FLM"
+              },
+              {
+                "linkdef": "I_FLM_ADV"
+              }
+            ]
+          }
+        },
+        "id": "FanLincMotor",
+        "nls": "FLM",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL_KP"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "KeypadButton",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "FDUP"
+              },
+              {
+                "id": "FDDOWN"
+              },
+              {
+                "id": "FDSTOP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BL_KP"
+                },
+                "id": "BL"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            },
+            "$comment": " Relay switches send out dimmer cmds "
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "KeypadButton_ADV",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_0_100_PERCENT",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "id": "WDU"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": "",
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "EZRAIN_Output",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": {
+              "id": "WDU"
+            }
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_RELAY"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "EZRAIN_Input",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": {
+              "id": "WDU"
+            }
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_RELAY_ADV"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "EZRAIN_Input_ADV",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_0_100_PERCENT",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": "",
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "EZIO2x4_Output",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": {
+              "id": "WDU"
+            }
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_RELAY"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "EZIO2x4_Input",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": {
+              "id": "WDU"
+            }
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_RELAY_ADV"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "EZIO2x4_Input_ADV",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_CPW"
+            },
+            {
+              "id": "TPW",
+              "editor": "I_TPW"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "accepts": {
+            "cmd": [
+              {
+                "id": "RESET"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "id": "IMETER_SOLO",
+        "nls": "IMS",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_LOCK"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "accepts": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": "",
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "DoorLock",
+        "nls": "Lock",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "DFOF"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_RELAY"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "BinaryAlarm",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "DFOF"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_RELAY_ADV"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "BinaryAlarm_ADV",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "BinaryControl",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "BinaryControl_ADV",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "OL",
+                  "editor": "I_RAW_255",
+                  "optional": "T",
+                  "init": "OL"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "AlertModuleSiren",
+        "nls": "71A",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "OL",
+                  "editor": "I_RAW_255",
+                  "optional": "T",
+                  "init": "OL"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "DFOF"
+              },
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_DIMMER_ADV"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "AlertModuleSiren_ADV",
+        "nls": "71A",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": "",
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_RELAY"
+              },
+              {
+                "linkdef": "I_RELAY_ADV"
+              }
+            ]
+          }
+        },
+        "id": "AlertModuleArmed",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "MODE",
+              "editor": "I_SIREN_MODE_ST"
+            },
+            {
+              "id": "DELAY",
+              "editor": "I_DUR_127"
+            },
+            {
+              "id": "DUR",
+              "editor": "I_DUR_255"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "DFOF"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "DUR",
+                  "editor": "I_DUR_127",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_SIREN_MODE"
+                },
+                "id": "ARM"
+              },
+              {
+                "id": "DISARM"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_RELAY"
+            }
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_SIREN_ALERT"
+              },
+              {
+                "linkdef": "I_SIREN_ALERT_ADV"
+              }
+            ]
+          }
+        },
+        "id": "Siren",
+        "nls": "SRN",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "MODE",
+              "editor": "I_SIREN_MODE_ST"
+            },
+            {
+              "id": "DELAY",
+              "editor": "I_DUR_127"
+            },
+            {
+              "id": "DUR",
+              "editor": "I_DUR_255"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DFON"
+              },
+              {
+                "id": "DFOF"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "DUR",
+                  "editor": "I_DUR_127",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_SIREN_MODE"
+                },
+                "id": "ARM"
+              },
+              {
+                "id": "DISARM"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_RELAY_ADV"
+            }
+          },
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_SIREN_ALERT"
+              },
+              {
+                "linkdef": "I_SIREN_ALERT_ADV"
+              }
+            ]
+          }
+        },
+        "id": "Siren_ADV",
+        "nls": "SRN",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": {
+            "id": "ERR",
+            "editor": "I_ERR",
+            "hide": "T"
+          }
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": ""
+        },
+        "links": {
+          "ctl": "",
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_SIREN_ALERT"
+              },
+              {
+                "linkdef": "I_SIREN_ALERT_ADV"
+              }
+            ]
+          }
+        },
+        "id": "SirenAlert",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": {
+            "id": "ERR",
+            "editor": "I_ERR",
+            "hide": "T"
+          }
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": ""
+        },
+        "links": {
+          "ctl": "",
+          "rsp": {
+            "link": [
+              {
+                "linkdef": "I_SIREN_ARM"
+              },
+              {
+                "linkdef": "I_SIREN_ARM_ADV"
+              }
+            ]
+          }
+        },
+        "id": "SirenArm",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "CLITEMP",
+              "editor": "I_TEMP_F_1"
+            },
+            {
+              "id": "LUMIN",
+              "editor": "I_PERCENT"
+            },
+            {
+              "id": "BATLVL",
+              "editor": "I_PERCENT"
+            },
+            {
+              "id": "GV1",
+              "editor": "I_BOOL"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_TEMP_F_1",
+                  "init": "CLITEMP"
+                },
+                "id": "CLITEMP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_RELAY"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "PIR2844",
+        "eventMap": "I_STD",
+        "nls": 2844
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "CLITEMP",
+              "editor": "I_TEMP_F_1"
+            },
+            {
+              "id": "LUMIN",
+              "editor": "I_PERCENT"
+            },
+            {
+              "id": "BATLVL",
+              "editor": "I_PERCENT"
+            },
+            {
+              "id": "GV1",
+              "editor": "I_BOOL"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_TEMP_F_1",
+                  "init": "CLITEMP"
+                },
+                "id": "CLITEMP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_RELAY_ADV"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "PIR2844_ADV",
+        "eventMap": "I_STD",
+        "nls": 2844
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "CLITEMP",
+              "editor": "I_TEMP_C_1"
+            },
+            {
+              "id": "LUMIN",
+              "editor": "I_PERCENT"
+            },
+            {
+              "id": "BATLVL",
+              "editor": "I_PERCENT"
+            },
+            {
+              "id": "GV1",
+              "editor": "I_BOOL"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_TEMP_C_1",
+                  "init": "CLITEMP"
+                },
+                "id": "CLITEMP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_RELAY"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "PIR2844C",
+        "eventMap": "I_STD",
+        "nls": 2844
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "CLITEMP",
+              "editor": "I_TEMP_C_1"
+            },
+            {
+              "id": "LUMIN",
+              "editor": "I_PERCENT"
+            },
+            {
+              "id": "BATLVL",
+              "editor": "I_PERCENT"
+            },
+            {
+              "id": "GV1",
+              "editor": "I_BOOL"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_TEMP_C_1",
+                  "init": "CLITEMP"
+                },
+                "id": "CLITEMP"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_RELAY_ADV"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "PIR2844C_ADV",
+        "eventMap": "I_STD",
+        "nls": 2844
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_0_100_PERCENT",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_RELAY"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "PIR2844OnOff",
+        "eventMap": "I_STD",
+        "nls": 2844
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I_OL_RELAY"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ]
+        },
+        "cmds": {
+          "sends": {
+            "cmd": [
+              {
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              }
+            ]
+          },
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_0_100_PERCENT",
+                  "optional": "T"
+                },
+                "id": "DON"
+              },
+              {
+                "id": "DOF"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I_BEEP_255",
+                  "optional": "T"
+                },
+                "id": "BEEP"
+              },
+              {
+                "id": "WDU"
+              }
+            ]
+          }
+        },
+        "links": {
+          "ctl": {
+            "link": {
+              "linkdef": "I_CTL_RELAY_ADV"
+            }
+          },
+          "rsp": ""
+        },
+        "id": "PIR2844OnOff_ADV",
+        "eventMap": "I_STD",
+        "nls": 2844
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I3_RELAY_DIM"
+            },
+            {
+              "id": "GV1",
+              "editor": "I3_ON_OFF"
+            },
+            {
+              "id": "GV2",
+              "editor": "I3_ON_OFF"
+            },
+            {
+              "id": "GV4",
+              "editor": "I3_ON_OFF"
+            },
+            {
+              "id": "GV5",
+              "editor": "I3_ON_OFF"
+            },
+            {
+              "id": "GV6",
+              "editor": "I3_ON_OFF"
+            },
+            {
+              "id": "GV7",
+              "editor": "I3_ON_OFF"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ],
+          "$comment": [
+            " <st id=\"GV3\" editor=\"I3_ON_OFF\" /> ",
+            " <st id=\"GV8\" editor=\"I3_ON_OFF\" /> "
+          ]
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_RELAY_DIM",
+                  "init": "ST"
+                },
+                "id": "GV0"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_ON_OFF",
+                  "init": "GV1"
+                },
+                "id": "GV1"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_ON_OFF",
+                  "init": "GV2"
+                },
+                "id": "GV2"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_ON_OFF",
+                  "init": "GV4"
+                },
+                "id": "GV4"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_ON_OFF",
+                  "init": "GV5"
+                },
+                "id": "GV5"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_ON_OFF",
+                  "init": "GV6"
+                },
+                "id": "GV6"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_ON_OFF",
+                  "init": "GV7"
+                },
+                "id": "GV7"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "id": "WDU"
+              }
+            ],
+            "$comment": [
+              " <cmd id=\"GV3\"> <p id=\"\" editor=\"I3_ON_OFF\" init=\"GV3\" /> </cmd> ",
+              " <cmd id=\"GV8\"> <p id=\"\" editor=\"I3_ON_OFF\" init=\"GV8\" /> </cmd> "
+            ]
+          }
+        },
+        "id": "I3PaddleFlags",
+        "nls": "I3PF",
+        "eventMap": "I_STD"
+      },
+      {
+        "sts": {
+          "st": [
+            {
+              "id": "ST",
+              "editor": "I3_RELAY_DIM"
+            },
+            {
+              "id": "GV1",
+              "editor": "I3_ON_OFF"
+            },
+            {
+              "id": "GV2",
+              "editor": "I3_ON_OFF"
+            },
+            {
+              "id": "GV3",
+              "editor": "I3_ON_OFF"
+            },
+            {
+              "id": "GV4",
+              "editor": "I3_ON_OFF"
+            },
+            {
+              "id": "GV5",
+              "editor": "I3_ON_OFF"
+            },
+            {
+              "id": "GV6",
+              "editor": "I3_ON_OFF"
+            },
+            {
+              "id": "GV7",
+              "editor": "I3_ON_OFF"
+            },
+            {
+              "id": "GV8",
+              "editor": "I3_ON_OFF"
+            },
+            {
+              "id": "ERR",
+              "editor": "I_ERR",
+              "hide": "T"
+            }
+          ],
+          "$comment": " LoadButtonNumber: <st id=\"GV30\" editor=\"I3_LOAD_4\" /> "
+        },
+        "cmds": {
+          "sends": "",
+          "accepts": {
+            "cmd": [
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_RELAY_DIM",
+                  "init": "ST"
+                },
+                "id": "GV0"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_ON_OFF",
+                  "init": "GV1"
+                },
+                "id": "GV1"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_ON_OFF",
+                  "init": "GV2"
+                },
+                "id": "GV2"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_ON_OFF",
+                  "init": "GV3"
+                },
+                "id": "GV3"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_ON_OFF",
+                  "init": "GV4"
+                },
+                "id": "GV4"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_ON_OFF",
+                  "init": "GV5"
+                },
+                "id": "GV5"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_ON_OFF",
+                  "init": "GV6"
+                },
+                "id": "GV6"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_ON_OFF",
+                  "init": "GV7"
+                },
+                "id": "GV7"
+              },
+              {
+                "p": {
+                  "id": "",
+                  "editor": "I3_ON_OFF",
+                  "init": "GV8"
+                },
+                "id": "GV8"
+              },
+              {
+                "id": "QUERY"
+              },
+              {
+                "id": "WDU"
+              }
+            ],
+            "$comment": " SetLoadButton: <cmd id=\"GV30\"> <p id=\"\" editor=\"I3_LOAD_4\" init=\"GV30\" /> </cmd>  "
+          }
+        },
+        "id": "I3KeypadFlags",
+        "nls": "I3KP",
+        "eventMap": "I_STD"
+      }
+    ]
   }
 }

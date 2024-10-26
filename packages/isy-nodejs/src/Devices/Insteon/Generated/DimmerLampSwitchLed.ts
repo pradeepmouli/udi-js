@@ -11,13 +11,15 @@ import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
+import type { DimmerSwitch } from './DimmerSwitch.js';
+import type { DimmerLampSwitch } from './DimmerLampSwitch.js';
 
 export const nodeDefId = "DimmerLampSwitchLED";
 
 type Commands = DimmerLampSwitchLed.Commands;
 type Drivers = DimmerLampSwitchLed.Drivers;
 
-export class DimmerLampSwitchLedNode extends Base<Drivers, Commands> implements DimmerLampSwitchLed.Interface {
+export class DimmerLampSwitchLedNode extends Base<Drivers,Commands> implements DimmerLampSwitchLed.Interface, DimmerSwitch.Interface, DimmerLampSwitch.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -110,7 +112,7 @@ export class DimmerLampSwitchLedNode extends Base<Drivers, Commands> implements 
 NodeFactory.register(DimmerLampSwitchLedNode);
 
 export namespace DimmerLampSwitchLed {
-	export interface Interface extends Omit<InstanceType<typeof DimmerLampSwitchLedNode>, keyof ISYDeviceNode<any, any, any, any>> {
+	export interface Interface extends Omit<InstanceType<typeof DimmerLampSwitchLedNode>, keyof Omit<ISYDeviceNode<any, {}, {}, any>,"commands"|"drivers"|"events">> {
 		nodeDefId: "DimmerLampSwitchLED";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is DimmerLampSwitchLedNode {

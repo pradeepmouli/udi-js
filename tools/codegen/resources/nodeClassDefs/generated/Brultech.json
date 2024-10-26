@@ -1,6 +1,6 @@
 {
   "BTMain": {
-    "className": "EnergyMonitor",
+    "className": "Main",
     "id": "BTMain",
     "drivers": {
       "ST": {
@@ -128,11 +128,16 @@
     },
     "events": {},
     "family": 8,
-    "label": "EnergyMonitor",
-    "name": "EnergyMonitor"
+    "label": "Main",
+    "name": "Main",
+    "dynamic": false,
+    "implements": [
+      "BTChannel"
+    ],
+    "extends": "BTChannel"
   },
   "BTChannel": {
-    "className": "EnergyMonitor",
+    "className": "Channel",
     "id": "BTChannel",
     "drivers": {
       "ST": {
@@ -197,7 +202,8 @@
     "commands": {},
     "events": {},
     "family": 8,
-    "label": "EnergyMonitor",
-    "name": "EnergyMonitor"
+    "label": "Channel",
+    "name": "Channel",
+    "dynamic": false
   }
 }

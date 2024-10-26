@@ -17,7 +17,7 @@ export const nodeDefId = "KeypadButton";
 type Commands = KeypadButton.Commands;
 type Drivers = KeypadButton.Drivers;
 
-export class KeypadButtonNode extends Base<Drivers, Commands> implements KeypadButton.Interface {
+export class KeypadButtonNode extends Ezio2x4Input implements KeypadButton.Interface {
 	public readonly commands = {
 		QUERY: this.query,
 		BL: this.backlight,

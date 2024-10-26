@@ -17,7 +17,7 @@ export const nodeDefId = "DoorLock";
 type Commands = DoorLock.Commands;
 type Drivers = DoorLock.Drivers;
 
-export class DoorLockNode extends Base<Drivers, Commands> implements DoorLock.Interface {
+export class DoorLockNode extends SirenAlert implements DoorLock.Interface {
 	public readonly commands = {
 		DON: this.lock,
 		DOF: this.unlock,

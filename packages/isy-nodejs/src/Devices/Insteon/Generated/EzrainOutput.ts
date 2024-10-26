@@ -17,7 +17,7 @@ export const nodeDefId = "EZRAIN_Output";
 type Commands = EzrainOutput.Commands;
 type Drivers = EzrainOutput.Drivers;
 
-export class EzrainOutputNode extends Base<Drivers, Commands> implements EzrainOutput.Interface {
+export class EzrainOutputNode extends Ezio2x4Output implements EzrainOutput.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,

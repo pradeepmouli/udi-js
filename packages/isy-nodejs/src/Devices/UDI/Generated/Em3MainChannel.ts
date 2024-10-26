@@ -17,7 +17,7 @@ export const nodeDefId = "EM3MainChannel";
 type Commands = Em3MainChannel.Commands;
 type Drivers = Em3MainChannel.Drivers;
 
-export class Em3MainChannelNode extends Base<Drivers, Commands> implements Em3MainChannel.Interface {
+export class Em3MainChannelNode extends Channel implements Em3MainChannel.Interface {
 	public readonly commands = {};
 	static nodeDefId = "EM3MainChannel";
 	declare readonly nodeDefId: "EM3MainChannel";

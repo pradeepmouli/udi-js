@@ -1,6 +1,6 @@
 {
   "BRIDGE": {
-    "className": "Output",
+    "className": "BondBridge",
     "id": "BRIDGE",
     "nlsId": "BRD",
     "drivers": {
@@ -24,6 +24,27 @@
           }
         },
         "name": "connected"
+      },
+      "GPV": {
+        "label": "Plugin Status",
+        "hidden": false,
+        "optional": false,
+        "readonly": true,
+        "id": "GPV",
+        "editorId": "NS_STATUS",
+        "dataType": {
+          "25": {
+            "uom": 25,
+            "indexId": "IX_NS_STATUS",
+            "enum": true,
+            "values": {
+              "0": "Disconnected",
+              "1": "Connected",
+              "2": "Failed"
+            }
+          }
+        },
+        "name": "pluginStatus"
       }
     },
     "commands": {
@@ -35,11 +56,12 @@
     },
     "events": {},
     "family": 10,
-    "label": "Output",
-    "name": "Output"
+    "label": "Bond Bridge",
+    "name": "BondBridge",
+    "dynamic": false
   },
   "CEILING_FAN": {
-    "className": "GenericRsp",
+    "className": "CeilingFan",
     "id": "CEILING_FAN",
     "nlsId": "CFN",
     "drivers": {
@@ -224,11 +246,12 @@
     },
     "events": {},
     "family": 10,
-    "label": "GenericRsp",
-    "name": "GenericRsp"
+    "label": "Ceiling Fan",
+    "name": "CeilingFan",
+    "dynamic": false
   },
   "LIGHT": {
-    "className": "Lamp",
+    "className": "Light",
     "id": "LIGHT",
     "nlsId": "LGT",
     "drivers": {
@@ -321,11 +344,12 @@
     },
     "events": {},
     "family": 10,
-    "label": "Lamp",
-    "name": "Lamp"
+    "label": "Light",
+    "name": "Light",
+    "dynamic": false
   },
   "NODIM_LIGHT": {
-    "className": "Lamp",
+    "className": "Light",
     "id": "NODIM_LIGHT",
     "nlsId": "NDL",
     "drivers": {
@@ -374,11 +398,17 @@
     },
     "events": {},
     "family": 10,
-    "label": "Lamp",
-    "name": "Lamp"
+    "label": "Light",
+    "name": "Light",
+    "dynamic": false,
+    "implements": [
+      "FIREPLACE",
+      "GENERIC"
+    ],
+    "extends": "FIREPLACE"
   },
   "SHADE": {
-    "className": "GenericRsp",
+    "className": "Shade",
     "id": "SHADE",
     "nlsId": "SHD",
     "drivers": {
@@ -516,11 +546,12 @@
     },
     "events": {},
     "family": 10,
-    "label": "GenericRsp",
-    "name": "GenericRsp"
+    "label": "Shade",
+    "name": "Shade",
+    "dynamic": false
   },
   "FIREPLACE": {
-    "className": "SmokeSensor",
+    "className": "Fireplace",
     "id": "FIREPLACE",
     "nlsId": "FPL",
     "drivers": {
@@ -559,11 +590,12 @@
     },
     "events": {},
     "family": 10,
-    "label": "SmokeSensor",
-    "name": "SmokeSensor"
+    "label": "Fireplace",
+    "name": "Fireplace",
+    "dynamic": false
   },
   "GENERIC": {
-    "className": "GenericRsp",
+    "className": "GenericDevice",
     "id": "GENERIC",
     "nlsId": "GNR",
     "drivers": {
@@ -602,11 +634,18 @@
     },
     "events": {},
     "family": 10,
-    "label": "GenericRsp",
-    "name": "GenericRsp"
+    "label": "Generic Device",
+    "name": "GenericDevice",
+    "dynamic": false,
+    "implements": [
+      "FIREPLACE"
+    ],
+    "equivalentTo": [
+      "FIREPLACE"
+    ]
   },
   "KEYPAD_BTN": {
-    "className": "Switch",
+    "className": "SidekickButton",
     "id": "KEYPAD_BTN",
     "nlsId": "BTN",
     "drivers": {},
@@ -630,7 +669,8 @@
       }
     },
     "family": 10,
-    "label": "Switch",
-    "name": "Switch"
+    "label": "Sidekick Button",
+    "name": "SidekickButton",
+    "dynamic": false
   }
 }

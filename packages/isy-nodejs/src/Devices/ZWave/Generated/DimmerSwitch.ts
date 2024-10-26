@@ -64,8 +64,8 @@ export class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerS
 	async fadeDown(startLevel?: number | number, rampRate?: number | number) {
 		return this.sendCommand("FDDOWN", { STARTLEVEL: startLevel, RR: rampRate });
 	}
-	async fade(direction: ZWave.FadeDirection, startLevel?: number | number, rampRate?: number, Direction2?: ZWave.FadeDirection,FadeRate2?: number | number) {
-		return this.sendCommand("FADE", { DIR: direction, STARTLEVEL: startLevel, RR: rampRate, DIR2: Direction2, STEP2: FadeRate2 });
+	async fade(direction: ZWave.FadeDirection, startLevel?: number | number, rampRate?: number | number, direction2?: ZWave.FadeDirection, fadeRate2?: number | number) {
+		return this.sendCommand("FADE", { DIR: direction, STARTLEVEL: startLevel, RR: rampRate, DIR2: direction2, STEP2: fadeRate2 });
 	}
 	async fadeStop() {
 		return this.sendCommand("FDSTOP");

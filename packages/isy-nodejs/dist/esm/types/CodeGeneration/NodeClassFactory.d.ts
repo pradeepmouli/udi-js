@@ -1,6 +1,6 @@
+import { Project, SourceFile, ts } from 'ts-morph';
 import { Family } from '../ISY.js';
 import { NodeClassDefinition } from '../Model/ClassDefinition.js';
-import { Project, ts, SourceFile } from 'ts-morph';
 type GeneratedNodeClass<T extends Family> = {
     family: T;
     name: string;

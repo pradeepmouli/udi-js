@@ -76,7 +76,7 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         convertTo(value: any, uom: import("../Definitions/index.js").UnitOfMeasure, propertyName?: string): any;
         emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
         generateLabel(template: string): string;
-        getNotes(): Promise<import("../ISYNode.js").NodeNotes>;
+        getNotes(): Promise<import("../Model/NodeNotes.js").NodeNotes>;
         handleControlTrigger(controlName: string | number | symbol): boolean;
         handleEvent(event: {
             control?: any;

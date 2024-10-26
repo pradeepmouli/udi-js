@@ -100,7 +100,7 @@ export async function createServerNode(isy = ISY.instance) {
         let serialNumber = `${device.address.replaceAll(' ', '_').replaceAll('.', '_')}`;
         if (device.enabled && !(device instanceof InsteonKeypadButtonDevice)) {
             //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
-            //@ts-expect-error
+            //@ts-ignore
             let baseBehavior;
             if (device instanceof InsteonDimmableDevice) {
                 baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior);

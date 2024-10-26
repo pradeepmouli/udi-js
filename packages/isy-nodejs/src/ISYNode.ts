@@ -1,48 +1,19 @@
-import { EventEmitter } from 'events';
-
-import type { Identity, UnionToIntersection } from '@project-chip/matter.js/util';
-import { isNullOrUndefined } from 'util';
-import { LogMethod, Logform, Logger, debug } from 'winston';
-import { Driver, DriverList, DriverType, Drivers, type EnumLiteral } from './Definitions/Global/Drivers.js';
+import type { Merge, UnionToIntersection } from '@project-chip/matter.js/util';
+import { Logger } from 'winston';
+import { Driver } from './Definitions/Global/Drivers.js';
 import { Family } from './Definitions/Global/Families.js';
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
-import { Categories, Controls, ISY, NodeType, type ISYScene } from './ISY.js';
-import type { ISYDevice } from './ISYDevice.js';
+import { ISY, NodeType, type ISYScene } from './ISY.js';
+
+import { CliConfigSetLevels } from 'winston/lib/winston/config/index.js';
+import type { Command } from './Definitions/Global/Commands.js';
+import { Event } from './Definitions/Global/Events.js';
+import type { Constructor } from './Devices/Constructor.js';
 import type { DriverState } from './Model/DriverState.js';
 import { NodeInfo } from './Model/NodeInfo.js';
-import { PropertyChangedEventEmitter, type StringKeys } from './Utils.js';
+import type { NodeNotes } from './Model/NodeNotes.js';
+import { type StringKeys } from './Utils.js';
 
-import { CliConfigSetLevels, cli } from 'winston/lib/winston/config/index.js';
-import type { Error as GenError } from './Definitions/Generic/Error.js';
-import type { Command } from './Definitions/Global/Commands.js';
-import Devices from './Devices/index.js';
-import type { ISYDeviceNode } from './Devices/ISYDeviceNode.js';
-//import type { DriversOf } from './Model/ClusterMap.js';
-import { Event } from './Definitions/Global/Events.js';
-
-interface Node {
-	// #region Properties (8)
-
-	ELK_ID?: string;
-	address?: string;
-	enabled?: boolean;
-	family?: Family;
-	flag?: any;
-	name?: string;
-	nodeDefId?: string;
-	parent?: any;
-
-	// #endregion Properties (8)
-}
-
-export interface NodeNotes {
-	// #region Properties (2)
-
-	location: string;
-	spoken: string;
-
-	// #endregion Properties (2)
-}
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 
 export class ISYNode<
@@ -551,6 +522,13 @@ export namespace ISYNode {
 	/*export type WithCommands<C extends Command.Signatures<any>> = C extends Command.Signatures<infer U> ? {
       [K in C[U]["name"]]: C[K];
     } : never;*/
+
+	export const With = <K extends Family, D extends DriverSignatures, C extends CommandSignatures, T extends Constructor<ISYNode<K,  any, any, any>>>(Base: T) => {
+		return class extends Base implements Omit<ISYNode<K, D, C>, 'events'> {
+			declare drivers: Driver.ForAll<any, false>;
+			declare commands: Command.ForAll<C>;
+		};
+	};
 
 	export type WithDrivers<D extends DriverSignatures> =
 		D extends Driver.Signatures<infer U extends keyof D> ?

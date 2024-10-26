@@ -1,0 +1,1 @@
+{"version":3,"file":"NodeEvent.js","sourceRoot":"","sources":["../../../src/Events/NodeEvent.ts"],"names":[],"mappings":";;;AAAA,+CAAyC;AAGzC,MAAa,SAAqD,SAAQ,sBAAiC;IAC1G,WAAW,CAAS;IACpB,YAAa,SAAc;QAC1B,KAAK,CAAC,SAAS,CAAC,CAAC;QACjB,IAAI,CAAC,WAAW,GAAG,SAAS,CAAC,IAAI,CAAC;IACnC,CAAC;CACD;AAND,8BAMC"}

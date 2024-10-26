@@ -1,5 +1,3 @@
-import { Command } from '@project-chip/matter.js/cluster';
-import { nodeId } from '@project-chip/matter.js/elements';
 import { camelize, capitalize } from '@project-chip/matter.js/util';
 import camelcase from 'camelcase';
 import { getRandomValues } from 'crypto';
@@ -79,7 +77,6 @@ function buildNodeClassDefinitions<T extends Family>(nodeDefs: NodeDef[], family
 						node2.equivalentTo.push(id);
 					}
 				} else if (ext) {
-
 					node.implements.push(id2, ...node2.implements);
 				}
 

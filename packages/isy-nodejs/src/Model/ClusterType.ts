@@ -1,0 +1,365 @@
+
+
+import * as Clusters from '@project-chip/matter.js/cluster';
+
+export enum ClusterType {
+  AccessControl = "AccessControl",
+  AccountLogin = "AccountLogin",
+  Actions = "Actions",
+  ActivatedCarbonFilterMonitoring = "ActivatedCarbonFilterMonitoring",
+  AdministratorCommissioning = "AdministratorCommissioning",
+  AirQuality = "AirQuality",
+  AlarmBase = "AlarmBase",
+  ApplicationBasic = "ApplicationBasic",
+  ApplicationLauncher = "ApplicationLauncher",
+  AudioOutput = "AudioOutput",
+  BallastConfiguration = "BallastConfiguration",
+  BasicInformation = "BasicInformation",
+  Binding = "Binding",
+  BooleanState = "BooleanState",
+  BooleanStateConfiguration = "BooleanStateConfiguration",
+  BridgedDeviceBasicInformation = "BridgedDeviceBasicInformation",
+  CarbonDioxideConcentrationMeasurement = "CarbonDioxideConcentrationMeasurement",
+  CarbonMonoxideConcentrationMeasurement = "CarbonMonoxideConcentrationMeasurement",
+  Channel = "Channel",
+  ColorControl = "ColorControl",
+  ConcentrationMeasurement = "ConcentrationMeasurement",
+  ContentAppObserver = "ContentAppObserver",
+  ContentControl = "ContentControl",
+  ContentLauncher = "ContentLauncher",
+  Descriptor = "Descriptor",
+  DeviceEnergyManagement = "DeviceEnergyManagement",
+  DeviceEnergyManagementMode = "DeviceEnergyManagementMode",
+  DiagnosticLogs = "DiagnosticLogs",
+  DishwasherAlarm = "DishwasherAlarm",
+  DishwasherMode = "DishwasherMode",
+  DoorLock = "DoorLock",
+  ElectricalEnergyMeasurement = "ElectricalEnergyMeasurement",
+  ElectricalPowerMeasurement = "ElectricalPowerMeasurement",
+  EnergyEvse = "EnergyEvse",
+  EnergyEvseMode = "EnergyEvseMode",
+  EnergyPreference = "EnergyPreference",
+  EthernetNetworkDiagnostics = "EthernetNetworkDiagnostics",
+  FanControl = "FanControl",
+  FixedLabel = "FixedLabel",
+  FlowMeasurement = "FlowMeasurement",
+  FormaldehydeConcentrationMeasurement = "FormaldehydeConcentrationMeasurement",
+  GeneralCommissioning = "GeneralCommissioning",
+  GeneralDiagnostics = "GeneralDiagnostics",
+  GroupKeyManagement = "GroupKeyManagement",
+  Groups = "Groups",
+  HepaFilterMonitoring = "HepaFilterMonitoring",
+  IcdManagement = "IcdManagement",
+  Identify = "Identify",
+  IlluminanceMeasurement = "IlluminanceMeasurement",
+  KeypadInput = "KeypadInput",
+  Label = "Label",
+  LaundryDryerControls = "LaundryDryerControls",
+  LaundryWasherControls = "LaundryWasherControls",
+  LaundryWasherMode = "LaundryWasherMode",
+  LevelControl = "LevelControl",
+  LocalizationConfiguration = "LocalizationConfiguration",
+  LowPower = "LowPower",
+  MediaInput = "MediaInput",
+  MediaPlayback = "MediaPlayback",
+  Messages = "Messages",
+  MicrowaveOvenControl = "MicrowaveOvenControl",
+  MicrowaveOvenMode = "MicrowaveOvenMode",
+  ModeBase = "ModeBase",
+  ModeSelect = "ModeSelect",
+  NetworkCommissioning = "NetworkCommissioning",
+  NitrogenDioxideConcentrationMeasurement = "NitrogenDioxideConcentrationMeasurement",
+  OccupancySensing = "OccupancySensing",
+  OnOff = "OnOff",
+  OperationalCredentials = "OperationalCredentials",
+  OperationalState = "OperationalState",
+  OtaSoftwareUpdateProvider = "OtaSoftwareUpdateProvider",
+  OtaSoftwareUpdateRequestor = "OtaSoftwareUpdateRequestor",
+  OvenCavityOperationalState = "OvenCavityOperationalState",
+  OvenMode = "OvenMode",
+  OzoneConcentrationMeasurement = "OzoneConcentrationMeasurement",
+  Pm10ConcentrationMeasurement = "Pm10ConcentrationMeasurement",
+  Pm1ConcentrationMeasurement = "Pm1ConcentrationMeasurement",
+  Pm2 = "Pm2",
+  PowerSource = "PowerSource",
+  PowerSourceConfiguration = "PowerSourceConfiguration",
+  PowerTopology = "PowerTopology",
+  PressureMeasurement = "PressureMeasurement",
+  ProxyConfiguration = "ProxyConfiguration",
+  ProxyDiscovery = "ProxyDiscovery",
+  PulseWidthModulation = "PulseWidthModulation",
+  PumpConfigurationAndControl = "PumpConfigurationAndControl",
+  RadonConcentrationMeasurement = "RadonConcentrationMeasurement",
+  RefrigeratorAlarm = "RefrigeratorAlarm",
+  RefrigeratorAndTemperatureControlledCabinetMode = "RefrigeratorAndTemperatureControlledCabinetMode",
+  RelativeHumidityMeasurement = "RelativeHumidityMeasurement",
+  ResourceMonitoring = "ResourceMonitoring",
+  RvcCleanMode = "RvcCleanMode",
+  RvcOperationalState = "RvcOperationalState",
+  RvcRunMode = "RvcRunMode",
+  ScenesManagement = "ScenesManagement",
+  SmokeCoAlarm = "SmokeCoAlarm",
+  SoftwareDiagnostics = "SoftwareDiagnostics",
+  Switch = "Switch",
+  TargetNavigator = "TargetNavigator",
+  TemperatureControl = "TemperatureControl",
+  TemperatureMeasurement = "TemperatureMeasurement",
+  Thermostat = "Thermostat",
+  ThermostatUserInterfaceConfiguration = "ThermostatUserInterfaceConfiguration",
+  ThreadNetworkDiagnostics = "ThreadNetworkDiagnostics",
+  TimeFormatLocalization = "TimeFormatLocalization",
+  TimeSynchronization = "TimeSynchronization",
+  TotalVolatileOrganicCompoundsConcentrationMeasurement = "TotalVolatileOrganicCompoundsConcentrationMeasurement",
+  UnitLocalization = "UnitLocalization",
+  UserLabel = "UserLabel",
+  ValidProxies = "ValidProxies",
+  ValveConfigurationAndControl = "ValveConfigurationAndControl",
+  WakeOnLan = "WakeOnLan",
+  WiFiNetworkDiagnostics = "WiFiNetworkDiagnostics",
+  WindowCovering = "WindowCovering"
+}
+// export function ToCluster(clusterType: ClusterType) {
+//   switch (clusterType) {
+//     case ClusterType.AccessControl:
+//       return AccessControl.Complete;
+//     case ClusterType.AccountLogin:
+//       return AccountLogin.Complete;
+//     case ClusterType.Actions:
+//       return Actions.Complete;
+//     case ClusterType.ActivatedCarbonFilterMonitoring:
+//       return ActivatedCarbonFilterMonitoring.Complete;
+//     case ClusterType.AdministratorCommissioning:
+//       return AdministratorCommissioning.Complete;
+//     case ClusterType.AirQuality:
+//       return AirQuality.Complete;
+//     case ClusterType.AlarmBase:
+//       return AlarmBase.Complete;
+//     case ClusterType.ApplicationBasic:
+//       return ApplicationBasic.Complete;
+//     case ClusterType.ApplicationLauncher:
+//       return ApplicationLauncher.Complete;
+//     case ClusterType.AudioOutput:
+//       return AudioOutput.Complete;
+//     case ClusterType.BallastConfiguration:
+//       return BallastConfiguration.Complete;
+//     case ClusterType.BasicInformation:
+//       return BasicInformation.Complete;
+//     case ClusterType.Binding:
+//       return Binding.Complete;
+//     case ClusterType.BooleanState:
+//       return BooleanState.Complete;
+//     case ClusterType.BooleanStateConfiguration:
+//       return BooleanStateConfiguration.Complete;
+//     case ClusterType.BridgedDeviceBasicInformation:
+//       return BridgedDeviceBasicInformation.Complete;
+//     case ClusterType.CarbonDioxideConcentrationMeasurement:
+//       return CarbonDioxideConcentrationMeasurement.Complete;
+//     case ClusterType.CarbonMonoxideConcentrationMeasurement:
+//       return CarbonMonoxideConcentrationMeasurement.Complete;
+//     case ClusterType.Channel:
+//       return Channel.Complete;
+//     case ClusterType.ColorControl:
+//       return ColorControl.Complete;
+//     case ClusterType.ConcentrationMeasurement:
+//       return ConcentrationMeasurement.Complete;
+//     case ClusterType.ContentAppObserver:
+//       return ContentAppObserver.Complete;
+//     case ClusterType.ContentControl:
+//       return ContentControl.Complete;
+//     case ClusterType.ContentLauncher:
+//       return ContentLauncher.Complete;
+//     case ClusterType.Descriptor:
+//       return Descriptor.Complete;
+//     case ClusterType.DeviceEnergyManagement:
+//       return DeviceEnergyManagement.Complete;
+//     case ClusterType.DeviceEnergyManagementMode:
+//       return DeviceEnergyManagementMode.Complete;
+//     case ClusterType.DiagnosticLogs:
+//       return DiagnosticLogs.Complete;
+//     case ClusterType.DishwasherAlarm:
+//       return DishwasherAlarm.Complete;
+//     case ClusterType.DishwasherMode:
+//       return DishwasherMode.Complete;
+//     case ClusterType.DoorLock:
+//       return DoorLock.Complete;
+//     case ClusterType.ElectricalEnergyMeasurement:
+//       return ElectricalEnergyMeasurement.Complete;
+//     case ClusterType.ElectricalPowerMeasurement:
+//       return ElectricalPowerMeasurement.Complete;
+//     case ClusterType.EnergyEvse:
+//       return EnergyEvse.Complete;
+//     case ClusterType.EnergyEvseMode:
+//       return EnergyEvseMode.Complete;
+//     case ClusterType.EnergyPreference:
+//       return EnergyPreference.Complete;
+//     case ClusterType.EthernetNetworkDiagnostics:
+//       return EthernetNetworkDiagnostics.Complete;
+//     case ClusterType.FanControl:
+//       return FanControl.Complete;
+//     case ClusterType.FixedLabel:
+//       return FixedLabel.Complete;
+//     case ClusterType.FlowMeasurement:
+//       return FlowMeasurement.Complete;
+//     case ClusterType.FormaldehydeConcentrationMeasurement:
+//       return FormaldehydeConcentrationMeasurement.Complete;
+//     case ClusterType.GeneralCommissioning:
+//       return GeneralCommissioning.Complete;
+//     case ClusterType.GeneralDiagnostics:
+//       return GeneralDiagnostics.Complete;
+//     case ClusterType.GroupKeyManagement:
+//       return GroupKeyManagement.Complete;
+//     case ClusterType.Groups:
+//       return Groups.Complete;
+//     case ClusterType.HepaFilterMonitoring:
+//       return HepaFilterMonitoring.Complete;
+//     case ClusterType.IcdManagement:
+//       return IcdManagement.Complete;
+//     case ClusterType.Identify:
+//       return Identify.Complete;
+//     case ClusterType.IlluminanceMeasurement:
+//       return IlluminanceMeasurement.Complete;
+//     case ClusterType.KeypadInput:
+//       return KeypadInput.Complete;
+//     case ClusterType.Label:
+//       return Label.Complete;
+//     case ClusterType.LaundryDryerControls:
+//       return LaundryDryerControls.Complete;
+//     case ClusterType.LaundryWasherControls:
+//       return LaundryWasherControls.Complete;
+//     case ClusterType.LaundryWasherMode:
+//       return LaundryWasherMode.Complete;
+//     case ClusterType.LevelControl:
+//       return LevelControl.Complete;
+//     case ClusterType.LocalizationConfiguration:
+//       return LocalizationConfiguration.Complete;
+//     case ClusterType.LowPower:
+//       return LowPower.Complete;
+//     case ClusterType.MediaInput:
+//       return MediaInput.Complete;
+//     case ClusterType.MediaPlayback:
+//       return MediaPlayback.Complete;
+//     case ClusterType.Messages:
+//       return Messages.Complete;
+//     case ClusterType.MicrowaveOvenControl:
+//       return MicrowaveOvenControl.Complete;
+//     case ClusterType.MicrowaveOvenMode:
+//       return MicrowaveOvenMode.Complete;
+//     case ClusterType.ModeBase:
+//       return ModeBase.Complete;
+//     case ClusterType.ModeSelect:
+//       return ModeSelect.Complete;
+//     case ClusterType.NetworkCommissioning:
+//       return NetworkCommissioning.Complete;
+//     case ClusterType.NitrogenDioxideConcentrationMeasurement:
+//       return NitrogenDioxideConcentrationMeasurement.Complete;
+//     case ClusterType.OccupancySensing:
+//       return OccupancySensing.Complete;
+//     case ClusterType.OnOff:
+//       return OnOff.Complete;
+//     case ClusterType.OperationalCredentials:
+//       return OperationalCredentials.Complete;
+//     case ClusterType.OperationalState:
+//       return OperationalState.Complete;
+//     case ClusterType.OtaSoftwareUpdateProvider:
+//       return OtaSoftwareUpdateProvider.Complete;
+//     case ClusterType.OtaSoftwareUpdateRequestor:
+//       return OtaSoftwareUpdateRequestor.Complete;
+//     case ClusterType.OvenCavityOperationalState:
+//       return OvenCavityOperationalState.Complete;
+//     case ClusterType.OvenMode:
+//       return OvenMode.Complete;
+//     case ClusterType.OzoneConcentrationMeasurement:
+//       return OzoneConcentrationMeasurement.Complete;
+//     case ClusterType.Pm10ConcentrationMeasurement:
+//       return Pm10ConcentrationMeasurement.Complete;
+//     case ClusterType.Pm1ConcentrationMeasurement:
+//       return Pm1ConcentrationMeasurement.Complete;
+//     case ClusterType.Pm2:
+//       return Pm2.Complete;
+//     case ClusterType.PowerSource:
+//       return PowerSource.Complete;
+//     case ClusterType.PowerSourceConfiguration:
+//       return PowerSourceConfiguration.Complete;
+//     case ClusterType.PowerTopology:
+//       return PowerTopology.Complete;
+//     case ClusterType.PressureMeasurement:
+//       return PressureMeasurement.Complete;
+//     case ClusterType.ProxyConfiguration:
+//       return ProxyConfiguration.Complete;
+//     case ClusterType.ProxyDiscovery:
+//       return ProxyDiscovery.Complete;
+//     case ClusterType.PulseWidthModulation:
+//       return PulseWidthModulation.Complete;
+//     case ClusterType.PumpConfigurationAndControl:
+//       return PumpConfigurationAndControl.Complete;
+//     case ClusterType.RadonConcentrationMeasurement:
+//       return RadonConcentrationMeasurement.Complete;
+//     case ClusterType.RefrigeratorAlarm:
+//       return RefrigeratorAlarm.Complete;
+//     case ClusterType.RefrigeratorAndTemperatureControlledCabinetMode:
+//       return RefrigeratorAndTemperatureControlledCabinetMode.Complete;
+//     case ClusterType.RelativeHumidityMeasurement:
+//       return RelativeHumidityMeasurement.Complete;
+//     case ClusterType.ResourceMonitoring:
+//       return ResourceMonitoring.Complete;
+//     case ClusterType.RvcCleanMode:
+//       return RvcCleanMode.Complete;
+//     case ClusterType.RvcOperationalState:
+//       return RvcOperationalState.Complete;
+//     case ClusterType.RvcRunMode:
+//       return RvcRunMode.Complete;
+//     case ClusterType.ScenesManagement:
+//       return ScenesManagement.Complete;
+//     case ClusterType.SmokeCoAlarm:
+//       return SmokeCoAlarm.Complete;
+//     case ClusterType.SoftwareDiagnostics:
+//       return SoftwareDiagnostics.Complete;
+//     case ClusterType.Switch:
+//       return Switch.Complete;
+//     case ClusterType.TargetNavigator:
+//       return TargetNavigator.Complete;
+//     case ClusterType.TemperatureControl:
+//       return TemperatureControl.Complete;
+//     case ClusterType.TemperatureMeasurement:
+//       return TemperatureMeasurement.Complete;
+//     case ClusterType.Thermostat:
+//       return Thermostat.Complete;
+//     case ClusterType.ThermostatUserInterfaceConfiguration:
+//       return ThermostatUserInterfaceConfiguration.Complete;
+//     case ClusterType.ThreadNetworkDiagnostics:
+//       return ThreadNetworkDiagnostics.Complete;
+//     case ClusterType.TimeFormatLocalization:
+//       return TimeFormatLocalization.Complete;
+//     case ClusterType.TimeSynchronization:
+//       return TimeSynchronization.Complete;
+//     case ClusterType.TotalVolatileOrganicCompoundsConcentrationMeasurement:
+//       return TotalVolatileOrganicCompoundsConcentrationMeasurement.Complete;
+//     case ClusterType.UnitLocalization:
+//       return UnitLocalization.Complete;
+//     case ClusterType.UserLabel:
+//       return UserLabel.Complete;
+//     case ClusterType.ValidProxies:
+//       return ValidProxies.Complete;
+//     case ClusterType.ValveConfigurationAndControl:
+//       return ValveConfigurationAndControl.Complete;
+//     case ClusterType.WakeOnLan:
+//       return WakeOnLan.Complete;
+//     case ClusterType.WiFiNetworkDiagnostics:
+//       return WiFiNetworkDiagnostics.Complete;
+//     case ClusterType.WindowCovering:
+//       return WindowCovering.Complete;
+//   }
+// }
+
+
+
+//export type ToCompleteClusterByName<E extends ClusterType> = (typeof Clusters[`${E}`][];
+//export type ToClusterByName<E extends ClusterType | keyof typeof Clusters> = (typeof Clusters)[`${E}`];
+
+export type ToClusterTypeByName<E extends string> = E extends keyof typeof ClusterType ? typeof ClusterType[E] : never;
+
+///type s = ToCluster<"OnOff">;
+
+export type ToClusterType<E extends Clusters.MutableCluster<any>> = E extends Clusters.MutableCluster<infer C> ? C : {};
+
+type o = ToClusterType<Clusters.OnOffCluster>;

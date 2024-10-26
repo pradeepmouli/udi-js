@@ -17,7 +17,7 @@ export const nodeDefId = "IRLincTx";
 type Commands = IrLincTx.Commands;
 type Drivers = IrLincTx.Drivers;
 
-export class IrLincTxNode extends Base<Drivers, Commands> implements IrLincTx.Interface {
+export class IrLincTxNode extends SirenAlert implements IrLincTx.Interface {
 	public readonly commands = {
 		BEEP: this.beep,
 		WDU: this.writeChanges

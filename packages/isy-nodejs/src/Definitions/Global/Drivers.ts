@@ -339,7 +339,6 @@ export function isTrue(x: true | false): x is true {
 
 export type DriverTypeLiteral = EnumLiteral<DriverType>;
 
-type DriverTypeWithLiteral = DriverType | EnumLiteral<DriverType>;
 
 export type EnumWithLiteral<D extends string | bigint | number | boolean> = D | EnumLiteral<D>;
 export namespace Driver {

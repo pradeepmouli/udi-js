@@ -1,6 +1,6 @@
 {
   "EM3Main": {
-    "className": "EnergyMonitor",
+    "className": "Main",
     "id": "EM3Main",
     "drivers": {
       "ST": {
@@ -71,11 +71,16 @@
     },
     "events": {},
     "family": 7,
-    "label": "EnergyMonitor",
-    "name": "EnergyMonitor"
+    "label": "Main",
+    "name": "Main",
+    "dynamic": false,
+    "implements": [
+      "EM3Channel"
+    ],
+    "extends": "EM3Channel"
   },
   "EM3Relay": {
-    "className": "Lamp",
+    "className": "Relay",
     "id": "EM3Relay",
     "drivers": {
       "ST": {
@@ -138,8 +143,9 @@
     },
     "events": {},
     "family": 7,
-    "label": "Lamp",
-    "name": "Lamp"
+    "label": "Relay",
+    "name": "Relay",
+    "dynamic": false
   },
   "EM3MainChannel": {
     "className": "Em3MainChannel",
@@ -264,10 +270,16 @@
     "commands": {},
     "events": {},
     "family": 7,
-    "name": "Em3MainChannel"
+    "label": "EM3MainChannel",
+    "name": "Em3MainChannel",
+    "dynamic": false,
+    "implements": [
+      "EM3Channel"
+    ],
+    "extends": "EM3Channel"
   },
   "EM3Channel": {
-    "className": "EnergyMonitor",
+    "className": "Channel",
     "id": "EM3Channel",
     "drivers": {
       "ST": {
@@ -332,11 +344,12 @@
     "commands": {},
     "events": {},
     "family": 7,
-    "label": "EnergyMonitor",
-    "name": "EnergyMonitor"
+    "label": "Channel",
+    "name": "Channel",
+    "dynamic": false
   },
   "EM3TempSensor": {
-    "className": "TempSensor",
+    "className": "TemperatureSensor",
     "id": "EM3TempSensor",
     "nlsId": "TEMP",
     "drivers": {
@@ -383,8 +396,9 @@
     "commands": {},
     "events": {},
     "family": 7,
-    "label": "TempSensor",
-    "name": "TempSensor"
+    "label": "Temperature Sensor",
+    "name": "TemperatureSensor",
+    "dynamic": false
   },
   "EM3PulseCounter": {
     "className": "PulseCounter",
@@ -469,7 +483,8 @@
     "commands": {},
     "events": {},
     "family": 7,
-    "label": "PulseCounter",
-    "name": "PulseCounter"
+    "label": "Pulse Counter",
+    "name": "PulseCounter",
+    "dynamic": false
   }
 }

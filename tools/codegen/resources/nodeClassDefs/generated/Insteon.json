@@ -82,7 +82,16 @@
       }
     },
     "family": 1,
-    "name": "X10"
+    "label": "X10",
+    "name": "X10",
+    "dynamic": true,
+    "implements": [
+      "OnOffControl",
+      "OnOffControl_ADV",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "OnOffControl"
   },
   "Thermostat": {
     "className": "Thermostat",
@@ -451,7 +460,15 @@
     "events": {},
     "family": 1,
     "label": "Thermostat",
-    "name": "Thermostat"
+    "name": "Thermostat",
+    "dynamic": true,
+    "implements": [
+      "TempLinc",
+      "IRLincTx",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "TempLinc"
   },
   "TempLinc": {
     "className": "TempLinc",
@@ -813,10 +830,18 @@
     },
     "events": {},
     "family": 1,
-    "name": "TempLinc"
+    "label": "TempLinc",
+    "name": "TempLinc",
+    "dynamic": true,
+    "implements": [
+      "IRLincTx",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "IRLincTx"
   },
   "OnOffControl": {
-    "className": "Switch",
+    "className": "OnOffControl",
     "id": "OnOffControl",
     "drivers": {
       "ST": {
@@ -872,8 +897,14 @@
       }
     },
     "family": 1,
-    "label": "Switch",
-    "name": "Switch"
+    "label": "On/Off Control",
+    "name": "OnOffControl",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "SirenAlert"
   },
   "OnOffControl_ADV": {
     "className": "OnOffControlAdv",
@@ -932,7 +963,17 @@
       }
     },
     "family": 1,
-    "name": "OnOffControlAdv"
+    "label": "OnOffControl_ADV",
+    "name": "OnOffControlAdv",
+    "dynamic": true,
+    "implements": [
+      "OnOffControl",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "OnOffControl"
+    ]
   },
   "DimmerMotorSwitch": {
     "className": "DimmerMotorSwitch",
@@ -1259,7 +1300,21 @@
       }
     },
     "family": 1,
-    "name": "DimmerMotorSwitch"
+    "label": "DimmerMotorSwitch",
+    "name": "DimmerMotorSwitch",
+    "dynamic": true,
+    "implements": [
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnlyPlusQuery_ADV",
+      "RelaySwitchOnly",
+      "RelaySwitchOnly_ADV",
+      "RemoteLinc2",
+      "RemoteLinc2_ADV",
+      "IRLincTx",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "RelaySwitchOnlyPlusQuery"
   },
   "DimmerMotorSwitch_ADV": {
     "className": "DimmerMotorSwitchAdv",
@@ -1586,10 +1641,27 @@
       }
     },
     "family": 1,
-    "name": "DimmerMotorSwitchAdv"
+    "label": "DimmerMotorSwitch_ADV",
+    "name": "DimmerMotorSwitchAdv",
+    "dynamic": true,
+    "implements": [
+      "DimmerMotorSwitch",
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnlyPlusQuery_ADV",
+      "RelaySwitchOnly",
+      "RelaySwitchOnly_ADV",
+      "RemoteLinc2",
+      "RemoteLinc2_ADV",
+      "IRLincTx",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "DimmerMotorSwitch"
+    ]
   },
   "DimmerLampSwitch": {
-    "className": "LampAndSwitch",
+    "className": "DimmerLampSwitch",
     "id": "DimmerLampSwitch",
     "nlsId": 109,
     "drivers": {
@@ -1928,8 +2000,24 @@
       }
     },
     "family": 1,
-    "label": "LampAndSwitch",
-    "name": "LampAndSwitch"
+    "label": "Dimmer Lamp & Switch",
+    "name": "DimmerLampSwitch",
+    "dynamic": true,
+    "implements": [
+      "DimmerSwitchOnly",
+      "DimmerSwitchOnly_ADV",
+      "DimmerLampOnly",
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnlyPlusQuery_ADV",
+      "RelaySwitchOnly",
+      "RelaySwitchOnly_ADV",
+      "RemoteLinc2",
+      "RemoteLinc2_ADV",
+      "IRLincTx",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "DimmerSwitchOnly"
   },
   "DimmerLampSwitch_ADV": {
     "className": "DimmerLampSwitchAdv",
@@ -2271,7 +2359,27 @@
       }
     },
     "family": 1,
-    "name": "DimmerLampSwitchAdv"
+    "label": "DimmerLampSwitch_ADV",
+    "name": "DimmerLampSwitchAdv",
+    "dynamic": true,
+    "implements": [
+      "DimmerLampSwitch",
+      "DimmerSwitchOnly",
+      "DimmerSwitchOnly_ADV",
+      "DimmerLampOnly",
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnlyPlusQuery_ADV",
+      "RelaySwitchOnly",
+      "RelaySwitchOnly_ADV",
+      "RemoteLinc2",
+      "RemoteLinc2_ADV",
+      "IRLincTx",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "DimmerLampSwitch"
+    ]
   },
   "DimmerLampSwitchLED": {
     "className": "DimmerLampSwitchLed",
@@ -2648,7 +2756,24 @@
       }
     },
     "family": 1,
-    "name": "DimmerLampSwitchLed"
+    "label": "DimmerLampSwitchLED",
+    "name": "DimmerLampSwitchLed",
+    "dynamic": true,
+    "implements": [
+      "DimmerSwitchOnly",
+      "DimmerSwitchOnly_ADV",
+      "DimmerLampOnly",
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnlyPlusQuery_ADV",
+      "RelaySwitchOnly",
+      "RelaySwitchOnly_ADV",
+      "RemoteLinc2",
+      "RemoteLinc2_ADV",
+      "IRLincTx",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "DimmerSwitchOnly"
   },
   "DimmerLampSwitchLED_ADV": {
     "className": "DimmerLampSwitchLedAdv",
@@ -3025,10 +3150,30 @@
       }
     },
     "family": 1,
-    "name": "DimmerLampSwitchLedAdv"
+    "label": "DimmerLampSwitchLED_ADV",
+    "name": "DimmerLampSwitchLedAdv",
+    "dynamic": true,
+    "implements": [
+      "DimmerLampSwitchLED",
+      "DimmerSwitchOnly",
+      "DimmerSwitchOnly_ADV",
+      "DimmerLampOnly",
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnlyPlusQuery_ADV",
+      "RelaySwitchOnly",
+      "RelaySwitchOnly_ADV",
+      "RemoteLinc2",
+      "RemoteLinc2_ADV",
+      "IRLincTx",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "DimmerLampSwitchLED"
+    ]
   },
   "DimmerSwitchOnly": {
-    "className": "Switch",
+    "className": "DimmerSwitch",
     "id": "DimmerSwitchOnly",
     "drivers": {
       "ERR": {
@@ -3129,8 +3274,14 @@
       }
     },
     "family": 1,
-    "label": "Switch",
-    "name": "Switch"
+    "label": "Dimmer Switch",
+    "name": "DimmerSwitch",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "SirenAlert"
   },
   "DimmerSwitchOnly_ADV": {
     "className": "DimmerSwitchOnlyAdv",
@@ -3234,10 +3385,20 @@
       }
     },
     "family": 1,
-    "name": "DimmerSwitchOnlyAdv"
+    "label": "DimmerSwitchOnly_ADV",
+    "name": "DimmerSwitchOnlyAdv",
+    "dynamic": true,
+    "implements": [
+      "DimmerSwitchOnly",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "DimmerSwitchOnly"
+    ]
   },
   "DimmerLampOnly": {
-    "className": "Lamp",
+    "className": "DimmerLamp",
     "id": "DimmerLampOnly",
     "nlsId": 109,
     "drivers": {
@@ -3508,8 +3669,15 @@
     },
     "events": {},
     "family": 1,
-    "label": "Lamp",
-    "name": "Lamp"
+    "label": "Dimmer Lamp",
+    "name": "DimmerLamp",
+    "dynamic": true,
+    "implements": [
+      "IRLincTx",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "IRLincTx"
   },
   "KeypadDimmer": {
     "className": "KeypadDimmer",
@@ -3855,7 +4023,17 @@
       }
     },
     "family": 1,
-    "name": "KeypadDimmer"
+    "label": "KeypadDimmer",
+    "name": "KeypadDimmer",
+    "dynamic": true,
+    "implements": [
+      "RemoteLinc2",
+      "RemoteLinc2_ADV",
+      "IRLincTx",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "RemoteLinc2"
   },
   "KeypadDimmer_ADV": {
     "className": "KeypadDimmerAdv",
@@ -4201,10 +4379,23 @@
       }
     },
     "family": 1,
-    "name": "KeypadDimmerAdv"
+    "label": "KeypadDimmer_ADV",
+    "name": "KeypadDimmerAdv",
+    "dynamic": true,
+    "implements": [
+      "KeypadDimmer",
+      "RemoteLinc2",
+      "RemoteLinc2_ADV",
+      "IRLincTx",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "KeypadDimmer"
+    ]
   },
   "BallastRelayLampSwitch": {
-    "className": "LampAndSwitch",
+    "className": "BallastRelayLampSwitch",
     "id": "BallastRelayLampSwitch",
     "drivers": {
       "ST": {
@@ -4361,8 +4552,26 @@
       }
     },
     "family": 1,
-    "label": "LampAndSwitch",
-    "name": "LampAndSwitch"
+    "label": "Ballast Relay Lamp Switch",
+    "name": "BallastRelayLampSwitch",
+    "dynamic": true,
+    "implements": [
+      "RelayLampOnly",
+      "RelayLampOnly_ADV",
+      "IRLincTx",
+      "EZRAIN_Output",
+      "EZIO2x4_Output",
+      "EZIO2x4_Input",
+      "EZIO2x4_Input_ADV",
+      "BinaryAlarm",
+      "BinaryAlarm_ADV",
+      "BinaryControl",
+      "BinaryControl_ADV",
+      "AlertModuleArmed",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "RelayLampOnly"
   },
   "BallastRelayLampSwitch_ADV": {
     "className": "BallastRelayLampSwitchAdv",
@@ -4522,10 +4731,32 @@
       }
     },
     "family": 1,
-    "name": "BallastRelayLampSwitchAdv"
+    "label": "BallastRelayLampSwitch_ADV",
+    "name": "BallastRelayLampSwitchAdv",
+    "dynamic": true,
+    "implements": [
+      "BallastRelayLampSwitch",
+      "RelayLampOnly",
+      "RelayLampOnly_ADV",
+      "IRLincTx",
+      "EZRAIN_Output",
+      "EZIO2x4_Output",
+      "EZIO2x4_Input",
+      "EZIO2x4_Input_ADV",
+      "BinaryAlarm",
+      "BinaryAlarm_ADV",
+      "BinaryControl",
+      "BinaryControl_ADV",
+      "AlertModuleArmed",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "BallastRelayLampSwitch"
+    ]
   },
   "RelayLampSwitch": {
-    "className": "LampAndSwitch",
+    "className": "RelayLampSwitch",
     "id": "RelayLampSwitch",
     "nlsId": 147,
     "drivers": {
@@ -4725,8 +4956,33 @@
       }
     },
     "family": 1,
-    "label": "LampAndSwitch",
-    "name": "LampAndSwitch"
+    "label": "Relay Lamp & Switch",
+    "name": "RelayLampSwitch",
+    "dynamic": true,
+    "implements": [
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnlyPlusQuery_ADV",
+      "RelaySwitchOnly",
+      "RelaySwitchOnly_ADV",
+      "RelayLampOnly",
+      "RelayLampOnly_ADV",
+      "IRLincTx",
+      "EZRAIN_Output",
+      "EZIO2x4_Output",
+      "EZIO2x4_Input",
+      "EZIO2x4_Input_ADV",
+      "DoorLock",
+      "BinaryAlarm",
+      "BinaryAlarm_ADV",
+      "BinaryControl",
+      "BinaryControl_ADV",
+      "AlertModuleArmed",
+      "SirenAlert",
+      "SirenArm",
+      "PIR2844OnOff",
+      "PIR2844OnOff_ADV"
+    ],
+    "extends": "RelaySwitchOnlyPlusQuery"
   },
   "RelayLampSwitch_ADV": {
     "className": "RelayLampSwitchAdv",
@@ -4929,7 +5185,36 @@
       }
     },
     "family": 1,
-    "name": "RelayLampSwitchAdv"
+    "label": "RelayLampSwitch_ADV",
+    "name": "RelayLampSwitchAdv",
+    "dynamic": true,
+    "implements": [
+      "RelayLampSwitch",
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnlyPlusQuery_ADV",
+      "RelaySwitchOnly",
+      "RelaySwitchOnly_ADV",
+      "RelayLampOnly",
+      "RelayLampOnly_ADV",
+      "IRLincTx",
+      "EZRAIN_Output",
+      "EZIO2x4_Output",
+      "EZIO2x4_Input",
+      "EZIO2x4_Input_ADV",
+      "DoorLock",
+      "BinaryAlarm",
+      "BinaryAlarm_ADV",
+      "BinaryControl",
+      "BinaryControl_ADV",
+      "AlertModuleArmed",
+      "SirenAlert",
+      "SirenArm",
+      "PIR2844OnOff",
+      "PIR2844OnOff_ADV"
+    ],
+    "equivalentTo": [
+      "RelayLampSwitch"
+    ]
   },
   "RelayLampSwitchLED": {
     "className": "RelayLampSwitchLed",
@@ -5167,7 +5452,33 @@
       }
     },
     "family": 1,
-    "name": "RelayLampSwitchLed"
+    "label": "RelayLampSwitchLED",
+    "name": "RelayLampSwitchLed",
+    "dynamic": true,
+    "implements": [
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnlyPlusQuery_ADV",
+      "RelaySwitchOnly",
+      "RelaySwitchOnly_ADV",
+      "RelayLampOnly",
+      "RelayLampOnly_ADV",
+      "IRLincTx",
+      "EZRAIN_Output",
+      "EZIO2x4_Output",
+      "EZIO2x4_Input",
+      "EZIO2x4_Input_ADV",
+      "DoorLock",
+      "BinaryAlarm",
+      "BinaryAlarm_ADV",
+      "BinaryControl",
+      "BinaryControl_ADV",
+      "AlertModuleArmed",
+      "SirenAlert",
+      "SirenArm",
+      "PIR2844OnOff",
+      "PIR2844OnOff_ADV"
+    ],
+    "extends": "RelaySwitchOnlyPlusQuery"
   },
   "RelayLampSwitchLED_ADV": {
     "className": "RelayLampSwitchLedAdv",
@@ -5405,7 +5716,36 @@
       }
     },
     "family": 1,
-    "name": "RelayLampSwitchLedAdv"
+    "label": "RelayLampSwitchLED_ADV",
+    "name": "RelayLampSwitchLedAdv",
+    "dynamic": true,
+    "implements": [
+      "RelayLampSwitchLED",
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnlyPlusQuery_ADV",
+      "RelaySwitchOnly",
+      "RelaySwitchOnly_ADV",
+      "RelayLampOnly",
+      "RelayLampOnly_ADV",
+      "IRLincTx",
+      "EZRAIN_Output",
+      "EZIO2x4_Output",
+      "EZIO2x4_Input",
+      "EZIO2x4_Input_ADV",
+      "DoorLock",
+      "BinaryAlarm",
+      "BinaryAlarm_ADV",
+      "BinaryControl",
+      "BinaryControl_ADV",
+      "AlertModuleArmed",
+      "SirenAlert",
+      "SirenArm",
+      "PIR2844OnOff",
+      "PIR2844OnOff_ADV"
+    ],
+    "equivalentTo": [
+      "RelayLampSwitchLED"
+    ]
   },
   "RelaySwitchOnlyPlusQuery": {
     "className": "RelaySwitchOnlyPlusQuery",
@@ -5538,7 +5878,17 @@
       }
     },
     "family": 1,
-    "name": "RelaySwitchOnlyPlusQuery"
+    "label": "RelaySwitchOnlyPlusQuery",
+    "name": "RelaySwitchOnlyPlusQuery",
+    "dynamic": true,
+    "implements": [
+      "RelaySwitchOnly",
+      "RelaySwitchOnly_ADV",
+      "IRLincTx",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "RelaySwitchOnly"
   },
   "RelaySwitchOnlyPlusQuery_ADV": {
     "className": "RelaySwitchOnlyPlusQueryAdv",
@@ -5671,10 +6021,23 @@
       }
     },
     "family": 1,
-    "name": "RelaySwitchOnlyPlusQueryAdv"
+    "label": "RelaySwitchOnlyPlusQuery_ADV",
+    "name": "RelaySwitchOnlyPlusQueryAdv",
+    "dynamic": true,
+    "implements": [
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnly",
+      "RelaySwitchOnly_ADV",
+      "IRLincTx",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "RelaySwitchOnlyPlusQuery"
+    ]
   },
   "RelaySwitchOnly": {
-    "className": "Switch",
+    "className": "RelaySwitch",
     "id": "RelaySwitchOnly",
     "nlsId": 147,
     "drivers": {
@@ -5799,8 +6162,15 @@
       }
     },
     "family": 1,
-    "label": "Switch",
-    "name": "Switch"
+    "label": "Relay Switch",
+    "name": "RelaySwitch",
+    "dynamic": true,
+    "implements": [
+      "IRLincTx",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "IRLincTx"
   },
   "RelaySwitchOnly_ADV": {
     "className": "RelaySwitchOnlyAdv",
@@ -5928,10 +6298,21 @@
       }
     },
     "family": 1,
-    "name": "RelaySwitchOnlyAdv"
+    "label": "RelaySwitchOnly_ADV",
+    "name": "RelaySwitchOnlyAdv",
+    "dynamic": true,
+    "implements": [
+      "RelaySwitchOnly",
+      "IRLincTx",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "RelaySwitchOnly"
+    ]
   },
   "RelayLampOnly": {
-    "className": "Lamp",
+    "className": "RelayLamp",
     "id": "RelayLampOnly",
     "drivers": {
       "ST": {
@@ -6070,8 +6451,18 @@
     },
     "events": {},
     "family": 1,
-    "label": "Lamp",
-    "name": "Lamp"
+    "label": "Relay Lamp",
+    "name": "RelayLamp",
+    "dynamic": true,
+    "implements": [
+      "IRLincTx",
+      "EZRAIN_Output",
+      "EZIO2x4_Output",
+      "AlertModuleArmed",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "IRLincTx"
   },
   "RelayLampOnly_ADV": {
     "className": "RelayLampOnlyAdv",
@@ -6213,7 +6604,21 @@
     },
     "events": {},
     "family": 1,
-    "name": "RelayLampOnlyAdv"
+    "label": "RelayLampOnly_ADV",
+    "name": "RelayLampOnlyAdv",
+    "dynamic": true,
+    "implements": [
+      "RelayLampOnly",
+      "IRLincTx",
+      "EZRAIN_Output",
+      "EZIO2x4_Output",
+      "AlertModuleArmed",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "RelayLampOnly"
+    ]
   },
   "KeypadRelay": {
     "className": "KeypadRelay",
@@ -6420,7 +6825,29 @@
       }
     },
     "family": 1,
-    "name": "KeypadRelay"
+    "label": "KeypadRelay",
+    "name": "KeypadRelay",
+    "dynamic": true,
+    "implements": [
+      "IRLincTx",
+      "KeypadButton",
+      "KeypadButton_ADV",
+      "EZRAIN_Output",
+      "EZIO2x4_Output",
+      "EZIO2x4_Input",
+      "EZIO2x4_Input_ADV",
+      "DoorLock",
+      "BinaryAlarm",
+      "BinaryAlarm_ADV",
+      "BinaryControl",
+      "BinaryControl_ADV",
+      "AlertModuleArmed",
+      "SirenAlert",
+      "SirenArm",
+      "PIR2844OnOff",
+      "PIR2844OnOff_ADV"
+    ],
+    "extends": "IRLincTx"
   },
   "KeypadRelay_ADV": {
     "className": "KeypadRelayAdv",
@@ -6627,7 +7054,32 @@
       }
     },
     "family": 1,
-    "name": "KeypadRelayAdv"
+    "label": "KeypadRelay_ADV",
+    "name": "KeypadRelayAdv",
+    "dynamic": true,
+    "implements": [
+      "KeypadRelay",
+      "IRLincTx",
+      "KeypadButton",
+      "KeypadButton_ADV",
+      "EZRAIN_Output",
+      "EZIO2x4_Output",
+      "EZIO2x4_Input",
+      "EZIO2x4_Input_ADV",
+      "DoorLock",
+      "BinaryAlarm",
+      "BinaryAlarm_ADV",
+      "BinaryControl",
+      "BinaryControl_ADV",
+      "AlertModuleArmed",
+      "SirenAlert",
+      "SirenArm",
+      "PIR2844OnOff",
+      "PIR2844OnOff_ADV"
+    ],
+    "equivalentTo": [
+      "KeypadRelay"
+    ]
   },
   "RemoteLinc2": {
     "className": "RemoteLinc2",
@@ -6712,7 +7164,14 @@
       }
     },
     "family": 1,
-    "name": "RemoteLinc2"
+    "label": "RemoteLinc2",
+    "name": "RemoteLinc2",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "SirenAlert"
   },
   "RemoteLinc2_ADV": {
     "className": "RemoteLinc2Adv",
@@ -6797,7 +7256,17 @@
       }
     },
     "family": 1,
-    "name": "RemoteLinc2Adv"
+    "label": "RemoteLinc2_ADV",
+    "name": "RemoteLinc2Adv",
+    "dynamic": true,
+    "implements": [
+      "RemoteLinc2",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "RemoteLinc2"
+    ]
   },
   "IRLincTx": {
     "className": "IrLincTx",
@@ -6864,7 +7333,14 @@
     },
     "events": {},
     "family": 1,
-    "name": "IrLincTx"
+    "label": "IRLincTx",
+    "name": "IrLincTx",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "SirenAlert"
   },
   "FanLincMotor": {
     "className": "FanLincMotor",
@@ -7017,7 +7493,18 @@
     },
     "events": {},
     "family": 1,
-    "name": "FanLincMotor"
+    "label": "FanLincMotor",
+    "name": "FanLincMotor",
+    "dynamic": true,
+    "implements": [
+      "EZRAIN_Output",
+      "EZIO2x4_Output",
+      "DoorLock",
+      "AlertModuleArmed",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "EZRAIN_Output"
   },
   "KeypadButton": {
     "className": "KeypadButton",
@@ -7142,7 +7629,16 @@
       }
     },
     "family": 1,
-    "name": "KeypadButton"
+    "label": "KeypadButton",
+    "name": "KeypadButton",
+    "dynamic": true,
+    "implements": [
+      "EZIO2x4_Input",
+      "EZIO2x4_Input_ADV",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "EZIO2x4_Input"
   },
   "KeypadButton_ADV": {
     "className": "KeypadButtonAdv",
@@ -7267,7 +7763,19 @@
       }
     },
     "family": 1,
-    "name": "KeypadButtonAdv"
+    "label": "KeypadButton_ADV",
+    "name": "KeypadButtonAdv",
+    "dynamic": true,
+    "implements": [
+      "KeypadButton",
+      "EZIO2x4_Input",
+      "EZIO2x4_Input_ADV",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "KeypadButton"
+    ]
   },
   "EZRAIN_Output": {
     "className": "EzrainOutput",
@@ -7399,7 +7907,16 @@
     },
     "events": {},
     "family": 1,
-    "name": "EzrainOutput"
+    "label": "EZRAIN_Output",
+    "name": "EzrainOutput",
+    "dynamic": true,
+    "implements": [
+      "EZIO2x4_Output",
+      "AlertModuleArmed",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "EZIO2x4_Output"
   },
   "EZRAIN_Input": {
     "className": "EzrainInput",
@@ -7468,7 +7985,16 @@
       }
     },
     "family": 1,
-    "name": "EzrainInput"
+    "label": "EZRAIN_Input",
+    "name": "EzrainInput",
+    "dynamic": true,
+    "implements": [
+      "EZIO2x4_Input",
+      "EZIO2x4_Input_ADV",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "EZIO2x4_Input"
   },
   "EZRAIN_Input_ADV": {
     "className": "EzrainInputAdv",
@@ -7537,10 +8063,22 @@
       }
     },
     "family": 1,
-    "name": "EzrainInputAdv"
+    "label": "EZRAIN_Input_ADV",
+    "name": "EzrainInputAdv",
+    "dynamic": true,
+    "implements": [
+      "EZRAIN_Input",
+      "EZIO2x4_Input",
+      "EZIO2x4_Input_ADV",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "EZRAIN_Input"
+    ]
   },
   "EZIO2x4_Output": {
-    "className": "Output",
+    "className": "Ezio2x4Output",
     "id": "EZIO2x4_Output",
     "drivers": {
       "ST": {
@@ -7638,11 +8176,17 @@
     },
     "events": {},
     "family": 1,
-    "label": "Output",
-    "name": "Output"
+    "label": "EZIO2x4 Output",
+    "name": "Ezio2x4Output",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "SirenAlert"
   },
   "EZIO2x4_Input": {
-    "className": "Input",
+    "className": "Ezio2x4Input",
     "id": "EZIO2x4_Input",
     "drivers": {
       "ST": {
@@ -7704,8 +8248,14 @@
       }
     },
     "family": 1,
-    "label": "Input",
-    "name": "Input"
+    "label": "EZIO2x4 Input",
+    "name": "Ezio2x4Input",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "SirenAlert"
   },
   "EZIO2x4_Input_ADV": {
     "className": "Ezio2x4InputAdv",
@@ -7770,7 +8320,17 @@
       }
     },
     "family": 1,
-    "name": "Ezio2x4InputAdv"
+    "label": "EZIO2x4_Input_ADV",
+    "name": "Ezio2x4InputAdv",
+    "dynamic": true,
+    "implements": [
+      "EZIO2x4_Input",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "EZIO2x4_Input"
+    ]
   },
   "IMETER_SOLO": {
     "className": "ImeterSolo",
@@ -7853,7 +8413,14 @@
     },
     "events": {},
     "family": 1,
-    "name": "ImeterSolo"
+    "label": "IMETER_SOLO",
+    "name": "ImeterSolo",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "SirenAlert"
   },
   "DoorLock": {
     "className": "DoorLock",
@@ -7920,7 +8487,14 @@
     },
     "events": {},
     "family": 1,
-    "name": "DoorLock"
+    "label": "DoorLock",
+    "name": "DoorLock",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "SirenAlert"
   },
   "BinaryAlarm": {
     "className": "BinaryAlarm",
@@ -8029,7 +8603,16 @@
       }
     },
     "family": 1,
-    "name": "BinaryAlarm"
+    "label": "BinaryAlarm",
+    "name": "BinaryAlarm",
+    "dynamic": true,
+    "implements": [
+      "BinaryControl",
+      "BinaryControl_ADV",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "BinaryControl"
   },
   "BinaryAlarm_ADV": {
     "className": "BinaryAlarmAdv",
@@ -8138,7 +8721,19 @@
       }
     },
     "family": 1,
-    "name": "BinaryAlarmAdv"
+    "label": "BinaryAlarm_ADV",
+    "name": "BinaryAlarmAdv",
+    "dynamic": true,
+    "implements": [
+      "BinaryAlarm",
+      "BinaryControl",
+      "BinaryControl_ADV",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "BinaryAlarm"
+    ]
   },
   "BinaryControl": {
     "className": "BinaryControl",
@@ -8239,7 +8834,14 @@
       }
     },
     "family": 1,
-    "name": "BinaryControl"
+    "label": "BinaryControl",
+    "name": "BinaryControl",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "SirenAlert"
   },
   "BinaryControl_ADV": {
     "className": "BinaryControlAdv",
@@ -8340,7 +8942,17 @@
       }
     },
     "family": 1,
-    "name": "BinaryControlAdv"
+    "label": "BinaryControl_ADV",
+    "name": "BinaryControlAdv",
+    "dynamic": true,
+    "implements": [
+      "BinaryControl",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "BinaryControl"
+    ]
   },
   "AlertModuleSiren": {
     "className": "AlertModuleSiren",
@@ -8471,7 +9083,15 @@
     },
     "events": {},
     "family": 1,
-    "name": "AlertModuleSiren"
+    "label": "AlertModuleSiren",
+    "name": "AlertModuleSiren",
+    "dynamic": true,
+    "implements": [
+      "AlertModuleArmed",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "AlertModuleArmed"
   },
   "AlertModuleSiren_ADV": {
     "className": "AlertModuleSirenAdv",
@@ -8602,7 +9222,18 @@
     },
     "events": {},
     "family": 1,
-    "name": "AlertModuleSirenAdv"
+    "label": "AlertModuleSiren_ADV",
+    "name": "AlertModuleSirenAdv",
+    "dynamic": true,
+    "implements": [
+      "AlertModuleSiren",
+      "AlertModuleArmed",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "AlertModuleSiren"
+    ]
   },
   "AlertModuleArmed": {
     "className": "AlertModuleArmed",
@@ -8704,7 +9335,14 @@
     },
     "events": {},
     "family": 1,
-    "name": "AlertModuleArmed"
+    "label": "AlertModuleArmed",
+    "name": "AlertModuleArmed",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "SirenAlert"
   },
   "Siren": {
     "className": "Siren",
@@ -8934,7 +9572,13 @@
     },
     "family": 1,
     "label": "Siren",
-    "name": "Siren"
+    "name": "Siren",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "extends": "SirenAlert"
   },
   "Siren_ADV": {
     "className": "Siren",
@@ -9164,10 +9808,19 @@
     },
     "family": 1,
     "label": "Siren",
-    "name": "Siren"
+    "name": "Siren",
+    "dynamic": true,
+    "implements": [
+      "Siren",
+      "SirenAlert",
+      "SirenArm"
+    ],
+    "equivalentTo": [
+      "Siren"
+    ]
   },
   "SirenAlert": {
-    "className": "Siren",
+    "className": "SirenAlert",
     "id": "SirenAlert",
     "drivers": {
       "ERR": {
@@ -9194,11 +9847,12 @@
     "commands": {},
     "events": {},
     "family": 1,
-    "label": "Siren",
-    "name": "Siren"
+    "label": "Siren Alert",
+    "name": "SirenAlert",
+    "dynamic": true
   },
   "SirenArm": {
-    "className": "Arm",
+    "className": "SirenArm",
     "id": "SirenArm",
     "drivers": {
       "ERR": {
@@ -9225,8 +9879,15 @@
     "commands": {},
     "events": {},
     "family": 1,
-    "label": "Arm",
-    "name": "Arm"
+    "label": "Siren Arm",
+    "name": "SirenArm",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert"
+    ],
+    "equivalentTo": [
+      "SirenAlert"
+    ]
   },
   "PIR2844": {
     "className": "Pir2844",
@@ -9437,7 +10098,14 @@
       }
     },
     "family": 1,
-    "name": "Pir2844"
+    "label": "PIR2844",
+    "name": "Pir2844",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert",
+      "PIR2844_ADV"
+    ],
+    "extends": "PIR2844_ADV"
   },
   "PIR2844_ADV": {
     "className": "Pir2844Adv",
@@ -9648,7 +10316,13 @@
       }
     },
     "family": 1,
-    "name": "Pir2844Adv"
+    "label": "PIR2844_ADV",
+    "name": "Pir2844Adv",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert"
+    ],
+    "extends": "SirenAlert"
   },
   "PIR2844C": {
     "className": "Pir2844c",
@@ -9859,7 +10533,14 @@
       }
     },
     "family": 1,
-    "name": "Pir2844c"
+    "label": "PIR2844C",
+    "name": "Pir2844c",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert",
+      "PIR2844C_ADV"
+    ],
+    "extends": "PIR2844C_ADV"
   },
   "PIR2844C_ADV": {
     "className": "Pir2844cAdv",
@@ -10070,7 +10751,13 @@
       }
     },
     "family": 1,
-    "name": "Pir2844cAdv"
+    "label": "PIR2844C_ADV",
+    "name": "Pir2844cAdv",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert"
+    ],
+    "extends": "SirenAlert"
   },
   "PIR2844OnOff": {
     "className": "Pir2844OnOff",
@@ -10212,7 +10899,14 @@
       }
     },
     "family": 1,
-    "name": "Pir2844OnOff"
+    "label": "PIR2844OnOff",
+    "name": "Pir2844OnOff",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert",
+      "PIR2844OnOff_ADV"
+    ],
+    "extends": "PIR2844OnOff_ADV"
   },
   "PIR2844OnOff_ADV": {
     "className": "Pir2844OnOffAdv",
@@ -10354,7 +11048,13 @@
       }
     },
     "family": 1,
-    "name": "Pir2844OnOffAdv"
+    "label": "PIR2844OnOff_ADV",
+    "name": "Pir2844OnOffAdv",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert"
+    ],
+    "extends": "SirenAlert"
   },
   "I3PaddleFlags": {
     "className": "I3PaddleFlags",
@@ -10809,7 +11509,13 @@
     },
     "events": {},
     "family": 1,
-    "name": "I3PaddleFlags"
+    "label": "I3PaddleFlags",
+    "name": "I3PaddleFlags",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert"
+    ],
+    "extends": "SirenAlert"
   },
   "I3KeypadFlags": {
     "className": "I3KeypadFlags",
@@ -11382,6 +12088,14 @@
     },
     "events": {},
     "family": 1,
-    "name": "I3KeypadFlags"
+    "label": "I3KeypadFlags",
+    "name": "I3KeypadFlags",
+    "dynamic": true,
+    "implements": [
+      "SirenAlert",
+      "I3PaddleFlags",
+      "SirenAlert"
+    ],
+    "extends": "I3PaddleFlags"
   }
 }

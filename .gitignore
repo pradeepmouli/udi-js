@@ -11,3 +11,5 @@ CLI/resources/*
 **/resources_old/*
 **/*.tsbuildinfo
 *.log
+tools/codegen/codegen.log
+tools/codegen/defgen.log

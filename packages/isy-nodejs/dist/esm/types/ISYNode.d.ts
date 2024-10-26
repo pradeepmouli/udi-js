@@ -4,16 +4,13 @@ import { Driver } from './Definitions/Global/Drivers.js';
 import { Family } from './Definitions/Global/Families.js';
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
 import { ISY, NodeType, type ISYScene } from './ISY.js';
-import type { DriverState } from './Model/DriverState.js';
-import { NodeInfo } from './Model/NodeInfo.js';
-import { type StringKeys } from './Utils.js';
 import { CliConfigSetLevels } from 'winston/lib/winston/config/index.js';
 import type { Command } from './Definitions/Global/Commands.js';
 import { Event } from './Definitions/Global/Events.js';
-export interface NodeNotes {
-    location: string;
-    spoken: string;
-}
+import type { DriverState } from './Model/DriverState.js';
+import { NodeInfo } from './Model/NodeInfo.js';
+import type { NodeNotes } from './Model/NodeNotes.js';
+import { type StringKeys } from './Utils.js';
 export declare class ISYNode<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures = {
     [x in keyof D]: Event.DriverToEvent<D[x]> & {
         driver: x;
@@ -80,7 +77,7 @@ export declare class ISYNode<T extends Family, D extends ISYNode.DriverSignature
     readProperty(propertyName: keyof D & string): Promise<DriverState>;
     refresh(): Promise<any>;
     refreshNotes(): Promise<void>;
-    sendCommand(command: StringKeys<C>, parameters?: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
+    sendCommand(command: StringKeys<typeof this.commands>, parameters?: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
     updateProperty(propertyName: string, value: any): Promise<any>;
 }
 export type Flatten<T, Level extends Number = 2, K = keyof T> = UnionToIntersection<T extends Record<string, unknown> ? K extends string ? T[K] extends Record<string, unknown> ? keyof T[K] extends string ? {

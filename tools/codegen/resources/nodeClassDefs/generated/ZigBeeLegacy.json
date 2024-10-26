@@ -243,10 +243,11 @@
     "events": {},
     "family": 3,
     "label": "Thermostat",
-    "name": "Thermostat"
+    "name": "Thermostat",
+    "dynamic": false
   },
   "RelayLoadControl": {
-    "className": "LampAndSwitch",
+    "className": "Relay",
     "id": "RelayLoadControl",
     "nlsId": "RELAY",
     "drivers": {
@@ -315,7 +316,8 @@
       }
     },
     "family": 3,
-    "label": "LampAndSwitch",
-    "name": "LampAndSwitch"
+    "label": "Relay",
+    "name": "Relay",
+    "dynamic": false
   }
 }

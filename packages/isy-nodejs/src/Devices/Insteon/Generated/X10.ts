@@ -17,7 +17,7 @@ export const nodeDefId = "X10";
 type Commands = X10.Commands;
 type Drivers = X10.Drivers;
 
-export class X10Node extends Base<Drivers, Commands> implements X10.Interface {
+export class X10Node extends OnOffControl implements X10.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,

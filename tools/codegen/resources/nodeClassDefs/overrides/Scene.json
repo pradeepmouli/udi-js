@@ -1,6 +1,7 @@
 {
   "InsteonDimmer": {
-    "className": "SceneNode",
+    "className": "Scene",
+	"name": "Scene",
     "id": "InsteonDimmer"
   }
 }

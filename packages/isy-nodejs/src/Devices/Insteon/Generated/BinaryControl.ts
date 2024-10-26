@@ -17,7 +17,7 @@ export const nodeDefId = "BinaryControl";
 type Commands = BinaryControl.Commands;
 type Drivers = BinaryControl.Drivers;
 
-export class BinaryControlNode extends Base<Drivers, Commands> implements BinaryControl.Interface {
+export class BinaryControlNode extends SirenAlert implements BinaryControl.Interface {
 	public readonly commands = {
 		QUERY: this.query,
 		BEEP: this.beep,

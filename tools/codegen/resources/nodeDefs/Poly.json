@@ -4,11 +4,20 @@
       {
         "editors": "",
         "sts": {
-          "st": {
-            "id": "ST",
-            "editor": "BRD_ST"
-          },
-          "$comment": " Connection State "
+          "st": [
+            {
+              "id": "ST",
+              "editor": "BRD_ST"
+            },
+            {
+              "id": "GPV",
+              "editor": "NS_STATUS"
+            }
+          ],
+          "$comment": [
+            " Connection State ",
+            " plugin status "
+          ]
         },
         "cmds": {
           "sends": "",

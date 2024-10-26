@@ -129,7 +129,7 @@ export async function createServerNode(isy: ISY = ISY.instance): Promise<ServerN
 		if (device.enabled && !(device instanceof InsteonKeypadButtonDevice)) {
 			//const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
 
-			//@ts-expect-error
+			//@ts-ignore
 			let baseBehavior: MutableEndpoint.With<DimmableLightDevice | OnOffLightDevice, SupportedBehaviors.MapOf<[typeof BridgedDeviceBasicInformationServer, typeof ISYBridgedDeviceBehavior]>>;
 
 			if (device instanceof InsteonDimmableDevice) {

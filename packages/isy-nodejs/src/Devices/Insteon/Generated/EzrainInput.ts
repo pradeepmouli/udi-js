@@ -17,7 +17,7 @@ export const nodeDefId = "EZRAIN_Input";
 type Commands = EzrainInput.Commands;
 type Drivers = EzrainInput.Drivers;
 
-export class EzrainInputNode extends Base<Drivers, Commands> implements EzrainInput.Interface {
+export class EzrainInputNode extends Ezio2x4Input implements EzrainInput.Interface {
 	public readonly commands = {
 		WDU: this.writeChanges
 	};

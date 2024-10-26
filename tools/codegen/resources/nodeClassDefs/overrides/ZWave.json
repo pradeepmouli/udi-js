@@ -310,7 +310,7 @@
                 }
               }
             },
-            "name": "Direction2",
+            "name": "direction2",
             "optional": true
           },
           "STEP2": {
@@ -331,7 +331,7 @@
                 "max": 127
               }
             },
-            "name": "FadeRate2",
+            "name": "fadeRate2",
             "optional": true
           }
         }

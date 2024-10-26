@@ -278,6 +278,8 @@
     },
     "events": {},
     "family": 6,
-    "name": "InsteonDimmer"
+    "label": "InsteonDimmer",
+    "name": "InsteonDimmer",
+    "dynamic": false
   }
 }

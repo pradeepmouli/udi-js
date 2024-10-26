@@ -22,7 +22,7 @@ import type { InsteonRelaySwitchDevice } from '../../Devices/Insteon/InsteonRela
 const map: FamilyToClusterMap<Family.Insteon> = {
   Relay: {
     deviceType: OnOffLightDevice,
-    mapping: {
+    mapping:  {
 
       OnOff: {
         attributes: {

@@ -64,7 +64,7 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         convert(value: any, from: import("../../Definitions/index.js").UnitOfMeasure, to: import("../../Definitions/index.js").UnitOfMeasure): any;
         emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
         generateLabel(template: string): string;
-        getNotes(): Promise<import("../../ISYNode.js").NodeNotes>;
+        getNotes(): Promise<import("../../Model/NodeNotes.js").NodeNotes>;
         handleControlTrigger(controlName: never): boolean;
         handleEvent(event: {
             control?: any;
@@ -147,7 +147,7 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         convert(value: any, from: import("../../Definitions/index.js").UnitOfMeasure, to: import("../../Definitions/index.js").UnitOfMeasure): any;
         emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
         generateLabel(template: string): string;
-        getNotes(): Promise<import("../../ISYNode.js").NodeNotes>;
+        getNotes(): Promise<import("../../Model/NodeNotes.js").NodeNotes>;
         handleControlTrigger(controlName: never): boolean;
         handleEvent(event: {
             control?: any;

@@ -1,12 +1,12 @@
 import { capitalize } from '@project-chip/matter.js/util';
 import * as fs from 'fs';
+import diff from 'microdiff';
 import { camelCase, merge, pascalCase } from 'moderndash';
 import { Family } from '../Definitions/Global/Families.js';
 import { toArray } from '../Utils.js';
 import { EditorDef } from './EditorDef.js';
 import { EnumDefinition } from './EnumDefinition.js';
 import { IndexDef, NLS, NLSRecordType } from './NLS.js';
-const NodeClassMap = new Map();
 function buildNodeClassDefinitions(nodeDefs, family) {
     const map = {};
     for (const nodeDef of nodeDefs) {
@@ -31,19 +31,86 @@ function buildNodeClassDefinitions(nodeDefs, family) {
         }
         map[f.id] = f;
     }
+    for (const id in map) {
+        let node = map[id];
+        for (const id2 of Object.keys(map).filter((k) => id !== k)) {
+            if (map[id2].implements.includes(id) || node.implements.includes(id2) || node.equivalentTo.includes(id2)) {
+            }
+            else {
+                const node2 = map[id2];
+                const d = diff(JSON.parse(JSON.stringify(node2)), JSON.parse(JSON.stringify(node)));
+                let ext = false;
+                let equiv = false;
+                if (d.filter((p) => p.type == 'REMOVE').length == 0) {
+                    ext = true;
+                    if (d.filter((p) => p.type == 'CREATE').length == 0)
+                        equiv = true;
+                }
+                if (ext && equiv) {
+                    if (id.includes(id2)) {
+                        node.implements.push(id2, ...node2.implements);
+                        node.equivalentTo.push(id2);
+                    }
+                    else {
+                        node2.implements.push(id, ...node.implements);
+                        node2.equivalentTo.push(id);
+                    }
+                }
+                else if (ext) {
+                    node.implements.push(id2, ...node2.implements);
+                }
+                // if (Object.keys(d.).length == 0) {
+                // 	node.extends.push(id2);
+                // 	if (Object.keys(d.added).length == 0) {
+                // 		node.equivalentTo.push(id2);
+                // 	}
+                // }
+                //console.log(d);
+            }
+        }
+        map[id] = node;
+    }
+    // for (const node of Object.values(map))
+    // {
+    // 	let s =  Array.from(node.implements);
+    // 	for (const i of s)
+    // 	{
+    // 		if (map[i].equivalentTo.length > 0)
+    // 		{
+    // 			node.implements(i);]
+    // 		}
+    // 	}
+    // }
+    //TODO: Make this recursive
+    for (const node of Object.values(map).filter((p) => p.equivalentTo.length == 0)) {
+        if (node.extends == undefined && node.implements.length > 0) {
+            let e = null;
+            for (const i of node.implements.filter((p) => map[p].equivalentTo.length == 0)) {
+                let superNode = map[i];
+                if (e == null || superNode.implements.includes(e)) {
+                    e = i;
+                }
+            }
+            node.extends = e;
+        }
+        map[node.id] = node;
+    }
     return map;
 }
 export class NodeClassDefinition {
-    // #region Properties (8)
+    // #region Properties (11)
     commands = {};
     drivers = {};
-    dynamic;
+    dynamic = false;
+    equivalentTo = [];
     events = {};
+    extends;
     family;
     id;
+    implements = [];
     label;
     nlsId;
-    // #endregion Properties (8)
+    // #endregion Properties (11)
     // #region Constructors (1)
     constructor(nodeDef, family) {
         this.id = nodeDef.id;
@@ -153,9 +220,12 @@ export class NodeClassDefinition {
             commands: this.commands,
             events: this.events,
             family: this.family,
-            label: this.label,
+            label: this.label ?? this.id,
             name: this.name,
-            dynamic: this.dynamic
+            dynamic: this.family in [Family.ZWave, Family.ZigBee],
+            implements: this.implements.length > 0 ? this.implements : undefined,
+            equivalentTo: this.equivalentTo.length > 0 ? this.equivalentTo : undefined,
+            extends: this.extends
         };
     }
     // #endregion Public Methods (6)
@@ -200,27 +270,27 @@ export class NodeClassDefinition {
         }
         if (Array.isArray(nls.ND)) {
             for (const entry of nls.ND) {
-                if (entry.nodeDefId == this.id) {
+                if (entry.nodeDefId == this.id && entry.property == 'NAME') {
                     this.label = entry.value;
                 }
             }
         }
         else if (nls.ND) {
             let ND = nls.ND;
-            if (ND.nodeDefId == this.id) {
+            if (ND.nodeDefId == this.id && ND.property == 'NAME') {
                 this.label = ND.value;
             }
         }
         if (Array.isArray(nls.NDN)) {
             for (const entry of nls.NDN) {
-                if (entry.nlsId == this.nlsId) {
+                if (entry.nlsId == this.nlsId && entry.property == 'NAME') {
                     this.label = entry.value;
                 }
             }
         }
         else if (nls.NDN) {
             let ND = nls.NDN;
-            if (ND.nlsId == this.nlsId) {
+            if (ND.nlsId == this.nlsId && ND.property == 'NAME') {
                 this.label = ND.value;
             }
         }
@@ -589,6 +659,7 @@ export class EventDefinition extends NodeMemberDefinition {
         }
     }
 }
+const NodeClassMap = new Map();
 (function (NodeClassDefinition) {
     NodeClassDefinition.Map = NodeClassMap;
     function generate(family, nodeDefs) {

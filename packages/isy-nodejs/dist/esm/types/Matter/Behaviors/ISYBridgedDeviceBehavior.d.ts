@@ -2,9 +2,9 @@
  * @license
  * Copyright 2022-2024 Matter.js Authors
  * SPDX-License-Identifier: Apache-2.0
- */ import { Behavior } from "@project-chip/matter.js/behavior";
-import { Observable, EventEmitter } from "@project-chip/matter.js/util";
-import { type ISYNode } from "../../ISY.js";
+ */ import { Behavior } from '@project-chip/matter.js/behavior';
+import { EventEmitter, Observable } from '@project-chip/matter.js/util';
+import { type ISYNode } from '../../ISY.js';
 import { DeviceToClusterMap, type ClusterMapping } from '../../Model/ClusterMap.js';
 export declare class ISYBridgedDeviceBehavior extends Behavior {
     static readonly id = "isyNode";
@@ -20,7 +20,7 @@ export declare class ISYBridgedDeviceBehavior extends Behavior {
     };
     mapForBehavior<B extends {
         cluster: unknown;
-    }>(behavior: B): ClusterMapping<B["cluster"], typeof this.internal.device>;
+    }>(behavior: B): ClusterMapping<B['cluster'], typeof this.internal.device>;
     handlePropertyChange(driver: string, newValue: any, oldValue: any, formattedValue: string): void;
     [Symbol.asyncDispose](): import("@project-chip/matter.js/util").MaybePromise;
 }

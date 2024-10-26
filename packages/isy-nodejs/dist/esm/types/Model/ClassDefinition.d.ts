@@ -12,11 +12,14 @@ export declare class NodeClassDefinition<T extends Family> {
         [x in Driver.Type]?: DriverDefinition;
     };
     dynamic: boolean;
+    equivalentTo: string[];
     events: {
         [x: string]: EventDefinition;
     };
+    extends?: string;
     family: T;
     id: string;
+    implements: string[];
     label: string;
     nlsId: string;
     constructor(nodeDef: NodeDef, family: T);
@@ -202,19 +205,22 @@ export declare class NodeClassDefinition<T extends Family> {
         label: string;
         name: string;
         dynamic: boolean;
+        implements: string[];
+        equivalentTo: string[];
+        extends: string;
     };
     private applyNLSRecords;
 }
 export type DataTypeDefinition = {
-    uom: number;
-    serverUom?: number;
+    uom: UnitOfMeasure;
+    serverUom?: UnitOfMeasure;
     enum: false;
     min: number;
     max: number;
     step?: number;
     precision?: number;
 } | {
-    uom: number;
+    uom: UnitOfMeasure;
     enum: true;
     indexId: string;
     values: {

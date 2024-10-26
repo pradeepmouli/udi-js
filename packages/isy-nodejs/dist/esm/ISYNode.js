@@ -1,6 +1,5 @@
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
 import { NodeType } from './ISY.js';
-//import type { DriversOf } from './Model/ClusterMap.js';
 import { Event } from './Definitions/Global/Events.js';
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 export class ISYNode {

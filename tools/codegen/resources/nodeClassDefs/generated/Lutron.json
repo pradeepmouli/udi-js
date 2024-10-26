@@ -99,6 +99,7 @@
     "events": {},
     "family": 11,
     "label": "Load Shed",
-    "name": "LoadShed"
+    "name": "LoadShed",
+    "dynamic": false
   }
 }

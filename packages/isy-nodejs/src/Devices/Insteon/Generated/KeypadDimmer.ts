@@ -11,13 +11,14 @@ import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
+import { DimmerLampNode } from './DimmerLamp.js';
 
 export const nodeDefId = "KeypadDimmer";
 
 type Commands = KeypadDimmer.Commands;
 type Drivers = KeypadDimmer.Drivers;
 
-export class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadDimmer.Interface {
+export class KeypadDimmerNode extends DimmerLampNode implements KeypadDimmer.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,

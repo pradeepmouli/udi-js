@@ -13,7 +13,7 @@ export function ISYClusterBehavior(base, p) {
             this._device = behavior.device;
             this.map = behavior.mapForBehavior(this);
             for (const key2 in this.map.attributes) {
-                if (typeof this.map.attributes[key2] === "string") {
+                if (typeof this.map.attributes[key2] === 'string') {
                     this.handlers[this.map.attributes[key2]] = (newValue, oldValue, formattedValue) => {
                         this.state[key2] = newValue;
                     };

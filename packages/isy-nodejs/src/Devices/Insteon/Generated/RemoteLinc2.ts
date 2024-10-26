@@ -17,7 +17,7 @@ export const nodeDefId = "RemoteLinc2";
 type Commands = RemoteLinc2.Commands;
 type Drivers = RemoteLinc2.Drivers;
 
-export class RemoteLinc2Node extends Base<Drivers, Commands> implements RemoteLinc2.Interface {
+export class RemoteLinc2Node extends SirenAlert implements RemoteLinc2.Interface {
 	public readonly commands = {
 		WDU: this.writeChanges
 	};

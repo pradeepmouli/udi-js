@@ -292,4 +292,14 @@ export class ISYNode {
         });
     }
 }
+(function (ISYNode) {
+    //TODO: fix return types
+    /*export type WithCommands<C extends Command.Signatures<any>> = C extends Command.Signatures<infer U> ? {
+      [K in C[U]["name"]]: C[K];
+    } : never;*/
+    ISYNode.With = (Base) => {
+        return class extends Base {
+        };
+    };
+})(ISYNode || (ISYNode = {}));
 //# sourceMappingURL=ISYNode.js.map

@@ -1,0 +1,1 @@
+{"version":3,"file":"ISYEvent.d.ts","sourceRoot":"","sources":["../../../src/Events/ISYEvent.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,gBAAgB,CAAC;AAC3C,qBAAa,QAAQ,CAAC,OAAO,EAAE,UAAU,SAAS,SAAS;IAC1D,MAAM,EAAE,OAAO,CAAC;IAChB,SAAS,EAAE,GAAG,CAAC;gBACF,SAAS,EAAE,GAAG;CAI3B"}

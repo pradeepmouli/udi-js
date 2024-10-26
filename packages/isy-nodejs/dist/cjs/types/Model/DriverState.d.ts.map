@@ -1,0 +1,1 @@
+{"version":3,"file":"DriverState.d.ts","sourceRoot":"","sources":["../../../../src/Model/DriverState.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,aAAa,EAAE,MAAM,8BAA8B,CAAC;AAIlE,MAAM,WAAW,WAAW;IAC3B,EAAE,EAAE,MAAM,GAAG,MAAM,CAAC;IACpB,KAAK,EAAE,GAAG,CAAC;IACX,SAAS,EAAE,MAAM,CAAC;IAClB,GAAG,EAAE,aAAa,CAAC;IAEnB,IAAI,EAAE,MAAM,CAAC;IACb,IAAI,EAAE,MAAM,CAAC;CACb"}

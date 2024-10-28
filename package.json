@@ -9,7 +9,8 @@
   ],
   "scripts": {
     "mocha": "echo \"Error: no test specified\" && exit 1",
-	"publish:development": "lerna -ignore-git- publish from-package --no-private --dist-tag dev"
+	"version": "lerna version --git-remote isy-nodejs",
+	"publish:development": "lerna publish from-package --git-remote isy-nodejs --no-private --dist-tag dev"
   },
   "devDependencies": {
     "lerna": "^8.1.8",

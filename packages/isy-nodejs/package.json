@@ -64,10 +64,14 @@
         "xml2js": "^0.6.2"
     },
     "bugs": {
-        "url": "https://github.com/pradeepmouli/isy-js/issues"
+        "url": "https://github.com/pradeepmouli/isy-nodejs/issues"
     },
     "repository": {
         "type": "git",
         "url": "https://github.com/pradeepmouli/isy-js.git"
-    }
+    },
+	
+	"publishConfig": {
+    "access": "public"
+  }
 }

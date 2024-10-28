@@ -14,7 +14,7 @@ import { Properties } from '../../ISYConstants.js';
 
 import type { DriverState } from '../../Model/DriverState.js';
 
-export class InsteonRelayDevice extends InsteonBaseDevice<Driver.Signatures<'ST' | 'OL' | 'RR'>, Command.Signatures<'DON' | 'DOF'>> {
+export class InsteonRelayDevice extends InsteonBaseDevice<Driver.Signatures<'ST' | 'OL' | 'RR' | 'ERR'>, Command.Signatures<'DON' | 'DOF'>> {
 	// #region Constructors (1)
 
 	constructor(isy: ISY, nodeInfo: NodeInfo) {
@@ -22,6 +22,7 @@ export class InsteonRelayDevice extends InsteonBaseDevice<Driver.Signatures<'ST'
 		this.drivers.ST = Driver.create('ST', this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: 'Status', name: 'status' });
 		this.drivers.OL = Driver.create('OL', this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: 'On Level', name: 'onLevel' });
 		this.drivers.RR = Driver.create('RR', this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: 'Ramp Rate', name: 'rampRate' });
+		this.drivers.ERR = Driver.create('ERR', this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: 'Error', name: 'error' });
 	}
 
 	// #endregion Constructors (1)

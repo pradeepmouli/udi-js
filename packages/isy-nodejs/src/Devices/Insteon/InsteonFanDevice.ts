@@ -5,12 +5,15 @@ import { States } from '../../ISYConstants.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import 'winston';
-import type { NodeInfo } from '../../Model/NodeInfo.js';
+import type { NodeInfo, StaticNodeInfo } from '../../Model/NodeInfo.js';
 import {Insteon} from './index.js';
+import  { Command, Driver, UnitOfMeasure } from '../../Definitions/index.js';
+import type { DriverState } from '../../Model/DriverState.js';
 
-export class InsteonFanMotorDevice extends InsteonBaseDevice {
-	constructor (isy: ISY, deviceNode: NodeInfo) {
+export class InsteonFanMotorDevice extends InsteonBaseDevice<Driver.Signatures<'ST'>, Command.Signatures<'DON' | 'DOF'>> {
+	constructor (isy: ISY, deviceNode: StaticNodeInfo) {
 		super(isy, deviceNode);
+		this.drivers.ST = Driver.create('ST', this, deviceNode.property as DriverState, { uom: UnitOfMeasure.Percent, label: 'Fan Speed (%)', name: 'fanSpeed' });
 		this.hidden = true;
 	}
 

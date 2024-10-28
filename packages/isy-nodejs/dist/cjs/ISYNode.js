@@ -228,7 +228,7 @@ class ISYNode {
         const oldValue = this.drivers[propertyName].value;
         if (this.drivers[propertyName].patch(value, formattedValue, uom, prec)) {
             this.emit('PropertyChanged', propertyName, value, oldValue, formattedValue);
-            this.scenes.forEach((element) => {
+            this.scenes?.forEach((element) => {
                 this.logger(`Recalulating ${element.deviceFriendlyName}`);
                 element.recalculateState();
             });

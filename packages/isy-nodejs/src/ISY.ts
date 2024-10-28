@@ -747,7 +747,10 @@ export class ISY extends EventEmitter implements Disposable {
 
       if (d) {
         newDevice = new d(this, nodeInfo) as ISYDeviceNode<any,any,any,any>;
-        newDevice.productName = d.name;
+	  }
+	  if (m) {
+		newDevice = newDevice ?? new m.class(this, nodeInfo) as unknown as ISYDeviceNode<any,any,any,any>;
+        newDevice.productName = m.name;
         newDevice.model = `(${m.modelNumber}) ${m.name} v.${m.version}`;
         newDevice.modelNumber = m.modelNumber;
         newDevice.version = m.version;

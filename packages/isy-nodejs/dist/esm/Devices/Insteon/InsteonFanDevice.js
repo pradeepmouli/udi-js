@@ -1,14 +1,11 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.InsteonFanDevice = exports.InsteonFanMotorDevice = void 0;
-const InsteonBaseDevice_js_1 = require("./InsteonBaseDevice.js");
-const InsteonDimmableDevice_js_1 = require("./InsteonDimmableDevice.js");
-require("winston");
-const index_js_1 = require("../../Definitions/index.js");
-class InsteonFanMotorDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
+import { InsteonBaseDevice } from './InsteonBaseDevice.js';
+import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
+import 'winston';
+import { Driver, UnitOfMeasure } from '../../Definitions/index.js';
+export class InsteonFanMotorDevice extends InsteonBaseDevice {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
-        this.drivers.ST = index_js_1.Driver.create('ST', this, deviceNode.property, { uom: index_js_1.UnitOfMeasure.Percent, label: 'Fan Speed (%)', name: 'fanSpeed' });
+        this.drivers.ST = Driver.create('ST', this, deviceNode.property, { uom: UnitOfMeasure.Percent, label: 'Fan Speed (%)', name: 'fanSpeed' });
         this.hidden = true;
     }
     get isOn() {
@@ -29,13 +26,12 @@ class InsteonFanMotorDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
         }
     }
 }
-exports.InsteonFanMotorDevice = InsteonFanMotorDevice;
-class InsteonFanDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
+export class InsteonFanDevice extends InsteonBaseDevice {
     light;
     motor;
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
-        this.light = new InsteonDimmableDevice_js_1.InsteonDimmableDevice(isy, deviceNode);
+        this.light = new InsteonDimmableDevice(isy, deviceNode);
         this.light.events.on('PropertyChanged', ((a, b, c, d) => { this.emit('PropertyChanged', `light.${a}`, b, c, d); }).bind(this));
         this.addChild(this.light);
     }
@@ -59,5 +55,4 @@ class InsteonFanDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
         return this.motor.updateFanSpeed(level);
     }
 }
-exports.InsteonFanDevice = InsteonFanDevice;
 //# sourceMappingURL=InsteonFanDevice.js.map

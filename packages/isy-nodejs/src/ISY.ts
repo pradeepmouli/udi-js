@@ -331,7 +331,11 @@ export class ISY extends EventEmitter implements Disposable {
 						//
 						const impactedDevice = this.getNode(evt.node);
 						if (impactedDevice !== undefined && impactedDevice !== null) {
-							impactedDevice.handleEvent(evt);
+							try {
+								impactedDevice.handleEvent(evt);
+							} catch (e) {
+								this.logger.error(`Error handling event for ${impactedDevice.name}: ${e.message}`);
+							}
 						} else {
 							this.logger.warn(`${EventType[stringControl]} Event for Unidentified Device: ${JSON.stringify(evt)}`);
 						}

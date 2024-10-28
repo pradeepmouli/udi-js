@@ -1,46 +1,46 @@
 {
-    "compileOnSave": true,
-    "extends": "../../tsconfig.base.json",
-    "compilerOptions": {
-        "target": "es2022",
-        "module": "NodeNext",
-        "rootDir": "./src",
-        //"declarationDir": "./dist/types",
-        "allowArbitraryExtensions": true,
-        "disableSizeLimit": true,
-        "allowSyntheticDefaultImports": true,
-        "allowJs": false,
-        "skipLibCheck": true,
-        "noImplicitOverride": true,
-        "noImplicitThis": true,
-        "esModuleInterop": true,
-        "resolveJsonModule": true,
-        "suppressImplicitAnyIndexErrors": true,
-        "typeRoots": [
-            "../../node_modules/@types",
-            "types"
-        ],
-    },
-    "include": [
-        "src/**/*",
-        "test/**/*",
-        "types/**/*",
-        "scripts/**/*",
-        "bin/**/*",
-        "index.ts",
-        "index.js",
-        "index.d.ts",
-        "src/Definitions/Global/*.ts"
-    ],
-    "exclude": [
-        "node_modules/@project-chip/*",
-        "node_modules",
-        "dist/**/*",
-        "dist",
-        "scripts",
-        "test",
-        "types",
-        "src/Devices/Insteon/Generated/*",
-        "src/Devices/*/Generated/*"
-    ]
+	"compileOnSave": true,
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"target": "es2022",
+		"module": "NodeNext",
+		"rootDir": "./src",
+		//"declarationDir": "./dist/types",
+		"allowArbitraryExtensions": true,
+		"disableSizeLimit": true,
+		"allowSyntheticDefaultImports": true,
+		"allowJs": false,
+		"skipLibCheck": true,
+		"noImplicitOverride": true,
+		"noImplicitThis": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"typeRoots": [
+			"../../node_modules/@types",
+			"types"
+		],
+	},
+	"include": [
+		"src/**/*",
+		"test/**/*",
+		"types/**/*",
+		"scripts/**/*",
+		"bin/**/*",
+		"index.ts",
+		"index.js",
+		"index.d.ts",
+		"src/Definitions/Global/*.ts",
+	],
+	"exclude": [
+		"node_modules/@project-chip/*",
+		"node_modules",
+		"dist/**/*",
+		"dist",
+		"scripts",
+		"test",
+		"types",
+		"src/Devices/Insteon/Generated/*",
+		"src/Devices/*/Generated/*"
+	]
 }

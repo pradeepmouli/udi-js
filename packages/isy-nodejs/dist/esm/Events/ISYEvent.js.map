@@ -1,0 +1,1 @@
+{"version":3,"file":"ISYEvent.js","sourceRoot":"","sources":["../../../src/Events/ISYEvent.ts"],"names":[],"mappings":"AACA,MAAM,OAAO,QAAQ;IACpB,MAAM,CAAU;IAChB,SAAS,CAAM;IACf,YAAa,SAAc;QAC1B,IAAI,CAAC,MAAM,GAAG,SAAS,CAAC,MAAM,CAAC;QAC/B,IAAI,CAAC,SAAS,GAAG,SAAS,CAAC,SAAS,CAAC;IACtC,CAAC;CACD"}

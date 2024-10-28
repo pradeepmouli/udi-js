@@ -17,7 +17,7 @@ export const nodeDefId = "I3KeypadFlags";
 type Commands = I3KeypadFlags.Commands;
 type Drivers = I3KeypadFlags.Drivers;
 
-export class I3KeypadFlagsNode extends I3PaddleFlags implements I3KeypadFlags.Interface {
+export class I3KeypadFlagsNode extends Base<Drivers, Commands> implements I3KeypadFlags.Interface {
 	public readonly commands = {
 		GV0: this.updateMode,
 		GV1: this.updateProgramLock,

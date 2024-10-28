@@ -17,7 +17,7 @@ export const nodeDefId = "Thermostat";
 type Commands = Thermostat.Commands;
 type Drivers = Thermostat.Drivers;
 
-export class ThermostatNode extends TempLinc implements Thermostat.Interface {
+export class ThermostatNode extends Base<Drivers, Commands> implements Thermostat.Interface {
 	public readonly commands = {
 		CLISPH: this.updateHeatSetpoint,
 		CLISPC: this.updateCoolSetpoint,

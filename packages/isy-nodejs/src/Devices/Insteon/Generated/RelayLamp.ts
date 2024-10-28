@@ -17,7 +17,7 @@ export const nodeDefId = "RelayLampOnly";
 type Commands = RelayLamp.Commands;
 type Drivers = RelayLamp.Drivers;
 
-export class RelayLampNode extends Base<Drivers,Commands> implements RelayLamp.Interface {
+export class RelayLampNode extends Base<Drivers, Commands> implements RelayLamp.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,

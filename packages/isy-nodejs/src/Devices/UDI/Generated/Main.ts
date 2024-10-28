@@ -17,7 +17,7 @@ export const nodeDefId = "EM3Main";
 type Commands = Main.Commands;
 type Drivers = Main.Drivers;
 
-export class MainNode extends Channel implements Main.Interface {
+export class MainNode extends Base<Drivers, Commands> implements Main.Interface {
 	public readonly commands = {
 		QUERY: this.query
 	};

@@ -17,13 +17,13 @@ export const nodeDefId = "DimmerSwitchOnly";
 type Commands = DimmerSwitch.Commands;
 type Drivers = DimmerSwitch.Drivers;
 
-export class DimmerSwitchNode extends Base<Drivers,Commands> implements DimmerSwitch.Interface {
+export class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerSwitch.Interface {
 	public readonly commands = {
 		BL: this.backlight,
 		WDU: this.writeChanges
 	};
 	static nodeDefId = "DimmerSwitchOnly";
-	//declare readonly nodeDefId: "DimmerSwitchOnly";
+	declare readonly nodeDefId: "DimmerSwitchOnly";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
@@ -42,8 +42,8 @@ export class DimmerSwitchNode extends Base<Drivers,Commands> implements DimmerSw
 NodeFactory.register(DimmerSwitchNode);
 
 export namespace DimmerSwitch {
-	export interface Interface extends Omit<InstanceType<typeof DimmerSwitchNode>, "nodeDefId"|"events"> {
-		//nodeDefId: "DimmerSwitchOnly";
+	export interface Interface extends Omit<InstanceType<typeof DimmerSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
+		nodeDefId: "DimmerSwitchOnly";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode {
 		return node.nodeDefId === nodeDefId;

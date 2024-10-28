@@ -155,11 +155,7 @@ export class NodeClassFactory {
 				factory.createIdentifier(`${nodeClassDef.name}Node`),
 				undefined,
 				[
-					nodeClassDef.extends ?
-						factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
-							factory.createExpressionWithTypeArguments(factory.createIdentifier(NodeClassDefinition.Map.get(nodeClassDef.family)[nodeClassDef.extends].name), undefined)])
-					
-					:	factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
+					factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
 							factory.createExpressionWithTypeArguments(factory.createIdentifier('Base'), [
 								factory.createTypeReferenceNode(factory.createIdentifier('Drivers'), undefined),
 								factory.createTypeReferenceNode(factory.createIdentifier('Commands'), undefined)

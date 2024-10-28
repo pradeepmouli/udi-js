@@ -17,7 +17,7 @@ export const nodeDefId = "NODIM_LIGHT";
 type Commands = Light.Commands;
 type Drivers = Light.Drivers;
 
-export class LightNode extends Fireplace implements Light.Interface {
+export class LightNode extends Base<Drivers, Commands> implements Light.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,

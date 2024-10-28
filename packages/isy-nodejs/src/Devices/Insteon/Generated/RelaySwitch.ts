@@ -11,14 +11,13 @@ import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
-import { Merge } from '@project-chip/matter.js/util';
 
 export const nodeDefId = "RelaySwitchOnly";
 
 type Commands = RelaySwitch.Commands;
 type Drivers = RelaySwitch.Drivers;
 
-export class RelaySwitchNode extends Base<Drivers,Commands> implements RelaySwitch.Interface {
+export class RelaySwitchNode extends Base<Drivers, Commands> implements RelaySwitch.Interface {
 	public readonly commands = {
 		BEEP: this.beep,
 		BL: this.backlight,

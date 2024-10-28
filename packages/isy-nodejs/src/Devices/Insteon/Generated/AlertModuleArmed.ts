@@ -17,7 +17,7 @@ export const nodeDefId = "AlertModuleArmed";
 type Commands = AlertModuleArmed.Commands;
 type Drivers = AlertModuleArmed.Drivers;
 
-export class AlertModuleArmedNode extends SirenAlert implements AlertModuleArmed.Interface {
+export class AlertModuleArmedNode extends Base<Drivers, Commands> implements AlertModuleArmed.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,

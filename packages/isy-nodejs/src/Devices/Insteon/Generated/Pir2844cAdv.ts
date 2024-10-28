@@ -17,7 +17,7 @@ export const nodeDefId = "PIR2844C_ADV";
 type Commands = Pir2844cAdv.Commands;
 type Drivers = Pir2844cAdv.Drivers;
 
-export class Pir2844cAdvNode extends SirenAlert implements Pir2844cAdv.Interface {
+export class Pir2844cAdvNode extends Base<Drivers, Commands> implements Pir2844cAdv.Interface {
 	public readonly commands = {
 		CLITEMP: this.calibrateTemperature,
 		QUERY: this.query,

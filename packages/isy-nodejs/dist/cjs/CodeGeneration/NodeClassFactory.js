@@ -56,16 +56,12 @@ class NodeClassFactory {
             typescript_1.factory.createTypeAliasDeclaration(undefined, typescript_1.factory.createIdentifier('Commands'), undefined, typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createQualifiedName(typescript_1.factory.createIdentifier(nodeClassDef.name), typescript_1.factory.createIdentifier('Commands')), undefined)),
             typescript_1.factory.createTypeAliasDeclaration(undefined, typescript_1.factory.createIdentifier('Drivers'), undefined, typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createQualifiedName(typescript_1.factory.createIdentifier(nodeClassDef.name), typescript_1.factory.createIdentifier('Drivers')), undefined)),
             typescript_1.factory.createClassDeclaration([typescript_1.factory.createToken(ts_morph_1.ts.SyntaxKind.ExportKeyword)], typescript_1.factory.createIdentifier(`${nodeClassDef.name}Node`), undefined, [
-                nodeClassDef.extends ?
-                    typescript_1.factory.createHeritageClause(ts_morph_1.ts.SyntaxKind.ExtendsKeyword, [
-                        typescript_1.factory.createExpressionWithTypeArguments(typescript_1.factory.createIdentifier(ClassDefinition_js_1.NodeClassDefinition.Map.get(nodeClassDef.family)[nodeClassDef.extends].name), undefined)
+                typescript_1.factory.createHeritageClause(ts_morph_1.ts.SyntaxKind.ExtendsKeyword, [
+                    typescript_1.factory.createExpressionWithTypeArguments(typescript_1.factory.createIdentifier('Base'), [
+                        typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createIdentifier('Drivers'), undefined),
+                        typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createIdentifier('Commands'), undefined)
                     ])
-                    : typescript_1.factory.createHeritageClause(ts_morph_1.ts.SyntaxKind.ExtendsKeyword, [
-                        typescript_1.factory.createExpressionWithTypeArguments(typescript_1.factory.createIdentifier('Base'), [
-                            typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createIdentifier('Drivers'), undefined),
-                            typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createIdentifier('Commands'), undefined)
-                        ])
-                    ]),
+                ]),
                 typescript_1.factory.createHeritageClause(ts_morph_1.ts.SyntaxKind.ImplementsKeyword, [
                     typescript_1.factory.createExpressionWithTypeArguments(typescript_1.factory.createPropertyAccessExpression(typescript_1.factory.createIdentifier(nodeClassDef.name), typescript_1.factory.createIdentifier('Interface')), undefined)
                 ])

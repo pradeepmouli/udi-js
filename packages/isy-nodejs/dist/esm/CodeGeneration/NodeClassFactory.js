@@ -53,16 +53,12 @@ export class NodeClassFactory {
             factory.createTypeAliasDeclaration(undefined, factory.createIdentifier('Commands'), undefined, factory.createTypeReferenceNode(factory.createQualifiedName(factory.createIdentifier(nodeClassDef.name), factory.createIdentifier('Commands')), undefined)),
             factory.createTypeAliasDeclaration(undefined, factory.createIdentifier('Drivers'), undefined, factory.createTypeReferenceNode(factory.createQualifiedName(factory.createIdentifier(nodeClassDef.name), factory.createIdentifier('Drivers')), undefined)),
             factory.createClassDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], factory.createIdentifier(`${nodeClassDef.name}Node`), undefined, [
-                nodeClassDef.extends ?
-                    factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
-                        factory.createExpressionWithTypeArguments(factory.createIdentifier(NodeClassDefinition.Map.get(nodeClassDef.family)[nodeClassDef.extends].name), undefined)
+                factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
+                    factory.createExpressionWithTypeArguments(factory.createIdentifier('Base'), [
+                        factory.createTypeReferenceNode(factory.createIdentifier('Drivers'), undefined),
+                        factory.createTypeReferenceNode(factory.createIdentifier('Commands'), undefined)
                     ])
-                    : factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
-                        factory.createExpressionWithTypeArguments(factory.createIdentifier('Base'), [
-                            factory.createTypeReferenceNode(factory.createIdentifier('Drivers'), undefined),
-                            factory.createTypeReferenceNode(factory.createIdentifier('Commands'), undefined)
-                        ])
-                    ]),
+                ]),
                 factory.createHeritageClause(ts.SyntaxKind.ImplementsKeyword, [
                     factory.createExpressionWithTypeArguments(factory.createPropertyAccessExpression(factory.createIdentifier(nodeClassDef.name), factory.createIdentifier('Interface')), undefined)
                 ])

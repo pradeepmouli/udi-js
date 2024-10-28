@@ -17,7 +17,7 @@ export const nodeDefId = "PIR2844OnOff_ADV";
 type Commands = Pir2844OnOffAdv.Commands;
 type Drivers = Pir2844OnOffAdv.Drivers;
 
-export class Pir2844OnOffAdvNode extends SirenAlert implements Pir2844OnOffAdv.Interface {
+export class Pir2844OnOffAdvNode extends Base<Drivers, Commands> implements Pir2844OnOffAdv.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,

@@ -14,7 +14,7 @@
         "build:cjs:types": "tsc -p ./tsconfig.cjs.types.json",
         "build:esm:types": "tsc -p ./tsconfig.esm.types.json",
         "build:esm": "tsc -p ./tsconfig.esm.json",
-        "build:cjs": "tsc -p ./tsconfig.cjs.json && npm run build:cjs:types && cp ./package.cjs.json ./dist/cjs/package.json",
+        "build:cjs": "tsc -p ./tsconfig.cjs.json && cp ./package.cjs.json ./dist/cjs/package.json",
         "build": "npm run clean && npm run build:esm && npm run build:cjs",
         "build:esm:watch": "tsc -p ./tsconfig.esm.json --watch"
     },

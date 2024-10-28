@@ -17,7 +17,7 @@ export const nodeDefId = "FanLincMotor";
 type Commands = FanLincMotor.Commands;
 type Drivers = FanLincMotor.Drivers;
 
-export class FanLincMotorNode extends EzrainOutput implements FanLincMotor.Interface {
+export class FanLincMotorNode extends Base<Drivers, Commands> implements FanLincMotor.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,

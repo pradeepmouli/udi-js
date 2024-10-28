@@ -11,7 +11,6 @@ import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
-import { DimmerLampSwitch } from "./DimmerLampSwitch.js";
 
 export const nodeDefId = "DimmerLampSwitch_ADV";
 
@@ -111,7 +110,7 @@ export namespace DimmerLampSwitchAdv {
 		nodeDefId: "DimmerLampSwitch_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is DimmerLampSwitchAdvNode {
-		return node.nodeDefId in [nodeDefId,DimmerLampSwitch.Node.nodeDefId];
+		return node.nodeDefId === nodeDefId;
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new DimmerLampSwitchAdvNode(isy, nodeInfo);

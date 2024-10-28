@@ -17,7 +17,7 @@ export const nodeDefId = "PIR2844";
 type Commands = Pir2844.Commands;
 type Drivers = Pir2844.Drivers;
 
-export class Pir2844Node extends Pir2844Adv implements Pir2844.Interface {
+export class Pir2844Node extends Base<Drivers, Commands> implements Pir2844.Interface {
 	public readonly commands = {
 		CLITEMP: this.calibrateTemperature,
 		QUERY: this.query,

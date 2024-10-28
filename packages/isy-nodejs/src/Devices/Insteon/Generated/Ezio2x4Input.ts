@@ -17,7 +17,7 @@ export const nodeDefId = "EZIO2x4_Input";
 type Commands = Ezio2x4Input.Commands;
 type Drivers = Ezio2x4Input.Drivers;
 
-export class Ezio2x4InputNode extends SirenAlert implements Ezio2x4Input.Interface {
+export class Ezio2x4InputNode extends Base<Drivers, Commands> implements Ezio2x4Input.Interface {
 	public readonly commands = {
 		WDU: this.writeChanges
 	};

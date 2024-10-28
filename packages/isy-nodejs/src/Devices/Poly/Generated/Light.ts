@@ -5,12 +5,13 @@ import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import type { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
+
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Poly } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
+import { Base } from '../index.js';
 
 export const nodeDefId = "NODIM_LIGHT";
 

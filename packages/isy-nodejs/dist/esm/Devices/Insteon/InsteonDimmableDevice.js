@@ -1,11 +1,16 @@
 import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import 'winston';
+// #endregion Type aliases (2)
+// #region Classes (1)
 //@ts-ignore
 export class InsteonDimmableDevice extends InsteonRelayDevice {
+    // #region Constructors (1)
     constructor(isy, node) {
         super(isy, node);
         this.isDimmable = true;
     }
+    // #endregion Constructors (1)
+    // #region Public Methods (1)
     // public async updateBrightnessLevel(level: number): Promise<{}> {
     // 	return super.(level);
     // }
@@ -20,8 +25,8 @@ export class InsteonDimmableDevice extends InsteonRelayDevice {
             // //endpoint.events.levelCont
             // endpoint.events.levelControl.maxLevel$Changed.on((value) => that.sendCommand("OL",value));
         }
-        catch (error) {
-        }
+        catch (error) { }
     }
 }
+// #endregion Classes (1)
 //# sourceMappingURL=InsteonDimmableDevice.js.map

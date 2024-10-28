@@ -156,18 +156,18 @@ export class NodeClassFactory {
 				undefined,
 				[
 					factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
-							factory.createExpressionWithTypeArguments(factory.createIdentifier('Base'), [
-								factory.createTypeReferenceNode(factory.createIdentifier('Drivers'), undefined),
-								factory.createTypeReferenceNode(factory.createIdentifier('Commands'), undefined)
-							])
-						]),
+						factory.createExpressionWithTypeArguments(factory.createIdentifier('Base'), [
+							factory.createTypeReferenceNode(factory.createIdentifier('Drivers'), undefined),
+							factory.createTypeReferenceNode(factory.createIdentifier('Commands'), undefined)
+						])
+					]),
 					factory.createHeritageClause(ts.SyntaxKind.ImplementsKeyword, [
 						factory.createExpressionWithTypeArguments(factory.createPropertyAccessExpression(factory.createIdentifier(nodeClassDef.name), factory.createIdentifier('Interface')), undefined)
 					])
 				],
 				[
 					factory.createPropertyDeclaration(
-						[factory.createToken(ts.SyntaxKind.PublicKeyword), factory.createToken(ts.SyntaxKind.ReadonlyKeyword)],
+						[factory.createToken(ts.SyntaxKind.PublicKeyword), factory.createToken(ts.SyntaxKind.OverrideKeyword), factory.createToken(ts.SyntaxKind.ReadonlyKeyword)],
 						factory.createIdentifier('commands'),
 						undefined,
 						undefined,
@@ -188,7 +188,7 @@ export class NodeClassFactory {
 					//   factory.createObjectLiteralExpression([], false)
 					// ),
 					factory.createPropertyDeclaration(
-						[factory.createToken(ts.SyntaxKind.StaticKeyword)],
+						[factory.createToken(ts.SyntaxKind.StaticKeyword), factory.createToken(ts.SyntaxKind.OverrideKeyword)],
 						factory.createIdentifier('nodeDefId'),
 						undefined,
 						undefined,

@@ -31,6 +31,7 @@
 		"index.js",
 		"index.d.ts",
 		"src/Definitions/Global/*.ts",
+		"src/Devices/Insteon/Generated/*",
 	],
 	"exclude": [
 		"node_modules/@project-chip/*",
@@ -40,7 +41,6 @@
 		"scripts",
 		"test",
 		"types",
-		"src/Devices/Insteon/Generated/*",
 		"src/Devices/*/Generated/*"
 	]
 }

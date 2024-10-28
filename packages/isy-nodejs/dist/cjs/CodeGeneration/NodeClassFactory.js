@@ -66,7 +66,7 @@ class NodeClassFactory {
                     typescript_1.factory.createExpressionWithTypeArguments(typescript_1.factory.createPropertyAccessExpression(typescript_1.factory.createIdentifier(nodeClassDef.name), typescript_1.factory.createIdentifier('Interface')), undefined)
                 ])
             ], [
-                typescript_1.factory.createPropertyDeclaration([typescript_1.factory.createToken(ts_morph_1.ts.SyntaxKind.PublicKeyword), typescript_1.factory.createToken(ts_morph_1.ts.SyntaxKind.ReadonlyKeyword)], typescript_1.factory.createIdentifier('commands'), undefined, undefined, typescript_1.factory.createObjectLiteralExpression([
+                typescript_1.factory.createPropertyDeclaration([typescript_1.factory.createToken(ts_morph_1.ts.SyntaxKind.PublicKeyword), typescript_1.factory.createToken(ts_morph_1.ts.SyntaxKind.OverrideKeyword), typescript_1.factory.createToken(ts_morph_1.ts.SyntaxKind.ReadonlyKeyword)], typescript_1.factory.createIdentifier('commands'), undefined, undefined, typescript_1.factory.createObjectLiteralExpression([
                     ...Object.values(nodeClassDef.commands).map((c) => typescript_1.factory.createPropertyAssignment(typescript_1.factory.createIdentifier(c.id), typescript_1.factory.createPropertyAccessExpression(typescript_1.factory.createThis(), typescript_1.factory.createIdentifier(c.name))))
                 ], true)),
                 // factory.createPropertyDeclaration(
@@ -76,7 +76,7 @@ class NodeClassFactory {
                 //   factory.createTypeReferenceNode(factory.createIdentifier("Drivers"), undefined),
                 //   factory.createObjectLiteralExpression([], false)
                 // ),
-                typescript_1.factory.createPropertyDeclaration([typescript_1.factory.createToken(ts_morph_1.ts.SyntaxKind.StaticKeyword)], typescript_1.factory.createIdentifier('nodeDefId'), undefined, undefined, typescript_1.factory.createStringLiteral(nodeClassDef.id)),
+                typescript_1.factory.createPropertyDeclaration([typescript_1.factory.createToken(ts_morph_1.ts.SyntaxKind.StaticKeyword), typescript_1.factory.createToken(ts_morph_1.ts.SyntaxKind.OverrideKeyword)], typescript_1.factory.createIdentifier('nodeDefId'), undefined, undefined, typescript_1.factory.createStringLiteral(nodeClassDef.id)),
                 typescript_1.factory.createPropertyDeclaration([typescript_1.factory.createToken(ts_morph_1.ts.SyntaxKind.DeclareKeyword), typescript_1.factory.createToken(ts_morph_1.ts.SyntaxKind.ReadonlyKeyword)], typescript_1.factory.createIdentifier('nodeDefId'), undefined, typescript_1.factory.createLiteralTypeNode(typescript_1.factory.createStringLiteral(nodeClassDef.id)), undefined),
                 typescript_1.factory.createConstructorDeclaration(undefined, [
                     typescript_1.factory.createParameterDeclaration(undefined, undefined, typescript_1.factory.createIdentifier('isy'), undefined, typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createIdentifier('ISY'), undefined), undefined),

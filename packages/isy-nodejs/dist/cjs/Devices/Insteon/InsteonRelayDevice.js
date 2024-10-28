@@ -10,23 +10,26 @@ class InsteonRelayDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Drivers_js_1.Driver.create('ST', this, nodeInfo.property, { uom: index_js_1.UnitOfMeasure.Percent, label: 'Status', name: 'status' });
+        this.drivers.OL = Drivers_js_1.Driver.create('OL', this, nodeInfo.property, { uom: index_js_1.UnitOfMeasure.Percent, label: 'On Level', name: 'onLevel' });
+        this.drivers.RR = Drivers_js_1.Driver.create('RR', this, nodeInfo.property, { uom: index_js_1.UnitOfMeasure.Index, label: 'Ramp Rate', name: 'rampRate' });
     }
     // #endregion Constructors (1)
     // #region Public Methods (2)
     async initialize(endpoint) {
-        endpoint.events.onOff.onOff$Changed.on((value) => {
+        /*endpoint.events.onOff.onOff$Changed.on((value) => {
             this.commands.DON(value);
             this.drivers.ST;
         });
         //endpoint.defaults.onOff.onOff = await this.isOn;
         endpoint.set({ onOff: { onOff: (await this.drivers.ST.value) > 0 } });
         const that = this;
-        this.events.on('PropertyChanged', (propertyName, newValue, _oldValue, formattedValue) => {
+
+        this.events.on('StatusChanged', (propertyName, newValue, _oldValue, formattedValue) => {
             if (propertyName === 'ST') {
                 endpoint.set({ onOff: { onOff: newValue > 0 } });
                 //endpoint.setSt onOff: newValue });
             }
-        });
+        });*/
     }
     /*
     public async updateIsOn(isOn: boolean): Promise<any> {

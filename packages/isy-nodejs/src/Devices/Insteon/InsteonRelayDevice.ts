@@ -14,12 +14,14 @@ import { Properties } from '../../ISYConstants.js';
 
 import type { DriverState } from '../../Model/DriverState.js';
 
-export class InsteonRelayDevice extends InsteonBaseDevice<Driver.Signatures<'ST'>, Command.Signatures<'DON' | 'DOF'>>  {
+export class InsteonRelayDevice extends InsteonBaseDevice<Driver.Signatures<'ST' | 'OL' | 'RR'>, Command.Signatures<'DON' | 'DOF'>> {
 	// #region Constructors (1)
 
 	constructor(isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create('ST', this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: 'Status', name: 'status' });
+		this.drivers.OL = Driver.create('OL', this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: 'On Level', name: 'onLevel' });
+		this.drivers.RR = Driver.create('RR', this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: 'Ramp Rate', name: 'rampRate' });
 	}
 
 	// #endregion Constructors (1)
@@ -27,7 +29,7 @@ export class InsteonRelayDevice extends InsteonBaseDevice<Driver.Signatures<'ST'
 	// #region Public Methods (2)
 
 	public async initialize(endpoint: EndpointFor<typeof OnOffBehavior>): Promise<void> {
-		endpoint.events.onOff.onOff$Changed.on((value) => {
+		/*endpoint.events.onOff.onOff$Changed.on((value) => {
 			this.commands.DON(value);
 			this.drivers.ST;
 		});
@@ -35,12 +37,12 @@ export class InsteonRelayDevice extends InsteonBaseDevice<Driver.Signatures<'ST'
 		endpoint.set({ onOff: { onOff: (await this.drivers.ST.value) > 0 } });
 		const that = this;
 
-		this.events.on('PropertyChanged', (propertyName, newValue, _oldValue, formattedValue) => {
+		this.events.on('StatusChanged', (propertyName, newValue, _oldValue, formattedValue) => {
 			if (propertyName === 'ST') {
 				endpoint.set({ onOff: { onOff: newValue > 0 } });
 				//endpoint.setSt onOff: newValue });
 			}
-		});
+		});*/
 	}
 
 	/*

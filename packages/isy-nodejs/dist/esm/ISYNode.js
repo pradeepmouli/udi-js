@@ -1,5 +1,6 @@
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
 import { NodeType } from './ISY.js';
+import { Converters } from './Converters.js';
 import { Event } from './Definitions/Global/Events.js';
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 export class ISYNode {
@@ -121,15 +122,30 @@ export class ISYNode {
         }
     }
     convert(value, from, to) {
-        return value;
+        if (from === to)
+            return value;
+        else {
+            try {
+                return Converters.Standard[from][to].from(value);
+            }
+            catch {
+                this.isy.logger.error(`Conversion from ${UnitOfMeasure[from]} to ${UnitOfMeasure[to]} not supported.`);
+            }
+            finally {
+                return value;
+            }
+        }
     }
     convertFrom(value, uom, propertyName) {
-        throw new Error('Method not implemented.');
+        if (this.drivers[propertyName]?.uom != uom) {
+            this.logger(`Converting ${this.drivers[propertyName].label} to ${UnitOfMeasure[this.drivers[propertyName]?.uom]} from ${UnitOfMeasure[uom]}`);
+            return this.convert(value, uom, this.drivers[propertyName].uom);
+        }
     }
     convertTo(value, uom, propertyName) {
-        if (this.drivers[propertyName].uom != uom) {
-            this.isy.logger.debug(`Converting ${this.drivers[propertyName].label} from ${this.drivers[propertyName].uom} to ${UnitOfMeasure}`);
-            return this.convertTo(value, uom);
+        if (this.drivers[propertyName]?.uom != uom) {
+            this.isy.logger.debug(`Converting ${this.drivers[propertyName].label} from ${UnitOfMeasure[this.drivers[propertyName].uom]} to ${UnitOfMeasure[uom]}`);
+            return this.convert(value, uom, this.drivers[propertyName].uom);
         }
     }
     emit(event, propertyName, newValue, oldValue, formattedValue, controlName) {

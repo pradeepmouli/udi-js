@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ISYNode = void 0;
 const UOM_js_1 = require("./Definitions/Global/UOM.js");
 const ISY_js_1 = require("./ISY.js");
+const Converters_js_1 = require("./Converters.js");
 const Events_js_1 = require("./Definitions/Global/Events.js");
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 class ISYNode {
@@ -124,15 +125,30 @@ class ISYNode {
         }
     }
     convert(value, from, to) {
-        return value;
+        if (from === to)
+            return value;
+        else {
+            try {
+                return Converters_js_1.Converters.Standard[from][to].from(value);
+            }
+            catch {
+                this.isy.logger.error(`Conversion from ${UOM_js_1.UnitOfMeasure[from]} to ${UOM_js_1.UnitOfMeasure[to]} not supported.`);
+            }
+            finally {
+                return value;
+            }
+        }
     }
     convertFrom(value, uom, propertyName) {
-        throw new Error('Method not implemented.');
+        if (this.drivers[propertyName]?.uom != uom) {
+            this.logger(`Converting ${this.drivers[propertyName].label} to ${UOM_js_1.UnitOfMeasure[this.drivers[propertyName]?.uom]} from ${UOM_js_1.UnitOfMeasure[uom]}`);
+            return this.convert(value, uom, this.drivers[propertyName].uom);
+        }
     }
     convertTo(value, uom, propertyName) {
-        if (this.drivers[propertyName].uom != uom) {
-            this.isy.logger.debug(`Converting ${this.drivers[propertyName].label} from ${this.drivers[propertyName].uom} to ${UOM_js_1.UnitOfMeasure}`);
-            return this.convertTo(value, uom);
+        if (this.drivers[propertyName]?.uom != uom) {
+            this.isy.logger.debug(`Converting ${this.drivers[propertyName].label} from ${UOM_js_1.UnitOfMeasure[this.drivers[propertyName].uom]} to ${UOM_js_1.UnitOfMeasure[uom]}`);
+            return this.convert(value, uom, this.drivers[propertyName].uom);
         }
     }
     emit(event, propertyName, newValue, oldValue, formattedValue, controlName) {

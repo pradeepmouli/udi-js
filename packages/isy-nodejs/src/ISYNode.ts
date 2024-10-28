@@ -6,6 +6,7 @@ import { UnitOfMeasure } from './Definitions/Global/UOM.js';
 import { ISY, NodeType, type ISYScene } from './ISY.js';
 
 import { CliConfigSetLevels } from 'winston/lib/winston/config/index.js';
+import { Converters } from './Converters.js';
 import type { Command } from './Definitions/Global/Commands.js';
 import { Event } from './Definitions/Global/Events.js';
 import type { Constructor } from './Devices/Constructor.js';
@@ -164,17 +165,29 @@ export class ISYNode<
 	}
 
 	public convert(value: any, from: UnitOfMeasure, to: UnitOfMeasure): any {
-		return value;
+		if (from === to) return value;
+		else {
+			try {
+				return Converters.Standard[from][to].from(value);
+			} catch {
+				this.isy.logger.error(`Conversion from ${UnitOfMeasure[from]} to ${UnitOfMeasure[to]} not supported.`);
+			} finally {
+				return value;
+			}
+		}
 	}
 
 	public convertFrom(value: any, uom: UnitOfMeasure, propertyName?: StringKeys<D>): any {
-		throw new Error('Method not implemented.');
+		if (this.drivers[propertyName]?.uom != uom) {
+			this.logger(`Converting ${this.drivers[propertyName].label} to ${UnitOfMeasure[this.drivers[propertyName]?.uom]} from ${UnitOfMeasure[uom]}`);
+			return this.convert(value, uom, this.drivers[propertyName].uom);
+		}
 	}
 
 	public convertTo(value: any, uom: UnitOfMeasure, propertyName?: StringKeys<D>) {
-		if (this.drivers[propertyName].uom != uom) {
-			this.isy.logger.debug(`Converting ${this.drivers[propertyName].label} from ${this.drivers[propertyName].uom} to ${UnitOfMeasure}`);
-			return this.convertTo(value, uom);
+		if (this.drivers[propertyName]?.uom != uom) {
+			this.isy.logger.debug(`Converting ${this.drivers[propertyName].label} from ${UnitOfMeasure[this.drivers[propertyName].uom]} to ${UnitOfMeasure[uom]}`);
+			return this.convert(value, uom, this.drivers[propertyName].uom);
 		}
 	}
 
@@ -523,7 +536,7 @@ export namespace ISYNode {
       [K in C[U]["name"]]: C[K];
     } : never;*/
 
-	export const With = <K extends Family, D extends DriverSignatures, C extends CommandSignatures, T extends Constructor<ISYNode<K,  any, any, any>>>(Base: T) => {
+	export const With = <K extends Family, D extends DriverSignatures, C extends CommandSignatures, T extends Constructor<ISYNode<K, any, any, any>>>(Base: T) => {
 		return class extends Base implements Omit<ISYNode<K, D, C>, 'events'> {
 			declare drivers: Driver.ForAll<any, false>;
 			declare commands: Command.ForAll<C>;

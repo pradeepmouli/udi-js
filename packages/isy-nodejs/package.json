@@ -15,7 +15,7 @@
         "build:esm:types": "tsc -p ./tsconfig.esm.types.json",
         "build:esm": "tsc -p ./tsconfig.esm.json",
         "build:cjs": "tsc -p ./tsconfig.cjs.json && cp ./package.cjs.json ./dist/cjs/package.json",
-        "build": "npm run clean && npm run build:esm && npm run build:cjs",
+        "build": "npm run build:esm && npm run build:cjs",
         "build:esm:watch": "tsc -p ./tsconfig.esm.json --watch"
     },
     "keywords": [
@@ -34,11 +34,13 @@
             "require": {
                 "types": "./dist/cjs/types/*.d.ts",
                 "default": "./dist/cjs/*.js"
+
             },
             "import": {
                 "types": "./dist/esm/types/*.d.ts",
                 "default": "./dist/esm/*.js"
             }
+
         }
     },
     "main": "./dist/cjs/ISY.js",

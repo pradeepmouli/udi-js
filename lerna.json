@@ -2,7 +2,7 @@
   "packages": [
     "packages/*"
   ],
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.1-alpha.0",
   "npmClient": "npm",
   "command": {
     "publish": {
@@ -12,6 +12,5 @@
       ]
     }
   },
-
   "$schema": "./node_modules/lerna/lib/config/schema.json"
 }

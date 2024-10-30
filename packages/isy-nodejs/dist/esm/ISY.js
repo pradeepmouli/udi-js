@@ -5,7 +5,7 @@ import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
 import { XmlDocument } from 'xmldoc';
 import axios from 'axios';
 import { EventEmitter } from 'events';
-import winston, { format, Logger, loggers } from 'winston';
+import { format, Logger, loggers } from 'winston';
 import { Category } from './Definitions/Global/Categories.js';
 import { Family } from './Definitions/Global/Families.js';
 import { DeviceFactory } from './Devices/DeviceFactory.js';
@@ -249,7 +249,12 @@ export class ISY extends EventEmitter {
                         //
                         const impactedDevice = this.getNode(evt.node);
                         if (impactedDevice !== undefined && impactedDevice !== null) {
-                            impactedDevice.handleEvent(evt);
+                            try {
+                                impactedDevice.handleEvent(evt);
+                            }
+                            catch (e) {
+                                this.logger.error(`Error handling event for ${impactedDevice.name}: ${e.message}`);
+                            }
                         }
                         else {
                             this.logger.warn(`${EventType[stringControl]} Event for Unidentified Device: ${JSON.stringify(evt)}`);
@@ -466,10 +471,10 @@ export class ISY extends EventEmitter {
         return this.sendRequest(uriToUse);
     }
     async sendRequest(url, options = { trailingSlash: true }) {
-        const requestLogLevel = options.requestLogLevel ?? winston.config.cli.levels.debug;
-        const responseLogLevel = options.responseLogLevel ?? winston.config.cli.levels.silly;
+        const requestLogLevel = options.requestLogLevel ?? 'debug';
+        const responseLogLevel = options.responseLogLevel ?? 'silly';
         url = `${this.protocol}://${this.address}/rest/${url}${options.trailingSlash ? '/' : ''}`;
-        this.logger.log(`Sending request: ${url}`, requestLogLevel);
+        this.logger.log(requestLogLevel, `Sending request: ${url}`);
         try {
             const response = await axios.get(url, {
                 auth: { username: this.credentials.username, password: this.credentials.password }
@@ -481,15 +486,15 @@ export class ISY extends EventEmitter {
                         curParser = new Parser({ ...defaultParserOptions, ...options.parserOptions });
                     var altParser = new XMLParser(defaultXMLParserOptions);
                     var s = altParser.parse(response.data);
-                    this.logger.log(`Response: ${JSON.stringify(s)}`, requestLogLevel ?? 'debug');
+                    this.logger.log(requestLogLevel ?? 'debug', `Response: ${JSON.stringify(s)}`);
                     return s;
                 }
                 else if (response.headers['content-type'].toString().includes('json')) {
-                    this.logger.log(`Response: ${JSON.stringify(response.data)}`, requestLogLevel ?? 'debug');
+                    this.logger.log(responseLogLevel ?? 'debug', `Response: ${JSON.stringify(response.data)}`);
                     return JSON.parse(response.data);
                 }
                 else {
-                    this.logger.log(`Response Header: ${JSON.stringify(response.headers)} Response: ${JSON.stringify(response.data)}`, responseLogLevel ?? 'debug');
+                    this.logger.log(responseLogLevel ?? 'debug', `Response Header: ${JSON.stringify(response.headers)} Response: ${JSON.stringify(response.data)}`);
                     return response.data;
                 }
             }

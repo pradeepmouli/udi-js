@@ -77,7 +77,7 @@ export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>,Comm
 	get isOn() {
 		for (const device of this.members) {
 			if (device instanceof Insteon.Relay)  {
-				if (device.drivers.ST?.value === 1) {
+				if (device.drivers.ST?.value != 0) {
 					return true;
 				}
 			}

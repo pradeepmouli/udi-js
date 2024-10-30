@@ -1,15 +1,9 @@
-import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
-import { Driver } from '../../Definitions/Global/Drivers.js';
-import { UnitOfMeasure } from '../../Definitions/index.js';
-export class InsteonRelayDevice extends InsteonBaseDevice {
+import { RelayLampSwitch } from './RelayLampSwitch.js';
+export class InsteonRelayDevice extends RelayLampSwitch.Node /*InsteonBaseDevice<Driver.Signatures<'ST' | 'OL' | 'RR' | 'ERR'>, Command.Signatures<'DON' | 'DOF'>>*/ {
     // #region Constructors (1)
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create('ST', this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: 'Status', name: 'status' });
-        this.drivers.OL = Driver.create('OL', this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: 'On Level', name: 'onLevel' });
-        this.drivers.RR = Driver.create('RR', this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: 'Ramp Rate', name: 'rampRate' });
-        this.drivers.ERR = Driver.create('ERR', this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: 'Error', name: 'error' });
     }
     // #endregion Constructors (1)
     // #region Public Methods (2)
@@ -41,7 +35,7 @@ export class InsteonRelayDevice extends InsteonBaseDevice {
 
     } */
     async sendBeep(level = 100) {
-        return super.sendBeep(level);
+        return super.beep(level);
     }
 }
 //# sourceMappingURL=InsteonRelayDevice.js.map

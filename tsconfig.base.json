@@ -7,9 +7,9 @@
 
         //"declarationDir": "./dist/types",
         "ignoreDeprecations": "5.0",
-        "keyofStringsOnly": true,
+        //"keyofStringsOnly": true,
         "allowArbitraryExtensions": true,
-        "suppressImplicitAnyIndexErrors": true,
+        //"suppressImplicitAnyIndexErrors": true,
         "pretty": true,
         "composite": true,
         "sourceMap": true,

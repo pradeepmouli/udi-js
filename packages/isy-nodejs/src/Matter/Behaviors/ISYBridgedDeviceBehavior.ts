@@ -52,7 +52,7 @@ export class ISYBridgedDeviceBehavior extends Behavior {
 		this.events.propertyChanged.emit({ driver, newValue, oldValue, formattedValue });
 	}
 
-	[Symbol.asyncDispose]() {
+	override [Symbol.asyncDispose]() {
 		this.internal.device = null;
 		return super[Symbol.asyncDispose]();
 	}

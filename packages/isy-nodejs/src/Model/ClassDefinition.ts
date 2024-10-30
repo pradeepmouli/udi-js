@@ -1,7 +1,7 @@
 import { camelize, capitalize } from '@project-chip/matter.js/util';
 import camelcase from 'camelcase';
 import { getRandomValues } from 'crypto';
-import { detailedDiff } from 'deep-object-diff';
+//import { detailedDiff } from 'deep-object-diff';
 import { create } from 'domain';
 import * as fs from 'fs';
 import diff from 'microdiff';

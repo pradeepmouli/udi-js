@@ -571,10 +571,10 @@ export class ISY extends EventEmitter implements Disposable {
 			responseLogLevel?: any;
 		} = { trailingSlash: true }
 	): Promise<any> {
-		const requestLogLevel = options.requestLogLevel ?? winston.config.cli.levels.debug;
-		const responseLogLevel = options.responseLogLevel ?? winston.config.cli.levels.silly;
+		const requestLogLevel = options.requestLogLevel ?? 'debug';
+		const responseLogLevel = options.responseLogLevel ?? 'silly';
 		url = `${this.protocol}://${this.address}/rest/${url}${options.trailingSlash ? '/' : ''}`;
-		this.logger.log(`Sending request: ${url}`, requestLogLevel);
+		this.logger.log(requestLogLevel, `Sending request: ${url}`);
 		try {
 			const response = await axios.get(url, {
 				auth: { username: this.credentials.username, password: this.credentials.password }
@@ -585,13 +585,13 @@ export class ISY extends EventEmitter implements Disposable {
 					if (options.parserOptions) curParser = new Parser({ ...defaultParserOptions, ...options.parserOptions });
 					var altParser = new XMLParser(defaultXMLParserOptions);
 					var s = altParser.parse(response.data);
-					this.logger.log(`Response: ${JSON.stringify(s)}`, requestLogLevel ?? 'debug');
+					this.logger.log(requestLogLevel ?? 'debug',`Response: ${JSON.stringify(s)}`);
 					return s;
 				} else if (response.headers['content-type'].toString().includes('json')) {
-					this.logger.log(`Response: ${JSON.stringify(response.data)}`, requestLogLevel ?? 'debug');
+					this.logger.log(responseLogLevel ?? 'debug', `Response: ${JSON.stringify(response.data)}`);
 					return JSON.parse(response.data);
 				} else {
-					this.logger.log(`Response Header: ${JSON.stringify(response.headers)} Response: ${JSON.stringify(response.data)}`, responseLogLevel ?? 'debug');
+					this.logger.log(responseLogLevel ?? 'debug',`Response Header: ${JSON.stringify(response.headers)} Response: ${JSON.stringify(response.data)}`);
 					return response.data;
 				}
 			}

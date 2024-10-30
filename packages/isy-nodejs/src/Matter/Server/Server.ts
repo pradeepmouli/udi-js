@@ -1,5 +1,6 @@
 import { NodeJsEnvironment } from '@project-chip/matter-node.js/environment';
 import { StorageBackendDisk } from '@project-chip/matter-node.js/storage';
+import { CommissioningOptions } from '@project-chip/matter.js/behavior/system/commissioning';
 import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
 import { VendorId } from '@project-chip/matter.js/datatype';
 import { logEndpoint, OnOffBaseDevice } from '@project-chip/matter.js/device';
@@ -11,7 +12,7 @@ import { AggregatorEndpoint } from '@project-chip/matter.js/endpoints/Aggregator
 import { Environment, StorageService } from '@project-chip/matter.js/environment';
 import { Level, levelFromString, Logger as MatterLogger } from '@project-chip/matter.js/log';
 import { ServerNode } from '@project-chip/matter.js/node';
-import { QrCode } from '@project-chip/matter.js/schema';
+import { CommissioningFlowType, QrCode } from '@project-chip/matter.js/schema';
 import { resolve } from 'path';
 import { config } from 'winston';
 import { InsteonDimmableDevice, InsteonKeypadButtonDevice, InsteonRelayDevice, ISY } from '../../ISY.js';
@@ -70,9 +71,12 @@ export async function createServerNode(isy: ISY = ISY.instance): Promise<ServerN
 		// Optional when operating only one device on a host, Default port is 5540
 		network: {
 			port: config.port,
+
 			//ipv4: false,
 			discoveryCapabilities: {
 				onIpNetwork: true
+
+
 			}
 		},
 
@@ -192,7 +196,7 @@ export async function createServerNode(isy: ISY = ISY.instance): Promise<ServerN
 	 */
 
 	logger.info('Bringing server online');
-	await server.bringOnline();
+	await server.run();
 
 	logger.info('Matter Server is online');
 	/**

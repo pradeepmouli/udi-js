@@ -57,7 +57,8 @@ async function createServerNode(isy = ISY_js_1.ISY.instance) {
             port: config.port,
             //ipv4: false,
             discoveryCapabilities: {
-                onIpNetwork: true
+                onIpNetwork: true,
+                ble: true
             }
         },
         // Provide Commissioning relevant settings
@@ -159,7 +160,7 @@ async function createServerNode(isy = ISY_js_1.ISY.instance) {
      * The QR Code is printed automatically.
      */
     logger.info('Bringing server online');
-    await server.bringOnline();
+    await server.run();
     logger.info('Matter Server is online');
     /**
      * Log the endpoint structure for debugging reasons and to allow to verify anything is correct

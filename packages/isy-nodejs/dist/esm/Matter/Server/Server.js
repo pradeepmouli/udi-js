@@ -156,7 +156,7 @@ export async function createServerNode(isy = ISY.instance) {
      * The QR Code is printed automatically.
      */
     logger.info('Bringing server online');
-    await server.bringOnline();
+    await server.run();
     logger.info('Matter Server is online');
     /**
      * Log the endpoint structure for debugging reasons and to allow to verify anything is correct

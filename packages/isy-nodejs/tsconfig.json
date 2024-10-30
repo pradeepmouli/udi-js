@@ -15,7 +15,7 @@
 		"noImplicitThis": true,
 		"esModuleInterop": true,
 		"resolveJsonModule": true,
-		"suppressImplicitAnyIndexErrors": true,
+		//"suppressImplicitAnyIndexErrors": true,
 		"typeRoots": [
 			"../../node_modules/@types",
 			"types"
@@ -31,7 +31,7 @@
 		"index.js",
 		"index.d.ts",
 		"src/Definitions/Global/*.ts",
-		"src/Devices/Insteon/Generated/*",
+		"src/Devices/Insteon/Generated/RelayLampSwitch.ts",
 	],
 	"exclude": [
 		"node_modules/@project-chip/*",

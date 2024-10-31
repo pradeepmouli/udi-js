@@ -212,7 +212,7 @@ class ISYNode {
         else {
             // this.logger(event.control);
             const e = event.control;
-            const dispName = this.commands[e].name;
+            const dispName = this.commands[e]?.name;
             if (dispName !== undefined && dispName !== null) {
                 this.logger(`Command ${dispName} (${e}) triggered.`);
             }

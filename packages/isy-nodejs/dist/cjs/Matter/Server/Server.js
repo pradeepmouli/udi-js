@@ -57,8 +57,7 @@ async function createServerNode(isy = ISY_js_1.ISY.instance) {
             port: config.port,
             //ipv4: false,
             discoveryCapabilities: {
-                onIpNetwork: true,
-                ble: true
+                onIpNetwork: true
             }
         },
         // Provide Commissioning relevant settings

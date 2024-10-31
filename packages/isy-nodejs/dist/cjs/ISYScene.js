@@ -62,7 +62,7 @@ class ISYScene extends ISYNode_js_1.ISYNode {
     get isOn() {
         for (const device of this.members) {
             if (device instanceof index_js_1.Insteon.Relay) {
-                if (device.drivers.ST?.value === 1) {
+                if (device.drivers.ST?.value != 0) {
                     return true;
                 }
             }

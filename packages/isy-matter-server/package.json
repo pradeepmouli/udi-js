@@ -29,10 +29,9 @@
   "dependencies": {
     "@project-chip/matter-node.js": "^0.10.6",
     "@project-chip/matter.js": "^0.10.6",
-    "isy-nodejs": "../isy-nodejs",
+    "isy-nodejs": "^1.0.1-alpha.6",
     "winston": "^3.15.0"
   },
-  "publishConfig": {
-    "access": "restricted"
-  }
+  
+  "gitHead": "960151429615c48f5774a0911ca58885a39e55b4"
 }

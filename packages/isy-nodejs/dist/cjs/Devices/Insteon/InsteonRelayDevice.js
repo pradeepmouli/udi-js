@@ -1,18 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InsteonRelayDevice = void 0;
-const InsteonBaseDevice_js_1 = require("./InsteonBaseDevice.js");
 require("winston");
-const Drivers_js_1 = require("../../Definitions/Global/Drivers.js");
-const index_js_1 = require("../../Definitions/index.js");
-class InsteonRelayDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
+const RelayLampSwitch_js_1 = require("./RelayLampSwitch.js");
+class InsteonRelayDevice extends RelayLampSwitch_js_1.RelayLampSwitch.Node /*InsteonBaseDevice<Driver.Signatures<'ST' | 'OL' | 'RR' | 'ERR'>, Command.Signatures<'DON' | 'DOF'>>*/ {
     // #region Constructors (1)
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Drivers_js_1.Driver.create('ST', this, nodeInfo.property, { uom: index_js_1.UnitOfMeasure.Percent, label: 'Status', name: 'status' });
-        this.drivers.OL = Drivers_js_1.Driver.create('OL', this, nodeInfo.property, { uom: index_js_1.UnitOfMeasure.Percent, label: 'On Level', name: 'onLevel' });
-        this.drivers.RR = Drivers_js_1.Driver.create('RR', this, nodeInfo.property, { uom: index_js_1.UnitOfMeasure.Index, label: 'Ramp Rate', name: 'rampRate' });
-        this.drivers.ERR = Drivers_js_1.Driver.create('ERR', this, nodeInfo.property, { uom: index_js_1.UnitOfMeasure.Index, label: 'Error', name: 'error' });
     }
     // #endregion Constructors (1)
     // #region Public Methods (2)
@@ -44,7 +38,7 @@ class InsteonRelayDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
 
     } */
     async sendBeep(level = 100) {
-        return super.sendBeep(level);
+        return super.beep(level);
     }
 }
 exports.InsteonRelayDevice = InsteonRelayDevice;

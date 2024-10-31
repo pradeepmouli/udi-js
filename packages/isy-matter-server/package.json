@@ -32,6 +32,8 @@
     "isy-nodejs": "^1.0.1-alpha.6",
     "winston": "^3.15.0"
   },
-  
-  "gitHead": "960151429615c48f5774a0911ca58885a39e55b4"
+  "publishConfig": {
+	"access": "public"
+  },
+  "gitHead": "a335532627a4e350dd2c20e8db215c33cf6dfcc4"
 }

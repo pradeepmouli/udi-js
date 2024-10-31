@@ -1,5 +1,5 @@
 {
-  "name": "@pradeepmouli/isy-matter-server",
+  "name": "@pmouli/isy-matter-server",
   "version": "1.0.1-alpha.6",
   "description": "Service to expose an ISY device as a Matter Border router",
   "keywords": [
@@ -33,7 +33,7 @@
     "winston": "^3.15.0"
   },
   "publishConfig": {
-	"access": "public"
+    "access": "public"
   },
-  "gitHead": "a335532627a4e350dd2c20e8db215c33cf6dfcc4"
+  "gitHead": "3caeff83274fe893bd7e6fa249bde5ac785328d3"
 }

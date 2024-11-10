@@ -15,6 +15,9 @@
       "registry": "https://registry.npmjs.org/",
       "npmClient": "npm",
       "distTag": "dev"
+    },
+    "version": {
+      "gitRemote": "isy-nodejs"
     }
   },
   "$schema": "./node_modules/lerna/lib/config/schema.json"

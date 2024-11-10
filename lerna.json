@@ -1,9 +1,9 @@
 {
   "packages": [
     "packages/*",
-	"apps/*"
+    "apps/*"
   ],
-  "version": "1.0.1-alpha.6",
+  "version": "1.0.1-alpha.7",
   "npmClient": "npm",
   "command": {
     "publish": {

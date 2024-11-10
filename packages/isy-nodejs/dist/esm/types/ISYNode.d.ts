@@ -59,7 +59,7 @@ export declare class ISYNode<T extends Family, D extends ISYNode.DriverSignature
     convert(value: any, from: UnitOfMeasure, to: UnitOfMeasure): any;
     convertFrom(value: any, uom: UnitOfMeasure, propertyName?: StringKeys<D>): any;
     convertTo(value: any, uom: UnitOfMeasure, propertyName?: StringKeys<D>): any;
-    emit(event: 'PropertyChanged' | 'ControlTriggered', propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
+    emit(event: 'propertyChanged' | 'controlTriggered', propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
     generateLabel(template: string): string;
     getNotes(): Promise<NodeNotes>;
     handleControlTrigger(controlName: keyof E & keyof C): boolean;
@@ -70,7 +70,7 @@ export declare class ISYNode<T extends Family, D extends ISYNode.DriverSignature
         action?: any;
         fmtAct?: any;
     }): boolean;
-    handlePropertyChange(propertyName: StringKeys<D>, value: any, uom: UnitOfMeasure, formattedValue: string, prec?: number): boolean;
+    handlePropertyChange(propertyName: StringKeys<D>, value: any, uom: UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
     parseResult(node: {
         property: DriverState | DriverState[];
     }): void;
@@ -119,7 +119,7 @@ export declare namespace ISYNode {
         new (...args: any[]): {
             drivers: Driver.ForAll<any, false>;
             commands: Command.ForAll<C>;
-            "__#108649@#parentNode": ISYNode<any, any, any, any>;
+            "__#72@#parentNode": ISYNode<any, any, any, any>;
             readonly address: string;
             readonly baseLabel: string;
             readonly flag: any;
@@ -158,7 +158,7 @@ export declare namespace ISYNode {
             convert(value: any, from: UnitOfMeasure, to: UnitOfMeasure): any;
             convertFrom(value: any, uom: UnitOfMeasure, propertyName?: string): any;
             convertTo(value: any, uom: UnitOfMeasure, propertyName?: string): any;
-            emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
+            emit(event: "propertyChanged" | "controlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
             generateLabel(template: string): string;
             getNotes(): Promise<NodeNotes>;
             handleControlTrigger(controlName: string | number | symbol): boolean;
@@ -169,7 +169,7 @@ export declare namespace ISYNode {
                 action?: any;
                 fmtAct?: any;
             }): boolean;
-            handlePropertyChange(propertyName: string, value: any, uom: UnitOfMeasure, formattedValue: string, prec?: number): boolean;
+            handlePropertyChange(propertyName: string, value: any, uom: UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
             parseResult(node: {
                 property: DriverState | DriverState[];
             }): void;

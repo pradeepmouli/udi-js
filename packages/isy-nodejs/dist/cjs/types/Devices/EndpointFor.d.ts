@@ -74,7 +74,7 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         convert(value: any, from: import("../Definitions/index.js").UnitOfMeasure, to: import("../Definitions/index.js").UnitOfMeasure): any;
         convertFrom(value: any, uom: import("../Definitions/index.js").UnitOfMeasure, propertyName?: string): any;
         convertTo(value: any, uom: import("../Definitions/index.js").UnitOfMeasure, propertyName?: string): any;
-        emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
+        emit(event: "propertyChanged" | "controlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
         generateLabel(template: string): string;
         getNotes(): Promise<import("../Model/NodeNotes.js").NodeNotes>;
         handleControlTrigger(controlName: string | number | symbol): boolean;
@@ -85,7 +85,7 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: string, value: any, uom: import("../Definitions/index.js").UnitOfMeasure, formattedValue: string, prec?: number): boolean;
+        handlePropertyChange(propertyName: string, value: any, uom: import("../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../Model/DriverState.js").DriverState | import("../Model/DriverState.js").DriverState[];
         }): void;

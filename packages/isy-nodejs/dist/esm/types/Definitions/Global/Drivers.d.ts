@@ -1,8 +1,9 @@
 import type { ISYNode } from '../../ISYNode.js';
 import { UnitOfMeasure } from './UOM.js';
 import type { UnionToIntersection } from '@project-chip/matter.js/util';
+import { Converter } from '../../Converters.js';
 import type { DriverState } from '../../Model/DriverState.js';
-import type { Converter, StringKeys } from '../../Utils.js';
+import type { StringKeys } from '../../Utils.js';
 import type { Family } from './Families.js';
 export declare enum DriverType {
     AccelerationXAxis = "ACCX",
@@ -191,7 +192,7 @@ export interface Driver<D extends DriverType | EnumLiteral<DriverType> | `${stri
     };
     uom: U;
     apply(state: DriverState, notify?: boolean): boolean;
-    patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number): boolean;
+    patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number, notify?: boolean): boolean;
 }
 export interface StatelessDriver<D extends DriverType | EnumLiteral<DriverType> | `${string}.${EnumLiteral<DriverType>}` | string, U extends UnitOfMeasure, T = number, SU extends UnitOfMeasure = U, N = string, L = string> {
     readonly value: Promise<T>;
@@ -235,7 +236,7 @@ export declare namespace Driver {
     export type LiteralWithExtensions = Literal | `${string}.${Literal}`;
     export type LiteralWithType = EnumWithLiteral<DriverType>;
     type StatelessOrStateful<D extends string, U extends UnitOfMeasure, T = number, N = string, L = string, S extends boolean = false> = S extends true ? StatelessDriver<D, U, T, U, N, L> : Driver<D, U, T, U, N, L>;
-    export function create<D extends Literal, U extends UnitOfMeasure, T = number, L extends string = string, N extends string = string, S extends boolean = false>(driver: EnumWithLiteral<D>, node?: ISYNode<Family, any, any, any>, initState?: DriverState, driverSignature?: {
+    export function create<D extends Literal, U extends UnitOfMeasure, T = number, N extends string = string, L extends string = string, S extends boolean = false>(driver: EnumWithLiteral<D>, node?: ISYNode<Family, any, any, any>, initState?: DriverState, driverSignature?: {
         uom: U;
         label: L;
         name: N;

@@ -1,20 +1,20 @@
 {
-    "ecmaFeatures": {
-        "jsx": true,
-        "experimentalObjectRestSpread": true,
-    },
-    "parserOptions": {
-        "ecmaVersion": 6,
-        "sourceType": "module",
-        "ecmaFeatures": {
-            "jsx": true,
-        },
-    },
-    "rules": {
-        "@typescript-eslint/sort-type-constituents":"warn",
-        "sort-keys": "warn",
-    },
-    "plugins": [
-        "@typescript-eslint",
-    ],
+	"ecmaFeatures": {
+		"jsx": true,
+		"experimentalObjectRestSpread": true,
+	},
+	"parserOptions": {
+		"ecmaVersion": 6,
+		"sourceType": "module",
+		"ecmaFeatures": {
+			"jsx": true,
+		},
+	},
+	"rules": {
+		"@typescript-eslint/sort-type-constituents": "warn",
+		"sort-keys": "warn",
+	},
+	"plugins": [
+		"@typescript-eslint",
+	],
 }

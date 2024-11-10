@@ -1,5 +1,5 @@
 import 'winston';
-import { Converters } from '../../Converters.js';
+import { Converter } from '../../Converters.js';
 import { Driver } from '../../Definitions/Global/Drivers.js';
 import { Family } from '../../Definitions/Global/Families.js';
 import { UnitOfMeasure as UOM, UnitOfMeasure } from '../../Definitions/Global/UOM.js';
@@ -22,7 +22,7 @@ export class InsteonBaseDevice extends ISYDeviceNode {
             case UOM.DegreeX2:
                 return byteToDegree(value);
             case UOM.LevelFrom0To255:
-                return Converters.Standard.LevelFrom0To255.Percent.to(value);
+                return Converter.Standard.LevelFrom0To255.Percent.to(value);
             case UOM.Fahrenheit:
                 return value / 10;
             default:

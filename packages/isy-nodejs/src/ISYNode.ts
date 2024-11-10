@@ -6,7 +6,7 @@ import { UnitOfMeasure } from './Definitions/Global/UOM.js';
 import { ISY, NodeType, type ISYScene } from './ISY.js';
 
 import { CliConfigSetLevels } from 'winston/lib/winston/config/index.js';
-import { Converters } from './Converters.js';
+import { Converter } from './Converters.js';
 import type { Command } from './Definitions/Global/Commands.js';
 import { Event } from './Definitions/Global/Events.js';
 import type { Constructor } from './Devices/Constructor.js';
@@ -168,7 +168,7 @@ export class ISYNode<
 		if (from === to) return value;
 		else {
 			try {
-				return Converters.Standard[from][to].from(value);
+				return Converter.Standard[from][to].from(value);
 			} catch {
 				this.isy.logger.error(`Conversion from ${UnitOfMeasure[from]} to ${UnitOfMeasure[to]} not supported.`);
 			} finally {
@@ -191,7 +191,7 @@ export class ISYNode<
 		}
 	}
 
-	public emit(event: 'PropertyChanged' | 'ControlTriggered', propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string) {
+	public emit(event: 'propertyChanged' | 'controlTriggered', propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string) {
 		//if ('PropertyChanged') return super.emit(event, propertyName, newValue, oldValue, formattedValue);
 		//else if ('ControlTriggered') return super.emit(event, controlName);
 	}
@@ -232,7 +232,7 @@ export class ISYNode<
 
 	public handleControlTrigger(controlName: keyof E & keyof C): boolean {
 		//this.lastChanged = new Date();
-		this.events.emit('ControlTriggered', controlName);
+		this.events.emit('controlTriggered', controlName);
 		return true;
 	}
 
@@ -255,20 +255,23 @@ export class ISYNode<
 			const e = event.control;
 			const dispName = this.commands[e]?.name;
 			if (dispName !== undefined && dispName !== null) {
-				this.logger(`Command ${dispName} (${e}) triggered.`);
+				this.logger(`Command ${dispName} (${e}) event sent.`);
 			} else {
-				this.logger(`Command ${e} triggered.`);
+				this.logger(`Command ${e} event sent.`);
 			}
 			this.handleControlTrigger(e);
 			return true;
 		}
 	}
 
-	public handlePropertyChange(propertyName: StringKeys<D>, value: any, uom: UnitOfMeasure, formattedValue: string, prec?: number): boolean {
+	public handlePropertyChange(propertyName: StringKeys<D>, value: any, uom: UnitOfMeasure, prec?: number, formattedValue?: string): boolean {
 		this.lastChanged = new Date();
-		const oldValue = this.drivers[propertyName].value;
-		if (this.drivers[propertyName].patch(value, formattedValue, uom, prec)) {
-			this.emit('PropertyChanged', propertyName, value, oldValue, formattedValue);
+		let driver = this.drivers[propertyName];
+		this.logger(`Driver ${propertyName} (${driver?.label} value update ${value} (${formattedValue}) uom: ${UnitOfMeasure[uom]} event received.`);
+		const oldValue = driver?.value;
+		if (driver?.patch(value, formattedValue, uom, prec)) {
+			this.logger(`Driver ${driver.label} updated from ${oldValue} to ${value} (${formattedValue})`);
+			this.emit('propertyChanged', propertyName, value, oldValue, formattedValue);
 			this.scenes?.forEach((element) => {
 				this.logger(`Recalulating ${element.deviceFriendlyName}`);
 				element.recalculateState();

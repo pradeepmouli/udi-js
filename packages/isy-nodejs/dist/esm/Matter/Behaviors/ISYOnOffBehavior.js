@@ -1,9 +1,9 @@
-import { InsteonRelayDevice } from "../../Devices/Insteon/InsteonRelayDevice.js";
-import { OnOffLightRequirements } from "@project-chip/matter.js/devices/OnOffLightDevice";
-import { ISYClusterBehavior } from "./ISYClusterBehavior.js";
 import { DimmableLightRequirements } from '@project-chip/matter.js/devices/DimmableLightDevice';
+import { OnOffLightRequirements } from '@project-chip/matter.js/devices/OnOffLightDevice';
 import { InsteonDimmableDevice } from '../../Devices/Insteon/InsteonDimmableDevice.js';
-import { Converters } from '../../Converters.js';
+import { InsteonRelayDevice } from '../../Devices/Insteon/InsteonRelayDevice.js';
+import { ISYClusterBehavior } from './ISYClusterBehavior.js';
+import { Converter } from '../../Converters.js';
 export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.OnOffServer, InsteonRelayDevice) {
     async initialize(_options) {
         await super.initialize(_options);
@@ -11,19 +11,21 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.
     }
     on = async () => {
         await super.on();
+        await this.device.on();
         //this.device.commands.DON = true;
     };
     async off() {
-        //await super.off();
+        await super.off();
+        await this.device.off();
         // this.device.drivers = false;
     }
     toggle = async () => {
         //this.device.state = !(await this.device.state);
     };
     async handlePropertyChange({ driver, newValue, oldValue, formattedValue }) {
-        if (driver === "ST") {
+        /*if (driver === 'ST') {
             this.state.onOff = newValue;
-        }
+        }*/
         return super.handlePropertyChange({ driver, newValue, oldValue, formattedValue });
     }
 }
@@ -34,7 +36,7 @@ export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequire
         //this.state.onLevel = this.device.drivers.OL;
     }
     setLevel(level) {
-        level = Converters.Matter.LevelFrom0To255.LightingLevel.to(level);
+        level = Converter.Matter.LevelFrom0To255.LightingLevel.from(level);
         if (level > 0) {
             return this.device.sendCommand('DON', level);
         }

@@ -23,15 +23,25 @@ import { InsteonOnOffOutletDevice } from './Devices/Insteon/InsteonOnOffOutletDe
 import { InsteonRelayDevice } from './Devices/Insteon/InsteonRelayDevice.js';
 import { InsteonSmokeSensorDevice } from './Devices/Insteon/InsteonSmokeSensorDevice.js';
 import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevice.js';
-import { NodeType, Props, States, VariableType } from './ISYConstants.js';
-import { ISYNode } from './ISYNode.js';
 import { ISYDeviceNode } from './Devices/ISYDeviceNode.js';
+import { NodeType, Props, States, VariableType } from './ISYConstants.js';
 import { type ISYDevice } from './ISYDevice.js';
+import { ISYNode } from './ISYNode.js';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
 import * as Utils from './Utils.js';
 export { Category as Categories, ELKAlarmPanelDevice, ElkAlarmSensorDevice, Family, InsteonBaseDevice, InsteonDimmableDevice, InsteonDimmerOutletDevice, InsteonDimmerSwitchDevice, InsteonDoorWindowSensorDevice, InsteonFanDevice, InsteonFanMotorDevice, InsteonKeypadButtonDevice, InsteonKeypadDimmerDevice, InsteonKeypadRelayDevice, InsteonLeakSensorDevice, InsteonLockDevice, InsteonMotionSensorDevice, InsteonOnOffOutletDevice, InsteonOutletDevice, InsteonRelayDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDeviceNode as ISYDevice, ISYNode, ISYScene, ISYVariable, NodeType, Props, States, Utils, VariableType };
 export declare let Controls: {};
+interface ISYConfig {
+    displayNameFormat?: string;
+    elkEnabled?: boolean;
+    enableWebSocket?: boolean;
+    host: string;
+    password: string;
+    port: number;
+    protocol: 'http' | 'https';
+    username: string;
+}
 export declare class ISY extends EventEmitter implements Disposable {
     #private;
     readonly credentials: {
@@ -67,22 +77,14 @@ export declare class ISY extends EventEmitter implements Disposable {
     serverVersion: any;
     vendorName: string;
     webSocket: WebSocket.Client;
-    constructor(config: {
-        host: string;
-        port: number;
-        protocol: 'http' | 'https';
-        username: string;
-        password: string;
-        enableWebSocket?: boolean;
-        displayNameFormat?: string;
-        elkEnabled?: boolean;
-    }, logger?: Logger, storagePath?: string);
+    constructor(config: ISYConfig, logger?: Logger, storagePath?: string);
     get address(): string;
     get isDebugEnabled(): boolean;
+    [Symbol.dispose](): void;
     emit(event: 'InitializeCompleted' | 'NodeAdded' | 'NodeRemoved' | 'NodeChanged', node?: ISYNode<any, any, any, any>): boolean;
     getDevice<T extends ISYDevice<any, any, any, any> = ISYDevice<any, any, any, any>>(address: string, parentsOnly?: boolean): T;
-    getNode<T extends ISYNode<any, any, any, any> = ISYNode<any, any, any, any>>(address: string, parentsOnly?: boolean): T;
     getElkAlarmPanel(): ELKAlarmPanelDevice;
+    getNode<T extends ISYNode<any, any, any, any> = ISYNode<any, any, any, any>>(address: string, parentsOnly?: boolean): T;
     getScene(address: string): ISYScene;
     getVariable<P extends VariableType>(type: P, id: number): ISYVariable<P>;
     getVariableList(): Map<string, ISYVariable<VariableType>>;
@@ -106,16 +108,17 @@ export declare class ISY extends EventEmitter implements Disposable {
         trailingSlash: boolean;
         requestLogLevel?: any;
         responseLogLevel?: any;
+        errorLogLevel?: any;
     }): Promise<any>;
     sendSetVariable(id: any, type: any, value: any, handleResult: {
         (success: any): void;
         (arg0: boolean): void;
         (arg0: boolean): void;
     }): Promise<any>;
-    variableChangedHandler(variable: {
-        id: string;
-        type: string;
-    }): void;
-    [Symbol.dispose](): void;
+    close(): void;
+}
+export declare namespace ISY {
+    interface Config extends ISYConfig {
+    }
 }
 //# sourceMappingURL=ISY.d.ts.map

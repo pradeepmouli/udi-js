@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Driver = exports.Drivers = exports.DriverType = void 0;
 exports.isStateless = isStateless;
 exports.isTrue = isTrue;
+const Converters_js_1 = require("../../Converters.js");
 var DriverType;
 (function (DriverType) {
     DriverType["AccelerationXAxis"] = "ACCX";
@@ -262,12 +263,18 @@ var Driver;
                     node.events.emit(`${this.name}Changed`, driver, this.state.value, previousValue, this.state.formattedValue);
                 return true;
             },
-            patch(value, formattedValue, uom, prec, notify = false) {
+            patch(value, formattedValue, uom, prec, notify = true) {
                 let previousValue = this.state.value;
                 this.state.formattedValue = formattedValue;
                 if (uom != this.uom) {
-                    this.serverUom = uom;
-                    this.state.value = converter ? converter.from(value) : node.convertFrom(value, uom, driver);
+                    this.serverUom == uom;
+                    this.state.value = converter ? converter.from(value) : Converters_js_1.Converter.convert(uom, this.uom, value);
+                }
+                else if (converter) {
+                    this.state.value = converter.from(value);
+                }
+                else {
+                    this.state.value = value;
                 }
                 if (previousValue == this.state.value) {
                     return false;

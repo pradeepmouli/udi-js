@@ -26,7 +26,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventEmitter = void 0;
 exports.getEnumValueByEnumKey = getEnumValueByEnumKey;
 exports.getEnumKeyByEnumValue = getEnumKeyByEnumValue;
-exports.invert = invert;
 exports.toArray = toArray;
 exports.fromArray = fromArray;
 exports.byteToPct = byteToPct;
@@ -51,14 +50,6 @@ function getEnumValueByEnumKey(enumType, enumKey) {
 }
 function getEnumKeyByEnumValue(enumType, enumValue) {
     return Object.keys(enumType).find((key) => enumType[key] === enumValue);
-}
-//onst D: d = 'ST';
-//type DriverLabel = Values<IdentityOf<DriverType>>;
-function invert(converter) {
-    return {
-        from: converter.to,
-        to: converter.from
-    };
 }
 function toArray(value) {
     if (undefined === value)

@@ -1,5 +1,5 @@
 import 'winston';
-import { Converters } from '../../Converters.js';
+import { Converter } from '../../Converters.js';
 import type { Command } from '../../Definitions/Global/Commands.js';
 import { Driver, DriverType } from '../../Definitions/Global/Drivers.js';
 import { Family, Insteon } from '../../Definitions/Global/Families.js';
@@ -38,7 +38,7 @@ export class InsteonBaseDevice<D extends ISYNode.DriverSignatures = {}, C extend
 			case UOM.DegreeX2:
 				return byteToDegree(value);
 			case UOM.LevelFrom0To255:
-				return Converters.Standard.LevelFrom0To255.Percent.to(value);
+				return Converter.Standard.LevelFrom0To255.Percent.to(value);
 			case UOM.Fahrenheit:
 				return value / 10;
 			default:

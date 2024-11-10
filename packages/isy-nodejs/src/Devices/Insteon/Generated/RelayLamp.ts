@@ -33,6 +33,7 @@ export class RelayLampNode extends Base<Drivers, Commands> implements RelayLamp.
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		
 	}
 	async on(value?: (0 | 100)) {
 		return this.sendCommand("DON", { value: value });

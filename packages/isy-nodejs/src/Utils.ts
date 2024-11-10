@@ -10,17 +10,8 @@ import { Category } from './Definitions/Global/Categories.js';
 //import { get } from 'http';
 import type { Identity } from '@project-chip/matter.js/util';
 import { isBoxedPrimitive } from 'util/types';
-import {  Family, type Driver, type DriverType, type EnumLiteral } from './Definitions/index.js';
+import { Family, type Driver, type DriverType, type EnumLiteral } from './Definitions/index.js';
 import { EventType } from './Events/EventType.js';
-
-export interface Converter<F, T> {
-	// #region Properties (2)
-
-	from: (value: F) => T;
-	to: (value: T) => F;
-
-	// #endregion Properties (2)
-}
 
 export type StringKeys<T> = Extract<keyof T, string>;
 
@@ -41,15 +32,6 @@ export type IdentityOf<T> = T extends (...args: any[]) => infer R ? R : T;
 
 export type LabelsOf<TEnum> = keyof IdentityOf<TEnum>;
 type d = LabelsOf<Family>;
-
-//onst D: d = 'ST';
-//type DriverLabel = Values<IdentityOf<DriverType>>;
-export function invert<F, T>(converter: Converter<F, T>): Converter<T, F> {
-	return {
-		from: converter.to,
-		to: converter.from
-	};
-}
 
 export type MaybeArray<T> = T | T[];
 

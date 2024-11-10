@@ -12,8 +12,7 @@ export var Event;
     Event.NodeEventEmitter = NodeEventEmitter;
     function createEmitter(node) {
         var f = new NodeEventEmitter(node);
-        for (let evt in node.events) {
-            const ev = node.events[evt];
+        for (let evt in node.drivers) {
             //f[`on${ev.name}`] = f.on.bind(f, ev.name);
         }
         return f;

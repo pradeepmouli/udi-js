@@ -7,14 +7,6 @@ export function getEnumValueByEnumKey(enumType, enumKey) {
 export function getEnumKeyByEnumValue(enumType, enumValue) {
     return Object.keys(enumType).find((key) => enumType[key] === enumValue);
 }
-//onst D: d = 'ST';
-//type DriverLabel = Values<IdentityOf<DriverType>>;
-export function invert(converter) {
-    return {
-        from: converter.to,
-        to: converter.from
-    };
-}
 export function toArray(value) {
     if (undefined === value)
         return [];

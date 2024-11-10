@@ -1,6 +1,6 @@
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
 import { NodeType } from './ISY.js';
-import { Converters } from './Converters.js';
+import { Converter } from './Converters.js';
 import { Event } from './Definitions/Global/Events.js';
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 export class ISYNode {
@@ -126,7 +126,7 @@ export class ISYNode {
             return value;
         else {
             try {
-                return Converters.Standard[from][to].from(value);
+                return Converter.Standard[from][to].from(value);
             }
             catch {
                 this.isy.logger.error(`Conversion from ${UnitOfMeasure[from]} to ${UnitOfMeasure[to]} not supported.`);
@@ -187,7 +187,7 @@ export class ISYNode {
     }
     handleControlTrigger(controlName) {
         //this.lastChanged = new Date();
-        this.events.emit('ControlTriggered', controlName);
+        this.events.emit('controlTriggered', controlName);
         return true;
     }
     handleEvent(event) {
@@ -211,20 +211,23 @@ export class ISYNode {
             const e = event.control;
             const dispName = this.commands[e]?.name;
             if (dispName !== undefined && dispName !== null) {
-                this.logger(`Command ${dispName} (${e}) triggered.`);
+                this.logger(`Command ${dispName} (${e}) event sent.`);
             }
             else {
-                this.logger(`Command ${e} triggered.`);
+                this.logger(`Command ${e} event sent.`);
             }
             this.handleControlTrigger(e);
             return true;
         }
     }
-    handlePropertyChange(propertyName, value, uom, formattedValue, prec) {
+    handlePropertyChange(propertyName, value, uom, prec, formattedValue) {
         this.lastChanged = new Date();
-        const oldValue = this.drivers[propertyName].value;
-        if (this.drivers[propertyName].patch(value, formattedValue, uom, prec)) {
-            this.emit('PropertyChanged', propertyName, value, oldValue, formattedValue);
+        let driver = this.drivers[propertyName];
+        this.logger(`Driver ${propertyName} (${driver?.label} value update ${value} (${formattedValue}) uom: ${UnitOfMeasure[uom]} event received.`);
+        const oldValue = driver?.value;
+        if (driver?.patch(value, formattedValue, uom, prec)) {
+            this.logger(`Driver ${driver.label} updated from ${oldValue} to ${value} (${formattedValue})`);
+            this.emit('propertyChanged', propertyName, value, oldValue, formattedValue);
             this.scenes?.forEach((element) => {
                 this.logger(`Recalulating ${element.deviceFriendlyName}`);
                 element.recalculateState();

@@ -18,7 +18,7 @@ class InsteonFanMotorDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
         return this.drivers.ST.value;
     }
     async updateFanSpeed(level) {
-        return (level);
+        return level;
     }
     async updateIsOn(isOn) {
         if (!isOn) {
@@ -52,7 +52,9 @@ class InsteonFanDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
         if (childDevice instanceof InsteonFanMotorDevice) {
             this.logger('Fan Motor Found');
             this.motor = childDevice;
-            this.motor.events.on('statusChanged', ((a, b, c, d) => { this.emit('PropertyChanged', `motor.${a}`, b, c, d); }).bind(this));
+            this.motor.events.on('statusChanged', ((a, b, c, d) => {
+                this.emit('propertyChanged', `motor.${a}`, b, c, d);
+            }).bind(this));
         }
     }
     async updateFanSpeed(level) {

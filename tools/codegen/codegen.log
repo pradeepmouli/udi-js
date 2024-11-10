@@ -78,3 +78,4 @@
 [31m2024-10-28 12:00:44 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
 [31m2024-10-28 12:00:44 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
 [31m2024-10-28 12:00:44 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-05 14:25:51 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m

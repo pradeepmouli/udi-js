@@ -3,10 +3,6 @@ import { Logger } from 'winston';
 import { EventEmitter as BaseEventEmitter } from 'events';
 import { Category } from './Definitions/Global/Categories.js';
 import { EventType } from './Events/EventType.js';
-export interface Converter<F, T> {
-    from: (value: F) => T;
-    to: (value: T) => F;
-}
 export type StringKeys<T> = Extract<keyof T, string>;
 export declare function getEnumValueByEnumKey<E extends {
     [index: string]: number;
@@ -17,7 +13,6 @@ export declare function getEnumKeyByEnumValue<E extends {
 export type ValuesOf<TEnum extends number | string | boolean | bigint> = `${TEnum}` extends `${infer R extends number}` ? R : `${TEnum}`;
 export type IdentityOf<T> = T extends (...args: any[]) => infer R ? R : T;
 export type LabelsOf<TEnum> = keyof IdentityOf<TEnum>;
-export declare function invert<F, T>(converter: Converter<F, T>): Converter<T, F>;
 export type MaybeArray<T> = T | T[];
 export type ObjectToUnion<T> = T[keyof T];
 export declare function toArray<T>(value: MaybeArray<T>): T[];

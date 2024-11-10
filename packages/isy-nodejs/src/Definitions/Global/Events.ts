@@ -52,7 +52,8 @@ export namespace Event {
 
 	constructor(node: N) {
 			super({ captureRejections: true });
-		}
+
+	}
 
 	// #endregion Constructors (1)
 }
@@ -61,8 +62,8 @@ export namespace Event {
 		node: N
 	): FunctionSigFor<E, NodeEventEmitter<N>> & Omit<NodeEventEmitter<N>, 'on'> {
 		var f = new NodeEventEmitter(node);
-		for (let evt in node.events) {
-			const ev = node.events[evt];
+		for (let evt in node.drivers) {
+			
 			//f[`on${ev.name}`] = f.on.bind(f, ev.name);
 		}
 

@@ -10,7 +10,6 @@ import { EventEmitter } from 'events';
 import winston, { format, Logger, loggers, type LeveledLogMethod } from 'winston';
 import { Category } from './Definitions/Global/Categories.js';
 import { Family } from './Definitions/Global/Families.js';
-import type { NodeInfo } from './Model/NodeInfo.js';
 import { DeviceFactory } from './Devices/DeviceFactory.js';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
 import { ElkAlarmSensorDevice } from './Devices/Elk/ElkAlarmSensorDevice.js';
@@ -31,13 +30,14 @@ import { InsteonOnOffOutletDevice } from './Devices/Insteon/InsteonOnOffOutletDe
 import { InsteonRelayDevice } from './Devices/Insteon/InsteonRelayDevice.js';
 import { InsteonSmokeSensorDevice } from './Devices/Insteon/InsteonSmokeSensorDevice.js';
 import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevice.js';
+import { ISYDeviceNode } from './Devices/ISYDeviceNode.js';
 import { EventType } from './Events/EventType.js';
 import { NodeType, Props, States, VariableType } from './ISYConstants.js';
-import { ISYNode } from './ISYNode.js';
-import { ISYDeviceNode } from './Devices/ISYDeviceNode.js';
 import { type ISYDevice } from './ISYDevice.js';
+import { ISYNode } from './ISYNode.js';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
+import type { NodeInfo } from './Model/NodeInfo.js';
 
 import * as Utils from './Utils.js';
 
@@ -118,6 +118,21 @@ const parser = new Parser(defaultParserOptions);
 
 export let Controls = {};
 
+interface ISYConfig {
+	// #region Properties (8)
+
+	displayNameFormat?: string;
+	elkEnabled?: boolean;
+	enableWebSocket?: boolean;
+	host: string;
+	password: string;
+	port: number;
+	protocol: 'http' | 'https';
+	username: string;
+
+	// #endregion Properties (8)
+}
+
 export class ISY extends EventEmitter implements Disposable {
 	// #region Properties (30)
 
@@ -158,20 +173,7 @@ export class ISY extends EventEmitter implements Disposable {
 
 	// #region Constructors (1)
 
-	constructor(
-		config: {
-			host: string;
-			port: number;
-			protocol: 'http' | 'https';
-			username: string;
-			password: string;
-			enableWebSocket?: boolean;
-			displayNameFormat?: string;
-			elkEnabled?: boolean;
-		},
-		logger: Logger = new Logger(),
-		storagePath?: string
-	) {
+	constructor(config: ISYConfig, logger: Logger = new Logger(), storagePath?: string) {
 		super();
 		this.enableWebSocket = config.enableWebSocket ?? true;
 		this.storagePath = storagePath ?? './';
@@ -218,7 +220,15 @@ export class ISY extends EventEmitter implements Disposable {
 
 	// #endregion Public Getters And Setters (2)
 
-	// #region Public Methods (22)
+	// #region Public Methods (24)
+
+	[Symbol.dispose](): void {
+		try {
+			this.webSocket?.close();
+		} catch (e) {
+			this.logger.error(`Error closing websocket: ${e.message}`);
+		}
+	}
 
 	public override emit(event: 'InitializeCompleted' | 'NodeAdded' | 'NodeRemoved' | 'NodeChanged', node?: ISYNode<any, any, any, any>): boolean {
 		return super.emit(event, node);
@@ -239,6 +249,10 @@ export class ISY extends EventEmitter implements Disposable {
 		return s as T;
 	}
 
+	public getElkAlarmPanel() {
+		return this.elkAlarmPanel;
+	}
+
 	public getNode<T extends ISYNode<any, any, any, any> = ISYNode<any, any, any, any>>(address: string, parentsOnly = false): T {
 		let s = this.nodeMap.get(address);
 		if (!parentsOnly) {
@@ -252,10 +266,6 @@ export class ISY extends EventEmitter implements Disposable {
 		}
 
 		return s as T;
-	}
-
-	public getElkAlarmPanel() {
-		return this.elkAlarmPanel;
 	}
 
 	public getScene(address: string) {
@@ -569,6 +579,7 @@ export class ISY extends EventEmitter implements Disposable {
 			trailingSlash: boolean;
 			requestLogLevel?: any;
 			responseLogLevel?: any;
+			errorLogLevel?: any;
 		} = { trailingSlash: true }
 	): Promise<any> {
 		const requestLogLevel = options.requestLogLevel ?? 'debug';
@@ -585,19 +596,22 @@ export class ISY extends EventEmitter implements Disposable {
 					if (options.parserOptions) curParser = new Parser({ ...defaultParserOptions, ...options.parserOptions });
 					var altParser = new XMLParser(defaultXMLParserOptions);
 					var s = altParser.parse(response.data);
-					this.logger.log(requestLogLevel ?? 'debug',`Response: ${JSON.stringify(s)}`);
+					this.logger.log(requestLogLevel ?? 'debug', `Response: ${JSON.stringify(s)}`);
 					return s;
 				} else if (response.headers['content-type'].toString().includes('json')) {
 					this.logger.log(responseLogLevel ?? 'debug', `Response: ${JSON.stringify(response.data)}`);
 					return JSON.parse(response.data);
 				} else {
-					this.logger.log(responseLogLevel ?? 'debug',`Response Header: ${JSON.stringify(response.headers)} Response: ${JSON.stringify(response.data)}`);
+					this.logger.log(responseLogLevel ?? 'debug', `Response Header: ${JSON.stringify(response.headers)} Response: ${JSON.stringify(response.data)}`);
 					return response.data;
 				}
 			}
 		} catch (error) {
-			this.logger.error(`Error sending request to ISY: ${error?.message}`);
-			throw new Error(`Error sending request to ISY: ${JSON.stringify(error)}`);
+			if (options.errorLogLevel) {
+				this.logger.log(options.errorLogLevel, `Error sending request to ISY: ${error?.message}`);
+			} else {
+				this.logger.error(`Error sending request to ISY: ${error?.message}`);
+			}
 		}
 	}
 
@@ -608,11 +622,15 @@ export class ISY extends EventEmitter implements Disposable {
 		return this.sendRequest(uriToUse);
 	}
 
-	public variableChangedHandler(variable: { id: string; type: string }) {
+	#variableChangedHandler(variable: { id: string; type: string }) {
 		this.logger.info(`Variable: ${variable.id} (${variable.type}) changed`);
 	}
 
-	// #endregion Public Methods (22)
+	public close() {
+		if (this.webSocket) this.webSocket.close();
+	}
+
+	// #endregion Public Methods (24)
 
 	// #region Private Methods (11)
 
@@ -649,12 +667,13 @@ export class ISY extends EventEmitter implements Disposable {
 		}
 	}
 
-	#guardian() {
+	async #guardian() {
 		const timeNow = new Date();
 
 		if (Number(timeNow) - Number(this.lastActivity) > 60000) {
 			this.logger.info('Guardian: Detected no activity in more then 60 seconds. Reinitializing web sockets');
-			this.initializeWebSocket();
+			await this.refreshStatuses();
+			await this.initializeWebSocket();
 		}
 	}
 
@@ -802,13 +821,9 @@ export class ISY extends EventEmitter implements Disposable {
 		}
 	}
 
-	[Symbol.dispose](): void {
-		try {
-			this.webSocket.close();
-		} catch (e) {
-			this.logger.error(`Error closing websocket: ${e.message}`);
-		}
-	}
-
 	// #endregion Private Methods (11)
+}
+
+export namespace ISY {
+	export interface Config extends ISYConfig {}
 }

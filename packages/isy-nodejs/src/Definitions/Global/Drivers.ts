@@ -9,9 +9,10 @@ import type { Identity, MaybePromise, UnionToIntersection } from '@project-chip/
 import exp from 'constants';
 import { init } from 'homebridge';
 import { server } from 'typescript';
+import { Converter } from '../../Converters.js';
 import type { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 import type { DriverState } from '../../Model/DriverState.js';
-import type { Converter, StringKeys } from '../../Utils.js';
+import type { StringKeys } from '../../Utils.js';
 import type { Family } from './Families.js';
 
 export enum DriverType {
@@ -293,7 +294,7 @@ export interface Driver<
 	// #region Public Methods (2)
 
 	apply(state: DriverState, notify?: boolean): boolean;
-	patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number): boolean;
+	patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number, notify?: boolean): boolean;
 
 	// #endregion Public Methods (2)
 //override on('change', listener: (value: any) => void): this;
@@ -339,7 +340,6 @@ export function isTrue(x: true | false): x is true {
 
 export type DriverTypeLiteral = EnumLiteral<DriverType>;
 
-
 export type EnumWithLiteral<D extends string | bigint | number | boolean> = D | EnumLiteral<D>;
 export namespace Driver {
 	export type Signature<U extends UnitOfMeasure = UnitOfMeasure, V = any, SU = U, N = string, L = N> = { uom: U; value: V; name: N; label: L; serverUom?: SU };
@@ -384,7 +384,7 @@ export namespace Driver {
 	type StatelessOrStateful<D extends string, U extends UnitOfMeasure, T = number, N = string, L = string, S extends boolean = false> =
 		S extends true ? StatelessDriver<D, U, T, U, N, L> : Driver<D, U, T, U, N, L>;
 
-	export function create<D extends Literal, U extends UnitOfMeasure, T = number, L extends string = string, N extends string = string, S extends boolean = false>(
+	export function create<D extends Literal, U extends UnitOfMeasure, T = number,  N extends string = string, L extends string = string, S extends boolean = false>(
 		driver: EnumWithLiteral<D>,
 
 		node?: ISYNode<Family, any, any, any>,
@@ -446,13 +446,22 @@ export namespace Driver {
 				if (notify) node.events.emit(`${this.name}Changed`, driver as D, this.state.value, previousValue, this.state.formattedValue);
 				return true;
 			},
-			patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number, notify = false) {
+			patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number, notify = true) {
 				let previousValue = this.state.value;
 
 				this.state.formattedValue = formattedValue;
 				if (uom != this.uom) {
-					this.serverUom = uom;
-					this.state.value = converter ? converter.from(value) : node.convertFrom(value, uom, driver as D);
+					this.serverUom == uom;
+					this.state.value = converter ? converter.from(value) : Converter.convert(uom, this.uom, value);
+
+				}
+				else if(converter)
+				{
+					this.state.value = converter.from(value);
+				}
+				else
+				{
+					this.state.value = value;
 				}
 				if (previousValue == this.state.value) {
 					return false;

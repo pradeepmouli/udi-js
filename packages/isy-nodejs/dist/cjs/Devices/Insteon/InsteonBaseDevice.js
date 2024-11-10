@@ -25,7 +25,7 @@ class InsteonBaseDevice extends ISYDeviceNode_js_1.ISYDeviceNode {
             case UOM_js_1.UnitOfMeasure.DegreeX2:
                 return (0, Utils_js_1.byteToDegree)(value);
             case UOM_js_1.UnitOfMeasure.LevelFrom0To255:
-                return Converters_js_1.Converters.Standard.LevelFrom0To255.Percent.to(value);
+                return Converters_js_1.Converter.Standard.LevelFrom0To255.Percent.to(value);
             case UOM_js_1.UnitOfMeasure.Fahrenheit:
                 return value / 10;
             default:

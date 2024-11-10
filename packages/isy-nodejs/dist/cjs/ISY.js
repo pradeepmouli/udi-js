@@ -79,6 +79,8 @@ const InsteonSmokeSensorDevice_js_1 = require("./Devices/Insteon/InsteonSmokeSen
 Object.defineProperty(exports, "InsteonSmokeSensorDevice", { enumerable: true, get: function () { return InsteonSmokeSensorDevice_js_1.InsteonSmokeSensorDevice; } });
 const InsteonThermostatDevice_js_1 = require("./Devices/Insteon/InsteonThermostatDevice.js");
 Object.defineProperty(exports, "InsteonThermostatDevice", { enumerable: true, get: function () { return InsteonThermostatDevice_js_1.InsteonThermostatDevice; } });
+const ISYDeviceNode_js_1 = require("./Devices/ISYDeviceNode.js");
+Object.defineProperty(exports, "ISYDevice", { enumerable: true, get: function () { return ISYDeviceNode_js_1.ISYDeviceNode; } });
 const EventType_js_1 = require("./Events/EventType.js");
 const ISYConstants_js_1 = require("./ISYConstants.js");
 Object.defineProperty(exports, "NodeType", { enumerable: true, get: function () { return ISYConstants_js_1.NodeType; } });
@@ -87,8 +89,6 @@ Object.defineProperty(exports, "States", { enumerable: true, get: function () { 
 Object.defineProperty(exports, "VariableType", { enumerable: true, get: function () { return ISYConstants_js_1.VariableType; } });
 const ISYNode_js_1 = require("./ISYNode.js");
 Object.defineProperty(exports, "ISYNode", { enumerable: true, get: function () { return ISYNode_js_1.ISYNode; } });
-const ISYDeviceNode_js_1 = require("./Devices/ISYDeviceNode.js");
-Object.defineProperty(exports, "ISYDevice", { enumerable: true, get: function () { return ISYDeviceNode_js_1.ISYDeviceNode; } });
 const ISYScene_js_1 = require("./ISYScene.js");
 Object.defineProperty(exports, "ISYScene", { enumerable: true, get: function () { return ISYScene_js_1.ISYScene; } });
 const ISYVariable_js_1 = require("./ISYVariable.js");
@@ -206,7 +206,15 @@ class ISY extends events_1.EventEmitter {
         return this.logger?.isDebugEnabled();
     }
     // #endregion Public Getters And Setters (2)
-    // #region Public Methods (22)
+    // #region Public Methods (24)
+    [Symbol.dispose]() {
+        try {
+            this.webSocket?.close();
+        }
+        catch (e) {
+            this.logger.error(`Error closing websocket: ${e.message}`);
+        }
+    }
     emit(event, node) {
         return super.emit(event, node);
     }
@@ -224,6 +232,9 @@ class ISY extends events_1.EventEmitter {
         }
         return s;
     }
+    getElkAlarmPanel() {
+        return this.elkAlarmPanel;
+    }
     getNode(address, parentsOnly = false) {
         let s = this.nodeMap.get(address);
         if (!parentsOnly) {
@@ -237,9 +248,6 @@ class ISY extends events_1.EventEmitter {
             }
         }
         return s;
-    }
-    getElkAlarmPanel() {
-        return this.elkAlarmPanel;
     }
     getScene(address) {
         return this.sceneList.get(address);
@@ -559,8 +567,12 @@ class ISY extends events_1.EventEmitter {
             }
         }
         catch (error) {
-            this.logger.error(`Error sending request to ISY: ${error?.message}`);
-            throw new Error(`Error sending request to ISY: ${JSON.stringify(error)}`);
+            if (options.errorLogLevel) {
+                this.logger.log(options.errorLogLevel, `Error sending request to ISY: ${error?.message}`);
+            }
+            else {
+                this.logger.error(`Error sending request to ISY: ${error?.message}`);
+            }
         }
     }
     async sendSetVariable(id, type, value, handleResult) {
@@ -568,10 +580,14 @@ class ISY extends events_1.EventEmitter {
         this.logger.info(`Sending ISY command...${uriToUse}`);
         return this.sendRequest(uriToUse);
     }
-    variableChangedHandler(variable) {
+    #variableChangedHandler(variable) {
         this.logger.info(`Variable: ${variable.id} (${variable.type}) changed`);
     }
-    // #endregion Public Methods (22)
+    close() {
+        if (this.webSocket)
+            this.webSocket.close();
+    }
+    // #endregion Public Methods (24)
     // #region Private Methods (11)
     #checkForFailure(response) {
         return response === null || response instanceof Error || (response.RestResponse !== undefined && response.RestResponse.status !== 200);
@@ -602,11 +618,12 @@ class ISY extends events_1.EventEmitter {
             }
         }
     }
-    #guardian() {
+    async #guardian() {
         const timeNow = new Date();
         if (Number(timeNow) - Number(this.lastActivity) > 60000) {
             this.logger.info('Guardian: Detected no activity in more then 60 seconds. Reinitializing web sockets');
-            this.initializeWebSocket();
+            await this.refreshStatuses();
+            await this.initializeWebSocket();
         }
     }
     #loadElkInitialStatus(result) {
@@ -743,14 +760,6 @@ class ISY extends events_1.EventEmitter {
                 variable.value = vals.val;
                 variable.lastChanged = new Date(vals.ts);
             }
-        }
-    }
-    [Symbol.dispose]() {
-        try {
-            this.webSocket.close();
-        }
-        catch (e) {
-            this.logger.error(`Error closing websocket: ${e.message}`);
         }
     }
 }

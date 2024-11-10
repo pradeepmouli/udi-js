@@ -15,11 +15,18 @@ class ISYBridgedDeviceBehavior extends behavior_1.Behavior {
     async initialize(_options) {
         await super.initialize(_options);
         var address = this.state.address;
-        this.internal.device = ISY_js_1.ISY.instance.nodeMap.get(this.state.address);
+        const d = ISY_js_1.ISY.instance.nodeMap.get(this.state.address);
+        this.internal.device = d;
         this.internal.map = ClusterMap_js_1.MappingRegistry.getMapping(this.internal.device);
         ISY_js_1.ISY.instance.logger.debug(`Initializing ${this.constructor.name} for ${this.internal.device.constructor.name} ${this.internal.device.name} with address ${address}`);
-        if (this.internal.device) {
-            this.internal.device.events.on('PropertyChanged', this.handlePropertyChange.bind(this));
+        if (d) {
+            d.events.on('PropertyChanged', this.handlePropertyChange.bind(this));
+            for (const f in d.drivers) {
+                let evt = `${d.drivers[f].name}Changed`;
+                this.events[evt] = (0, util_1.Observable)();
+                //@ts-ignore
+                d.events.on(evt, (driver, newValue, oldValue, formattedValue) => this.events.emit(evt, { driver, newValue, oldValue, formattedValue }));
+            }
         }
     }
     get device() {
@@ -29,7 +36,7 @@ class ISYBridgedDeviceBehavior extends behavior_1.Behavior {
         return this.internal.map;
     }
     mapForBehavior(behavior) {
-        return this.map[behavior.cluster['name']];
+        return this.map.mapping[behavior.cluster['name']];
     }
     handlePropertyChange(driver, newValue, oldValue, formattedValue) {
         this.events.propertyChanged.emit({ driver, newValue, oldValue, formattedValue });

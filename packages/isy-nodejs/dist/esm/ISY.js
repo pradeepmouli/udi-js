@@ -28,10 +28,10 @@ import { InsteonOnOffOutletDevice } from './Devices/Insteon/InsteonOnOffOutletDe
 import { InsteonRelayDevice } from './Devices/Insteon/InsteonRelayDevice.js';
 import { InsteonSmokeSensorDevice } from './Devices/Insteon/InsteonSmokeSensorDevice.js';
 import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevice.js';
+import { ISYDeviceNode } from './Devices/ISYDeviceNode.js';
 import { EventType } from './Events/EventType.js';
 import { NodeType, Props, States, VariableType } from './ISYConstants.js';
 import { ISYNode } from './ISYNode.js';
-import { ISYDeviceNode } from './Devices/ISYDeviceNode.js';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
 import * as Utils from './Utils.js';
@@ -147,7 +147,15 @@ export class ISY extends EventEmitter {
         return this.logger?.isDebugEnabled();
     }
     // #endregion Public Getters And Setters (2)
-    // #region Public Methods (22)
+    // #region Public Methods (24)
+    [Symbol.dispose]() {
+        try {
+            this.webSocket?.close();
+        }
+        catch (e) {
+            this.logger.error(`Error closing websocket: ${e.message}`);
+        }
+    }
     emit(event, node) {
         return super.emit(event, node);
     }
@@ -165,6 +173,9 @@ export class ISY extends EventEmitter {
         }
         return s;
     }
+    getElkAlarmPanel() {
+        return this.elkAlarmPanel;
+    }
     getNode(address, parentsOnly = false) {
         let s = this.nodeMap.get(address);
         if (!parentsOnly) {
@@ -178,9 +189,6 @@ export class ISY extends EventEmitter {
             }
         }
         return s;
-    }
-    getElkAlarmPanel() {
-        return this.elkAlarmPanel;
     }
     getScene(address) {
         return this.sceneList.get(address);
@@ -500,8 +508,12 @@ export class ISY extends EventEmitter {
             }
         }
         catch (error) {
-            this.logger.error(`Error sending request to ISY: ${error?.message}`);
-            throw new Error(`Error sending request to ISY: ${JSON.stringify(error)}`);
+            if (options.errorLogLevel) {
+                this.logger.log(options.errorLogLevel, `Error sending request to ISY: ${error?.message}`);
+            }
+            else {
+                this.logger.error(`Error sending request to ISY: ${error?.message}`);
+            }
         }
     }
     async sendSetVariable(id, type, value, handleResult) {
@@ -509,10 +521,14 @@ export class ISY extends EventEmitter {
         this.logger.info(`Sending ISY command...${uriToUse}`);
         return this.sendRequest(uriToUse);
     }
-    variableChangedHandler(variable) {
+    #variableChangedHandler(variable) {
         this.logger.info(`Variable: ${variable.id} (${variable.type}) changed`);
     }
-    // #endregion Public Methods (22)
+    close() {
+        if (this.webSocket)
+            this.webSocket.close();
+    }
+    // #endregion Public Methods (24)
     // #region Private Methods (11)
     #checkForFailure(response) {
         return response === null || response instanceof Error || (response.RestResponse !== undefined && response.RestResponse.status !== 200);
@@ -543,11 +559,12 @@ export class ISY extends EventEmitter {
             }
         }
     }
-    #guardian() {
+    async #guardian() {
         const timeNow = new Date();
         if (Number(timeNow) - Number(this.lastActivity) > 60000) {
             this.logger.info('Guardian: Detected no activity in more then 60 seconds. Reinitializing web sockets');
-            this.initializeWebSocket();
+            await this.refreshStatuses();
+            await this.initializeWebSocket();
         }
     }
     #loadElkInitialStatus(result) {
@@ -684,14 +701,6 @@ export class ISY extends EventEmitter {
                 variable.value = vals.val;
                 variable.lastChanged = new Date(vals.ts);
             }
-        }
-    }
-    [Symbol.dispose]() {
-        try {
-            this.webSocket.close();
-        }
-        catch (e) {
-            this.logger.error(`Error closing websocket: ${e.message}`);
         }
     }
 }

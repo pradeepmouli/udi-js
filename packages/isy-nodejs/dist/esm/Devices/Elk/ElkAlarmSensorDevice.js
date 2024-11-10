@@ -16,7 +16,10 @@ export class ElkAlarmSensorDevice extends ISYDeviceNode {
     voltage;
     constructor(isy, name, area, zone) {
         super(isy, {
-            family: Family.Global, name, address: `ElkZone_${zone}`, enabled: true,
+            family: Family.Global,
+            name,
+            address: `ElkZone_${zone}`,
+            enabled: true,
             pnode: undefined,
             startDelay: 0,
             hint: '',
@@ -46,13 +49,13 @@ export class ElkAlarmSensorDevice extends ISYDeviceNode {
         return this.physicalState;
     }
     isBypassed() {
-        return (this.logicalState === 3);
+        return this.logicalState === 3;
     }
     getLogicalState() {
         return this.logicalState;
     }
     getCurrentDoorWindowState() {
-        return (this.physicalState === this.SENSOR_STATE_PHYSICAL_OPEN || this.logicalState === this.SENSOR_STATE_LOGICAL_VIOLATED);
+        return this.physicalState === this.SENSOR_STATE_PHYSICAL_OPEN || this.logicalState === this.SENSOR_STATE_LOGICAL_VIOLATED;
     }
     getSensorStatus() {
         return 'PS [' + this.physicalState + '] LS [' + this.logicatState + ']';
@@ -76,7 +79,7 @@ export class ElkAlarmSensorDevice extends ISYDeviceNode {
                 if (this.logicalState !== valueToSet) {
                     const temp = this.logicalState;
                     this.logicalState = valueToSet;
-                    this.emit('PropertyChanged', 'logicalState', this.logicalState, temp, this.voltage.toString());
+                    this.emit('propertyChanged', 'logicalState', this.logicalState, temp, this.voltage.toString());
                     // Not triggering change update on logical state because physical always follows and don't want double notify.
                     // valueChanged = true;
                 }
@@ -85,7 +88,7 @@ export class ElkAlarmSensorDevice extends ISYDeviceNode {
                 if (this.physicalState !== valueToSet) {
                     const temp = this.physicalState;
                     this.physicalState = valueToSet;
-                    this.emit('PropertyChanged', 'physicalState', this.physicalState, temp, this.voltage.toString());
+                    this.emit('propertyChanged', 'physicalState', this.physicalState, temp, this.voltage.toString());
                     valueChanged = true;
                 }
             }
@@ -93,7 +96,7 @@ export class ElkAlarmSensorDevice extends ISYDeviceNode {
                 if (this.voltage !== valueToSet) {
                     const temp = this.voltage;
                     this.voltage = valueToSet;
-                    this.emit('PropertyChanged', 'voltage', this.voltage, temp, this.voltage.toString());
+                    this.emit('propertyChanged', 'voltage', this.voltage, temp, this.voltage.toString());
                     valueChanged = true;
                 }
             }

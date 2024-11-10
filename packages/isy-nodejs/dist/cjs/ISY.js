@@ -97,6 +97,7 @@ const Utils = __importStar(require("./Utils.js"));
 exports.Utils = Utils;
 const fast_xml_parser_1 = require("fast-xml-parser");
 const NodeFactory_js_1 = require("./Devices/NodeFactory.js");
+const Utils_js_1 = require("./Utils.js");
 const defaultParserOptions = {
     explicitArray: false,
     mergeAttrs: true,
@@ -165,6 +166,7 @@ class ISY extends events_1.EventEmitter {
     serverVersion;
     vendorName = 'Universal Devices, Inc.';
     webSocket;
+    apiVersion;
     // #endregion Properties (30)
     // #region Constructors (1)
     constructor(config, logger = new winston_1.Logger(), storagePath) {
@@ -340,6 +342,7 @@ class ISY extends events_1.EventEmitter {
     async initialize() {
         const that = this;
         try {
+            this.apiVersion = (await (0, Utils_js_1.findPackageJson)()).content.version;
             await this.loadConfig();
             await this.loadNodes();
             await this.loadVariables(ISYConstants_js_1.VariableType.Integer);

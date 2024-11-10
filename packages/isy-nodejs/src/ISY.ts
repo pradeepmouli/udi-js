@@ -43,6 +43,8 @@ import * as Utils from './Utils.js';
 
 import { X2jOptions, XMLParser } from 'fast-xml-parser';
 import { NodeFactory } from './Devices/NodeFactory.js';
+import { findPackageJson } from './Utils.js';
+
 
 export {
 	Category as Categories,
@@ -169,12 +171,17 @@ export class ISY extends EventEmitter implements Disposable {
 	public vendorName = 'Universal Devices, Inc.';
 	public webSocket: WebSocket.Client;
 
+	public apiVersion: string;
+
+
+
 	// #endregion Properties (30)
 
 	// #region Constructors (1)
 
 	constructor(config: ISYConfig, logger: Logger = new Logger(), storagePath?: string) {
 		super();
+
 		this.enableWebSocket = config.enableWebSocket ?? true;
 		this.storagePath = storagePath ?? './';
 		this.displayNameFormat = config.displayNameFormat ?? '${location ?? folder} ${spokenName ?? name}';
@@ -364,6 +371,7 @@ export class ISY extends EventEmitter implements Disposable {
 	public async initialize(): Promise<any> {
 		const that = this;
 		try {
+			this.apiVersion = (await findPackageJson()).content.version;
 			await this.loadConfig();
 			await this.loadNodes();
 			await this.loadVariables(VariableType.Integer);

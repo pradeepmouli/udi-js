@@ -200,10 +200,6 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 	 * offline again because we do not need anything more here. See the Full example for other starting options.
 	 * The QR Code is printed automatically.
 	 */
-	process.on('SIGINT', async () => {
-		logger.info('Bringing server offline');
-		server.close();
-	});
 
 	logger.info('Bringing server online');
 	await server.start();
@@ -248,7 +244,7 @@ async function initializeConfiguration(isy: ISY, config?: Config): Promise<Confi
 		const location = environment.vars.get('storage.path', environment.vars.get('path.root', '.'));
 		storageService.location = location;
 	});
-	storageService.factory = (namespace) => new StorageBackendDisk(resolve(storageService.location ?? '.', namespace), environment.vars.get('storage.clear', false));
+		storageService.factory = (namespace) => new StorageBackendDisk(resolve(storageService.location ?? '.', namespace), environment.vars.get('storage.clear', false));
 	logger.info(`Matter storage location: ${storageService.location} (Directory)`);
 
 	const deviceStorage = (await storageService.open('device')).createContext('data');

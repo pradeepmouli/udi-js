@@ -1,6 +1,10 @@
 import winston, { format } from 'winston';
 import { EventEmitter as BaseEventEmitter } from 'events';
 import { Category } from './Definitions/Global/Categories.js';
+//import { get } from 'http';
+import PackageJson from '@npmcli/package-json';
+import { existsSync } from 'fs';
+import path from 'path';
 export function getEnumValueByEnumKey(enumType, enumKey) {
     return enumType[enumKey];
 }
@@ -141,5 +145,26 @@ export function getSubcategory(device) {
     catch (err) {
         return Category.Unknown;
     }
+}
+function getImportMeta() {
+    try {
+        //@ts-ignore
+        return import.meta;
+    }
+    catch (err) {
+        //@ts-ignore
+        let { dirname, filename } = { dirname: __dirname, filename: __filename };
+        return { dirname, filename };
+    }
+}
+export async function findPackageJson(currentPath = getImportMeta()?.dirname) {
+    while (currentPath !== '/') {
+        const packageJsonPath = path.join(currentPath, 'package.json');
+        if (existsSync(packageJsonPath)) {
+            return await PackageJson.load(currentPath);
+        }
+        currentPath = path.join(currentPath, '..');
+    }
+    return null;
 }
 //# sourceMappingURL=Utils.js.map

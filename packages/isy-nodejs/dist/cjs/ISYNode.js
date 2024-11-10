@@ -176,7 +176,7 @@ class ISYNode {
     }
     async getNotes() {
         try {
-            const result = await this.isy.sendRequest(`nodes/${this.address}/notes`);
+            const result = await this.isy.sendRequest(`nodes/${this.address}/notes`, { trailingSlash: false, errorLogLevel: 'debug' });
             if (result !== null && result !== undefined) {
                 return result.NodeProperties;
             }

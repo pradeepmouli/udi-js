@@ -8,7 +8,10 @@ import { EventEmitter as BaseEventEmitter } from 'events';
 import { Category } from './Definitions/Global/Categories.js';
 
 //import { get } from 'http';
+import PackageJson from '@npmcli/package-json';
 import type { Identity } from '@project-chip/matter.js/util';
+import { existsSync } from 'fs';
+import path from 'path';
 import { isBoxedPrimitive } from 'util/types';
 import { Family, type Driver, type DriverType, type EnumLiteral } from './Definitions/index.js';
 import { EventType } from './Events/EventType.js';
@@ -260,4 +263,26 @@ export function getSubcategory(device: { type: string }) {
 	} catch (err) {
 		return Category.Unknown;
 	}
+}
+
+function getImportMeta() {
+	try {
+		//@ts-ignore
+		return import.meta;
+	} catch (err) {
+		//@ts-ignore
+		let { dirname, filename } = { dirname: __dirname, filename: __filename };
+
+		return { dirname, filename };
+	}
+}
+export async function findPackageJson(currentPath: string = getImportMeta()?.dirname): Promise<PackageJson> {
+	while (currentPath !== '/') {
+		const packageJsonPath = path.join(currentPath, 'package.json');
+		if (existsSync(packageJsonPath)) {
+			return await PackageJson.load(currentPath);
+		}
+		currentPath = path.join(currentPath, '..');
+	}
+	return null;
 }

@@ -1,17 +1,18 @@
-import { stat, unlink } from 'fs';
+#!/usr/bin/env node
+//import '@project-chip/matter-node.js';
+import { existsSync, stat, unlink } from 'fs';
 import path from 'path';
-//import { ISY } from 'isy-nodejs/ISY';
+import { Command } from 'commander';
 import { config } from 'dotenv';
 import { expand } from 'dotenv-expand';
-import { Command } from 'commander';
+import { chmod } from 'fs/promises';
 import { createServer } from 'net';
 import { exit } from 'process';
+import { promisify } from 'util';
 import winston from 'winston';
 import { authenticate } from './authenticate.js';
-import { promisify } from 'util';
 import './utils.js';
 expand(config());
-console.log(JSON.stringify(process.env, null, 2));
 const format = winston.format;
 const myFormat = format.combine(format.splat(), winston.format.printf((info) => {
     const d = new Date();
@@ -36,14 +37,14 @@ let matterConfig = {
     vendorId: Number.parseInt(process.env.MATTER_VENDORID)
 };
 let serverConfig = {
-    logLevel: process.env.LOG_LEVEL,
+    logLevel: process.env.LOG_LEVEL ?? `debug`,
     logPath: process.env.LOG_PATH ?? process.cwd() + '/matter_server.log',
     workingDir: process.env.WORKING_DIR ?? process.cwd()
 };
 let isy;
 let serverNode;
 let pluginEnv;
-let options = { start: false, dependencies: 'static' };
+let options = { autostart: false, dependencies: 'static', env: '.env' };
 let authenticated = false;
 const logger = winston.loggers.add('server', {
     format: winston.format.label({ label: 'server' }),
@@ -59,28 +60,29 @@ const tagFormat = format((info) => {
 const matterServiceSockPath = '/tmp/ns2matter';
 let server;
 async function startSocketServer() {
+    server = createServer((socket) => {
+        //socket.write('Echo server\r\n');
+        //let loggerStream = pipeline(addLogHeaderStream,socket);
+        let t = new winston.transports.Stream({ stream: socket, level: 'info', format: format.combine(tagFormat, format.json()) });
+        logger.add(t);
+        logger.info('Client connected');
+        socket
+            .on('data', async (data) => {
+            logger.debug('Received: ' + data.toString());
+            data.toString().trim().split('\n').forEach(processMessage);
+        })
+            .on('end', () => {
+            logger.info('Client disconnected');
+            authenticated = false;
+        });
+    });
+    server.on('error', (err) => {
+        logger.error('Socket server error: ' + err);
+        exit(1);
+    });
     try {
-        server = createServer((socket) => {
-            //socket.write('Echo server\r\n');
-            //let loggerStream = pipeline(addLogHeaderStream,socket);
-            let t = new winston.transports.Stream({ stream: socket, level: 'info', format: format.combine(tagFormat, format.json()) });
-            logger.add(t);
-            logger.info('Client connected');
-            socket
-                .on('data', async (data) => {
-                logger.debug('Received: ' + data.toString());
-                data.toString().trim().split('\n').forEach(processMessage);
-            })
-                .on('end', () => {
-                logger.info('Client disconnected');
-                authenticated = false;
-            });
-        });
-        server.on('error', (err) => {
-            logger.error('Socket server error: ' + err);
-            exit(1);
-        });
-        await promisify(stat)(matterServiceSockPath);
+        if (existsSync(matterServiceSockPath))
+            await promisify(stat)(matterServiceSockPath);
     }
     catch {
         logger.info('Leftover socket found. Unlinking.');
@@ -95,6 +97,7 @@ async function startSocketServer() {
     let p = Promise.withResolvers();
     server.listen(matterServiceSockPath, () => {
         logger.info('Socket bound.');
+        chmod(matterServiceSockPath, 0o755);
         p.resolve;
     });
     return p.promise;
@@ -168,12 +171,21 @@ async function startBridgeServer() {
         logger.error('Missing configuration');
         return;
     }
+    if (!authenticated) {
+        logger.error('Not authenticated');
+        return;
+    }
     if (isy || serverNode) {
         logger.error('Already started');
         return;
     }
     isy = await loadISYInterface();
     await isy.initialize();
+    logger.info('ISY api initialized');
+    logger.info(`ISY firmware version: ${isy.serverVersion}`);
+    logger.info(`ISY model: ${isy.model}`);
+    logger.info(`ISY api version: ${isy.apiVersion}`);
+    logger.info('Loading Matter Bridge server');
     serverNode = await loadBridgeServer();
 }
 async function loadISYInterface() {
@@ -207,12 +219,14 @@ async function stopBridgeServer() {
             return;
         }
         logger.info('Stopping matter bridge');
-        serverNode.close();
-        serverNode[Symbol.asyncDispose]();
+        await serverNode.close();
+        await serverNode[Symbol.asyncDispose]();
         serverNode = undefined;
+        logger.info('Matter bridge stopped');
+        logger.info('Disposing ISY api');
         isy[Symbol.dispose]();
         isy = undefined;
-        logger.info('Matter bridge stopped');
+        logger.info('ISY api disposed');
     }
     catch (e) {
         logger.error(`Error stopping bridge server ${e.message}`, e);
@@ -231,13 +245,26 @@ process.on('SIGINT', async () => {
     await stopBridgeServer();
     await stopSocketServer();
 });
+/*process.on('exit', async () => {
+    await stopBridgeServer();
+    await stopSocketServer();
+});*/
+process.on('uncaughtException', async (err) => {
+    logger.error('Uncaught exception: ' + err.message, err);
+});
+const dirname = path.dirname(import.meta.url);
 const program = new Command();
 program
-    .option('-s, --start', 'Start matter bridge server on startup', false)
-    .option('-d, --dependencies', 'Load dependencies - static (from local node_modules), plugin (from plugin node_modules)', 'static');
+    .option('-a, --autostart', 'Start matter bridge server on startup', false)
+    .option('-d, --dependencies', 'Load dependencies - static (from local node_modules), plugin (from plugin node_modules)', 'static')
+    .option('-e, --env', 'Path to environment file', '.env');
 program.parse();
 options = program.opts();
-if (options.start) {
+let env = expand(config({ path: path.resolve(dirname, options.env) }));
+console.log(JSON.stringify(env, null, 2));
+console.log(JSON.stringify(process.env, null, 2));
+if (options.autostart) {
+    authenticated = true;
     startBridgeServer();
 }
 else {

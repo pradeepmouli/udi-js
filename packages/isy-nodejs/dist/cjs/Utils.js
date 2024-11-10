@@ -22,6 +22,9 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventEmitter = void 0;
 exports.getEnumValueByEnumKey = getEnumValueByEnumKey;
@@ -42,9 +45,14 @@ exports.removeAll = removeAll;
 exports.parseTypeCode = parseTypeCode;
 exports.getCategory = getCategory;
 exports.getSubcategory = getSubcategory;
+exports.findPackageJson = findPackageJson;
 const winston_1 = __importStar(require("winston"));
 const events_1 = require("events");
 const Categories_js_1 = require("./Definitions/Global/Categories.js");
+//import { get } from 'http';
+const package_json_1 = __importDefault(require("@npmcli/package-json"));
+const fs_1 = require("fs");
+const path_1 = __importDefault(require("path"));
 function getEnumValueByEnumKey(enumType, enumKey) {
     return enumType[enumKey];
 }
@@ -186,5 +194,26 @@ function getSubcategory(device) {
     catch (err) {
         return Categories_js_1.Category.Unknown;
     }
+}
+function getImportMeta() {
+    try {
+        //@ts-ignore
+        return import.meta;
+    }
+    catch (err) {
+        //@ts-ignore
+        let { dirname, filename } = { dirname: __dirname, filename: __filename };
+        return { dirname, filename };
+    }
+}
+async function findPackageJson(currentPath = getImportMeta()?.dirname) {
+    while (currentPath !== '/') {
+        const packageJsonPath = path_1.default.join(currentPath, 'package.json');
+        if ((0, fs_1.existsSync)(packageJsonPath)) {
+            return await package_json_1.default.load(currentPath);
+        }
+        currentPath = path_1.default.join(currentPath, '..');
+    }
+    return null;
 }
 //# sourceMappingURL=Utils.js.map

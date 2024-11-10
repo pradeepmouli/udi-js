@@ -35,7 +35,7 @@ const map = {
         mapping: {
             OnOff: {
                 attributes: {
-                    onOff: { driver: 'ST' }
+                    onOff: { driver: 'ST', converter: 'LevelFrom0To255.Boolean' }
                 },
                 commands: { on: 'DON' }
             },

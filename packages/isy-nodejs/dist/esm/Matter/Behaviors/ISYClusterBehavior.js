@@ -30,7 +30,7 @@ export function ISYClusterBehavior(base, p) {
                 else if (val.driver) {
                     driverObj = this._device.drivers[val.driver];
                     let { driver, converter } = val;
-                    const convFunc = Converter.get(converter).from;
+                    const convFunc = Converter.get(converter)?.from;
                     this.handlers[driver] = (newValue, oldValue, formattedValue) => {
                         if (convFunc)
                             this.state[key2] = convFunc(newValue);

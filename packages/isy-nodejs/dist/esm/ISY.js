@@ -37,6 +37,7 @@ import { ISYVariable } from './ISYVariable.js';
 import * as Utils from './Utils.js';
 import { XMLParser } from 'fast-xml-parser';
 import { NodeFactory } from './Devices/NodeFactory.js';
+import { findPackageJson } from './Utils.js';
 export { Category as Categories, ELKAlarmPanelDevice, ElkAlarmSensorDevice, Family, InsteonBaseDevice, InsteonDimmableDevice, InsteonDimmerOutletDevice, InsteonDimmerSwitchDevice, InsteonDoorWindowSensorDevice, InsteonFanDevice, InsteonFanMotorDevice, InsteonKeypadButtonDevice, InsteonKeypadDimmerDevice, InsteonKeypadRelayDevice, InsteonLeakSensorDevice, InsteonLockDevice, InsteonMotionSensorDevice, InsteonOnOffOutletDevice, InsteonOutletDevice, InsteonRelayDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDeviceNode as ISYDevice, ISYNode, ISYScene, ISYVariable, NodeType, Props, States, Utils, VariableType };
 const defaultParserOptions = {
     explicitArray: false,
@@ -106,6 +107,7 @@ export class ISY extends EventEmitter {
     serverVersion;
     vendorName = 'Universal Devices, Inc.';
     webSocket;
+    apiVersion;
     // #endregion Properties (30)
     // #region Constructors (1)
     constructor(config, logger = new Logger(), storagePath) {
@@ -281,6 +283,7 @@ export class ISY extends EventEmitter {
     async initialize() {
         const that = this;
         try {
+            this.apiVersion = (await findPackageJson()).content.version;
             await this.loadConfig();
             await this.loadNodes();
             await this.loadVariables(VariableType.Integer);

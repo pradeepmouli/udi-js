@@ -77,6 +77,7 @@ export declare class ISY extends EventEmitter implements Disposable {
     serverVersion: any;
     vendorName: string;
     webSocket: WebSocket.Client;
+    apiVersion: string;
     constructor(config: ISYConfig, logger?: Logger, storagePath?: string);
     get address(): string;
     get isDebugEnabled(): boolean;

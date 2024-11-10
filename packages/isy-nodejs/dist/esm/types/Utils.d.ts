@@ -2,6 +2,7 @@ import * as log4js from '@log4js-node/log4js-api';
 import { Logger } from 'winston';
 import { EventEmitter as BaseEventEmitter } from 'events';
 import { Category } from './Definitions/Global/Categories.js';
+import PackageJson from '@npmcli/package-json';
 import { EventType } from './Events/EventType.js';
 export type StringKeys<T> = Extract<keyof T, string>;
 export declare function getEnumValueByEnumKey<E extends {
@@ -63,5 +64,6 @@ export declare function getCategory(device: {
 export declare function getSubcategory(device: {
     type: string;
 }): number;
+export declare function findPackageJson(currentPath?: string): Promise<PackageJson>;
 export {};
 //# sourceMappingURL=Utils.d.ts.map

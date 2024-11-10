@@ -38,5 +38,9 @@
     "camelcase": "^8.0.0",
     "humanize": "^0.0.9",
     "humanize-string": "^3.0.0"
-  }
+  },
+   "repository": {
+        "type": "git",
+        "url": "https://github.com/pradeepmouli/isy-js.git"
+    }
 }

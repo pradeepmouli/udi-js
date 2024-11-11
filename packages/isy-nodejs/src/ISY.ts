@@ -4,7 +4,6 @@ import { writeFile } from 'fs';
 import { Parser, type ParserOptions } from 'xml2js';
 import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
 
-
 import axios from 'axios';
 import { EventEmitter } from 'events';
 import winston, { format, Logger, loggers, type LeveledLogMethod } from 'winston';
@@ -43,8 +42,9 @@ import * as Utils from './Utils.js';
 
 import { X2jOptions, XMLParser } from 'fast-xml-parser';
 import { NodeFactory } from './Devices/NodeFactory.js';
+import type { Config } from './Model/Config.js';
 import { findPackageJson } from './Utils.js';
-
+import path from 'path';
 
 export {
 	Category as Categories,
@@ -157,7 +157,7 @@ export class ISY extends EventEmitter implements Disposable {
 
 	public static instance: ISY;
 
-	public configInfo: any;
+	public configInfo: Config;
 	public elkAlarmPanel: ELKAlarmPanelDevice;
 	public guardianTimer: any;
 	public id: string;
@@ -167,13 +167,11 @@ export class ISY extends EventEmitter implements Disposable {
 	public nodesLoaded: boolean = false;
 	public productId = 5226;
 	public productName = 'eisy';
-	public serverVersion: any;
+	public firmwareVersion: any;
 	public vendorName = 'Universal Devices, Inc.';
 	public webSocket: WebSocket.Client;
 
 	public apiVersion: string;
-
-
 
 	// #endregion Properties (30)
 
@@ -230,11 +228,7 @@ export class ISY extends EventEmitter implements Disposable {
 	// #region Public Methods (24)
 
 	[Symbol.dispose](): void {
-		try {
-			this.webSocket?.close();
-		} catch (e) {
-			this.logger.error(`Error closing websocket: ${e.message}`);
-		}
+		this.close();
 	}
 
 	public override emit(event: 'InitializeCompleted' | 'NodeAdded' | 'NodeRemoved' | 'NodeChanged', node?: ISYNode<any, any, any, any>): boolean {
@@ -292,7 +286,7 @@ export class ISY extends EventEmitter implements Disposable {
 	}
 
 	public async handleInitializeError(step: string, reason: any): Promise<any> {
-		this.logger.error(`Error initializing ISY (${step}): ${JSON.stringify(reason)}`);
+		this.logger.error(`Error initializing ISY (${step}): ${Utils.logStringify(reason)}`);
 		return Promise.reject(reason);
 	}
 
@@ -340,7 +334,7 @@ export class ISY extends EventEmitter implements Disposable {
 					}
 					break;
 				case EventType.Heartbeat:
-					this.logger.debug(`Received ${EventType[Number(stringControl)]} Signal from ISY: ${JSON.stringify(evt)}`);
+					this.logger.debug(`Received ${EventType[Number(stringControl)]} Signal from ISY: ${Utils.logStringify(evt)}`);
 					break;
 
 				default:
@@ -354,13 +348,13 @@ export class ISY extends EventEmitter implements Disposable {
 								this.logger.error(`Error handling event for ${impactedDevice.name}: ${e.message}`);
 							}
 						} else {
-							this.logger.warn(`${EventType[stringControl]} Event for Unidentified Device: ${JSON.stringify(evt)}`);
+							this.logger.debug(`${EventType[stringControl]} Event for Unidentified Device: ${JSON.stringify(evt)}`);
 						}
 					} else {
 						if (stringControl === EventType.NodeChanged) {
-							this.logger.info(`Received Node Change Event: ${JSON.stringify(evt)}. These are currently unsupported.`);
+							this.logger.debug(`Received Node Change Event: ${JSON.stringify(evt)}. These are currently unsupported.`);
 						}
-						this.logger.debug(`${EventType[Number(stringControl)]} Event: ${JSON.stringify(evt)}`);
+						this.logger.debug(`${EventType[Number(stringControl)]} Event: ${Utils.logStringify(evt)}`);
 					}
 
 					break;
@@ -371,7 +365,7 @@ export class ISY extends EventEmitter implements Disposable {
 	public async initialize(): Promise<any> {
 		const that = this;
 		try {
-			this.apiVersion = (await findPackageJson()).content.version;
+			this.apiVersion = (await findPackageJson()).version;
 			await this.loadConfig();
 			await this.loadNodes();
 			await this.loadVariables(VariableType.Integer);
@@ -435,19 +429,18 @@ export class ISY extends EventEmitter implements Disposable {
 	public async loadConfig(): Promise<any> {
 		try {
 			this.logger.info('Loading ISY Config');
-			const configuration = (await this.sendRequest('config')).configuration;
+			const configuration = (await this.sendRequest('config')).configuration as Config;
 			if (this.isDebugEnabled) {
-				writeFile(this.storagePath + '/ISYConfigDump.json', JSON.stringify(configuration), this.logger.error);
+				writeFile(path.resolve(this.storagePath, 'ISYConfigDump.json'), JSON.stringify(configuration), this.logger.error);
 			}
 
 			const controls = configuration.controls;
 			this.model = configuration.deviceSpecs.model;
-			this.serverVersion = configuration.app_version;
+			this.firmwareVersion = configuration.app_full_version;
 			this.vendorName = configuration.deviceSpecs.make;
 			this.productId = configuration.product.id;
 			this.productName = configuration.product.desc;
 			this.id = configuration.root.id;
-			// TODO: Check Installed Features
 			// this.logger.info(result.configuration);
 			if (controls !== undefined) {
 				// this.logger.info(controls.control);
@@ -496,7 +489,9 @@ export class ISY extends EventEmitter implements Disposable {
 		}
 	}
 
-	public override on(event: 'InitializeCompleted' | 'NodeAdded' | 'NodeRemoved' | 'NodeChanged', listener: (node?: ISYNode<any, any, any, any>) => void): this {
+	public override on(event: 'initializeCompleted', listener: () => void): this;
+	public override on(event: 'nodeAdded' | 'nodeRemoved' | 'nodeChanged', listener: (node?: ISYNode<any, any, any, any>) => void): this;
+	override on(event: 'initializeCompleted' | 'nodeAdded' | 'nodeRemoved' | 'nodeChanged', listener: (node?: ISYNode<any, any, any, any>) => void): this {
 		return super.on(event, listener);
 	}
 
@@ -635,7 +630,11 @@ export class ISY extends EventEmitter implements Disposable {
 	}
 
 	public close() {
-		if (this.webSocket) this.webSocket.close();
+		try {
+			this.webSocket?.close();
+		} catch (e) {
+			this.logger.error(`Error closing websocket: ${e.message}`);
+		}
 	}
 
 	// #endregion Public Methods (24)

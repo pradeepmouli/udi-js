@@ -97,6 +97,7 @@ exports.Utils = Utils;
 const fast_xml_parser_1 = require("fast-xml-parser");
 const NodeFactory_js_1 = require("./Devices/NodeFactory.js");
 const Utils_js_1 = require("./Utils.js");
+const path_1 = __importDefault(require("path"));
 const defaultParserOptions = {
     explicitArray: false,
     mergeAttrs: true,
@@ -162,7 +163,7 @@ class ISY extends events_1.EventEmitter {
     nodesLoaded = false;
     productId = 5226;
     productName = 'eisy';
-    serverVersion;
+    firmwareVersion;
     vendorName = 'Universal Devices, Inc.';
     webSocket;
     apiVersion;
@@ -209,12 +210,7 @@ class ISY extends events_1.EventEmitter {
     // #endregion Public Getters And Setters (2)
     // #region Public Methods (24)
     [Symbol.dispose]() {
-        try {
-            this.webSocket?.close();
-        }
-        catch (e) {
-            this.logger.error(`Error closing websocket: ${e.message}`);
-        }
+        this.close();
     }
     emit(event, node) {
         return super.emit(event, node);
@@ -264,7 +260,7 @@ class ISY extends events_1.EventEmitter {
         return this.variableList;
     }
     async handleInitializeError(step, reason) {
-        this.logger.error(`Error initializing ISY (${step}): ${JSON.stringify(reason)}`);
+        this.logger.error(`Error initializing ISY (${step}): ${Utils.logStringify(reason)}`);
         return Promise.reject(reason);
     }
     handleWebSocketMessage(event) {
@@ -310,7 +306,7 @@ class ISY extends events_1.EventEmitter {
                     }
                     break;
                 case EventType_js_1.EventType.Heartbeat:
-                    this.logger.debug(`Received ${EventType_js_1.EventType[Number(stringControl)]} Signal from ISY: ${JSON.stringify(evt)}`);
+                    this.logger.debug(`Received ${EventType_js_1.EventType[Number(stringControl)]} Signal from ISY: ${Utils.logStringify(evt)}`);
                     break;
                 default:
                     if (evt.node !== '' && evt.node !== undefined && evt.node !== null) {
@@ -325,14 +321,14 @@ class ISY extends events_1.EventEmitter {
                             }
                         }
                         else {
-                            this.logger.warn(`${EventType_js_1.EventType[stringControl]} Event for Unidentified Device: ${JSON.stringify(evt)}`);
+                            this.logger.debug(`${EventType_js_1.EventType[stringControl]} Event for Unidentified Device: ${JSON.stringify(evt)}`);
                         }
                     }
                     else {
                         if (stringControl === EventType_js_1.EventType.NodeChanged) {
-                            this.logger.info(`Received Node Change Event: ${JSON.stringify(evt)}. These are currently unsupported.`);
+                            this.logger.debug(`Received Node Change Event: ${JSON.stringify(evt)}. These are currently unsupported.`);
                         }
-                        this.logger.debug(`${EventType_js_1.EventType[Number(stringControl)]} Event: ${JSON.stringify(evt)}`);
+                        this.logger.debug(`${EventType_js_1.EventType[Number(stringControl)]} Event: ${Utils.logStringify(evt)}`);
                     }
                     break;
             }
@@ -341,7 +337,7 @@ class ISY extends events_1.EventEmitter {
     async initialize() {
         const that = this;
         try {
-            this.apiVersion = (await (0, Utils_js_1.findPackageJson)()).content.version;
+            this.apiVersion = (await (0, Utils_js_1.findPackageJson)()).version;
             await this.loadConfig();
             await this.loadNodes();
             await this.loadVariables(ISYConstants_js_1.VariableType.Integer);
@@ -406,16 +402,15 @@ class ISY extends events_1.EventEmitter {
             this.logger.info('Loading ISY Config');
             const configuration = (await this.sendRequest('config')).configuration;
             if (this.isDebugEnabled) {
-                (0, fs_1.writeFile)(this.storagePath + '/ISYConfigDump.json', JSON.stringify(configuration), this.logger.error);
+                (0, fs_1.writeFile)(path_1.default.resolve(this.storagePath, 'ISYConfigDump.json'), JSON.stringify(configuration), this.logger.error);
             }
             const controls = configuration.controls;
             this.model = configuration.deviceSpecs.model;
-            this.serverVersion = configuration.app_version;
+            this.firmwareVersion = configuration.app_full_version;
             this.vendorName = configuration.deviceSpecs.make;
             this.productId = configuration.product.id;
             this.productName = configuration.product.desc;
             this.id = configuration.root.id;
-            // TODO: Check Installed Features
             // this.logger.info(result.configuration);
             if (controls !== undefined) {
                 // this.logger.info(controls.control);
@@ -586,8 +581,12 @@ class ISY extends events_1.EventEmitter {
         this.logger.info(`Variable: ${variable.id} (${variable.type}) changed`);
     }
     close() {
-        if (this.webSocket)
-            this.webSocket.close();
+        try {
+            this.webSocket?.close();
+        }
+        catch (e) {
+            this.logger.error(`Error closing websocket: ${e.message}`);
+        }
     }
     // #endregion Public Methods (24)
     // #region Private Methods (11)

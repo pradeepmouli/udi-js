@@ -37,6 +37,7 @@ import * as Utils from './Utils.js';
 import { XMLParser } from 'fast-xml-parser';
 import { NodeFactory } from './Devices/NodeFactory.js';
 import { findPackageJson } from './Utils.js';
+import path from 'path';
 export { Category as Categories, ELKAlarmPanelDevice, ElkAlarmSensorDevice, Family, InsteonBaseDevice, InsteonDimmableDevice, InsteonDimmerOutletDevice, InsteonDimmerSwitchDevice, InsteonDoorWindowSensorDevice, InsteonFanDevice, InsteonFanMotorDevice, InsteonKeypadButtonDevice, InsteonKeypadDimmerDevice, InsteonKeypadRelayDevice, InsteonLeakSensorDevice, InsteonLockDevice, InsteonMotionSensorDevice, InsteonOnOffOutletDevice, InsteonOutletDevice, InsteonRelayDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDeviceNode as ISYDevice, ISYNode, ISYScene, ISYVariable, NodeType, Props, States, Utils, VariableType };
 const defaultParserOptions = {
     explicitArray: false,
@@ -103,7 +104,7 @@ export class ISY extends EventEmitter {
     nodesLoaded = false;
     productId = 5226;
     productName = 'eisy';
-    serverVersion;
+    firmwareVersion;
     vendorName = 'Universal Devices, Inc.';
     webSocket;
     apiVersion;
@@ -150,12 +151,7 @@ export class ISY extends EventEmitter {
     // #endregion Public Getters And Setters (2)
     // #region Public Methods (24)
     [Symbol.dispose]() {
-        try {
-            this.webSocket?.close();
-        }
-        catch (e) {
-            this.logger.error(`Error closing websocket: ${e.message}`);
-        }
+        this.close();
     }
     emit(event, node) {
         return super.emit(event, node);
@@ -205,7 +201,7 @@ export class ISY extends EventEmitter {
         return this.variableList;
     }
     async handleInitializeError(step, reason) {
-        this.logger.error(`Error initializing ISY (${step}): ${JSON.stringify(reason)}`);
+        this.logger.error(`Error initializing ISY (${step}): ${Utils.logStringify(reason)}`);
         return Promise.reject(reason);
     }
     handleWebSocketMessage(event) {
@@ -251,7 +247,7 @@ export class ISY extends EventEmitter {
                     }
                     break;
                 case EventType.Heartbeat:
-                    this.logger.debug(`Received ${EventType[Number(stringControl)]} Signal from ISY: ${JSON.stringify(evt)}`);
+                    this.logger.debug(`Received ${EventType[Number(stringControl)]} Signal from ISY: ${Utils.logStringify(evt)}`);
                     break;
                 default:
                     if (evt.node !== '' && evt.node !== undefined && evt.node !== null) {
@@ -266,14 +262,14 @@ export class ISY extends EventEmitter {
                             }
                         }
                         else {
-                            this.logger.warn(`${EventType[stringControl]} Event for Unidentified Device: ${JSON.stringify(evt)}`);
+                            this.logger.debug(`${EventType[stringControl]} Event for Unidentified Device: ${JSON.stringify(evt)}`);
                         }
                     }
                     else {
                         if (stringControl === EventType.NodeChanged) {
-                            this.logger.info(`Received Node Change Event: ${JSON.stringify(evt)}. These are currently unsupported.`);
+                            this.logger.debug(`Received Node Change Event: ${JSON.stringify(evt)}. These are currently unsupported.`);
                         }
-                        this.logger.debug(`${EventType[Number(stringControl)]} Event: ${JSON.stringify(evt)}`);
+                        this.logger.debug(`${EventType[Number(stringControl)]} Event: ${Utils.logStringify(evt)}`);
                     }
                     break;
             }
@@ -282,7 +278,7 @@ export class ISY extends EventEmitter {
     async initialize() {
         const that = this;
         try {
-            this.apiVersion = (await findPackageJson()).content.version;
+            this.apiVersion = (await findPackageJson()).version;
             await this.loadConfig();
             await this.loadNodes();
             await this.loadVariables(VariableType.Integer);
@@ -347,16 +343,15 @@ export class ISY extends EventEmitter {
             this.logger.info('Loading ISY Config');
             const configuration = (await this.sendRequest('config')).configuration;
             if (this.isDebugEnabled) {
-                writeFile(this.storagePath + '/ISYConfigDump.json', JSON.stringify(configuration), this.logger.error);
+                writeFile(path.resolve(this.storagePath, 'ISYConfigDump.json'), JSON.stringify(configuration), this.logger.error);
             }
             const controls = configuration.controls;
             this.model = configuration.deviceSpecs.model;
-            this.serverVersion = configuration.app_version;
+            this.firmwareVersion = configuration.app_full_version;
             this.vendorName = configuration.deviceSpecs.make;
             this.productId = configuration.product.id;
             this.productName = configuration.product.desc;
             this.id = configuration.root.id;
-            // TODO: Check Installed Features
             // this.logger.info(result.configuration);
             if (controls !== undefined) {
                 // this.logger.info(controls.control);
@@ -527,8 +522,12 @@ export class ISY extends EventEmitter {
         this.logger.info(`Variable: ${variable.id} (${variable.type}) changed`);
     }
     close() {
-        if (this.webSocket)
-            this.webSocket.close();
+        try {
+            this.webSocket?.close();
+        }
+        catch (e) {
+            this.logger.error(`Error closing websocket: ${e.message}`);
+        }
     }
     // #endregion Public Methods (24)
     // #region Private Methods (11)

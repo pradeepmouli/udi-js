@@ -46,11 +46,10 @@ exports.parseTypeCode = parseTypeCode;
 exports.getCategory = getCategory;
 exports.getSubcategory = getSubcategory;
 exports.findPackageJson = findPackageJson;
+exports.logStringify = logStringify;
 const winston_1 = __importStar(require("winston"));
 const events_1 = require("events");
 const Categories_js_1 = require("./Definitions/Global/Categories.js");
-//import { get } from 'http';
-const package_json_1 = __importDefault(require("@npmcli/package-json"));
 const fs_1 = require("fs");
 const path_1 = __importDefault(require("path"));
 function getEnumValueByEnumKey(enumType, enumKey) {
@@ -207,13 +206,41 @@ function getImportMeta() {
     }
 }
 async function findPackageJson(currentPath = getImportMeta()?.dirname) {
-    while (currentPath !== '/') {
-        const packageJsonPath = path_1.default.join(currentPath, 'package.json');
-        if ((0, fs_1.existsSync)(packageJsonPath)) {
-            return await package_json_1.default.load(currentPath);
+    try {
+        while (currentPath !== '/') {
+            const packageJsonPath = path_1.default.join(currentPath, 'package.json');
+            if ((0, fs_1.existsSync)(packageJsonPath)) {
+                return await Promise.resolve(`${packageJsonPath}`).then(s => __importStar(require(s)));
+            }
+            currentPath = path_1.default.join(currentPath, '..');
         }
-        currentPath = path_1.default.join(currentPath, '..');
     }
+    catch { }
     return null;
+}
+function logStringify(obj, indent = 2) {
+    let cache = [];
+    const retVal = JSON.stringify(obj, (key, value) => {
+        if (typeof value === 'object' && value !== null) {
+            if (cache.includes(value)) {
+                // Circular reference found, discard key
+                return;
+            }
+            // Store value in our collection
+            cache.push(value);
+        }
+        if (value instanceof Map) {
+            return [...value];
+        }
+        if (value instanceof Set) {
+            return [...value];
+        }
+        if (key.toLowerCase().includes('password')) {
+            return '********';
+        }
+        return value;
+    }, indent);
+    cache = null;
+    return retVal;
 }
 //# sourceMappingURL=Utils.js.map

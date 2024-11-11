@@ -14,15 +14,16 @@ import { StorageService } from '@project-chip/matter.js/environment';
 import { Level, levelFromString, Logger as MatterLogger } from '@project-chip/matter.js/log';
 import { ServerNode } from '@project-chip/matter.js/node';
 import { QrCode } from '@project-chip/matter.js/schema';
-import { resolve } from 'path';
+import path, { resolve } from 'path';
+import type { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 import { InsteonDimmableDevice, InsteonKeypadButtonDevice, InsteonRelayDevice, ISY } from '../../ISY.js';
 import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
 import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
 import '../Mappings/Insteon.js';
-import type { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 
 // #region Interfaces (1)
 
+export let instance: ServerNode;
 export interface Config {
 	// #region Properties (8)
 
@@ -55,12 +56,21 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 	try {
 		MatterLogger.addLogger(
 			'polyLogger',
-			(level, message) => logger.log(Level[level].toLowerCase().replace('notice', 'info'), message.slice(23).remove(Level[level]).trimStart()) /*Preserve existing formatting, but trim off date*/,
+			(lvl, message) => {
+				let msg = message.slice(23).remove(Level[lvl]).trimStart();
+				let level = Level[lvl].toLowerCase().replace('notice', 'info');
+				if (msg.startsWith('EndpointStructureLogger')) {
+					if (lvl === Level.INFO) level = 'debug';
+				}
+				logger.log(level, msg);
+			},
+			/*Preserve existing formatting, but trim off date*/
 			{
 				defaultLogLevel: levelFromString(logger.level),
 				logFormat: 'plain'
 			}
 		);
+
 	} finally {
 		MatterLogger.defaultLogLevel = levelFromString(logger.level);
 	}
@@ -68,8 +78,8 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 	config = await initializeConfiguration(isy, config);
 
 	logger.info(`Matter config read: ${JSON.stringify(config)}`);
-
-	const server = await ServerNode.create({
+	MatterLogger.removeLogger('default');
+	let server = await ServerNode.create({
 		// Required: Give the Node a unique ID which is used to store the state of this node
 		id: config.uniqueId,
 
@@ -216,12 +226,12 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 	// logEndpoint(EndpointServer.forEndpoint(server), {logAttributePrimitiveValues: true, logAttributeObjectValues: true});
 	//else if(logger.isDebugEnabled())
 	// {
-	logEndpoint(EndpointServer.forEndpoint(server), { logAttributePrimitiveValues: true, logAttributeObjectValues: false });
+	logEndpoint(EndpointServer.forEndpoint(server), { logAttributePrimitiveValues: true, logAttributeObjectValues: false, logClusterGlobalAttributes: false });
 	// }
 	if (server.lifecycle.isOnline) {
 		const { qrPairingCode, manualPairingCode } = server.state.commissioning.pairingCodes;
 
-		logger.info(QrCode.get(qrPairingCode));
+		logger.info('/n' + QrCode.get(qrPairingCode));
 		logger.info(`QR Code URL: https://project-chip.github.io/connectedhomeip/qrcode.html?data=${qrPairingCode}`);
 		logger.info(`Manual pairing code: ${manualPairingCode}`);
 	}
@@ -229,8 +239,22 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 	{
 	  e[1].initialize(e[0] as any);
 	}*/
-
+	instance = server;
 	return server;
+}
+
+type PairingCodeData = {
+	qrPairingCode: string;
+	manualPairingCode: string;
+	renderedQrPairingCode: string;
+	url: string | URL;
+};
+
+export function getPairingCode(server: ServerNode = instance): PairingCodeData {
+	let codes = server.state.commissioning.pairingCodes as PairingCodeData;
+	codes.renderedQrPairingCode = QrCode.get(codes.qrPairingCode);
+	codes.url = `https://project-chip.github.io/connectedhomeip/qrcode.html?data=${codes.qrPairingCode}`;
+	return codes;
 }
 
 async function initializeConfiguration(isy: ISY, config?: Config): Promise<Config> {
@@ -239,12 +263,12 @@ async function initializeConfiguration(isy: ISY, config?: Config): Promise<Confi
 	const environment = NodeJsEnvironment();
 
 	const storageService = environment.get(StorageService);
-	environment.vars.set('storage.path', `${ISY.instance.storagePath}matter`);
+	environment.vars.set('storage.path', path.resolve(isy.storagePath, 'matter'));
 	environment.vars.use(() => {
 		const location = environment.vars.get('storage.path', environment.vars.get('path.root', '.'));
 		storageService.location = location;
 	});
-		storageService.factory = (namespace) => new StorageBackendDisk(resolve(storageService.location ?? '.', namespace), environment.vars.get('storage.clear', false));
+	storageService.factory = (namespace) => new StorageBackendDisk(resolve(storageService.location ?? '.', namespace), environment.vars.get('storage.clear', false));
 	logger.info(`Matter storage location: ${storageService.location} (Directory)`);
 
 	const deviceStorage = (await storageService.open('device')).createContext('data');

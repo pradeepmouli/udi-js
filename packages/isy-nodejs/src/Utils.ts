@@ -8,7 +8,7 @@ import { EventEmitter as BaseEventEmitter } from 'events';
 import { Category } from './Definitions/Global/Categories.js';
 
 //import { get } from 'http';
-import PackageJson from '@npmcli/package-json';
+import type { PackageJson } from '@npmcli/package-json';
 import type { Identity } from '@project-chip/matter.js/util';
 import { existsSync } from 'fs';
 import path from 'path';
@@ -277,12 +277,44 @@ function getImportMeta() {
 	}
 }
 export async function findPackageJson(currentPath: string = getImportMeta()?.dirname): Promise<PackageJson> {
-	while (currentPath !== '/') {
-		const packageJsonPath = path.join(currentPath, 'package.json');
-		if (existsSync(packageJsonPath)) {
-			return await PackageJson.load(currentPath);
+	try {
+		while (currentPath !== '/') {
+			const packageJsonPath = path.join(currentPath, 'package.json');
+			if (existsSync(packageJsonPath)) {
+				return await import(packageJsonPath);
+			}
+			currentPath = path.join(currentPath, '..');
 		}
-		currentPath = path.join(currentPath, '..');
-	}
+	} catch {}
 	return null;
+}
+
+export function logStringify(obj: any, indent = 2) {
+	let cache = [];
+	const retVal = JSON.stringify(
+		obj,
+		(key, value) => {
+			if (typeof value === 'object' && value !== null) {
+				if (cache.includes(value)) {
+					// Circular reference found, discard key
+					return;
+				}
+				// Store value in our collection
+				cache.push(value);
+			}
+			if (value instanceof Map) {
+				return [...value];
+			}
+			if (value instanceof Set) {
+				return [...value];
+			}
+			if (key.toLowerCase().includes('password')) {
+				return '********';
+			}
+			return value;
+		},
+		indent
+	);
+	cache = null;
+	return retVal;
 }

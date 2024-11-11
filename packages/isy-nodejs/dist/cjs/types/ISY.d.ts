@@ -30,6 +30,7 @@ import { ISYNode } from './ISYNode.js';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
 import * as Utils from './Utils.js';
+import type { Config } from './Model/Config.js';
 export { Category as Categories, ELKAlarmPanelDevice, ElkAlarmSensorDevice, Family, InsteonBaseDevice, InsteonDimmableDevice, InsteonDimmerOutletDevice, InsteonDimmerSwitchDevice, InsteonDoorWindowSensorDevice, InsteonFanDevice, InsteonFanMotorDevice, InsteonKeypadButtonDevice, InsteonKeypadDimmerDevice, InsteonKeypadRelayDevice, InsteonLeakSensorDevice, InsteonLockDevice, InsteonMotionSensorDevice, InsteonOnOffOutletDevice, InsteonOutletDevice, InsteonRelayDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDeviceNode as ISYDevice, ISYNode, ISYScene, ISYVariable, NodeType, Props, States, Utils, VariableType };
 export declare let Controls: {};
 interface ISYConfig {
@@ -64,7 +65,7 @@ export declare class ISY extends EventEmitter implements Disposable {
     readonly wsprotocol: 'ws' | 'wss';
     readonly zoneMap: Map<string, ElkAlarmSensorDevice>;
     static instance: ISY;
-    configInfo: any;
+    configInfo: Config;
     elkAlarmPanel: ELKAlarmPanelDevice;
     guardianTimer: any;
     id: string;
@@ -74,7 +75,7 @@ export declare class ISY extends EventEmitter implements Disposable {
     nodesLoaded: boolean;
     productId: number;
     productName: string;
-    serverVersion: any;
+    firmwareVersion: any;
     vendorName: string;
     webSocket: WebSocket.Client;
     apiVersion: string;
@@ -99,7 +100,8 @@ export declare class ISY extends EventEmitter implements Disposable {
     loadNodes(): Promise<any>;
     loadVariables(type: VariableType): Promise<any>;
     nodeChangedHandler(node: ELKAlarmPanelDevice | ElkAlarmSensorDevice, propertyName?: any): void;
-    on(event: 'InitializeCompleted' | 'NodeAdded' | 'NodeRemoved' | 'NodeChanged', listener: (node?: ISYNode<any, any, any, any>) => void): this;
+    on(event: 'initializeCompleted', listener: () => void): this;
+    on(event: 'nodeAdded' | 'nodeRemoved' | 'nodeChanged', listener: (node?: ISYNode<any, any, any, any>) => void): this;
     refreshStatuses(): Promise<void>;
     sendGetVariable(id: any, type: any, handleResult: (arg0: number, arg1: number) => void): Promise<void>;
     sendISYCommand(path: string): Promise<any>;

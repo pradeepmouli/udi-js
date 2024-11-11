@@ -1,7 +1,32 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.instance = void 0;
 exports.create = create;
 exports.createMatterServer = createMatterServer;
+exports.getPairingCode = getPairingCode;
 require("@project-chip/matter-node.js");
 const environment_1 = require("@project-chip/matter-node.js/environment");
 const storage_1 = require("@project-chip/matter-node.js/storage");
@@ -15,7 +40,7 @@ const environment_2 = require("@project-chip/matter.js/environment");
 const log_1 = require("@project-chip/matter.js/log");
 const node_1 = require("@project-chip/matter.js/node");
 const schema_1 = require("@project-chip/matter.js/schema");
-const path_1 = require("path");
+const path_1 = __importStar(require("path"));
 const ISY_js_1 = require("../../ISY.js");
 const ISYBridgedDeviceBehavior_js_1 = require("../Behaviors/ISYBridgedDeviceBehavior.js");
 const ISYOnOffBehavior_js_1 = require("../Behaviors/ISYOnOffBehavior.js");
@@ -31,7 +56,17 @@ async function createMatterServer(isy, config) {
         isy = ISY_js_1.ISY.instance;
     }
     try {
-        log_1.Logger.addLogger('polyLogger', (level, message) => logger.log(log_1.Level[level].toLowerCase().replace('notice', 'info'), message.slice(23).remove(log_1.Level[level]).trimStart()) /*Preserve existing formatting, but trim off date*/, {
+        log_1.Logger.addLogger('polyLogger', (lvl, message) => {
+            let msg = message.slice(23).remove(log_1.Level[lvl]).trimStart();
+            let level = log_1.Level[lvl].toLowerCase().replace('notice', 'info');
+            if (msg.startsWith('EndpointStructureLogger')) {
+                if (lvl === log_1.Level.INFO)
+                    level = 'debug';
+            }
+            logger.log(level, msg);
+        }, 
+        /*Preserve existing formatting, but trim off date*/
+        {
             defaultLogLevel: (0, log_1.levelFromString)(logger.level),
             logFormat: 'plain'
         });
@@ -41,7 +76,8 @@ async function createMatterServer(isy, config) {
     }
     config = await initializeConfiguration(isy, config);
     logger.info(`Matter config read: ${JSON.stringify(config)}`);
-    const server = await node_1.ServerNode.create({
+    log_1.Logger.removeLogger('default');
+    let server = await node_1.ServerNode.create({
         // Required: Give the Node a unique ID which is used to store the state of this node
         id: config.uniqueId,
         // Provide Network relevant configuration like the port
@@ -165,11 +201,11 @@ async function createMatterServer(isy, config) {
     // logEndpoint(EndpointServer.forEndpoint(server), {logAttributePrimitiveValues: true, logAttributeObjectValues: true});
     //else if(logger.isDebugEnabled())
     // {
-    (0, device_1.logEndpoint)(endpoint_1.EndpointServer.forEndpoint(server), { logAttributePrimitiveValues: true, logAttributeObjectValues: false });
+    (0, device_1.logEndpoint)(endpoint_1.EndpointServer.forEndpoint(server), { logAttributePrimitiveValues: true, logAttributeObjectValues: false, logClusterGlobalAttributes: false });
     // }
     if (server.lifecycle.isOnline) {
         const { qrPairingCode, manualPairingCode } = server.state.commissioning.pairingCodes;
-        logger.info(schema_1.QrCode.get(qrPairingCode));
+        logger.info('/n' + schema_1.QrCode.get(qrPairingCode));
         logger.info(`QR Code URL: https://project-chip.github.io/connectedhomeip/qrcode.html?data=${qrPairingCode}`);
         logger.info(`Manual pairing code: ${manualPairingCode}`);
     }
@@ -177,13 +213,20 @@ async function createMatterServer(isy, config) {
     {
       e[1].initialize(e[0] as any);
     }*/
+    exports.instance = server;
     return server;
+}
+function getPairingCode(server = exports.instance) {
+    let codes = server.state.commissioning.pairingCodes;
+    codes.renderedQrPairingCode = schema_1.QrCode.get(codes.qrPairingCode);
+    codes.url = `https://project-chip.github.io/connectedhomeip/qrcode.html?data=${codes.qrPairingCode}`;
+    return codes;
 }
 async function initializeConfiguration(isy, config) {
     var logger = isy.logger;
     const environment = (0, environment_1.NodeJsEnvironment)();
     const storageService = environment.get(environment_2.StorageService);
-    environment.vars.set('storage.path', `${ISY_js_1.ISY.instance.storagePath}matter`);
+    environment.vars.set('storage.path', path_1.default.resolve(isy.storagePath, 'matter'));
     environment.vars.use(() => {
         const location = environment.vars.get('storage.path', environment.vars.get('path.root', '.'));
         storageService.location = location;

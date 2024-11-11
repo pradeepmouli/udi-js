@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 //import '@project-chip/matter-node.js';
-import { existsSync, stat, unlink } from 'fs';
+import { stat, unlink } from 'fs';
 import path from 'path';
 import { Command } from 'commander';
 import { config } from 'dotenv';
 import { expand } from 'dotenv-expand';
 import { chmod } from 'fs/promises';
+import { logStringify } from 'isy-nodejs/Utils.js';
 import { createServer } from 'net';
 import { exit } from 'process';
 import { promisify } from 'util';
@@ -58,36 +59,51 @@ const tagFormat = format((info) => {
     return info;
 })();
 const matterServiceSockPath = '/tmp/ns2matter';
-let server;
+let socketServer;
+let matterServer;
 let clientLogTransport;
+let client;
 async function startSocketServer() {
-    server = createServer((socket) => {
+    socketServer = createServer(async (socket) => {
         //socket.write('Echo server\r\n');
         //let loggerStream = pipeline(addLogHeaderStream,socket);
         clientLogTransport = new winston.transports.Stream({ stream: socket, level: 'info', format: format.combine(tagFormat, format.json()) });
         logger.add(clientLogTransport);
+        if (client) {
+            logger.error('Previous client already connected. Disconnecting previous client.');
+            await new Promise((resolve) => {
+                client.end(() => {
+                    client.destroy();
+                    resolve();
+                });
+            });
+        }
         logger.info('Client connected');
-        socket
+        client = socket;
+        client
             .on('data', async (data) => {
-            logger.debug('Received: ' + data.toString());
-            data.toString().trim().split('\n').forEach(processMessage);
+            logger.debug(`Received: ${data.toString()}`);
+            let s = data.toString().trim().split('\n');
+            for (let line of s) {
+                await processMessage(line);
+            }
+            return;
         })
             .on('end', () => {
             logger.info('Client disconnected');
             logger.remove(clientLogTransport);
+            client = null;
+            clientLogTransport = null;
             authenticated = false;
         });
     });
-    server.on('error', (err) => {
+    socketServer.on('error', (err) => {
         logger.error('Socket server error: ' + err);
         exit(1);
     });
     try {
-        if (existsSync(matterServiceSockPath)) {
-            await promisify(stat)(matterServiceSockPath);
-        }
-    }
-    catch {
+        await promisify(stat)(matterServiceSockPath);
+        logger.info('Removing leftover socket.');
         try {
             await promisify(unlink)(matterServiceSockPath);
         }
@@ -96,19 +112,21 @@ async function startSocketServer() {
             process.exit(0);
         }
     }
-    let p = new Promise((resolve, reject) => {
-        server.listen(matterServiceSockPath, () => {
-            try {
-                logger.info('Socket bound.');
-                chmod(matterServiceSockPath, 0o777);
-                resolve();
-            }
-            catch (e) {
-                reject(e);
-            }
+    finally {
+        return new Promise((resolve, reject) => {
+            socketServer.listen(matterServiceSockPath, () => {
+                try {
+                    logger.info('Socket bound.');
+                    logger.info('Setting socket permissions.');
+                    chmod(matterServiceSockPath, 0o777); //TODO: Set to group only
+                    resolve(socketServer);
+                }
+                catch (e) {
+                    reject(e);
+                }
+            });
         });
-    });
-    return p;
+    }
 }
 /*stat(matterServiceSockPath, function (err, stats) {
     if (err) {
@@ -139,24 +157,24 @@ async function processMessage(line) {
         switch (msg.type) {
             case 'isyConfig':
                 isyConfig = Object.assign(isyConfig, msg);
-                console.log('ISY api config update: ' + JSON.stringify(isyConfig, null, 2));
+                console.log('ISY api config update: ' + logStringify(isyConfig));
                 break;
             case 'matterConfig':
                 matterConfig = Object.assign(matterConfig, msg);
-                console.log('Matter bridge config update: ' + JSON.stringify(matterConfig, null, 2));
+                console.log('Matter bridge config update: ' + logStringify(matterConfig));
                 break;
             case 'serverConfig':
                 serverConfig = Object.assign(serverConfig, msg);
                 logger.transports[2].level = serverConfig.logLevel;
                 //logger.transports[1].filename = serverConfig.logPath;
-                console.log('Server config update: ' + JSON.stringify(serverConfig, null, 2));
+                console.log('Server config update: ' + logStringify(serverConfig));
                 break;
             case 'clientEnv':
                 pluginEnv = msg.env;
-                console.log('Plugin environment variables: ' + JSON.stringify(pluginEnv, null, 2));
+                console.log('Plugin environment variables: ' + logStringify(pluginEnv));
                 break;
             case 'auth':
-                console.log('Authenticating: ' + JSON.stringify(msg, null, 2));
+                console.log('Authenticating: ' + logStringify(msg));
                 authenticated = await authenticate(msg);
                 console.log('Authenticated: ' + authenticated);
                 break;
@@ -165,6 +183,7 @@ async function processMessage(line) {
                     case 'start':
                         logger.info('Matter bridge start requested');
                         await startBridgeServer();
+                        client.write(JSON.stringify({ pairingInfo: matterServer.getPairingCode() }));
                         break;
                     case 'stop':
                         logger.info('Matter bridge stop requested');
@@ -193,10 +212,15 @@ async function startBridgeServer() {
     }
     isy = await loadISYInterface();
     await isy.initialize();
-    logger.info('ISY api initialized');
-    logger.info(`ISY firmware version: ${isy.serverVersion}`);
-    logger.info(`ISY model: ${isy.model}`);
+    logger.info('*'.repeat(80));
+    logger.info('ISY connection established');
+    logger.info(`ISY id: ${isy.id}`);
+    logger.info(`ISY model: ${isy.productName}`);
+    logger.info(`ISY firmware version: ${isy.firmwareVersion}`);
+    logger.info(`ISY model: ${isy.productName}`);
+    logger.info(`ISY model number: ${isy.productId}`);
     logger.info(`ISY api version: ${isy.apiVersion}`);
+    logger.info('*'.repeat(80));
     logger.info('Loading Matter Bridge server');
     serverNode = await loadBridgeServer();
 }
@@ -215,14 +239,13 @@ async function loadISYInterface() {
     logger.info('Loading ISY api from ' + modulePath);
     let isyClass = (await import(modulePath)).ISY;
     logger.info('ISY api loaded');
-    logger.info(`Module meta: ${JSON.stringify(import.meta)}`);
     return new isyClass(isyConfig, logger, serverConfig.workingDir);
 }
 async function loadBridgeServer() {
     logger.info('Loading Matter Bridge api');
-    var server = await import('isy-nodejs/Matter/Bridge/Server');
+    matterServer = await import('isy-nodejs/Matter/Bridge/Server');
     logger.info('Matter Bridge api loaded');
-    return await server.create(isy, matterConfig);
+    return await matterServer.create(isy, matterConfig);
 }
 async function stopBridgeServer() {
     try {
@@ -230,15 +253,18 @@ async function stopBridgeServer() {
             logger.warn('Matter bridge not started');
             return;
         }
-        logger.info('Stopping matter bridge');
-        await serverNode.close();
-        await serverNode[Symbol.asyncDispose]();
-        serverNode = undefined;
-        logger.info('Matter bridge stopped');
-        logger.info('Disposing ISY api');
-        isy[Symbol.dispose]();
-        isy = undefined;
-        logger.info('ISY api disposed');
+        if (serverNode) {
+            logger.info('Stopping matter bridge');
+            await serverNode.close();
+            serverNode = undefined;
+            logger.info('Matter bridge stopped');
+        }
+        if (isy) {
+            logger.info('Disconnecting from ISY');
+            isy[Symbol.dispose]();
+            isy = undefined;
+            logger.info('Disconnected from ISY');
+        }
     }
     catch (e) {
         logger.error(`Error stopping bridge server ${e.message}`, e);
@@ -246,16 +272,25 @@ async function stopBridgeServer() {
 }
 async function stopSocketServer() {
     try {
-        if (server)
-            await promisify(server.close)();
+        if (socketServer) {
+            logger.info('Stopping socket server');
+            delete logger.transports[2];
+            clientLogTransport = null;
+            await promisify(client?.end)();
+            if (socketServer)
+                await promisify(socketServer.close)();
+            client = null;
+            logger.info('Socket server stopped');
+        }
     }
     catch (e) {
         logger.error(`Error stopping socket server ${e.message}`, e);
     }
 }
-process.on('SIGTERM', async () => {
+process.on('SIGINT', async () => {
     await stopBridgeServer();
     await stopSocketServer();
+    process.exit(0);
 });
 /*process.on('exit', async () => {
     await stopBridgeServer();
@@ -270,7 +305,7 @@ program
     .option('-a, --autoStart', 'Start matter bridge server on startup', false)
     .option('-d, --dependencies', 'Load dependencies - static (from local node_modules), plugin (from plugin node_modules)', 'static')
     .option('-e, --env', 'Path to environment file', '.env')
-    .option('-r, --requireAuth', 'Require authentication to start server', true);
+    .option('-r, --requireAuth', 'Require authentication to start bridge server', true);
 program.parse();
 options = program.opts();
 let env = expand(config({ path: path.resolve(dirname, options.env) }));

@@ -6,7 +6,7 @@ import { Command } from 'commander';
 import { config } from 'dotenv';
 import { expand } from 'dotenv-expand';
 import { chmod } from 'fs/promises';
-import { logStringify } from 'isy-nodejs/Utils.js';
+import { logStringify } from 'isy-nodejs/Utils';
 import { createServer } from 'net';
 import { exit } from 'process';
 import { promisify } from 'util';

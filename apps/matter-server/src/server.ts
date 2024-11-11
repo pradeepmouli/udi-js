@@ -10,7 +10,7 @@ import { expand } from 'dotenv-expand';
 import { chmod } from 'fs/promises';
 import type { ISY } from 'isy-nodejs/ISY';
 import type * as MatterServer from 'isy-nodejs/types/Matter/Bridge/Server';
-import { logStringify } from 'isy-nodejs/Utils.js';
+import { logStringify } from 'isy-nodejs/Utils';
 import { createServer, type Server, type Socket } from 'net';
 import { exit } from 'process';
 import { promisify } from 'util';
@@ -216,7 +216,7 @@ async function processMessage(line: string) {
 					case 'start':
 						logger.info('Matter bridge start requested');
 						await startBridgeServer();
-						client.write(JSON.stringify({pairingInfo: matterServer.getPairingCode()}));
+						client.write(JSON.stringify({ pairingInfo: matterServer.getPairingCode() }));
 						break;
 					case 'stop':
 						logger.info('Matter bridge stop requested');
@@ -308,8 +308,7 @@ async function stopBridgeServer() {
 
 async function stopSocketServer() {
 	try {
-		if(socketServer)
-		{
+		if (socketServer) {
 			logger.info('Stopping socket server');
 			delete logger.transports[2];
 			clientLogTransport = null;

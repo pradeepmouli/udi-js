@@ -59,12 +59,13 @@ const tagFormat = format((info) => {
 })();
 const matterServiceSockPath = '/tmp/ns2matter';
 let server;
+let clientLogTransport;
 async function startSocketServer() {
     server = createServer((socket) => {
         //socket.write('Echo server\r\n');
         //let loggerStream = pipeline(addLogHeaderStream,socket);
-        let t = new winston.transports.Stream({ stream: socket, level: 'info', format: format.combine(tagFormat, format.json()) });
-        logger.add(t);
+        clientLogTransport = new winston.transports.Stream({ stream: socket, level: 'info', format: format.combine(tagFormat, format.json()) });
+        logger.add(clientLogTransport);
         logger.info('Client connected');
         socket
             .on('data', async (data) => {
@@ -73,6 +74,7 @@ async function startSocketServer() {
         })
             .on('end', () => {
             logger.info('Client disconnected');
+            logger.remove(clientLogTransport);
             authenticated = false;
         });
     });
@@ -98,7 +100,7 @@ async function startSocketServer() {
         server.listen(matterServiceSockPath, () => {
             try {
                 logger.info('Socket bound.');
-                chmod(matterServiceSockPath, 0o755);
+                chmod(matterServiceSockPath, 0o777);
                 resolve();
             }
             catch (e) {
@@ -145,13 +147,16 @@ async function processMessage(line) {
                 break;
             case 'serverConfig':
                 serverConfig = Object.assign(serverConfig, msg);
+                logger.transports[2].level = serverConfig.logLevel;
+                //logger.transports[1].filename = serverConfig.logPath;
                 console.log('Server config update: ' + JSON.stringify(serverConfig, null, 2));
                 break;
             case 'clientEnv':
                 pluginEnv = msg.env;
                 console.log('Plugin environment variables: ' + JSON.stringify(pluginEnv, null, 2));
                 break;
-            case 'authenticate':
+            case 'auth':
+                console.log('Authenticating: ' + JSON.stringify(msg, null, 2));
                 authenticated = await authenticate(msg);
                 break;
             case 'command':

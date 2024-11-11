@@ -70,7 +70,7 @@ type Message =
 	| ({ type: 'matterConfig' } & MatterServer.Config)
 	| ({ type: 'clientEnv' } & { env: typeof process.env & { PLUGIN_PATH: string } })
 	| ({ type: 'serverConfig' } & { logLevel?: string; logPath?: string })
-	| { type: 'authenticate'; credential: Credential };
+	| { type: 'auth'; credential: Credential };
 
 const logger = winston.loggers.add('server', {
 	format: winston.format.label({ label: 'server' }),
@@ -88,12 +88,14 @@ const tagFormat = format((info) => {
 const matterServiceSockPath = '/tmp/ns2matter';
 
 let server: Server;
+
+let clientLogTransport : winston.transport;
 async function startSocketServer() {
 	server = createServer((socket) => {
 		//socket.write('Echo server\r\n');
 		//let loggerStream = pipeline(addLogHeaderStream,socket);
-		let t = new winston.transports.Stream({ stream: socket, level: 'info', format: format.combine(tagFormat, format.json()) });
-		logger.add(t);
+		clientLogTransport = new winston.transports.Stream({ stream: socket, level: 'info', format: format.combine(tagFormat, format.json()) });
+		logger.add(clientLogTransport);
 		logger.info('Client connected');
 		socket
 			.on('data', async (data: any) => {
@@ -102,6 +104,7 @@ async function startSocketServer() {
 			})
 			.on('end', () => {
 				logger.info('Client disconnected');
+				logger.remove(clientLogTransport);
 				authenticated = false;
 			});
 	});
@@ -126,7 +129,7 @@ async function startSocketServer() {
 		try
 		{
 			logger.info('Socket bound.');
-			chmod(matterServiceSockPath, 0o755);
+			chmod(matterServiceSockPath, 0o777);
 			resolve();
 		}
 		catch(e)
@@ -176,13 +179,16 @@ async function processMessage(line: string) {
 				break;
 			case 'serverConfig':
 				serverConfig = Object.assign(serverConfig, msg);
+				logger.transports[2].level = serverConfig.logLevel;
+				//logger.transports[1].filename = serverConfig.logPath;
 				console.log('Server config update: ' + JSON.stringify(serverConfig, null, 2));
 				break;
 			case 'clientEnv':
 				pluginEnv = msg.env;
 				console.log('Plugin environment variables: ' + JSON.stringify(pluginEnv, null, 2));
 				break;
-			case 'authenticate':
+			case 'auth':
+				console.log('Authenticating: ' + JSON.stringify(msg, null, 2));
 				authenticated = await authenticate(msg);
 				break;
 			case 'command':

@@ -1,6 +1,6 @@
 {
   "name": "@pmouli/isy-matter-server",
-  "version": "1.0.1-alpha.11",
+  "version": "1.0.1-alpha.12",
   "description": "Service to expose an ISY device as a Matter Border router",
   "keywords": [
     "matter",

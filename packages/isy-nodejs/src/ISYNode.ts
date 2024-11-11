@@ -106,7 +106,7 @@ export class ISYNode<
 			.trim();
 		if (this.parentType === NodeType.Folder) {
 			this.folder = isy.folderMap.get(this.parent._);
-			isy.logger.info(`${this.name} this node is in folder ${this.folder}`);
+			isy.logger.debug(`${this.name} is in folder ${this.folder}`);
 			this.logger = (msg: any, level: keyof CliConfigSetLevels = 'debug', ...meta: any[]) => {
 				isy.logger[level](`${this.folder} ${this.name} (${this.address}): ${msg}`, meta);
 				return isy.logger;
@@ -219,7 +219,7 @@ export class ISYNode<
 
 	public async getNotes(): Promise<NodeNotes> {
 		try {
-			const result = await this.isy.sendRequest(`nodes/${this.address}/notes`,{trailingSlash: false,errorLogLevel: 'debug'});
+			const result = await this.isy.sendRequest(`nodes/${this.address}/notes`, { trailingSlash: false, errorLogLevel: 'debug' });
 			if (result !== null && result !== undefined) {
 				return result.NodeProperties;
 			} else {

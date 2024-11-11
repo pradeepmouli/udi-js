@@ -42,14 +42,15 @@ const AggregatorEndpoint_1 = require("@project-chip/matter.js/endpoints/Aggregat
 const environment_2 = require("@project-chip/matter.js/environment");
 const log_1 = require("@project-chip/matter.js/log");
 const node_1 = require("@project-chip/matter.js/node");
+//@ts-ignore
 const package_json_1 = __importDefault(require("@project-chip/matter.js/package.json"));
 const schema_1 = require("@project-chip/matter.js/schema");
 const path_1 = __importStar(require("path"));
+const winston_1 = require("winston");
 const ISY_js_1 = require("../../ISY.js");
 const ISYBridgedDeviceBehavior_js_1 = require("../Behaviors/ISYBridgedDeviceBehavior.js");
 const ISYOnOffBehavior_js_1 = require("../Behaviors/ISYOnOffBehavior.js");
 require("../Mappings/Insteon.js");
-const winston_1 = require("winston");
 //@ts-ignore
 exports.version = package_json_1.default.version;
 // #endregion Interfaces (1)

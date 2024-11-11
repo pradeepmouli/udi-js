@@ -12,15 +12,16 @@ import { AggregatorEndpoint } from '@project-chip/matter.js/endpoints/Aggregator
 import { StorageService } from '@project-chip/matter.js/environment';
 import { Level, levelFromString, Logger as MatterLogger } from '@project-chip/matter.js/log';
 import { ServerNode } from '@project-chip/matter.js/node';
-import PackageJson from '@project-chip/matter.js/package.json';
+//@ts-ignore
+import PackageJson from '@project-chip/matter.js/package.json' with { type: 'json' };
 import { QrCode } from '@project-chip/matter.js/schema';
 import path, { resolve } from 'path';
+import { format, loggers } from 'winston';
 import type { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 import { InsteonDimmableDevice, InsteonKeypadButtonDevice, InsteonRelayDevice, ISY } from '../../ISY.js';
 import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
 import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
 import '../Mappings/Insteon.js';
-import { format, loggers } from 'winston';
 
 // #region Interfaces (1)
 
@@ -51,13 +52,12 @@ export function create(isy?: ISY, config?: Config): Promise<ServerNode> {
 	return createMatterServer(isy, config);
 }
 
-
 export async function createMatterServer(isy?: ISY, config?: Config): Promise<ServerNode> {
 	var logger = loggers.add('matter', {
-	transports: isy.logger.transports,
-	levels: isy.logger.levels,
-	format: format.label({ label: 'Matter' })
-});
+		transports: isy.logger.transports,
+		levels: isy.logger.levels,
+		format: format.label({ label: 'Matter' })
+	});
 	if (isy === undefined) {
 		isy = ISY.instance;
 	}

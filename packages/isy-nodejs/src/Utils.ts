@@ -11,11 +11,11 @@ import { Category } from './Definitions/Global/Categories.js';
 import type { PackageJson } from '@npmcli/package-json';
 import type { Identity } from '@project-chip/matter.js/util';
 import { existsSync } from 'fs';
+import { readFile } from 'fs/promises';
 import path from 'path';
 import { isBoxedPrimitive } from 'util/types';
 import { Family, type Driver, type DriverType, type EnumLiteral } from './Definitions/index.js';
 import { EventType } from './Events/EventType.js';
-import { readFile } from 'fs/promises';
 
 export type StringKeys<T> = Extract<keyof T, string>;
 
@@ -287,9 +287,8 @@ export async function findPackageJson(currentPath: string = getImportMeta().dirn
 			currentPath = path.join(currentPath, '..');
 		}
 	} catch {
-	
 		//@ts-expect-error
-		return (await import ('package.json')).default;
+		return (await import('../../package.json')).default;
 	}
 	return null;
 }

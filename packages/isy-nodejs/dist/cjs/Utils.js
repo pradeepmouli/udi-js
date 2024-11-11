@@ -51,8 +51,8 @@ const winston_1 = __importStar(require("winston"));
 const events_1 = require("events");
 const Categories_js_1 = require("./Definitions/Global/Categories.js");
 const fs_1 = require("fs");
-const path_1 = __importDefault(require("path"));
 const promises_1 = require("fs/promises");
+const path_1 = __importDefault(require("path"));
 function getEnumValueByEnumKey(enumType, enumKey) {
     return enumType[enumKey];
 }
@@ -218,7 +218,7 @@ async function findPackageJson(currentPath = getImportMeta().dirname) {
     }
     catch {
         //@ts-expect-error
-        return (await Promise.resolve().then(() => __importStar(require('package.json')))).default;
+        return (await Promise.resolve().then(() => __importStar(require('../../package.json')))).default;
     }
     return null;
 }

@@ -2,8 +2,8 @@ import winston, { format } from 'winston';
 import { EventEmitter as BaseEventEmitter } from 'events';
 import { Category } from './Definitions/Global/Categories.js';
 import { existsSync } from 'fs';
-import path from 'path';
 import { readFile } from 'fs/promises';
+import path from 'path';
 export function getEnumValueByEnumKey(enumType, enumKey) {
     return enumType[enumKey];
 }
@@ -168,7 +168,7 @@ export async function findPackageJson(currentPath = getImportMeta().dirname) {
     }
     catch {
         //@ts-expect-error
-        return (await import('package.json')).default;
+        return (await import('../../package.json')).default;
     }
     return null;
 }

@@ -77,7 +77,7 @@ class ISYNode {
             .trim();
         if (this.parentType === ISY_js_1.NodeType.Folder) {
             this.folder = isy.folderMap.get(this.parent._);
-            isy.logger.info(`${this.name} this node is in folder ${this.folder}`);
+            isy.logger.debug(`${this.name} is in folder ${this.folder}`);
             this.logger = (msg, level = 'debug', ...meta) => {
                 isy.logger[level](`${this.folder} ${this.name} (${this.address}): ${msg}`, meta);
                 return isy.logger;

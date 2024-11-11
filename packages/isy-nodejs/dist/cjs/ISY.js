@@ -730,7 +730,7 @@ class ISY extends events_1.EventEmitter {
         this.logger.info('Loading Folder Nodes');
         if (result?.nodes?.folder) {
             for (const folder of result.nodes.folder) {
-                this.logger.info(`Loading Folder Node: ${JSON.stringify(folder)}`);
+                this.logger.debug(`Loading Folder Node: ${JSON.stringify(folder)}`);
                 this.folderMap.set(folder.address, folder.name);
             }
         }

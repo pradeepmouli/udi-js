@@ -94,13 +94,19 @@ async function startSocketServer() {
             process.exit(0);
         }
     }
-    let p = Promise.withResolvers();
-    server.listen(matterServiceSockPath, () => {
-        logger.info('Socket bound.');
-        chmod(matterServiceSockPath, 0o755);
-        p.resolve;
+    let p = new Promise((resolve, reject) => {
+        server.listen(matterServiceSockPath, () => {
+            try {
+                logger.info('Socket bound.');
+                chmod(matterServiceSockPath, 0o755);
+                resolve();
+            }
+            catch (e) {
+                reject(e);
+            }
+        });
     });
-    return p.promise;
+    return p;
 }
 /*stat(matterServiceSockPath, function (err, stats) {
     if (err) {

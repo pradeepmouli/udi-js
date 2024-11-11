@@ -153,10 +153,6 @@ async function createMatterServer(isy, config) {
      * offline again because we do not need anything more here. See the Full example for other starting options.
      * The QR Code is printed automatically.
      */
-    process.on('SIGINT', async () => {
-        logger.info('Bringing server offline');
-        server.close();
-    });
     logger.info('Bringing server online');
     await server.start();
     logger.info('Matter Server is online');

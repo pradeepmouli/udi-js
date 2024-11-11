@@ -121,14 +121,21 @@ async function startSocketServer() {
 		}
 	}
 
-	let p = Promise.withResolvers();
+	let p = new Promise<void>((resolve, reject) => {
 	server.listen(matterServiceSockPath, () => {
-		logger.info('Socket bound.');
-		chmod(matterServiceSockPath, 0o755);
-		p.resolve;
-	});
+		try
+		{
+			logger.info('Socket bound.');
+			chmod(matterServiceSockPath, 0o755);
+			resolve();
+		}
+		catch(e)
+		{
+			reject(e);
+		}
+	});});
 
-	return p.promise;
+	return p;
 }
 
 /*stat(matterServiceSockPath, function (err, stats) {

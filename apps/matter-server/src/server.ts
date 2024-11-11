@@ -207,7 +207,7 @@ async function processMessage(line: string) {
 				break;
 		}
 	} catch (e) {
-		console.error('Error processing msg: ' + line);
+		console.error(`Error processing msg: ${line}: ${e.message}`);
 	}
 }
 

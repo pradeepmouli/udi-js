@@ -175,7 +175,7 @@ async function processMessage(line) {
         }
     }
     catch (e) {
-        console.error('Error processing msg: ' + line);
+        console.error(`Error processing msg: ${line}: ${e.message}`);
     }
 }
 async function startBridgeServer() {

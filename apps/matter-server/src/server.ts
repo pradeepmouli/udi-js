@@ -18,9 +18,10 @@ import { authenticate } from './authenticate.js';
 import './utils.js';
 
 type ProgramOptions = {
-	autostart: boolean;
+	autoStart: boolean;
 	dependencies: 'static' | 'plugin' | 'remote';
 	env: string;
+	requireAuth: boolean;
 };
 
 expand(config());
@@ -61,7 +62,7 @@ let serverConfig: { logLevel: string; logPath: string; workingDir: string } = {
 let isy: ISY;
 let serverNode: ServerNode;
 let pluginEnv: typeof process.env & { PLUGIN_PATH: string };
-let options: ProgramOptions = { autostart: false, dependencies: 'static', env: '.env' };
+let options: ProgramOptions = { autoStart: false, dependencies: 'static', env: '.env', requireAuth: true };
 let authenticated: Boolean = false;
 
 type Message =
@@ -89,7 +90,7 @@ const matterServiceSockPath = '/tmp/ns2matter';
 
 let server: Server;
 
-let clientLogTransport : winston.transport;
+let clientLogTransport: winston.transport;
 async function startSocketServer() {
 	server = createServer((socket) => {
 		//socket.write('Echo server\r\n');
@@ -113,9 +114,10 @@ async function startSocketServer() {
 		exit(1);
 	});
 	try {
-		if (existsSync(matterServiceSockPath)) await promisify(stat)(matterServiceSockPath);
+		if (existsSync(matterServiceSockPath)) {
+			await promisify(stat)(matterServiceSockPath);
+		}
 	} catch {
-		logger.info('Leftover socket found. Unlinking.');
 		try {
 			await promisify(unlink)(matterServiceSockPath);
 		} catch (e) {
@@ -125,18 +127,16 @@ async function startSocketServer() {
 	}
 
 	let p = new Promise<void>((resolve, reject) => {
-	server.listen(matterServiceSockPath, () => {
-		try
-		{
-			logger.info('Socket bound.');
-			chmod(matterServiceSockPath, 0o777);
-			resolve();
-		}
-		catch(e)
-		{
-			reject(e);
-		}
-	});});
+		server.listen(matterServiceSockPath, () => {
+			try {
+				logger.info('Socket bound.');
+				chmod(matterServiceSockPath, 0o777);
+				resolve();
+			} catch (e) {
+				reject(e);
+			}
+		});
+	});
 
 	return p;
 }
@@ -190,6 +190,7 @@ async function processMessage(line: string) {
 			case 'auth':
 				console.log('Authenticating: ' + JSON.stringify(msg, null, 2));
 				authenticated = await authenticate(msg);
+				console.log('Authenticated: ' + authenticated);
 				break;
 			case 'command':
 				switch (msg.command) {
@@ -287,7 +288,7 @@ async function stopSocketServer() {
 	}
 }
 
-process.on('SIGINT', async () => {
+process.on('SIGTERM', async () => {
 	await stopBridgeServer();
 	await stopSocketServer();
 });
@@ -305,9 +306,10 @@ const dirname = path.dirname(import.meta.url);
 
 const program = new Command();
 program
-	.option('-a, --autostart', 'Start matter bridge server on startup', false)
+	.option('-a, --autoStart', 'Start matter bridge server on startup', false)
 	.option('-d, --dependencies', 'Load dependencies - static (from local node_modules), plugin (from plugin node_modules)', 'static')
-	.option('-e, --env', 'Path to environment file', '.env');
+	.option('-e, --env', 'Path to environment file', '.env')
+	.option('-r, --requireAuth', 'Require authentication to start server', true);
 program.parse();
 options = program.opts<ProgramOptions>();
 
@@ -317,10 +319,13 @@ console.log(JSON.stringify(env, null, 2));
 
 console.log(JSON.stringify(process.env, null, 2));
 
-if (options.autostart) {
+if (options.autoStart) {
 	authenticated = true;
 	startBridgeServer();
 } else {
+	if (!options.requireAuth) {
+		authenticated = true;
+	}
 	startSocketServer();
 }
 

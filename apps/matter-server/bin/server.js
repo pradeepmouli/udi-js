@@ -44,7 +44,7 @@ let serverConfig = {
 let isy;
 let serverNode;
 let pluginEnv;
-let options = { autostart: false, dependencies: 'static', env: '.env' };
+let options = { autoStart: false, dependencies: 'static', env: '.env', requireAuth: true };
 let authenticated = false;
 const logger = winston.loggers.add('server', {
     format: winston.format.label({ label: 'server' }),
@@ -83,11 +83,11 @@ async function startSocketServer() {
         exit(1);
     });
     try {
-        if (existsSync(matterServiceSockPath))
+        if (existsSync(matterServiceSockPath)) {
             await promisify(stat)(matterServiceSockPath);
+        }
     }
     catch {
-        logger.info('Leftover socket found. Unlinking.');
         try {
             await promisify(unlink)(matterServiceSockPath);
         }
@@ -158,6 +158,7 @@ async function processMessage(line) {
             case 'auth':
                 console.log('Authenticating: ' + JSON.stringify(msg, null, 2));
                 authenticated = await authenticate(msg);
+                console.log('Authenticated: ' + authenticated);
                 break;
             case 'command':
                 switch (msg.command) {
@@ -252,7 +253,7 @@ async function stopSocketServer() {
         logger.error(`Error stopping socket server ${e.message}`, e);
     }
 }
-process.on('SIGINT', async () => {
+process.on('SIGTERM', async () => {
     await stopBridgeServer();
     await stopSocketServer();
 });
@@ -266,19 +267,23 @@ process.on('uncaughtException', async (err) => {
 const dirname = path.dirname(import.meta.url);
 const program = new Command();
 program
-    .option('-a, --autostart', 'Start matter bridge server on startup', false)
+    .option('-a, --autoStart', 'Start matter bridge server on startup', false)
     .option('-d, --dependencies', 'Load dependencies - static (from local node_modules), plugin (from plugin node_modules)', 'static')
-    .option('-e, --env', 'Path to environment file', '.env');
+    .option('-e, --env', 'Path to environment file', '.env')
+    .option('-r, --requireAuth', 'Require authentication to start server', true);
 program.parse();
 options = program.opts();
 let env = expand(config({ path: path.resolve(dirname, options.env) }));
 console.log(JSON.stringify(env, null, 2));
 console.log(JSON.stringify(process.env, null, 2));
-if (options.autostart) {
+if (options.autoStart) {
     authenticated = true;
     startBridgeServer();
 }
 else {
+    if (!options.requireAuth) {
+        authenticated = true;
+    }
     startSocketServer();
 }
 function applyEnvironmentConfig() {

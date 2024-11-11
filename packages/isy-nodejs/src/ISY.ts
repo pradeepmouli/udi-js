@@ -3,7 +3,7 @@ import { writeFile } from 'fs';
 
 import { Parser, type ParserOptions } from 'xml2js';
 import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
-import { XmlDocument } from 'xmldoc';
+
 
 import axios from 'axios';
 import { EventEmitter } from 'events';
@@ -712,17 +712,17 @@ export class ISY extends EventEmitter implements Disposable {
 		});
 	}
 
-	#loadElkNodes(result: any) {
+	/* #loadElkNodes(result: any) {
 		const document = new XmlDocument(result);
 		const nodes = document.childNamed('areas').childNamed('area').childrenNamed('zone');
 		for (let index = 0; index < nodes.length; index++) {
 			const id = nodes[index].attr.id;
 			const name = nodes[index].attr.name;
 			const alarmDef = nodes[index].attr.alarmDef;
-			const newDevice = new ElkAlarmSensorDevice(this, name, 1, id /*TODO: Handle CO Sensor vs. Door/Window Sensor */);
+			const newDevice = new ElkAlarmSensorDevice(this, name, 1, id TODO: Handle CO Sensor vs. Door/Window Sensor );
 			this.zoneMap[newDevice.zone] = newDevice;
 		}
-	}
+	} */
 
 	async #readDeviceNodes(obj: { nodes: { node: NodeInfo[] } }) {
 		this.logger.info('Loading Device Nodes');

@@ -31,7 +31,6 @@ const faye_websocket_1 = __importDefault(require("faye-websocket"));
 const fs_1 = require("fs");
 const xml2js_1 = require("xml2js");
 const processors_js_1 = require("xml2js/lib/processors.js");
-const xmldoc_1 = require("xmldoc");
 const axios_1 = __importDefault(require("axios"));
 const events_1 = require("events");
 const winston_1 = require("winston");
@@ -654,17 +653,17 @@ class ISY extends events_1.EventEmitter {
             }
         });
     }
-    #loadElkNodes(result) {
-        const document = new xmldoc_1.XmlDocument(result);
+    /* #loadElkNodes(result: any) {
+        const document = new XmlDocument(result);
         const nodes = document.childNamed('areas').childNamed('area').childrenNamed('zone');
         for (let index = 0; index < nodes.length; index++) {
             const id = nodes[index].attr.id;
             const name = nodes[index].attr.name;
             const alarmDef = nodes[index].attr.alarmDef;
-            const newDevice = new ElkAlarmSensorDevice_js_1.ElkAlarmSensorDevice(this, name, 1, id /*TODO: Handle CO Sensor vs. Door/Window Sensor */);
+            const newDevice = new ElkAlarmSensorDevice(this, name, 1, id TODO: Handle CO Sensor vs. Door/Window Sensor );
             this.zoneMap[newDevice.zone] = newDevice;
         }
-    }
+    } */
     async #readDeviceNodes(obj) {
         this.logger.info('Loading Device Nodes');
         for (const nodeInfo of obj.nodes.node) {

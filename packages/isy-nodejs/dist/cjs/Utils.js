@@ -205,17 +205,23 @@ function getImportMeta() {
         return { dirname, filename };
     }
 }
-async function findPackageJson(currentPath = getImportMeta()?.dirname) {
+async function findPackageJson(currentPath = './') {
     try {
         while (currentPath !== '/') {
             const packageJsonPath = path_1.default.join(currentPath, 'package.json');
             if ((0, fs_1.existsSync)(packageJsonPath)) {
-                return await Promise.resolve(`${packageJsonPath}`).then(s => __importStar(require(s)));
+                try {
+                    return await Promise.resolve(`${packageJsonPath}`).then(s => __importStar(require(s)));
+                }
+                catch { }
             }
             currentPath = path_1.default.join(currentPath, '..');
         }
     }
-    catch { }
+    catch {
+        //@ts-expect-error
+        return await Promise.resolve().then(() => __importStar(require('package.json')));
+    }
     return null;
 }
 function logStringify(obj, indent = 2) {

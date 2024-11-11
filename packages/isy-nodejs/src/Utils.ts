@@ -276,16 +276,21 @@ function getImportMeta() {
 		return { dirname, filename };
 	}
 }
-export async function findPackageJson(currentPath: string = getImportMeta()?.dirname): Promise<PackageJson> {
+export async function findPackageJson(currentPath: string = './'): Promise<PackageJson> {
 	try {
 		while (currentPath !== '/') {
 			const packageJsonPath = path.join(currentPath, 'package.json');
 			if (existsSync(packageJsonPath)) {
-				return await import(packageJsonPath);
+				try {
+					return await import(packageJsonPath);
+				} catch {}
 			}
 			currentPath = path.join(currentPath, '..');
 		}
-	} catch {}
+	} catch {
+		//@ts-expect-error
+		return await import('package.json');
+	}
 	return null;
 }
 

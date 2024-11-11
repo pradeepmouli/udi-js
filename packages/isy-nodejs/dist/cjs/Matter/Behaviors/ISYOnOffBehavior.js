@@ -36,7 +36,8 @@ exports.ISYOnOffBehavior = ISYOnOffBehavior;
 class ISYDimmableBehavior extends (0, ISYClusterBehavior_js_1.ISYClusterBehavior)(DimmableLightDevice_1.DimmableLightRequirements.LevelControlServer, InsteonDimmableDevice_js_1.InsteonDimmableDevice) {
     async initialize(_options) {
         await super.initialize(_options);
-        this.state.currentLevel = this.device.drivers.ST.value;
+        /*this.state.onLevel = Converter.get('Level255toZero.LightingLevel').to(this.device.drivers.OL)*/
+        //this.state.currentLevel = this.device.drivers.ST.value;
         //this.state.onLevel = this.device.drivers.OL;
     }
     setLevel(level) {

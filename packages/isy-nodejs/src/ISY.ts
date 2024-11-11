@@ -6,7 +6,7 @@ import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
 
 import axios from 'axios';
 import { EventEmitter } from 'events';
-import winston, { format, Logger, loggers, type LeveledLogMethod } from 'winston';
+import { format, Logger, loggers } from 'winston';
 import { Category } from './Definitions/Global/Categories.js';
 import { Family } from './Definitions/Global/Families.js';
 import { DeviceFactory } from './Devices/DeviceFactory.js';

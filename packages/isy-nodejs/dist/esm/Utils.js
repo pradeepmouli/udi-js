@@ -3,6 +3,7 @@ import { EventEmitter as BaseEventEmitter } from 'events';
 import { Category } from './Definitions/Global/Categories.js';
 import { existsSync } from 'fs';
 import path from 'path';
+import { readFile } from 'fs/promises';
 export function getEnumValueByEnumKey(enumType, enumKey) {
     return enumType[enumKey];
 }
@@ -155,22 +156,19 @@ function getImportMeta() {
         return { dirname, filename };
     }
 }
-export async function findPackageJson(currentPath = './') {
+export async function findPackageJson(currentPath = getImportMeta().dirname) {
     try {
         while (currentPath !== '/') {
             const packageJsonPath = path.join(currentPath, 'package.json');
             if (existsSync(packageJsonPath)) {
-                try {
-                    return await import(packageJsonPath);
-                }
-                catch { }
+                return JSON.parse(await readFile(packageJsonPath, 'utf8'));
             }
             currentPath = path.join(currentPath, '..');
         }
     }
     catch {
         //@ts-expect-error
-        return await import('package.json');
+        return (await import('package.json')).default;
     }
     return null;
 }

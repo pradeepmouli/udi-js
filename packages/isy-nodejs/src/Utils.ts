@@ -15,6 +15,7 @@ import path from 'path';
 import { isBoxedPrimitive } from 'util/types';
 import { Family, type Driver, type DriverType, type EnumLiteral } from './Definitions/index.js';
 import { EventType } from './Events/EventType.js';
+import { readFile } from 'fs/promises';
 
 export type StringKeys<T> = Extract<keyof T, string>;
 
@@ -276,20 +277,19 @@ function getImportMeta() {
 		return { dirname, filename };
 	}
 }
-export async function findPackageJson(currentPath: string = './'): Promise<PackageJson> {
+export async function findPackageJson(currentPath: string = getImportMeta().dirname): Promise<PackageJson> {
 	try {
 		while (currentPath !== '/') {
 			const packageJsonPath = path.join(currentPath, 'package.json');
 			if (existsSync(packageJsonPath)) {
-				try {
-					return await import(packageJsonPath);
-				} catch {}
+				return JSON.parse(await readFile(packageJsonPath, 'utf8'));
 			}
 			currentPath = path.join(currentPath, '..');
 		}
 	} catch {
+	
 		//@ts-expect-error
-		return await import('package.json');
+		return (await import ('package.json')).default;
 	}
 	return null;
 }

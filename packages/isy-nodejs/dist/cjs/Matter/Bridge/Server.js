@@ -22,8 +22,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.instance = void 0;
+exports.version = exports.instance = void 0;
 exports.create = create;
 exports.createMatterServer = createMatterServer;
 exports.getPairingCode = getPairingCode;
@@ -39,19 +42,27 @@ const AggregatorEndpoint_1 = require("@project-chip/matter.js/endpoints/Aggregat
 const environment_2 = require("@project-chip/matter.js/environment");
 const log_1 = require("@project-chip/matter.js/log");
 const node_1 = require("@project-chip/matter.js/node");
+const package_json_1 = __importDefault(require("@project-chip/matter.js/package.json"));
 const schema_1 = require("@project-chip/matter.js/schema");
 const path_1 = __importStar(require("path"));
 const ISY_js_1 = require("../../ISY.js");
 const ISYBridgedDeviceBehavior_js_1 = require("../Behaviors/ISYBridgedDeviceBehavior.js");
 const ISYOnOffBehavior_js_1 = require("../Behaviors/ISYOnOffBehavior.js");
 require("../Mappings/Insteon.js");
+const winston_1 = require("winston");
+//@ts-ignore
+exports.version = package_json_1.default.version;
 // #endregion Interfaces (1)
 // #region Functions (3)
 function create(isy, config) {
     return createMatterServer(isy, config);
 }
 async function createMatterServer(isy, config) {
-    var logger = isy.logger;
+    var logger = winston_1.loggers.add('matter', {
+        transports: isy.logger.transports,
+        levels: isy.logger.levels,
+        format: winston_1.format.label({ label: 'Matter' })
+    });
     if (isy === undefined) {
         isy = ISY_js_1.ISY.instance;
     }
@@ -205,7 +216,7 @@ async function createMatterServer(isy, config) {
     // }
     if (server.lifecycle.isOnline) {
         const { qrPairingCode, manualPairingCode } = server.state.commissioning.pairingCodes;
-        logger.info('/n' + schema_1.QrCode.get(qrPairingCode));
+        logger.info('\n' + schema_1.QrCode.get(qrPairingCode));
         logger.info(`QR Code URL: https://project-chip.github.io/connectedhomeip/qrcode.html?data=${qrPairingCode}`);
         logger.info(`Manual pairing code: ${manualPairingCode}`);
     }

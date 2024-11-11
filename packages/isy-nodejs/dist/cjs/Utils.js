@@ -52,6 +52,7 @@ const events_1 = require("events");
 const Categories_js_1 = require("./Definitions/Global/Categories.js");
 const fs_1 = require("fs");
 const path_1 = __importDefault(require("path"));
+const promises_1 = require("fs/promises");
 function getEnumValueByEnumKey(enumType, enumKey) {
     return enumType[enumKey];
 }
@@ -205,22 +206,19 @@ function getImportMeta() {
         return { dirname, filename };
     }
 }
-async function findPackageJson(currentPath = './') {
+async function findPackageJson(currentPath = getImportMeta().dirname) {
     try {
         while (currentPath !== '/') {
             const packageJsonPath = path_1.default.join(currentPath, 'package.json');
             if ((0, fs_1.existsSync)(packageJsonPath)) {
-                try {
-                    return await Promise.resolve(`${packageJsonPath}`).then(s => __importStar(require(s)));
-                }
-                catch { }
+                return JSON.parse(await (0, promises_1.readFile)(packageJsonPath, 'utf8'));
             }
             currentPath = path_1.default.join(currentPath, '..');
         }
     }
     catch {
         //@ts-expect-error
-        return await Promise.resolve().then(() => __importStar(require('package.json')));
+        return (await Promise.resolve().then(() => __importStar(require('package.json')))).default;
     }
     return null;
 }

@@ -1,18 +1,18 @@
 import '@project-chip/matter-node.js';
 import { NodeJsEnvironment } from '@project-chip/matter-node.js/environment';
 import { StorageBackendDisk } from '@project-chip/matter-node.js/storage';
-import { CommissioningOptions } from '@project-chip/matter.js/behavior/system/commissioning';
 import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
 import { VendorId } from '@project-chip/matter.js/datatype';
-import { logEndpoint, OnOffBaseDevice } from '@project-chip/matter.js/device';
+import { logEndpoint } from '@project-chip/matter.js/device';
 import { Endpoint, EndpointServer } from '@project-chip/matter.js/endpoint';
 import { DimmableLightDevice, OnOffLightDevice } from '@project-chip/matter.js/endpoint/definitions';
 import type { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
-import { EndpointType, MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
+import { MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
 import { AggregatorEndpoint } from '@project-chip/matter.js/endpoints/AggregatorEndpoint';
 import { StorageService } from '@project-chip/matter.js/environment';
 import { Level, levelFromString, Logger as MatterLogger } from '@project-chip/matter.js/log';
 import { ServerNode } from '@project-chip/matter.js/node';
+import PackageJson from '@project-chip/matter.js/package.json';
 import { QrCode } from '@project-chip/matter.js/schema';
 import path, { resolve } from 'path';
 import type { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
@@ -20,10 +20,14 @@ import { InsteonDimmableDevice, InsteonKeypadButtonDevice, InsteonRelayDevice, I
 import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
 import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
 import '../Mappings/Insteon.js';
+import { format, loggers } from 'winston';
 
 // #region Interfaces (1)
 
 export let instance: ServerNode;
+
+//@ts-ignore
+export let version: string = PackageJson.version;
 export interface Config {
 	// #region Properties (8)
 
@@ -47,8 +51,13 @@ export function create(isy?: ISY, config?: Config): Promise<ServerNode> {
 	return createMatterServer(isy, config);
 }
 
+
 export async function createMatterServer(isy?: ISY, config?: Config): Promise<ServerNode> {
-	var logger = isy.logger;
+	var logger = loggers.add('matter', {
+	transports: isy.logger.transports,
+	levels: isy.logger.levels,
+	format: format.label({ label: 'Matter' })
+});
 	if (isy === undefined) {
 		isy = ISY.instance;
 	}
@@ -70,7 +79,6 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 				logFormat: 'plain'
 			}
 		);
-
 	} finally {
 		MatterLogger.defaultLogLevel = levelFromString(logger.level);
 	}
@@ -231,7 +239,7 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 	if (server.lifecycle.isOnline) {
 		const { qrPairingCode, manualPairingCode } = server.state.commissioning.pairingCodes;
 
-		logger.info('/n' + QrCode.get(qrPairingCode));
+		logger.info('\n' + QrCode.get(qrPairingCode));
 		logger.info(`QR Code URL: https://project-chip.github.io/connectedhomeip/qrcode.html?data=${qrPairingCode}`);
 		logger.info(`Manual pairing code: ${manualPairingCode}`);
 	}

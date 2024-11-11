@@ -212,17 +212,16 @@ async function startBridgeServer() {
     }
     isy = await loadISYInterface();
     await isy.initialize();
+    logger.info('Connected to ISY');
+    serverNode = await loadBridgeServer();
+    logger.info('Matter bridge server started');
     logger.info('*'.repeat(80));
-    logger.info('ISY connection established');
-    logger.info(`ISY id: ${isy.id}`);
-    logger.info(`ISY model: ${isy.productName}`);
     logger.info(`ISY firmware version: ${isy.firmwareVersion}`);
     logger.info(`ISY model: ${isy.productName}`);
     logger.info(`ISY model number: ${isy.productId}`);
     logger.info(`ISY api version: ${isy.apiVersion}`);
+    logger.info(`Matter api version: ${matterServer.version}`);
     logger.info('*'.repeat(80));
-    logger.info('Loading Matter Bridge server');
-    serverNode = await loadBridgeServer();
 }
 async function loadISYInterface() {
     let modulePath = 'isy-nodejs/ISY';
@@ -245,7 +244,10 @@ async function loadBridgeServer() {
     logger.info('Loading Matter Bridge api');
     matterServer = await import('isy-nodejs/Matter/Bridge/Server');
     logger.info('Matter Bridge api loaded');
-    return await matterServer.create(isy, matterConfig);
+    logger.info('Starting matter bridge server');
+    let s = await matterServer.create(isy, matterConfig);
+    logger.info('Matter bridge server started');
+    return s;
 }
 async function stopBridgeServer() {
     try {

@@ -30,13 +30,10 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.
 		await super.off();
 		await this.device.off();
 
-
-
 		// this.device.drivers = false;
 	}
 
 	override toggle = async () => {
-
 		//this.device.state = !(await this.device.state);
 	};
 
@@ -45,7 +42,6 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.
 			this.state.onOff = newValue;
 		}*/
 
-
 		return super.handlePropertyChange({ driver, newValue, oldValue, formattedValue });
 	}
 }
@@ -53,7 +49,8 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.
 export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequirements.LevelControlServer, InsteonDimmableDevice) {
 	override async initialize(_options?: {}) {
 		await super.initialize(_options);
-		this.state.currentLevel = this.device.drivers.ST.value;
+		/*this.state.onLevel = Converter.get('Level255toZero.LightingLevel').to(this.device.drivers.OL)*/
+		//this.state.currentLevel = this.device.drivers.ST.value;
 
 		//this.state.onLevel = this.device.drivers.OL;
 	}

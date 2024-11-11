@@ -3,6 +3,7 @@ import { ServerNode } from '@project-chip/matter.js/node';
 import { ISY } from '../../ISY.js';
 import '../Mappings/Insteon.js';
 export declare let instance: ServerNode;
+export declare let version: string;
 export interface Config {
     discriminator: number;
     passcode: number;

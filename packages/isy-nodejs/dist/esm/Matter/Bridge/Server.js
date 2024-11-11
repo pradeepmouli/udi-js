@@ -10,21 +10,29 @@ import { AggregatorEndpoint } from '@project-chip/matter.js/endpoints/Aggregator
 import { StorageService } from '@project-chip/matter.js/environment';
 import { Level, levelFromString, Logger as MatterLogger } from '@project-chip/matter.js/log';
 import { ServerNode } from '@project-chip/matter.js/node';
+import PackageJson from '@project-chip/matter.js/package.json';
 import { QrCode } from '@project-chip/matter.js/schema';
 import path, { resolve } from 'path';
 import { InsteonDimmableDevice, InsteonKeypadButtonDevice, InsteonRelayDevice, ISY } from '../../ISY.js';
 import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
 import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
 import '../Mappings/Insteon.js';
+import { format, loggers } from 'winston';
 // #region Interfaces (1)
 export let instance;
+//@ts-ignore
+export let version = PackageJson.version;
 // #endregion Interfaces (1)
 // #region Functions (3)
 export function create(isy, config) {
     return createMatterServer(isy, config);
 }
 export async function createMatterServer(isy, config) {
-    var logger = isy.logger;
+    var logger = loggers.add('matter', {
+        transports: isy.logger.transports,
+        levels: isy.logger.levels,
+        format: format.label({ label: 'Matter' })
+    });
     if (isy === undefined) {
         isy = ISY.instance;
     }
@@ -178,7 +186,7 @@ export async function createMatterServer(isy, config) {
     // }
     if (server.lifecycle.isOnline) {
         const { qrPairingCode, manualPairingCode } = server.state.commissioning.pairingCodes;
-        logger.info('/n' + QrCode.get(qrPairingCode));
+        logger.info('\n' + QrCode.get(qrPairingCode));
         logger.info(`QR Code URL: https://project-chip.github.io/connectedhomeip/qrcode.html?data=${qrPairingCode}`);
         logger.info(`Manual pairing code: ${manualPairingCode}`);
     }

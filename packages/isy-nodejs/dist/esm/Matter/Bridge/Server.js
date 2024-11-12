@@ -66,8 +66,7 @@ export async function createMatterServer(isy, config) {
         // Optional when operating only one device on a host, Default port is 5540
         network: {
             port: config.port,
-            ipv4: true,
-            ipv6: false,
+            ipv4: config.ipv4,
             discoveryCapabilities: {
                 onIpNetwork: true
             }
@@ -244,7 +243,9 @@ async function initializeConfiguration(isy, config) {
         productName,
         productId,
         port,
-        uniqueId
+        uniqueId,
+        ipv4: config.ipv4 ?? true,
+        ipv6: config.ipv6 ?? true
     };
 }
 // #endregion Functions (3)

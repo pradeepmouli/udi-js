@@ -17,12 +17,14 @@ export class ISYBridgedDeviceBehavior extends Behavior {
         this.internal.map = MappingRegistry.getMapping(this.internal.device);
         ISY.instance.logger.debug(`Initializing ${this.constructor.name} for ${this.internal.device.constructor.name} ${this.internal.device.name} with address ${address}`);
         if (d) {
-            d.events.on('PropertyChanged', this.handlePropertyChange.bind(this));
+            d.events.on('propertyChanged', this.handlePropertyChange.bind(this));
             for (const f in d.drivers) {
                 let evt = `${d.drivers[f].name}Changed`;
-                this.events[evt] = Observable();
+                const obs = Observable();
+                d.events.on(evt, (driver, newValue, oldValue, formattedValue) => obs.emit({ driver, newValue, oldValue, formattedValue }));
+                this.events[evt] = obs;
                 //@ts-ignore
-                d.events.on(evt, (driver, newValue, oldValue, formattedValue) => this.events.emit(evt, { driver, newValue, oldValue, formattedValue }));
+                //d.events.on(evt, (driver: string, newValue: any, oldValue: any, formattedValue: string) => this.events.emit(evt, { driver, newValue, oldValue, formattedValue } as unknown as any));
             }
         }
     }

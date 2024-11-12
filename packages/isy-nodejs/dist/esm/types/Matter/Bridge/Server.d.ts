@@ -14,6 +14,7 @@ export interface Config {
     vendorId: number;
     vendorName?: string;
     ipv4?: boolean;
+    ipv6?: boolean;
 }
 export declare function create(isy?: ISY, config?: Config): Promise<ServerNode>;
 export declare function createMatterServer(isy?: ISY, config?: Config): Promise<ServerNode>;

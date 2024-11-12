@@ -6,7 +6,7 @@
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import type { StateType } from '@project-chip/matter.js/behavior/state';
 import { Internal } from '@project-chip/matter.js/behavior/state/managed';
-import { EventEmitter, Observable } from '@project-chip/matter.js/util';
+import { EventEmitter, Observable, ObservableProxy } from '@project-chip/matter.js/util';
 import internal from 'stream';
 import type { Driver } from '../../Definitions/Global/Drivers.js';
 import { ISY, type Family, type ISYNode } from '../../ISY.js';
@@ -33,13 +33,18 @@ export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D ext
 		this.internal.map = MappingRegistry.getMapping(this.internal.device as unknown as ISYNode<Family, any, any, any>);
 		ISY.instance.logger.debug(`Initializing ${this.constructor.name} for ${this.internal.device.constructor.name} ${this.internal.device.name} with address ${address}`);
 		if (d) {
-			d.events.on('PropertyChanged', this.handlePropertyChange.bind(this));
+			d.events.on('propertyChanged', this.handlePropertyChange.bind(this));
 			for(const f in d.drivers)
 			{
 				let evt = `${d.drivers[f].name}Changed`;
-				this.events[evt] = Observable<[{ driver: string; newValue: any; oldValue: any; formattedValue: string }]>();
+				const obs = Observable<[{ driver: string; newValue: any; oldValue: any; formattedValue: string }]>();
+
+				d.events.on(evt, (driver: string, newValue: any, oldValue: any, formattedValue: string) => obs.emit({ driver, newValue, oldValue, formattedValue }));
+				this.events[evt] = obs;
+				
 				//@ts-ignore
-				d.events.on(evt, (driver: string, newValue: any, oldValue: any, formattedValue: string) => this.events.emit(evt, { driver, newValue, oldValue, formattedValue } as unknown as any));
+				//d.events.on(evt, (driver: string, newValue: any, oldValue: any, formattedValue: string) => this.events.emit(evt, { driver, newValue, oldValue, formattedValue } as unknown as any));
+
 			}
 		}
 	}
@@ -61,7 +66,9 @@ export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D ext
 	}
 
 	override [Symbol.asyncDispose]() {
+
 		this.internal.device = null;
+
 		return super[Symbol.asyncDispose]();
 	}
 }

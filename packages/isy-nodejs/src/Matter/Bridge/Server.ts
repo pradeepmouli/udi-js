@@ -41,6 +41,10 @@ export interface Config {
 	vendorId: number;
 	vendorName?: string;
 
+	ipv4?: boolean;
+
+	ipv6?: boolean;
+
 	// #endregion Properties (8)
 }
 
@@ -96,7 +100,7 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 		network: {
 			port: config.port,
 
-			//ipv4: false,
+			ipv4: config.ipv4,
 			discoveryCapabilities: {
 				onIpNetwork: true
 			}
@@ -311,7 +315,9 @@ async function initializeConfiguration(isy: ISY, config?: Config): Promise<Confi
 		productName,
 		productId,
 		port,
-		uniqueId
+		uniqueId,
+		ipv4: config.ipv4 ?? true,
+		ipv6: config.ipv6 ?? true
 	};
 }
 

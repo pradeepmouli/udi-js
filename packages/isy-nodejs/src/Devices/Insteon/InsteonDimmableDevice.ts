@@ -11,6 +11,7 @@ import { OnOff, ClusterType } from '@project-chip/matter.js/cluster';
 import 'winston';
 import { UnitOfMeasure } from '../../Definitions/Global/UOM.js';
 import type { NodeInfo } from '../../Model/NodeInfo.js';
+import { DimmerLampSwitch } from './DimmerLampSwitch.js';
 
 // #region Type aliases (2)
 
@@ -22,7 +23,7 @@ type OnOffBehavior = typeof OOB;
 // #region Classes (1)
 
 //@ts-ignore
-export class InsteonDimmableDevice extends InsteonRelayDevice implements MapsTo<LevelControlBehavior, OnOffBehavior> {
+export class InsteonDimmableDevice extends DimmerLampSwitch.Node{
 	// #region Constructors (1)
 
 	constructor(isy: ISY, node: NodeInfo) {
@@ -37,7 +38,7 @@ export class InsteonDimmableDevice extends InsteonRelayDevice implements MapsTo<
 	// public async updateBrightnessLevel(level: number): Promise<{}> {
 	// 	return super.(level);
 	// }
-	public override async initialize(endpoint: EndpointFor<LevelControlBehavior, OnOffBehavior>): Promise<void> {
+	/*public override async initialize(endpoint: EndpointFor<LevelControlBehavior, OnOffBehavior>): Promise<void> {
 		try {
 			await super.initialize(endpoint);
 			const that = this;
@@ -51,7 +52,7 @@ export class InsteonDimmableDevice extends InsteonRelayDevice implements MapsTo<
 			// //endpoint.events.levelCont
 			// endpoint.events.levelControl.maxLevel$Changed.on((value) => that.sendCommand("OL",value));
 		} catch (error) {}
-	}
+	}*/
 
 	// #endregion Public Methods (1)
 }

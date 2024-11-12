@@ -20,7 +20,7 @@ export class InsteonBaseDevice<D extends ISYNode.DriverSignatures = {}, C extend
 	C
 > {
 	// #region Constructors (1)
-
+	
 	constructor(isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
 		this.family = Family.Insteon;

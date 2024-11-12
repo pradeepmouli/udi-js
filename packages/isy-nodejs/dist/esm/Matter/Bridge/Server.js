@@ -66,7 +66,8 @@ export async function createMatterServer(isy, config) {
         // Optional when operating only one device on a host, Default port is 5540
         network: {
             port: config.port,
-            //ipv4: false,
+            ipv4: true,
+            ipv6: false,
             discoveryCapabilities: {
                 onIpNetwork: true
             }

@@ -18,3 +18,5 @@ packages/isy-nodejs/dist/tsconfig.cjs.tsbuildinfo
 apps/matter-server/bin/matter/
 apps/matter-server/bin/.env
 packages/isy-nodejs/dist/tsconfig.esm.tsbuildinfo
+apps/matter-server/.env
+apps/matter-server/matter_server.log*

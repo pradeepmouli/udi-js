@@ -25,8 +25,6 @@ type ProgramOptions = {
 	requireAuth: boolean;
 };
 
-expand(config({ path: process.cwd() + '/.env' }));
-
 const format = winston.format;
 const myFormat = format.combine(
 	format.splat(),
@@ -40,26 +38,33 @@ const myFormat = format.combine(
 function zPad2(str: number) {
 	return str.toString().padStart(2, '0');
 }
+function loadConfigs() {
+	let isyConfig: Partial<ISY.Config> = {
+		host: process.env.ISY_HOST_URL ?? 'eisy.local',
+		password: process.env.ISY_PASSWORD,
+		port: process.env.ISY_HOST_PORT ?? 8080,
+		protocol: process.env.ISY_HOST_PROTOCOL ?? 'http',
+		username: process.env.ISY_USERNAME ?? 'admin'
+	};
+	let matterConfig: Partial<MatterServer.Config> = {
+		passcode: Number(process.env.MATTER_PASSCODE),
+		discriminator: Number(process.env.MATTER_DISCRIMINATOR),
+		port: process.env.MATTER_PORT,
+		productId: Number.parseInt(process.env.MATTER_PRODUCTID),
+		vendorId: Number.parseInt(process.env.MATTER_VENDORID)
+	};
+	let serverConfig: { logLevel: string; logPath: string; workingDir: string } = {
+		logLevel: process.env.LOG_LEVEL ?? `debug`,
+		logPath: process.env.LOG_PATH ?? process.cwd() + '/matter_server.log',
+		workingDir: process.env.WORKING_DIR ?? process.cwd()
+	};
+	return { isyConfig, matterConfig, serverConfig };
+}
 
-let isyConfig: Partial<ISY.Config> = {
-	host: process.env.ISY_HOST_URL ?? 'eisy.local',
-	password: process.env.ISY_PASSWORD,
-	port: process.env.ISY_HOST_PORT ?? 8080,
-	protocol: process.env.ISY_HOST_PROTOCOL ?? 'http',
-	username: process.env.ISY_USERNAME ?? 'admin'
-};
-let matterConfig: Partial<MatterServer.Config> = {
-	passcode: Number(process.env.MATTER_PASSCODE),
-	discriminator: Number(process.env.MATTER_DISCRIMINATOR),
-	port: process.env.MATTER_PORT,
-	productId: Number.parseInt(process.env.MATTER_PRODUCTID),
-	vendorId: Number.parseInt(process.env.MATTER_VENDORID)
-};
-let serverConfig: { logLevel: string; logPath: string; workingDir: string } = {
-	logLevel: process.env.LOG_LEVEL ?? `debug`,
-	logPath: process.env.LOG_PATH ?? process.cwd() + '/matter_server.log',
-	workingDir: process.env.WORKING_DIR ?? process.cwd()
-};
+let isyConfig: Partial<ISY.Config>;
+let matterConfig: Partial<MatterServer.Config>;
+let serverConfig: { logLevel: string; logPath: string; workingDir: string };
+
 let isy: ISY;
 let serverNode: ServerNode;
 let pluginEnv: typeof process.env & { PLUGIN_PATH: string };
@@ -74,13 +79,7 @@ type Message =
 	| ({ type: 'serverConfig' } & { logLevel?: string; logPath?: string })
 	| { type: 'auth'; credential: Credential };
 
-const logger = winston.loggers.add('server', {
-	format: winston.format.label({ label: 'server' }),
-	transports: [new winston.transports.Console({ level: 'info', format: myFormat }), new winston.transports.File({ filename: serverConfig.logPath, level: 'debug', format: myFormat })],
-	exitOnError: false,
-	levels: winston.config.cli.levels,
-	level: 'debug'
-});
+let logger: winston.Logger;
 
 const tagFormat = format((info) => {
 	info.type = 'log';
@@ -96,6 +95,19 @@ let matterServer: typeof MatterServer;
 let clientLogTransport: winston.transport;
 
 let client: Socket;
+
+function createLogger() {
+	return winston.loggers.add('server', {
+		format: winston.format.label({ label: 'server' }),
+		transports: [
+			new winston.transports.Console({ level: 'info', format: myFormat }),
+			new winston.transports.File({ filename: serverConfig.logPath, level: 'debug', format: format.combine(format.simple(), format.colorize()), zippedArchive: true, maxFiles: 5, maxsize: 1000000 })
+		],
+		exitOnError: false,
+		levels: winston.config.cli.levels,
+		level: 'debug'
+	});
+}
 
 async function startSocketServer(): Promise<Server> {
 	socketServer = createServer(async (socket) => {
@@ -330,16 +342,9 @@ process.on('SIGINT', async () => {
 	process.exit(0);
 });
 
-/*process.on('exit', async () => {
-	await stopBridgeServer();
-	await stopSocketServer();
-});*/
-
 process.on('uncaughtException', async (err) => {
 	logger.error('Uncaught exception: ' + err.message, err);
 });
-
-const dirname = path.dirname(import.meta.url);
 
 const program = new Command();
 program
@@ -350,11 +355,23 @@ program
 program.parse();
 options = program.opts<ProgramOptions>();
 
-let env = expand(config({ path: path.resolve(dirname, options.env) }));
+let envPath = path.resolve(process.cwd(), options.env);
 
-console.log(JSON.stringify(env, null, 2));
+let env = expand(config({ path: envPath }));
 
-console.log(JSON.stringify(process.env, null, 2));
+console.log(`Environment variables loaded from ${path}: ${logStringify(env)}`);
+
+console.log(`All environment variables: ${logStringify(process.env)}`);
+
+console.log(`Options: ${logStringify(options)}`);
+
+({ isyConfig, matterConfig, serverConfig } = loadConfigs());
+
+logger = createLogger();
+
+console.log(`ISY config: ${logStringify(isyConfig)}`);
+console.log(`Matter config: ${logStringify(matterConfig)}`);
+console.log(`Server config: ${logStringify(serverConfig)}`);
 
 if (options.autoStart) {
 	authenticated = true;
@@ -364,20 +381,6 @@ if (options.autoStart) {
 		authenticated = true;
 	}
 	startSocketServer();
-}
-
-function applyEnvironmentConfig() {
-	isyConfig.host = process.env.ISY_HOST_URL;
-	isyConfig.password = process.env.ISY_PASSWORD;
-	isyConfig.port = process.env.ISY_HOST_PORT;
-	isyConfig.protocol = process.env.ISY_HOST_PROTOCOL;
-	isyConfig.username = process.env.ISY_USERNAME;
-	isyConfig.password = process.env.ISY_PASSWORD;
-	matterConfig.discriminator = process.env.MATTER_DISCRIMINATOR;
-	matterConfig.port = process.env.MATTER_PORT;
-	matterConfig.productId = Number.parseInt(process.env.MATTER_PRODUCTID);
-	matterConfig.vendorId = Number.parseInt(process.env.MATTER_VENDORID);
-	matterConfig.passcode = process.env.MATTER_PASSCODE;
 }
 
 //main();

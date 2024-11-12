@@ -10,6 +10,7 @@ const Converters_js_1 = require("../../Converters.js");
 class ISYOnOffBehavior extends (0, ISYClusterBehavior_js_1.ISYClusterBehavior)(OnOffLightDevice_1.OnOffLightRequirements.OnOffServer, InsteonRelayDevice_js_1.InsteonRelayDevice) {
     async initialize(_options) {
         await super.initialize(_options);
+        this.state.onOff = (await this.device.status) > 0;
         //this.state.onOff = await this.device.state;
     }
     on = async () => {

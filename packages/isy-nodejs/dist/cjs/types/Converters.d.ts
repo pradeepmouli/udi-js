@@ -7,7 +7,7 @@ declare const StandardConverters: {
 };
 export declare const StdConverterRegistry: Map<string | UnitOfMeasure, Map<string | UnitOfMeasure, Converter<any, any>>>;
 export declare const ConverterRegistry: Map<string, Converter<any, any>>;
-export declare function registerConverter(from: keyof typeof StandardConverters | UnitOfMeasure | keyof typeof Converter.Matter | string, to: keyof typeof StandardConverters | UnitOfMeasure | keyof typeof Converter.Matter | string, converter: Converter<any, any>): void;
+export declare function registerConverter(from: keyof typeof StandardConverters | keyof typeof Converter.Matter | string, to: keyof typeof StandardConverters | keyof typeof Converter.Matter | string, converter: Converter<any, any>): void;
 export declare namespace Converter {
     const Standard: typeof StandardConverters;
     const Matter: {

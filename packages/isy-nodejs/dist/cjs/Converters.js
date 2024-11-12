@@ -45,8 +45,8 @@ exports.ConverterRegistry = new Map();
 function registerConverters() {
     for (const from in StandardConverters) {
         for (const to in StandardConverters[from]) {
-            registerConverter(UOM_js_1.UnitOfMeasure[from], UOM_js_1.UnitOfMeasure[to], StandardConverters[from][to]);
-            registerConverter(UOM_js_1.UnitOfMeasure[to], UOM_js_1.UnitOfMeasure[from], invert(StandardConverters[from][to]));
+            registerConverter(from, to, StandardConverters[from][to]);
+            registerConverter(to, from, invert(StandardConverters[from][to]));
         }
     }
     for (const from in Converter.Matter) {
@@ -81,17 +81,28 @@ var Converter;
             }
         }
     };
+    const cache = {};
     function get(from, to) {
-        let isString = typeof from === 'string';
-        let fuom = isString ? UOM_js_1.UnitOfMeasure[from] : from;
-        if (to) {
-            let tuom = typeof to === 'string' ? UOM_js_1.UnitOfMeasure[to] : to;
-            if (exports.StdConverterRegistry.has(fuom)) {
-                return exports.StdConverterRegistry.get(fuom).get(tuom);
-            }
+        if (to === undefined) {
+            return exports.ConverterRegistry.get(from) ?? NullConverter;
         }
-        else if (typeof from === 'string') {
-            return exports.ConverterRegistry.get(from);
+        if (cache[`${from}.${to}`]) {
+            return cache[`${from}.${to}`];
+        }
+        else if (cache[`${to}.${from}`]) {
+            cache[`${from}.${to}`] = invert(cache[`${to}.${from}`]);
+            return cache[`${from}.${to}`];
+        }
+        let isString = typeof from === 'string';
+        let fuom = isString ? from : UOM_js_1.UnitOfMeasure[from];
+        if (to) {
+            let tuom = typeof to === 'string' ? to : UOM_js_1.UnitOfMeasure[to];
+            ;
+            if (exports.StdConverterRegistry.has(fuom)) {
+                if (exports.StdConverterRegistry.get(fuom).has(tuom)) {
+                    return exports.StdConverterRegistry.get(fuom).get(tuom);
+                }
+            }
         }
         return NullConverter;
     }

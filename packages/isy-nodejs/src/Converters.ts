@@ -51,8 +51,8 @@ export const ConverterRegistry = new Map<string, Converter<any, any>>();
 function registerConverters() {
 	for (const from in StandardConverters) {
 		for (const to in StandardConverters[from]) {
-			registerConverter(UnitOfMeasure[from], UnitOfMeasure[to], StandardConverters[from][to] as Converter<any, any>);
-			registerConverter(UnitOfMeasure[to], UnitOfMeasure[from], invert(StandardConverters[from][to]) as Converter<any, any>);
+			registerConverter(from, to, StandardConverters[from][to] as Converter<any, any>);
+			registerConverter(to, from, invert(StandardConverters[from][to]) as Converter<any, any>);
 		}
 	}
 	for (const from in Converter.Matter) {
@@ -64,8 +64,8 @@ function registerConverters() {
 }
 
 export function registerConverter(
-	from: keyof typeof StandardConverters | UnitOfMeasure | keyof typeof Converter.Matter | string,
-	to: keyof typeof StandardConverters | UnitOfMeasure | keyof typeof Converter.Matter | string,
+	from: keyof typeof StandardConverters | keyof typeof Converter.Matter | string,
+	to: keyof typeof StandardConverters | keyof typeof Converter.Matter | string,
 	converter: Converter<any, any>
 ) {
 	if (!StdConverterRegistry.has(from)) {
@@ -108,7 +108,7 @@ export namespace Converter {
 	export type MatterConverters = `${MatterISYConvertibleTypes}.${ISYMatterConvertibleTypes}` | `${ISYMatterConvertibleTypes}.${MatterISYConvertibleTypes}`;
 
 	export type KnownConverters = StandardConverters | MatterConverters;
-
+	const cache : {[x:string]:Converter<any,any>} = {};
 	export function get(label: KnownConverters): Converter<any, any>;
 	export function get(from: UnitOfMeasure, to: UnitOfMeasure);
 	export function get(from: ConverterTypes, to: ConverterTypes);
@@ -116,16 +116,26 @@ export namespace Converter {
 	export function get(from: MatterISYConvertibleTypes, to: ISYMatterConvertibleTypes);
 	export function get(to: ISYMatterConvertibleTypes, from: MatterISYConvertibleTypes);
 	export function get(from: UnitOfMeasure | `${keyof typeof UnitOfMeasure}` | string, to?: UnitOfMeasure | `${keyof typeof UnitOfMeasure}` | string): Converter<any, any> {
+		if(to === undefined) {
+			return ConverterRegistry.get(from as string) ?? NullConverter;
+		}
+		if(cache[`${from}.${to}`]) {
+			return cache[`${from}.${to}`];
+		}
+		else if(cache[`${to}.${from}`]) {
+			cache[`${from}.${to}`] = invert(cache[`${to}.${from}`]);
+			return cache[`${from}.${to}`];
+		}
 		let isString = typeof from === 'string';
-		let fuom = isString ? UnitOfMeasure[from] : from;
+		let fuom = isString ? from : UnitOfMeasure[from];
 		if (to) {
-			let tuom = typeof to === 'string' ? UnitOfMeasure[to] : to;
+			let tuom = typeof to === 'string' ? to : UnitOfMeasure[to]; ;
 
 			if (StdConverterRegistry.has(fuom)) {
-				return StdConverterRegistry.get(fuom).get(tuom);
+				if(StdConverterRegistry.get(fuom).has(tuom)) {
+					return StdConverterRegistry.get(fuom).get(tuom);
+				}
 			}
-		} else if (typeof from === 'string') {
-			return ConverterRegistry.get(from);
 		}
 		return NullConverter;
 	}

@@ -7,6 +7,7 @@ import { Converter } from '../../Converters.js';
 export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.OnOffServer, InsteonRelayDevice) {
     async initialize(_options) {
         await super.initialize(_options);
+        this.state.onOff = (await this.device.status) > 0;
         //this.state.onOff = await this.device.state;
     }
     on = async () => {

@@ -40,8 +40,8 @@ export const ConverterRegistry = new Map();
 function registerConverters() {
     for (const from in StandardConverters) {
         for (const to in StandardConverters[from]) {
-            registerConverter(UnitOfMeasure[from], UnitOfMeasure[to], StandardConverters[from][to]);
-            registerConverter(UnitOfMeasure[to], UnitOfMeasure[from], invert(StandardConverters[from][to]));
+            registerConverter(from, to, StandardConverters[from][to]);
+            registerConverter(to, from, invert(StandardConverters[from][to]));
         }
     }
     for (const from in Converter.Matter) {
@@ -76,17 +76,28 @@ export var Converter;
             }
         }
     };
+    const cache = {};
     function get(from, to) {
-        let isString = typeof from === 'string';
-        let fuom = isString ? UnitOfMeasure[from] : from;
-        if (to) {
-            let tuom = typeof to === 'string' ? UnitOfMeasure[to] : to;
-            if (StdConverterRegistry.has(fuom)) {
-                return StdConverterRegistry.get(fuom).get(tuom);
-            }
+        if (to === undefined) {
+            return ConverterRegistry.get(from) ?? NullConverter;
         }
-        else if (typeof from === 'string') {
-            return ConverterRegistry.get(from);
+        if (cache[`${from}.${to}`]) {
+            return cache[`${from}.${to}`];
+        }
+        else if (cache[`${to}.${from}`]) {
+            cache[`${from}.${to}`] = invert(cache[`${to}.${from}`]);
+            return cache[`${from}.${to}`];
+        }
+        let isString = typeof from === 'string';
+        let fuom = isString ? from : UnitOfMeasure[from];
+        if (to) {
+            let tuom = typeof to === 'string' ? to : UnitOfMeasure[to];
+            ;
+            if (StdConverterRegistry.has(fuom)) {
+                if (StdConverterRegistry.get(fuom).has(tuom)) {
+                    return StdConverterRegistry.get(fuom).get(tuom);
+                }
+            }
         }
         return NullConverter;
     }

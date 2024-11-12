@@ -43,10 +43,10 @@ class ISYDimmableBehavior extends (0, ISYClusterBehavior_js_1.ISYClusterBehavior
     setLevel(level) {
         level = Converters_js_1.Converter.Matter.LevelFrom0To255.LightingLevel.from(level);
         if (level > 0) {
-            return this.device.sendCommand('DON', level);
+            return this.device.on();
         }
         else {
-            return this.device.sendCommand('DOF');
+            return this.device.off();
         }
     }
 }

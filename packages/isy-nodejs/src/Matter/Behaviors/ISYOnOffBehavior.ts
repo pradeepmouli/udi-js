@@ -58,9 +58,9 @@ export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequire
 	override setLevel(level: number): MaybePromise<void> {
 		level = Converter.Matter.LevelFrom0To255.LightingLevel.from(level);
 		if (level > 0) {
-			return this.device.sendCommand('DON', level);
+			return this.device.on();
 		} else {
-			return this.device.sendCommand('DOF');
+			return this.device.off();
 		}
 	}
 }

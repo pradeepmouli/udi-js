@@ -25,7 +25,7 @@ type ProgramOptions = {
 	requireAuth: boolean;
 };
 
-expand(config());
+expand(config({path: process.cwd() + '/.env'}));
 
 const format = winston.format;
 const myFormat = format.combine(

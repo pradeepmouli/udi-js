@@ -39,10 +39,10 @@ export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequire
     setLevel(level) {
         level = Converter.Matter.LevelFrom0To255.LightingLevel.from(level);
         if (level > 0) {
-            return this.device.sendCommand('DON', level);
+            return this.device.on();
         }
         else {
-            return this.device.sendCommand('DOF');
+            return this.device.off();
         }
     }
 }

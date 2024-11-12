@@ -13,7 +13,7 @@ import { promisify } from 'util';
 import winston from 'winston';
 import { authenticate } from './authenticate.js';
 import './utils.js';
-expand(config());
+expand(config({ path: process.cwd() + '/.env' }));
 const format = winston.format;
 const myFormat = format.combine(format.splat(), winston.format.printf((info) => {
     const d = new Date();

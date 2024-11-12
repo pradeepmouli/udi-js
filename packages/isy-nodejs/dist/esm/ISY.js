@@ -464,7 +464,12 @@ export class ISY extends EventEmitter {
             if (typeof parameters == 'object') {
                 var q = parameters;
                 for (const paramName of Object.getOwnPropertyNames(q)) {
-                    uriToUse += `/${paramName}/${q[paramName]}`;
+                    if (paramName === 'value') {
+                        uriToUse += `/${q[paramName]}`;
+                        continue;
+                    }
+                    if (typeof q[paramName] === 'string' || typeof q[paramName] === 'number')
+                        uriToUse += `/${paramName}/${q[paramName]}`;
                 }
                 //uriToUse += `/${q[((p : Record<string,number|number>) => `${p[]}/${p.paramValue}` ).join('/')}`;
             }

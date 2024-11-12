@@ -41,10 +41,10 @@ import type { NodeInfo } from './Model/NodeInfo.js';
 import * as Utils from './Utils.js';
 
 import { X2jOptions, XMLParser } from 'fast-xml-parser';
+import path from 'path';
 import { NodeFactory } from './Devices/NodeFactory.js';
 import type { Config } from './Model/Config.js';
 import { findPackageJson } from './Utils.js';
-import path from 'path';
 
 export {
 	Category as Categories,
@@ -561,16 +561,13 @@ export class ISY extends EventEmitter implements Disposable {
 		let uriToUse = `nodes/${node.address}/cmd/${command}`;
 		if (parameters !== null && parameters !== undefined) {
 			if (typeof parameters == 'object') {
-
 				var q = parameters as Record<P, string | number>;
 				for (const paramName of Object.getOwnPropertyNames(q)) {
-					if(paramName === 'value')
-					{
+					if (paramName === 'value') {
 						uriToUse += `/${q[paramName]}`;
 						continue;
 					}
-					if(typeof q[paramName] === 'string' || typeof q[paramName] === 'number')
-						uriToUse += `/${paramName}/${q[paramName]}`;
+					if (typeof q[paramName] === 'string' || typeof q[paramName] === 'number') uriToUse += `/${paramName}/${q[paramName]}`;
 				}
 
 				//uriToUse += `/${q[((p : Record<string,number|number>) => `${p[]}/${p.paramValue}` ).join('/')}`;
@@ -752,17 +749,24 @@ export class ISY extends EventEmitter implements Disposable {
 				const enabled = nodeInfo.enabled ?? true;
 				const d = await NodeFactory.get(nodeInfo);
 				const m = DeviceFactory.getDeviceDetails(nodeInfo);
+				const cls = m?.class ?? d;
+				nodeInfo.property = Array.isArray(nodeInfo.property) ? nodeInfo.property : [nodeInfo.property];
+				nodeInfo.state = nodeInfo.property.reduce((acc, p) => {
+					if (p && p?.id) {
+						p.name = p.name == '' ? undefined : p.name;
+						acc[p.id] = p;
+					}
+					return acc;
+				}, {});
+				newDevice = new cls(this, nodeInfo) as ISYDeviceNode<any, any, any, any>;
 
-				if (d) {
-					newDevice = new d(this, nodeInfo) as ISYDeviceNode<any, any, any, any>;
-				}
 				if (m) {
-					newDevice = newDevice ?? (new m.class(this, nodeInfo) as unknown as ISYDeviceNode<any, any, any, any>);
 					newDevice.productName = m.name;
 					newDevice.model = `(${m.modelNumber}) ${m.name} v.${m.version}`;
 					newDevice.modelNumber = m.modelNumber;
 					newDevice.version = m.version;
 				}
+
 				if (enabled) {
 					if (newDevice === null) {
 						this.logger.warn(`Device type resolution failed for ${nodeInfo.name} with type: ${nodeInfo.type} and nodedef: ${nodeInfo.nodeDefId}`);

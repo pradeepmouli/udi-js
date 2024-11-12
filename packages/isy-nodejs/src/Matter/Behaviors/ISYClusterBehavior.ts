@@ -6,6 +6,7 @@ import type { OnOffBehavior, OnOffServer } from '@project-chip/matter.js/behavio
 import type { Cluster, ClusterServerHandlers, ClusterType as CT } from '@project-chip/matter.js/cluster';
 import '@project-chip/matter.js/device';
 import { OnOffLightRequirements } from '@project-chip/matter.js/devices/OnOffLightDevice';
+import type { AnyMxRecord } from 'dns';
 import { Converter } from '../../Converters.js';
 import { Driver, DriverType } from '../../Definitions/Global/Drivers.js';
 import type { Constructor } from '../../Devices/Constructor.js';
@@ -21,7 +22,7 @@ export type ClusterForBehavior<B> = B extends ClusterBehavior.Type<infer C, infe
 export type ConstructedType<B extends Constructor<any>> = B extends Constructor<infer C> ? C : never;
 // <reference path="MatterDevice.js" />
 // @ts-ignore
-export type DeviceBehavior<P extends ISYNode, T extends { cluster? }> = {
+export type DeviceBehavior<P extends ISYNode<any, any, any, any>, T extends { cluster? }> = {
 	device: P;
 
 	bridgedDeviceBehavior: ISYBridgedDeviceBehavior<P>;
@@ -86,7 +87,8 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 				}
 				if (driverObj) {
 					let evt = `${driverObj.name}Changed`;
-					this.reactTo(behavior.events[evt], this.handlePropertyChange.bind(this), { lock: false });
+					(this as any).evt = this.handlers[driverObj.name];
+					this.reactTo(behavior.events[evt], this.handlePropertyChange, { lock: false });
 				}
 			}
 
@@ -99,9 +101,9 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 			return (this._device = this._device ?? (this.agent.get(ISYBridgedDeviceBehavior).device as P));
 		}
 
-		handlePropertyChange({ driver, newValue, oldValue, formattedValue }: PropertyChange<P>) {
+		async handlePropertyChange({ driver, newValue, oldValue, formattedValue }: PropertyChange<P>) {
 			// for (const key2 in this.map.attributes) {
-
+			await this.initialize();
 			if (this.handlers[driver]) {
 				this.handlers[driver](newValue, oldValue, formattedValue);
 			}

@@ -21,8 +21,8 @@ class RelayLampSwitchNode extends InsteonBaseDevice_js_1.InsteonBaseDevice {
     static nodeDefId = 'RelayLampSwitch';
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Drivers_js_1.Driver.create('ST', this, nodeInfo.property, { uom: UOM_js_1.UnitOfMeasure.Percent, label: 'Status', name: 'status' });
-        this.drivers.ERR = Drivers_js_1.Driver.create('ERR', this, nodeInfo.property, { uom: UOM_js_1.UnitOfMeasure.Index, label: 'Responding', name: 'responding' });
+        this.drivers.ST = Drivers_js_1.Driver.create('ST', this, nodeInfo.state['ST'], { uom: UOM_js_1.UnitOfMeasure.Percent, label: 'Status', name: 'status' });
+        this.drivers.ERR = Drivers_js_1.Driver.create('ERR', this, nodeInfo.state['ERR'], { uom: UOM_js_1.UnitOfMeasure.Index, label: 'Responding', name: 'responding' });
     }
     async on(value) {
         return this.sendCommand('DON', { value: value });

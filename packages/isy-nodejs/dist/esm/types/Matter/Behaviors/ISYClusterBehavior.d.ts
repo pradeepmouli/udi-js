@@ -6,7 +6,7 @@ import { BehaviorMapping } from '../../Model/ClusterMap.js';
 import { ISYBridgedDeviceBehavior } from './ISYBridgedDeviceBehavior.js';
 export type ClusterForBehavior<B> = B extends ClusterBehavior.Type<infer C, infer D, infer E> ? C : never;
 export type ConstructedType<B extends Constructor<any>> = B extends Constructor<infer C> ? C : never;
-export type DeviceBehavior<P extends ISYNode, T extends {
+export type DeviceBehavior<P extends ISYNode<any, any, any, any>, T extends {
     cluster?: any;
 }> = {
     device: P;

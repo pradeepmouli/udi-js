@@ -243,6 +243,7 @@ var Driver;
                     converter ? converter.from(initState.value)
                         : node.convertFrom(initState?.value, initState?.uom, driver)
                     : null,
+                rawValue: initState ? initState.value : null,
                 formattedValue: initState ? initState.formatted : null,
                 pendingValue: null
             },
@@ -253,22 +254,33 @@ var Driver;
                 return s;
             },
             apply(state, notify = false) {
-                let previousValue = this.state.value;
-                this.state.value = converter ? converter.from(state.value) : node.convertFrom(state.value, state.uom, driver);
-                this.state.formattedValue = state.formatted;
-                if (previousValue == this.state.value) {
+                let previousValue = this.state.rawValue;
+                this.state.rawValue = state.value;
+                if (previousValue === this.state.rawValue) {
                     return false;
                 }
+                if (state.uom != this.uom) {
+                    this.serverUom == state.uom;
+                    this.state.value = converter ? converter.from(this.state.rawValue) : Converters_js_1.Converter.convert(state.uom, this.uom, this.state.rawValue);
+                }
+                else if (converter) {
+                    this.state.value = converter.from(state.value);
+                }
+                else {
+                    this.state.value = state.value;
+                }
+                this.state.formattedValue = state.formatted;
                 if (notify)
                     node.events.emit(`${this.name}Changed`, driver, this.state.value, previousValue, this.state.formattedValue);
                 return true;
             },
             patch(value, formattedValue, uom, prec, notify = true) {
-                let previousValue = this.state.value;
+                let previousValue = this.state.rawValue;
+                this.state.rawValue = value;
                 this.state.formattedValue = formattedValue;
                 if (uom != this.uom) {
                     this.serverUom == uom;
-                    this.state.value = converter ? converter.from(value) : Converters_js_1.Converter.convert(uom, this.uom, value);
+                    this.state.value = converter ? converter.from(this.state.rawValue) : Converters_js_1.Converter.convert(uom, this.uom, this.state.rawValue);
                 }
                 else if (converter) {
                     this.state.value = converter.from(value);
@@ -280,7 +292,7 @@ var Driver;
                     return false;
                 }
                 if (notify)
-                    node.events.emit(`${this.name}Changed`, driver, value, previousValue, formattedValue);
+                    node.events.emit(`${this.name}Changed`, driver, this.state.value, previousValue, formattedValue);
                 return true;
             },
             get value() {

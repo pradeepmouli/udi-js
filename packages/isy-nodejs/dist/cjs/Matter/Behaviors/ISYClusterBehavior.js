@@ -43,7 +43,8 @@ function ISYClusterBehavior(base, p) {
                 }
                 if (driverObj) {
                     let evt = `${driverObj.name}Changed`;
-                    this.reactTo(behavior.events[evt], this.handlePropertyChange.bind(this), { lock: false });
+                    this.evt = this.handlers[driverObj.name];
+                    this.reactTo(behavior.events[evt], this.handlePropertyChange, { lock: false });
                 }
             }
             //this.reactTo(behavior.events.propertyChanged, this.handlePropertyChange, { lock: false });
@@ -52,8 +53,9 @@ function ISYClusterBehavior(base, p) {
         get device() {
             return (this._device = this._device ?? this.agent.get(ISYBridgedDeviceBehavior_js_1.ISYBridgedDeviceBehavior).device);
         }
-        handlePropertyChange({ driver, newValue, oldValue, formattedValue }) {
+        async handlePropertyChange({ driver, newValue, oldValue, formattedValue }) {
             // for (const key2 in this.map.attributes) {
+            await this.initialize();
             if (this.handlers[driver]) {
                 this.handlers[driver](newValue, oldValue, formattedValue);
             }

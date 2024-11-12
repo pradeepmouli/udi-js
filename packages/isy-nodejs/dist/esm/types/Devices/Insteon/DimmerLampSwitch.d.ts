@@ -1,10 +1,10 @@
 import { UnitOfMeasure } from '../../Definitions/Global/UOM.js';
-import type { NodeInfo } from '../../Model/NodeInfo.js';
+import { Insteon } from '../../Definitions/index.js';
 import type { ISY } from '../../ISY.js';
 import type { ISYNode } from '../../ISYNode.js';
-import { InsteonBaseDevice as Base } from './InsteonBaseDevice.js';
+import type { NodeInfo } from '../../Model/NodeInfo.js';
 import { ISYDeviceNode } from '../ISYDeviceNode.js';
-import { Insteon } from '../../Definitions/index.js';
+import { InsteonBaseDevice as Base } from './InsteonBaseDevice.js';
 export declare const nodeDefId = "DimmerLampSwitch";
 type Commands = DimmerLampSwitch.Commands;
 type Drivers = DimmerLampSwitch.Drivers;
@@ -27,7 +27,7 @@ export declare class DimmerLampSwitchNode extends Base<Drivers, Commands> implem
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
-    readonly nodeDefId: "DimmerLampSwitch";
+    readonly nodeDefId: 'DimmerLampSwitch';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: number): Promise<any>;
     off(): Promise<any>;
@@ -51,97 +51,97 @@ export declare class DimmerLampSwitchNode extends Base<Drivers, Commands> implem
 }
 export declare namespace DimmerLampSwitch {
     interface Interface extends Omit<InstanceType<typeof DimmerLampSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "DimmerLampSwitch";
+        nodeDefId: 'DimmerLampSwitch';
     }
     function is(node: ISYNode<any, any, any, any>): node is DimmerLampSwitchNode;
     function create(isy: ISY, nodeInfo: NodeInfo): DimmerLampSwitchNode;
     const Node: typeof DimmerLampSwitchNode;
     type Commands = {
         DON: ((value?: number) => Promise<boolean>) & {
-            label: "On";
-            name: "on";
+            label: 'On';
+            name: 'on';
         };
         DOF: (() => Promise<boolean>) & {
-            label: "Off";
-            name: "off";
+            label: 'Off';
+            name: 'off';
         };
         DFOF: (() => Promise<boolean>) & {
-            label: "Fast Off";
-            name: "fastOff";
+            label: 'Fast Off';
+            name: 'fastOff';
         };
         DFON: (() => Promise<boolean>) & {
-            label: "Fast On";
-            name: "fastOn";
+            label: 'Fast On';
+            name: 'fastOn';
         };
         BRT: (() => Promise<boolean>) & {
-            label: "Brighten";
-            name: "brighten";
+            label: 'Brighten';
+            name: 'brighten';
         };
         DIM: (() => Promise<boolean>) & {
-            label: "Dim";
-            name: "dim";
+            label: 'Dim';
+            name: 'dim';
         };
         FDUP: (() => Promise<boolean>) & {
-            label: "Fade Up";
-            name: "fadeUp";
+            label: 'Fade Up';
+            name: 'fadeUp';
         };
         FDDOWN: (() => Promise<boolean>) & {
-            label: "Fade Down";
-            name: "fadeDown";
+            label: 'Fade Down';
+            name: 'fadeDown';
         };
         FDSTOP: (() => Promise<boolean>) & {
-            label: "Fade Stop";
-            name: "fadeStop";
+            label: 'Fade Stop';
+            name: 'fadeStop';
         };
         QUERY: (() => Promise<boolean>) & {
-            label: "Query";
-            name: "query";
+            label: 'Query';
+            name: 'query';
         };
         BEEP: ((value?: number) => Promise<boolean>) & {
-            label: "Beep";
-            name: "beep";
+            label: 'Beep';
+            name: 'beep';
         };
         OL: ((value: number) => Promise<boolean>) & {
-            label: "On Level";
-            name: "updateOnLevel";
+            label: 'On Level';
+            name: 'updateOnLevel';
         };
         RR: ((value: number) => Promise<boolean>) & {
-            label: "Ramp Rate";
-            name: "updateRampRate";
+            label: 'Ramp Rate';
+            name: 'updateRampRate';
         };
         BL: ((value: number) => Promise<boolean>) & {
-            label: "Backlight";
-            name: "backlight";
+            label: 'Backlight';
+            name: 'backlight';
         };
         WDU: (() => Promise<boolean>) & {
-            label: "Write Changes";
-            name: "writeChanges";
+            label: 'Write Changes';
+            name: 'writeChanges';
         };
     };
     type Drivers = {
         ST: {
             uom: UnitOfMeasure.Percent;
             value: number;
-            label: "Status";
-            name: "status";
+            label: 'Status';
+            name: 'status';
         };
         OL: {
             uom: UnitOfMeasure.Percent;
             value: number;
-            label: "On Level";
-            name: "onLevel";
+            label: 'On Level';
+            name: 'onLevel';
         };
         RR: {
             uom: UnitOfMeasure.Index;
             value: number;
-            label: "Ramp Rate";
-            name: "rampRate";
+            label: 'Ramp Rate';
+            name: 'rampRate';
         };
         ERR: {
             uom: UnitOfMeasure.Index;
             value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
+            label: 'Responding';
+            name: 'responding';
         };
     };
 }

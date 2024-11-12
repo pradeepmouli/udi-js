@@ -95,9 +95,9 @@ Object.defineProperty(exports, "ISYVariable", { enumerable: true, get: function 
 const Utils = __importStar(require("./Utils.js"));
 exports.Utils = Utils;
 const fast_xml_parser_1 = require("fast-xml-parser");
+const path_1 = __importDefault(require("path"));
 const NodeFactory_js_1 = require("./Devices/NodeFactory.js");
 const Utils_js_1 = require("./Utils.js");
-const path_1 = __importDefault(require("path"));
 const defaultParserOptions = {
     explicitArray: false,
     mergeAttrs: true,
@@ -688,11 +688,17 @@ class ISY extends events_1.EventEmitter {
                 const enabled = nodeInfo.enabled ?? true;
                 const d = await NodeFactory_js_1.NodeFactory.get(nodeInfo);
                 const m = DeviceFactory_js_1.DeviceFactory.getDeviceDetails(nodeInfo);
-                if (d) {
-                    newDevice = new d(this, nodeInfo);
-                }
+                const cls = m?.class ?? d;
+                nodeInfo.property = Array.isArray(nodeInfo.property) ? nodeInfo.property : [nodeInfo.property];
+                nodeInfo.state = nodeInfo.property.reduce((acc, p) => {
+                    if (p && p?.id) {
+                        p.name = p.name == '' ? undefined : p.name;
+                        acc[p.id] = p;
+                    }
+                    return acc;
+                }, {});
+                newDevice = new cls(this, nodeInfo);
                 if (m) {
-                    newDevice = newDevice ?? new m.class(this, nodeInfo);
                     newDevice.productName = m.name;
                     newDevice.model = `(${m.modelNumber}) ${m.name} v.${m.version}`;
                     newDevice.modelNumber = m.modelNumber;

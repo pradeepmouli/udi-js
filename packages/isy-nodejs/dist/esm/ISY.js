@@ -35,9 +35,9 @@ import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
 import * as Utils from './Utils.js';
 import { XMLParser } from 'fast-xml-parser';
+import path from 'path';
 import { NodeFactory } from './Devices/NodeFactory.js';
 import { findPackageJson } from './Utils.js';
-import path from 'path';
 export { Category as Categories, ELKAlarmPanelDevice, ElkAlarmSensorDevice, Family, InsteonBaseDevice, InsteonDimmableDevice, InsteonDimmerOutletDevice, InsteonDimmerSwitchDevice, InsteonDoorWindowSensorDevice, InsteonFanDevice, InsteonFanMotorDevice, InsteonKeypadButtonDevice, InsteonKeypadDimmerDevice, InsteonKeypadRelayDevice, InsteonLeakSensorDevice, InsteonLockDevice, InsteonMotionSensorDevice, InsteonOnOffOutletDevice, InsteonOutletDevice, InsteonRelayDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDeviceNode as ISYDevice, ISYNode, ISYScene, ISYVariable, NodeType, Props, States, Utils, VariableType };
 const defaultParserOptions = {
     explicitArray: false,
@@ -629,11 +629,17 @@ export class ISY extends EventEmitter {
                 const enabled = nodeInfo.enabled ?? true;
                 const d = await NodeFactory.get(nodeInfo);
                 const m = DeviceFactory.getDeviceDetails(nodeInfo);
-                if (d) {
-                    newDevice = new d(this, nodeInfo);
-                }
+                const cls = m?.class ?? d;
+                nodeInfo.property = Array.isArray(nodeInfo.property) ? nodeInfo.property : [nodeInfo.property];
+                nodeInfo.state = nodeInfo.property.reduce((acc, p) => {
+                    if (p && p?.id) {
+                        p.name = p.name == '' ? undefined : p.name;
+                        acc[p.id] = p;
+                    }
+                    return acc;
+                }, {});
+                newDevice = new cls(this, nodeInfo);
                 if (m) {
-                    newDevice = newDevice ?? new m.class(this, nodeInfo);
                     newDevice.productName = m.name;
                     newDevice.model = `(${m.modelNumber}) ${m.name} v.${m.version}`;
                     newDevice.modelNumber = m.modelNumber;

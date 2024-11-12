@@ -101,7 +101,7 @@ function createLogger() {
 		format: winston.format.label({ label: 'server' }),
 		transports: [
 			new winston.transports.Console({ level: 'info', format: myFormat }),
-			new winston.transports.File({ filename: serverConfig.logPath, level: 'debug', format: format.combine(format.simple(), format.colorize()), zippedArchive: true, maxFiles: 5, maxsize: 1000000 })
+			new winston.transports.File({ filename: serverConfig.logPath, level: 'debug', format: myFormat, zippedArchive: true, maxFiles: 5, maxsize: 1000000 })
 		],
 		exitOnError: false,
 		levels: winston.config.cli.levels,

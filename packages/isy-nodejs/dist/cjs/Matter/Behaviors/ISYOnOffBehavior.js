@@ -27,9 +27,6 @@ class ISYOnOffBehavior extends (0, ISYClusterBehavior_js_1.ISYClusterBehavior)(O
         //this.device.state = !(await this.device.state);
     };
     async handlePropertyChange({ driver, newValue, oldValue, formattedValue }) {
-        /*if (driver === 'ST') {
-            this.state.onOff = newValue;
-        }*/
         return super.handlePropertyChange({ driver, newValue, oldValue, formattedValue });
     }
 }

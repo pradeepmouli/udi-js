@@ -32,8 +32,8 @@ export class RelayLampSwitchNode extends InsteonBaseDevice<Drivers, Commands> im
 	declare readonly nodeDefId: 'RelayLampSwitch';
 	constructor(isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create('ST', this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: 'Status', name: 'status' });
-		this.drivers.ERR = Driver.create('ERR', this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: 'Responding', name: 'responding' });
+		this.drivers.ST = Driver.create('ST', this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: 'Status', name: 'status' });
+		this.drivers.ERR = Driver.create('ERR', this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: 'Responding', name: 'responding' });
 	}
 	async on(value?: 0 | 100) {
 		return this.sendCommand('DON', { value: value });

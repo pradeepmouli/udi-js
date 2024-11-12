@@ -1,9 +1,9 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
-import { UnitOfMeasure } from '../../Definitions/Global/UOM.js';
-import { InsteonBaseDevice as Base } from './InsteonBaseDevice.js';
 import { Driver } from '../../Definitions/Global/Drivers.js';
+import { UnitOfMeasure } from '../../Definitions/Global/UOM.js';
 import { NodeFactory } from '../NodeFactory.js';
-export const nodeDefId = "DimmerLampSwitch";
+import { InsteonBaseDevice as Base } from './InsteonBaseDevice.js';
+export const nodeDefId = 'DimmerLampSwitch';
 export class DimmerLampSwitchNode extends Base {
     commands = {
         DON: this.on,
@@ -22,58 +22,58 @@ export class DimmerLampSwitchNode extends Base {
         BL: this.backlight,
         WDU: this.writeChanges
     };
-    static nodeDefId = "DimmerLampSwitch";
+    static nodeDefId = 'DimmerLampSwitch';
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-        this.drivers.OL = Driver.create("OL", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "On Level", name: "onLevel" });
-        this.drivers.RR = Driver.create("RR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Ramp Rate", name: "rampRate" });
-        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ST = Driver.create('ST', this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: 'Status', name: 'status' });
+        this.drivers.OL = Driver.create('OL', this, nodeInfo.state['OL'], { uom: UnitOfMeasure.Percent, label: 'On Level', name: 'onLevel' });
+        this.drivers.RR = Driver.create('RR', this, nodeInfo.state['RR'], { uom: UnitOfMeasure.Index, label: 'Ramp Rate', name: 'rampRate' });
+        this.drivers.ERR = Driver.create('ERR', this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: 'Responding', name: 'responding' });
     }
     async on(value) {
-        return this.sendCommand("DON", { value: value });
+        return this.sendCommand('DON', { value: value });
     }
     async off() {
-        return this.sendCommand("DOF");
+        return this.sendCommand('DOF');
     }
     async fastOff() {
-        return this.sendCommand("DFOF");
+        return this.sendCommand('DFOF');
     }
     async fastOn() {
-        return this.sendCommand("DFON");
+        return this.sendCommand('DFON');
     }
     async brighten() {
-        return this.sendCommand("BRT");
+        return this.sendCommand('BRT');
     }
     async dim() {
-        return this.sendCommand("DIM");
+        return this.sendCommand('DIM');
     }
     async fadeUp() {
-        return this.sendCommand("FDUP");
+        return this.sendCommand('FDUP');
     }
     async fadeDown() {
-        return this.sendCommand("FDDOWN");
+        return this.sendCommand('FDDOWN');
     }
     async fadeStop() {
-        return this.sendCommand("FDSTOP");
+        return this.sendCommand('FDSTOP');
     }
     async query() {
-        return this.sendCommand("QUERY");
+        return this.sendCommand('QUERY');
     }
     async beep(value) {
-        return this.sendCommand("BEEP", { value: value });
+        return this.sendCommand('BEEP', { value: value });
     }
     async updateOnLevel(value) {
-        return this.sendCommand("OL", { value: value });
+        return this.sendCommand('OL', { value: value });
     }
     async updateRampRate(value) {
-        return this.sendCommand("RR", { value: value });
+        return this.sendCommand('RR', { value: value });
     }
     async backlight(value) {
-        return this.sendCommand("BL", { value: value });
+        return this.sendCommand('BL', { value: value });
     }
     async writeChanges() {
-        return this.sendCommand("WDU");
+        return this.sendCommand('WDU');
     }
     get status() {
         return this.drivers.ST?.value;

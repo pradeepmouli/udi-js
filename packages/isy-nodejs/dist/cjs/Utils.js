@@ -211,7 +211,7 @@ async function findPackageJson(currentPath = getImportMeta().dirname) {
         while (currentPath !== '/') {
             const packageJsonPath = path_1.default.join(currentPath, 'package.json');
             if ((0, fs_1.existsSync)(packageJsonPath)) {
-                return JSON.parse(await (0, promises_1.readFile)(packageJsonPath, 'utf8'));
+                return JSON.parse((await (0, promises_1.readFile)(packageJsonPath)).toString());
             }
             currentPath = path_1.default.join(currentPath, '..');
         }

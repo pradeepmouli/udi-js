@@ -161,14 +161,14 @@ export async function findPackageJson(currentPath = getImportMeta().dirname) {
         while (currentPath !== '/') {
             const packageJsonPath = path.join(currentPath, 'package.json');
             if (existsSync(packageJsonPath)) {
-                return JSON.parse(await readFile(packageJsonPath, 'utf8'));
+                return JSON.parse((await readFile(packageJsonPath)).toString());
             }
             currentPath = path.join(currentPath, '..');
         }
     }
     catch {
         //@ts-expect-error
-        return (await import('../../package.json')).default;
+        return (await import('../../package.json', { with: { type: 'json' } })).default;
     }
     return null;
 }

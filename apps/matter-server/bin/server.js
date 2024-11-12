@@ -24,11 +24,11 @@ function zPad2(str) {
     return str.toString().padStart(2, '0');
 }
 let isyConfig = {
-    host: process.env.ISY_HOST_URL,
+    host: process.env.ISY_HOST_URL ?? 'eisy.local',
     password: process.env.ISY_PASSWORD,
-    port: process.env.ISY_HOST_PORT,
-    protocol: process.env.ISY_HOST_PROTOCOL,
-    username: process.env.ISY_USERNAME
+    port: process.env.ISY_HOST_PORT ?? 8080,
+    protocol: process.env.ISY_HOST_PROTOCOL ?? 'http',
+    username: process.env.ISY_USERNAME ?? 'admin'
 };
 let matterConfig = {
     passcode: Number(process.env.MATTER_PASSCODE),

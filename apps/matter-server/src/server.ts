@@ -25,7 +25,7 @@ type ProgramOptions = {
 	requireAuth: boolean;
 };
 
-expand(config({path: process.cwd() + '/.env'}));
+expand(config({ path: process.cwd() + '/.env' }));
 
 const format = winston.format;
 const myFormat = format.combine(
@@ -42,11 +42,11 @@ function zPad2(str: number) {
 }
 
 let isyConfig: Partial<ISY.Config> = {
-	host: process.env.ISY_HOST_URL,
+	host: process.env.ISY_HOST_URL ?? 'eisy.local',
 	password: process.env.ISY_PASSWORD,
-	port: process.env.ISY_HOST_PORT,
-	protocol: process.env.ISY_HOST_PROTOCOL,
-	username: process.env.ISY_USERNAME
+	port: process.env.ISY_HOST_PORT ?? 8080,
+	protocol: process.env.ISY_HOST_PROTOCOL ?? 'http',
+	username: process.env.ISY_USERNAME ?? 'admin'
 };
 let matterConfig: Partial<MatterServer.Config> = {
 	passcode: Number(process.env.MATTER_PASSCODE),
@@ -256,8 +256,6 @@ async function startBridgeServer() {
 	logger.info(`ISY api version: ${isy.apiVersion}`);
 	logger.info(`Matter api version: ${matterServer.version}`);
 	logger.info('*'.repeat(80));
-
-
 }
 
 async function loadISYInterface(): Promise<ISY> {

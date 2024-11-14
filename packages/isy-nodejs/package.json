@@ -2,7 +2,7 @@
     "name": "isy-nodejs",
     "description": "Node.js wrapper for ISY interface including websockets for change notifications. Fork of isy-js by Rod Toll. Designed to be used in a node.js application.",
     "license": "MIT",
-    "version": "1.0.1-alpha.26",
+    "version": "1.0.1-alpha.27",
     "author": {
         "name": "Pradeep Mouli"
     },

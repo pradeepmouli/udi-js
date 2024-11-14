@@ -7,10 +7,10 @@ exports.createNodeClass = createNodeClass;
 const typescript_1 = require("typescript");
 const ts_morph_1 = require("ts-morph");
 const UOM_js_1 = require("../Definitions/Global/UOM.js");
-const ISY_js_1 = require("../ISY.js");
 const EnumDefinition_js_1 = require("../Model/EnumDefinition.js");
 const winston_1 = require("winston");
 const moderndash_1 = require("moderndash");
+const index_js_1 = require("../Definitions/index.js");
 const logger = winston_1.loggers.get("EnumFactory");
 function buildEnums(map) {
     let enums = [];
@@ -27,14 +27,14 @@ function createEnum(enumDef) {
         return {
             family: enumDef.family,
             name: enumDef.name,
-            path: `/${ISY_js_1.Family[enumDef.family]}/generated/${enumDef.name}.ts`,
+            path: `/${index_js_1.Family[enumDef.family]}/generated/${enumDef.name}.ts`,
             id: enumDef.id,
             statements: [enumNode]
         };
     }
     catch (e) {
         if (logger)
-            logger.error(`Error creating ${ISY_js_1.Family[enumDef.family]} ${enumDef.name} enum: ${e.message}`, e.stack);
+            logger.error(`Error creating ${index_js_1.Family[enumDef.family]} ${enumDef.name} enum: ${e.message}`, e.stack);
         else {
             throw e;
         }
@@ -56,7 +56,7 @@ class EnumFactory extends CodeFactory {
             }
             catch (e) {
                 if (logger)
-                    logger.error(`Error generating enums for ${ISY_js_1.Family[key]}: ${e.message}`, e.stack);
+                    logger.error(`Error generating enums for ${index_js_1.Family[key]}: ${e.message}`, e.stack);
                 else {
                     throw e;
                 }
@@ -69,7 +69,7 @@ exports.EnumFactory = EnumFactory;
 function buildEnumIndex(family, enums) {
     return {
         family,
-        path: `/${ISY_js_1.Family[family]}/generated/index.ts`,
+        path: `/${index_js_1.Family[family]}/generated/index.ts`,
         statements: [
             ...enums.map((p) => typescript_1.factory.createExportDeclaration(undefined, false, undefined, typescript_1.factory.createStringLiteral(`./${p.name}.js`), undefined)),
         ],
@@ -189,7 +189,7 @@ function createNodeClass(nodeClassDef) {
             typescript_1.factory.createClassDeclaration([typescript_1.factory.createToken(ts_morph_1.ts.SyntaxKind.ExportKeyword)], typescript_1.factory.createIdentifier(nodeClassDef.name), undefined, [
                 typescript_1.factory.createHeritageClause(ts_morph_1.ts.SyntaxKind.ExtendsKeyword, [
                     typescript_1.factory.createExpressionWithTypeArguments(typescript_1.factory.createIdentifier("ISYDeviceNode"), [
-                        typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createQualifiedName(typescript_1.factory.createIdentifier("Family"), typescript_1.factory.createIdentifier(ISY_js_1.Family[nodeClassDef.family])), undefined),
+                        typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createQualifiedName(typescript_1.factory.createIdentifier("Family"), typescript_1.factory.createIdentifier(index_js_1.Family[nodeClassDef.family])), undefined),
                         typescript_1.factory.createTypeOperatorNode(ts_morph_1.ts.SyntaxKind.KeyOfKeyword, typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createIdentifier("Drivers"), undefined)),
                         typescript_1.factory.createTypeOperatorNode(ts_morph_1.ts.SyntaxKind.KeyOfKeyword, typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createIdentifier("Commands"), undefined)),
                     ]),

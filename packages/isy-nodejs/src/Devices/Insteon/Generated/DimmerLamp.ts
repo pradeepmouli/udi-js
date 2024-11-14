@@ -8,17 +8,16 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
-import { Insteon, type Command } from "../../../Definitions/index.js";
+import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
-import { DimmerSwitchNode } from './DimmerSwitch.js';
 
 export const nodeDefId = "DimmerLampOnly";
 
 type Commands = DimmerLamp.Commands;
 type Drivers = DimmerLamp.Drivers;
 
-export class DimmerLampNode extends Base<Drivers,Commands> implements DimmerLamp.Interface {
+export class DimmerLampNode extends Base<Drivers, Commands> implements DimmerLamp.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -43,7 +42,6 @@ export class DimmerLampNode extends Base<Drivers,Commands> implements DimmerLamp
 		this.drivers.OL = Driver.create("OL", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "On Level", name: "onLevel" });
 		this.drivers.RR = Driver.create("RR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Ramp Rate", name: "rampRate" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
-
 	}
 	async on(value?: number) {
 		return this.sendCommand("DON", { value: value });
@@ -105,8 +103,7 @@ NodeFactory.register(DimmerLampNode);
 
 export namespace DimmerLamp {
 	export interface Interface extends Omit<InstanceType<typeof DimmerLampNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		commands: Command.ForAll<Commands>;
-		drivers: Driver.ForAll<Drivers>;
+		nodeDefId: "DimmerLampOnly";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is DimmerLampNode {
 		return node.nodeDefId === nodeDefId;
@@ -116,59 +113,59 @@ export namespace DimmerLamp {
 	}
 	export const Node = DimmerLampNode;
 	export type Commands = {
-		DON: ((value?: number) => Promise<any>) & {
+		DON: ((value?: number) => Promise<boolean>) & {
 			label: "On";
 			name: "on";
 		};
-		DOF: (() => Promise<any>) & {
+		DOF: (() => Promise<boolean>) & {
 			label: "Off";
 			name: "off";
 		};
-		DFOF: (() => Promise<any>) & {
+		DFOF: (() => Promise<boolean>) & {
 			label: "Fast Off";
 			name: "fastOff";
 		};
-		DFON: (() => Promise<any>) & {
+		DFON: (() => Promise<boolean>) & {
 			label: "Fast On";
 			name: "fastOn";
 		};
-		BRT: (() => Promise<any>) & {
+		BRT: (() => Promise<boolean>) & {
 			label: "Brighten";
 			name: "brighten";
 		};
-		DIM: (() => Promise<any>) & {
+		DIM: (() => Promise<boolean>) & {
 			label: "Dim";
 			name: "dim";
 		};
-		FDUP: (() => Promise<any>) & {
+		FDUP: (() => Promise<boolean>) & {
 			label: "Fade Up";
 			name: "fadeUp";
 		};
-		FDDOWN: (() => Promise<any>) & {
+		FDDOWN: (() => Promise<boolean>) & {
 			label: "Fade Down";
 			name: "fadeDown";
 		};
-		FDSTOP: (() => Promise<any>) & {
+		FDSTOP: (() => Promise<boolean>) & {
 			label: "Fade Stop";
 			name: "fadeStop";
 		};
-		QUERY: (() => Promise<any>) & {
+		QUERY: (() => Promise<boolean>) & {
 			label: "Query";
 			name: "query";
 		};
-		BEEP: ((value?: number) => Promise<any>) & {
+		BEEP: ((value?: number) => Promise<boolean>) & {
 			label: "Beep";
 			name: "beep";
 		};
-		OL: ((value: number) => Promise<any>) & {
+		OL: ((value: number) => Promise<boolean>) & {
 			label: "On Level";
 			name: "updateOnLevel";
 		};
-		RR: ((value: number) => Promise<any>) & {
+		RR: ((value: number) => Promise<boolean>) & {
 			label: "Ramp Rate";
 			name: "updateRampRate";
 		};
-		WDU: (() => Promise<any>) & {
+		WDU: (() => Promise<boolean>) & {
 			label: "Write Changes";
 			name: "writeChanges";
 		};

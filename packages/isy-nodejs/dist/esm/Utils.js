@@ -1,19 +1,14 @@
 import winston, { format } from 'winston';
 import { EventEmitter as BaseEventEmitter } from 'events';
 import { Category } from './Definitions/Global/Categories.js';
+import { existsSync } from 'fs';
+import { readFile } from 'fs/promises';
+import path from 'path';
 export function getEnumValueByEnumKey(enumType, enumKey) {
     return enumType[enumKey];
 }
 export function getEnumKeyByEnumValue(enumType, enumValue) {
     return Object.keys(enumType).find((key) => enumType[key] === enumValue);
-}
-//onst D: d = 'ST';
-//type DriverLabel = Values<IdentityOf<DriverType>>;
-export function invert(converter) {
-    return {
-        from: converter.to,
-        to: converter.from
-    };
 }
 export function toArray(value) {
     if (undefined === value)
@@ -149,5 +144,57 @@ export function getSubcategory(device) {
     catch (err) {
         return Category.Unknown;
     }
+}
+function getImportMeta() {
+    try {
+        //@ts-ignore
+        return import.meta;
+    }
+    catch (err) {
+        //@ts-ignore
+        let { dirname, filename } = { dirname: __dirname, filename: __filename };
+        return { dirname, filename };
+    }
+}
+export async function findPackageJson(currentPath = getImportMeta().dirname) {
+    try {
+        while (currentPath !== '/') {
+            const packageJsonPath = path.join(currentPath, 'package.json');
+            if (existsSync(packageJsonPath)) {
+                return JSON.parse((await readFile(packageJsonPath)).toString());
+            }
+            currentPath = path.join(currentPath, '..');
+        }
+    }
+    catch {
+        //@ts-expect-error
+        return (await import('../../package.json', { with: { type: 'json' } })).default;
+    }
+    return null;
+}
+export function logStringify(obj, indent = 2) {
+    let cache = [];
+    const retVal = JSON.stringify(obj, (key, value) => {
+        if (typeof value === 'object' && value !== null) {
+            if (cache.includes(value)) {
+                // Circular reference found, discard key
+                return;
+            }
+            // Store value in our collection
+            cache.push(value);
+        }
+        if (value instanceof Map) {
+            return [...value];
+        }
+        if (value instanceof Set) {
+            return [...value];
+        }
+        if (key.toLowerCase().includes('password')) {
+            return '********';
+        }
+        return value;
+    }, indent);
+    cache = null;
+    return retVal;
 }
 //# sourceMappingURL=Utils.js.map

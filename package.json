@@ -8,9 +8,12 @@
     "./apps/*"
   ],
   "scripts": {
-    "mocha": "echo \"Error: no test specified\" && exit 1"
+    "mocha": "echo \"Error: no test specified\" && exit 1",
+    "version": "lerna version --git-remote isy-nodejs",
+    "publish:development": "lerna publish from-package --git-remote isy-nodejs --no-private --dist-tag dev"
   },
   "devDependencies": {
+	"@types/npmcli__package-json": "4.0.4",
     "lerna": "^8.1.9",
     "mocha": "^10.8.2",
     "moderndash": "^3.12.0",
@@ -31,10 +34,15 @@
   "author": "Pradeep Mouli",
   "license": "MIT",
   "dependencies": {
+    "@npmcli/package-json": "^6.0.1",
     "@project-chip/matter-node.js": "^0.10.6",
     "@project-chip/matter.js": "^0.10.6",
     "camelcase": "^8.0.0",
     "humanize": "^0.0.9",
     "humanize-string": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pradeepmouli/isy-js.git"
   }
 }

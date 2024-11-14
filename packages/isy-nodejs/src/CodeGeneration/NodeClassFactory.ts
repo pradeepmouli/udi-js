@@ -2,9 +2,10 @@ import { createWrappedNode, IndentationText, Project, QuoteKind, SourceFile, ts,
 import { factory, Statement, type Declaration } from 'typescript';
 import type { Driver } from '../Definitions/Global/Drivers.js';
 import { UnitOfMeasure } from '../Definitions/Global/UOM.js';
-import { Family } from '../ISY.js';
+
 import { CommandDefinition, DataTypeDefinition, DriverDefinition, NodeClassDefinition, ParameterDefinition } from '../Model/ClassDefinition.js';
 import { EnumDefinitionMap } from '../Model/EnumDefinition.js';
+import  { Family } from '../Definitions/index.js';
 
 // #region Type aliases (1)
 
@@ -155,23 +156,19 @@ export class NodeClassFactory {
 				factory.createIdentifier(`${nodeClassDef.name}Node`),
 				undefined,
 				[
-					nodeClassDef.extends ?
-						factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
-							factory.createExpressionWithTypeArguments(factory.createIdentifier(NodeClassDefinition.Map.get(nodeClassDef.family)[nodeClassDef.extends].name), undefined)])
-					
-					:	factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
-							factory.createExpressionWithTypeArguments(factory.createIdentifier('Base'), [
-								factory.createTypeReferenceNode(factory.createIdentifier('Drivers'), undefined),
-								factory.createTypeReferenceNode(factory.createIdentifier('Commands'), undefined)
-							])
-						]),
+					factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
+						factory.createExpressionWithTypeArguments(factory.createIdentifier('Base'), [
+							factory.createTypeReferenceNode(factory.createIdentifier('Drivers'), undefined),
+							factory.createTypeReferenceNode(factory.createIdentifier('Commands'), undefined)
+						])
+					]),
 					factory.createHeritageClause(ts.SyntaxKind.ImplementsKeyword, [
 						factory.createExpressionWithTypeArguments(factory.createPropertyAccessExpression(factory.createIdentifier(nodeClassDef.name), factory.createIdentifier('Interface')), undefined)
 					])
 				],
 				[
 					factory.createPropertyDeclaration(
-						[factory.createToken(ts.SyntaxKind.PublicKeyword), factory.createToken(ts.SyntaxKind.ReadonlyKeyword)],
+						[factory.createToken(ts.SyntaxKind.PublicKeyword), factory.createToken(ts.SyntaxKind.OverrideKeyword), factory.createToken(ts.SyntaxKind.ReadonlyKeyword)],
 						factory.createIdentifier('commands'),
 						undefined,
 						undefined,
@@ -192,7 +189,7 @@ export class NodeClassFactory {
 					//   factory.createObjectLiteralExpression([], false)
 					// ),
 					factory.createPropertyDeclaration(
-						[factory.createToken(ts.SyntaxKind.StaticKeyword)],
+						[factory.createToken(ts.SyntaxKind.StaticKeyword), factory.createToken(ts.SyntaxKind.OverrideKeyword)],
 						factory.createIdentifier('nodeDefId'),
 						undefined,
 						undefined,

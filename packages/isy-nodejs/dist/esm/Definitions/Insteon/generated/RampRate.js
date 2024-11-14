@@ -1,0 +1,36 @@
+export var RampRate;
+(function (RampRate) {
+    RampRate[RampRate["_90Minutes"] = 0] = "_90Minutes";
+    RampRate[RampRate["_80Minutes"] = 1] = "_80Minutes";
+    RampRate[RampRate["_70Minutes"] = 2] = "_70Minutes";
+    RampRate[RampRate["_60Minutes"] = 3] = "_60Minutes";
+    RampRate[RampRate["_50Minutes"] = 4] = "_50Minutes";
+    RampRate[RampRate["_45Minutes"] = 5] = "_45Minutes";
+    RampRate[RampRate["_40Minutes"] = 6] = "_40Minutes";
+    RampRate[RampRate["_35Minutes"] = 7] = "_35Minutes";
+    RampRate[RampRate["_30Minutes"] = 8] = "_30Minutes";
+    RampRate[RampRate["_25Minutes"] = 9] = "_25Minutes";
+    RampRate[RampRate["_20Minutes"] = 10] = "_20Minutes";
+    RampRate[RampRate["_15Minutes"] = 11] = "_15Minutes";
+    RampRate[RampRate["_10Minute"] = 12] = "_10Minute";
+    RampRate[RampRate["_470Seconds"] = 13] = "_470Seconds";
+    RampRate[RampRate["_430Seconds"] = 14] = "_430Seconds";
+    RampRate[RampRate["_385Seconds"] = 15] = "_385Seconds";
+    RampRate[RampRate["_340Seconds"] = 16] = "_340Seconds";
+    RampRate[RampRate["_320Seconds"] = 17] = "_320Seconds";
+    RampRate[RampRate["_300Seconds"] = 18] = "_300Seconds";
+    RampRate[RampRate["_280Seconds"] = 19] = "_280Seconds";
+    RampRate[RampRate["_260Seconds"] = 20] = "_260Seconds";
+    RampRate[RampRate["_235Seconds"] = 21] = "_235Seconds";
+    RampRate[RampRate["_215Seconds"] = 22] = "_215Seconds";
+    RampRate[RampRate["_190Seconds"] = 23] = "_190Seconds";
+    RampRate[RampRate["_85Seconds"] = 24] = "_85Seconds";
+    RampRate[RampRate["_65Seconds"] = 25] = "_65Seconds";
+    RampRate[RampRate["_45Seconds"] = 26] = "_45Seconds";
+    RampRate[RampRate["_20Seconds"] = 27] = "_20Seconds";
+    RampRate[RampRate["_05Seconds"] = 28] = "_05Seconds";
+    RampRate[RampRate["_03Seconds"] = 29] = "_03Seconds";
+    RampRate[RampRate["_02Seconds"] = 30] = "_02Seconds";
+    RampRate[RampRate["_01Seconds"] = 31] = "_01Seconds";
+})(RampRate || (RampRate = {}));
+//# sourceMappingURL=RampRate.js.map

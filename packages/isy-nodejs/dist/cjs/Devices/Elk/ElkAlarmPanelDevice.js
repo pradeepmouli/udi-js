@@ -78,7 +78,7 @@ class ELKAlarmPanelDevice extends ISYDeviceNode_js_1.ISYDeviceNode {
                 if (this.alarmTripState !== valueToSet) {
                     const oldVal = this.alarmTripState;
                     this.alarmTripState = valueToSet;
-                    this.emit('PropertyChanged', 'alarmTripState', this.alarmTripState, oldVal, AlarmTripState[this.alarmTripState]);
+                    this.emit('propertyChanged', 'alarmTripState', this.alarmTripState, oldVal, AlarmTripState[this.alarmTripState]);
                     valueChanged = true;
                 }
             }
@@ -86,7 +86,7 @@ class ELKAlarmPanelDevice extends ISYDeviceNode_js_1.ISYDeviceNode {
                 if (this.alarmState !== valueToSet) {
                     const oldVal = this.alarmState;
                     this.alarmState = valueToSet;
-                    this.emit('PropertyChanged', 'alarmState', this.alarmState, oldVal, AlarmState[this.alarmState]);
+                    this.emit('propertyChanged', 'alarmState', this.alarmState, oldVal, AlarmState[this.alarmState]);
                     valueChanged = true;
                 }
             }
@@ -94,7 +94,7 @@ class ELKAlarmPanelDevice extends ISYDeviceNode_js_1.ISYDeviceNode {
                 if (this.alarmMode !== valueToSet) {
                     const oldVal = this.alarmMode;
                     this.alarmMode = valueToSet;
-                    this.emit('PropertyChanged', 'alarmMode', this.alarmState, oldVal, AlarmMode[this.alarmMode]);
+                    this.emit('propertyChanged', 'alarmMode', this.alarmState, oldVal, AlarmMode[this.alarmMode]);
                     valueChanged = true;
                 }
             }

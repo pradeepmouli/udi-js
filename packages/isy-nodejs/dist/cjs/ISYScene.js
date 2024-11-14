@@ -62,7 +62,7 @@ class ISYScene extends ISYNode_js_1.ISYNode {
     get isOn() {
         for (const device of this.members) {
             if (device instanceof index_js_1.Insteon.Relay) {
-                if (device.drivers.ST?.value === 1) {
+                if (device.drivers.ST?.value) {
                     return true;
                 }
             }
@@ -96,9 +96,9 @@ class ISYScene extends ISYNode_js_1.ISYNode {
     }
     markAsChanged() {
         this.lastChanged = new Date();
-        this.emit('PropertyChanged', 'isOn', this.isOn, this.isOn, this.isOn ? 'on' : 'off');
+        this.emit('propertyChanged', 'isOn', this.isOn, this.isOn, this.isOn ? 'on' : 'off');
         if (this.isDimmable) {
-            this.emit('PropertyChanged', 'brightnesslevel', this.brightnessLevel, this.brightnessLevel, this.brightnessLevel + '%');
+            this.emit('propertyChanged', 'brightnesslevel', this.brightnessLevel, this.brightnessLevel, this.brightnessLevel + '%');
         }
     }
     async updateIsOn(lightState) {

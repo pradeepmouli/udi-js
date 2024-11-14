@@ -4,9 +4,11 @@ exports.InsteonFanDevice = exports.InsteonFanMotorDevice = void 0;
 const InsteonBaseDevice_js_1 = require("./InsteonBaseDevice.js");
 const InsteonDimmableDevice_js_1 = require("./InsteonDimmableDevice.js");
 require("winston");
+const index_js_1 = require("../../Definitions/index.js");
 class InsteonFanMotorDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
+        this.drivers.ST = index_js_1.Driver.create('ST', this, deviceNode.property, { uom: index_js_1.UnitOfMeasure.Percent, label: 'Fan Speed (%)', name: 'fanSpeed' });
         this.hidden = true;
     }
     get isOn() {
@@ -16,7 +18,7 @@ class InsteonFanMotorDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
         return this.drivers.ST.value;
     }
     async updateFanSpeed(level) {
-        return (level);
+        return level;
     }
     async updateIsOn(isOn) {
         if (!isOn) {
@@ -34,7 +36,7 @@ class InsteonFanDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
         this.light = new InsteonDimmableDevice_js_1.InsteonDimmableDevice(isy, deviceNode);
-        this.light.events.on('PropertyChanged', ((a, b, c, d) => { this.emit('PropertyChanged', `light.${a}`, b, c, d); }).bind(this));
+        /*this.light.events.on('PropertyChanged', ((a: any, b: any, c: any, d: string) => { this.emit('PropertyChanged', `light.${a}`, b, c, d); }).bind(this));*/
         this.addChild(this.light);
     }
     handleEvent(event) {
@@ -50,7 +52,9 @@ class InsteonFanDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice {
         if (childDevice instanceof InsteonFanMotorDevice) {
             this.logger('Fan Motor Found');
             this.motor = childDevice;
-            this.motor.events.on('statusChanged', ((a, b, c, d) => { this.emit('PropertyChanged', `motor.${a}`, b, c, d); }).bind(this));
+            this.motor.events.on('statusChanged', ((a, b, c, d) => {
+                this.emit('propertyChanged', `motor.${a}`, b, c, d);
+            }).bind(this));
         }
     }
     async updateFanSpeed(level) {

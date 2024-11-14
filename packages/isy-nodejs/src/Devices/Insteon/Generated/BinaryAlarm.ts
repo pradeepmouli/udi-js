@@ -17,7 +17,7 @@ export const nodeDefId = "BinaryAlarm";
 type Commands = BinaryAlarm.Commands;
 type Drivers = BinaryAlarm.Drivers;
 
-export class BinaryAlarmNode extends BinaryControl implements BinaryAlarm.Interface {
+export class BinaryAlarmNode extends Base<Drivers, Commands> implements BinaryAlarm.Interface {
 	public readonly commands = {
 		QUERY: this.query,
 		BEEP: this.beep,

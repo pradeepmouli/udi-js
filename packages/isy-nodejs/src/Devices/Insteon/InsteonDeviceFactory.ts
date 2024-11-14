@@ -1,5 +1,5 @@
 import { Category } from '../../Definitions/Global/Categories.js';
-import { Family, InsteonBaseDevice, InsteonLockDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice } from '../../ISY.js';
+
 import { parseTypeCode } from '../../Utils.js';
 import { NodeInfo } from '../../Model/NodeInfo.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
@@ -19,6 +19,11 @@ import { ISYNode } from '../../ISYNode.js';
 import { DeviceDef, type CategoryDef, type FamilyDef } from '../DeviceMap.js';
 import { writeFileSync } from 'fs';
 import type { Constructor } from '../Constructor.js';
+import { Family } from '../../Definitions/index.js';
+import { InsteonBaseDevice } from './InsteonBaseDevice.js';
+import { InsteonSmokeSensorDevice } from './InsteonSmokeSensorDevice.js';
+import { InsteonThermostatDevice } from './InsteonThermostatDevice.js';
+import { InsteonLockDevice } from './InsteonLockDevice.js';
 
 
 
@@ -327,7 +332,7 @@ export class InsteonDeviceFactory {
 				retVal = { name: 'Plugin Relay', modelNumber: '2633-522' };
 		}
 		if (subAddress != '1' && retVal.class === InsteonKeypadRelayDevice) {
-			retVal.class = InsteonKeypadButtonDevice;
+			retVal.class = InsteonKeypadButtonDevice as any;
 		}
 		if (retVal.class === undefined) { retVal.class = InsteonRelayDevice; }
 		return retVal;

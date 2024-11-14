@@ -6,16 +6,19 @@
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import type { StateType } from '@project-chip/matter.js/behavior/state';
 import { Internal } from '@project-chip/matter.js/behavior/state/managed';
-import { EventEmitter, Observable } from '@project-chip/matter.js/util';
+import { EventEmitter, Observable, ObservableProxy } from '@project-chip/matter.js/util';
 import internal from 'stream';
 import type { Driver } from '../../Definitions/Global/Drivers.js';
-import { ISY, type Family, type ISYNode } from '../../ISY.js';
+import { ISY } from '../../ISY.js';
 import type { ISYDevice } from '../../ISYDevice.js';
-import { DeviceToClusterMap, MappingRegistry, type ClusterMapping } from '../../Model/ClusterMap.js';
+import { DeviceToClusterMap, MappingRegistry, type ClusterMapping, type BehaviorMapping } from '../../Model/ClusterMap.js';
+import { server } from 'typescript';
+import type { ISYNode } from '../../ISYNode.js';
+import type { Family } from '../../Definitions/index.js';
 
 
 type ClusterForBehavior<B extends ClusterBehavior> = B extends ClusterBehavior.Type<infer C> ? C : never;
-export class ISYBridgedDeviceBehavior extends Behavior {
+export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D extends ISYNode.DriverSignatures = ISYNode.DriverSignatures> extends Behavior {
 	static override readonly id = 'isyNode';
 
 	static override readonly early = true;
@@ -23,16 +26,32 @@ export class ISYBridgedDeviceBehavior extends Behavior {
 	declare internal: ISYBridgedDeviceBehavior.Internal;
 	declare state: ISYBridgedDeviceBehavior.State;
 
-	declare events: ISYBridgedDeviceBehavior.Events;
+	declare events: ISYBridgedDeviceBehavior.Events & ISYBridgedDeviceBehavior.EventsFor<N["drivers"]>;
 
 	override async initialize(_options?: {}) {
 		await super.initialize(_options);
 		var address = this.state.address;
-		this.internal.device = ISY.instance.nodeMap.get(this.state.address);
-		this.internal.map = MappingRegistry.getMapping(this.internal.device as unknown as ISYDevice<Family, any, any, any>);
+		const d = ISY.instance.nodeMap.get(this.state.address);
+		this.internal.device = d;
+		this.internal.map = MappingRegistry.getMapping(this.internal.device as unknown as ISYNode<Family, any, any, any>);
+
 		ISY.instance.logger.debug(`Initializing ${this.constructor.name} for ${this.internal.device.constructor.name} ${this.internal.device.name} with address ${address}`);
-		if (this.internal.device) {
-			this.internal.device.events.on('PropertyChanged', this.handlePropertyChange.bind(this));
+		if (d) {
+			d.events.on('propertyChanged', this.handlePropertyChange.bind(this));
+
+			for(const f in d.drivers)
+			{
+				let evt = `${d.drivers[f].name}Changed`;
+				const obs = Observable<[{ driver: string; newValue: any; oldValue: any; formattedValue: string }]>();
+
+				d.events.on(evt, (driver: string, newValue: any, oldValue: any, formattedValue: string) => obs.emit({ driver, newValue, oldValue, formattedValue }));
+				this.events[evt] = obs;
+
+
+				//@ts-ignore
+				//d.events.on(evt, (driver: string, newValue: any, oldValue: any, formattedValue: string) => this.events.emit(evt, { driver, newValue, oldValue, formattedValue } as unknown as any));
+
+			}
 		}
 	}
 
@@ -44,16 +63,22 @@ export class ISYBridgedDeviceBehavior extends Behavior {
 		return this.internal.map;
 	}
 
-	mapForBehavior<B extends { cluster: unknown }>(behavior: B): ClusterMapping<B['cluster'], typeof this.internal.device> {
-		return this.map[behavior.cluster['name']];
+	mapForBehavior<B extends ClusterBehavior>(behavior: B): BehaviorMapping<B, typeof this.internal.device> {
+		return this.map.mapping[behavior.cluster['name']];
 	}
 
 	handlePropertyChange(driver: string, newValue: any, oldValue: any, formattedValue: string) {
+
 		this.events.propertyChanged.emit({ driver, newValue, oldValue, formattedValue });
+
+
 	}
 
-	[Symbol.asyncDispose]() {
+	override [Symbol.asyncDispose]() {
+
 		this.internal.device = null;
+
+
 		return super[Symbol.asyncDispose]();
 	}
 }
@@ -64,8 +89,18 @@ export namespace ISYBridgedDeviceBehavior {
 		map?: DeviceToClusterMap<typeof this.device, any>;
 	}
 
-	export class Events extends EventEmitter {
+	export type EventsFor<D extends {[x: string]: Driver<any,any,any>}> = {
+		[s in keyof D as `${D[s]["name"]}Changed`] : Observable<[{ driver: s; newValue: any; oldValue: any; formattedValue: string }]>;
+	}
+
+
+
+
+	export class Events extends EventEmitter{
 		propertyChanged = Observable<[{ driver: string; newValue: any; oldValue: any; formattedValue: string }]>();
+
+
+
 	}
 
 	export class State {

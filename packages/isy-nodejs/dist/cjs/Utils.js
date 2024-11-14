@@ -22,11 +22,13 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventEmitter = void 0;
 exports.getEnumValueByEnumKey = getEnumValueByEnumKey;
 exports.getEnumKeyByEnumValue = getEnumKeyByEnumValue;
-exports.invert = invert;
 exports.toArray = toArray;
 exports.fromArray = fromArray;
 exports.byteToPct = byteToPct;
@@ -43,22 +45,19 @@ exports.removeAll = removeAll;
 exports.parseTypeCode = parseTypeCode;
 exports.getCategory = getCategory;
 exports.getSubcategory = getSubcategory;
+exports.findPackageJson = findPackageJson;
+exports.logStringify = logStringify;
 const winston_1 = __importStar(require("winston"));
 const events_1 = require("events");
 const Categories_js_1 = require("./Definitions/Global/Categories.js");
+const fs_1 = require("fs");
+const promises_1 = require("fs/promises");
+const path_1 = __importDefault(require("path"));
 function getEnumValueByEnumKey(enumType, enumKey) {
     return enumType[enumKey];
 }
 function getEnumKeyByEnumValue(enumType, enumValue) {
     return Object.keys(enumType).find((key) => enumType[key] === enumValue);
-}
-//onst D: d = 'ST';
-//type DriverLabel = Values<IdentityOf<DriverType>>;
-function invert(converter) {
-    return {
-        from: converter.to,
-        to: converter.from
-    };
 }
 function toArray(value) {
     if (undefined === value)
@@ -195,5 +194,57 @@ function getSubcategory(device) {
     catch (err) {
         return Categories_js_1.Category.Unknown;
     }
+}
+function getImportMeta() {
+    try {
+        //@ts-ignore
+        return import.meta;
+    }
+    catch (err) {
+        //@ts-ignore
+        let { dirname, filename } = { dirname: __dirname, filename: __filename };
+        return { dirname, filename };
+    }
+}
+async function findPackageJson(currentPath = getImportMeta().dirname) {
+    try {
+        while (currentPath !== '/') {
+            const packageJsonPath = path_1.default.join(currentPath, 'package.json');
+            if ((0, fs_1.existsSync)(packageJsonPath)) {
+                return JSON.parse((await (0, promises_1.readFile)(packageJsonPath)).toString());
+            }
+            currentPath = path_1.default.join(currentPath, '..');
+        }
+    }
+    catch {
+        //@ts-expect-error
+        return (await Promise.resolve().then(() => __importStar(require('../../package.json')))).default;
+    }
+    return null;
+}
+function logStringify(obj, indent = 2) {
+    let cache = [];
+    const retVal = JSON.stringify(obj, (key, value) => {
+        if (typeof value === 'object' && value !== null) {
+            if (cache.includes(value)) {
+                // Circular reference found, discard key
+                return;
+            }
+            // Store value in our collection
+            cache.push(value);
+        }
+        if (value instanceof Map) {
+            return [...value];
+        }
+        if (value instanceof Set) {
+            return [...value];
+        }
+        if (key.toLowerCase().includes('password')) {
+            return '********';
+        }
+        return value;
+    }, indent);
+    cache = null;
+    return retVal;
 }
 //# sourceMappingURL=Utils.js.map

@@ -1,6 +1,7 @@
 import { DriverType } from '../Definitions/Global/Drivers.js';
+import { Insteon } from '../Devices/Insteon/index.js';
 import { ClusterType } from './ClusterType.js';
-// #endregion Type aliases (15)
+// #endregion Type aliases (16)
 // #region Classes (1)
 export class MappingRegistry {
     // #region Properties (1)
@@ -11,17 +12,19 @@ export class MappingRegistry {
         return MappingRegistry.map.get(device.constructor.name);
     }
     static getMappingForBehavior(device, behavior) {
-        var m = MappingRegistry.getMapping(device);
-        return m[behavior.cluster.name];
-        // for(var m in MappingRegistry.getMapping(device).mapping)
-        // {
-        //   if(behavior.cluster.name === m)
-        //     return MappingRegistry.getMapping(device).mapping[m];
-        // }
+        //var m = MappingRegistry.getMapping(device);
+        //return m[behavior.cluster.name];
+        for (var m in MappingRegistry.getMapping(device).mapping) {
+            if (behavior.cluster.name === m)
+                return MappingRegistry.getMapping(device).mapping[m];
+        }
     }
     static register(map) {
         for (var key in map) {
-            MappingRegistry.map.set(key, map[key]);
+            if (key !== 'Family') {
+                MappingRegistry.map.set(key, map[key]);
+                MappingRegistry.map.set(Insteon[key].name, map[key]);
+            }
         }
     }
 }
@@ -35,7 +38,7 @@ var clusterMap = {
         moveToColor: { command: DriverType.CustomControl1, parameters: { colorX: { parameter: 'colorX' }, colorY: { parameter: 'colorY' }, colorTemperature: { parameter: 'colorTemperature' } } }
     }
 };
-const map = {
+/*const map: EndpointMapping<OnOffLightDevice, InsteonRelayDevice> = {
     Identify: {},
     OnOff: {
         attributes: {
@@ -45,6 +48,6 @@ const map = {
             onWithTimedOff: { command: 'DON' }
         }
     }
-};
+};*/
 // #endregion Variables (3)
 //# sourceMappingURL=ClusterMap.js.map

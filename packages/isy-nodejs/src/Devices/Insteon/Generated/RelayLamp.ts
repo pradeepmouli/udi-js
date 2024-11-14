@@ -17,7 +17,7 @@ export const nodeDefId = "RelayLampOnly";
 type Commands = RelayLamp.Commands;
 type Drivers = RelayLamp.Drivers;
 
-export class RelayLampNode extends Base<Drivers,Commands> implements RelayLamp.Interface {
+export class RelayLampNode extends Base<Drivers, Commands> implements RelayLamp.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -33,6 +33,7 @@ export class RelayLampNode extends Base<Drivers,Commands> implements RelayLamp.I
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		
 	}
 	async on(value?: (0 | 100)) {
 		return this.sendCommand("DON", { value: value });

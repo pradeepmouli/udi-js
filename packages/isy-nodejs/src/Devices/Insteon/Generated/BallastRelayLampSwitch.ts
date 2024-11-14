@@ -11,14 +11,13 @@ import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
-import { RelayLamp } from "./RelayLamp.js";
 
 export const nodeDefId = "BallastRelayLampSwitch";
 
 type Commands = BallastRelayLampSwitch.Commands;
 type Drivers = BallastRelayLampSwitch.Drivers;
 
-export class BallastRelayLampSwitchNode extends Base<Drivers,Commands> implements BallastRelayLampSwitch.Interface {
+export class BallastRelayLampSwitchNode extends Base<Drivers, Commands> implements BallastRelayLampSwitch.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -29,8 +28,7 @@ export class BallastRelayLampSwitchNode extends Base<Drivers,Commands> implement
 		WDU: this.writeChanges
 	};
 	static nodeDefId = "BallastRelayLampSwitch";
-
-	override readonly nodeDefId: "BallastRelayLampSwitch";
+	declare readonly nodeDefId: "BallastRelayLampSwitch";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });

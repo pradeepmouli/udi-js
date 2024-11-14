@@ -3,9 +3,10 @@ import { Logger } from 'winston';
 import { Driver } from './Definitions/Global/Drivers.js';
 import { Family } from './Definitions/Global/Families.js';
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
-import { ISY, NodeType, type ISYScene } from './ISY.js';
+import { ISY } from './ISY.js';
 
 import { CliConfigSetLevels } from 'winston/lib/winston/config/index.js';
+import { Converter } from './Converters.js';
 import type { Command } from './Definitions/Global/Commands.js';
 import { Event } from './Definitions/Global/Events.js';
 import type { Constructor } from './Devices/Constructor.js';
@@ -13,13 +14,15 @@ import type { DriverState } from './Model/DriverState.js';
 import { NodeInfo } from './Model/NodeInfo.js';
 import type { NodeNotes } from './Model/NodeNotes.js';
 import { type StringKeys } from './Utils.js';
+import { NodeType } from './ISYConstants.js';
+import type { ISYScene } from './ISYScene.js';
 
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 
 export class ISYNode<
-	T extends Family,
-	D extends ISYNode.DriverSignatures,
-	C extends ISYNode.CommandSignatures,
+	T extends Family = Family,
+	D extends ISYNode.DriverSignatures = {},
+	C extends ISYNode.CommandSignatures = {},
 	E extends ISYNode.EventSignatures = { [x in keyof D]: Event.DriverToEvent<D[x]> & { driver: x } } & { [x in keyof C]: Event.CommandToEvent<C[x]> & { command: x } }
 > {
 	// #region Properties (32)
@@ -105,7 +108,7 @@ export class ISYNode<
 			.trim();
 		if (this.parentType === NodeType.Folder) {
 			this.folder = isy.folderMap.get(this.parent._);
-			isy.logger.info(`${this.name} this node is in folder ${this.folder}`);
+			isy.logger.debug(`${this.name} is in folder ${this.folder}`);
 			this.logger = (msg: any, level: keyof CliConfigSetLevels = 'debug', ...meta: any[]) => {
 				isy.logger[level](`${this.folder} ${this.name} (${this.address}): ${msg}`, meta);
 				return isy.logger;
@@ -164,21 +167,33 @@ export class ISYNode<
 	}
 
 	public convert(value: any, from: UnitOfMeasure, to: UnitOfMeasure): any {
-		return value;
-	}
-
-	public convertFrom(value: any, uom: UnitOfMeasure, propertyName?: StringKeys<D>): any {
-		throw new Error('Method not implemented.');
-	}
-
-	public convertTo(value: any, uom: UnitOfMeasure, propertyName?: StringKeys<D>) {
-		if (this.drivers[propertyName].uom != uom) {
-			this.isy.logger.debug(`Converting ${this.drivers[propertyName].label} from ${this.drivers[propertyName].uom} to ${UnitOfMeasure}`);
-			return this.convertTo(value, uom);
+		if (from === to) return value;
+		else {
+			try {
+				return Converter.Standard[from][to].from(value);
+			} catch {
+				this.isy.logger.error(`Conversion from ${UnitOfMeasure[from]} to ${UnitOfMeasure[to]} not supported.`);
+			} finally {
+				return value;
+			}
 		}
 	}
 
-	public emit(event: 'PropertyChanged' | 'ControlTriggered', propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string) {
+	public convertFrom(value: any, uom: UnitOfMeasure, propertyName?: StringKeys<D>): any {
+		if (this.drivers[propertyName]?.uom != uom) {
+			this.logger(`Converting ${this.drivers[propertyName].label} to ${UnitOfMeasure[this.drivers[propertyName]?.uom]} from ${UnitOfMeasure[uom]}`);
+			return this.convert(value, uom, this.drivers[propertyName].uom);
+		}
+	}
+
+	public convertTo(value: any, uom: UnitOfMeasure, propertyName?: StringKeys<D>) {
+		if (this.drivers[propertyName]?.uom != uom) {
+			this.isy.logger.debug(`Converting ${this.drivers[propertyName].label} from ${UnitOfMeasure[this.drivers[propertyName].uom]} to ${UnitOfMeasure[uom]}`);
+			return this.convert(value, uom, this.drivers[propertyName].uom);
+		}
+	}
+
+	public emit(event: 'propertyChanged' | 'controlTriggered', propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string) {
 		//if ('PropertyChanged') return super.emit(event, propertyName, newValue, oldValue, formattedValue);
 		//else if ('ControlTriggered') return super.emit(event, controlName);
 	}
@@ -206,7 +221,7 @@ export class ISYNode<
 
 	public async getNotes(): Promise<NodeNotes> {
 		try {
-			const result = await this.isy.sendRequest(`nodes/${this.address}/notes`);
+			const result = await this.isy.sendRequest(`nodes/${this.address}/notes`, { trailingSlash: false, errorLogLevel: 'debug', validateStatus(status) { return true; }});
 			if (result !== null && result !== undefined) {
 				return result.NodeProperties;
 			} else {
@@ -219,7 +234,7 @@ export class ISYNode<
 
 	public handleControlTrigger(controlName: keyof E & keyof C): boolean {
 		//this.lastChanged = new Date();
-		this.events.emit('ControlTriggered', controlName);
+		this.events.emit('controlTriggered', controlName);
 		return true;
 	}
 
@@ -240,23 +255,26 @@ export class ISYNode<
 		} else {
 			// this.logger(event.control);
 			const e = event.control;
-			const dispName = this.commands[e].name;
+			const dispName = this.commands[e]?.name;
 			if (dispName !== undefined && dispName !== null) {
-				this.logger(`Command ${dispName} (${e}) triggered.`);
+				this.logger(`Command ${dispName} (${e}) event sent.`);
 			} else {
-				this.logger(`Command ${e} triggered.`);
+				this.logger(`Command ${e} event sent.`);
 			}
 			this.handleControlTrigger(e);
 			return true;
 		}
 	}
 
-	public handlePropertyChange(propertyName: StringKeys<D>, value: any, uom: UnitOfMeasure, formattedValue: string, prec?: number): boolean {
+	public handlePropertyChange(propertyName: StringKeys<D>, value: any, uom: UnitOfMeasure, prec?: number, formattedValue?: string): boolean {
 		this.lastChanged = new Date();
-		const oldValue = this.drivers[propertyName].value;
-		if (this.drivers[propertyName].patch(value, formattedValue, uom, prec)) {
-			this.emit('PropertyChanged', propertyName, value, oldValue, formattedValue);
-			this.scenes.forEach((element) => {
+		let driver = this.drivers[propertyName];
+		this.logger(`Driver ${propertyName} (${driver?.label} value update ${value} (${formattedValue}) uom: ${UnitOfMeasure[uom]} event received.`);
+		const oldValue = driver?.value;
+		if (driver?.patch(value, formattedValue, uom, prec)) {
+			this.logger(`Driver ${driver.label} updated from ${oldValue} to ${value} (${formattedValue})`);
+			this.emit('propertyChanged', propertyName, value, oldValue, formattedValue);
+			this.scenes?.forEach((element) => {
 				this.logger(`Recalulating ${element.deviceFriendlyName}`);
 				element.recalculateState();
 			});
@@ -523,7 +541,7 @@ export namespace ISYNode {
       [K in C[U]["name"]]: C[K];
     } : never;*/
 
-	export const With = <K extends Family, D extends DriverSignatures, C extends CommandSignatures, T extends Constructor<ISYNode<K,  any, any, any>>>(Base: T) => {
+	export const With = <K extends Family, D extends DriverSignatures, C extends CommandSignatures, T extends Constructor<ISYNode<K, any, any, any>>>(Base: T) => {
 		return class extends Base implements Omit<ISYNode<K, D, C>, 'events'> {
 			declare drivers: Driver.ForAll<any, false>;
 			declare commands: Command.ForAll<C>;

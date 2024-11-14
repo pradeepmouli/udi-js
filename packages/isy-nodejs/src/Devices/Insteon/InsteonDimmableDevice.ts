@@ -1,6 +1,5 @@
 import { Identity } from '@project-chip/matter.js/util';
 import { ISY } from '../../ISY.js';
-
 import { MapsTo, type MapsToCluster } from '../MapsTo.js';
 import { EndpointFor } from '../EndpointFor.js';
 import { InsteonRelayDevice } from './InsteonRelayDevice.js';
@@ -12,26 +11,34 @@ import { OnOff, ClusterType } from '@project-chip/matter.js/cluster';
 import 'winston';
 import { UnitOfMeasure } from '../../Definitions/Global/UOM.js';
 import type { NodeInfo } from '../../Model/NodeInfo.js';
+import { DimmerLampSwitch } from './DimmerLampSwitch.js';
 
-type LevelControlBehavior = typeof DimmableLightRequirements.LevelControlServer
-type OnOffBehavior = typeof OOB
+// #region Type aliases (2)
+
+type LevelControlBehavior = typeof DimmableLightRequirements.LevelControlServer;
+type OnOffBehavior = typeof OOB;
+
+// #endregion Type aliases (2)
+
+// #region Classes (1)
+
 //@ts-ignore
-export class InsteonDimmableDevice extends InsteonRelayDevice implements MapsTo<LevelControlBehavior,OnOffBehavior>{
+export class InsteonDimmableDevice extends DimmerLampSwitch.Node{
+	// #region Constructors (1)
 
-
-	constructor (isy: ISY,node: NodeInfo) {
+	constructor(isy: ISY, node: NodeInfo) {
 		super(isy, node);
 		this.isDimmable = true;
 	}
 
+	// #endregion Constructors (1)
+
+	// #region Public Methods (1)
+
 	// public async updateBrightnessLevel(level: number): Promise<{}> {
 	// 	return super.(level);
 	// }
-
-
-
-
-	override async initialize(endpoint: EndpointFor<LevelControlBehavior,OnOffBehavior>): Promise<void> {
+	/*public override async initialize(endpoint: EndpointFor<LevelControlBehavior, OnOffBehavior>): Promise<void> {
 		try {
 			await super.initialize(endpoint);
 			const that = this;
@@ -44,9 +51,10 @@ export class InsteonDimmableDevice extends InsteonRelayDevice implements MapsTo<
 
 			// //endpoint.events.levelCont
 			// endpoint.events.levelControl.maxLevel$Changed.on((value) => that.sendCommand("OL",value));
-		} catch (error) {
+		} catch (error) {}
+	}*/
 
-		}
-
-	}
+	// #endregion Public Methods (1)
 }
+
+// #endregion Classes (1)

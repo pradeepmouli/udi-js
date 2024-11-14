@@ -14,20 +14,20 @@ class InsteonMotionSensorDevice extends InsteonBaseDevice_js_1.InsteonBaseDevice
         if (controlName === ISYConstants_js_1.Commands.On) {
             this.logger('Motion detected.');
             this._isMotionDetected = true;
-            this.emit('ControlTriggered', controlName);
-            this.emit('PropertyChanged', 'motionDetected', true, false, "true");
+            this.emit('controlTriggered', controlName);
+            this.emit('propertyChanged', 'motionDetected', true, false, "true");
             setTimeout(() => {
                 this.logger('No motion detected in last 30 seconds.');
                 this._isMotionDetected = false;
-                this.emit('PropertyChanged', 'motionDetected', false, true, "false"); /*Included for compatiblity purposes*/
+                this.emit('propertyChanged', 'motionDetected', false, true, "false"); /*Included for compatiblity purposes*/
             }, 30000);
             return true;
         }
         else if (controlName === ISYConstants_js_1.Commands.Off) {
             this._isMotionDetected = false;
             this.logger('No motion detected.');
-            this.emit('ControlTriggered', controlName);
-            this.emit('PropertyChanged', 'motionDetected', false, true, "false");
+            this.emit('controlTriggered', controlName);
+            this.emit('propertyChanged', 'motionDetected', false, true, "false");
             return true;
         }
         return false;

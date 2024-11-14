@@ -1,10 +1,22 @@
 import { TimeFormatLocalization } from '@project-chip/matter.js/cluster';
 import type { Identity, Merge, UnionToIntersection } from '@project-chip/matter.js/util';
 import type { Sign } from 'crypto';
+import type { UnitOfMeasure } from './UOM.js';
+
+/*export class Command<T extends string> extends Function {
+
+	constructor(public readonly label: string) {
+		super();
+	}
+
+	public async execute(...args: any[]): Promise<Boolean> {
+		return this(...args);
+	}
+}*/
 
 export namespace Command {
 
-    export type Signature<F extends {name: string} = CallableFunction, L extends string = string,N extends string = string> = F & {label: L, name: N };
+    export type Signature<F extends {name} = CallableFunction, L extends string = string,N extends string = string> = F & {label: L, name: N,} ;
 
     export type Signatures<C extends string> = {[K in C]: Signature<(...args: any[]) => Promise<Boolean>, string, string>};
 

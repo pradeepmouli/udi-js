@@ -17,7 +17,7 @@ export const nodeDefId = "EZIO2x4_Output";
 type Commands = Ezio2x4Output.Commands;
 type Drivers = Ezio2x4Output.Drivers;
 
-export class Ezio2x4OutputNode extends SirenAlert implements Ezio2x4Output.Interface {
+export class Ezio2x4OutputNode extends Base<Drivers, Commands> implements Ezio2x4Output.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,

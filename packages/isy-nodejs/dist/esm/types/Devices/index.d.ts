@@ -1,4 +1,4 @@
-import { Family } from "../ISY.js";
+import type { Family } from '../Definitions/index.js';
 import { Insteon } from "./Insteon/index.js";
 import { ZWaveBaseDevice } from "./ZWave/ZWaveBaseDevice.js";
 export declare const Devices: {

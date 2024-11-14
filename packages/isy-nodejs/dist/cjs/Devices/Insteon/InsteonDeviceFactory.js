@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InsteonDeviceFactory = void 0;
 const Categories_js_1 = require("../../Definitions/Global/Categories.js");
-const ISY_js_1 = require("../../ISY.js");
 const Utils_js_1 = require("../../Utils.js");
 const InsteonDimmableDevice_js_1 = require("./InsteonDimmableDevice.js");
 const InsteonDimmerOutletDevice_js_1 = require("./InsteonDimmerOutletDevice.js");
@@ -17,6 +16,11 @@ const InsteonMotionSensorDevice_js_1 = require("./InsteonMotionSensorDevice.js")
 const InsteonOnOffOutletDevice_js_1 = require("./InsteonOnOffOutletDevice.js");
 const InsteonRelayDevice_js_1 = require("./InsteonRelayDevice.js");
 const InsteonRelaySwitchDevice_js_1 = require("./InsteonRelaySwitchDevice.js");
+const index_js_1 = require("../../Definitions/index.js");
+const InsteonBaseDevice_js_1 = require("./InsteonBaseDevice.js");
+const InsteonSmokeSensorDevice_js_1 = require("./InsteonSmokeSensorDevice.js");
+const InsteonThermostatDevice_js_1 = require("./InsteonThermostatDevice.js");
+const InsteonLockDevice_js_1 = require("./InsteonLockDevice.js");
 class InsteonDeviceFactory {
     // public static buildDeviceMap() {
     // 	var fams = new Map<Family, FamilyDef<Family>>();
@@ -60,12 +64,12 @@ class InsteonDeviceFactory {
     static getDeviceDetails(node) {
         const family = Number(node.family ?? '1');
         //let insteonFamilyDef = s[0] as FamilyDef<Family.Insteon>;
-        if ((family ?? ISY_js_1.Family.Insteon) === ISY_js_1.Family.Insteon) {
+        if ((family ?? index_js_1.Family.Insteon) === index_js_1.Family.Insteon) {
             //insteonFamilyDef.categories.forEach(callbackfn)
             return this.getInsteonDeviceDetails(node);
         }
         else {
-            return { name: "Unsupported Device", class: ISY_js_1.InsteonBaseDevice, unsupported: true };
+            return { name: "Unsupported Device", class: InsteonBaseDevice_js_1.InsteonBaseDevice, unsupported: true };
         }
     }
     static getInsteonDeviceDetails(node) {
@@ -119,7 +123,7 @@ class InsteonDeviceFactory {
                 { name: 'Unsupported Insteon Device', class: null, unsupported: true };
         }
         if (!deviceDetails.class) {
-            deviceDetails.class = ISY_js_1.InsteonBaseDevice;
+            deviceDetails.class = InsteonBaseDevice_js_1.InsteonBaseDevice;
             deviceDetails.unsupported = true;
         }
         return deviceDetails;
@@ -712,7 +716,7 @@ class InsteonDeviceFactory {
                 retVal = { name: 'Leak Sensor', modelNumber: '2852-522', class: InsteonLeakSensorDevice_js_1.InsteonLeakSensorDevice };
                 break;
             case '\n':
-                retVal = { name: 'INSTEON Smoke Sensor', modelNumber: '', class: ISY_js_1.InsteonSmokeSensorDevice };
+                retVal = { name: 'INSTEON Smoke Sensor', modelNumber: '', class: InsteonSmokeSensorDevice_js_1.InsteonSmokeSensorDevice };
                 break;
             case String.fromCharCode(17):
                 retVal = { name: 'INSTEON Hidden Door Sensor', modelNumber: '2845-222', class: InsteonDoorWindowSensorDevice_js_1.InsteonDoorWindowSensorDevice };
@@ -733,7 +737,7 @@ class InsteonDeviceFactory {
         }
         if ((node.nodeDefId === 'BinaryAlarm' || node.nodeDefId === 'BinaryAlarm_ADV') && subAddress !== '1') {
             if (retVal) {
-                retVal.class = ISY_js_1.InsteonBaseDevice;
+                retVal.class = InsteonBaseDevice_js_1.InsteonBaseDevice;
             }
         }
         return retVal;
@@ -813,13 +817,13 @@ class InsteonDeviceFactory {
                 retVal = { name: 'All-In-One INSTEON Thermostat Adapter', modelNumber: '2491T' };
         }
         if (retVal?.class === undefined) {
-            retVal.class = ISY_js_1.InsteonThermostatDevice;
+            retVal.class = InsteonThermostatDevice_js_1.InsteonThermostatDevice;
         }
         return retVal;
     }
     static getAccessControlInfo(deviceCode) {
         const c = String.fromCharCode(deviceCode);
-        const retVal = { name: '', modelNumber: '', class: ISY_js_1.InsteonLockDevice };
+        const retVal = { name: '', modelNumber: '', class: InsteonLockDevice_js_1.InsteonLockDevice };
         switch (c) {
             case String.fromCharCode(6):
                 retVal.name = 'MorningLinc';

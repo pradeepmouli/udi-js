@@ -1,11 +1,11 @@
-import type { NodeInfo } from '../../Model/NodeInfo.js';
-import { ISY } from '../../ISY.js';
-import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import 'winston';
+import { ISY } from '../../ISY.js';
+import type { NodeInfo } from '../../Model/NodeInfo.js';
+import { InsteonRelayDevice } from './InsteonRelayDevice.js';
+import { KeypadButton } from './KeypadButton.js';
 
-
-export class InsteonKeypadButtonDevice extends InsteonRelayDevice {
-	constructor (isy: ISY, deviceNode: NodeInfo) {
+export class InsteonKeypadButtonDevice extends KeypadButton.Node {
+	constructor(isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
 	}
 }

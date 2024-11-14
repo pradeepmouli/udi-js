@@ -17,8 +17,8 @@ export const nodeDefId = "RelayLampSwitch";
 type Commands = RelayLampSwitch.Commands;
 type Drivers = RelayLampSwitch.Drivers;
 
-export class RelayLampSwitchNode extends RelaySwitchOnlyPlusQuery implements RelayLampSwitch.Interface {
-	public readonly commands = {
+export class RelayLampSwitchNode extends Base<Drivers, Commands> implements RelayLampSwitch.Interface {
+	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		DFOF: this.fastOff,
@@ -28,7 +28,7 @@ export class RelayLampSwitchNode extends RelaySwitchOnlyPlusQuery implements Rel
 		BL: this.backlight,
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "RelayLampSwitch";
+    static override nodeDefId = "RelayLampSwitch";
 	declare readonly nodeDefId: "RelayLampSwitch";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);

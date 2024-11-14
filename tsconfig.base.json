@@ -1,27 +1,29 @@
 {
-    "compileOnSave": true,
-
-    "compilerOptions": {
-        "target": "ESNext",
-        "module": "NodeNext",
-
-        //"declarationDir": "./dist/types",
-        "ignoreDeprecations": "5.0",
-        "keyofStringsOnly": true,
-        "allowArbitraryExtensions": true,
-        "suppressImplicitAnyIndexErrors": true,
-        "pretty": true,
-        "composite": true,
-        "sourceMap": true,
-        "declarationMap": true,
-        "suppressExcessPropertyErrors": false,
-        "maxNodeModuleJsDepth": 5,
-        "allowSyntheticDefaultImports": true,
-        "allowJs": false,
-        "skipLibCheck": true,
-        "noImplicitOverride": true,
-        "noImplicitThis": true,
-        "esModuleInterop": true,
-        "resolveJsonModule": true
-    }
+	"compileOnSave": true,
+	"ts-node": {
+		"transpileOnly": true,
+		"esm": true
+	},
+	"compilerOptions": {
+		"target": "ESNext",
+		"module": "NodeNext",
+		//"declarationDir": "./dist/types",
+		"ignoreDeprecations": "5.0",
+		//"keyofStringsOnly": true,
+		"allowArbitraryExtensions": true,
+		//"suppressImplicitAnyIndexErrors": true,
+		"pretty": true,
+		"composite": true,
+		"sourceMap": true,
+		"declarationMap": true,
+		"suppressExcessPropertyErrors": false,
+		"maxNodeModuleJsDepth": 5,
+		"allowSyntheticDefaultImports": true,
+		"allowJs": false,
+		"skipLibCheck": true,
+		"noImplicitOverride": true,
+		"noImplicitThis": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true
+	}
 }

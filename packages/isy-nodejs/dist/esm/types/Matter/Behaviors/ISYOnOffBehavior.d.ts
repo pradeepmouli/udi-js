@@ -1,9 +1,9 @@
-import { InsteonRelayDevice } from "../../Devices/Insteon/InsteonRelayDevice.js";
-import { type PropertyChange } from "./ISYClusterBehavior.js";
-import type { MaybePromise } from '@project-chip/matter.js/util';
+import type { LevelControlInterface, LevelControlServer } from '@project-chip/matter.js/behaviors/level-control';
 import type { OnOffServer } from '@project-chip/matter.js/behaviors/on-off';
-import type { LevelControlServer, LevelControlInterface } from '@project-chip/matter.js/behaviors/level-control';
+import type { MaybePromise } from '@project-chip/matter.js/util';
 import { InsteonDimmableDevice } from '../../Devices/Insteon/InsteonDimmableDevice.js';
+import { InsteonRelayDevice } from '../../Devices/Insteon/InsteonRelayDevice.js';
+import { type PropertyChange } from './ISYClusterBehavior.js';
 declare const ISYOnOffBehavior_base: import("@project-chip/matter.js/behavior/cluster").ClusterBehavior.Type<import("@project-chip/matter.js/cluster").ClusterComposer.WithFeatures<import("@project-chip/matter.js/cluster").ClusterComposer.WithFeatures<import("@project-chip/matter.js/cluster").OnOff.Cluster, readonly [import("@project-chip/matter.js/cluster").OnOff.Feature.Lighting]>, readonly ["Lighting"]>, typeof OnOffServer, import("@project-chip/matter.js/behaviors/on-off").OnOffInterface> & (new (...args: any[]) => import("./ISYClusterBehavior.js").DeviceBehavior<InsteonRelayDevice, import("@project-chip/matter.js/behavior/cluster").ClusterBehavior.Type<import("@project-chip/matter.js/cluster").ClusterComposer.WithFeatures<import("@project-chip/matter.js/cluster").ClusterComposer.WithFeatures<import("@project-chip/matter.js/cluster").OnOff.Cluster, readonly [import("@project-chip/matter.js/cluster").OnOff.Feature.Lighting]>, readonly ["Lighting"]>, typeof OnOffServer, import("@project-chip/matter.js/behaviors/on-off").OnOffInterface>>);
 export declare class ISYOnOffBehavior extends ISYOnOffBehavior_base {
     initialize(_options?: {}): Promise<void>;

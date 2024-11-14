@@ -1,7 +1,8 @@
-import { Family, ISY } from '../ISY.js';
+import { ISY } from '../ISY.js';
 import { ISYNode } from '../ISYNode.js';
 import { type NodeInfo } from '../Model/NodeInfo.js';
 import type { Constructor } from './Constructor.js';
+import { Family } from '../Definitions/index.js';
 export declare namespace NodeFactory {
     const registry: NodeClassRegistry;
     function register<F extends keyof typeof Family>(nodeClass: typeof ISYNode<(typeof Family)[F], any, any, any>, id?: string): void;

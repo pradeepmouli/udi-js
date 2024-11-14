@@ -17,7 +17,7 @@ export const nodeDefId = "OnOffControl";
 type Commands = OnOffControl.Commands;
 type Drivers = OnOffControl.Drivers;
 
-export class OnOffControlNode extends SirenAlert implements OnOffControl.Interface {
+export class OnOffControlNode extends Base<Drivers, Commands> implements OnOffControl.Interface {
 	public readonly commands = {};
 	static nodeDefId = "OnOffControl";
 	declare readonly nodeDefId: "OnOffControl";

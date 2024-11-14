@@ -1,8 +1,9 @@
 import type { Command } from './Definitions/Global/Commands.js';
 import type { Driver } from './Definitions/Global/Drivers.js';
 import type { UnitOfMeasure } from './Definitions/Global/UOM.js';
-import type { Family, ISY } from './ISY.js';
-import type {  ISYNode } from './ISYNode.js';
+import type { Family } from './Definitions/index.js';
+import type { ISY } from './ISY.js';
+import type { ISYNode } from './ISYNode.js';
 import type { ISYScene } from './ISYScene.js';
 import type { DriverState } from './Model/DriverState.js';
 import type { StringKeys } from './Utils.js';

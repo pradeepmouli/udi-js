@@ -1,28 +1,24 @@
-import axios, { AxiosRequestConfig } from 'axios';
 
 import * as log4js from '@log4js-node/log4js-api';
-import winston, { Logger, format } from 'winston';
+import winston, { Logger, format, type LeveledLogMethod, type LogMethod } from 'winston';
 
-import { Axios } from 'axios';
 import { EventEmitter as BaseEventEmitter } from 'events';
 import { Category } from './Definitions/Global/Categories.js';
 
 //import { get } from 'http';
-import type { Identity } from '@project-chip/matter.js/util';
-import { isBoxedPrimitive } from 'util/types';
-import {  Family, type Driver, type DriverType, type EnumLiteral } from './Definitions/index.js';
+import type { PackageJson } from '@npmcli/package-json';
+import { existsSync } from 'fs';
+import { readFile } from 'fs/promises';
+import path from 'path';
+import { Family } from './Definitions/index.js';
 import { EventType } from './Events/EventType.js';
-
-export interface Converter<F, T> {
-	// #region Properties (2)
-
-	from: (value: F) => T;
-	to: (value: T) => F;
-
-	// #endregion Properties (2)
-}
+import type { Axios, AxiosRequestConfig } from 'axios';
 
 export type StringKeys<T> = Extract<keyof T, string>;
+
+export type PickOfType<T, U> = { [K in keyof T]: T[K] extends U ? (any extends T[K] ? never : K) : undefined }[keyof T];
+
+
 
 export function getEnumValueByEnumKey<E extends { [index: string]: number }, T extends keyof E>(enumType: E, enumKey: T): E[T] {
 	return enumType[enumKey];
@@ -32,6 +28,8 @@ export function getEnumKeyByEnumValue<E extends { [index: string]: number }, T e
 	return Object.keys(enumType).find((key) => enumType[key] === enumValue) as unknown as T;
 }
 
+
+export type LogLevel = PickOfType<winston.Logger, LeveledLogMethod>;
 export type ValuesOf<TEnum extends number | string | boolean | bigint> = `${TEnum}` extends `${infer R extends number}` ? R : `${TEnum}`;
 
 type s = ValuesOf<Family>;
@@ -41,15 +39,6 @@ export type IdentityOf<T> = T extends (...args: any[]) => infer R ? R : T;
 
 export type LabelsOf<TEnum> = keyof IdentityOf<TEnum>;
 type d = LabelsOf<Family>;
-
-//onst D: d = 'ST';
-//type DriverLabel = Values<IdentityOf<DriverType>>;
-export function invert<F, T>(converter: Converter<F, T>): Converter<T, F> {
-	return {
-		from: converter.to,
-		to: converter.from
-	};
-}
 
 export type MaybeArray<T> = T | T[];
 
@@ -66,6 +55,10 @@ export function fromArray<T>(...value: T[]): MaybeArray<T> {
 	}
 	return value;
 }
+
+export type BaseRequestConfig = Pick<AxiosRequestConfig, 'auth' | 'baseURL' | 'socketPath'>;
+
+export type ISYRequestConfig = Omit<AxiosRequestConfig, keyof BaseRequestConfig | 'method'>
 
 export function byteToPct(value) {
 	return Math.round((value * 100) / 255);
@@ -278,4 +271,61 @@ export function getSubcategory(device: { type: string }) {
 	} catch (err) {
 		return Category.Unknown;
 	}
+}
+
+function getImportMeta() {
+	try {
+		//@ts-ignore
+		return import.meta;
+	} catch (err) {
+		//@ts-ignore
+		let { dirname, filename } = { dirname: __dirname, filename: __filename };
+
+		return { dirname, filename };
+	}
+}
+export async function findPackageJson(currentPath: string = getImportMeta().dirname): Promise<PackageJson> {
+	try {
+		while (currentPath !== '/') {
+			const packageJsonPath = path.join(currentPath, 'package.json');
+			if (existsSync(packageJsonPath)) {
+				return JSON.parse((await readFile(packageJsonPath)).toString());
+			}
+			currentPath = path.join(currentPath, '..');
+		}
+	} catch {
+		//@ts-expect-error
+		return (await import('../../package.json', { with: { type: 'json' } })).default;
+	}
+	return null;
+}
+
+export function logStringify(obj: any, indent = 2) {
+	let cache = [];
+	const retVal = JSON.stringify(
+		obj,
+		(key, value) => {
+			if (typeof value === 'object' && value !== null) {
+				if (cache.includes(value)) {
+					// Circular reference found, discard key
+					return;
+				}
+				// Store value in our collection
+				cache.push(value);
+			}
+			if (value instanceof Map) {
+				return [...value];
+			}
+			if (value instanceof Set) {
+				return [...value];
+			}
+			if (key.toLowerCase().includes('password')) {
+				return '********';
+			}
+			return value;
+		},
+		indent
+	);
+	cache = null;
+	return retVal;
 }

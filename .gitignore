@@ -10,6 +10,13 @@ ISYNodes.xml
 CLI/resources/*
 **/resources_old/*
 **/*.tsbuildinfo
-*.log
+**/*.log
 tools/codegen/codegen.log
 tools/codegen/defgen.log
+packages/isy-nodejs/dist/tsconfig.esm.tsbuildinfo
+packages/isy-nodejs/dist/tsconfig.cjs.tsbuildinfo
+apps/matter-server/bin/matter/
+apps/matter-server/bin/.env
+apps/matter-server/.env
+apps/matter-server/matter_server.log*
+apps/matter-server/matter_server*.log*

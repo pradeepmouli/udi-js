@@ -2,8 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ISYNode = void 0;
 const UOM_js_1 = require("./Definitions/Global/UOM.js");
-const ISY_js_1 = require("./ISY.js");
+const Converters_js_1 = require("./Converters.js");
 const Events_js_1 = require("./Definitions/Global/Events.js");
+const ISYConstants_js_1 = require("./ISYConstants.js");
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 class ISYNode {
     // #region Properties (32)
@@ -74,9 +75,9 @@ class ISYNode {
             .replace('  ', ' ')
             .replace('  ', ' ')
             .trim();
-        if (this.parentType === ISY_js_1.NodeType.Folder) {
+        if (this.parentType === ISYConstants_js_1.NodeType.Folder) {
             this.folder = isy.folderMap.get(this.parent._);
-            isy.logger.info(`${this.name} this node is in folder ${this.folder}`);
+            isy.logger.debug(`${this.name} is in folder ${this.folder}`);
             this.logger = (msg, level = 'debug', ...meta) => {
                 isy.logger[level](`${this.folder} ${this.name} (${this.address}): ${msg}`, meta);
                 return isy.logger;
@@ -124,15 +125,30 @@ class ISYNode {
         }
     }
     convert(value, from, to) {
-        return value;
+        if (from === to)
+            return value;
+        else {
+            try {
+                return Converters_js_1.Converter.Standard[from][to].from(value);
+            }
+            catch {
+                this.isy.logger.error(`Conversion from ${UOM_js_1.UnitOfMeasure[from]} to ${UOM_js_1.UnitOfMeasure[to]} not supported.`);
+            }
+            finally {
+                return value;
+            }
+        }
     }
     convertFrom(value, uom, propertyName) {
-        throw new Error('Method not implemented.');
+        if (this.drivers[propertyName]?.uom != uom) {
+            this.logger(`Converting ${this.drivers[propertyName].label} to ${UOM_js_1.UnitOfMeasure[this.drivers[propertyName]?.uom]} from ${UOM_js_1.UnitOfMeasure[uom]}`);
+            return this.convert(value, uom, this.drivers[propertyName].uom);
+        }
     }
     convertTo(value, uom, propertyName) {
-        if (this.drivers[propertyName].uom != uom) {
-            this.isy.logger.debug(`Converting ${this.drivers[propertyName].label} from ${this.drivers[propertyName].uom} to ${UOM_js_1.UnitOfMeasure}`);
-            return this.convertTo(value, uom);
+        if (this.drivers[propertyName]?.uom != uom) {
+            this.isy.logger.debug(`Converting ${this.drivers[propertyName].label} from ${UOM_js_1.UnitOfMeasure[this.drivers[propertyName].uom]} to ${UOM_js_1.UnitOfMeasure[uom]}`);
+            return this.convert(value, uom, this.drivers[propertyName].uom);
         }
     }
     emit(event, propertyName, newValue, oldValue, formattedValue, controlName) {
@@ -160,7 +176,7 @@ class ISYNode {
     }
     async getNotes() {
         try {
-            const result = await this.isy.sendRequest(`nodes/${this.address}/notes`);
+            const result = await this.isy.sendRequest(`nodes/${this.address}/notes`, { trailingSlash: false, errorLogLevel: 'debug', validateStatus(status) { return true; } });
             if (result !== null && result !== undefined) {
                 return result.NodeProperties;
             }
@@ -174,7 +190,7 @@ class ISYNode {
     }
     handleControlTrigger(controlName) {
         //this.lastChanged = new Date();
-        this.events.emit('ControlTriggered', controlName);
+        this.events.emit('controlTriggered', controlName);
         return true;
     }
     handleEvent(event) {
@@ -196,23 +212,26 @@ class ISYNode {
         else {
             // this.logger(event.control);
             const e = event.control;
-            const dispName = this.commands[e].name;
+            const dispName = this.commands[e]?.name;
             if (dispName !== undefined && dispName !== null) {
-                this.logger(`Command ${dispName} (${e}) triggered.`);
+                this.logger(`Command ${dispName} (${e}) event sent.`);
             }
             else {
-                this.logger(`Command ${e} triggered.`);
+                this.logger(`Command ${e} event sent.`);
             }
             this.handleControlTrigger(e);
             return true;
         }
     }
-    handlePropertyChange(propertyName, value, uom, formattedValue, prec) {
+    handlePropertyChange(propertyName, value, uom, prec, formattedValue) {
         this.lastChanged = new Date();
-        const oldValue = this.drivers[propertyName].value;
-        if (this.drivers[propertyName].patch(value, formattedValue, uom, prec)) {
-            this.emit('PropertyChanged', propertyName, value, oldValue, formattedValue);
-            this.scenes.forEach((element) => {
+        let driver = this.drivers[propertyName];
+        this.logger(`Driver ${propertyName} (${driver?.label} value update ${value} (${formattedValue}) uom: ${UOM_js_1.UnitOfMeasure[uom]} event received.`);
+        const oldValue = driver?.value;
+        if (driver?.patch(value, formattedValue, uom, prec)) {
+            this.logger(`Driver ${driver.label} updated from ${oldValue} to ${value} (${formattedValue})`);
+            this.emit('propertyChanged', propertyName, value, oldValue, formattedValue);
+            this.scenes?.forEach((element) => {
                 this.logger(`Recalulating ${element.deviceFriendlyName}`);
                 element.recalculateState();
             });

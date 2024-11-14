@@ -1,9 +1,1 @@
-{
-  "linkdefs": {
-    "$comment": " Insteon Dimmer controller ",
-    "linkdef": {
-      "id": "I_CTL_DIMMER",
-      "protocol": "I_STD"
-    }
-  }
-}
+{}

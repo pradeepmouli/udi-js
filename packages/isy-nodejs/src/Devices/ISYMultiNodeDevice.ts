@@ -1,7 +1,7 @@
 //import type { UnionToIntersection } from '@project-chip/matter-node.js/util.js';
 import type { Driver } from '../Definitions/Global/Drivers.js';
 import type { UnitOfMeasure } from '../Definitions/Global/UOM.js';
-import type { Family } from '../ISY.js';
+
 import type { ISYDevice } from '../ISYDevice.js';
 import type { DriverMap, ISYNode, NodeList } from '../ISYNode.js';
 import type { ISYScene } from '../ISYScene.js';

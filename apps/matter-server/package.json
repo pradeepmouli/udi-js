@@ -1,0 +1,47 @@
+{
+  "name": "@pmouli/isy-matter-server",
+  "version": "1.0.1-alpha.28",
+  "description": "Service to expose an ISY device as a Matter Border router",
+  "keywords": [
+    "matter",
+    "isy",
+    "eisy",
+    "polisy",
+    "CHIP"
+  ],
+  "author": "Pradeep Mouli",
+  "homepage": "",
+  "license": "MIT",
+  "main": "./bin/server.js",
+  "module": "./bin/server.js",
+  "bin": "./bin/server.js",
+  "directories": {
+    "bin": "./bin",
+    "test": "__tests__"
+  },
+  "files": [
+    "bin",
+    "README.md"
+  ],
+  "scripts": {
+    "run:dev": "tsx ./src/server.ts -a",
+    "build:watch": "tsc -p ./tsconfig.json --watch",
+    "build": "tsc -p ./tsconfig.json",
+    "test": "node ./__tests__/isy-matter-server.test.js"
+  },
+  "type": "module",
+  "dependencies": {
+    "@npmcli/package-json": "6.0.1",
+    "commander": "12.1.0",
+    "dotenv": "^16.4.5",
+    "dotenv-expand": "11.0.6",
+    "isy-nodejs": "^1.0.1-alpha.28",
+    "winston": "^3.15.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
+  }
+}

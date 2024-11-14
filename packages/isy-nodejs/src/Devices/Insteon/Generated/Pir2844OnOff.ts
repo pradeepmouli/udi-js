@@ -17,7 +17,7 @@ export const nodeDefId = "PIR2844OnOff";
 type Commands = Pir2844OnOff.Commands;
 type Drivers = Pir2844OnOff.Drivers;
 
-export class Pir2844OnOffNode extends Pir2844OnOffAdv implements Pir2844OnOff.Interface {
+export class Pir2844OnOffNode extends Base<Drivers, Commands> implements Pir2844OnOff.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,

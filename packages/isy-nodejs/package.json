@@ -2,7 +2,7 @@
     "name": "isy-nodejs",
     "description": "Node.js wrapper for ISY interface including websockets for change notifications. Fork of isy-js by Rod Toll. Designed to be used in a node.js application.",
     "license": "MIT",
-    "version": "1.0.0-alpha.2.0",
+    "version": "1.0.1-alpha.28",
     "author": {
         "name": "Pradeep Mouli"
     },
@@ -11,11 +11,9 @@
         "prepublishOnly": "npm run build",
         "linter": "eslint --ignore-path .gitignore .",
         "clean": "rimraf ./dist/*",
-        "build:cjs:types": "tsc -p ./tsconfig.cjs.types.json",
-        "build:esm:types": "tsc -p ./tsconfig.esm.types.json",
         "build:esm": "tsc -p ./tsconfig.esm.json",
-        "build:cjs": "tsc -p ./tsconfig.cjs.json && npm run build:cjs:types && cp ./package.cjs.json ./dist/cjs/package.json",
-        "build": "npm run clean && npm run build:esm && npm run build:cjs",
+        "build:cjs": "tsc -p ./tsconfig.cjs.json && cp ./package.cjs.json ./dist/cjs/package.json",
+        "build": "npm run build:esm && npm run build:cjs",
         "build:esm:watch": "tsc -p ./tsconfig.esm.json --watch"
     },
     "keywords": [
@@ -48,6 +46,7 @@
         "@types/node": "^22.7.5",
         "@types/xml2js": "",
         "@types/xmldoc": "",
+        "microdiff": "^1.4.0",
         "mocha": "",
         "rimraf": "^6.0.1"
     },
@@ -64,10 +63,9 @@
         "xml2js": "^0.6.2"
     },
     "bugs": {
-        "url": "https://github.com/pradeepmouli/isy-js/issues"
+        "url": "https://github.com/pradeepmouli/isy-nodejs/issues"
     },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/pradeepmouli/isy-js.git"
+    "publishConfig": {
+        "access": "public"
     }
 }

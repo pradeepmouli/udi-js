@@ -1,0 +1,58 @@
+{
+	"compileOnSave": true,
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"ignoreDeprecations": "5.0",
+		"target": "ESNext",
+		"module": "NodeNext",
+		"rootDir": "./src",
+		"outDir": "./bin",
+		//"declarationDir": "./dist/types",
+		"allowArbitraryExtensions": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"forceConsistentCasingInFileNames": true,
+		"allowSyntheticDefaultImports": true,
+		"allowJs": false,
+		"skipLibCheck": true,
+		"noImplicitOverride": true,
+		"noImplicitThis": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"moduleResolution": "NodeNext",
+		"paths": {
+			"isy-nodejs": [
+				"../../packages/isy-nodejs/dist/esm/types/",
+				"../../packages/isy-nodejs/dist/esm/"
+			],
+			"isy-nodejs/*": [
+				"../../packages/isy-nodejs/dist/esm/types/*",
+				"../../packages/isy-nodejs/dist/esm/*"
+			],
+		},
+	},
+	"include": [
+		"src/**/*",
+		"./DeviceMap.json"
+	],
+	"ts-node": {
+		"transpileOnly": true,
+		"esm": true
+	},
+	"exclude": [
+		"generate_old.ts",
+		"node_modules/@project-chip/*",
+		"node_modules",
+		"dist",
+		"coverage",
+		"temp",
+		"scripts",
+		"test",
+		"bin",
+		"types",
+		"index.ts",
+		"index.js",
+		"index.d.ts",
+		"packages/**/*"
+	]
+}

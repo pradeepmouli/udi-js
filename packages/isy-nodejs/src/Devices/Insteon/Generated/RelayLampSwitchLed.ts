@@ -17,7 +17,7 @@ export const nodeDefId = "RelayLampSwitchLED";
 type Commands = RelayLampSwitchLed.Commands;
 type Drivers = RelayLampSwitchLed.Drivers;
 
-export class RelayLampSwitchLedNode extends RelaySwitchOnlyPlusQuery implements RelayLampSwitchLed.Interface {
+export class RelayLampSwitchLedNode extends Base<Drivers, Commands> implements RelayLampSwitchLed.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,

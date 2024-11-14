@@ -17,7 +17,7 @@ export const nodeDefId = "KeypadRelay";
 type Commands = KeypadRelay.Commands;
 type Drivers = KeypadRelay.Drivers;
 
-export class KeypadRelayNode extends IrLincTx implements KeypadRelay.Interface {
+export class KeypadRelayNode extends Base<Drivers, Commands> implements KeypadRelay.Interface {
 	public readonly commands = {
 		DON: this.on,
 		DOF: this.off,

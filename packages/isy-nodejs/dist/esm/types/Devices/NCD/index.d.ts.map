@@ -1,0 +1,1 @@
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../../../src/Devices/NCD/index.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,MAAM,EAAE,MAAM,sCAAsC,CAAC;AACnE,OAAO,EAAC,OAAO,EAAC,MAAM,kBAAkB,CAAA;AAExC,qBAAa,IAAI,CAAC,CAAC,SAAS,OAAO,CAAC,gBAAgB,EAAC,CAAC,SAAS,OAAO,CAAC,iBAAiB,CAAE,SAAQ,OAAO,CAAC,MAAM,CAAC,KAAK,EAAC,CAAC,EAAC,CAAC,CAAC;CAAG"}

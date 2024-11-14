@@ -3,7 +3,7 @@ import { Logger } from 'winston';
 import { Driver } from './Definitions/Global/Drivers.js';
 import { Family } from './Definitions/Global/Families.js';
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
-import { ISY, NodeType, type ISYScene } from './ISY.js';
+import { ISY } from './ISY.js';
 import { CliConfigSetLevels } from 'winston/lib/winston/config/index.js';
 import type { Command } from './Definitions/Global/Commands.js';
 import { Event } from './Definitions/Global/Events.js';
@@ -12,7 +12,9 @@ import type { DriverState } from './Model/DriverState.js';
 import { NodeInfo } from './Model/NodeInfo.js';
 import type { NodeNotes } from './Model/NodeNotes.js';
 import { type StringKeys } from './Utils.js';
-export declare class ISYNode<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures = {
+import { NodeType } from './ISYConstants.js';
+import type { ISYScene } from './ISYScene.js';
+export declare class ISYNode<T extends Family = Family, D extends ISYNode.DriverSignatures = {}, C extends ISYNode.CommandSignatures = {}, E extends ISYNode.EventSignatures = {
     [x in keyof D]: Event.DriverToEvent<D[x]> & {
         driver: x;
     };
@@ -59,7 +61,7 @@ export declare class ISYNode<T extends Family, D extends ISYNode.DriverSignature
     convert(value: any, from: UnitOfMeasure, to: UnitOfMeasure): any;
     convertFrom(value: any, uom: UnitOfMeasure, propertyName?: StringKeys<D>): any;
     convertTo(value: any, uom: UnitOfMeasure, propertyName?: StringKeys<D>): any;
-    emit(event: 'PropertyChanged' | 'ControlTriggered', propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
+    emit(event: 'propertyChanged' | 'controlTriggered', propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
     generateLabel(template: string): string;
     getNotes(): Promise<NodeNotes>;
     handleControlTrigger(controlName: keyof E & keyof C): boolean;
@@ -70,7 +72,7 @@ export declare class ISYNode<T extends Family, D extends ISYNode.DriverSignature
         action?: any;
         fmtAct?: any;
     }): boolean;
-    handlePropertyChange(propertyName: StringKeys<D>, value: any, uom: UnitOfMeasure, formattedValue: string, prec?: number): boolean;
+    handlePropertyChange(propertyName: StringKeys<D>, value: any, uom: UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
     parseResult(node: {
         property: DriverState | DriverState[];
     }): void;
@@ -158,7 +160,7 @@ export declare namespace ISYNode {
             convert(value: any, from: UnitOfMeasure, to: UnitOfMeasure): any;
             convertFrom(value: any, uom: UnitOfMeasure, propertyName?: string): any;
             convertTo(value: any, uom: UnitOfMeasure, propertyName?: string): any;
-            emit(event: "PropertyChanged" | "ControlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
+            emit(event: "propertyChanged" | "controlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
             generateLabel(template: string): string;
             getNotes(): Promise<NodeNotes>;
             handleControlTrigger(controlName: string | number | symbol): boolean;
@@ -169,7 +171,7 @@ export declare namespace ISYNode {
                 action?: any;
                 fmtAct?: any;
             }): boolean;
-            handlePropertyChange(propertyName: string, value: any, uom: UnitOfMeasure, formattedValue: string, prec?: number): boolean;
+            handlePropertyChange(propertyName: string, value: any, uom: UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
             parseResult(node: {
                 property: DriverState | DriverState[];
             }): void;

@@ -32,7 +32,7 @@ export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>,Comm
 	public members: ISYDevice<any,any,any>[];
 	public typeCode: string;
 	constructor(isy: ISY, scene: SceneInfo) {
-		super(isy, scene as SceneInfo);
+		super(isy, scene as NodeInfo);
 		// this.logger(JSON.stringify(scene));
 		this.typeCode = '';
 		this.connectionType = 'Insteon Wired';
@@ -77,7 +77,7 @@ export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>,Comm
 	get isOn() {
 		for (const device of this.members) {
 			if (device instanceof Insteon.Relay)  {
-				if (device.drivers.ST?.value === 1) {
+				if (device.drivers.ST?.value) {
 					return true;
 				}
 			}
@@ -110,10 +110,10 @@ export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>,Comm
 	}
 	public markAsChanged() {
 		this.lastChanged = new Date();
-		this.emit('PropertyChanged', 'isOn', this.isOn, this.isOn, this.isOn ? 'on' : 'off');
+		this.emit('propertyChanged', 'isOn', this.isOn, this.isOn, this.isOn ? 'on' : 'off');
 
 		if (this.isDimmable) {
-			this.emit('PropertyChanged', 'brightnesslevel', this.brightnessLevel, this.brightnessLevel, this.brightnessLevel + '%');
+			this.emit('propertyChanged', 'brightnesslevel', this.brightnessLevel, this.brightnessLevel, this.brightnessLevel + '%');
 
 		}
 	}

@@ -1,7 +1,7 @@
 import { factory } from "typescript";
 import { createWrappedNode, ts, type EnumDeclaration, EnumMember, Identifier } from 'ts-morph'
 import { UnitOfMeasure } from "../Definitions/Global/UOM.js";
-import { Family } from "../ISY.js";
+
 import type {
   NodeClassDefinition,
   DriverDefinition,
@@ -12,6 +12,7 @@ import { EnumDefinition, EnumDefinitionMap } from "../Model/EnumDefinition.js";
 import { isGeneratorFunction } from "util/types";
 import { Logger, loggers } from "winston";
 import { pascalCase } from 'moderndash';
+import { Family } from '../Definitions/index.js';
 
 
 const logger = loggers.get("EnumFactory");

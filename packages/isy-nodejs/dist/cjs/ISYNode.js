@@ -2,9 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ISYNode = void 0;
 const UOM_js_1 = require("./Definitions/Global/UOM.js");
-const ISY_js_1 = require("./ISY.js");
 const Converters_js_1 = require("./Converters.js");
 const Events_js_1 = require("./Definitions/Global/Events.js");
+const ISYConstants_js_1 = require("./ISYConstants.js");
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 class ISYNode {
     // #region Properties (32)
@@ -75,7 +75,7 @@ class ISYNode {
             .replace('  ', ' ')
             .replace('  ', ' ')
             .trim();
-        if (this.parentType === ISY_js_1.NodeType.Folder) {
+        if (this.parentType === ISYConstants_js_1.NodeType.Folder) {
             this.folder = isy.folderMap.get(this.parent._);
             isy.logger.debug(`${this.name} is in folder ${this.folder}`);
             this.logger = (msg, level = 'debug', ...meta) => {
@@ -176,7 +176,7 @@ class ISYNode {
     }
     async getNotes() {
         try {
-            const result = await this.isy.sendRequest(`nodes/${this.address}/notes`, { trailingSlash: false, errorLogLevel: 'debug' });
+            const result = await this.isy.sendRequest(`nodes/${this.address}/notes`, { trailingSlash: false, errorLogLevel: 'debug', validateStatus(status) { return true; } });
             if (result !== null && result !== undefined) {
                 return result.NodeProperties;
             }

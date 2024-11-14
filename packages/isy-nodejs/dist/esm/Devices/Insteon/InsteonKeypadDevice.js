@@ -1,6 +1,6 @@
-import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import 'winston';
-export class InsteonKeypadButtonDevice extends InsteonRelayDevice {
+import { KeypadButton } from './KeypadButton.js';
+export class InsteonKeypadButtonDevice extends KeypadButton.Node {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
     }

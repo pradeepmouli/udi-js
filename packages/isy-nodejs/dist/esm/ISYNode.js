@@ -1,7 +1,7 @@
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
-import { NodeType } from './ISY.js';
 import { Converter } from './Converters.js';
 import { Event } from './Definitions/Global/Events.js';
+import { NodeType } from './ISYConstants.js';
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 export class ISYNode {
     // #region Properties (32)
@@ -173,7 +173,7 @@ export class ISYNode {
     }
     async getNotes() {
         try {
-            const result = await this.isy.sendRequest(`nodes/${this.address}/notes`, { trailingSlash: false, errorLogLevel: 'debug' });
+            const result = await this.isy.sendRequest(`nodes/${this.address}/notes`, { trailingSlash: false, errorLogLevel: 'debug', validateStatus(status) { return true; } });
             if (result !== null && result !== undefined) {
                 return result.NodeProperties;
             }

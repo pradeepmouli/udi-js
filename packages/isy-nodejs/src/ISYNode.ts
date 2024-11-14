@@ -3,7 +3,7 @@ import { Logger } from 'winston';
 import { Driver } from './Definitions/Global/Drivers.js';
 import { Family } from './Definitions/Global/Families.js';
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
-import { ISY, NodeType, type ISYScene } from './ISY.js';
+import { ISY } from './ISY.js';
 
 import { CliConfigSetLevels } from 'winston/lib/winston/config/index.js';
 import { Converter } from './Converters.js';
@@ -14,13 +14,15 @@ import type { DriverState } from './Model/DriverState.js';
 import { NodeInfo } from './Model/NodeInfo.js';
 import type { NodeNotes } from './Model/NodeNotes.js';
 import { type StringKeys } from './Utils.js';
+import { NodeType } from './ISYConstants.js';
+import type { ISYScene } from './ISYScene.js';
 
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 
 export class ISYNode<
-	T extends Family,
-	D extends ISYNode.DriverSignatures,
-	C extends ISYNode.CommandSignatures,
+	T extends Family = Family,
+	D extends ISYNode.DriverSignatures = {},
+	C extends ISYNode.CommandSignatures = {},
 	E extends ISYNode.EventSignatures = { [x in keyof D]: Event.DriverToEvent<D[x]> & { driver: x } } & { [x in keyof C]: Event.CommandToEvent<C[x]> & { command: x } }
 > {
 	// #region Properties (32)
@@ -219,7 +221,7 @@ export class ISYNode<
 
 	public async getNotes(): Promise<NodeNotes> {
 		try {
-			const result = await this.isy.sendRequest(`nodes/${this.address}/notes`, { trailingSlash: false, errorLogLevel: 'debug' });
+			const result = await this.isy.sendRequest(`nodes/${this.address}/notes`, { trailingSlash: false, errorLogLevel: 'debug', validateStatus(status) { return true; }});
 			if (result !== null && result !== undefined) {
 				return result.NodeProperties;
 			} else {

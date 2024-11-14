@@ -1,4 +1,4 @@
-import { Family, InsteonBaseDevice, ISY, ISYDevice } from '../../ISY.js';
+import { ISY } from '../../ISY.js';
 
 import { Insteon } from '../../Definitions/Global/Families.js';
 import { Commands } from '../../ISYConstants.js'
@@ -6,6 +6,7 @@ import { Constructor } from '../Constructor.js';
 import { InsteonKeypadButtonDevice } from './InsteonKeypadDevice.js';
 import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import 'winston';
+import type { InsteonBaseDevice } from './InsteonBaseDevice.js';
 
 export const InsteonLampDevice = <T extends Constructor<InsteonBaseDevice>>(IB: T) => (class extends IB {
 			declare isDimmable: boolean;
@@ -21,7 +22,7 @@ export const InsteonLampDevice = <T extends Constructor<InsteonBaseDevice>>(IB: 
 
 export const KeypadDevice = <T extends Constructor<InsteonBaseDevice>>(IB: T) => (class extends IB {
 
-	
+
 });
 
 

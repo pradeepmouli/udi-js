@@ -1,6 +1,6 @@
-import { Family } from '../ISY.js';
+import { Family } from '../Definitions/index.js';
 import type { DriverState } from './DriverState.js';
-export type NodeInfo<T extends Family = Family> = (T extends Family.ZWave ? DynamicNodeInfo : StaticNodeInfo) & {
+export type NodeInfo<T extends Family = Family> = (T extends Family.ZWave | Family.ZigBee ? DynamicNodeInfo : StaticNodeInfo) & {
     state?: {
         [x: string]: DriverState;
     };

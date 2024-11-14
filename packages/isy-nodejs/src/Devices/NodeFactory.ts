@@ -1,10 +1,11 @@
-import type { MaybePromise } from '@project-chip/matter.js/util';
-import { Family, ISY } from '../ISY.js';
+
+import { ISY } from '../ISY.js';
 import  { ISYNode } from '../ISYNode.js';
 import type { NodeDef } from '../Model/NodeDef.js';
 import { isDynamic, type NodeInfo } from '../Model/NodeInfo.js';
 import type { Constructor } from './Constructor.js';
 import type { IdentityOf } from '../Utils.js';
+import { Family } from '../Definitions/index.js';
 
 
 

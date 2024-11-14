@@ -1,9 +1,10 @@
-import { type Family, type ISY } from '../ISY.js';
+import { type ISY } from '../ISY.js';
 import type { ISYDevice } from '../ISYDevice.js';
 import { ISYNode } from '../ISYNode.js';
 import type { NodeInfo } from '../Model/NodeInfo.js';
 import type { Category } from '../Definitions/Global/Categories.js';
 import type { Event } from '../Definitions/Global/Events.js';
+import type { Family } from '../Definitions/index.js';
 export declare class ISYDeviceNode<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures = {
     [x in keyof D]: Event.DriverToEvent<D[x]> & {
         driver: x;

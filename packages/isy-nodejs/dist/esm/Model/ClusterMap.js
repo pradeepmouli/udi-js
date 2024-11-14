@@ -38,7 +38,7 @@ var clusterMap = {
         moveToColor: { command: DriverType.CustomControl1, parameters: { colorX: { parameter: 'colorX' }, colorY: { parameter: 'colorY' }, colorTemperature: { parameter: 'colorTemperature' } } }
     }
 };
-const map = {
+/*const map: EndpointMapping<OnOffLightDevice, InsteonRelayDevice> = {
     Identify: {},
     OnOff: {
         attributes: {
@@ -48,6 +48,6 @@ const map = {
             onWithTimedOff: { command: 'DON' }
         }
     }
-};
+};*/
 // #endregion Variables (3)
 //# sourceMappingURL=ClusterMap.js.map

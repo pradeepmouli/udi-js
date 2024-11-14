@@ -4,12 +4,13 @@ exports.NodeFactory = void 0;
 const ISY_js_1 = require("../ISY.js");
 const ISYNode_js_1 = require("../ISYNode.js");
 const NodeInfo_js_1 = require("../Model/NodeInfo.js");
+const index_js_1 = require("../Definitions/index.js");
 var NodeFactory;
 (function (NodeFactory) {
     NodeFactory.registry = {};
     function register(nodeClass, id = nodeClass.nodeDefId) {
         let s;
-        s = NodeFactory.registry[ISY_js_1.Family[nodeClass.family]] ?? (NodeFactory.registry[nodeClass.family] = new Map());
+        s = NodeFactory.registry[index_js_1.Family[nodeClass.family]] ?? (NodeFactory.registry[nodeClass.family] = new Map());
         s.set(nodeClass.nodeDefId, nodeClass);
     }
     NodeFactory.register = register;
@@ -23,14 +24,14 @@ var NodeFactory;
     NodeFactory.getForNLSId = getForNLSId;
     async function get(node, isy = ISY_js_1.ISY.instance) {
         if (!(0, NodeInfo_js_1.isDynamic)(node)) {
-            return Promise.resolve(getForNodeDefId(ISY_js_1.Family[node.family], node.nodeDefId));
+            return Promise.resolve(getForNodeDefId(index_js_1.Family[node.family], node.nodeDefId));
         }
         else {
-            var nd = getForNodeDefId(ISY_js_1.Family[node.family], node.sgid);
+            var nd = getForNodeDefId(index_js_1.Family[node.family], node.sgid);
             if (nd) {
                 return Promise.resolve(nd);
             }
-            let n = (await isy.sendRequest(`zmatter/${node.family == ISY_js_1.Family.ZWave ? "zwave" : "zb"}/node/${node.address}/def/get?full=true`));
+            let n = (await isy.sendRequest(`zmatter/${node.family == index_js_1.Family.ZWave ? "zwave" : "zb"}/node/${node.address}/def/get?full=true`));
             let cls = ISYNode_js_1.ISYNode;
             NodeFactory.register(cls, n.nls);
             return cls;

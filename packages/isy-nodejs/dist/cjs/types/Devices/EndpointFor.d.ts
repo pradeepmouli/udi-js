@@ -27,7 +27,7 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         family: any;
         readonly typeCode: string;
         readonly deviceClass: any;
-        readonly category: import("../ISY.js").Categories;
+        readonly category: import("../Definitions/index.js").Category;
         readonly subCategory: number;
         declare: any;
         _enabled: any;

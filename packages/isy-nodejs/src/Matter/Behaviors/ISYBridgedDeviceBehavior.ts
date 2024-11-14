@@ -9,10 +9,12 @@ import { Internal } from '@project-chip/matter.js/behavior/state/managed';
 import { EventEmitter, Observable, ObservableProxy } from '@project-chip/matter.js/util';
 import internal from 'stream';
 import type { Driver } from '../../Definitions/Global/Drivers.js';
-import { ISY, type Family, type ISYNode } from '../../ISY.js';
+import { ISY } from '../../ISY.js';
 import type { ISYDevice } from '../../ISYDevice.js';
 import { DeviceToClusterMap, MappingRegistry, type ClusterMapping, type BehaviorMapping } from '../../Model/ClusterMap.js';
 import { server } from 'typescript';
+import type { ISYNode } from '../../ISYNode.js';
+import type { Family } from '../../Definitions/index.js';
 
 
 type ClusterForBehavior<B extends ClusterBehavior> = B extends ClusterBehavior.Type<infer C> ? C : never;
@@ -32,7 +34,7 @@ export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D ext
 		const d = ISY.instance.nodeMap.get(this.state.address);
 		this.internal.device = d;
 		this.internal.map = MappingRegistry.getMapping(this.internal.device as unknown as ISYNode<Family, any, any, any>);
-		
+
 		ISY.instance.logger.debug(`Initializing ${this.constructor.name} for ${this.internal.device.constructor.name} ${this.internal.device.name} with address ${address}`);
 		if (d) {
 			d.events.on('propertyChanged', this.handlePropertyChange.bind(this));

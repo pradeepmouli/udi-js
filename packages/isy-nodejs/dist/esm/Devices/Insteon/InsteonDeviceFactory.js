@@ -1,5 +1,4 @@
 import { Category } from '../../Definitions/Global/Categories.js';
-import { Family, InsteonBaseDevice, InsteonLockDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice } from '../../ISY.js';
 import { parseTypeCode } from '../../Utils.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import { InsteonDimmerOutletDevice } from './InsteonDimmerOutletDevice.js';
@@ -14,6 +13,11 @@ import { InsteonMotionSensorDevice } from './InsteonMotionSensorDevice.js';
 import { InsteonOnOffOutletDevice } from './InsteonOnOffOutletDevice.js';
 import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import { InsteonRelaySwitchDevice } from './InsteonRelaySwitchDevice.js';
+import { Family } from '../../Definitions/index.js';
+import { InsteonBaseDevice } from './InsteonBaseDevice.js';
+import { InsteonSmokeSensorDevice } from './InsteonSmokeSensorDevice.js';
+import { InsteonThermostatDevice } from './InsteonThermostatDevice.js';
+import { InsteonLockDevice } from './InsteonLockDevice.js';
 export class InsteonDeviceFactory {
     // public static buildDeviceMap() {
     // 	var fams = new Map<Family, FamilyDef<Family>>();

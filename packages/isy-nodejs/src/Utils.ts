@@ -1,23 +1,24 @@
-import axios, { AxiosRequestConfig } from 'axios';
 
 import * as log4js from '@log4js-node/log4js-api';
-import winston, { Logger, format } from 'winston';
+import winston, { Logger, format, type LeveledLogMethod, type LogMethod } from 'winston';
 
-import { Axios } from 'axios';
 import { EventEmitter as BaseEventEmitter } from 'events';
 import { Category } from './Definitions/Global/Categories.js';
 
 //import { get } from 'http';
 import type { PackageJson } from '@npmcli/package-json';
-import type { Identity } from '@project-chip/matter.js/util';
 import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
 import path from 'path';
-import { isBoxedPrimitive } from 'util/types';
-import { Family, type Driver, type DriverType, type EnumLiteral } from './Definitions/index.js';
+import { Family } from './Definitions/index.js';
 import { EventType } from './Events/EventType.js';
+import type { Axios, AxiosRequestConfig } from 'axios';
 
 export type StringKeys<T> = Extract<keyof T, string>;
+
+export type PickOfType<T, U> = { [K in keyof T]: T[K] extends U ? (any extends T[K] ? never : K) : undefined }[keyof T];
+
+
 
 export function getEnumValueByEnumKey<E extends { [index: string]: number }, T extends keyof E>(enumType: E, enumKey: T): E[T] {
 	return enumType[enumKey];
@@ -27,6 +28,8 @@ export function getEnumKeyByEnumValue<E extends { [index: string]: number }, T e
 	return Object.keys(enumType).find((key) => enumType[key] === enumValue) as unknown as T;
 }
 
+
+export type LogLevel = PickOfType<winston.Logger, LeveledLogMethod>;
 export type ValuesOf<TEnum extends number | string | boolean | bigint> = `${TEnum}` extends `${infer R extends number}` ? R : `${TEnum}`;
 
 type s = ValuesOf<Family>;
@@ -52,6 +55,10 @@ export function fromArray<T>(...value: T[]): MaybeArray<T> {
 	}
 	return value;
 }
+
+export type BaseRequestConfig = Pick<AxiosRequestConfig, 'auth' | 'baseURL' | 'socketPath'>;
+
+export type ISYRequestConfig = Omit<AxiosRequestConfig, keyof BaseRequestConfig | 'method'>
 
 export function byteToPct(value) {
 	return Math.round((value * 100) / 255);

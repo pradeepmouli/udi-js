@@ -1,7 +1,7 @@
 import { ts } from 'ts-morph';
-import { Family } from "../ISY.js";
 import type { NodeClassDefinition } from "../Model/ClassDefinition.js";
 import { EnumDefinition } from "../Model/EnumDefinition.js";
+import { Family } from '../Definitions/index.js';
 export declare function buildEnums<T extends Family>(map: {
     [x: string]: EnumDefinition<T>;
 }): GeneratedEnum<T>[];

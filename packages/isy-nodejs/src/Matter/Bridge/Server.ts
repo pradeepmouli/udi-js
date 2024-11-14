@@ -3,7 +3,7 @@ import { NodeJsEnvironment } from '@project-chip/matter-node.js/environment';
 import { StorageBackendDisk } from '@project-chip/matter-node.js/storage';
 import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
 import { VendorId } from '@project-chip/matter.js/datatype';
-import { logEndpoint } from '@project-chip/matter.js/device';
+import { Device, logEndpoint } from '@project-chip/matter.js/device';
 import { Endpoint, EndpointServer } from '@project-chip/matter.js/endpoint';
 import { DimmableLightDevice, OnOffLightDevice } from '@project-chip/matter.js/endpoint/definitions';
 import type { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
@@ -11,6 +11,8 @@ import { MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
 import { AggregatorEndpoint } from '@project-chip/matter.js/endpoints/AggregatorEndpoint';
 import { StorageService } from '@project-chip/matter.js/environment';
 import { Level, levelFromString, Logger as MatterLogger } from '@project-chip/matter.js/log';
+import { Devices } from '../../Devices/index.js';
+
 import { ServerNode } from '@project-chip/matter.js/node';
 //@ts-ignore
 import PackageJson from '@project-chip/matter.js/package.json' with { type: 'json' };
@@ -18,7 +20,7 @@ import { QrCode } from '@project-chip/matter.js/schema';
 import path, { resolve } from 'path';
 import { format, loggers } from 'winston';
 import type { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
-import { InsteonDimmableDevice, InsteonKeypadButtonDevice, InsteonRelayDevice, ISY } from '../../ISY.js';
+import { ISY } from '../../ISY.js';
 import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
 import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
 import '../Mappings/Insteon.js';
@@ -152,24 +154,24 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 
 	logger.info(`Bridge Aggregator Added`);
 
-	const endpoints: { 0: Endpoint; 1: InsteonRelayDevice }[] = [];
+
 
 	for (const node of isy.nodeMap.values()) {
 		let device = node as ISYDeviceNode<any, any, any>;
 		let serialNumber = `${device.address.replaceAll(' ', '_').replaceAll('.', '_')}`;
-		if (device.enabled && !(device instanceof InsteonKeypadButtonDevice)) {
+		if (device.enabled) {
 			//const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
 
 			//@ts-ignore
 			let baseBehavior: MutableEndpoint.With<DimmableLightDevice | OnOffLightDevice, SupportedBehaviors.MapOf<[typeof BridgedDeviceBasicInformationServer, typeof ISYBridgedDeviceBehavior]>>;
 
-			if (device instanceof InsteonDimmableDevice) {
+			if (device instanceof Devices.Insteon.Dimmer || device instanceof Devices.Insteon.DimmerSwitch || device instanceof Devices.Insteon.KeypadDimmer) {
 				baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior);
 				// if(device instanceof InsteonSwitchDevice)
 				// {
 				//     baseBehavior = DimmerSwitchDevice.with(BridgedDeviceBasicInformationServer);
 				// }
-			} else if (device instanceof InsteonRelayDevice) {
+			} else if (device instanceof Devices.Insteon.Relay || device instanceof Devices.Insteon.RelaySwitch) {
 				baseBehavior = OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior);
 				// if(device instanceof InsteonSwitchDevice)
 				// {

@@ -1,6 +1,7 @@
-import { Family, ISY } from '../ISY.js';
+import { ISY } from '../ISY.js';
 import { ISYNode } from '../ISYNode.js';
 import { isDynamic } from '../Model/NodeInfo.js';
+import { Family } from '../Definitions/index.js';
 export var NodeFactory;
 (function (NodeFactory) {
     NodeFactory.registry = {};

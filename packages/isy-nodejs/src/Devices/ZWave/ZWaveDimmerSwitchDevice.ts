@@ -1,6 +1,6 @@
 
 
-import { Family } from '../../ISY.js';
+
 import { ZWaveBaseDevice } from './ZWaveBaseDevice.js';
 import 'winston';
 

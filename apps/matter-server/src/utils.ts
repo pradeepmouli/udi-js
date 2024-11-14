@@ -50,38 +50,40 @@ import { format } from 'util';
 
 declare global {
 	interface String {
-	// #region Public Methods (6)
+		// #region Public Methods (6)
 
-	left(numChars: number): string;
-	leftWithToken(maxNumChars: number, token?: string): string;
-	remove(searchValue: string | RegExp): string;
-	removeAll(searchValue: string | RegExp): string;
-	right(numChars: number): string;
-	rightWithToken(maxNumChars: number, token?: string): string;
+		left(numChars: number): string;
+		leftWithToken(maxNumChars: number, token?: string): string;
+		remove(searchValue: string | RegExp): string;
+		removeAll(searchValue: string | RegExp): string;
+		right(numChars: number): string;
+		rightWithToken(maxNumChars: number, token?: string): string;
 
-	// #endregion Public Methods (6)
-}
+		// #endregion Public Methods (6)
+	}
 
 	namespace NodeJS {
 		interface ProcessEnv {
-	// #region Properties (13)
+			// #region Properties (13)
 
-	ISY_HOST_PORT: number;
-	ISY_HOST_PROTOCOL: 'http' | 'https';
-	ISY_HOST_URL: string;
-	ISY_PASSWORD: string;
-	ISY_USERNAME: string;
-	LOG_FILE: string;
-	LOG_LEVEL: string;
-	MATTER_DISCRIMINATOR: number;
-	MATTER_PASSCODE: number;
-	MATTER_PORT: number;
-	MATTER_PRODUCTID: string;
-	MATTER_VENDORID: string;
-	WORKING_DIR: string;
+			ISY_HOST_PORT: number;
+			ISY_HOST_PROTOCOL: 'http' | 'https';
+			ISY_HOST_URL: string;
+			ISY_PASSWORD: string;
+			ISY_USERNAME: string;
+			LOG_FILE: string;
+			LOG_LEVEL: string;
+			MATTER_DISCRIMINATOR: number;
+			MATTER_PASSCODE: number;
+			MATTER_PORT: number;
+			MATTER_PRODUCTID: string;
+			MATTER_VENDORID: string;
+			WORKING_DIR: string;
 
-	// #endregion Properties (13)
-}
+			ISY_SOCKET_PATH: string;
+
+			// #endregion Properties (13)
+		}
 	}
 }
 

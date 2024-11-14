@@ -1,4 +1,4 @@
-import { Family, ISY } from '../../ISY.js';
+import {  ISY } from '../../ISY.js';
 
 import { NodeInfo } from '../../Model/NodeInfo.js';
 import { EndpointFor } from '../EndpointFor.js';

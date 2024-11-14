@@ -3,7 +3,7 @@ import { Logger } from 'winston';
 import { Driver } from './Definitions/Global/Drivers.js';
 import { Family } from './Definitions/Global/Families.js';
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
-import { ISY, NodeType, type ISYScene } from './ISY.js';
+import { ISY } from './ISY.js';
 import { CliConfigSetLevels } from 'winston/lib/winston/config/index.js';
 import type { Command } from './Definitions/Global/Commands.js';
 import { Event } from './Definitions/Global/Events.js';
@@ -12,7 +12,9 @@ import type { DriverState } from './Model/DriverState.js';
 import { NodeInfo } from './Model/NodeInfo.js';
 import type { NodeNotes } from './Model/NodeNotes.js';
 import { type StringKeys } from './Utils.js';
-export declare class ISYNode<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures = {
+import { NodeType } from './ISYConstants.js';
+import type { ISYScene } from './ISYScene.js';
+export declare class ISYNode<T extends Family = Family, D extends ISYNode.DriverSignatures = {}, C extends ISYNode.CommandSignatures = {}, E extends ISYNode.EventSignatures = {
     [x in keyof D]: Event.DriverToEvent<D[x]> & {
         driver: x;
     };

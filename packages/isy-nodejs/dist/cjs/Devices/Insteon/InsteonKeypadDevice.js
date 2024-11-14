@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InsteonKeypadButtonDevice = void 0;
-const InsteonRelayDevice_js_1 = require("./InsteonRelayDevice.js");
 require("winston");
-class InsteonKeypadButtonDevice extends InsteonRelayDevice_js_1.InsteonRelayDevice {
+const KeypadButton_js_1 = require("./KeypadButton.js");
+class InsteonKeypadButtonDevice extends KeypadButton_js_1.KeypadButton.Node {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
     }

@@ -1,6 +1,6 @@
 
 import type { Driver } from '../Definitions/Global/Drivers.js';
-import { type Family, type ISY, Controls } from '../ISY.js';
+import {type ISY } from '../ISY.js';
 import type { ISYDevice } from '../ISYDevice.js';
 import { ISYNode} from '../ISYNode.js';
 import type { ISYScene } from '../ISYScene.js';
@@ -10,6 +10,7 @@ import type { Category } from '../Definitions/Global/Categories.js';
 import type { Command } from '../Definitions/Global/Commands.js';
 import type { Event } from '../Definitions/Global/Events.js';
 import type { StringKeys } from '../Utils.js';
+import type { Family } from '../Definitions/index.js';
 
 
 export class ISYDeviceNode<

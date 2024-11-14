@@ -9,13 +9,14 @@ import { DimmableLightDevice, OnOffLightDevice } from '@project-chip/matter.js/e
 import { AggregatorEndpoint } from '@project-chip/matter.js/endpoints/AggregatorEndpoint';
 import { StorageService } from '@project-chip/matter.js/environment';
 import { Level, levelFromString, Logger as MatterLogger } from '@project-chip/matter.js/log';
+import { Devices } from '../../Devices/index.js';
 import { ServerNode } from '@project-chip/matter.js/node';
 //@ts-ignore
 import PackageJson from '@project-chip/matter.js/package.json' with { type: 'json' };
 import { QrCode } from '@project-chip/matter.js/schema';
 import path, { resolve } from 'path';
 import { format, loggers } from 'winston';
-import { InsteonDimmableDevice, InsteonKeypadButtonDevice, InsteonRelayDevice, ISY } from '../../ISY.js';
+import { ISY } from '../../ISY.js';
 import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
 import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
 import '../Mappings/Insteon.js';
@@ -109,22 +110,21 @@ export async function createMatterServer(isy, config) {
     const aggregator = new Endpoint(AggregatorEndpoint, { id: 'aggregator' });
     await server.add(aggregator);
     logger.info(`Bridge Aggregator Added`);
-    const endpoints = [];
     for (const node of isy.nodeMap.values()) {
         let device = node;
         let serialNumber = `${device.address.replaceAll(' ', '_').replaceAll('.', '_')}`;
-        if (device.enabled && !(device instanceof InsteonKeypadButtonDevice)) {
+        if (device.enabled) {
             //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
             //@ts-ignore
             let baseBehavior;
-            if (device instanceof InsteonDimmableDevice) {
+            if (device instanceof Devices.Insteon.Dimmer || device instanceof Devices.Insteon.DimmerSwitch || device instanceof Devices.Insteon.KeypadDimmer) {
                 baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior);
                 // if(device instanceof InsteonSwitchDevice)
                 // {
                 //     baseBehavior = DimmerSwitchDevice.with(BridgedDeviceBasicInformationServer);
                 // }
             }
-            else if (device instanceof InsteonRelayDevice) {
+            else if (device instanceof Devices.Insteon.Relay || device instanceof Devices.Insteon.RelaySwitch) {
                 baseBehavior = OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior);
                 // if(device instanceof InsteonSwitchDevice)
                 // {

@@ -3,7 +3,7 @@ import type { AnyMxRecord } from 'dns';
 import EventEmitter, { on } from 'events';
 import type { EventType } from '../../Events/EventType.js';
 import { ISYEvent } from '../../Events/ISYEvent.js';
-import type { InsteonBaseDevice, ISY } from '../../ISY.js';
+import type { ISY } from '../../ISY.js';
 import type { ISYNode } from '../../ISYNode.js';
 import type { UnitOfMeasure } from './UOM.js';
 
@@ -63,7 +63,7 @@ export namespace Event {
 	): FunctionSigFor<E, NodeEventEmitter<N>> & Omit<NodeEventEmitter<N>, 'on'> {
 		var f = new NodeEventEmitter(node);
 		for (let evt in node.drivers) {
-			
+
 			//f[`on${ev.name}`] = f.on.bind(f, ev.name);
 		}
 

@@ -32,7 +32,7 @@ export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>,Comm
 	public members: ISYDevice<any,any,any>[];
 	public typeCode: string;
 	constructor(isy: ISY, scene: SceneInfo) {
-		super(isy, scene as SceneInfo);
+		super(isy, scene as NodeInfo);
 		// this.logger(JSON.stringify(scene));
 		this.typeCode = '';
 		this.connectionType = 'Insteon Wired';

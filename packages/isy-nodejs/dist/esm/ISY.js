@@ -5,32 +5,11 @@ import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
 import axios from 'axios';
 import { EventEmitter } from 'events';
 import { format, Logger, loggers } from 'winston';
-import { Category } from './Definitions/Global/Categories.js';
-import { Family } from './Definitions/Global/Families.js';
 import { DeviceFactory } from './Devices/DeviceFactory.js';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
-import { ElkAlarmSensorDevice } from './Devices/Elk/ElkAlarmSensorDevice.js';
-import { InsteonBaseDevice } from './Devices/Insteon/InsteonBaseDevice.js';
-import { InsteonOutletDevice } from './Devices/Insteon/InsteonDevice.js';
-import { InsteonDimmableDevice } from './Devices/Insteon/InsteonDimmableDevice.js';
-import { InsteonDimmerOutletDevice } from './Devices/Insteon/InsteonDimmerOutletDevice.js';
-import { InsteonDimmerSwitchDevice } from './Devices/Insteon/InsteonDimmerSwitchDevice.js';
-import { InsteonDoorWindowSensorDevice } from './Devices/Insteon/InsteonDoorWindowSensorDevice.js';
-import { InsteonFanDevice, InsteonFanMotorDevice } from './Devices/Insteon/InsteonFanDevice.js';
-import { InsteonKeypadButtonDevice } from './Devices/Insteon/InsteonKeypadDevice.js';
-import { InsteonKeypadDimmerDevice } from './Devices/Insteon/InsteonKeypadDimmerDevice.js';
-import { InsteonKeypadRelayDevice } from './Devices/Insteon/InsteonKeypadRelayDevice.js';
-import { InsteonLeakSensorDevice } from './Devices/Insteon/InsteonLeakSensorDevice.js';
-import { InsteonLockDevice } from './Devices/Insteon/InsteonLockDevice.js';
-import { InsteonMotionSensorDevice } from './Devices/Insteon/InsteonMotionSensorDevice.js';
-import { InsteonOnOffOutletDevice } from './Devices/Insteon/InsteonOnOffOutletDevice.js';
-import { InsteonRelayDevice } from './Devices/Insteon/InsteonRelayDevice.js';
-import { InsteonSmokeSensorDevice } from './Devices/Insteon/InsteonSmokeSensorDevice.js';
-import { InsteonThermostatDevice } from './Devices/Insteon/InsteonThermostatDevice.js';
 import { ISYDeviceNode } from './Devices/ISYDeviceNode.js';
 import { EventType } from './Events/EventType.js';
-import { NodeType, Props, States, VariableType } from './ISYConstants.js';
-import { ISYNode } from './ISYNode.js';
+import { VariableType } from './ISYConstants.js';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
 import * as Utils from './Utils.js';
@@ -38,7 +17,36 @@ import { XMLParser } from 'fast-xml-parser';
 import path from 'path';
 import { NodeFactory } from './Devices/NodeFactory.js';
 import { findPackageJson } from './Utils.js';
-export { Category as Categories, ELKAlarmPanelDevice, ElkAlarmSensorDevice, Family, InsteonBaseDevice, InsteonDimmableDevice, InsteonDimmerOutletDevice, InsteonDimmerSwitchDevice, InsteonDoorWindowSensorDevice, InsteonFanDevice, InsteonFanMotorDevice, InsteonKeypadButtonDevice, InsteonKeypadDimmerDevice, InsteonKeypadRelayDevice, InsteonLeakSensorDevice, InsteonLockDevice, InsteonMotionSensorDevice, InsteonOnOffOutletDevice, InsteonOutletDevice, InsteonRelayDevice, InsteonSmokeSensorDevice, InsteonThermostatDevice, ISYDeviceNode as ISYDevice, ISYNode, ISYScene, ISYVariable, NodeType, Props, States, Utils, VariableType };
+class ISYError extends Error {
+    constructor(messageOrError) {
+        if (messageOrError instanceof Error) {
+            super(messageOrError.message);
+            this.stack = messageOrError.stack;
+            this.cause = messageOrError;
+            this.name = 'ISYError';
+        }
+        else if (typeof messageOrError === 'string') {
+            super(messageOrError);
+            this.name = 'ISYError';
+        }
+    }
+}
+class ISYNodeError extends ISYError {
+    constructor(messageOrError, node) {
+        super(messageOrError);
+        this.name = 'ISYNodeError';
+        this.node = node;
+    }
+    node;
+}
+class ISYInitializationError extends ISYError {
+    step;
+    constructor(messageOrError, step) {
+        super(messageOrError);
+        this.name = 'ISYInitializationError';
+        this.step = step;
+    }
+}
 const defaultParserOptions = {
     explicitArray: false,
     mergeAttrs: true,
@@ -108,6 +116,18 @@ export class ISY extends EventEmitter {
     vendorName = 'Universal Devices, Inc.';
     webSocket;
     apiVersion;
+    socketPath;
+    get axiosOptions() {
+        return {
+            baseURL: `${this.protocol}://${this.host}:${this.port}`,
+            auth: {
+                username: this.credentials.username,
+                password: this.credentials.password
+            },
+            socketPath: this.socketPath,
+            validateStatus: (status) => status >= 200 && status < 300,
+        };
+    }
     // #endregion Properties (30)
     // #region Constructors (1)
     constructor(config, logger = new Logger(), storagePath) {
@@ -279,64 +299,79 @@ export class ISY extends EventEmitter {
         const that = this;
         try {
             this.apiVersion = (await findPackageJson()).version;
+        }
+        catch (e) {
+            this.logger.error(`Unable to read package.json: ${e.message}`);
+        }
+        try {
             await this.loadConfig();
             await this.loadNodes();
             await this.loadVariables(VariableType.Integer);
             await this.loadVariables(VariableType.State);
             await this.refreshStatuses();
             await this.#finishInitialize(true);
+            return true;
         }
         catch (e) {
-            this.handleInitializeError('initialize', e);
+            if (e instanceof ISYInitializationError) {
+                this.logger.error(`Error initializing ISY during (${e.step}): ${e.message}`);
+            }
+            else {
+                this.logger.error(`Error initializing ISY: ${e.message}`);
+            }
+            throw e;
         }
         finally {
             if (this.nodesLoaded !== true) {
                 that.#finishInitialize(false);
             }
         }
-        return Promise.resolve(true);
     }
-    initializeWebSocket() {
-        const that = this;
-        const auth = `Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
-        this.logger.info(`Opening webSocket: ${this.wsprotocol}://${this.address}/rest/subscribe`);
-        if (this.webSocket) {
-            try {
-                this.webSocket.close();
+    async initializeWebSocket() {
+        try {
+            const that = this;
+            const auth = `Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
+            this.logger.info(`Opening webSocket: ${this.wsprotocol}://${this.address}/rest/subscribe`);
+            if (this.webSocket) {
+                try {
+                    this.webSocket.close();
+                }
+                catch (e) {
+                    this.logger.warn(`Error closing existing websocket: ${e.message}`);
+                }
             }
-            catch (e) {
-                this.logger.warn(`Error closing existing websocket: ${e.message}`);
-            }
+            this.webSocket = new WebSocket.Client(`${this.wsprotocol}://${this.address}/rest/subscribe`, ['ISYSUB'], {
+                headers: {
+                    Origin: 'com.universal-devices.websockets.isy',
+                    Authorization: auth
+                },
+                ping: 10
+            });
+            this.lastActivity = new Date();
+            this.webSocket
+                .on('message', (event) => {
+                that.logger.silly(`Received message: ${Utils.logStringify(event.data, 1)}`);
+                that.handleWebSocketMessage(event);
+            })
+                .on('error', (err, response) => {
+                that.logger.warn(`Websocket subscription error: ${Utils.logStringify(err, 1)}`);
+            })
+                .on('fail', (data, response) => {
+                that.logger.warn(`Websocket subscription failure: ${data}`);
+                throw new Error('Websocket subscription failure');
+            })
+                .on('abort', () => {
+                that.logger.warn('Websocket subscription aborted.');
+                throw new Error('Websocket subscription aborted.');
+            })
+                .on('timeout', (ms) => {
+                that.logger.warn(`Websocket subscription timed out after ${ms} milliseconds.`);
+                throw new Error('Timeout contacting ISY');
+            });
         }
-        this.webSocket = new WebSocket.Client(`${this.wsprotocol}://${this.address}/rest/subscribe`, ['ISYSUB'], {
-            headers: {
-                Origin: 'com.universal-devices.websockets.isy',
-                Authorization: auth
-            },
-            ping: 10
-        });
-        this.lastActivity = new Date();
-        this.webSocket
-            .on('message', (event) => {
-            that.logger.silly(`Received message: ${JSON.stringify(event.data, null, 2)}`);
-            that.handleWebSocketMessage(event);
-        })
-            .on('error', (err, response) => {
-            that.logger.warn(`Websocket subscription error: ${JSON.stringify(err.message)}`);
-            /// throw new Error('Error calling ISY' + err);
-        })
-            .on('fail', (data, response) => {
-            that.logger.warn(`Websocket subscription failure: ${data}`);
-            throw new Error('Failed calling ISY');
-        })
-            .on('abort', () => {
-            that.logger.warn('Websocket subscription aborted.');
-            throw new Error('Call to ISY was aborted');
-        })
-            .on('timeout', (ms) => {
-            that.logger.warn(`Websocket subscription timed out after ${ms} milliseconds.`);
-            throw new Error('Timeout contacting ISY');
-        });
+        catch (e) {
+            throw new ISYInitializationError(e, 'websocket');
+        }
     }
     async loadConfig() {
         try {
@@ -364,26 +399,32 @@ export class ISY extends EventEmitter {
             return configuration;
         }
         catch (e) {
-            this.handleInitializeError('config', e);
-            throw Error(`Error Loading Config: ${e.message}`);
+            throw new ISYInitializationError(e, 'config');
         }
     }
     async loadNodes() {
         try {
+            this.logger.info('Loading ISY Nodes');
             const result = await this.sendRequest('nodes');
             if (this.isDebugEnabled)
                 writeFile(this.storagePath + '/ISYNodesDump.json', JSON.stringify(result), this.logger.error);
-            await this.#readFolderNodes(result).catch((p) => this.logger.error('Error Loading Folders', p));
-            await this.#readDeviceNodes(result).catch((p) => this.logger.error('Error Loading Devices', p));
-            await this.#readSceneNodes(result).catch((p) => this.logger.error('Error Loading Scenes', p));
+            await this.#readFolderNodes(result);
+            await this.#readDeviceNodes(result);
+            await this.#readSceneNodes(result);
             return result;
         }
         catch (e) {
-            throw new Error(`Error loading nodes: ${e.message}`);
+            if (e instanceof ISYInitializationError) {
+                throw e;
+            }
+            else {
+                throw new ISYInitializationError(e, 'loadNodes');
+            }
         }
     }
     async loadVariables(type) {
         const that = this;
+        this.logger.info(`Loading ISY Variables of type: ${type}`);
         return this.sendRequest(`vars/definitions/${type}`)
             .then((result) => that.#createVariables(type, result))
             .then(() => that.sendRequest(`vars/get/${type}`))
@@ -408,39 +449,11 @@ export class ISY extends EventEmitter {
             if (that.isDebugEnabled) {
                 writeFile(that.storagePath + '/ISYStatusDump.json', JSON.stringify(result), this.logger.error);
             }
-            this.logger.debug(result);
+            //this.logger.debug(result);
             for (const node of result.nodes.node) {
-                this.logger.debug(node);
-                let device = that.getDevice(node.id);
+                let device = that.getNode(node.id);
                 if (device !== null && device !== undefined) {
-                    //   let child = device.children.find((p) => p.address === node.id);
-                    //   if (child) {
-                    //     //Case FanLinc where we treat the light as a child of the fan.
-                    //     device = child;
-                    //   }
                     device.parseResult(node.property);
-                    //   if (Array.isArray(node.property)) {
-                    //     for (let prop of node.property) {
-                    // 		device.applyStatus(prop)
-                    //     //   device.local[prop.id] = device.convertFrom(prop.value, prop.uom);
-                    //     //   device.formatted[prop.id] = prop.formatted;
-                    //     //   device.uom[prop.id] = prop.uom;
-                    //     //   device.logger(
-                    //     //     `Property ${Controls[prop.id].label} (${prop.id}) initialized to: ${device.local[prop.id]} (${
-                    //     //       device.formatted[prop.id]
-                    //     //     })`
-                    //     //   );
-                    //     }
-                    //   } else if (node.property) {
-                    //     device.local[node.property.id] = device.convertFrom(node.property.value, node.property.uom);
-                    //     device.formatted[node.property.id] = node.property.formatted;
-                    //     device.uom[node.property.id] = node.property.uom;
-                    //     device.logger(
-                    //       `Property ${Controls[node.property.id].label} (${node.property.id}) initialized to: ${
-                    //         device.local[node.property.id]
-                    //       } (${device.formatted[node.property.id]})`
-                    //     );
-                    //   }
                 }
             }
         }
@@ -449,8 +462,7 @@ export class ISY extends EventEmitter {
         }
     }
     async sendGetVariable(id, type, handleResult) {
-        const uriToUse = `${this.protocol}://${this.address}/rest/vars/get/${type}/${id}`;
-        this.logger.info(`Sending ISY command...${uriToUse}`);
+        const uriToUse = `vars/get/${type}/${id}`;
         return this.sendRequest(uriToUse).then((p) => handleResult(p.val, p.init));
     }
     async sendISYCommand(path) {
@@ -485,10 +497,14 @@ export class ISY extends EventEmitter {
         const responseLogLevel = options.responseLogLevel ?? 'silly';
         url = `${this.protocol}://${this.address}/rest/${url}${options.trailingSlash ? '/' : ''}`;
         this.logger.log(requestLogLevel, `Sending request: ${url}`);
+        const reqOps = { ...this.axiosOptions, ...options, url: path.join('/rest', url) };
+        /*{
+                auth: { username: this.credentials.username, password: this.credentials.password },
+                baseURL: `${this.protocol}://${this.address}`,
+
+            }*/
         try {
-            const response = await axios.get(url, {
-                auth: { username: this.credentials.username, password: this.credentials.password }
-            });
+            const response = await axios.get(url, reqOps);
             if (response.data) {
                 if (response.headers['content-type'].toString().includes('xml')) {
                     let curParser = parser;
@@ -500,21 +516,26 @@ export class ISY extends EventEmitter {
                     return s;
                 }
                 else if (response.headers['content-type'].toString().includes('json')) {
-                    this.logger.log(responseLogLevel ?? 'debug', `Response: ${JSON.stringify(response.data)}`);
+                    this.logger.log(responseLogLevel, `Response: ${JSON.stringify(response.data)}`);
                     return JSON.parse(response.data);
                 }
                 else {
-                    this.logger.log(responseLogLevel ?? 'debug', `Response Header: ${JSON.stringify(response.headers)} Response: ${JSON.stringify(response.data)}`);
+                    this.logger.log(responseLogLevel, `Response Header: ${JSON.stringify(response.headers)} Response: ${JSON.stringify(response.data)}`);
                     return response.data;
                 }
             }
         }
         catch (error) {
-            if (options.errorLogLevel) {
-                this.logger.log(options.errorLogLevel, `Error sending request to ISY: ${error?.message}`);
+            if (options.throwOnError) {
+                throw error;
             }
             else {
-                this.logger.error(`Error sending request to ISY: ${error?.message}`);
+                if (options.errorLogLevel) {
+                    this.logger.log(options.errorLogLevel, `Error sending request to ISY: ${error?.message}`);
+                }
+                else {
+                    this.logger.error(`Error sending request to ISY: ${error?.message}`);
+                }
             }
         }
     }
@@ -610,97 +631,113 @@ export class ISY extends EventEmitter {
         }
     } */
     async #readDeviceNodes(obj) {
-        this.logger.info('Loading Device Nodes');
-        for (const nodeInfo of obj.nodes.node) {
-            try {
-                this.logger.debug(`Loading Device Node: ${JSON.stringify(nodeInfo)}`);
-                if (!this.deviceMap.has(nodeInfo.pnode)) {
-                    const address = nodeInfo.address;
-                    this.deviceMap[nodeInfo.pnode] = {
-                        address
-                    };
-                }
-                else {
-                    this.deviceMap[nodeInfo.pnode].push(nodeInfo.address);
-                }
-                let newDevice = null;
-                // let deviceTypeInfo = this.isyTypeToTypeName(device.type, device.address);
-                // this.logger.info(JSON.stringify(deviceTypeInfo));
-                const enabled = nodeInfo.enabled ?? true;
-                const d = await NodeFactory.get(nodeInfo);
-                const m = DeviceFactory.getDeviceDetails(nodeInfo);
-                const cls = m?.class ?? d;
-                nodeInfo.property = Array.isArray(nodeInfo.property) ? nodeInfo.property : [nodeInfo.property];
-                nodeInfo.state = nodeInfo.property.reduce((acc, p) => {
-                    if (p && p?.id) {
-                        p.name = p.name == '' ? undefined : p.name;
-                        acc[p.id] = p;
-                    }
-                    return acc;
-                }, {});
-                newDevice = new cls(this, nodeInfo);
-                if (m) {
-                    newDevice.productName = m.name;
-                    newDevice.model = `(${m.modelNumber}) ${m.name} v.${m.version}`;
-                    newDevice.modelNumber = m.modelNumber;
-                    newDevice.version = m.version;
-                }
-                if (enabled) {
-                    if (newDevice === null) {
-                        this.logger.warn(`Device type resolution failed for ${nodeInfo.name} with type: ${nodeInfo.type} and nodedef: ${nodeInfo.nodeDefId}`);
-                        newDevice = new ISYDeviceNode(this, nodeInfo);
-                    }
-                    else if (newDevice !== null) {
-                        if (m.unsupported) {
-                            this.logger.warn('Device not currently supported: ' + JSON.stringify(nodeInfo) + ' /n It has been mapped to: ' + d.name);
-                        }
-                        try {
-                            await newDevice.refreshNotes();
-                        }
-                        catch (e) {
-                            this.logger.debug('No notes found.');
-                        }
-                        // if (!newDevice.hidden) {
-                        // }
-                        // this.deviceList.push(newDevice);
+        try {
+            this.logger.info('Loading Device Nodes');
+            for (const nodeInfo of obj.nodes.node) {
+                try {
+                    this.logger.debug(`Loading Device Node: ${JSON.stringify(nodeInfo)}`);
+                    if (!this.deviceMap.has(nodeInfo.pnode)) {
+                        const address = nodeInfo.address;
+                        this.deviceMap[nodeInfo.pnode] = {
+                            address
+                        };
                     }
                     else {
+                        this.deviceMap[nodeInfo.pnode].push(nodeInfo.address);
                     }
-                    this.nodeMap.set(newDevice.address, newDevice);
+                    let newDevice = null;
+                    // let deviceTypeInfo = this.isyTypeToTypeName(device.type, device.address);
+                    // this.logger.info(JSON.stringify(deviceTypeInfo));
+                    const enabled = nodeInfo.enabled ?? true;
+                    const d = await NodeFactory.get(nodeInfo);
+                    const m = DeviceFactory.getDeviceDetails(nodeInfo);
+                    const cls = m?.class ?? d;
+                    nodeInfo.property = Array.isArray(nodeInfo.property) ? nodeInfo.property : [nodeInfo.property];
+                    nodeInfo.state = nodeInfo.property.reduce((acc, p) => {
+                        if (p && p?.id) {
+                            p.name = p.name == '' ? undefined : p.name;
+                            acc[p.id] = p;
+                        }
+                        return acc;
+                    }, {});
+                    newDevice = new cls(this, nodeInfo);
+                    if (m) {
+                        newDevice.productName = m.name;
+                        newDevice.model = `(${m.modelNumber}) ${m.name} v.${m.version}`;
+                        newDevice.modelNumber = m.modelNumber;
+                        newDevice.version = m.version;
+                    }
+                    if (enabled) {
+                        if (newDevice === null) {
+                            this.logger.warn(`Device type resolution failed for ${nodeInfo.name} with type: ${nodeInfo.type} and nodedef: ${nodeInfo.nodeDefId}`);
+                            newDevice = new ISYDeviceNode(this, nodeInfo);
+                        }
+                        else if (newDevice !== null) {
+                            if (m.unsupported) {
+                                this.logger.warn('Device not currently supported: ' + JSON.stringify(nodeInfo) + ' /n It has been mapped to: ' + d.name);
+                            }
+                            try {
+                                await newDevice.refreshNotes();
+                            }
+                            catch (e) {
+                                this.logger.debug('No notes found.');
+                            }
+                            // if (!newDevice.hidden) {
+                            // }
+                            // this.deviceList.push(newDevice);
+                        }
+                        else {
+                        }
+                        this.nodeMap.set(newDevice.address, newDevice);
+                    }
+                    else {
+                        this.logger.info(`Ignoring disabled device: ${nodeInfo.name}`);
+                    }
                 }
-                else {
-                    this.logger.info(`Ignoring disabled device: ${nodeInfo.name}`);
+                catch (e) {
+                    this.logger.error(`Error loading device node: ${e.message}`);
                 }
             }
-            catch (e) {
-                this.logger.error(`Error loading device node: ${e.message}`);
-            }
+            this.logger.info(`${this.nodeMap.size} devices added.`);
         }
-        this.logger.info(`${this.nodeMap.size} devices added.`);
+        catch (e) {
+            throw new ISYInitializationError(e, 'readDevices');
+        }
     }
     async #readFolderNodes(result) {
-        this.logger.info('Loading Folder Nodes');
-        if (result?.nodes?.folder) {
-            for (const folder of result.nodes.folder) {
-                this.logger.debug(`Loading Folder Node: ${JSON.stringify(folder)}`);
-                this.folderMap.set(folder.address, folder.name);
+        try {
+            this.logger.info('Loading Folder Nodes');
+            if (result?.nodes?.folder) {
+                for (const folder of result.nodes.folder) {
+                    this.logger.debug(`Loading Folder Node: ${JSON.stringify(folder)}`);
+                    this.folderMap.set(folder.address, folder.name);
+                }
             }
+        }
+        catch (e) {
+            throw new ISYInitializationError(e, 'readFolders');
         }
     }
     async #readSceneNodes(result) {
-        this.logger.info('Loading Scene Nodes');
-        for (const scene of result.nodes?.group) {
-            if (scene.name === 'ISY' || scene.name === 'IoX' || scene.name === 'Auto DR') {
-                continue;
-            } // Skip ISY & Auto DR Scenes
-            const newScene = new ISYScene(this, scene);
-            try {
-                await newScene.refreshNotes();
+        try {
+            this.logger.info('Loading Scene Nodes');
+            for (const scene of result.nodes?.group) {
+                if (scene.name === 'ISY' || scene.name === 'IoX' || scene.name === 'Auto DR') {
+                    continue;
+                } // Skip ISY & Auto DR Scenes
+                const newScene = new ISYScene(this, scene);
+                try {
+                    await newScene.refreshNotes();
+                }
+                catch (e) {
+                    this.logger.debug('No notes found.');
+                }
+                this.sceneList.set(newScene.address, newScene);
             }
-            catch (e) {
-                this.logger.debug('No notes found.');
-            }
-            this.sceneList.set(newScene.address, newScene);
+            this.logger.info(`${this.sceneList.size} scenes added.`);
+        }
+        catch (e) {
+            throw new ISYInitializationError(e, 'readScenes');
         }
     }
     #setVariableValues(result) {

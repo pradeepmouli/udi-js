@@ -1,16 +1,21 @@
 import * as log4js from '@log4js-node/log4js-api';
-import { Logger } from 'winston';
+import winston, { Logger, type LeveledLogMethod } from 'winston';
 import { EventEmitter as BaseEventEmitter } from 'events';
 import { Category } from './Definitions/Global/Categories.js';
 import type { PackageJson } from '@npmcli/package-json';
 import { EventType } from './Events/EventType.js';
+import type { AxiosRequestConfig } from 'axios';
 export type StringKeys<T> = Extract<keyof T, string>;
+export type PickOfType<T, U> = {
+    [K in keyof T]: T[K] extends U ? (any extends T[K] ? never : K) : undefined;
+}[keyof T];
 export declare function getEnumValueByEnumKey<E extends {
     [index: string]: number;
 }, T extends keyof E>(enumType: E, enumKey: T): E[T];
 export declare function getEnumKeyByEnumValue<E extends {
     [index: string]: number;
 }, T extends E[keyof E]>(enumType: E, enumValue: E[T]): T;
+export type LogLevel = PickOfType<winston.Logger, LeveledLogMethod>;
 export type ValuesOf<TEnum extends number | string | boolean | bigint> = `${TEnum}` extends `${infer R extends number}` ? R : `${TEnum}`;
 export type IdentityOf<T> = T extends (...args: any[]) => infer R ? R : T;
 export type LabelsOf<TEnum> = keyof IdentityOf<TEnum>;
@@ -18,6 +23,8 @@ export type MaybeArray<T> = T | T[];
 export type ObjectToUnion<T> = T[keyof T];
 export declare function toArray<T>(value: MaybeArray<T>): T[];
 export declare function fromArray<T>(...value: T[]): MaybeArray<T>;
+export type BaseRequestConfig = Pick<AxiosRequestConfig, 'auth' | 'baseURL' | 'socketPath'>;
+export type ISYRequestConfig = Omit<AxiosRequestConfig, keyof BaseRequestConfig | 'method'>;
 export declare function byteToPct(value: any): number;
 export declare function pctToByte(value: any): number;
 export declare function byteToDegree(value: any): number;

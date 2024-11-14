@@ -221,18 +221,29 @@ async function startBridgeServer() {
         logger.error('Already started');
         return;
     }
-    isy = await loadISYInterface();
-    await isy.initialize();
-    logger.info('Connected to ISY');
-    serverNode = await loadBridgeServer();
-    logger.info('Matter bridge server started');
-    logger.info('*'.repeat(80));
-    logger.info(`ISY firmware version: ${isy.firmwareVersion}`);
-    logger.info(`ISY model: ${isy.productName}`);
-    logger.info(`ISY model number: ${isy.productId}`);
-    logger.info(`ISY api version: ${isy.apiVersion}`);
-    logger.info(`Matter api version: ${matterServer.version}`);
-    logger.info('*'.repeat(80));
+    try {
+        isy = await loadISYInterface();
+        await isy.initialize();
+        logger.info('Connected to ISY');
+        serverNode = await loadBridgeServer();
+        logger.info('Matter bridge server started');
+        logger.info('*'.repeat(80));
+        logger.info(`ISY firmware version: ${isy.firmwareVersion}`);
+        logger.info(`ISY model: ${isy.productName}`);
+        logger.info(`ISY model number: ${isy.productId}`);
+        logger.info(`ISY api version: ${isy.apiVersion}`);
+        logger.info(`Matter api version: ${matterServer.version}`);
+        logger.info('*'.repeat(80));
+    }
+    catch (e) {
+        if (e instanceof Error) {
+            logger.error(`Error starting bridge server: ${e.message}`, e);
+        }
+        else
+            logger.error(`Error starting bridge server: ${e}`);
+        isy = null;
+        serverNode = null;
+    }
 }
 async function loadISYInterface() {
     let modulePath = 'isy-nodejs/ISY';

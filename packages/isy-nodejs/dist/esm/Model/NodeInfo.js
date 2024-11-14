@@ -1,4 +1,4 @@
-import { Family } from '../ISY.js';
+import { Family } from '../Definitions/index.js';
 // #endregion Interfaces (7)
 // #region Functions (3)
 export function family(nodeInfo) {

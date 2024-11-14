@@ -1,16 +1,16 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
-import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
-import { ISYDeviceNode } from "../../ISYDeviceNode.js";
-import { Driver } from "../../../Definitions/Global/Drivers.js";
-import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
-import { NodeFactory } from "../../NodeFactory.js";
+import { UnitOfMeasure } from "../../Definitions/Global/UOM.js";
+import { Family } from "../../Definitions/Global/Families.js";
+import type { NodeInfo } from "../../Model/NodeInfo.js";
+import type { ISY } from "../../ISY.js";
+import type { ISYNode } from "../../ISYNode.js";
+import { Base } from "./index.js";
+import { ISYDeviceNode } from "../ISYDeviceNode.js";
+import { Driver } from "../../Definitions/Global/Drivers.js";
+import { Insteon } from "../../Definitions/index.js";
+import type { DriverState } from "../../Model/DriverState.js";
+import { NodeFactory } from "../NodeFactory.js";
 
 export const nodeDefId = "KeypadButton";
 
@@ -18,12 +18,12 @@ type Commands = KeypadButton.Commands;
 type Drivers = KeypadButton.Drivers;
 
 export class KeypadButtonNode extends Base<Drivers, Commands> implements KeypadButton.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		QUERY: this.query,
 		BL: this.backlight,
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "KeypadButton";
+	static override nodeDefId = "KeypadButton";
 	declare readonly nodeDefId: "KeypadButton";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);

@@ -1,9 +1,9 @@
 import { IndentationText, Project, QuoteKind, ts } from 'ts-morph';
 import { factory } from 'typescript';
 import { UnitOfMeasure } from '../Definitions/Global/UOM.js';
-import { Family } from '../ISY.js';
 import { NodeClassDefinition } from '../Model/ClassDefinition.js';
 import { EnumDefinitionMap } from '../Model/EnumDefinition.js';
+import { Family } from '../Definitions/index.js';
 // #endregion Type aliases (1)
 // #region Classes (1)
 export class NodeClassFactory {

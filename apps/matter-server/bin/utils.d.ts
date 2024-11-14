@@ -22,6 +22,7 @@ declare global {
             MATTER_PRODUCTID: string;
             MATTER_VENDORID: string;
             WORKING_DIR: string;
+            ISY_SOCKET_PATH: string;
         }
     }
 }

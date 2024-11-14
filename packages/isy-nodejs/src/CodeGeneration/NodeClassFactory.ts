@@ -2,9 +2,10 @@ import { createWrappedNode, IndentationText, Project, QuoteKind, SourceFile, ts,
 import { factory, Statement, type Declaration } from 'typescript';
 import type { Driver } from '../Definitions/Global/Drivers.js';
 import { UnitOfMeasure } from '../Definitions/Global/UOM.js';
-import { Family } from '../ISY.js';
+
 import { CommandDefinition, DataTypeDefinition, DriverDefinition, NodeClassDefinition, ParameterDefinition } from '../Model/ClassDefinition.js';
 import { EnumDefinitionMap } from '../Model/EnumDefinition.js';
+import  { Family } from '../Definitions/index.js';
 
 // #region Type aliases (1)
 

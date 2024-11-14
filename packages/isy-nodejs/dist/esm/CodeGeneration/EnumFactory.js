@@ -1,10 +1,10 @@
 import { factory } from "typescript";
 import { ts } from 'ts-morph';
 import { UnitOfMeasure } from "../Definitions/Global/UOM.js";
-import { Family } from "../ISY.js";
 import { EnumDefinitionMap } from "../Model/EnumDefinition.js";
 import { loggers } from "winston";
 import { pascalCase } from 'moderndash';
+import { Family } from '../Definitions/index.js';
 const logger = loggers.get("EnumFactory");
 export function buildEnums(map) {
     let enums = [];

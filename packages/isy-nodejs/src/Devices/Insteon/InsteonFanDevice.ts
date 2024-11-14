@@ -1,5 +1,5 @@
 import { Family } from '../../Definitions/Global/Families.js';
-import { ISY, ISYNode } from '../../ISY.js';
+import { ISY } from '../../ISY.js';
 import { States } from '../../ISYConstants.js';
 
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';

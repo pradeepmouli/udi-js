@@ -13,11 +13,12 @@ import type { Converter } from '../Converters.js';
 import { Driver, DriverType } from '../Definitions/Global/Drivers.js';
 import { Devices, type ToDevice } from '../Devices/index.js';
 import { Insteon } from '../Devices/Insteon/index.js';
-import { Family, InsteonRelayDevice } from '../ISY.js';
+
 import type { ISYDevice } from '../ISYDevice.js';
 import type { CommandsOf, DriversOf, ISYNode } from '../ISYNode.js';
 import type { ClusterForBehavior } from '../Matter/Behaviors/ISYClusterBehavior.js';
 import { ClusterType } from './ClusterType.js';
+import type { Family } from '../Definitions/index.js';
 
 // #region Type aliases (16)
 
@@ -189,7 +190,7 @@ var clusterMap = {
 		moveToColor: { command: DriverType.CustomControl1, parameters: { colorX: { parameter: 'colorX' }, colorY: { parameter: 'colorY' }, colorTemperature: { parameter: 'colorTemperature' } } }
 	}
 };
-const map: EndpointMapping<OnOffLightDevice, InsteonRelayDevice> = {
+/*const map: EndpointMapping<OnOffLightDevice, InsteonRelayDevice> = {
 	Identify: {},
 	OnOff: {
 		attributes: {
@@ -199,6 +200,6 @@ const map: EndpointMapping<OnOffLightDevice, InsteonRelayDevice> = {
 			onWithTimedOff: { command: 'DON' }
 		}
 	}
-};
+};*/
 
 // #endregion Variables (3)

@@ -4,9 +4,9 @@ exports.NodeClassFactory = void 0;
 const ts_morph_1 = require("ts-morph");
 const typescript_1 = require("typescript");
 const UOM_js_1 = require("../Definitions/Global/UOM.js");
-const ISY_js_1 = require("../ISY.js");
 const ClassDefinition_js_1 = require("../Model/ClassDefinition.js");
 const EnumDefinition_js_1 = require("../Model/EnumDefinition.js");
+const index_js_1 = require("../Definitions/index.js");
 // #endregion Type aliases (1)
 // #region Classes (1)
 class NodeClassFactory {
@@ -37,7 +37,7 @@ class NodeClassFactory {
         return Object.values(map).map((p) => this.createNodeClass(p));
     }
     static createNodeClass(nodeClassDef) {
-        let path = `${NodeClassFactory.basePath}/${ISY_js_1.Family[nodeClassDef.family]}/Generated/${nodeClassDef.name}.ts`;
+        let path = `${NodeClassFactory.basePath}/${index_js_1.Family[nodeClassDef.family]}/Generated/${nodeClassDef.name}.ts`;
         let sf = ts_morph_1.ts.createSourceFile(path, '', ts_morph_1.ts.ScriptTarget.ES2023, true, ts_morph_1.ts.ScriptKind.TS);
         //@ts-expect-error
         sf.statements = [
@@ -49,7 +49,7 @@ class NodeClassFactory {
             typescript_1.factory.createImportDeclaration(undefined, typescript_1.factory.createImportClause(false, undefined, typescript_1.factory.createNamedImports([typescript_1.factory.createImportSpecifier(false, undefined, typescript_1.factory.createIdentifier('Base'))])), typescript_1.factory.createStringLiteral('../index.js'), undefined),
             typescript_1.factory.createImportDeclaration(undefined, typescript_1.factory.createImportClause(false, undefined, typescript_1.factory.createNamedImports([typescript_1.factory.createImportSpecifier(false, undefined, typescript_1.factory.createIdentifier('ISYDeviceNode'))])), typescript_1.factory.createStringLiteral('../../ISYDeviceNode.js'), undefined),
             typescript_1.factory.createImportDeclaration(undefined, typescript_1.factory.createImportClause(false, undefined, typescript_1.factory.createNamedImports([typescript_1.factory.createImportSpecifier(false, undefined, typescript_1.factory.createIdentifier('Driver'))])), typescript_1.factory.createStringLiteral('../../../Definitions/Global/Drivers.js'), undefined),
-            typescript_1.factory.createImportDeclaration(undefined, typescript_1.factory.createImportClause(false, undefined, typescript_1.factory.createNamedImports([typescript_1.factory.createImportSpecifier(false, undefined, typescript_1.factory.createIdentifier(ISY_js_1.Family[nodeClassDef.family]))])), typescript_1.factory.createStringLiteral('../../../Definitions/index.js'), undefined),
+            typescript_1.factory.createImportDeclaration(undefined, typescript_1.factory.createImportClause(false, undefined, typescript_1.factory.createNamedImports([typescript_1.factory.createImportSpecifier(false, undefined, typescript_1.factory.createIdentifier(index_js_1.Family[nodeClassDef.family]))])), typescript_1.factory.createStringLiteral('../../../Definitions/index.js'), undefined),
             typescript_1.factory.createImportDeclaration(undefined, typescript_1.factory.createImportClause(true, undefined, typescript_1.factory.createNamedImports([typescript_1.factory.createImportSpecifier(false, undefined, typescript_1.factory.createIdentifier('DriverState'))])), typescript_1.factory.createStringLiteral('../../../Model/DriverState.js'), undefined),
             typescript_1.factory.createImportDeclaration(undefined, typescript_1.factory.createImportClause(false, undefined, typescript_1.factory.createNamedImports([typescript_1.factory.createImportSpecifier(false, undefined, typescript_1.factory.createIdentifier('NodeFactory'))])), typescript_1.factory.createStringLiteral('../../NodeFactory.js'), undefined),
             typescript_1.factory.createVariableStatement([typescript_1.factory.createToken(ts_morph_1.ts.SyntaxKind.ExportKeyword)], typescript_1.factory.createVariableDeclarationList([typescript_1.factory.createVariableDeclaration(typescript_1.factory.createIdentifier('nodeDefId'), undefined, undefined, typescript_1.factory.createStringLiteral(nodeClassDef.id))], ts_morph_1.ts.NodeFlags.Const)),
@@ -179,7 +179,7 @@ exports.NodeClassFactory = NodeClassFactory;
 function buildClassIndex(family, classes) {
     return {
         family,
-        path: `/${ISY_js_1.Family[family]}/Generated/index.ts`,
+        path: `/${index_js_1.Family[family]}/Generated/index.ts`,
         statements: [...classes.map((p) => typescript_1.factory.createExportDeclaration(undefined, false, undefined, typescript_1.factory.createStringLiteral(`./${p.name}.js`), undefined))]
     };
 }
@@ -202,7 +202,7 @@ function createCommandParameterType(def, parent) {
                 var enumDef = EnumDefinition_js_1.EnumDefinitionMap.get(parent.classDef.family)[def.indexId];
                 // ?? EnumDefinitionMap[Family.Global]?[def.indexId]
                 if (enumDef) {
-                    return typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createQualifiedName(typescript_1.factory.createIdentifier(ISY_js_1.Family[parent.classDef.family]), typescript_1.factory.createIdentifier(enumDef.name)), undefined);
+                    return typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createQualifiedName(typescript_1.factory.createIdentifier(index_js_1.Family[parent.classDef.family]), typescript_1.factory.createIdentifier(enumDef.name)), undefined);
                 }
             }
             if (def.values) {
@@ -253,7 +253,7 @@ function createDriverPropertyReturnType(def, parent) {
                 var enumDef = EnumDefinition_js_1.EnumDefinitionMap.get(parent.classDef.family)[def.indexId];
                 // ?? EnumDefinitionMap[Family.Global]?[def.indexId]
                 if (enumDef) {
-                    return typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createQualifiedName(typescript_1.factory.createIdentifier(ISY_js_1.Family[parent.classDef.family]), typescript_1.factory.createIdentifier(enumDef.name)), undefined);
+                    return typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createQualifiedName(typescript_1.factory.createIdentifier(index_js_1.Family[parent.classDef.family]), typescript_1.factory.createIdentifier(enumDef.name)), undefined);
                 }
             }
             if (def.values) {
@@ -285,7 +285,7 @@ function createDriverSignatureReturnType(def, parent) {
             var enumDef = EnumDefinition_js_1.EnumDefinitionMap.get(parent.classDef.family)[def.indexId];
             // ?? EnumDefinitionMap[Family.Global]?[def.indexId]
             if (enumDef) {
-                return typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createQualifiedName(typescript_1.factory.createIdentifier(ISY_js_1.Family[parent.classDef.family]), typescript_1.factory.createIdentifier(enumDef.name)), undefined);
+                return typescript_1.factory.createTypeReferenceNode(typescript_1.factory.createQualifiedName(typescript_1.factory.createIdentifier(index_js_1.Family[parent.classDef.family]), typescript_1.factory.createIdentifier(enumDef.name)), undefined);
             }
         }
         if (def.values) {

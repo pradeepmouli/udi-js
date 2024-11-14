@@ -14,7 +14,7 @@
   },
   "devDependencies": {
 	"@types/npmcli__package-json": "4.0.4",
-    "lerna": "^8.1.8",
+    "lerna": "^8.1.9",
     "mocha": "^10.7.3",
     "moderndash": "^3.12.0",
     "prettier": "^3.3.3",
@@ -22,7 +22,7 @@
     "ts-morph": "^24.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.6.3",
-    "typescript-eslint": "^8.9.0"
+    "typescript-eslint": "^8.13.0"
   },
   "keywords": [
     "ISY",

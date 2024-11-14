@@ -5,38 +5,32 @@ import { DimmableLightRequirements } from '@project-chip/matter.js/devices/Dimma
 import { OnOffLightRequirements } from '@project-chip/matter.js/devices/OnOffLightDevice';
 import { OnOffLightSwitchDevice } from '@project-chip/matter.js/devices/OnOffLightSwitchDevice';
 import type { MaybePromise } from '@project-chip/matter.js/util';
-import { DriverType } from '../../Definitions/Global/Drivers.js';
-import { InsteonDimmableDevice } from '../../Devices/Insteon/InsteonDimmableDevice.js';
-import { InsteonRelayDevice } from '../../Devices/Insteon/InsteonRelayDevice.js';
-import { MappingRegistry } from '../../Model/ClusterMap.js';
-import { ClusterForBehavior, ISYClusterBehavior, type PropertyChange } from './ISYClusterBehavior.js';
+import { DriverType } from '../../../Definitions/Global/Drivers.js';
+import { InsteonDimmableDevice } from '../../../Devices/Insteon/InsteonDimmableDevice.js';
+import { InsteonRelayDevice } from '../../../Devices/Insteon/InsteonRelayDevice.js';
+import { MappingRegistry } from '../../../Model/ClusterMap.js';
+import { ClusterForBehavior, ISYClusterBehavior, type PropertyChange } from '../ISYClusterBehavior.js';
 
-import { Converter } from '../../Converters.js';
+import { Converter } from '../../../Converters.js';
 
 export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.OnOffServer, InsteonRelayDevice) {
 	override async initialize(_options?: {}) {
 		await super.initialize(_options);
-		this.state.onOff = (await this.device.status) > 0;
+		//this.state.onOff = this.device.status;
 		//this.state.onOff = await this.device.state;
 	}
 
 	override on = async () => {
-		await super.on();
 		await this.device.on();
 
 		//this.device.commands.DON = true;
 	};
 
 	override async off() {
-		await super.off();
 		await this.device.off();
 
 		// this.device.drivers = false;
 	}
-
-	override toggle = async () => {
-		//this.device.state = !(await this.device.state);
-	};
 
 	override async handlePropertyChange({ driver, newValue, oldValue, formattedValue }: PropertyChange<InsteonRelayDevice>) {
 
@@ -56,9 +50,10 @@ export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequire
 	override setLevel(level: number): MaybePromise<void> {
 		level = Converter.Matter.LevelFrom0To255.LightingLevel.from(level);
 		if (level > 0) {
-			return this.device.on();
+			return this.device.on(level);
 		} else {
 			return this.device.off();
 		}
+
 	}
 }

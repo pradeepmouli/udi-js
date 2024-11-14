@@ -1,6 +1,6 @@
 export declare namespace Command {
     type Signature<F extends {
-        name: string;
+        name: any;
     } = CallableFunction, L extends string = string, N extends string = string> = F & {
         label: L;
         name: N;

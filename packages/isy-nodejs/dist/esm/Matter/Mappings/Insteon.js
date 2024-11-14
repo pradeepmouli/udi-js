@@ -1,5 +1,4 @@
 import { OnOffLightDevice } from '@project-chip/matter.js/devices/OnOffLightDevice';
-import { DriverType } from '../../Definitions/Global/Drivers.js';
 import { Family } from '../../Definitions/Global/Families.js';
 import { MappingRegistry } from '../../Model/ClusterMap.js';
 //import InsteonMap from "./Insteon.json";
@@ -11,7 +10,7 @@ const map = {
         mapping: {
             OnOff: {
                 attributes: {
-                    onOff: { driver: 'ST', converter: 'Percent.Boolean' }
+                    onOff: 'ST'
                 },
                 commands: { on: 'DON' }
             }
@@ -39,9 +38,9 @@ const map = {
             },
             LevelControl: {
                 attributes: {
-                    currentLevel: { driver: DriverType.Status, converter: 'LevelFrom0To255.LightingLevel' }
+                    currentLevel: { driver: 'ST', converter: 'LevelFrom0To255.LightingLevel' }
                 },
-                commands: { moveToLevel: { command: 'DON' } }
+                commands: { setLevel: { command: 'DON' } }
             }
         }
     }

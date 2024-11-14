@@ -10,23 +10,21 @@ let NullConverter;
     to: (value) => value;
     from: (value) => value;
 }
-BooleanPercentage = {
-    to: (value) => {
-        return value > 0;
-    },
-    from: (value) => {
-        return value ? 100 : 0;
-    }
-};
 const StandardConverters = {
     Boolean: {
         LevelFrom0To255: {
             to: (value) => (value ? 255 : 0),
             from: (value) => value > 0
         },
-        Percent: BooleanPercentage
+        Percent: {
+            to: (value) => {
+                return value > 0;
+            },
+            from: (value) => {
+                return value ? 100 : 0;
+            }
+        }
     },
-    Percent: {},
     LevelFrom0To255: {
         Percent: {
             to: (value) => {
@@ -38,8 +36,8 @@ const StandardConverters = {
         }
     }
 };
-StandardConverters.Percent.LevelFrom0To255 = invert(StandardConverters.LevelFrom0To255.Percent);
-StandardConverters.LevelFrom0To255.Boolean = invert(StandardConverters.Boolean.LevelFrom0To255);
+//StandardConverters.Percent.LevelFrom0To255 = invert(StandardConverters.LevelFrom0To255.Percent);
+//StandardConverters.LevelFrom0To255.Boolean = invert(StandardConverters.Boolean.LevelFrom0To255);
 exports.StdConverterRegistry = new Map();
 exports.ConverterRegistry = new Map();
 function registerConverters() {
@@ -97,7 +95,6 @@ var Converter;
         let fuom = isString ? from : UOM_js_1.UnitOfMeasure[from];
         if (to) {
             let tuom = typeof to === 'string' ? to : UOM_js_1.UnitOfMeasure[to];
-            ;
             if (exports.StdConverterRegistry.has(fuom)) {
                 if (exports.StdConverterRegistry.get(fuom).has(tuom)) {
                     return exports.StdConverterRegistry.get(fuom).get(tuom);

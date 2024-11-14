@@ -2,11 +2,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RelayLampSwitch = exports.RelayLampSwitchNode = exports.nodeDefId = void 0;
-const UOM_js_1 = require("../../Definitions/Global/UOM.js");
-const InsteonBaseDevice_js_1 = require("./InsteonBaseDevice.js");
 const Drivers_js_1 = require("../../Definitions/Global/Drivers.js");
+const UOM_js_1 = require("../../Definitions/Global/UOM.js");
 const NodeFactory_js_1 = require("../NodeFactory.js");
-exports.nodeDefId = "RelayLampSwitch";
+const InsteonBaseDevice_js_1 = require("./InsteonBaseDevice.js");
+exports.nodeDefId = 'RelayLampSwitch';
 class RelayLampSwitchNode extends InsteonBaseDevice_js_1.InsteonBaseDevice {
     commands = {
         DON: this.on,
@@ -21,11 +21,11 @@ class RelayLampSwitchNode extends InsteonBaseDevice_js_1.InsteonBaseDevice {
     static nodeDefId = 'RelayLampSwitch';
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Drivers_js_1.Driver.create('ST', this, nodeInfo.state['ST'], { uom: UOM_js_1.UnitOfMeasure.Percent, label: 'Status', name: 'status' });
+        this.drivers.ST = Drivers_js_1.Driver.create('ST', this, nodeInfo.state['ST'], { uom: UOM_js_1.UnitOfMeasure.Boolean, label: 'Status', name: 'status' });
         this.drivers.ERR = Drivers_js_1.Driver.create('ERR', this, nodeInfo.state['ERR'], { uom: UOM_js_1.UnitOfMeasure.Index, label: 'Responding', name: 'responding' });
     }
     async on(value) {
-        return this.sendCommand('DON', { value: value });
+        return this.sendCommand('DON', value);
     }
     async off() {
         return this.sendCommand('DOF');

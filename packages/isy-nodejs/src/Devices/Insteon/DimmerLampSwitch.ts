@@ -39,13 +39,13 @@ export class DimmerLampSwitchNode extends Base<Drivers, Commands> implements Dim
 	declare readonly nodeDefId: 'DimmerLampSwitch';
 	constructor(isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create('ST', this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: 'Status', name: 'status' });
+		this.drivers.ST = Driver.create('ST', this, nodeInfo.state['ST'], { uom: UnitOfMeasure.LevelFrom0To255, label: 'Status', name: 'status' });
 		this.drivers.OL = Driver.create('OL', this, nodeInfo.state['OL'] as DriverState, { uom: UnitOfMeasure.Percent, label: 'On Level', name: 'onLevel' });
 		this.drivers.RR = Driver.create('RR', this, nodeInfo.state['RR'] as DriverState, { uom: UnitOfMeasure.Index, label: 'Ramp Rate', name: 'rampRate' });
 		this.drivers.ERR = Driver.create('ERR', this, nodeInfo.state['ERR'] as DriverState, { uom: UnitOfMeasure.Index, label: 'Responding', name: 'responding' });
 	}
 	async on(value?: number) {
-		return this.sendCommand('DON', { value: value });
+		return this.sendCommand('DON', value);
 	}
 	async off() {
 		return this.sendCommand('DOF');
@@ -180,7 +180,7 @@ export namespace DimmerLampSwitch {
 	};
 	export type Drivers = {
 		ST: {
-			uom: UnitOfMeasure.Percent;
+			uom: UnitOfMeasure.LevelFrom0To255;
 			value: number;
 			label: 'Status';
 			name: 'status';

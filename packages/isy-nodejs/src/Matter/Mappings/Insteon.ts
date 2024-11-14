@@ -19,7 +19,7 @@ const map: FamilyToClusterMap<Family.Insteon> = {
 		mapping: {
 			OnOff: {
 				attributes: {
-					onOff: { driver: 'ST', converter: 'Percent.Boolean' }
+					onOff: 'ST'
 				},
 				commands: { on: 'DON' }
 			}
@@ -47,9 +47,9 @@ const map: FamilyToClusterMap<Family.Insteon> = {
 			},
 			LevelControl: {
 				attributes: {
-					currentLevel: { driver: DriverType.Status, converter: 'LevelFrom0To255.LightingLevel' }
+					currentLevel: { driver: 'ST', converter: 'LevelFrom0To255.LightingLevel' }
 				},
-				commands: { moveToLevel: { command: 'DON' } }
+				commands: { setLevel: { command: 'DON' } }
 			}
 		}
 	}

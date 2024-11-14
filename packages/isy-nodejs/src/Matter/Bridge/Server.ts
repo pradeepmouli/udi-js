@@ -20,7 +20,7 @@ import { format, loggers } from 'winston';
 import type { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 import { InsteonDimmableDevice, InsteonKeypadButtonDevice, InsteonRelayDevice, ISY } from '../../ISY.js';
 import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
-import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/ISYOnOffBehavior.js';
+import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
 import '../Mappings/Insteon.js';
 
 // #region Interfaces (1)

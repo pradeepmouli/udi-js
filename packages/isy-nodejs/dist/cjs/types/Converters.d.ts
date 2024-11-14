@@ -1,8 +1,21 @@
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
 import { type StringKeys } from './Utils.js';
 declare const StandardConverters: {
-    [x in `${keyof typeof UnitOfMeasure}`]?: {
-        [y in `${keyof typeof UnitOfMeasure}`]?: Converter<any, any>;
+    Boolean: {
+        LevelFrom0To255: {
+            to: (value: boolean) => 0 | 255;
+            from: (value: number) => boolean;
+        };
+        Percent: {
+            to: (value: number) => boolean;
+            from: (value: boolean) => number;
+        };
+    };
+    LevelFrom0To255: {
+        Percent: {
+            to: (value: number) => number;
+            from: (value: number) => number;
+        };
     };
 };
 export declare const StdConverterRegistry: Map<string | UnitOfMeasure, Map<string | UnitOfMeasure, Converter<any, any>>>;

@@ -49,7 +49,7 @@ const path_1 = __importStar(require("path"));
 const winston_1 = require("winston");
 const ISY_js_1 = require("../../ISY.js");
 const ISYBridgedDeviceBehavior_js_1 = require("../Behaviors/ISYBridgedDeviceBehavior.js");
-const ISYOnOffBehavior_js_1 = require("../Behaviors/ISYOnOffBehavior.js");
+const ISYOnOffBehavior_js_1 = require("../Behaviors/Insteon/ISYOnOffBehavior.js");
 require("../Mappings/Insteon.js");
 //@ts-ignore
 exports.version = package_json_1.default.version;

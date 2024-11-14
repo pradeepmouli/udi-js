@@ -28,13 +28,13 @@ class DimmerLampSwitchNode extends InsteonBaseDevice_js_1.InsteonBaseDevice {
     static nodeDefId = 'DimmerLampSwitch';
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Drivers_js_1.Driver.create('ST', this, nodeInfo.state['ST'], { uom: UOM_js_1.UnitOfMeasure.Percent, label: 'Status', name: 'status' });
+        this.drivers.ST = Drivers_js_1.Driver.create('ST', this, nodeInfo.state['ST'], { uom: UOM_js_1.UnitOfMeasure.LevelFrom0To255, label: 'Status', name: 'status' });
         this.drivers.OL = Drivers_js_1.Driver.create('OL', this, nodeInfo.state['OL'], { uom: UOM_js_1.UnitOfMeasure.Percent, label: 'On Level', name: 'onLevel' });
         this.drivers.RR = Drivers_js_1.Driver.create('RR', this, nodeInfo.state['RR'], { uom: UOM_js_1.UnitOfMeasure.Index, label: 'Ramp Rate', name: 'rampRate' });
         this.drivers.ERR = Drivers_js_1.Driver.create('ERR', this, nodeInfo.state['ERR'], { uom: UOM_js_1.UnitOfMeasure.Index, label: 'Responding', name: 'responding' });
     }
     async on(value) {
-        return this.sendCommand('DON', { value: value });
+        return this.sendCommand('DON', value);
     }
     async off() {
         return this.sendCommand('DOF');

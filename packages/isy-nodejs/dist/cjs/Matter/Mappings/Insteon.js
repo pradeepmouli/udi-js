@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const OnOffLightDevice_1 = require("@project-chip/matter.js/devices/OnOffLightDevice");
-const Drivers_js_1 = require("../../Definitions/Global/Drivers.js");
 const Families_js_1 = require("../../Definitions/Global/Families.js");
 const ClusterMap_js_1 = require("../../Model/ClusterMap.js");
 //import InsteonMap from "./Insteon.json";
@@ -13,7 +12,7 @@ const map = {
         mapping: {
             OnOff: {
                 attributes: {
-                    onOff: { driver: 'ST', converter: 'Percent.Boolean' }
+                    onOff: 'ST'
                 },
                 commands: { on: 'DON' }
             }
@@ -41,9 +40,9 @@ const map = {
             },
             LevelControl: {
                 attributes: {
-                    currentLevel: { driver: Drivers_js_1.DriverType.Status, converter: 'LevelFrom0To255.LightingLevel' }
+                    currentLevel: { driver: 'ST', converter: 'LevelFrom0To255.LightingLevel' }
                 },
-                commands: { moveToLevel: { command: 'DON' } }
+                commands: { setLevel: { command: 'DON' } }
             }
         }
     }

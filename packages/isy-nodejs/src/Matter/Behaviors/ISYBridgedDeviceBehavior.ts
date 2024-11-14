@@ -12,6 +12,7 @@ import type { Driver } from '../../Definitions/Global/Drivers.js';
 import { ISY, type Family, type ISYNode } from '../../ISY.js';
 import type { ISYDevice } from '../../ISYDevice.js';
 import { DeviceToClusterMap, MappingRegistry, type ClusterMapping, type BehaviorMapping } from '../../Model/ClusterMap.js';
+import { server } from 'typescript';
 
 
 type ClusterForBehavior<B extends ClusterBehavior> = B extends ClusterBehavior.Type<infer C> ? C : never;
@@ -31,9 +32,11 @@ export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D ext
 		const d = ISY.instance.nodeMap.get(this.state.address);
 		this.internal.device = d;
 		this.internal.map = MappingRegistry.getMapping(this.internal.device as unknown as ISYNode<Family, any, any, any>);
+		
 		ISY.instance.logger.debug(`Initializing ${this.constructor.name} for ${this.internal.device.constructor.name} ${this.internal.device.name} with address ${address}`);
 		if (d) {
 			d.events.on('propertyChanged', this.handlePropertyChange.bind(this));
+
 			for(const f in d.drivers)
 			{
 				let evt = `${d.drivers[f].name}Changed`;
@@ -41,7 +44,8 @@ export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D ext
 
 				d.events.on(evt, (driver: string, newValue: any, oldValue: any, formattedValue: string) => obs.emit({ driver, newValue, oldValue, formattedValue }));
 				this.events[evt] = obs;
-				
+
+
 				//@ts-ignore
 				//d.events.on(evt, (driver: string, newValue: any, oldValue: any, formattedValue: string) => this.events.emit(evt, { driver, newValue, oldValue, formattedValue } as unknown as any));
 
@@ -62,12 +66,16 @@ export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D ext
 	}
 
 	handlePropertyChange(driver: string, newValue: any, oldValue: any, formattedValue: string) {
+
 		this.events.propertyChanged.emit({ driver, newValue, oldValue, formattedValue });
+
+
 	}
 
 	override [Symbol.asyncDispose]() {
 
 		this.internal.device = null;
+
 
 		return super[Symbol.asyncDispose]();
 	}

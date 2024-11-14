@@ -1,4 +1,3 @@
-
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
 import { type StringKeys } from './Utils.js';
 
@@ -9,26 +8,21 @@ let NullConverter: Converter<any, any>;
 	from: (value: any) => value;
 }
 
-BooleanPercentage = {
-	to: (value: number): boolean => {
-		return value > 0;
-	},
-	from: (value: boolean): number => {
-		return value ? 100 : 0;
-	}
-};
-
-const StandardConverters: {
-	[x in `${keyof typeof UnitOfMeasure}`]?: { [y in `${keyof typeof UnitOfMeasure}`]?: Converter<any, any> };
-} = {
+const StandardConverters = {
 	Boolean: {
 		LevelFrom0To255: {
 			to: (value: boolean) => (value ? 255 : 0),
 			from: (value: number) => value > 0
 		},
-		Percent: BooleanPercentage
+		Percent: {
+			to: (value: number): boolean => {
+				return value > 0;
+			},
+			from: (value: boolean): number => {
+				return value ? 100 : 0;
+			}
+		}
 	},
-	Percent: {},
 	LevelFrom0To255: {
 		Percent: {
 			to: (value: number): number => {
@@ -41,8 +35,8 @@ const StandardConverters: {
 	}
 };
 
-StandardConverters.Percent.LevelFrom0To255 = invert(StandardConverters.LevelFrom0To255.Percent);
-StandardConverters.LevelFrom0To255.Boolean = invert(StandardConverters.Boolean.LevelFrom0To255);
+//StandardConverters.Percent.LevelFrom0To255 = invert(StandardConverters.LevelFrom0To255.Percent);
+//StandardConverters.LevelFrom0To255.Boolean = invert(StandardConverters.Boolean.LevelFrom0To255);
 
 export const StdConverterRegistry = new Map<UnitOfMeasure | string, Map<UnitOfMeasure | string, Converter<any, any>>>();
 
@@ -94,6 +88,7 @@ export namespace Converter {
 					: value === 255 ? 254
 					: value
 			}
+
 		}
 	};
 
@@ -108,7 +103,7 @@ export namespace Converter {
 	export type MatterConverters = `${MatterISYConvertibleTypes}.${ISYMatterConvertibleTypes}` | `${ISYMatterConvertibleTypes}.${MatterISYConvertibleTypes}`;
 
 	export type KnownConverters = StandardConverters | MatterConverters;
-	const cache : {[x:string]:Converter<any,any>} = {};
+	const cache: { [x: string]: Converter<any, any> } = {};
 	export function get(label: KnownConverters): Converter<any, any>;
 	export function get(from: UnitOfMeasure, to: UnitOfMeasure);
 	export function get(from: ConverterTypes, to: ConverterTypes);
@@ -116,23 +111,22 @@ export namespace Converter {
 	export function get(from: MatterISYConvertibleTypes, to: ISYMatterConvertibleTypes);
 	export function get(to: ISYMatterConvertibleTypes, from: MatterISYConvertibleTypes);
 	export function get(from: UnitOfMeasure | `${keyof typeof UnitOfMeasure}` | string, to?: UnitOfMeasure | `${keyof typeof UnitOfMeasure}` | string): Converter<any, any> {
-		if(to === undefined) {
+		if (to === undefined) {
 			return ConverterRegistry.get(from as string) ?? NullConverter;
 		}
-		if(cache[`${from}.${to}`]) {
+		if (cache[`${from}.${to}`]) {
 			return cache[`${from}.${to}`];
-		}
-		else if(cache[`${to}.${from}`]) {
+		} else if (cache[`${to}.${from}`]) {
 			cache[`${from}.${to}`] = invert(cache[`${to}.${from}`]);
 			return cache[`${from}.${to}`];
 		}
 		let isString = typeof from === 'string';
 		let fuom = isString ? from : UnitOfMeasure[from];
 		if (to) {
-			let tuom = typeof to === 'string' ? to : UnitOfMeasure[to]; ;
+			let tuom = typeof to === 'string' ? to : UnitOfMeasure[to];
 
 			if (StdConverterRegistry.has(fuom)) {
-				if(StdConverterRegistry.get(fuom).has(tuom)) {
+				if (StdConverterRegistry.get(fuom).has(tuom)) {
 					return StdConverterRegistry.get(fuom).get(tuom);
 				}
 			}

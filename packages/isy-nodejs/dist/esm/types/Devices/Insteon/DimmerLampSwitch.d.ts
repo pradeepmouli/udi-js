@@ -120,7 +120,7 @@ export declare namespace DimmerLampSwitch {
     };
     type Drivers = {
         ST: {
-            uom: UnitOfMeasure.Percent;
+            uom: UnitOfMeasure.LevelFrom0To255;
             value: number;
             label: 'Status';
             name: 'status';

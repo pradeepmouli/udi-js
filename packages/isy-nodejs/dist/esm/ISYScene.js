@@ -59,7 +59,7 @@ export class ISYScene extends ISYNode {
     get isOn() {
         for (const device of this.members) {
             if (device instanceof Insteon.Relay) {
-                if (device.drivers.ST?.value != 0) {
+                if (device.drivers.ST?.value) {
                     return true;
                 }
             }

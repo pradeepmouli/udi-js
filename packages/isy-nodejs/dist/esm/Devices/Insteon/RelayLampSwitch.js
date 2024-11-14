@@ -1,9 +1,9 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
-import { UnitOfMeasure } from "../../Definitions/Global/UOM.js";
-import { InsteonBaseDevice } from "./InsteonBaseDevice.js";
-import { Driver } from "../../Definitions/Global/Drivers.js";
-import { NodeFactory } from "../NodeFactory.js";
-export const nodeDefId = "RelayLampSwitch";
+import { Driver } from '../../Definitions/Global/Drivers.js';
+import { UnitOfMeasure } from '../../Definitions/Global/UOM.js';
+import { NodeFactory } from '../NodeFactory.js';
+import { InsteonBaseDevice } from './InsteonBaseDevice.js';
+export const nodeDefId = 'RelayLampSwitch';
 export class RelayLampSwitchNode extends InsteonBaseDevice {
     commands = {
         DON: this.on,
@@ -18,11 +18,11 @@ export class RelayLampSwitchNode extends InsteonBaseDevice {
     static nodeDefId = 'RelayLampSwitch';
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create('ST', this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: 'Status', name: 'status' });
+        this.drivers.ST = Driver.create('ST', this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Boolean, label: 'Status', name: 'status' });
         this.drivers.ERR = Driver.create('ERR', this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: 'Responding', name: 'responding' });
     }
     async on(value) {
-        return this.sendCommand('DON', { value: value });
+        return this.sendCommand('DON', value);
     }
     async off() {
         return this.sendCommand('DOF');

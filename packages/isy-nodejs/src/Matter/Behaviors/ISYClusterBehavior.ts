@@ -15,6 +15,7 @@ import { ISY, type ISYDevice } from '../../ISY.js';
 import type { DriversOf, ISYNode } from '../../ISYNode.js';
 import { BehaviorMapping, MappingRegistry, type ClusterMapping, type DeviceToClusterMap } from '../../Model/ClusterMap.js';
 import { ISYBridgedDeviceBehavior } from './ISYBridgedDeviceBehavior.js';
+import { loggers } from 'winston';
 
 // #region Type aliases (6)
 
@@ -61,28 +62,34 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 
 		override async initialize(_options?: {}) {
 			await super.initialize(_options);
+
 			var behavior = (await this.agent.load(ISYBridgedDeviceBehavior)) as ISYBridgedDeviceBehavior<P>;
 			this.bridgedDeviceBehavior = behavior;
 			//var behavior = this.agent.get(ISYBridgedDeviceBehavior);
 			this._device = behavior.device as P;
 			//@ts-ignore
+
 			this.map = behavior.mapForBehavior<T>(this as unknown as T);
 			for (const key2 in this.map.attributes) {
 				let val = this.map.attributes[key2];
 				let driverObj = null;
 				if (typeof val === 'string' || typeof val === 'symbol' || typeof val === 'number') {
 					driverObj = this._device.drivers[val];
+					this.state[key2 as string] = this._device.drivers[val].value;
 					this.handlers[val] = (newValue, oldValue, formattedValue) => {
 						this.state[key2 as string] = newValue;
 					};
+
 				} else if (val.driver as DriversOf<P>) {
 					driverObj = this._device.drivers[val.driver as string];
 
 					let { driver, converter } = val;
-					const convFunc = Converter.get(converter)?.from;
+					const convFunc = Converter.get(converter)?.to;
+					if(!convFunc) throw new Error(`Converter ${converter} not found`);
+					this.state[key2 as string] = convFunc(this._device.drivers[driver as string].value);
 					this.handlers[driver] = (newValue, oldValue, formattedValue) => {
-						if (convFunc) this.state[key2 as string] = convFunc(newValue);
-						else this.state[key2 as string] = newValue;
+						//if (convFunc) this.state[key2 as string] = convFunc(newValue);
+						 this.state[key2 as string] = convFunc(newValue);
 					};
 				}
 				if (driverObj) {

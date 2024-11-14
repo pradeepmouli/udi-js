@@ -11,6 +11,7 @@ import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
+import { validateHeaderName } from 'http';
 
 export const nodeDefId = "DimmerLampSwitch";
 

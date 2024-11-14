@@ -26,6 +26,7 @@ function ISYClusterBehavior(base, p) {
                 let driverObj = null;
                 if (typeof val === 'string' || typeof val === 'symbol' || typeof val === 'number') {
                     driverObj = this._device.drivers[val];
+                    this.state[key2] = this._device.drivers[val].value;
                     this.handlers[val] = (newValue, oldValue, formattedValue) => {
                         this.state[key2] = newValue;
                     };
@@ -33,12 +34,13 @@ function ISYClusterBehavior(base, p) {
                 else if (val.driver) {
                     driverObj = this._device.drivers[val.driver];
                     let { driver, converter } = val;
-                    const convFunc = Converters_js_1.Converter.get(converter)?.from;
+                    const convFunc = Converters_js_1.Converter.get(converter)?.to;
+                    if (!convFunc)
+                        throw new Error(`Converter ${converter} not found`);
+                    this.state[key2] = convFunc(this._device.drivers[driver].value);
                     this.handlers[driver] = (newValue, oldValue, formattedValue) => {
-                        if (convFunc)
-                            this.state[key2] = convFunc(newValue);
-                        else
-                            this.state[key2] = newValue;
+                        //if (convFunc) this.state[key2 as string] = convFunc(newValue);
+                        this.state[key2] = convFunc(newValue);
                     };
                 }
                 if (driverObj) {

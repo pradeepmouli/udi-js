@@ -131,6 +131,7 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 			productName: config.productName,
 			productLabel: config.productName,
 			productId: config.productId,
+			softwareVersionString: isy.firmwareVersion,
 			serialNumber: isy.id,
 			uniqueId: config.uniqueId
 		}

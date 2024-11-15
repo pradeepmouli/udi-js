@@ -13,7 +13,7 @@
         "clean": "rimraf ./dist/*",
         "build:esm": "tsc -p ./tsconfig.esm.json",
         "build:cjs": "tsc -p ./tsconfig.cjs.json && cp ./package.cjs.json ./dist/cjs/package.json",
-        "build": "npm run build:esm && npm run build:cjs",
+        "build": "npm run build:esm",
         "build:esm:watch": "tsc -p ./tsconfig.esm.json --watch"
     },
     "keywords": [

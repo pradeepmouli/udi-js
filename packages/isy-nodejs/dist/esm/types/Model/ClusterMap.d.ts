@@ -1,4 +1,3 @@
-import { Behavior } from '@project-chip/matter.js/behavior';
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import * as Clusters from '@project-chip/matter.js/cluster';
 import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
@@ -74,7 +73,7 @@ export type FamilyToClusterMap<T extends Family.Insteon | Family.ZWave | Family.
     [Type in keyof Devices.Insteon]?: DeviceToClusterMap<InstanceType<Devices.Insteon[Type]>, any>;
 };
 export type SBAttributeMapping<SB extends SupportedBehaviors, D> = {
-    [K in keyof SB]: Partial<Record<keyof Behavior.StateOf<SB[K]>, DriversOf<D> | {
+    [K in keyof SB]: Partial<Record<any, DriversOf<D> | {
         driver: DriversOf<D>;
         converter?: string;
     }>>;

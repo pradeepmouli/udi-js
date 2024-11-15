@@ -1,4 +1,4 @@
-import type { UnionToIntersection } from '@project-chip/matter.js/util';
+import type { UnionToIntersection } from '@matter/general';
 import EventEmitter from 'events';
 import type { EventType } from '../../Events/EventType.js';
 import type { ISYNode } from '../../ISYNode.js';

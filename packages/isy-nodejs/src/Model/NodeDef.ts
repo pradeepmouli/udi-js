@@ -1,8 +1,7 @@
 import { isArray } from 'util';
 import { Driver } from '../Definitions/Global/Drivers.js'
 import type { MaybeArray } from '../Utils.js';
-import type { Identity } from '@project-chip/matter.js/util';
-import { ObjectSchema } from '@project-chip/matter.js/tlv';
+
 
 export interface DriverDef {
     id: Driver.Type;

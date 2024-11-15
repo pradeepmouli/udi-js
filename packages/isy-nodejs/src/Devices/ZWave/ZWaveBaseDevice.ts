@@ -6,7 +6,7 @@ import { ISYDeviceNode } from '../ISYDeviceNode.js';
 import { ISYNode } from '../../ISYNode.js';
 import 'winston';
 import type { Driver } from '../../Definitions/Global/Drivers.js';
-import type { Merge } from '@project-chip/matter.js/util';
+import type { Merge } from '@matter/general';
 
 // import { InsteonNLS } from './insteonfam'
 export class ZWaveBaseDevice<D extends ISYNode.DriverSignatures = {}, C extends ISYNode.CommandSignatures = {}> extends ISYDeviceNode<Family.ZWave,Merge<D,Driver.Signatures<'ST'>>,C> {

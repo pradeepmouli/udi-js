@@ -1,7 +1,6 @@
-import { EndpointType, MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
-import { Endpoint } from '@project-chip/matter.js/endpoint';
-import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
+import type { Endpoint, EndpointType, MutableEndpoint } from '@project-chip/matter.js/endpoint';
+import type { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
 import 'winston';
 export interface ISYBinaryStateDevice {
     get state(): Promise<boolean>;

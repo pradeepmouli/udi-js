@@ -1,4 +1,4 @@
-import type { Merge, UnionToIntersection } from '@project-chip/matter.js/util';
+
 import { Logger } from 'winston';
 import { Driver } from './Definitions/Global/Drivers.js';
 import { Family } from './Definitions/Global/Families.js';
@@ -16,6 +16,7 @@ import type { NodeNotes } from './Model/NodeNotes.js';
 import { type StringKeys } from './Utils.js';
 import { NodeType } from './ISYConstants.js';
 import type { ISYScene } from './ISYScene.js';
+import type { UnionToIntersection } from '@matter/general';
 
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 

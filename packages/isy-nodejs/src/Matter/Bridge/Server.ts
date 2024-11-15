@@ -164,7 +164,7 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 			//const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
 
 			//@ts-ignore
-			let baseBehavior: MutableEndpoint.With<DimmableLightDevice | OnOffLightDevice, SupportedBehaviors.MapOf<[typeof BridgedDeviceBasicInformationServer, typeof ISYBridgedDeviceBehavior]>>;
+			let baseBehavior: any;/*typeof (DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior)) | typeof (OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior));*/
 
 			if (device instanceof Devices.Insteon.Dimmer || device instanceof Devices.Insteon.DimmerSwitch || device instanceof Devices.Insteon.KeypadDimmer) {
 				baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior);

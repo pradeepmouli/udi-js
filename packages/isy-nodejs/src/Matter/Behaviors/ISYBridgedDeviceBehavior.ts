@@ -6,7 +6,7 @@
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import type { StateType } from '@project-chip/matter.js/behavior/state';
 import { Internal } from '@project-chip/matter.js/behavior/state/managed';
-import { EventEmitter, Observable, ObservableProxy } from '@project-chip/matter.js/util';
+import { EventEmitter, Observable } from '@project-chip/matter.js/util';
 import internal from 'stream';
 import type { Driver } from '../../Definitions/Global/Drivers.js';
 import { ISY } from '../../ISY.js';

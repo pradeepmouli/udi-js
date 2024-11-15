@@ -1,6 +1,6 @@
 import type { ISYNode } from '../../ISYNode.js';
 import { UnitOfMeasure } from './UOM.js';
-import type { UnionToIntersection } from '@project-chip/matter.js/util';
+import type { UnionToIntersection } from '@matter/general';
 import { Converter } from '../../Converters.js';
 import type { DriverState } from '../../Model/DriverState.js';
 import type { StringKeys } from '../../Utils.js';

@@ -1,4 +1,4 @@
-import { camelize, capitalize } from '@project-chip/matter.js/util';
+import { camelize, capitalize } from '@matter/general';
 import camelcase from 'camelcase';
 import { getRandomValues } from 'crypto';
 //import { detailedDiff } from 'deep-object-diff';

@@ -1,7 +1,7 @@
 import { Identity } from '@project-chip/matter.js/util';
 import { ISY } from '../../ISY.js';
-import { MapsTo, type MapsToCluster } from '../MapsTo.js';
-import { EndpointFor } from '../EndpointFor.js';
+
+
 import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 //
 import type { DimmableLightRequirements } from '@project-chip/matter.js/devices/DimmableLightDevice';

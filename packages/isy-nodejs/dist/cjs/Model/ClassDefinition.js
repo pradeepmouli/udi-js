@@ -27,7 +27,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventDefinition = exports.ParameterDefinition = exports.CommandDefinition = exports.DriverDefinition = exports.NodeMemberDefinition = exports.NodeClassDefinition = void 0;
-const util_1 = require("@project-chip/matter.js/util");
+const general_1 = require("@matter/general");
 const fs = __importStar(require("fs"));
 const microdiff_1 = __importDefault(require("microdiff"));
 const moderndash_1 = require("moderndash");
@@ -565,7 +565,7 @@ class CommandDefinition extends NodeMemberDefinition {
     // #region Public Getters And Setters (1)
     get name() {
         if (Object.values(this.classDef.drivers).find((d) => d.name === super.name)) {
-            return 'update' + (0, util_1.capitalize)(super.name);
+            return 'update' + (0, general_1.capitalize)(super.name);
         }
         return super.name;
     }

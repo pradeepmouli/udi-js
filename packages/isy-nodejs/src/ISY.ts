@@ -24,48 +24,15 @@ import * as Utils from './Utils.js';
 import { X2jOptions, XMLParser } from 'fast-xml-parser';
 import path from 'path';
 import { NodeFactory } from './Devices/NodeFactory.js';
+import { ISYError } from './ISYError.js';
 import type { Config } from './Model/Config.js';
 import { findPackageJson } from './Utils.js';
 
 
-class ISYError extends Error {
-	constructor(message: string)
-	constructor(error: Error)
-	constructor(messageOrError: string | Error) {
-		if(messageOrError instanceof Error) {
-			super(messageOrError.message);
-			this.stack = messageOrError.stack;
-			this.cause = messageOrError;
-			this.name = 'ISYError';
-
-		}
-		else if(typeof messageOrError === 'string') {
-			super(messageOrError);
-			this.name = 'ISYError';
-		}
-
-
-	}
-}
-
-class ISYNodeError extends ISYError {
-
-	constructor(message: string, node: ISYNode)
-	constructor(error:Error, node: ISYNode)
-	constructor(messageOrError: string | Error, node: ISYNode)
-	{
-		super(messageOrError as any);
-		this.name = 'ISYNodeError';
-		this.node = node;
-	}
-
-	node: ISYNode;
-}
 
 type InitStep = 'config' | 'loadNodes' | 'readFolders' | 'readDevices' | 'readScenes' | 'variables' | 'websocket' | 'refreshStatuses' | 'initialize';
 
 class ISYInitializationError extends ISYError {
-
 	step: InitStep;
 	constructor(message: string, step: InitStep);
 	constructor(error: Error, step: InitStep);
@@ -174,19 +141,8 @@ export class ISY extends EventEmitter implements Disposable {
 
 	socketPath: string;
 
-	public get axiosOptions():  AxiosRequestConfig
-	{
-		return {
-			baseURL: `${this.protocol}://${this.host}:${this.port}`,
-			auth: {
-				username: this.credentials.username,
-				password: this.credentials.password
-			},
-			socketPath: this.socketPath,
-			validateStatus: (status) => status >= 200 && status < 300,
+	public axiosOptions: AxiosRequestConfig;
 
-		}
-	}
 	// #endregion Properties (30)
 
 	// #region Constructors (1)
@@ -206,7 +162,19 @@ export class ISY extends EventEmitter implements Disposable {
 		};
 		this.protocol = config.protocol;
 		this.wsprotocol = config.protocol === 'https' ? 'wss' : 'ws';
-		this.elkEnabled = config.elkEnabled ?? false;
+
+		this.axiosOptions = {
+			baseURL: `${this.protocol}://${this.host}:${this.port}`,
+			validateStatus: (status) => status >= 200 && status < 300
+		};
+
+		if (this.socketPath) {
+			this.axiosOptions.socketPath = this.socketPath;
+		} else {
+			this.axiosOptions.auth = { username: this.credentials.username, password: this.credentials.password };
+		}
+
+		//this.elkEnabled = config.elkEnabled ?? false;
 
 		this.nodesLoaded = false;
 		var fopts = format((info) => {
@@ -592,8 +560,8 @@ export class ISY extends EventEmitter implements Disposable {
 	): Promise<any> {
 		const requestLogLevel = options.requestLogLevel ?? 'debug';
 		const responseLogLevel = options.responseLogLevel ?? 'silly';
-		url = `${this.protocol}://${this.address}/rest/${url}${options.trailingSlash ? '/' : ''}`;
-		this.logger.log(requestLogLevel, `Sending request: ${url}`);
+		const finalUrl = `${this.protocol}://${this.address}/rest/${url}${options.trailingSlash ? '/' : ''}`;
+		this.logger.log(requestLogLevel, `Sending request: ${finalUrl}`);
 		const reqOps = { ...this.axiosOptions, ...options, url: path.join('/rest', url) };
 		/*{
 				auth: { username: this.credentials.username, password: this.credentials.password },
@@ -601,7 +569,7 @@ export class ISY extends EventEmitter implements Disposable {
 
 			}*/
 		try {
-			const response = await axios.get(url,reqOps);
+			const response = await axios.get(finalUrl, reqOps);
 			if (response.data) {
 				if (response.headers['content-type'].toString().includes('xml')) {
 					let curParser = parser;
@@ -738,7 +706,7 @@ export class ISY extends EventEmitter implements Disposable {
 
 	async #readDeviceNodes(obj: { nodes: { node: NodeInfo[] } }) {
 		try {
-			this.logger.info('Loading Device Nodes');
+			this.logger.info('Reading Device Nodes');
 
 			for (const nodeInfo of obj.nodes.node) {
 				try {
@@ -768,6 +736,7 @@ export class ISY extends EventEmitter implements Disposable {
 						}
 						return acc;
 					}, {});
+				 	
 					newDevice = new cls(this, nodeInfo) as ISYDeviceNode<any, any, any, any>;
 
 					if (m) {
@@ -813,7 +782,7 @@ export class ISY extends EventEmitter implements Disposable {
 
 	async #readFolderNodes(result: { nodes: { folder: any } }) {
 		try {
-			this.logger.info('Loading Folder Nodes');
+			this.logger.info('Reading Folder Nodes');
 			if (result?.nodes?.folder) {
 				for (const folder of result.nodes.folder) {
 					this.logger.debug(`Loading Folder Node: ${JSON.stringify(folder)}`);

@@ -10,7 +10,7 @@ import { NodeInfo } from '../../Model/NodeInfo.js';
 import { byteToDegree, byteToPct, pctToByte, type StringKeys } from '../../Utils.js';
 import { ISYDeviceNode } from '../ISYDeviceNode.js';
 
-import type { Merge } from '@project-chip/matter.js/util';
+import type { Merge } from '@matter/general';
 import type { DriverState } from '../../Model/DriverState.js';
 
 // import { InsteonNLS } from './insteonfam.js'
@@ -20,7 +20,7 @@ export class InsteonBaseDevice<D extends ISYNode.DriverSignatures = {}, C extend
 	C
 > {
 	// #region Constructors (1)
-	
+
 	constructor(isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
 		this.family = Family.Insteon;

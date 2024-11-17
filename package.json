@@ -10,10 +10,11 @@
   "scripts": {
     "mocha": "echo \"Error: no test specified\" && exit 1",
     "version": "lerna version --git-remote isy-nodejs",
-    "publish:development": "lerna publish from-package --git-remote isy-nodejs --no-private --dist-tag dev"
+    "publish:development": "lerna publish from-package --git-remote isy-nodejs --no-private --dist-tag dev",
+	 "publish:v11": "lerna publish from-package --git-remote isy-nodejs --no-private --dist-tag v11"
   },
   "devDependencies": {
-	"@types/npmcli__package-json": "4.0.4",
+    "@types/npmcli__package-json": "4.0.4",
     "lerna": "^8.1.9",
     "mocha": "^10.8.2",
     "moderndash": "^3.12.0",
@@ -34,6 +35,11 @@
   "author": "Pradeep Mouli",
   "license": "MIT",
   "dependencies": {
+    "@matter/general": "^0.11.4",
+	"@matter/main": "^0.11.4",
+	"@matter/types": "^0.11.4",
+	"@matter/node": "0.11.4",
+	"@matter/nodejs": "0.11.4",
     "@npmcli/package-json": "^6.0.1",
     "@project-chip/matter-node.js": "^0.11.4",
     "@project-chip/matter.js": "^0.11.4",

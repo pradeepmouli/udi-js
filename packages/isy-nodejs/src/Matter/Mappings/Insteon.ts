@@ -1,5 +1,5 @@
-import { OnOffCluster } from '@project-chip/matter.js/cluster';
-import { DeviceTypeDefinition, DeviceTypes, OnOffBaseDevice } from '@project-chip/matter.js/device';
+
+
 import { OnOffLightDevice } from '@project-chip/matter.js/devices/OnOffLightDevice';
 import { DriverType } from '../../Definitions/Global/Drivers.js';
 import { Family, type t } from '../../Definitions/Global/Families.js';

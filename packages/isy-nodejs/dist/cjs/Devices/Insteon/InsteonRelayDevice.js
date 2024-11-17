@@ -10,22 +10,6 @@ class InsteonRelayDevice extends RelayLampSwitch_js_1.RelayLampSwitch.Node /*Ins
     }
     // #endregion Constructors (1)
     // #region Public Methods (2)
-    async initialize(endpoint) {
-        /*endpoint.events.onOff.onOff$Changed.on((value) => {
-            this.commands.DON(value);
-            this.drivers.ST;
-        });
-        //endpoint.defaults.onOff.onOff = await this.isOn;
-        endpoint.set({ onOff: { onOff: (await this.drivers.ST.value) > 0 } });
-        const that = this;
-
-        this.events.on('StatusChanged', (propertyName, newValue, _oldValue, formattedValue) => {
-            if (propertyName === 'ST') {
-                endpoint.set({ onOff: { onOff: newValue > 0 } });
-                //endpoint.setSt onOff: newValue });
-            }
-        });*/
-    }
     /*
     public async updateIsOn(isOn: boolean): Promise<any> {
         if (t !== isOn) {

@@ -1,4 +1,3 @@
-import type { UnionToIntersection } from '@project-chip/matter.js/util';
 import { Logger } from 'winston';
 import { Driver } from './Definitions/Global/Drivers.js';
 import { Family } from './Definitions/Global/Families.js';
@@ -14,6 +13,7 @@ import type { NodeNotes } from './Model/NodeNotes.js';
 import { type StringKeys } from './Utils.js';
 import { NodeType } from './ISYConstants.js';
 import type { ISYScene } from './ISYScene.js';
+import type { UnionToIntersection } from '@matter/general';
 export declare class ISYNode<T extends Family = Family, D extends ISYNode.DriverSignatures = {}, C extends ISYNode.CommandSignatures = {}, E extends ISYNode.EventSignatures = {
     [x in keyof D]: Event.DriverToEvent<D[x]> & {
         driver: x;
@@ -121,7 +121,7 @@ export declare namespace ISYNode {
         new (...args: any[]): {
             drivers: Driver.ForAll<any, false>;
             commands: Command.ForAll<C>;
-            "__#72@#parentNode": ISYNode<any, any, any, any>;
+            "__#125@#parentNode": ISYNode<any, any, any, any>;
             readonly address: string;
             readonly baseLabel: string;
             readonly flag: any;

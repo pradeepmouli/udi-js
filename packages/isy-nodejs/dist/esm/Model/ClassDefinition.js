@@ -1,4 +1,4 @@
-import { capitalize } from '@project-chip/matter.js/util';
+import { capitalize } from '@matter/general';
 import * as fs from 'fs';
 import diff from 'microdiff';
 import { camelCase, merge, pascalCase } from 'moderndash';

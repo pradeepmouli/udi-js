@@ -123,6 +123,7 @@ async function createMatterServer(isy, config) {
             productName: config.productName,
             productLabel: config.productName,
             productId: config.productId,
+            softwareVersionString: isy.firmwareVersion,
             serialNumber: isy.id,
             uniqueId: config.uniqueId
         }
@@ -146,7 +147,7 @@ async function createMatterServer(isy, config) {
         if (device.enabled) {
             //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
             //@ts-ignore
-            let baseBehavior;
+            let baseBehavior; /*typeof (DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior)) | typeof (OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior));*/
             if (device instanceof index_js_1.Devices.Insteon.Dimmer || device instanceof index_js_1.Devices.Insteon.DimmerSwitch || device instanceof index_js_1.Devices.Insteon.KeypadDimmer) {
                 baseBehavior = definitions_1.DimmableLightDevice.with(bridged_device_basic_information_1.BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior_js_1.ISYBridgedDeviceBehavior, ISYOnOffBehavior_js_1.ISYOnOffBehavior, ISYOnOffBehavior_js_1.ISYDimmableBehavior);
                 // if(device instanceof InsteonSwitchDevice)

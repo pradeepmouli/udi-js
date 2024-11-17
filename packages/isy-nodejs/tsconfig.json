@@ -41,6 +41,7 @@
 		"scripts",
 		"test",
 		"types",
-		"src/Devices/*/Generated/*"
+		"src/Devices/*/Generated/*",
+		"src/Devices/EndpointFor.ts"
 	]
 }

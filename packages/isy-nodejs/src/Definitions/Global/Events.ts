@@ -1,4 +1,4 @@
-import type { UnionToIntersection } from '@project-chip/matter.js/util';
+import type { UnionToIntersection } from '@matter/general';
 import type { AnyMxRecord } from 'dns';
 import EventEmitter, { on } from 'events';
 import type { EventType } from '../../Events/EventType.js';

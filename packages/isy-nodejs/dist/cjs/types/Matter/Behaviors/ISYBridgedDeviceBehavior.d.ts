@@ -22,7 +22,7 @@ export declare class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any
     };
     mapForBehavior<B extends ClusterBehavior>(behavior: B): BehaviorMapping<B, typeof this.internal.device>;
     handlePropertyChange(driver: string, newValue: any, oldValue: any, formattedValue: string): void;
-    [Symbol.asyncDispose](): import("@project-chip/matter.js/util").MaybePromise;
+    [Symbol.asyncDispose](): any;
 }
 export declare namespace ISYBridgedDeviceBehavior {
     class Internal {
@@ -40,12 +40,7 @@ export declare namespace ISYBridgedDeviceBehavior {
         }]>;
     };
     class Events extends EventEmitter {
-        propertyChanged: Observable<[{
-            driver: string;
-            newValue: any;
-            oldValue: any;
-            formattedValue: string;
-        }], void>;
+        propertyChanged: any;
     }
     class State {
         address: string;

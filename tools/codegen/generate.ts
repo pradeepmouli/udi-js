@@ -56,7 +56,7 @@ async function parseProfileFiles(data: { profiles: { profile: any; }; }) {
             if (f.dir) {
                 if (f.file) {
                     try {
-                        var response = await isy.sendRequest(`profiles/family/${p.family}/profile/${p.id}/download/${f.dir}/${f.file?.name}`, { trailingSlash: false, responseLogLevel: winston.config.cli.levels.debug, requestLogLevel: winston.config.cli.levels.debug});
+                        var response = await isy.sendRequest(`profiles/family/${p.family}/profile/${p.id}/download/${f.dir}/${f.file?.name}`, { trailingSlash: false, responseLogLevel: 'debug', requestLogLevel: 'debug'});
                         var family = p.family;
                         if (data) {
                             switch (f.dir) {

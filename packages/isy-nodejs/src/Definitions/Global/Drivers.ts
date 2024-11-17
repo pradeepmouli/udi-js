@@ -3,11 +3,7 @@ import { isBoxedPrimitive } from 'util/types';
 import type { ISYNode } from '../../ISYNode.js';
 import { UnitOfMeasure } from './UOM.js';
 
-import { KeyType } from '@project-chip/matter.js/crypto';
-import type { TlvNumberSchema } from '@project-chip/matter.js/tlv';
-import type { Identity, MaybePromise, UnionToIntersection } from '@project-chip/matter.js/util';
-import exp from 'constants';
-import { init } from 'homebridge';
+import type { Identity, MaybePromise, UnionToIntersection } from '@matter/general';
 import { server } from 'typescript';
 import { Converter } from '../../Converters.js';
 import type { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
@@ -297,7 +293,7 @@ export interface Driver<
 	patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number, notify?: boolean): boolean;
 
 	// #endregion Public Methods (2)
-//override on('change', listener: (value: any) => void): this;
+	//override on('change', listener: (value: any) => void): this;
 }
 
 export interface StatelessDriver<
@@ -327,7 +323,7 @@ export interface StatelessDriver<
 	uom: U;
 
 	// #endregion Properties (9)
-//override on('change', listener: (value: any) => void): this;
+	//override on('change', listener: (value: any) => void): this;
 }
 
 export function isStateless(x: any): x is StatelessDriver<any, any, any> {
@@ -384,7 +380,7 @@ export namespace Driver {
 	type StatelessOrStateful<D extends string, U extends UnitOfMeasure, T = number, N = string, L = string, S extends boolean = false> =
 		S extends true ? StatelessDriver<D, U, T, U, N, L> : Driver<D, U, T, U, N, L>;
 
-	export function create<D extends Literal, U extends UnitOfMeasure, T = number,  N extends string = string, L extends string = string, S extends boolean = false>(
+	export function create<D extends Literal, U extends UnitOfMeasure, T = number, N extends string = string, L extends string = string, S extends boolean = false>(
 		driver: EnumWithLiteral<D>,
 
 		node?: ISYNode<Family, any, any, any>,
@@ -462,20 +458,15 @@ export namespace Driver {
 				if (uom != this.uom) {
 					this.serverUom == uom;
 					this.state.value = converter ? converter.from(this.state.rawValue) : Converter.convert(uom, this.uom, this.state.rawValue);
-
-				}
-				else if(converter)
-				{
+				} else if (converter) {
 					this.state.value = converter.from(value);
-				}
-				else
-				{
+				} else {
 					this.state.value = value;
 				}
 				if (previousValue == this.state.value) {
 					return false;
 				}
-				if (notify) node.events.emit(`${this.name}Changed`, driver as D, this.state.value,  previousValue, formattedValue);
+				if (notify) node.events.emit(`${this.name}Changed`, driver as D, this.state.value, previousValue, formattedValue);
 				return true;
 			},
 			get value() {

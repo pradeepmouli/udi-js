@@ -1,6 +1,7 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { Driver } from '../../Definitions/Global/Drivers.js';
+import { Command } from '../../Definitions/index.js';
 import { Family } from '../../Definitions/Global/Families.js';
 import { UnitOfMeasure } from '../../Definitions/Global/UOM.js';
 import { Insteon } from '../../Definitions/index.js';
@@ -36,7 +37,7 @@ export class RelayLampSwitchNode extends InsteonBaseDevice<Drivers, Commands> im
 		this.drivers.ERR = Driver.create('ERR', this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: 'Responding', name: 'responding' });
 	}
 	async on(value?: 0 | 100) {
-		return this.sendCommand('DON', value);
+		return this.sendCommand('DOF');
 	}
 	async off() {
 		return this.sendCommand('DOF');

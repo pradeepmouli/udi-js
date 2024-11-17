@@ -1,22 +1,14 @@
-import { Behavior } from '@project-chip/matter.js/behavior';
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
-import type { OnOffBehavior } from '@project-chip/matter.js/behaviors/on-off';
 import * as Clusters from '@project-chip/matter.js/cluster';
-import { type Device, type DeviceTypeDefinition, type OnOffBaseDevice } from '@project-chip/matter.js/device';
 import { OnOffLightDevice } from '@project-chip/matter.js/devices/OnOffLightDevice';
-import * as DeviceTypes from '@project-chip/matter.js/endpoint/definitions';
 import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
 import type { MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
-import type { Identity } from '@project-chip/matter.js/util';
-import test from 'node:test';
 import type { Converter } from '../Converters.js';
-import { Driver, DriverType } from '../Definitions/Global/Drivers.js';
-import { Devices, type ToDevice } from '../Devices/index.js';
+import { DriverType } from '../Definitions/Global/Drivers.js';
+import { Devices } from '../Devices/index.js';
 import { Insteon } from '../Devices/Insteon/index.js';
 
-import type { ISYDevice } from '../ISYDevice.js';
 import type { CommandsOf, DriversOf, ISYNode } from '../ISYNode.js';
-import type { ClusterForBehavior } from '../Matter/Behaviors/ISYClusterBehavior.js';
 import { ClusterType } from './ClusterType.js';
 import type { Family } from '../Definitions/index.js';
 
@@ -127,7 +119,7 @@ export type FamilyToClusterMap<T extends Family.Insteon | Family.ZWave | Family.
 	[Type in keyof Devices.Insteon]?: DeviceToClusterMap<InstanceType<Devices.Insteon[Type]>, any>;
 };
 export type SBAttributeMapping<SB extends SupportedBehaviors, D> = {
-	[K in keyof SB]: Partial<Record<keyof Behavior.StateOf<SB[K]>, DriversOf<D> | { driver: DriversOf<D>; converter?: string }>>;
+	[K in keyof SB]: Partial<Record<any, DriversOf<D> | { driver: DriversOf<D>; converter?: string }>>;
 };
 export type SBCommandMapping<SB extends SupportedBehaviors, D> = {
 	//@ts-expect-error

@@ -6,7 +6,7 @@
         "@types/node": "^22.8.7",
         "typescript": "~5.6.2"
     },
-    "name": "matter-app",
+    "name": "@pmouli/isy-matter",
     "version": "1.0.1-alpha.28",
     "type": "module",
     "scripts": {
@@ -16,6 +16,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "clean": "node -e 'fs.rmSync(\"dist\", { recursive: true, force: true })'"
     },
+
     "private": true,
     "description": "Bridge for multiple OnOff light/sockets with a CLI command execution interface",
     "author": "user.name=Pradeep Mouli <user.email=pmouli@mac.com>"

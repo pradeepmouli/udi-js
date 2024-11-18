@@ -17,7 +17,7 @@
       "distTag": "dev"
     },
     "version": {
-      "gitRemote": "isy-nodejs"
+      "gitRemote": "udi-js"
     }
   },
   "$schema": "./node_modules/lerna/lib/config/schema.json"

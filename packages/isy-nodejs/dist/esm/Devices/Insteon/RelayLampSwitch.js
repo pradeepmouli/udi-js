@@ -22,7 +22,7 @@ export class RelayLampSwitchNode extends InsteonBaseDevice {
         this.drivers.ERR = Driver.create('ERR', this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: 'Responding', name: 'responding' });
     }
     async on(value) {
-        return this.sendCommand('DON', value);
+        return this.sendCommand('DOF');
     }
     async off() {
         return this.sendCommand('DOF');

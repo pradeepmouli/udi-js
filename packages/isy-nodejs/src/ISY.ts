@@ -736,8 +736,19 @@ export class ISY extends EventEmitter implements Disposable {
 						}
 						return acc;
 					}, {});
-				 	
-					newDevice = new cls(this, nodeInfo) as ISYDeviceNode<any, any, any, any>;
+
+					if(cls)
+					{
+						try {
+							newDevice = new cls(this, nodeInfo) as ISYDeviceNode<any, any, any, any>;
+						}
+						catch(e)
+						{
+							this.logger.error(`Error creating device ${nodeInfo.name} with type ${nodeInfo.type} and nodedef ${nodeInfo.nodeDefId}: ${e.message}`);
+							continue;
+						}
+						//newDevice = new cls(this, nodeInfo) as ISYDeviceNode<any, any, any, any>;
+					}
 
 					if (m) {
 						newDevice.productName = m.name;

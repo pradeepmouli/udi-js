@@ -29,7 +29,9 @@ export type EndpointFor<K extends Behavior.Type, K1 extends Behavior.Type = K, K
 /*set: (values: SupportedBehaviors.StatePatchOf<SupportedBehaviors.MapOf<[K, K1, K2]>>) => void; }*/
 export type BehaviorsOf <K extends ClusterType.Of<ClusterType.Options<{}>>, K1 extends ClusterType = K, K2 extends ClusterType = K, K3 extends ClusterType = K> = [ClusterBehavior.Type<K>,ClusterBehavior.Type<K1>,ClusterBehavior.Type<K2>,ClusterBehavior.Type<K3>]
 //@ts-ignore
+//@ts-ignore
 export type SupportedBehaviorsOf <K extends ClusterType.Of<ClusterType.Options<{}>>, K1 extends ClusterType = K, K2 extends ClusterType = K, K3 extends ClusterType = K> =
+//@ts-ignore
 SupportedBehaviors.MapOf<BehaviorsOf<K, K1,K2,K3>>
 
 export type EndpointForCluster<K extends ClusterType.Of<ClusterType.Options<{}>>, K1 extends ClusterType = K, K2 extends ClusterType = K, K3 extends ClusterType = K> = { events: SupportedBehaviors.EventsOf<SupportedBehaviorsOf<K,K1,K2,K3>>; set: (values: SupportedBehaviors.StatePatchOf<SupportedBehaviorsOf<K, K1, K2,K3>>) => void; }
@@ -46,23 +48,22 @@ export const MatterEndpoint= <P extends EndpointType & MutableEndpoint, T extend
 
 
 		createEndpoint<K extends SupportedBehaviors>() : Endpoint {
-
-//@ts-ignore
+			//@ts-ignore
 			var p = this.endpointType.with(BridgedDeviceBasicInformationServer);
 
-		 	const id = this.address.replaceAll(' ', '_').replaceAll('.', ' ');
-
-			return new Endpoint(p,{id: id, address: this.address, bridgedDeviceBasicInformation: {
-
-				nodeLabel: this.label.rightWithToken(32,' '),
-                productName: this.productName.rightWithToken(32,' '),
-                productLabel: this.model.leftWithToken(64,' '),
-                serialNumber: id,
-                reachable: this.enabled,
-            }});
-
-
-
+			const id = this.address.replaceAll(' ', '_').replaceAll('.', ' ');
+			//@ts-ignore
+			return new Endpoint(p, {
+				id: id,
+				address: this.address,
+				bridgedDeviceBasicInformation: {
+					nodeLabel: this.label.rightWithToken(32, ' '),
+					productName: this.productName.rightWithToken(32, ' '),
+					productLabel: this.model.leftWithToken(64, ' '),
+					serialNumber: id,
+					reachable: this.enabled
+				}
+			});
 		}
 
 

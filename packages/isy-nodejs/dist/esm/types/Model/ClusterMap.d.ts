@@ -96,13 +96,15 @@ export type parameterMapping = {
     };
 };
 export declare class MappingRegistry {
-    static map: Map<string, DeviceToClusterMap<any, any>>;
+    static map: Map<Family, Map<string, DeviceToClusterMap<any, any>>>;
     static getMapping<T extends ISYNode<any, any, any, any>>(device: T): {
         deviceType: any;
         mapping: EndpointMapping<any, any>;
     };
     static getMappingForBehavior<T extends ISYNode<any, any, any, any>, B extends ClusterBehavior>(device: T, behavior: B): BehaviorMapping<B, T>;
-    static register(map: Partial<FamilyToClusterMap<any>>): void;
+    static register(map: Partial<FamilyToClusterMap<any>> | {
+        [x in Paths<typeof Devices>]: DeviceToClusterMap<any, any>;
+    }): void;
 }
 export {};
 //# sourceMappingURL=ClusterMap.d.ts.map

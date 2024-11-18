@@ -1,4 +1,5 @@
 import { DriverType } from '../Definitions/Global/Drivers.js';
+import { Devices } from '../Devices/index.js';
 import { Insteon } from '../Devices/Insteon/index.js';
 import { ClusterType } from './ClusterType.js';
 // #endregion Type aliases (16)
@@ -9,7 +10,19 @@ export class MappingRegistry {
     // #endregion Properties (1)
     // #region Public Static Methods (3)
     static getMapping(device) {
-        return MappingRegistry.map.get(device.constructor.name);
+        if (MappingRegistry.map.has(device.family)) {
+            let g = MappingRegistry.map.get(device.family);
+            if (g.has(device.name)) {
+                return g.get(device.name);
+            }
+            else if (g.has(device.nodeDefId)) {
+                return g.get(device.nodeDefId);
+            }
+            else if (g.has(device.type)) {
+                return g.get(device.type);
+            }
+        }
+        return null;
     }
     static getMappingForBehavior(device, behavior) {
         //var m = MappingRegistry.getMapping(device);
@@ -19,11 +32,33 @@ export class MappingRegistry {
                 return MappingRegistry.getMapping(device).mapping[m];
         }
     }
+    //@ts-ignore
     static register(map) {
-        for (var key in map) {
-            if (key !== 'Family') {
-                MappingRegistry.map.set(key, map[key]);
-                MappingRegistry.map.set(Insteon[key].name, map[key]);
+        if ("Family" in map) {
+            let regMap;
+            if (!MappingRegistry.map.has(map.Family)) {
+                MappingRegistry.map.set(map.Family, new Map());
+            }
+            regMap = MappingRegistry.map.get(map.Family);
+            for (var key in map) {
+                if (key !== 'Family') {
+                    regMap.set(key, map[key]);
+                    regMap.set(Insteon[key]?.name, map[key]); //TODO: This is a hack to allow for the Insteon devices to be registered by name
+                }
+            }
+        }
+        else {
+            let regMap;
+            for (var key in map) {
+                const keys = key.split(".");
+                let x = Devices[keys[0]][keys[1]];
+                if (!MappingRegistry.map.has(x.family)) {
+                    MappingRegistry.map.set(x.family, new Map());
+                }
+                //{family, key} = key.split(".")[0]
+                regMap = MappingRegistry.map.get(x.family);
+                regMap.set(keys[1], map[key]);
+                regMap.set(x.name, map[key]);
             }
         }
     }

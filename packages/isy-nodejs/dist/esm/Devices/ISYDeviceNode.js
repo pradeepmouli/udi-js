@@ -53,6 +53,8 @@ export class ISYDeviceNode extends ISYNode {
         //   );
         // }
     }
+    productId;
+    modelName;
     _parentDevice;
     children;
     addChild(childDevice) {

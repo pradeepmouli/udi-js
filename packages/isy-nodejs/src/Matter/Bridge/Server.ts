@@ -1,29 +1,26 @@
-import '@project-chip/matter-node.js';
-import { NodeJsEnvironment } from '@project-chip/matter-node.js/environment';
+import { Endpoint, EndpointServer, Environment, ServerNode, StorageService, Time, VendorId } from '@matter/main';
 import { StorageBackendDisk } from '@project-chip/matter-node.js/storage';
 import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
-import { VendorId } from '@project-chip/matter.js/datatype';
-import { Device, logEndpoint } from '@project-chip/matter.js/device';
-import { Endpoint, EndpointServer } from '@project-chip/matter.js/endpoint';
-import { DimmableLightDevice, OnOffLightDevice } from '@project-chip/matter.js/endpoint/definitions';
-import type { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
-import { MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
-import { AggregatorEndpoint } from '@project-chip/matter.js/endpoints/AggregatorEndpoint';
-import { StorageService } from '@project-chip/matter.js/environment';
-import { Level, levelFromString, Logger as MatterLogger } from '@project-chip/matter.js/log';
+import { logEndpoint } from '@matter/main/protocol';
+import { DimmableLightDevice, OnOffLightDevice } from '@matter/main/devices';
+import { AggregatorEndpoint } from '@matter/main/endpoints/aggregator';
+import { LogLevel, logLevelFromString, Logger as MatterLogger, toHex } from '@matter/general';
 import { Devices } from '../../Devices/index.js';
-
-import { ServerNode } from '@project-chip/matter.js/node';
 //@ts-ignore
 import PackageJson from '@project-chip/matter.js/package.json' with { type: 'json' };
 import { QrCode } from '@project-chip/matter.js/schema';
 import path, { resolve } from 'path';
 import { format, loggers } from 'winston';
-import type { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
+import { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 import { ISY } from '../../ISY.js';
 import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
 import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
 import '../Mappings/Insteon.js';
+import type { ISYNode } from '../../ISYNode.js';
+import type { DeviceToClusterMap } from '../../Model/ClusterMap.js';
+import { Options } from '../../Definitions/ZWave/index.js';
+import { InsteonBaseDevice } from '../../Devices/Insteon/InsteonBaseDevice.js';
+
 
 // #region Interfaces (1)
 
@@ -47,7 +44,26 @@ export interface Config {
 
 	ipv6?: boolean;
 
+	DeviceOptions?: DeviceOptions[];
+
 	// #endregion Properties (8)
+}
+
+export interface DeviceOptions {
+	applyTo:
+		| {
+				classes: (typeof ISYNode<any, any, any, any>)[];
+		  }
+		| { nodeDefs: string[] }
+		| { addresses: string[] }
+		| { deviceTypes: string[] }
+		| { predicate: (node: ISYNode<any, any, any, any>) => boolean };
+	options: {
+		exclude?: boolean;
+		label: string;
+		//@ts-expect-error
+		mappings: { [x in typeof ISYNode<any, any, any, any> as x['name']]: DeviceToClusterMap<InstanceType<x>, any> };
+	};
 }
 
 // #endregion Interfaces (1)
@@ -56,6 +72,40 @@ export interface Config {
 
 export function create(isy?: ISY, config?: Config): Promise<ServerNode> {
 	return createMatterServer(isy, config);
+}
+
+export function appliesTo(node: ISYNode<any>, deviceOptions: DeviceOptions): boolean {
+	if ('classes' in deviceOptions.applyTo) {
+		return deviceOptions.applyTo.classes?.some((x) => node instanceof x);
+	} else if ('nodeDefs' in deviceOptions.applyTo) {
+		return deviceOptions.applyTo.nodeDefs.includes(node.nodeDefId);
+	} else if ('addresses' in deviceOptions.applyTo) {
+		return deviceOptions.applyTo.addresses?.includes(node.address);
+	} else if ('deviceTypes' in deviceOptions.applyTo && node instanceof ISYDeviceNode) {
+		return deviceOptions.applyTo.deviceTypes?.includes(node.typeCode as string);
+	} else if ('predicate' in deviceOptions.applyTo) {
+		return deviceOptions.applyTo.predicate(node);
+	}
+}
+
+export function getDeviceOptions(node: ISYNode<any>, deviceOptions: DeviceOptions[]): DeviceOptions['options'] {
+	if(deviceOptions)
+	{
+		if(Array.isArray(deviceOptions))
+		{
+			for (const options of deviceOptions) {
+				if (appliesTo(node, options)) {
+					return options.options; //TODO: rank by specificity
+				}
+			}
+		}
+		for (const options of deviceOptions) {
+			if (appliesTo(node, options)) {
+				return options.options; //TODO: rank by specificity
+			}
+		}
+	}
+	return undefined;
 }
 
 export async function createMatterServer(isy?: ISY, config?: Config): Promise<ServerNode> {
@@ -72,27 +122,27 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 		MatterLogger.addLogger(
 			'polyLogger',
 			(lvl, message) => {
-				let msg = message.slice(23).remove(Level[lvl]).trimStart();
-				let level = Level[lvl].toLowerCase().replace('notice', 'info');
+				let msg = message.slice(23).remove(LogLevel[lvl]).trimStart();
+				let level = LogLevel[lvl].toLowerCase().replace('notice', 'info');
 				if (msg.startsWith('EndpointStructureLogger')) {
-					if (lvl === Level.INFO) level = 'debug';
+					if (lvl === LogLevel.INFO) level = 'debug';
 				}
 				logger.log(level, msg);
 			},
 			/*Preserve existing formatting, but trim off date*/
 			{
-				defaultLogLevel: levelFromString(logger.level),
+				defaultLogLevel: logLevelFromString(logger.level),
 				logFormat: 'plain'
 			}
 		);
 	} finally {
-		MatterLogger.defaultLogLevel = levelFromString(logger.level);
+		MatterLogger.defaultLogLevel = logLevelFromString(logger.level);
 	}
 
 	config = await initializeConfiguration(isy, config);
 
-	logger.info(`Matter config read: ${JSON.stringify(config)}`);
-	MatterLogger.removeLogger('default');
+	logger.info(`Matter config: ${JSON.stringify(config)}`);
+	MatterLogger.removeLogger('default'); /*Remove existing logging*/
 	let server = await ServerNode.create({
 		// Required: Give the Node a unique ID which is used to store the state of this node
 		id: config.uniqueId,
@@ -155,16 +205,22 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 
 	logger.info(`Bridge Aggregator Added`);
 
-
-
 	for (const node of isy.nodeMap.values()) {
 		let device = node as ISYDeviceNode<any, any, any>;
+		let deviceOptions = getDeviceOptions(node, config.DeviceOptions);
+		if(deviceOptions?.label)
+		{
+			device.label = deviceOptions.label;
+		}
+		if (deviceOptions?.exclude) {
+			continue;
+		}
 		let serialNumber = `${device.address.replaceAll(' ', '_').replaceAll('.', '_')}`;
 		if (device.enabled) {
 			//const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
 
 			//@ts-ignore
-			let baseBehavior: any;/*typeof (DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior)) | typeof (OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior));*/
+			let baseBehavior: any; /*typeof (DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior)) | typeof (OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior));*/
 
 			if (device instanceof Devices.Insteon.Dimmer || device instanceof Devices.Insteon.DimmerSwitch || device instanceof Devices.Insteon.KeypadDimmer) {
 				baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior);
@@ -190,10 +246,11 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 
 					bridgedDeviceBasicInformation: {
 						nodeLabel: device.label.rightWithToken(32),
-						vendorName: 'Insteon Technologies, Inc.',
+						vendorName: device instanceof InsteonBaseDevice ? InsteonBaseDevice.vendorName : isy.vendorName,
 						vendorId: VendorId(config.vendorId),
 						productName: device.productName.leftWithToken(32),
 						productLabel: device.model.leftWithToken(64),
+
 						hardwareVersion: Number(device.version),
 						hardwareVersionString: `v.${device.version}`,
 						softwareVersion: Number(device.version),
@@ -250,10 +307,6 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 		logger.info(`QR Code URL: https://project-chip.github.io/connectedhomeip/qrcode.html?data=${qrPairingCode}`);
 		logger.info(`Manual pairing code: ${manualPairingCode}`);
 	}
-	/*for(let e of endpoints)
-	{
-	  e[1].initialize(e[0] as any);
-	}*/
 	instance = server;
 	return server;
 }
@@ -275,30 +328,51 @@ export function getPairingCode(server: ServerNode = instance): PairingCodeData {
 async function initializeConfiguration(isy: ISY, config?: Config): Promise<Config> {
 	var logger = isy.logger;
 
-	const environment = NodeJsEnvironment();
-
+	const environment = Environment.default;
 	const storageService = environment.get(StorageService);
-	environment.vars.set('storage.path', path.resolve(isy.storagePath, 'matter'));
+	const storagePath = path.resolve(isy.storagePath, 'matter');
+
+	environment.vars.set('storage.path', storagePath);
+
 	environment.vars.use(() => {
-		const location = environment.vars.get('storage.path', environment.vars.get('path.root', '.'));
-		storageService.location = location;
+		storageService.location = storagePath;
 	});
-	storageService.factory = (namespace) => new StorageBackendDisk(resolve(storageService.location ?? '.', namespace), environment.vars.get('storage.clear', false));
+
+	storageService.factory = (namespace) => new StorageBackendDisk(path.resolve(storageService.location ?? '.', namespace), environment.vars.get('storage.clear', false));
 	logger.info(`Matter storage location: ${storageService.location} (Directory)`);
 
-	const deviceStorage = (await storageService.open('device')).createContext('data');
+	const deviceStorage = (await storageService.open('bridge')).createContext('data');
+
+	if (config.passcode) {
+		environment.vars.set('passcode', config.passcode);
+	}
+
+	if (config.discriminator) {
+		environment.vars.set('discriminator', config.discriminator);
+	}
+
+	if(config.vendorId)	{
+		environment.vars.set('vendorid', config.vendorId);
+	}
+
+	if(config.productId)	{
+		environment.vars.set('productid', config.productId);
+	}
+
+	if(config.uniqueId)	{
+		environment.vars.set('uniqueid', config.uniqueId);
+	}
+
 
 	const vendorName = isy.vendorName;
-	const passcode = config.passcode ?? environment.vars.number('passcode') ?? (await deviceStorage.get('passcode', 20202021));
-	const discriminator = config.discriminator ?? environment.vars.number('discriminator') ?? (await deviceStorage.get('discriminator', 3840));
+	const passcode = environment.vars.number('passcode') ?? (await deviceStorage.get('passcode', 20202021));
+	const discriminator = environment.vars.number('discriminator') ?? (await deviceStorage.get('discriminator', 3840));
 	// product name / id and vendor id should match what is in the device certificate
-	const vendorId = config.vendorId ?? environment.vars.number('vendorid') ?? (await deviceStorage.get('vendorid', 0xfff1));
-	const productId = config.productId ?? environment.vars.number('productid') ?? (await deviceStorage.get('productid', 0x8000));
-	const productName = isy.productName;
-	const port = config.port ?? environment.vars.number('port') ?? 5540;
-
-	const uniqueId = isy.id.replaceAll(':', '_');
-	//environment.vars.string("uniqueid") ?? (await deviceStorage.get("uniqueid", Time.nowMs().toString()));
+	const vendorId = environment.vars.number('vendorid') ?? (await deviceStorage.get('vendorid', 0xfff1));
+	const productId = environment.vars.number('productid') ?? (await deviceStorage.get('productid', isy.productId));
+	const productName = environment.vars.string('productname') ?? (await deviceStorage.get('productname', isy.productName));
+	const port = environment.vars.number('port') ?? 5540;
+	const uniqueId = environment.vars.string("uniqueid") ?? (await deviceStorage.get("uniqueid", isy.id.replaceAll(':', '_')));
 
 	// Persist basic data to keep them also on restart
 	await deviceStorage.set({
@@ -306,6 +380,7 @@ async function initializeConfiguration(isy: ISY, config?: Config): Promise<Confi
 		discriminator,
 		vendorid: vendorId,
 		productid: productId,
+		productName: productName,
 		uniqueid: uniqueId
 	});
 

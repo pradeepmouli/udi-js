@@ -159,9 +159,14 @@ export function toString(this: UnitOfMeasure): keyof typeof UnitOfMeasure {
 	return UnitOfMeasure[this] as keyof typeof UnitOfMeasure;
 }
 
+
 //import { Converters } from "../../Converters.js";
 export namespace UnitOfMeasure {
 	export type ToType<X extends UnitOfMeasure> = X extends UnitOfMeasure.Boolean ? boolean : number;
+
+	export type Standard = keyof typeof UnitOfMeasure;
+
+	export type Matter = 'LightingLevel' | 'RampRate';
 
 	/*export function convertTo<X extends UnitOfMeasure, Y extends UnitOfMeasure>(
 		this: X,

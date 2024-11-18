@@ -20,3 +20,4 @@ apps/matter-server/bin/.env
 apps/matter-server/.env
 apps/matter-server/matter_server*.log*
 apps/matter-server/.env
+apps/matter-server/matter/**/*

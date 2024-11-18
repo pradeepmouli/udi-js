@@ -23,25 +23,10 @@
 	},
 	"include": [
 		"src/**/*",
-		"test/**/*",
 		"types/**/*",
-		"scripts/**/*",
-		"bin/**/*",
-		"index.ts",
-		"index.js",
-		"index.d.ts",
 		"src/Definitions/Global/*.ts",
-		"src/Devices/Insteon/Generated/RelayLampSwitch.ts",
 	],
 	"exclude": [
-		"node_modules/@project-chip/*",
-		"node_modules",
-		"dist/**/*",
-		"dist",
-		"scripts",
-		"test",
-		"types",
 		"src/Devices/*/Generated/*",
-		"src/Devices/EndpointFor.ts"
 	]
 }

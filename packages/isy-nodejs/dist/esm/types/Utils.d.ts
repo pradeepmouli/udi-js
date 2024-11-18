@@ -9,6 +9,9 @@ export type StringKeys<T> = Extract<keyof T, string>;
 export type PickOfType<T, U> = {
     [K in keyof T]: T[K] extends U ? (any extends T[K] ? never : K) : undefined;
 }[keyof T];
+export type Paths<T> = T extends object ? {
+    [K in keyof T]: `${Exclude<K, symbol>}${'' | `.${Paths<T[K]>}`}`;
+}[keyof T] : never;
 export declare function getEnumValueByEnumKey<E extends {
     [index: string]: number;
 }, T extends keyof E>(enumType: E, enumKey: T): E[T];

@@ -5,6 +5,14 @@ import type { NodeInfo } from '../Model/NodeInfo.js';
 import type { Category } from '../Definitions/Global/Categories.js';
 import type { Event } from '../Definitions/Global/Events.js';
 import type { Family } from '../Definitions/index.js';
+export interface ISYDeviceInfo {
+    type: string;
+    deviceClass: any;
+    productName: string;
+    productId: string | number;
+    modelName: string;
+    modelNumber: string;
+}
 export declare class ISYDeviceNode<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures = {
     [x in keyof D]: Event.DriverToEvent<D[x]> & {
         driver: x;
@@ -13,7 +21,7 @@ export declare class ISYDeviceNode<T extends Family, D extends ISYNode.DriverSig
     [x in keyof C]: Event.CommandToEvent<C[x]> & {
         command: x;
     };
-}> extends ISYNode<T, D, C, E> {
+}> extends ISYNode<T, D, C, E> implements ISYDeviceInfo {
     family: T;
     readonly typeCode: string;
     readonly deviceClass: any;
@@ -26,6 +34,8 @@ export declare class ISYDeviceNode<T extends Family, D extends ISYNode.DriverSig
     modelNumber: string;
     version: string;
     constructor(isy: ISY, node: NodeInfo);
+    productId: string | number;
+    modelName: string;
     _parentDevice: ISYDevice<T, any, any, any>;
     children: ISYNode<any, any, any, any>[];
     addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;

@@ -14,6 +14,7 @@ export declare class InsteonBaseDevice<D extends ISYNode.DriverSignatures = {}, 
         uom: UnitOfMeasure.Percent;
     };
 }, D>, C> {
+    static vendorName: string;
     constructor(isy: ISY, deviceNode: NodeInfo);
     convertFrom(value: any, uom: UnitOfMeasure, driver?: keyof D): any;
     convertTo(value: any, uom: UnitOfMeasure, propertyName?: keyof D): any;

@@ -155,5 +155,7 @@ export declare enum UnitOfMeasure {
 export declare function toString(this: UnitOfMeasure): keyof typeof UnitOfMeasure;
 export declare namespace UnitOfMeasure {
     type ToType<X extends UnitOfMeasure> = X extends UnitOfMeasure.Boolean ? boolean : number;
+    type Standard = keyof typeof UnitOfMeasure;
+    type Matter = 'LightingLevel' | 'RampRate';
 }
 //# sourceMappingURL=UOM.d.ts.map

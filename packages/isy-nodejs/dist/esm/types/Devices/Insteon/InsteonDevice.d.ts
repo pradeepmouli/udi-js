@@ -20,6 +20,8 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         model: string;
         modelNumber: string;
         version: string;
+        productId: string | number;
+        modelName: string;
         _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/Global/Families.js").Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
@@ -102,6 +104,8 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         model: string;
         modelNumber: string;
         version: string;
+        productId: string | number;
+        modelName: string;
         _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/Global/Families.js").Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;

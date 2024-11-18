@@ -65,7 +65,7 @@
         "xml2js": "^0.6.2"
     },
     "bugs": {
-        "url": "https://github.com/pradeepmouli/isy-nodejs/issues"
+        "url": "https://github.com/pradeepmouli/udi-js/issues"
     },
     "publishConfig": {
         "access": "public"

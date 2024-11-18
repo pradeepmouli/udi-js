@@ -37,8 +37,11 @@ const map: FamilyToClusterMap<Family.Insteon> = {
 		}
 	},
 	Dimmer: {
+		
 		deviceType: DimmableLightDevice,
+		// @ts-ignore
 		mapping: {
+			// @ts-ignore
 			OnOff: {
 				attributes: {
 					onOff: { driver: 'ST', converter: 'LevelFrom0To255.Boolean' }
@@ -46,12 +49,15 @@ const map: FamilyToClusterMap<Family.Insteon> = {
 				commands: { on: 'DON' }
 			},
 			LevelControl: {
+				// @ts-ignore
 				attributes: {
-					currentLevel: { driver: 'ST', converter: 'LevelFrom0To255.LightingLevel' }
+					currentLevel: { driver: 'ST', converter: 'LevelFrom0To255.LightingLevel' },
+					startUpCurrentLevel: { driver: 'OL', converter: 'LevelFrom0To255.LightingLevel' },
+					onLevel: { driver: 'OL', converter: 'LevelFrom0To255.LightingLevel' }
 				},
 				commands: { setLevel: { command: 'DON' } }
 			}
-		}
+		} as EndpointMapping<DimmableLightDevice, Insteon.Dimmer>
 	}
 };
 

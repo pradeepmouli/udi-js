@@ -12,6 +12,20 @@ import type { Event } from '../Definitions/Global/Events.js';
 import type { StringKeys } from '../Utils.js';
 import type { Family } from '../Definitions/index.js';
 
+export interface ISYDeviceInfo
+{
+	type: string;
+	deviceClass: any;
+
+	productName: string;
+
+	productId: string | number;
+
+	modelName: string;
+
+	modelNumber: string;
+
+}
 
 export class ISYDeviceNode<
   T extends Family,
@@ -19,7 +33,7 @@ export class ISYDeviceNode<
   C extends ISYNode.CommandSignatures,
   E extends ISYNode.EventSignatures = {[x in keyof D]: Event.DriverToEvent<D[x]> & {driver: x}} & {[x in keyof C]: Event.CommandToEvent<C[x]> & {command: x}}
 >
-  extends ISYNode<T, D, C, E>
+  extends ISYNode<T, D, C, E> implements ISYDeviceInfo
    {
   public declare family: T;
 
@@ -86,6 +100,8 @@ export class ISYDeviceNode<
     //   );
     // }
   }
+	productId: string | number;
+	modelName: string;
 
   _parentDevice: ISYDevice<T, any, any, any>;
   children: ISYNode<any, any, any, any>[];

@@ -61,7 +61,7 @@ export declare class ISY extends EventEmitter implements Disposable {
     webSocket: WebSocket.Client;
     apiVersion: string;
     socketPath: string;
-    get axiosOptions(): AxiosRequestConfig;
+    axiosOptions: AxiosRequestConfig;
     constructor(config: ISYConfig, logger?: Logger, storagePath?: string);
     get address(): string;
     get isDebugEnabled(): boolean;

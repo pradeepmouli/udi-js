@@ -9,8 +9,8 @@
   ],
   "scripts": {
     "mocha": "echo \"Error: no test specified\" && exit 1",
-    "version": "lerna version --git-remote udi-js",
-    "publish:development": "lerna publish from-package --git-remote udi-js --no-private --dist-tag dev",
+    "version": "lerna version --git-remote origin",
+    "publish:development": "lerna publish from-package --git-remote origin --no-private --dist-tag dev",
     "publish:v11": "lerna publish from-package --git-remote udi-js --no-private --dist-tag v11"
   },
   "devDependencies": {

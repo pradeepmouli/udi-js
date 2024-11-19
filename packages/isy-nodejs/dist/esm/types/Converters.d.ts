@@ -1,5 +1,5 @@
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
-import { type StringKeys } from './Utils.js';
+import { type Paths, type StringKeys } from './Utils.js';
 declare const StandardConverters: {
     Boolean: {
         LevelFrom0To255: {
@@ -20,7 +20,7 @@ declare const StandardConverters: {
 };
 export declare const StdConverterRegistry: Map<string | UnitOfMeasure, Map<string | UnitOfMeasure, Converter<any, any>>>;
 export declare const ConverterRegistry: Map<string, Converter<any, any>>;
-export declare function registerConverter(from: keyof typeof StandardConverters | keyof typeof Converter.Matter | string, to: keyof typeof StandardConverters | keyof typeof Converter.Matter | string, converter: Converter<any, any>): void;
+export declare function registerConverter(from: keyof typeof StandardConverters | keyof typeof Converter.Matter | Paths<typeof StandardConverters> | Paths<typeof Converter.Matter> | string, to: keyof typeof StandardConverters | keyof typeof Converter.Matter | string, converter: Converter<any, any>): void;
 export declare namespace Converter {
     const Standard: typeof StandardConverters;
     const Matter: {

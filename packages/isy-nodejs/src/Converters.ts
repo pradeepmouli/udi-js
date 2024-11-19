@@ -1,5 +1,5 @@
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
-import { type StringKeys } from './Utils.js';
+import { type Paths, type StringKeys } from './Utils.js';
 
 let BooleanPercentage: Converter<boolean, number>;
 let NullConverter: Converter<any, any>;
@@ -58,7 +58,7 @@ function registerConverters() {
 }
 
 export function registerConverter(
-	from: keyof typeof StandardConverters | keyof typeof Converter.Matter | string,
+	from: keyof typeof StandardConverters | keyof typeof Converter.Matter | Paths<typeof StandardConverters> | Paths<typeof Converter.Matter> | string,
 	to: keyof typeof StandardConverters | keyof typeof Converter.Matter | string,
 	converter: Converter<any, any>
 ) {

@@ -263,9 +263,7 @@ async function initializeConfiguration(isy, config) {
     if (config.productId) {
         environment.vars.set('productid', config.productId);
     }
-    if (config.uniqueId) {
-        environment.vars.set('uniqueid', config.uniqueId);
-    }
+    environment.vars.set('uniqueid', isy.id.replaceAll(':', '_'));
     const vendorName = isy.vendorName;
     const passcode = environment.vars.number('passcode') ?? (await deviceStorage.get('passcode', 20202021));
     const discriminator = environment.vars.number('discriminator') ?? (await deviceStorage.get('discriminator', 3840));

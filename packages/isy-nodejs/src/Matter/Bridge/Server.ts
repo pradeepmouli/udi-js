@@ -359,9 +359,9 @@ async function initializeConfiguration(isy: ISY, config?: Config): Promise<Confi
 		environment.vars.set('productid', config.productId);
 	}
 
-	if(config.uniqueId)	{
-		environment.vars.set('uniqueid', config.uniqueId);
-	}
+
+	environment.vars.set('uniqueid', isy.id.replaceAll(':', '_'));
+
 
 
 	const vendorName = isy.vendorName;

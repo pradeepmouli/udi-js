@@ -317,7 +317,7 @@ export class ISY extends EventEmitter implements Disposable {
 					}
 					break;
 				case EventType.Heartbeat:
-					this.logger.debug(`Received ${EventType[Number(stringControl)]} Signal from ISY: ${Utils.logStringify(evt)}`);
+					this.logger.debug(`Received ${EventType[Number(stringControl)]} Signal from ISY: ${JSON.stringify(evt)}`);
 					break;
 
 				default:
@@ -337,7 +337,7 @@ export class ISY extends EventEmitter implements Disposable {
 						if (stringControl === EventType.NodeChanged) {
 							this.logger.debug(`Received Node Change Event: ${JSON.stringify(evt)}. These are currently unsupported.`);
 						}
-						this.logger.debug(`${EventType[Number(stringControl)]} Event: ${Utils.logStringify(evt)}`);
+						this.logger.debug(`${EventType[Number(stringControl)]} Event: ${JSON.stringify(evt)}`);
 					}
 
 					break;
@@ -496,6 +496,7 @@ export class ISY extends EventEmitter implements Disposable {
 
 	public async refreshStatuses() {
 		try {
+			this.logger.info('Refreshing ISY Node Statuses');
 			const that = this;
 			const result = await that.sendRequest('status');
 			if (that.isDebugEnabled) {

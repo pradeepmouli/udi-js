@@ -44,9 +44,18 @@ export function appliesTo(node, deviceOptions) {
     }
 }
 export function getDeviceOptions(node, deviceOptions) {
-    for (const options of deviceOptions) {
-        if (appliesTo(node, options)) {
-            return options.options; //TODO: rank by specificity
+    if (deviceOptions) {
+        if (Array.isArray(deviceOptions)) {
+            for (const options of deviceOptions) {
+                if (appliesTo(node, options)) {
+                    return options.options; //TODO: rank by specificity
+                }
+            }
+        }
+        for (const options of deviceOptions) {
+            if (appliesTo(node, options)) {
+                return options.options; //TODO: rank by specificity
+            }
         }
     }
     return undefined;
@@ -136,7 +145,7 @@ export async function createMatterServer(isy, config) {
     for (const node of isy.nodeMap.values()) {
         let device = node;
         let deviceOptions = getDeviceOptions(node, config.DeviceOptions);
-        if (deviceOptions.label) {
+        if (deviceOptions?.label) {
             device.label = deviceOptions.label;
         }
         if (deviceOptions?.exclude) {
@@ -221,10 +230,6 @@ export async function createMatterServer(isy, config) {
         logger.info(`QR Code URL: https://project-chip.github.io/connectedhomeip/qrcode.html?data=${qrPairingCode}`);
         logger.info(`Manual pairing code: ${manualPairingCode}`);
     }
-    /*for(let e of endpoints)
-    {
-      e[1].initialize(e[0] as any);
-    }*/
     instance = server;
     return server;
 }

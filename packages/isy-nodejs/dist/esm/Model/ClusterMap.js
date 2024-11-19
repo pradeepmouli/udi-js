@@ -12,8 +12,8 @@ export class MappingRegistry {
     static getMapping(device) {
         if (MappingRegistry.map.has(device.family)) {
             let g = MappingRegistry.map.get(device.family);
-            if (g.has(device.name)) {
-                return g.get(device.name);
+            if (g.has(device.constructor.name)) {
+                return g.get(device.constructor.name);
             }
             else if (g.has(device.nodeDefId)) {
                 return g.get(device.nodeDefId);

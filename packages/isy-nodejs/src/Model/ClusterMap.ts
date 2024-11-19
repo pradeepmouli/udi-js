@@ -8,7 +8,7 @@ import { DriverType } from '../Definitions/Global/Drivers.js';
 import { Devices } from '../Devices/index.js';
 import { Insteon } from '../Devices/Insteon/index.js';
 
-import type { CommandsOf, DriversOf, ISYNode } from '../ISYNode.js';
+import { CommandsOf, DriversOf, ISYNode } from '../ISYNode.js';
 import { ClusterType } from './ClusterType.js';
 import type { Family } from '../Definitions/index.js';
 
@@ -145,13 +145,13 @@ export class MappingRegistry {
 
 	// #region Public Static Methods (3)
 
-	public static getMapping<T extends ISYNode<any, any, any, any>>(device: T) {
+	public static getMapping<T extends ISYNode<any,any,any,any>>(device: ISYNode<any,any,any,any>) {
 		if(MappingRegistry.map.has(device.family))
 		{
 			let g = MappingRegistry.map.get(device.family);
-			if(g.has(device.name))
+			if(g.has(device.constructor.name))
 			{
-				return g.get(device.name);
+				return g.get(device.constructor.name);
 			}
 			else if(g.has(device.nodeDefId))
 			{

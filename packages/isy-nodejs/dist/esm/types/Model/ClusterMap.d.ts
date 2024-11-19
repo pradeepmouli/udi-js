@@ -4,7 +4,7 @@ import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties'
 import type { MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
 import type { Converter } from '../Converters.js';
 import { Devices } from '../Devices/index.js';
-import type { CommandsOf, DriversOf, ISYNode } from '../ISYNode.js';
+import { CommandsOf, DriversOf, ISYNode } from '../ISYNode.js';
 import type { Family } from '../Definitions/index.js';
 export type AttributeMapping<B, D> = B extends {
     cluster: {
@@ -97,7 +97,7 @@ export type parameterMapping = {
 };
 export declare class MappingRegistry {
     static map: Map<Family, Map<string, DeviceToClusterMap<any, any>>>;
-    static getMapping<T extends ISYNode<any, any, any, any>>(device: T): {
+    static getMapping<T extends ISYNode<any, any, any, any>>(device: ISYNode<any, any, any, any>): {
         deviceType: any;
         mapping: EndpointMapping<any, any>;
     };

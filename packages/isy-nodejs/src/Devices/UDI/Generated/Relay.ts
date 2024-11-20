@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,18 +12,18 @@ import { UDI } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "EM3Relay";
+const nodeDefId = "EM3Relay";
 
 type Commands = Relay.Commands;
 type Drivers = Relay.Drivers;
 
 export class RelayNode extends Base<Drivers, Commands> implements Relay.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		QUERY: this.query
 	};
-	static nodeDefId = "EM3Relay";
+	static override nodeDefId = "EM3Relay";
 	declare readonly nodeDefId: "EM3Relay";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -54,7 +54,10 @@ export namespace Relay {
 		nodeDefId: "EM3Relay";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is RelayNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["EM3Relay"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayNode {
+		return node.nodeDefId in ["EM3Relay"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new RelayNode(isy, nodeInfo);

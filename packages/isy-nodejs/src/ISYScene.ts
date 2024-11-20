@@ -1,15 +1,14 @@
-import { Insteon } from './Devices/Insteon/index.js';
-import { Family } from './Definitions/Global/Families.js';
-import { Commands, LinkType } from './ISYConstants.js';
-import { ISYNode } from './ISYNode.js';
-import {  ISYDevice } from './ISYDevice.js';
-import type { ISY } from './ISY.js';
-import type { Driver } from './Definitions/Global/Drivers.js';
 import type { Command } from './Definitions/Global/Commands.js';
+import type { Driver } from './Definitions/Global/Drivers.js';
+import { Family } from './Definitions/Global/Families.js';
+import { Insteon } from './Devices/Insteon/index.js';
+import type { ISY } from './ISY.js';
+import { Commands, LinkType } from './ISYConstants.js';
+import { ISYDevice } from './ISYDevice.js';
+import { ISYNode } from './ISYNode.js';
 import type { NodeInfo, StaticNodeInfo } from './Model/NodeInfo.js';
 
-interface SceneInfo extends StaticNodeInfo
- {
+interface SceneInfo extends StaticNodeInfo {
 	members?: {
 		link: any;
 	};
@@ -23,13 +22,12 @@ interface SceneInfo extends StaticNodeInfo
 	startDelay: number;
 }
 
-export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>,Command.Signatures<'DON' | 'DOF'>> {
-
+export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>, Command.Signatures<'DON' | 'DOF'>> {
 	public connectionType: string;
 	public batteryOperated: boolean;
 	public deviceType: any;
 	public deviceFriendlyName: string;
-	public members: ISYDevice<any,any,any>[];
+	public members: ISYDevice<any, any, any>[];
 	public typeCode: string;
 	constructor(isy: ISY, scene: SceneInfo) {
 		super(isy, scene as NodeInfo);
@@ -49,9 +47,13 @@ export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>,Comm
 					const s = node._;
 					const d = isy.getDevice(s);
 
-					if (d !== null && d !== undefined) { d.addLink(this); }
+					if (d !== null && d !== undefined) {
+						d.addLink(this);
+					}
 
-					if (d instanceof Insteon.Dimmer && node.type !== LinkType.Controller) { this.isDimmable = true; }
+					if (d instanceof Insteon.Dimmer && node.type !== LinkType.Controller) {
+						this.isDimmable = true;
+					}
 					this.members.push(d);
 				}
 			}
@@ -63,10 +65,13 @@ export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>,Comm
 				// childDevices.push(object)
 				const s = scene.members.link._;
 				const d = isy.getDevice(s);
-				if (d) { d.addLink(this);
-				// tslint:disable-next-line: triple-equals
-				if ((d.isDimmable && node.type != LinkType.Controller) || this.isDimmable) { this.isDimmable = true; }
-				this.members.push(d);
+				if (d) {
+					d.addLink(this);
+					// tslint:disable-next-line: triple-equals
+					if ((d.isDimmable && node.type != LinkType.Controller) || this.isDimmable) {
+						this.isDimmable = true;
+					}
+					this.members.push(d);
 				}
 			}
 		}
@@ -76,7 +81,7 @@ export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>,Comm
 	// Get the current light state
 	get isOn() {
 		for (const device of this.members) {
-			if (device instanceof Insteon.Relay)  {
+			if (device instanceof Insteon.Relay) {
 				if (device.drivers.ST?.value) {
 					return true;
 				}
@@ -114,7 +119,6 @@ export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>,Comm
 
 		if (this.isDimmable) {
 			this.emit('propertyChanged', 'brightnesslevel', this.brightnessLevel, this.brightnessLevel, this.brightnessLevel + '%');
-
 		}
 	}
 	public async updateIsOn(lightState: boolean) {
@@ -133,6 +137,4 @@ export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>,Comm
 		}
 		return true;
 	}
-
-
 }

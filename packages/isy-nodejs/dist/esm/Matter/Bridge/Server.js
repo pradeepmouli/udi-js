@@ -17,6 +17,7 @@ import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.
 import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
 import '../Mappings/Insteon.js';
 import { InsteonBaseDevice } from '../../Devices/Insteon/InsteonBaseDevice.js';
+import { DimmerLamp } from '../../Devices/Insteon/Generated/DimmerLamp.js';
 // #region Interfaces (1)
 export let instance;
 //@ts-ignore
@@ -44,9 +45,18 @@ export function appliesTo(node, deviceOptions) {
     }
 }
 export function getDeviceOptions(node, deviceOptions) {
-    for (const options of deviceOptions) {
-        if (appliesTo(node, options)) {
-            return options.options; //TODO: rank by specificity
+    if (deviceOptions) {
+        if (Array.isArray(deviceOptions)) {
+            for (const options of deviceOptions) {
+                if (appliesTo(node, options)) {
+                    return options.options; //TODO: rank by specificity
+                }
+            }
+        }
+        for (const options of deviceOptions) {
+            if (appliesTo(node, options)) {
+                return options.options; //TODO: rank by specificity
+            }
         }
     }
     return undefined;
@@ -136,7 +146,7 @@ export async function createMatterServer(isy, config) {
     for (const node of isy.nodeMap.values()) {
         let device = node;
         let deviceOptions = getDeviceOptions(node, config.DeviceOptions);
-        if (deviceOptions.label) {
+        if (deviceOptions?.label) {
             device.label = deviceOptions.label;
         }
         if (deviceOptions?.exclude) {
@@ -147,7 +157,7 @@ export async function createMatterServer(isy, config) {
             //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
             //@ts-ignore
             let baseBehavior; /*typeof (DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior)) | typeof (OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior));*/
-            if (device instanceof Devices.Insteon.Dimmer || device instanceof Devices.Insteon.DimmerSwitch || device instanceof Devices.Insteon.KeypadDimmer) {
+            if (DimmerLamp.isImplementedBy(device)) {
                 baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior);
                 // if(device instanceof InsteonSwitchDevice)
                 // {
@@ -170,7 +180,7 @@ export async function createMatterServer(isy, config) {
                     },
                     bridgedDeviceBasicInformation: {
                         nodeLabel: device.label.rightWithToken(32),
-                        vendorName: device instanceof InsteonBaseDevice ? InsteonBaseDevice.vendorName : isy.vendorName,
+                        vendorName: device instanceof InsteonBaseDevice ? device.vendorName : isy.vendorName,
                         vendorId: VendorId(config.vendorId),
                         productName: device.productName.leftWithToken(32),
                         productLabel: device.model.leftWithToken(64),
@@ -221,10 +231,6 @@ export async function createMatterServer(isy, config) {
         logger.info(`QR Code URL: https://project-chip.github.io/connectedhomeip/qrcode.html?data=${qrPairingCode}`);
         logger.info(`Manual pairing code: ${manualPairingCode}`);
     }
-    /*for(let e of endpoints)
-    {
-      e[1].initialize(e[0] as any);
-    }*/
     instance = server;
     return server;
 }
@@ -258,9 +264,7 @@ async function initializeConfiguration(isy, config) {
     if (config.productId) {
         environment.vars.set('productid', config.productId);
     }
-    if (config.uniqueId) {
-        environment.vars.set('uniqueid', config.uniqueId);
-    }
+    environment.vars.set('uniqueid', isy.id.replaceAll(':', '_'));
     const vendorName = isy.vendorName;
     const passcode = environment.vars.number('passcode') ?? (await deviceStorage.get('passcode', 20202021));
     const discriminator = environment.vars.number('discriminator') ?? (await deviceStorage.get('discriminator', 3840));

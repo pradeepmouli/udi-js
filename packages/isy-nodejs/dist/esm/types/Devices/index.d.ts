@@ -1,6 +1,6 @@
 import type { Family } from '../Definitions/index.js';
-import { Insteon } from "./Insteon/index.js";
-import { ZWaveBaseDevice } from "./ZWave/ZWaveBaseDevice.js";
+import { Insteon } from './Insteon/index.js';
+import { ZWaveBaseDevice } from './ZWave/ZWaveBaseDevice.js';
 export declare const Devices: {
     Insteon: {
         LeakSensor: typeof import("./Insteon/InsteonLeakSensorDevice.js").InsteonLeakSensorDevice;
@@ -10,7 +10,7 @@ export declare const Devices: {
         DoorWindowSensor: typeof import("./Insteon/InsteonDoorWindowSensorDevice.js").InsteonDoorWindowSensorDevice;
         DimmerSwitch: typeof import("./Insteon/InsteonDimmerSwitchDevice.js").InsteonDimmerSwitchDevice;
         DimmerOutlet: typeof import("./Insteon/InsteonDimmerOutletDevice.js").InsteonDimmerOutletDevice;
-        Relay: typeof import("./Insteon/InsteonRelayDevice.js").InsteonRelayDevice;
+        Relay: typeof import("./Insteon/Generated/RelayLampSwitch.js").RelayLampSwitchNode;
         Dimmer: typeof import("./Insteon/InsteonDimmableDevice.js").InsteonDimmableDevice;
         KeypadDimmer: typeof import("./Insteon/InsteonKeypadDimmerDevice.js").InsteonKeypadDimmerDevice;
         Thermostat: typeof import("./Insteon/InsteonThermostatDevice.js").InsteonThermostatDevice;

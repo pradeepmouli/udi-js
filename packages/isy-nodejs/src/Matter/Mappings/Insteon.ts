@@ -1,5 +1,3 @@
-
-
 import { OnOffLightDevice } from '@project-chip/matter.js/devices/OnOffLightDevice';
 import { DriverType } from '../../Definitions/Global/Drivers.js';
 import { Family, type t } from '../../Definitions/Global/Families.js';
@@ -11,6 +9,7 @@ import { MappingRegistry, type DeviceToClusterMap, type EndpointMapping, type Fa
 import { DimmableLightDevice } from '@project-chip/matter.js/devices/DimmableLightDevice';
 import { Converter } from '../../Converters.js';
 import type { InsteonRelaySwitchDevice } from '../../Devices/Insteon/InsteonRelaySwitchDevice.js';
+import { OnOffLightSwitchDevice } from '@matter/node/devices';
 
 const map: FamilyToClusterMap<Family.Insteon> = {
 	Family: Family.Insteon,
@@ -19,25 +18,24 @@ const map: FamilyToClusterMap<Family.Insteon> = {
 		mapping: {
 			OnOff: {
 				attributes: {
-					onOff: 'ST'
+					onOff: { driver: 'ST', converter: 'LevelFrom0To255.Boolean' }
 				},
 				commands: { on: 'DON' }
 			}
-		} as EndpointMapping<OnOffLightDevice, Insteon.Relay>
+		} as EndpointMapping<OnOffLightDevice, Insteon.RelaySwitch>
 	},
 	RelaySwitch: {
-		deviceType: OnOffLightDevice,
+		deviceType: OnOffLightSwitchDevice,
 		mapping: {
 			OnOff: {
 				attributes: {
-					onOff: 'ST'
+					onOff: { driver: 'ST', converter: 'LevelFrom0To255.Boolean' }
 				},
 				commands: { on: 'DON' }
 			}
 		}
 	},
 	Dimmer: {
-		
 		deviceType: DimmableLightDevice,
 		// @ts-ignore
 		mapping: {

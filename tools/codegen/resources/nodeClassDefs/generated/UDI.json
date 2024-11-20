@@ -76,8 +76,7 @@
     "dynamic": false,
     "implements": [
       "EM3Channel"
-    ],
-    "extends": "EM3Channel"
+    ]
   },
   "EM3Relay": {
     "className": "Relay",
@@ -275,8 +274,7 @@
     "dynamic": false,
     "implements": [
       "EM3Channel"
-    ],
-    "extends": "EM3Channel"
+    ]
   },
   "EM3Channel": {
     "className": "Channel",
@@ -346,7 +344,11 @@
     "family": 7,
     "label": "Channel",
     "name": "Channel",
-    "dynamic": false
+    "dynamic": false,
+    "implementedBy": [
+      "EM3Main",
+      "EM3MainChannel"
+    ]
   },
   "EM3TempSensor": {
     "className": "TemperatureSensor",

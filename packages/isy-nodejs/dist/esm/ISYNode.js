@@ -173,7 +173,13 @@ export class ISYNode {
     }
     async getNotes() {
         try {
-            const result = await this.isy.sendRequest(`nodes/${this.address}/notes`, { trailingSlash: false, errorLogLevel: 'debug', validateStatus(status) { return true; } });
+            const result = await this.isy.sendRequest(`nodes/${this.address}/notes`, {
+                trailingSlash: false,
+                errorLogLevel: 'debug',
+                validateStatus(status) {
+                    return true;
+                }
+            });
             if (result !== null && result !== undefined) {
                 return result.NodeProperties;
             }
@@ -187,7 +193,7 @@ export class ISYNode {
     }
     handleControlTrigger(controlName) {
         //this.lastChanged = new Date();
-        this.events.emit('controlTriggered', controlName);
+        //this.events.emit(`${this.commands[controlName].name}`, controlName);
         return true;
     }
     handleEvent(event) {
@@ -293,8 +299,10 @@ export class ISYNode {
             that.logger(e);
         }
     }
-    async sendCommand(command, parameters) {
-        //@
+    async sendCommand(command, value, parameters) {
+        if (value !== undefined && typeof parameters === 'object') {
+            return this.isy.sendNodeCommand(this, command, { default: value, ...parameters });
+        }
         return this.isy.sendNodeCommand(this, command, parameters);
     }
     async updateProperty(propertyName, value) {

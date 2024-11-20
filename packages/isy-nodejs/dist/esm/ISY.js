@@ -246,7 +246,7 @@ export class ISY extends EventEmitter {
                     }
                     break;
                 case EventType.Heartbeat:
-                    this.logger.debug(`Received ${EventType[Number(stringControl)]} Signal from ISY: ${Utils.logStringify(evt)}`);
+                    this.logger.debug(`Received ${EventType[Number(stringControl)]} Signal from ISY: ${JSON.stringify(evt)}`);
                     break;
                 default:
                     if (evt.node !== '' && evt.node !== undefined && evt.node !== null) {
@@ -268,7 +268,7 @@ export class ISY extends EventEmitter {
                         if (stringControl === EventType.NodeChanged) {
                             this.logger.debug(`Received Node Change Event: ${JSON.stringify(evt)}. These are currently unsupported.`);
                         }
-                        this.logger.debug(`${EventType[Number(stringControl)]} Event: ${Utils.logStringify(evt)}`);
+                        this.logger.debug(`${EventType[Number(stringControl)]} Event: ${JSON.stringify(evt)}`);
                     }
                     break;
             }
@@ -423,6 +423,7 @@ export class ISY extends EventEmitter {
     }
     async refreshStatuses() {
         try {
+            this.logger.info('Refreshing ISY Node Statuses');
             const that = this;
             const result = await that.sendRequest('status');
             if (that.isDebugEnabled) {
@@ -454,12 +455,12 @@ export class ISY extends EventEmitter {
         if (parameters !== null && parameters !== undefined) {
             if (typeof parameters == 'object') {
                 var q = parameters;
-                for (const paramName of Object.getOwnPropertyNames(q)) {
+                for (const paramName in q) {
                     if (paramName === 'value') {
                         uriToUse += `/${q[paramName]}`;
                         continue;
                     }
-                    if (typeof q[paramName] === 'string' || typeof q[paramName] === 'number')
+                    else if (typeof q[paramName] === 'string' || typeof q[paramName] === 'number')
                         uriToUse += `/${paramName}/${q[paramName]}`;
                 }
                 //uriToUse += `/${q[((p : Record<string,number|number>) => `${p[]}/${p.paramValue}` ).join('/')}`;
@@ -649,7 +650,7 @@ export class ISY extends EventEmitter {
                         }
                         //newDevice = new cls(this, nodeInfo) as ISYDeviceNode<any, any, any, any>;
                     }
-                    if (m) {
+                    if (m && newDevice) {
                         newDevice.productName = m.name;
                         newDevice.model = `(${m.modelNumber}) ${m.name} v.${m.version}`;
                         newDevice.modelNumber = m.modelNumber;

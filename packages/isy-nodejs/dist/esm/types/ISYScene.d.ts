@@ -1,9 +1,9 @@
-import { Family } from './Definitions/Global/Families.js';
-import { ISYNode } from './ISYNode.js';
-import { ISYDevice } from './ISYDevice.js';
-import type { ISY } from './ISY.js';
-import type { Driver } from './Definitions/Global/Drivers.js';
 import type { Command } from './Definitions/Global/Commands.js';
+import type { Driver } from './Definitions/Global/Drivers.js';
+import { Family } from './Definitions/Global/Families.js';
+import type { ISY } from './ISY.js';
+import { ISYDevice } from './ISYDevice.js';
+import { ISYNode } from './ISYNode.js';
 import type { StaticNodeInfo } from './Model/NodeInfo.js';
 interface SceneInfo extends StaticNodeInfo {
     members?: {

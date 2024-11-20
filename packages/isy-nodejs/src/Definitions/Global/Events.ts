@@ -1,4 +1,4 @@
-import type { UnionToIntersection } from '@matter/general';
+import type { Merge, UnionToIntersection } from '@matter/general';
 import type { AnyMxRecord } from 'dns';
 import EventEmitter, { on } from 'events';
 import type { EventType } from '../../Events/EventType.js';
@@ -60,14 +60,14 @@ export namespace Event {
 
 	export function createEmitter<N extends ISYNode<any, D, C, E>, E extends ISYNode.EventSignatures, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures>(
 		node: N
-	): FunctionSigFor<E, NodeEventEmitter<N>> & Omit<NodeEventEmitter<N>, 'on'> {
+	): Merge<NodeEventEmitter<N>,FunctionSigFor<E, NodeEventEmitter<N>>> {
 		var f = new NodeEventEmitter(node);
 		for (let evt in node.drivers) {
 
 			//f[`on${ev.name}`] = f.on.bind(f, ev.name);
 		}
 
-		return f as unknown as FunctionSigFor<E, NodeEventEmitter<N>> & Omit<NodeEventEmitter<N>, 'on'>;
+		return f as any;
 	}
 
 	export class ISYEvent<TAction, TEventType extends EventType> {

@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -11,15 +11,14 @@ import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
-import { validateHeaderName } from 'http';
 
-export const nodeDefId = "DimmerLampSwitch";
+const nodeDefId = "DimmerLampSwitch";
 
 type Commands = DimmerLampSwitch.Commands;
 type Drivers = DimmerLampSwitch.Drivers;
 
 export class DimmerLampSwitchNode extends Base<Drivers, Commands> implements DimmerLampSwitch.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		DFOF: this.fastOff,
@@ -36,8 +35,8 @@ export class DimmerLampSwitchNode extends Base<Drivers, Commands> implements Dim
 		BL: this.backlight,
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "DimmerLampSwitch";
-	declare readonly nodeDefId: "DimmerLampSwitch";
+	static override nodeDefId = "DimmerLampSwitch";
+	declare readonly nodeDefId: "DimmerLampSwitch" | "DimmerLampSwitch_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
@@ -81,7 +80,7 @@ export class DimmerLampSwitchNode extends Base<Drivers, Commands> implements Dim
 	async updateOnLevel(value: number) {
 		return this.sendCommand("OL", { value: value });
 	}
-	async updateRampRate(value: number) {
+	async updateRampRate(value: Insteon.RampRate) {
 		return this.sendCommand("RR", { value: value });
 	}
 	async backlight(value: number) {
@@ -96,7 +95,7 @@ export class DimmerLampSwitchNode extends Base<Drivers, Commands> implements Dim
 	public get onLevel(): number {
 		return this.drivers.OL?.value;
 	}
-	public get rampRate(): number {
+	public get rampRate(): Insteon.RampRate {
 		return this.drivers.RR?.value;
 	}
 	public get responding(): Insteon.Error {
@@ -105,13 +104,17 @@ export class DimmerLampSwitchNode extends Base<Drivers, Commands> implements Dim
 }
 
 NodeFactory.register(DimmerLampSwitchNode);
+NodeFactory.register(DimmerLampSwitchNode, "DimmerLampSwitch_ADV");
 
 export namespace DimmerLampSwitch {
 	export interface Interface extends Omit<InstanceType<typeof DimmerLampSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "DimmerLampSwitch";
+		nodeDefId: "DimmerLampSwitch" | "DimmerLampSwitch_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is DimmerLampSwitchNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["DimmerLampSwitch", "DimmerLampSwitch_ADV"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerLampSwitchNode {
+		return node.nodeDefId in ["DimmerLampSwitch", "DimmerLampSwitch_ADV"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new DimmerLampSwitchNode(isy, nodeInfo);
@@ -166,7 +169,7 @@ export namespace DimmerLampSwitch {
 			label: "On Level";
 			name: "updateOnLevel";
 		};
-		RR: ((value: number) => Promise<boolean>) & {
+		RR: ((value: Insteon.RampRate) => Promise<boolean>) & {
 			label: "Ramp Rate";
 			name: "updateRampRate";
 		};
@@ -194,7 +197,7 @@ export namespace DimmerLampSwitch {
 		};
 		RR: {
 			uom: UnitOfMeasure.Index;
-			value: number;
+			value: Insteon.RampRate;
 			label: "Ramp Rate";
 			name: "rampRate";
 		};

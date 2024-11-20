@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,20 +12,20 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "X10";
+const nodeDefId = "X10";
 
 type Commands = X10.Commands;
 type Drivers = X10.Drivers;
 
 export class X10Node extends Base<Drivers, Commands> implements X10.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		BRT: this.brighten,
 		DIM: this.dim,
 		QUERY: this.query
 	};
-	static nodeDefId = "X10";
+	static override nodeDefId = "X10";
 	declare readonly nodeDefId: "X10";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -62,7 +62,10 @@ export namespace X10 {
 		nodeDefId: "X10";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is X10Node {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["X10"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is X10Node {
+		return node.nodeDefId in ["X10"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new X10Node(isy, nodeInfo);

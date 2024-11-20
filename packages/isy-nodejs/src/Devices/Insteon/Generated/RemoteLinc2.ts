@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,17 +12,17 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "RemoteLinc2";
+const nodeDefId = "RemoteLinc2";
 
 type Commands = RemoteLinc2.Commands;
 type Drivers = RemoteLinc2.Drivers;
 
 export class RemoteLinc2Node extends Base<Drivers, Commands> implements RemoteLinc2.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "RemoteLinc2";
-	declare readonly nodeDefId: "RemoteLinc2";
+	static override nodeDefId = "RemoteLinc2";
+	declare readonly nodeDefId: "RemoteLinc2" | "RemoteLinc2_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
@@ -40,13 +40,17 @@ export class RemoteLinc2Node extends Base<Drivers, Commands> implements RemoteLi
 }
 
 NodeFactory.register(RemoteLinc2Node);
+NodeFactory.register(RemoteLinc2Node, "RemoteLinc2_ADV");
 
 export namespace RemoteLinc2 {
 	export interface Interface extends Omit<InstanceType<typeof RemoteLinc2Node>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "RemoteLinc2";
+		nodeDefId: "RemoteLinc2" | "RemoteLinc2_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is RemoteLinc2Node {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["RemoteLinc2", "RemoteLinc2_ADV"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RemoteLinc2Node {
+		return node.nodeDefId in ["RemoteLinc2", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RemoteLinc2_ADV"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new RemoteLinc2Node(isy, nodeInfo);

@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import diff from 'microdiff';
 import { camelCase, merge, pascalCase } from 'moderndash';
 import { Family } from '../Definitions/Global/Families.js';
+import { UnitOfMeasure } from '../Definitions/Global/UOM.js';
 import { toArray } from '../Utils.js';
 import { EditorDef } from './EditorDef.js';
 import { EnumDefinition } from './EnumDefinition.js';
@@ -50,14 +51,19 @@ function buildNodeClassDefinitions(nodeDefs, family) {
                     if (id.includes(id2)) {
                         node.implements.push(id2, ...node2.implements);
                         node.equivalentTo.push(id2);
+                        node2.equivalents.push(id);
                     }
                     else {
                         node2.implements.push(id, ...node.implements);
                         node2.equivalentTo.push(id);
+                        node.equivalents.push(id2);
                     }
                 }
                 else if (ext) {
                     node.implements.push(id2, ...node2.implements);
+                    if (id.includes(id2)) {
+                        node.extends.push(id2);
+                    }
                 }
                 // if (Object.keys(d.).length == 0) {
                 // 	node.extends.push(id2);
@@ -91,9 +97,15 @@ function buildNodeClassDefinitions(nodeDefs, family) {
                     e = i;
                 }
             }
-            node.extends = e;
         }
         map[node.id] = node;
+    }
+    for (const node of Object.values(map).filter((p) => p.implements.length > 0)) {
+        for (const i of node.implements) {
+            let superNode = map[i];
+            if (superNode)
+                superNode.implementedBy?.push(node.id);
+        }
     }
     return map;
 }
@@ -103,11 +115,13 @@ export class NodeClassDefinition {
     drivers = {};
     dynamic = false;
     equivalentTo = [];
+    equivalents = [];
     events = {};
-    extends;
+    extends = [];
     family;
     id;
     implements = [];
+    implementedBy = [];
     label;
     nlsId;
     // #endregion Properties (11)
@@ -225,7 +239,9 @@ export class NodeClassDefinition {
             dynamic: this.family in [Family.ZWave, Family.ZigBee],
             implements: this.implements.length > 0 ? this.implements : undefined,
             equivalentTo: this.equivalentTo.length > 0 ? this.equivalentTo : undefined,
-            extends: this.extends
+            extends: this.extends.length > 0 ? this.extends : undefined,
+            equivalents: this.equivalents.length > 0 ? this.equivalents : undefined,
+            implementedBy: this.implementedBy.length > 0 ? this.implementedBy : undefined
         };
     }
     // #endregion Public Methods (6)
@@ -342,6 +358,9 @@ export class NodeMemberDefinition {
                         indexId: rangeDef.nls ?? undefined,
                         returnType: rangeDef.nls ? EnumDefinition.get(this.classDef.family, rangeDef.nls, rangeDef.uom, this.classDef.id)?.name : undefined
                     };
+                }
+                if (rangeDef.uom === UnitOfMeasure.Index) {
+                    d[rangeDef.uom].enum = true;
                 }
             }
             this.dataType = d;

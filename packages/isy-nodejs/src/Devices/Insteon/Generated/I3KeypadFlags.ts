@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,13 +12,13 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "I3KeypadFlags";
+const nodeDefId = "I3KeypadFlags";
 
 type Commands = I3KeypadFlags.Commands;
 type Drivers = I3KeypadFlags.Drivers;
 
 export class I3KeypadFlagsNode extends Base<Drivers, Commands> implements I3KeypadFlags.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		GV0: this.updateMode,
 		GV1: this.updateProgramLock,
 		GV2: this.updateResumeDim,
@@ -31,7 +31,7 @@ export class I3KeypadFlagsNode extends Base<Drivers, Commands> implements I3Keyp
 		QUERY: this.query,
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "I3KeypadFlags";
+	static override nodeDefId = "I3KeypadFlags";
 	declare readonly nodeDefId: "I3KeypadFlags";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -118,7 +118,10 @@ export namespace I3KeypadFlags {
 		nodeDefId: "I3KeypadFlags";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is I3KeypadFlagsNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["I3KeypadFlags"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is I3KeypadFlagsNode {
+		return node.nodeDefId in ["I3KeypadFlags"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new I3KeypadFlagsNode(isy, nodeInfo);

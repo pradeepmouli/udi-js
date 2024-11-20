@@ -12,8 +12,8 @@ export class MappingRegistry {
     static getMapping(device) {
         if (MappingRegistry.map.has(device.family)) {
             let g = MappingRegistry.map.get(device.family);
-            if (g.has(device.name)) {
-                return g.get(device.name);
+            if (g.has(device.constructor.name)) {
+                return g.get(device.constructor.name);
             }
             else if (g.has(device.nodeDefId)) {
                 return g.get(device.nodeDefId);
@@ -34,7 +34,7 @@ export class MappingRegistry {
     }
     //@ts-ignore
     static register(map) {
-        if ("Family" in map) {
+        if ('Family' in map) {
             let regMap;
             if (!MappingRegistry.map.has(map.Family)) {
                 MappingRegistry.map.set(map.Family, new Map());
@@ -50,7 +50,7 @@ export class MappingRegistry {
         else {
             let regMap;
             for (var key in map) {
-                const keys = key.split(".");
+                const keys = key.split('.');
                 let x = Devices[keys[0]][keys[1]];
                 if (!MappingRegistry.map.has(x.family)) {
                     MappingRegistry.map.set(x.family, new Map());

@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,13 +12,13 @@ import { ZWave } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "119";
+const nodeDefId = "119";
 
 type Commands = DimmerSwitch.Commands;
 type Drivers = DimmerSwitch.Drivers;
 
 export class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerSwitch.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		DFON: this.fastOn,
@@ -33,14 +33,14 @@ export class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerS
 		CONFIG: this.setConfiguration,
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "119";
+	static override nodeDefId = "119";
 	declare readonly nodeDefId: "119";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: number | number, rampRate?: number | number) {
+	async on(value?: ZWave.PercentOpt | number, rampRate?: number | number) {
 		return this.sendCommand("DON", { value: value, RR: rampRate });
 	}
 	async off() {
@@ -58,13 +58,13 @@ export class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerS
 	async dim() {
 		return this.sendCommand("DIM");
 	}
-	async fadeUp(startLevel?: number | number, rampRate?: number | number) {
+	async fadeUp(startLevel?: ZWave.PercentOpt | number, rampRate?: number | number) {
 		return this.sendCommand("FDUP", { STARTLEVEL: startLevel, RR: rampRate });
 	}
-	async fadeDown(startLevel?: number | number, rampRate?: number | number) {
+	async fadeDown(startLevel?: ZWave.PercentOpt | number, rampRate?: number | number) {
 		return this.sendCommand("FDDOWN", { STARTLEVEL: startLevel, RR: rampRate });
 	}
-	async fade(direction: ZWave.FadeDirection, startLevel?: number | number, rampRate?: number | number, direction2?: ZWave.FadeDirection, fadeRate2?: number | number) {
+	async fade(direction: ZWave.FadeDirection, startLevel?: ZWave.PercentOpt | number, rampRate?: number | number, direction2?: ZWave.FadeDirection, fadeRate2?: number | number) {
 		return this.sendCommand("FADE", { DIR: direction, STARTLEVEL: startLevel, RR: rampRate, DIR2: direction2, STEP2: fadeRate2 });
 	}
 	async fadeStop() {
@@ -94,14 +94,17 @@ export namespace DimmerSwitch {
 		nodeDefId: "119";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["119"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode {
+		return node.nodeDefId in ["119"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new DimmerSwitchNode(isy, nodeInfo);
 	}
 	export const Node = DimmerSwitchNode;
 	export type Commands = {
-		DON: ((value?: number | number, RR?: number | number) => Promise<boolean>) & {
+		DON: ((value?: ZWave.PercentOpt | number, RR?: number | number) => Promise<boolean>) & {
 			label: "On";
 			name: "on";
 		};
@@ -125,15 +128,15 @@ export namespace DimmerSwitch {
 			label: "Dim";
 			name: "dim";
 		};
-		FDUP: ((STARTLEVEL?: number | number, RR?: number | number) => Promise<boolean>) & {
+		FDUP: ((STARTLEVEL?: ZWave.PercentOpt | number, RR?: number | number) => Promise<boolean>) & {
 			label: "Fade Up";
 			name: "fadeUp";
 		};
-		FDDOWN: ((STARTLEVEL?: number | number, RR?: number | number) => Promise<boolean>) & {
+		FDDOWN: ((STARTLEVEL?: ZWave.PercentOpt | number, RR?: number | number) => Promise<boolean>) & {
 			label: "Fade Down";
 			name: "fadeDown";
 		};
-		FADE: ((DIR: ZWave.FadeDirection, STARTLEVEL?: number | number, RR?: number | number, DIR2?: ZWave.FadeDirection, STEP2?: number | number) => Promise<boolean>) & {
+		FADE: ((DIR: ZWave.FadeDirection, STARTLEVEL?: ZWave.PercentOpt | number, RR?: number | number, DIR2?: ZWave.FadeDirection, STEP2?: number | number) => Promise<boolean>) & {
 			label: "Fade";
 			name: "fade";
 		};

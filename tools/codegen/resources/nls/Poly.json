@@ -3,350 +3,69 @@
     "ND": [
       {
         "type": "ND",
-        "value": "Bond Bridge",
-        "nodeDefId": "BRIDGE",
+        "value": "Matter Bridge",
+        "nodeDefId": "CONTROLLER",
         "property": "NAME"
       },
       {
         "type": "ND",
-        "value": "Output",
-        "nodeDefId": "BRIDGE",
+        "value": "GenericCtl",
+        "nodeDefId": "CONTROLLER",
         "property": "ICON"
-      },
-      {
-        "type": "ND",
-        "value": "Ceiling Fan",
-        "nodeDefId": "CEILING_FAN",
-        "property": "NAME"
-      },
-      {
-        "type": "ND",
-        "value": "GenericRsp",
-        "nodeDefId": "CEILING_FAN",
-        "property": "ICON"
-      },
-      {
-        "type": "ND",
-        "value": "Light",
-        "nodeDefId": "LIGHT",
-        "property": "NAME"
-      },
-      {
-        "type": "ND",
-        "value": "Lamp",
-        "nodeDefId": "LIGHT",
-        "property": "ICON"
-      },
-      {
-        "type": "ND",
-        "value": "Light",
-        "nodeDefId": "NODIM_LIGHT",
-        "property": "NAME"
-      },
-      {
-        "type": "ND",
-        "value": "Lamp",
-        "nodeDefId": "NODIM_LIGHT",
-        "property": "ICON"
-      },
-      {
-        "type": "ND",
-        "value": "Shade",
-        "nodeDefId": "SHADE",
-        "property": "NAME"
-      },
-      {
-        "type": "ND",
-        "value": "GenericRsp",
-        "nodeDefId": "SHADE",
-        "property": "ICON"
-      },
-      {
-        "type": "ND",
-        "value": "Fireplace",
-        "nodeDefId": "FIREPLACE",
-        "property": "NAME"
-      },
-      {
-        "type": "ND",
-        "value": "SmokeSensor",
-        "nodeDefId": "FIREPLACE",
-        "property": "ICON"
-      },
-      {
-        "type": "ND",
-        "value": "Generic Device",
-        "nodeDefId": "GENERIC",
-        "property": "NAME"
-      },
-      {
-        "type": "ND",
-        "value": "GenericRsp",
-        "nodeDefId": "GENERIC",
-        "property": "ICON"
-      },
-      {
-        "type": "ND",
-        "value": "Sidekick Button",
-        "nodeDefId": "KEYPAD_BTN",
-        "property": "NAME"
-      },
-      {
-        "type": "ND",
-        "value": "Switch",
-        "nodeDefId": "KEYPAD_BTN",
-        "property": "ICON"
-      }
-    ],
-    "IX": [
-      {
-        "comment": "",
-        "type": "IX",
-        "value": "False",
-        "indexType": "IX_BRD_ST",
-        "indexValue": 0
-      },
-      {
-        "comment": "",
-        "type": "IX",
-        "value": "True",
-        "indexType": "IX_BRD_ST",
-        "indexValue": 1
-      },
-      {
-        "comment": "",
-        "type": "IX",
-        "value": "Unknown",
-        "indexType": "IX_BRD_ST",
-        "indexValue": 101
-      },
-      {
-        "comment": "",
-        "type": "IX",
-        "value": "Not Tracked",
-        "indexType": "IX_NS_STATUS",
-        "indexValue": 0
-      },
-      {
-        "comment": "",
-        "type": "IX",
-        "value": "Disconnected",
-        "indexType": "IX_NS_STATUS",
-        "indexValue": 0
-      },
-      {
-        "comment": "",
-        "type": "IX",
-        "value": "Connected",
-        "indexType": "IX_NS_STATUS",
-        "indexValue": 1
-      },
-      {
-        "comment": "",
-        "type": "IX",
-        "value": "Failed",
-        "indexType": "IX_NS_STATUS",
-        "indexValue": 2
-      },
-      {
-        "comment": "",
-        "type": "IX",
-        "value": "Off",
-        "indexType": "IX_CFN_ST",
-        "indexValue": 0
-      },
-      {
-        "comment": "",
-        "type": "IX",
-        "value": "Unknown",
-        "indexType": "IX_CFN_ST",
-        "indexValue": 101
-      },
-      {
-        "comment": "",
-        "type": "IX",
-        "value": "N/A",
-        "indexType": "IX_CFN_DIR",
-        "indexValue": 0
-      },
-      {
-        "comment": "",
-        "type": "IX",
-        "value": "Forward",
-        "indexType": "IX_CFN_DIR",
-        "indexValue": 1
-      },
-      {
-        "comment": "",
-        "type": "IX",
-        "value": "Reverse",
-        "indexType": "IX_CFN_DIR",
-        "indexValue": 2
-      },
-      {
-        "comment": "",
-        "type": "IX",
-        "value": "Off",
-        "indexType": "IX_LGT_ST",
-        "indexValue": 0
-      },
-      {
-        "comment": "",
-        "type": "IX",
-        "value": "Unknown",
-        "indexType": "IX_LGT_ST",
-        "indexValue": 101
-      }
-    ],
-    "CMDPN": [
-      {
-        "type": "CMDPN",
-        "key": "CFN-FAN_SPEED-NAME",
-        "value": "Speed"
-      }
-    ],
-    "GEN": [
-      {
-        "type": "GEN",
-        "nlsId": "Generic",
-        "value": "Hold Time",
-        "control": "HOLD_MS",
-        "property": "NAME"
       }
     ]
   },
-  "BRD": {
+  "CONTROLLER": {
     "ST": [
       {
         "type": "ST",
-        "nlsId": "BRD",
-        "value": "Connected",
+        "nlsId": "CONTROLLER",
+        "value": "Status",
         "control": "ST",
-        "property": "NAME"
-      },
-      {
-        "type": "ST",
-        "nlsId": "BRD",
-        "value": "Plugin Status",
-        "control": "GPV",
         "property": "NAME"
       }
     ],
     "CMD": [
       {
         "type": "CMD",
-        "nlsId": "BRD",
-        "value": "Force Update",
-        "control": "UPDATE",
-        "property": "NAME"
-      }
-    ]
-  },
-  "CFN": {
-    "ST": [
-      {
-        "type": "ST",
-        "nlsId": "CFN",
-        "value": "Fan Speed (%)",
-        "control": "ST",
-        "property": "NAME"
-      },
-      {
-        "type": "ST",
-        "nlsId": "CFN",
-        "value": "Fan Direction",
-        "control": "GV0",
-        "property": "NAME"
-      },
-      {
-        "type": "ST",
-        "nlsId": "CFN",
-        "value": "Fan Speed (#)",
-        "control": "GV1",
-        "property": "NAME"
-      }
-    ],
-    "CMD": [
-      {
-        "type": "CMD",
-        "nlsId": "CFN",
-        "value": "Increase Speed (%)",
-        "control": "BRT",
+        "nlsId": "CONTROLLER",
+        "value": "Discover",
+        "control": "DISCOVER",
         "property": "NAME"
       },
       {
         "type": "CMD",
-        "nlsId": "CFN",
-        "value": "Decrease Speed (%)",
-        "control": "DIM",
+        "nlsId": "CONTROLLER",
+        "value": "Update node server profile",
+        "control": "UPDATE_PROFILE",
         "property": "NAME"
       },
       {
         "type": "CMD",
-        "nlsId": "CFN",
-        "value": "Increase Speed (#)",
-        "control": "INC_SPEED",
+        "nlsId": "CONTROLLER",
+        "value": "Remove node server notices",
+        "control": "REMOVE_NOTICES",
         "property": "NAME"
       },
       {
         "type": "CMD",
-        "nlsId": "CFN",
-        "value": "Decrease Speed (#)",
-        "control": "DEC_SPEED",
+        "nlsId": "CONTROLLER",
+        "value": "Query",
+        "control": "QUERY",
         "property": "NAME"
       },
       {
         "type": "CMD",
-        "nlsId": "CFN",
-        "value": "Set Speed",
-        "control": "SET_SPEED",
+        "nlsId": "CONTROLLER",
+        "value": "Start Bridge",
+        "control": "START_BRIDGE",
         "property": "NAME"
       },
       {
         "type": "CMD",
-        "nlsId": "CFN",
-        "value": "Set Direction",
-        "control": "SET_DIRECTION",
-        "property": "NAME"
-      }
-    ]
-  },
-  "LGT": {
-    "ST": [
-      {
-        "type": "ST",
-        "nlsId": "LGT",
-        "value": "Light",
-        "control": "ST",
-        "property": "NAME"
-      }
-    ]
-  },
-  "NDL": {
-    "ST": [
-      {
-        "type": "ST",
-        "nlsId": "NDL",
-        "value": "Light",
-        "control": "ST",
-        "property": "NAME"
-      }
-    ]
-  },
-  "SHD": {
-    "CMD": [
-      {
-        "type": "CMD",
-        "nlsId": "SHD",
-        "value": "Open",
-        "control": "DON",
-        "property": "NAME"
-      },
-      {
-        "type": "CMD",
-        "nlsId": "SHD",
-        "value": "Close",
-        "control": "DOF",
+        "nlsId": "CONTROLLER",
+        "value": "Stop Bridge",
+        "control": "STOP_BRIDGE",
         "property": "NAME"
       }
     ]

@@ -1,7 +1,7 @@
 
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { Family } from "isy-nodejs/Definitions/Global/Families";
-import { InsteonDeviceFactory } from 'isy-nodejs/Devices/Insteon/InsteonDeviceFactory';
+//import { InsteonDeviceFactory } from 'isy-nodejs/Devices/Insteon/InsteonDeviceFactory';
 import { ISY } from 'isy-nodejs/ISY';
 import { buildEditorDefMap, EditorDefMap, type EditorDef } from 'isy-nodejs/Model/EditorDef';
 import { createMap, NLSIndexMap, NLSRecordMap } from 'isy-nodejs/Model/NLS';
@@ -183,7 +183,7 @@ function parseEventMap(response: any, family: any, profile : number) {
     }
     writeFileSync(`./resources/eventMaps/${Family[family]}.json`, JSON.stringify(response, null, 2));
 }
-export function buildDeviceMap() {
+/*export function buildDeviceMap() {
     var fams = {};
     DeviceMapJSON.forEach((item) => {
         var id = item.id;
@@ -222,7 +222,7 @@ export function buildDeviceMap() {
         });
     });
     writeFileSync("DeviceMapClean.json", JSON.stringify(fams));
-}
+}*/
 
 
 

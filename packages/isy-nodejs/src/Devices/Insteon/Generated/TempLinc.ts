@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,13 +12,13 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "TempLinc";
+const nodeDefId = "TempLinc";
 
 type Commands = TempLinc.Commands;
 type Drivers = TempLinc.Drivers;
 
 export class TempLincNode extends Base<Drivers, Commands> implements TempLinc.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		CLISPH: this.updateHeatSetpoint,
 		CLISPC: this.updateCoolSetpoint,
 		CLIMD: this.updateMode,
@@ -30,7 +30,7 @@ export class TempLincNode extends Base<Drivers, Commands> implements TempLinc.In
 		SETTIME: this.setTime,
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "TempLinc";
+	static override nodeDefId = "TempLinc";
 	declare readonly nodeDefId: "TempLinc";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -106,7 +106,10 @@ export namespace TempLinc {
 		nodeDefId: "TempLinc";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is TempLincNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["TempLinc"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is TempLincNode {
+		return node.nodeDefId in ["TempLinc", "Thermostat"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new TempLincNode(isy, nodeInfo);

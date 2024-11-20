@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,20 +12,20 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "AlertModuleArmed";
+const nodeDefId = "AlertModuleArmed";
 
 type Commands = AlertModuleArmed.Commands;
 type Drivers = AlertModuleArmed.Drivers;
 
 export class AlertModuleArmedNode extends Base<Drivers, Commands> implements AlertModuleArmed.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		QUERY: this.query,
 		BEEP: this.beep,
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "AlertModuleArmed";
+	static override nodeDefId = "AlertModuleArmed";
 	declare readonly nodeDefId: "AlertModuleArmed";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -62,7 +62,10 @@ export namespace AlertModuleArmed {
 		nodeDefId: "AlertModuleArmed";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is AlertModuleArmedNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["AlertModuleArmed"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is AlertModuleArmedNode {
+		return node.nodeDefId in ["AlertModuleArmed", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor", "EZRAIN_Output", "AlertModuleSiren", "AlertModuleSiren_ADV"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new AlertModuleArmedNode(isy, nodeInfo);

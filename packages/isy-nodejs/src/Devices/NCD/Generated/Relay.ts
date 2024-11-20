@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,19 +12,19 @@ import { NCD } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "NCDRelay";
+const nodeDefId = "NCDRelay";
 
 type Commands = Relay.Commands;
 type Drivers = Relay.Drivers;
 
 export class RelayNode extends Base<Drivers, Commands> implements Relay.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		QUERY: this.query,
 		ADRPST: this.adr
 	};
-	static nodeDefId = "NCDRelay";
+	static override nodeDefId = "NCDRelay";
 	declare readonly nodeDefId: "NCDRelay";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -58,7 +58,10 @@ export namespace Relay {
 		nodeDefId: "NCDRelay";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is RelayNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["NCDRelay"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayNode {
+		return node.nodeDefId in ["NCDRelay"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new RelayNode(isy, nodeInfo);

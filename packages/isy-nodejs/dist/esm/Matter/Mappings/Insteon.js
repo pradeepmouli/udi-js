@@ -3,6 +3,7 @@ import { Family } from '../../Definitions/Global/Families.js';
 import { MappingRegistry } from '../../Model/ClusterMap.js';
 //import InsteonMap from "./Insteon.json";
 import { DimmableLightDevice } from '@project-chip/matter.js/devices/DimmableLightDevice';
+import { OnOffLightSwitchDevice } from '@matter/node/devices';
 const map = {
     Family: Family.Insteon,
     Relay: {
@@ -10,18 +11,18 @@ const map = {
         mapping: {
             OnOff: {
                 attributes: {
-                    onOff: 'ST'
+                    onOff: { driver: 'ST', converter: 'LevelFrom0To255.Boolean' }
                 },
                 commands: { on: 'DON' }
             }
         }
     },
     RelaySwitch: {
-        deviceType: OnOffLightDevice,
+        deviceType: OnOffLightSwitchDevice,
         mapping: {
             OnOff: {
                 attributes: {
-                    onOff: 'ST'
+                    onOff: { driver: 'ST', converter: 'LevelFrom0To255.Boolean' }
                 },
                 commands: { on: 'DON' }
             }

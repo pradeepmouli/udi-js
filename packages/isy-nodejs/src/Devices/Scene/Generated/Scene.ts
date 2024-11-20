@@ -3,22 +3,22 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
-import { Scene as SceneEnums } from "../../../Definitions/index.js";
+import { Scene } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "InsteonDimmer";
+const nodeDefId = "InsteonDimmer";
 
 type Commands = Scene.Commands;
 type Drivers = Scene.Drivers;
 
 export class SceneNode extends Base<Drivers, Commands> implements Scene.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		DFOF: this.fastOff,
@@ -37,7 +37,7 @@ export class SceneNode extends Base<Drivers, Commands> implements Scene.Interfac
 		CLISPHD: this.heatSetpointShift,
 		CLISPCD: this.coolSetpointShift
 	};
-	static nodeDefId = "InsteonDimmer";
+	static override nodeDefId = "InsteonDimmer";
 	declare readonly nodeDefId: "InsteonDimmer";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -102,7 +102,10 @@ export namespace Scene {
 		nodeDefId: "InsteonDimmer";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is SceneNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["InsteonDimmer"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is SceneNode {
+		return node.nodeDefId in ["InsteonDimmer"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new SceneNode(isy, nodeInfo);

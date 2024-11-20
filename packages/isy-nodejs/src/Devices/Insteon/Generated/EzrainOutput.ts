@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,20 +12,20 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "EZRAIN_Output";
+const nodeDefId = "EZRAIN_Output";
 
 type Commands = EzrainOutput.Commands;
 type Drivers = EzrainOutput.Drivers;
 
 export class EzrainOutputNode extends Base<Drivers, Commands> implements EzrainOutput.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		QUERY: this.query,
 		WDU: this.writeChanges,
 		BEEP: this.beep
 	};
-	static nodeDefId = "EZRAIN_Output";
+	static override nodeDefId = "EZRAIN_Output";
 	declare readonly nodeDefId: "EZRAIN_Output";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -62,7 +62,10 @@ export namespace EzrainOutput {
 		nodeDefId: "EZRAIN_Output";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is EzrainOutputNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["EZRAIN_Output"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is EzrainOutputNode {
+		return node.nodeDefId in ["EZRAIN_Output", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new EzrainOutputNode(isy, nodeInfo);

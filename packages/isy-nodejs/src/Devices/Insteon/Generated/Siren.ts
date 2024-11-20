@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,13 +12,13 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "Siren_ADV";
+const nodeDefId = "Siren";
 
 type Commands = Siren.Commands;
 type Drivers = Siren.Drivers;
 
 export class SirenNode extends Base<Drivers, Commands> implements Siren.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		ARM: this.arm,
@@ -27,8 +27,8 @@ export class SirenNode extends Base<Drivers, Commands> implements Siren.Interfac
 		BEEP: this.beep,
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "Siren_ADV";
-	declare readonly nodeDefId: "Siren_ADV";
+	static override nodeDefId = "Siren";
+	declare readonly nodeDefId: "Siren" | "Siren_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Siren", name: "siren" });
@@ -76,13 +76,17 @@ export class SirenNode extends Base<Drivers, Commands> implements Siren.Interfac
 }
 
 NodeFactory.register(SirenNode);
+NodeFactory.register(SirenNode, "Siren_ADV");
 
 export namespace Siren {
 	export interface Interface extends Omit<InstanceType<typeof SirenNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "Siren_ADV";
+		nodeDefId: "Siren" | "Siren_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is SirenNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["Siren", "Siren_ADV"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is SirenNode {
+		return node.nodeDefId in ["Siren", "Siren_ADV"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new SirenNode(isy, nodeInfo);

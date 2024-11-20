@@ -1,7 +1,6 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { Project, IndentationText, NewLineKind, QuoteKind } from "ts-morph";
 import { NodeClassFactory } from "isy-nodejs/CodeGeneration/NodeClassFactory";
-import { Family } from "isy-nodejs/ISY";
 import { NodeClassDefinition } from "isy-nodejs/Model/ClassDefinition";
 import { EnumFactory } from "isy-nodejs/CodeGeneration/EnumFactory";
 import { buildEnumDefinitions, EnumDefinition } from "isy-nodejs/Model/EnumDefinition";
@@ -10,6 +9,7 @@ import ts from "typescript";
 import fs from "fs";
 import winston from "winston";
 import { toArray } from "isy-nodejs/Utils";
+import { Family } from 'isy-nodejs/Definitions/index';
 const format = winston.format;
 const myFormat = format.combine(format.splat(), winston.format.printf((info) => {
     const d = new Date();
@@ -183,7 +183,7 @@ function generateNodeClassesForFamily(classDefs, family) {
             //);
         }
         catch (e) {
-            logger.error(`Error creating ${Family[family]} ${c.name} class: ${e.message}`, e.stack);
+            logger.error(`Error creating ${Family[family]} ${c?.name} class: ${e.message}`, e.stack);
         }
     }
 }

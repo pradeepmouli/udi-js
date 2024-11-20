@@ -20,6 +20,7 @@ import type { ISYNode } from '../../ISYNode.js';
 import type { DeviceToClusterMap } from '../../Model/ClusterMap.js';
 import { Options } from '../../Definitions/ZWave/index.js';
 import { InsteonBaseDevice } from '../../Devices/Insteon/InsteonBaseDevice.js';
+import { DimmerLamp } from '../../Devices/Insteon/Generated/DimmerLamp.js';
 
 
 // #region Interfaces (1)
@@ -222,7 +223,7 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 			//@ts-ignore
 			let baseBehavior: any; /*typeof (DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior)) | typeof (OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior));*/
 
-			if (device instanceof Devices.Insteon.Dimmer || device instanceof Devices.Insteon.DimmerSwitch || device instanceof Devices.Insteon.KeypadDimmer) {
+			if (DimmerLamp.isImplementedBy(device)) {
 				baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior);
 				// if(device instanceof InsteonSwitchDevice)
 				// {
@@ -246,7 +247,7 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 
 					bridgedDeviceBasicInformation: {
 						nodeLabel: device.label.rightWithToken(32),
-						vendorName: device instanceof InsteonBaseDevice ? InsteonBaseDevice.vendorName : isy.vendorName,
+						vendorName: device instanceof InsteonBaseDevice ? device.vendorName : isy.vendorName,
 						vendorId: VendorId(config.vendorId),
 						productName: device.productName.leftWithToken(32),
 						productLabel: device.model.leftWithToken(64),
@@ -359,9 +360,9 @@ async function initializeConfiguration(isy: ISY, config?: Config): Promise<Confi
 		environment.vars.set('productid', config.productId);
 	}
 
-	if(config.uniqueId)	{
-		environment.vars.set('uniqueid', config.uniqueId);
-	}
+
+	environment.vars.set('uniqueid', isy.id.replaceAll(':', '_'));
+
 
 
 	const vendorName = isy.vendorName;

@@ -1,4 +1,4 @@
-import { ISYNode } from '../../ISYNode.js';
-export class Base extends ISYNode {
+import { ISYDeviceNode } from '../ISYDeviceNode.js';
+export class Base extends ISYDeviceNode {
 }
 //# sourceMappingURL=index.js.map

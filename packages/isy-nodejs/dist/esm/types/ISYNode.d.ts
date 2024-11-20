@@ -13,7 +13,7 @@ import type { NodeNotes } from './Model/NodeNotes.js';
 import { type StringKeys } from './Utils.js';
 import { NodeType } from './ISYConstants.js';
 import type { ISYScene } from './ISYScene.js';
-import type { UnionToIntersection } from '@matter/general';
+import type { Merge, UnionToIntersection } from '@matter/general';
 export declare class ISYNode<T extends Family = Family, D extends ISYNode.DriverSignatures = {}, C extends ISYNode.CommandSignatures = {}, E extends ISYNode.EventSignatures = {
     [x in keyof D]: Event.DriverToEvent<D[x]> & {
         driver: x;
@@ -35,7 +35,7 @@ export declare class ISYNode<T extends Family = Family, D extends ISYNode.Driver
     commands: Command.ForAll<C>;
     drivers: Driver.ForAll<D>;
     enabled: boolean;
-    events: Event.FunctionSigFor<E, Event.NodeEventEmitter<this>> & Omit<Event.NodeEventEmitter<this>, 'on'>;
+    events: Merge<Event.NodeEventEmitter<this>, Event.FunctionSigFor<E, Event.NodeEventEmitter<this>>>;
     family: T;
     folder: string;
     hidden: boolean;
@@ -80,7 +80,9 @@ export declare class ISYNode<T extends Family = Family, D extends ISYNode.Driver
     readProperty(propertyName: keyof D & string): Promise<DriverState>;
     refresh(): Promise<any>;
     refreshNotes(): Promise<void>;
-    sendCommand(command: StringKeys<C>, parameters?: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
+    sendCommand(command: StringKeys<C>): Promise<any>;
+    sendCommand(command: StringKeys<C>, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+    sendCommand(command: StringKeys<C>, parameters: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
     updateProperty(propertyName: string, value: any): Promise<any>;
 }
 export type Flatten<T, Level extends Number = 2, K = keyof T> = UnionToIntersection<T extends Record<string, unknown> ? K extends string ? T[K] extends Record<string, unknown> ? keyof T[K] extends string ? {
@@ -121,7 +123,7 @@ export declare namespace ISYNode {
         new (...args: any[]): {
             drivers: Driver.ForAll<any, false>;
             commands: Command.ForAll<C>;
-            "__#164@#parentNode": ISYNode<any, any, any, any>;
+            "__#1242778@#parentNode": ISYNode<any, any, any, any>;
             readonly address: string;
             readonly baseLabel: string;
             readonly flag: any;
@@ -129,13 +131,13 @@ export declare namespace ISYNode {
             readonly nodeDefId: string;
             baseName: any;
             enabled: boolean;
-            events: {
+            events: Merge<Event.NodeEventEmitter<any>, {
                 on(eventName: any, listener: (driver: any, newValue: any, oldValue: any, formatted: string, uom: any) => void): Event.NodeEventEmitter<any>;
             } & {
                 on(eventName: any, listener: (command: any) => void): Event.NodeEventEmitter<any>;
             } & {
                 on(eventName: any, listener: (...args: any[]) => void): Event.NodeEventEmitter<any>;
-            } & Omit<Event.NodeEventEmitter<any>, "on">;
+            }>;
             family: K;
             folder: string;
             hidden: boolean;
@@ -179,7 +181,9 @@ export declare namespace ISYNode {
             readProperty(propertyName: string): Promise<DriverState>;
             refresh(): Promise<any>;
             refreshNotes(): Promise<void>;
-            sendCommand(command: string, parameters?: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
+            sendCommand(command: string): Promise<any>;
+            sendCommand(command: string, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+            sendCommand(command: string, parameters: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
             updateProperty(propertyName: string, value: any): Promise<any>;
         };
     } & T;

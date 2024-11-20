@@ -1,4 +1,4 @@
-import type { UnionToIntersection } from '@matter/general';
+import type { Merge, UnionToIntersection } from '@matter/general';
 import EventEmitter from 'events';
 import type { EventType } from '../../Events/EventType.js';
 import type { ISYNode } from '../../ISYNode.js';
@@ -61,7 +61,7 @@ export declare namespace Event {
     class NodeEventEmitter<N extends ISYNode<any, any, any, any>> extends EventEmitter {
         constructor(node: N);
     }
-    function createEmitter<N extends ISYNode<any, D, C, E>, E extends ISYNode.EventSignatures, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures>(node: N): FunctionSigFor<E, NodeEventEmitter<N>> & Omit<NodeEventEmitter<N>, 'on'>;
+    function createEmitter<N extends ISYNode<any, D, C, E>, E extends ISYNode.EventSignatures, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures>(node: N): Merge<NodeEventEmitter<N>, FunctionSigFor<E, NodeEventEmitter<N>>>;
     class ISYEvent<TAction, TEventType extends EventType> {
         action: TAction;
         eventInfo: any;

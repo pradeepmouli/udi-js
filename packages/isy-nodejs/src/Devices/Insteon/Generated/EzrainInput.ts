@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,17 +12,17 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "EZRAIN_Input";
+const nodeDefId = "EZRAIN_Input";
 
 type Commands = EzrainInput.Commands;
 type Drivers = EzrainInput.Drivers;
 
 export class EzrainInputNode extends Base<Drivers, Commands> implements EzrainInput.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "EZRAIN_Input";
-	declare readonly nodeDefId: "EZRAIN_Input";
+	static override nodeDefId = "EZRAIN_Input";
+	declare readonly nodeDefId: "EZRAIN_Input" | "EZRAIN_Input_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
@@ -40,13 +40,17 @@ export class EzrainInputNode extends Base<Drivers, Commands> implements EzrainIn
 }
 
 NodeFactory.register(EzrainInputNode);
+NodeFactory.register(EzrainInputNode, "EZRAIN_Input_ADV");
 
 export namespace EzrainInput {
 	export interface Interface extends Omit<InstanceType<typeof EzrainInputNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "EZRAIN_Input";
+		nodeDefId: "EZRAIN_Input" | "EZRAIN_Input_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is EzrainInputNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["EZRAIN_Input", "EZRAIN_Input_ADV"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is EzrainInputNode {
+		return node.nodeDefId in ["EZRAIN_Input", "EZRAIN_Input_ADV"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new EzrainInputNode(isy, nodeInfo);

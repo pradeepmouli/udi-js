@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,13 +12,13 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "FanLincMotor";
+const nodeDefId = "FanLincMotor";
 
 type Commands = FanLincMotor.Commands;
 type Drivers = FanLincMotor.Drivers;
 
 export class FanLincMotorNode extends Base<Drivers, Commands> implements FanLincMotor.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		DFOF: this.fastOff,
@@ -27,7 +27,7 @@ export class FanLincMotorNode extends Base<Drivers, Commands> implements FanLinc
 		BEEP: this.beep,
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "FanLincMotor";
+	static override nodeDefId = "FanLincMotor";
 	declare readonly nodeDefId: "FanLincMotor";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -70,7 +70,10 @@ export namespace FanLincMotor {
 		nodeDefId: "FanLincMotor";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is FanLincMotorNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["FanLincMotor"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is FanLincMotorNode {
+		return node.nodeDefId in ["FanLincMotor"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new FanLincMotorNode(isy, nodeInfo);

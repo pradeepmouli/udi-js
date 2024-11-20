@@ -27,6 +27,12 @@
 		"src/Definitions/Global/*.ts",
 	],
 	"exclude": [
-		"src/Devices/*/Generated/*",
+		
+		"src/Devices/ZigBeeLegacy/Generated/*",
+		"src/Devices/Poly/Generated/*",
+		"src/Devices/Brultech/Generated/*",
+
+		"src/Devices/NCD/Generated/*",
+		"src/Devices/Scene/Generated/*",
 	]
 }

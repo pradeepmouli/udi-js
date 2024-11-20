@@ -1,7 +1,7 @@
-import { InsteonBaseDevice } from './InsteonBaseDevice.js';
-import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import 'winston';
 import { Driver, UnitOfMeasure } from '../../Definitions/index.js';
+import { InsteonBaseDevice } from './InsteonBaseDevice.js';
+import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 export class InsteonFanMotorDevice extends InsteonBaseDevice {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);

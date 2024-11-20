@@ -72,12 +72,19 @@ function buildNodeClassDefinitions<T extends Family>(nodeDefs: NodeDef[], family
 					if (id.includes(id2)) {
 						node.implements.push(id2, ...node2.implements);
 						node.equivalentTo.push(id2);
+						node2.equivalents.push(id);
+
 					} else {
 						node2.implements.push(id, ...node.implements);
 						node2.equivalentTo.push(id);
+						node.equivalents.push(id2);
 					}
 				} else if (ext) {
 					node.implements.push(id2, ...node2.implements);
+					if(id.includes(id2))
+					{
+						node.extends.push(id2);
+					}
 				}
 
 				// if (Object.keys(d.).length == 0) {
@@ -113,9 +120,18 @@ function buildNodeClassDefinitions<T extends Family>(nodeDefs: NodeDef[], family
 					e = i;
 				}
 			}
-			node.extends = e;
+
 		}
 		map[node.id] = node;
+	}
+	for (const node of Object.values(map).filter((p) => p.implements.length > 0))
+	{
+		for (const i of node.implements)
+		{
+			let superNode = map[i];
+			if(superNode)
+				superNode.implementedBy?.push(node.id);
+		}
 	}
 	return map;
 }
@@ -127,11 +143,17 @@ export class NodeClassDefinition<T extends Family> {
 	public drivers: { [x in Driver.Type]?: DriverDefinition } = {};
 	public dynamic: boolean = false;
 	public equivalentTo: string[] = [];
+
+	public equivalents: string[] = [];
+
+
 	public events: { [x: string]: EventDefinition } = {};
-	public extends?: string;
+	public extends?: string[] = [];
 	public family: T;
 	public id: string;
 	public implements: string[] = [];
+
+	public implementedBy: string[] = [];
 	public label: string;
 	public nlsId: string;
 
@@ -262,7 +284,9 @@ export class NodeClassDefinition<T extends Family> {
 			dynamic: this.family in [Family.ZWave, Family.ZigBee],
 			implements: this.implements.length > 0 ? this.implements : undefined,
 			equivalentTo: this.equivalentTo.length > 0 ? this.equivalentTo : undefined,
-			extends: this.extends
+			extends: this.extends.length > 0 ? this.extends : undefined,
+			equivalents: this.equivalents.length > 0 ? this.equivalents : undefined,
+			implementedBy: this.implementedBy.length > 0 ? this.implementedBy : undefined
 		};
 	}
 
@@ -409,7 +433,7 @@ export abstract class NodeMemberDefinition<TId extends string> {
 			var d = {};
 			for (const rangeDef of toArray(e.range)) {
 				if ('subset' in rangeDef) {
-					d[rangeDef.uom] = { uom: rangeDef.uom, indexId: rangeDef.nls, ...this.#parseSubset(e) };
+					d[rangeDef.uom]= { uom: rangeDef.uom, indexId: rangeDef.nls, ...this.#parseSubset(e) };
 				} else {
 					d[rangeDef.uom] = {
 						uom: rangeDef.uom,
@@ -422,8 +446,14 @@ export abstract class NodeMemberDefinition<TId extends string> {
 						returnType: rangeDef.nls ? EnumDefinition.get(this.classDef.family, rangeDef.nls, rangeDef.uom, this.classDef.id)?.name : undefined
 					};
 				}
+				if(rangeDef.uom === UnitOfMeasure.Index)
+				{
+					d[rangeDef.uom].enum = true;
+				}
+
 			}
 			this.dataType = d;
+
 		}
 	}
 

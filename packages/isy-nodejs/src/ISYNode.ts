@@ -16,7 +16,7 @@ import type { NodeNotes } from './Model/NodeNotes.js';
 import { type StringKeys } from './Utils.js';
 import { NodeType } from './ISYConstants.js';
 import type { ISYScene } from './ISYScene.js';
-import type { UnionToIntersection } from '@matter/general';
+import type { Merge, UnionToIntersection } from '@matter/general';
 
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 
@@ -50,7 +50,7 @@ export class ISYNode<
 	public drivers: Driver.ForAll<D> = {} as Driver.ForAll<D>;
 	public enabled: boolean;
 	//TODO: add signature for non-command/non-driver events
-	public events: Event.FunctionSigFor<E, Event.NodeEventEmitter<this>> & Omit<Event.NodeEventEmitter<this>, 'on'>;
+	public events: Merge<Event.NodeEventEmitter<this>,Event.FunctionSigFor<E, Event.NodeEventEmitter<this>>>;
 	//Event.FunctionSigFor<Event.ForAll<E,typeof this>> & Omit<EventEmitter,'on'>
 	/*{
 		[x in E]: x extends keyof D ? {name:`${D[x]["name"]}Changed`, driver: x, value: D[x]["value"], formatted: string, uom: UnitOfMeasure}
@@ -124,6 +124,7 @@ export class ISYNode<
 			};
 		}
 		this.events = Event.createEmitter(this);
+
 
 		//this.logger(this.nodeDefId);
 		this.lastChanged = new Date();
@@ -222,7 +223,13 @@ export class ISYNode<
 
 	public async getNotes(): Promise<NodeNotes> {
 		try {
-			const result = await this.isy.sendRequest(`nodes/${this.address}/notes`, { trailingSlash: false, errorLogLevel: 'debug', validateStatus(status) { return true; }});
+			const result = await this.isy.sendRequest(`nodes/${this.address}/notes`, {
+				trailingSlash: false,
+				errorLogLevel: 'debug',
+				validateStatus(status) {
+					return true;
+				}
+			});
 			if (result !== null && result !== undefined) {
 				return result.NodeProperties;
 			} else {
@@ -235,7 +242,7 @@ export class ISYNode<
 
 	public handleControlTrigger(controlName: keyof E & keyof C): boolean {
 		//this.lastChanged = new Date();
-		this.events.emit('controlTriggered', controlName);
+		//this.events.emit(`${this.commands[controlName].name}`, controlName);
 		return true;
 	}
 
@@ -343,9 +350,13 @@ export class ISYNode<
 			that.logger(e);
 		}
 	}
-
-	public async sendCommand(command: StringKeys<C>, parameters?: Record<string | symbol, string | number | undefined> | string | number): Promise<any> {
-		//@
+	public async sendCommand(command: StringKeys<C>): Promise<any>;
+	public async sendCommand(command: StringKeys<C>, value: string | number, parameters: Record<string | symbol, string | number | undefined>);
+	public async sendCommand(command: StringKeys<C>, parameters: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
+	async sendCommand(command: StringKeys<C>, value?: string | number, parameters?: Record<string | symbol, string | number | undefined> | string | number): Promise<any> {
+		if (value !== undefined && typeof parameters === 'object') {
+			return this.isy.sendNodeCommand(this, command, { default: value, ...parameters });
+		}
 		return this.isy.sendNodeCommand(this, command, parameters);
 	}
 

@@ -79,3 +79,317 @@
 [31m2024-10-28 12:00:44 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
 [31m2024-10-28 12:00:44 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
 [31m2024-11-05 14:25:51 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 08:46:08 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 08:46:08 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 08:46:08 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 08:46:08 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 08:46:08 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 08:46:08 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 08:46:08 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 08:46:08 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 08:46:08 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 08:46:08 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 09:28:35 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 09:28:35 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 09:28:35 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 09:28:35 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 09:28:35 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 09:28:35 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 09:28:35 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 09:28:35 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 09:28:35 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 09:28:35 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 09:29:31 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 09:29:31 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 09:29:31 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 09:29:31 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 09:29:31 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 09:29:31 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 09:29:31 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 09:29:31 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 09:29:31 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 09:29:31 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 09:29:51 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 09:29:51 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 09:29:51 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 09:29:51 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 09:29:51 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 09:29:51 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 09:29:51 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 09:29:51 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 09:29:51 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 09:29:51 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 09:30:57 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 09:30:57 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 09:30:57 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 09:30:57 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 09:30:57 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 09:30:57 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 09:30:57 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 09:30:57 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 09:30:57 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 09:30:57 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 09:32:38 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 09:32:38 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 09:32:38 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 09:32:38 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 09:32:38 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 09:32:38 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 09:32:38 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 09:32:38 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 09:32:38 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 09:32:38 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 09:35:09 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 09:35:09 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 09:35:09 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 09:35:09 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 09:35:09 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 09:35:09 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 09:35:09 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 09:35:09 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 09:35:09 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 09:35:09 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 09:35:50 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 09:35:50 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 09:35:50 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 09:35:50 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 09:35:50 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 09:35:50 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 09:35:50 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 09:35:50 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 09:35:50 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 09:35:50 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 09:36:08 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 09:36:08 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 09:36:08 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 09:36:08 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 09:36:08 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 09:36:08 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 09:36:08 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 09:36:08 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 09:36:08 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 09:36:08 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 11:22:55 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 11:22:55 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 11:22:55 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 11:22:55 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 11:22:55 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 11:22:55 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 11:22:55 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 11:22:55 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 11:22:55 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 11:22:55 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 11:23:23 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 11:23:23 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 11:23:23 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 11:23:23 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 11:23:23 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 11:23:23 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 11:23:23 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 11:23:23 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 11:23:23 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 11:23:23 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 11:24:08 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 11:24:08 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 11:24:08 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 11:24:08 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 11:24:08 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 11:24:08 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 11:24:08 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 11:24:08 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 11:24:08 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 11:24:08 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 11:28:12 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 11:28:12 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 11:28:12 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 11:28:12 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 11:28:12 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 11:28:12 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 11:28:12 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 11:28:12 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 11:28:12 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 11:28:12 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 11:33:26 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 11:33:26 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 11:33:26 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 11:33:26 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 11:33:26 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 11:33:26 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 11:33:26 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 11:33:26 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 11:33:26 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 11:33:26 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 11:36:14 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 11:36:14 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 11:36:14 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 11:36:14 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 11:36:14 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 11:36:14 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 11:36:14 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 11:36:14 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 11:36:14 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 11:36:14 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 11:36:55 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:37:02 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Lutron undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating NCD undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating Scene undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:38:15 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-19 11:47:54 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 11:47:54 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 11:47:54 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 11:47:54 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 11:47:54 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 11:47:54 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 11:47:54 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 11:47:54 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 11:47:54 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 11:47:54 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 11:48:18 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 11:48:18 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 11:48:18 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 11:48:18 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 11:48:18 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 11:48:18 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 11:48:18 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 11:48:18 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 11:48:18 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 11:48:18 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 11:56:19 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 11:56:19 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 11:56:19 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 11:56:19 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 11:56:19 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 11:56:19 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 11:56:19 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 11:56:19 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 11:56:19 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 11:56:19 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 11:58:27 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 11:58:27 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 11:58:27 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 11:58:27 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 11:58:27 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 11:58:27 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 11:58:27 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 11:58:27 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 11:58:27 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 11:58:27 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 11:59:25 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 11:59:25 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 11:59:25 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 11:59:25 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 11:59:25 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 11:59:25 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 11:59:25 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 11:59:25 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 11:59:25 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 11:59:25 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 15:39:46 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 15:39:46 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 15:39:46 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 15:39:46 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 15:39:46 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 15:39:46 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 15:39:46 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 15:39:46 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 15:39:46 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 15:39:46 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 16:03:05 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 16:03:05 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 16:03:05 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 16:03:05 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 16:03:05 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 16:03:05 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 16:03:05 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 16:03:05 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 16:03:05 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 16:03:05 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 16:03:52 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 16:03:52 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 16:03:52 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 16:03:52 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 16:03:52 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 16:03:52 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 16:03:52 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 16:03:52 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 16:03:52 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 16:03:52 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 16:04:59 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 16:04:59 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 16:04:59 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 16:04:59 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 16:04:59 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 16:04:59 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 16:04:59 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 16:04:59 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 16:04:59 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 16:04:59 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 22:18:41 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 22:18:41 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 22:18:41 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 22:18:41 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 22:18:41 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 22:18:41 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 22:18:41 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 22:18:41 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 22:18:41 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 22:18:41 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-19 22:31:21 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-19 22:31:21 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-19 22:31:21 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-19 22:31:21 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-19 22:31:21 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-19 22:31:21 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-19 22:31:21 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-19 22:31:21 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-19 22:31:21 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-19 22:31:21 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m

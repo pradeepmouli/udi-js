@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,19 +12,19 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "EZIO2x4_Output";
+const nodeDefId = "EZIO2x4_Output";
 
 type Commands = Ezio2x4Output.Commands;
 type Drivers = Ezio2x4Output.Drivers;
 
 export class Ezio2x4OutputNode extends Base<Drivers, Commands> implements Ezio2x4Output.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		QUERY: this.query,
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "EZIO2x4_Output";
+	static override nodeDefId = "EZIO2x4_Output";
 	declare readonly nodeDefId: "EZIO2x4_Output";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -58,7 +58,10 @@ export namespace Ezio2x4Output {
 		nodeDefId: "EZIO2x4_Output";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is Ezio2x4OutputNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["EZIO2x4_Output"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is Ezio2x4OutputNode {
+		return node.nodeDefId in ["EZIO2x4_Output", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor", "EZRAIN_Output"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new Ezio2x4OutputNode(isy, nodeInfo);

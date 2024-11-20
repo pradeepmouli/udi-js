@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,13 +12,13 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "DimmerLampOnly";
+const nodeDefId = "DimmerLampOnly";
 
 type Commands = DimmerLamp.Commands;
 type Drivers = DimmerLamp.Drivers;
 
 export class DimmerLampNode extends Base<Drivers, Commands> implements DimmerLamp.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		DFOF: this.fastOff,
@@ -34,7 +34,7 @@ export class DimmerLampNode extends Base<Drivers, Commands> implements DimmerLam
 		RR: this.updateRampRate,
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "DimmerLampOnly";
+	static override nodeDefId = "DimmerLampOnly";
 	declare readonly nodeDefId: "DimmerLampOnly";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -79,7 +79,7 @@ export class DimmerLampNode extends Base<Drivers, Commands> implements DimmerLam
 	async updateOnLevel(value: number) {
 		return this.sendCommand("OL", { value: value });
 	}
-	async updateRampRate(value: number) {
+	async updateRampRate(value: Insteon.RampRate) {
 		return this.sendCommand("RR", { value: value });
 	}
 	async writeChanges() {
@@ -91,7 +91,7 @@ export class DimmerLampNode extends Base<Drivers, Commands> implements DimmerLam
 	public get onLevel(): number {
 		return this.drivers.OL?.value;
 	}
-	public get rampRate(): number {
+	public get rampRate(): Insteon.RampRate {
 		return this.drivers.RR?.value;
 	}
 	public get responding(): Insteon.Error {
@@ -106,7 +106,10 @@ export namespace DimmerLamp {
 		nodeDefId: "DimmerLampOnly";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is DimmerLampNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["DimmerLampOnly"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerLampNode {
+		return node.nodeDefId in ["DimmerLampOnly", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new DimmerLampNode(isy, nodeInfo);
@@ -161,7 +164,7 @@ export namespace DimmerLamp {
 			label: "On Level";
 			name: "updateOnLevel";
 		};
-		RR: ((value: number) => Promise<boolean>) & {
+		RR: ((value: Insteon.RampRate) => Promise<boolean>) & {
 			label: "Ramp Rate";
 			name: "updateRampRate";
 		};
@@ -185,7 +188,7 @@ export namespace DimmerLamp {
 		};
 		RR: {
 			uom: UnitOfMeasure.Index;
-			value: number;
+			value: Insteon.RampRate;
 			label: "Ramp Rate";
 			name: "rampRate";
 		};

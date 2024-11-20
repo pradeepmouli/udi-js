@@ -17,6 +17,7 @@ import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.
 import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
 import '../Mappings/Insteon.js';
 import { InsteonBaseDevice } from '../../Devices/Insteon/InsteonBaseDevice.js';
+import { DimmerLamp } from '../../Devices/Insteon/Generated/DimmerLamp.js';
 // #region Interfaces (1)
 export let instance;
 //@ts-ignore
@@ -156,7 +157,7 @@ export async function createMatterServer(isy, config) {
             //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
             //@ts-ignore
             let baseBehavior; /*typeof (DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior)) | typeof (OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior));*/
-            if (device instanceof Devices.Insteon.Dimmer || device instanceof Devices.Insteon.DimmerSwitch || device instanceof Devices.Insteon.KeypadDimmer) {
+            if (DimmerLamp.isImplementedBy(device)) {
                 baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior);
                 // if(device instanceof InsteonSwitchDevice)
                 // {
@@ -179,7 +180,7 @@ export async function createMatterServer(isy, config) {
                     },
                     bridgedDeviceBasicInformation: {
                         nodeLabel: device.label.rightWithToken(32),
-                        vendorName: device instanceof InsteonBaseDevice ? InsteonBaseDevice.vendorName : isy.vendorName,
+                        vendorName: device instanceof InsteonBaseDevice ? device.vendorName : isy.vendorName,
                         vendorId: VendorId(config.vendorId),
                         productName: device.productName.leftWithToken(32),
                         productLabel: device.model.leftWithToken(64),

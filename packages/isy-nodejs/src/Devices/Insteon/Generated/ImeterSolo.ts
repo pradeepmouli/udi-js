@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,18 +12,18 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "IMETER_SOLO";
+const nodeDefId = "IMETER_SOLO";
 
 type Commands = ImeterSolo.Commands;
 type Drivers = ImeterSolo.Drivers;
 
 export class ImeterSoloNode extends Base<Drivers, Commands> implements ImeterSolo.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		RESET: this.resetTotalEnergy,
 		QUERY: this.query,
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "IMETER_SOLO";
+	static override nodeDefId = "IMETER_SOLO";
 	declare readonly nodeDefId: "IMETER_SOLO";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -58,7 +58,10 @@ export namespace ImeterSolo {
 		nodeDefId: "IMETER_SOLO";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is ImeterSoloNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["IMETER_SOLO"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ImeterSoloNode {
+		return node.nodeDefId in ["IMETER_SOLO"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new ImeterSoloNode(isy, nodeInfo);

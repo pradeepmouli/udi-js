@@ -40,7 +40,7 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         _parentDevice: import("../ISYDevice.js").ISYDevice<any, any, any, any>;
         children: import("../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#164@#parentNode": import("../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#1242778@#parentNode": import("../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -50,9 +50,9 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         commands: import("../Definitions/index.js").Command.ForAll<any>;
         drivers: import("../Definitions/index.js").Driver.ForAll<any, false>;
         enabled: boolean;
-        events: {
+        events: import("@matter/general").Merge<import("../Definitions/Global/Events.js").Event.NodeEventEmitter<any>, {
             on(eventName: `${any}Changed` & `${any}Triggered`, listener: (driver: string, newValue: any, oldValue: any, formatted: string, uom: any) => void): import("../Definitions/Global/Events.js").Event.NodeEventEmitter<any>;
-        } & Omit<import("../Definitions/Global/Events.js").Event.NodeEventEmitter<any>, "on">;
+        }>;
         folder: string;
         hidden: boolean;
         isDimmable: boolean;
@@ -95,7 +95,9 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         readProperty(propertyName: string): Promise<import("../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: string, parameters?: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
+        sendCommand(command: string): Promise<any>;
+        sendCommand(command: string, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: string, parameters: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     };
 } & T;

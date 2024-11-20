@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,14 +12,14 @@ import { Brultech } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "BTChannel";
+const nodeDefId = "BTChannel";
 
 type Commands = Channel.Commands;
 type Drivers = Channel.Drivers;
 
 export class ChannelNode extends Base<Drivers, Commands> implements Channel.Interface {
-	public readonly commands = {};
-	static nodeDefId = "BTChannel";
+	public override readonly commands = {};
+	static override nodeDefId = "BTChannel";
 	declare readonly nodeDefId: "BTChannel";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -45,7 +45,10 @@ export namespace Channel {
 		nodeDefId: "BTChannel";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is ChannelNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["BTChannel"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ChannelNode {
+		return node.nodeDefId in ["BTChannel", "BTMain"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new ChannelNode(isy, nodeInfo);

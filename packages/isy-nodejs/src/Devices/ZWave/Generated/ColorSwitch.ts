@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,20 +12,20 @@ import { ZWave } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "186";
+const nodeDefId = "186";
 
 type Commands = ColorSwitch.Commands;
 type Drivers = ColorSwitch.Drivers;
 
 export class ColorSwitchNode extends Base<Drivers, Commands> implements ColorSwitch.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		DON: this.set,
 		FDUP: this.fadeUp,
 		FDDOWN: this.fadeDown,
 		FDSTOP: this.fadeStop,
 		QUERY: this.query
 	};
-	static nodeDefId = "186";
+	static override nodeDefId = "186";
 	declare readonly nodeDefId: "186";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -37,13 +37,13 @@ export class ColorSwitchNode extends Base<Drivers, Commands> implements ColorSwi
 	async set(warmWhite?: number, red?: number, green?: number, blue?: number, duration?: number | number) {
 		return this.sendCommand("DON", { GV0: warmWhite, GV2: red, GV3: green, GV4: blue, RR: duration });
 	}
-	async fadeUp(component: number, startLevel?: number, duration?: number | number) {
+	async fadeUp(component: ZWave.ColorComponent, startLevel?: number, duration?: number | number) {
 		return this.sendCommand("FDUP", { ID: component, STARTLEVEL: startLevel, RR: duration });
 	}
-	async fadeDown(component: number, startLevel?: number, duration?: number | number) {
+	async fadeDown(component: ZWave.ColorComponent, startLevel?: number, duration?: number | number) {
 		return this.sendCommand("FDDOWN", { ID: component, STARTLEVEL: startLevel, RR: duration });
 	}
-	async fadeStop(component: number) {
+	async fadeStop(component: ZWave.ColorComponent) {
 		return this.sendCommand("FDSTOP", { ID: component });
 	}
 	async query() {
@@ -70,7 +70,10 @@ export namespace ColorSwitch {
 		nodeDefId: "186";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is ColorSwitchNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["186"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ColorSwitchNode {
+		return node.nodeDefId in ["186"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new ColorSwitchNode(isy, nodeInfo);
@@ -81,15 +84,15 @@ export namespace ColorSwitch {
 			label: "Set";
 			name: "set";
 		};
-		FDUP: ((ID: number, STARTLEVEL?: number, RR?: number | number) => Promise<boolean>) & {
+		FDUP: ((ID: ZWave.ColorComponent, STARTLEVEL?: number, RR?: number | number) => Promise<boolean>) & {
 			label: "Fade Up";
 			name: "fadeUp";
 		};
-		FDDOWN: ((ID: number, STARTLEVEL?: number, RR?: number | number) => Promise<boolean>) & {
+		FDDOWN: ((ID: ZWave.ColorComponent, STARTLEVEL?: number, RR?: number | number) => Promise<boolean>) & {
 			label: "Fade Down";
 			name: "fadeDown";
 		};
-		FDSTOP: ((ID: number) => Promise<boolean>) & {
+		FDSTOP: ((ID: ZWave.ColorComponent) => Promise<boolean>) & {
 			label: "Fade Stop";
 			name: "fadeStop";
 		};

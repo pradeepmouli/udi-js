@@ -1,13 +1,12 @@
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { Family } from "isy-nodejs/Definitions/Global/Families";
-import { InsteonDeviceFactory } from 'isy-nodejs/Devices/Insteon/InsteonDeviceFactory';
+//import { InsteonDeviceFactory } from 'isy-nodejs/Devices/Insteon/InsteonDeviceFactory';
 import { ISY } from 'isy-nodejs/ISY';
 import { buildEditorDefMap } from 'isy-nodejs/Model/EditorDef';
 import { createMap, NLSIndexMap } from 'isy-nodejs/Model/NLS';
 import { toArray } from 'isy-nodejs/Utils';
 import { setUncaughtExceptionCaptureCallback } from 'process';
 import winston from 'winston';
-import DeviceMapJSON from './DeviceMap.json' with { type: 'json' };
 import { generateEnumDefs, generateEnums, generateNodeClassDefs, generateNodeClasses } from './generate-nodeclasses.js';
 const format = winston.format;
 const myFormat = format.combine(format.splat(), winston.format.printf((info) => {
@@ -43,7 +42,7 @@ async function parseProfileFiles(data) {
             if (f.dir) {
                 if (f.file) {
                     try {
-                        var response = await isy.sendRequest(`profiles/family/${p.family}/profile/${p.id}/download/${f.dir}/${f.file?.name}`, { trailingSlash: false, responseLogLevel: winston.config.cli.levels.debug, requestLogLevel: winston.config.cli.levels.debug });
+                        var response = await isy.sendRequest(`profiles/family/${p.family}/profile/${p.id}/download/${f.dir}/${f.file?.name}`, { trailingSlash: false, responseLogLevel: 'debug', requestLogLevel: 'debug' });
                         var family = p.family;
                         if (data) {
                             switch (f.dir) {
@@ -161,7 +160,7 @@ function parseEventMap(response, family, profile) {
     }
     writeFileSync(`./resources/eventMaps/${Family[family]}.json`, JSON.stringify(response, null, 2));
 }
-export function buildDeviceMap() {
+/*export function buildDeviceMap() {
     var fams = {};
     DeviceMapJSON.forEach((item) => {
         var id = item.id;
@@ -200,7 +199,7 @@ export function buildDeviceMap() {
         });
     });
     writeFileSync("DeviceMapClean.json", JSON.stringify(fams));
-}
+}*/
 function parseLinkDefs(response, family, profile) {
     if (!existsSync('./resources/linkDefs/')) {
         mkdirSync('./resources/linkDefs');

@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,7 +12,7 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "RelayLampSwitch";
+const nodeDefId = "RelayLampSwitch";
 
 type Commands = RelayLampSwitch.Commands;
 type Drivers = RelayLampSwitch.Drivers;
@@ -28,11 +28,11 @@ export class RelayLampSwitchNode extends Base<Drivers, Commands> implements Rela
 		BL: this.backlight,
 		WDU: this.writeChanges
 	};
-    static override nodeDefId = "RelayLampSwitch";
-	declare readonly nodeDefId: "RelayLampSwitch";
+	static override nodeDefId = "RelayLampSwitch";
+	declare readonly nodeDefId: "RelayLampSwitch" | "RelayLampSwitch_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(value?: (0 | 100)) {
@@ -59,7 +59,7 @@ export class RelayLampSwitchNode extends Base<Drivers, Commands> implements Rela
 	async writeChanges() {
 		return this.sendCommand("WDU");
 	}
-	public get status(): Insteon.OnLevelRelay {
+	public get status(): Insteon.OnLevelRelay | Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
 	public get responding(): Insteon.Error {
@@ -68,13 +68,17 @@ export class RelayLampSwitchNode extends Base<Drivers, Commands> implements Rela
 }
 
 NodeFactory.register(RelayLampSwitchNode);
+NodeFactory.register(RelayLampSwitchNode, "RelayLampSwitch_ADV");
 
 export namespace RelayLampSwitch {
 	export interface Interface extends Omit<InstanceType<typeof RelayLampSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "RelayLampSwitch";
+		nodeDefId: "RelayLampSwitch" | "RelayLampSwitch_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is RelayLampSwitchNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["RelayLampSwitch", "RelayLampSwitch_ADV"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayLampSwitchNode {
+		return node.nodeDefId in ["RelayLampSwitch", "RelayLampSwitch_ADV"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new RelayLampSwitchNode(isy, nodeInfo);
@@ -116,8 +120,8 @@ export namespace RelayLampSwitch {
 	};
 	export type Drivers = {
 		ST: {
-			uom: UnitOfMeasure.Percent;
-			value: Insteon.OnLevelRelay;
+			uom: UnitOfMeasure.Boolean | UnitOfMeasure.Percent;
+			value: Insteon.OnLevelRelay | Insteon.OnLevelRelay;
 			label: "Status";
 			name: "status";
 		};

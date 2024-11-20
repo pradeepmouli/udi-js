@@ -133,8 +133,7 @@
     "dynamic": false,
     "implements": [
       "BTChannel"
-    ],
-    "extends": "BTChannel"
+    ]
   },
   "BTChannel": {
     "className": "Channel",
@@ -204,6 +203,9 @@
     "family": 8,
     "label": "Channel",
     "name": "Channel",
-    "dynamic": false
+    "dynamic": false,
+    "implementedBy": [
+      "BTMain"
+    ]
   }
 }

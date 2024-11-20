@@ -14,17 +14,16 @@ import type { Merge } from '@matter/general';
 import type { DriverState } from '../../Model/DriverState.js';
 
 // import { InsteonNLS } from './insteonfam.js'
-export class InsteonBaseDevice<D extends ISYNode.DriverSignatures = {}, C extends ISYNode.CommandSignatures = {}> extends ISYDeviceNode<
+export class InsteonBaseDevice<D extends ISYNode.DriverSignatures = Driver.Signatures<"ST">, C extends ISYNode.CommandSignatures = {}> extends ISYDeviceNode<
 	Family.Insteon,
-	Merge<{ ST: { name: 'status'; label: 'Status'; value: number; uom: UnitOfMeasure.Percent } }, D>,
+	D,
 	C
 > {
 	// #region Constructors (1)
-	static vendorName: string = 'Insteon Technologies, Inc.';
+	readonly vendorName: string = 'Insteon Technologies, Inc.';
 	constructor(isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
 		this.family = Family.Insteon;
-		(this.drivers as any).ERR = Driver.create('ERR', this as any, deviceNode.property as DriverState, { uom: UnitOfMeasure.Index, label: 'Responding', name: 'responding' });
 		//// this.productName = InsteonNLS.getDeviceDescription(String.fromCharCode(category,device,version));
 		//his.childDevices = {};
 	}

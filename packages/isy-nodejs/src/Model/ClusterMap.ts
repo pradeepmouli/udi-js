@@ -8,9 +8,9 @@ import { DriverType } from '../Definitions/Global/Drivers.js';
 import { Devices } from '../Devices/index.js';
 import { Insteon } from '../Devices/Insteon/index.js';
 
+import type { Family } from '../Definitions/index.js';
 import { CommandsOf, DriversOf, ISYNode } from '../ISYNode.js';
 import { ClusterType } from './ClusterType.js';
-import type { Family } from '../Definitions/index.js';
 
 // #region Type aliases (16)
 
@@ -139,32 +139,24 @@ export type parameterMapping = {
 export class MappingRegistry {
 	// #region Properties (1)
 
-	public static map: Map<Family,Map<string, DeviceToClusterMap<any, any>>> = new Map();
+	public static map: Map<Family, Map<string, DeviceToClusterMap<any, any>>> = new Map();
 
 	// #endregion Properties (1)
 
 	// #region Public Static Methods (3)
 
-	public static getMapping<T extends ISYNode<any,any,any,any>>(device: ISYNode<any,any,any,any>) {
-		if(MappingRegistry.map.has(device.family))
-		{
+	public static getMapping<T extends ISYNode<any, any, any, any>>(device: ISYNode<any, any, any, any>) {
+		if (MappingRegistry.map.has(device.family)) {
 			let g = MappingRegistry.map.get(device.family);
-			if(g.has(device.constructor.name))
-			{
+			if (g.has(device.constructor.name)) {
 				return g.get(device.constructor.name);
-			}
-			else if(g.has(device.nodeDefId))
-			{
+			} else if (g.has(device.nodeDefId)) {
 				return g.get(device.nodeDefId);
-			}
-			else if(g.has(device.type))
-			{
+			} else if (g.has(device.type)) {
 				return g.get(device.type);
 			}
-
 		}
 		return null;
-
 	}
 
 	public static getMappingForBehavior<T extends ISYNode<any, any, any, any>, B extends ClusterBehavior>(device: T, behavior: B): BehaviorMapping<B, T> {
@@ -176,12 +168,10 @@ export class MappingRegistry {
 		}
 	}
 	//@ts-ignore
-	public static register(map: Partial<FamilyToClusterMap<any>> | {[x in Paths<typeof Devices>]: DeviceToClusterMap<any,any>}) {
-		if("Family" in map)
-		{
-			let regMap : Map<string, DeviceToClusterMap<any, any>>;
-			if(!MappingRegistry.map.has(map.Family))
-			{
+	public static register(map: Partial<FamilyToClusterMap<any>> | { [x in Paths<typeof Devices>]: DeviceToClusterMap<any, any> }) {
+		if ('Family' in map) {
+			let regMap: Map<string, DeviceToClusterMap<any, any>>;
+			if (!MappingRegistry.map.has(map.Family)) {
 				MappingRegistry.map.set(map.Family, new Map());
 			}
 			regMap = MappingRegistry.map.get(map.Family);
@@ -191,25 +181,21 @@ export class MappingRegistry {
 					regMap.set(Insteon[key]?.name, map[key]); //TODO: This is a hack to allow for the Insteon devices to be registered by name
 				}
 			}
-		}
-		else
-		{
-			let regMap : Map<string, DeviceToClusterMap<any, any>>;
+		} else {
+			let regMap: Map<string, DeviceToClusterMap<any, any>>;
 			for (var key in map) {
-				const keys = key.split(".");
+				const keys = key.split('.');
 				let x = Devices[keys[0]][keys[1]] as typeof ISYNode<any, any, any, any>;
-				if(!MappingRegistry.map.has(x.family))
-				{
+				if (!MappingRegistry.map.has(x.family)) {
 					MappingRegistry.map.set(x.family, new Map());
 				}
-			//{family, key} = key.split(".")[0]
+				//{family, key} = key.split(".")[0]
 
-			regMap = MappingRegistry.map.get(x.family);
+				regMap = MappingRegistry.map.get(x.family);
 
-			regMap.set(keys[1],map[key]);
-			regMap.set(x.name, map[key]);
-
-		}
+				regMap.set(keys[1], map[key]);
+				regMap.set(x.name, map[key]);
+			}
 		}
 	}
 

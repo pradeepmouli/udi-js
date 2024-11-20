@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,14 +12,14 @@ import { UDI } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "EM3PulseCounter";
+const nodeDefId = "EM3PulseCounter";
 
 type Commands = PulseCounter.Commands;
 type Drivers = PulseCounter.Drivers;
 
 export class PulseCounterNode extends Base<Drivers, Commands> implements PulseCounter.Interface {
-	public readonly commands = {};
-	static nodeDefId = "EM3PulseCounter";
+	public override readonly commands = {};
+	static override nodeDefId = "EM3PulseCounter";
 	declare readonly nodeDefId: "EM3PulseCounter";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -49,7 +49,10 @@ export namespace PulseCounter {
 		nodeDefId: "EM3PulseCounter";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is PulseCounterNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["EM3PulseCounter"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is PulseCounterNode {
+		return node.nodeDefId in ["EM3PulseCounter"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new PulseCounterNode(isy, nodeInfo);

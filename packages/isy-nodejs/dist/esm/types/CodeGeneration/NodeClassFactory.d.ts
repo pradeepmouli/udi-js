@@ -1,6 +1,7 @@
 import { Project, SourceFile, ts } from 'ts-morph';
 import { NodeClassDefinition } from '../Model/ClassDefinition.js';
 import { Family } from '../Definitions/index.js';
+import { NodeFactory } from './NodeFactory.js';
 type GeneratedNodeClass<T extends Family> = {
     family: T;
     name: string;
@@ -12,6 +13,7 @@ type GeneratedNodeClass<T extends Family> = {
 export declare class NodeClassFactory {
     static _basePath: string;
     static project: Project;
+    static Factory: NodeFactory;
     static get basePath(): string;
     static set basePath(value: string);
     static buildNodeClasses<T extends Family>(map: {

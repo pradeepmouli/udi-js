@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,16 +12,16 @@ import { UDI } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "EM3Main";
+const nodeDefId = "EM3Main";
 
 type Commands = Main.Commands;
 type Drivers = Main.Drivers;
 
 export class MainNode extends Base<Drivers, Commands> implements Main.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		QUERY: this.query
 	};
-	static nodeDefId = "EM3Main";
+	static override nodeDefId = "EM3Main";
 	declare readonly nodeDefId: "EM3Main";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -50,7 +50,10 @@ export namespace Main {
 		nodeDefId: "EM3Main";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is MainNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["EM3Main"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is MainNode {
+		return node.nodeDefId in ["EM3Main"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new MainNode(isy, nodeInfo);

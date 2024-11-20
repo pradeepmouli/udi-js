@@ -1,18 +1,16 @@
 import 'winston';
 import { Converter } from '../../Converters.js';
-import { Driver } from '../../Definitions/Global/Drivers.js';
 import { Family } from '../../Definitions/Global/Families.js';
-import { UnitOfMeasure as UOM, UnitOfMeasure } from '../../Definitions/Global/UOM.js';
+import { UnitOfMeasure as UOM } from '../../Definitions/Global/UOM.js';
 import { byteToDegree, pctToByte } from '../../Utils.js';
 import { ISYDeviceNode } from '../ISYDeviceNode.js';
 // import { InsteonNLS } from './insteonfam.js'
 export class InsteonBaseDevice extends ISYDeviceNode {
     // #region Constructors (1)
-    static vendorName = 'Insteon Technologies, Inc.';
+    vendorName = 'Insteon Technologies, Inc.';
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
         this.family = Family.Insteon;
-        this.drivers.ERR = Driver.create('ERR', this, deviceNode.property, { uom: UnitOfMeasure.Index, label: 'Responding', name: 'responding' });
         //// this.productName = InsteonNLS.getDeviceDescription(String.fromCharCode(category,device,version));
         //his.childDevices = {};
     }

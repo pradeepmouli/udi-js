@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,19 +12,19 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "RelaySwitchOnly";
+const nodeDefId = "RelaySwitchOnly";
 
 type Commands = RelaySwitch.Commands;
 type Drivers = RelaySwitch.Drivers;
 
 export class RelaySwitchNode extends Base<Drivers, Commands> implements RelaySwitch.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		BEEP: this.beep,
 		BL: this.backlight,
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "RelaySwitchOnly";
-	declare readonly nodeDefId: "RelaySwitchOnly";
+	static override nodeDefId = "RelaySwitchOnly";
+	declare readonly nodeDefId: "RelaySwitchOnly" | "RelaySwitchOnly_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
@@ -44,13 +44,17 @@ export class RelaySwitchNode extends Base<Drivers, Commands> implements RelaySwi
 }
 
 NodeFactory.register(RelaySwitchNode);
+NodeFactory.register(RelaySwitchNode, "RelaySwitchOnly_ADV");
 
 export namespace RelaySwitch {
 	export interface Interface extends Omit<InstanceType<typeof RelaySwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "RelaySwitchOnly";
+		nodeDefId: "RelaySwitchOnly" | "RelaySwitchOnly_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is RelaySwitchNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["RelaySwitchOnly", "RelaySwitchOnly_ADV"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelaySwitchNode {
+		return node.nodeDefId in ["RelaySwitchOnly", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly_ADV"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new RelaySwitchNode(isy, nodeInfo);

@@ -20,6 +20,7 @@ export class InsteonRelayDevice extends RelayLampSwitch.Node /*InsteonBaseDevice
 
 	constructor(isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
+		
 	}
 
 	// #endregion Constructors (1)

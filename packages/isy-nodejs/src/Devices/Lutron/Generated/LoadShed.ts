@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,18 +12,18 @@ import { Lutron } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "LUTLoadShed";
+const nodeDefId = "LUTLoadShed";
 
 type Commands = LoadShed.Commands;
 type Drivers = LoadShed.Drivers;
 
 export class LoadShedNode extends Base<Drivers, Commands> implements LoadShed.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		QUERY: this.query
 	};
-	static nodeDefId = "LUTLoadShed";
+	static override nodeDefId = "LUTLoadShed";
 	declare readonly nodeDefId: "LUTLoadShed";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -54,7 +54,10 @@ export namespace LoadShed {
 		nodeDefId: "LUTLoadShed";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is LoadShedNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["LUTLoadShed"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is LoadShedNode {
+		return node.nodeDefId in ["LUTLoadShed"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new LoadShedNode(isy, nodeInfo);

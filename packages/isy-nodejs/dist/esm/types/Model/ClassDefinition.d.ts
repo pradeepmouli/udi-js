@@ -13,13 +13,15 @@ export declare class NodeClassDefinition<T extends Family> {
     };
     dynamic: boolean;
     equivalentTo: string[];
+    equivalents: string[];
     events: {
         [x: string]: EventDefinition;
     };
-    extends?: string;
+    extends?: string[];
     family: T;
     id: string;
     implements: string[];
+    implementedBy: string[];
     label: string;
     nlsId: string;
     constructor(nodeDef: NodeDef, family: T);
@@ -207,7 +209,9 @@ export declare class NodeClassDefinition<T extends Family> {
         dynamic: boolean;
         implements: string[];
         equivalentTo: string[];
-        extends: string;
+        extends: string[];
+        equivalents: string[];
+        implementedBy: string[];
     };
     private applyNLSRecords;
 }

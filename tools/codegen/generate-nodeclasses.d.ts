@@ -1,6 +1,6 @@
-import { Family } from "isy-nodejs/ISY";
 import { EnumDefinition } from "isy-nodejs/Model/EnumDefinition";
 import winston from "winston";
+import { Family } from 'isy-nodejs/Definitions/index';
 export declare const logger: winston.Logger;
 export declare function generateEnumDefs(): Promise<void>;
 export declare function generateEnums(): Promise<void>;

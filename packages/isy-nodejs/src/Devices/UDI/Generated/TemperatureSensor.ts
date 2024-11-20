@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,14 +12,14 @@ import { UDI } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "EM3TempSensor";
+const nodeDefId = "EM3TempSensor";
 
 type Commands = TemperatureSensor.Commands;
 type Drivers = TemperatureSensor.Drivers;
 
 export class TemperatureSensorNode extends Base<Drivers, Commands> implements TemperatureSensor.Interface {
-	public readonly commands = {};
-	static nodeDefId = "EM3TempSensor";
+	public override readonly commands = {};
+	static override nodeDefId = "EM3TempSensor";
 	declare readonly nodeDefId: "EM3TempSensor";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -41,7 +41,10 @@ export namespace TemperatureSensor {
 		nodeDefId: "EM3TempSensor";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is TemperatureSensorNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["EM3TempSensor"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is TemperatureSensorNode {
+		return node.nodeDefId in ["EM3TempSensor"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new TemperatureSensorNode(isy, nodeInfo);

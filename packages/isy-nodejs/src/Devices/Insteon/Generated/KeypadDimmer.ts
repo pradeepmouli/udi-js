@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,13 +12,13 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "KeypadDimmer";
+const nodeDefId = "KeypadDimmer";
 
 type Commands = KeypadDimmer.Commands;
 type Drivers = KeypadDimmer.Drivers;
 
 export class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadDimmer.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		DFOF: this.fastOff,
@@ -35,8 +35,8 @@ export class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadD
 		BL: this.backlight,
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "KeypadDimmer";
-	declare readonly nodeDefId: "KeypadDimmer";
+	static override nodeDefId = "KeypadDimmer";
+	declare readonly nodeDefId: "KeypadDimmer" | "KeypadDimmer_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
@@ -80,10 +80,10 @@ export class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadD
 	async updateOnLevel(value: number) {
 		return this.sendCommand("OL", { value: value });
 	}
-	async updateRampRate(value: number) {
+	async updateRampRate(value: Insteon.RampRate) {
 		return this.sendCommand("RR", { value: value });
 	}
-	async backlight(value: number) {
+	async backlight(value: Insteon.Backlight) {
 		return this.sendCommand("BL", { value: value });
 	}
 	async writeChanges() {
@@ -95,7 +95,7 @@ export class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadD
 	public get onLevel(): number {
 		return this.drivers.OL?.value;
 	}
-	public get rampRate(): number {
+	public get rampRate(): Insteon.RampRate {
 		return this.drivers.RR?.value;
 	}
 	public get responding(): Insteon.Error {
@@ -104,13 +104,17 @@ export class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadD
 }
 
 NodeFactory.register(KeypadDimmerNode);
+NodeFactory.register(KeypadDimmerNode, "KeypadDimmer_ADV");
 
 export namespace KeypadDimmer {
 	export interface Interface extends Omit<InstanceType<typeof KeypadDimmerNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "KeypadDimmer";
+		nodeDefId: "KeypadDimmer" | "KeypadDimmer_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is KeypadDimmerNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["KeypadDimmer", "KeypadDimmer_ADV"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is KeypadDimmerNode {
+		return node.nodeDefId in ["KeypadDimmer", "KeypadDimmer_ADV"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new KeypadDimmerNode(isy, nodeInfo);
@@ -165,11 +169,11 @@ export namespace KeypadDimmer {
 			label: "On Level";
 			name: "updateOnLevel";
 		};
-		RR: ((value: number) => Promise<boolean>) & {
+		RR: ((value: Insteon.RampRate) => Promise<boolean>) & {
 			label: "Ramp Rate";
 			name: "updateRampRate";
 		};
-		BL: ((value: number) => Promise<boolean>) & {
+		BL: ((value: Insteon.Backlight) => Promise<boolean>) & {
 			label: "Backlight";
 			name: "backlight";
 		};
@@ -193,7 +197,7 @@ export namespace KeypadDimmer {
 		};
 		RR: {
 			uom: UnitOfMeasure.Index;
-			value: number;
+			value: Insteon.RampRate;
 			label: "Ramp Rate";
 			name: "rampRate";
 		};

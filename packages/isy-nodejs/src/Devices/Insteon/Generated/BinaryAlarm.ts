@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,19 +12,19 @@ import { Insteon } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "BinaryAlarm";
+const nodeDefId = "BinaryAlarm";
 
 type Commands = BinaryAlarm.Commands;
 type Drivers = BinaryAlarm.Drivers;
 
 export class BinaryAlarmNode extends Base<Drivers, Commands> implements BinaryAlarm.Interface {
-	public readonly commands = {
+	public override readonly commands = {
 		QUERY: this.query,
 		BEEP: this.beep,
 		WDU: this.writeChanges
 	};
-	static nodeDefId = "BinaryAlarm";
-	declare readonly nodeDefId: "BinaryAlarm";
+	static override nodeDefId = "BinaryAlarm";
+	declare readonly nodeDefId: "BinaryAlarm" | "BinaryAlarm_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
@@ -48,13 +48,17 @@ export class BinaryAlarmNode extends Base<Drivers, Commands> implements BinaryAl
 }
 
 NodeFactory.register(BinaryAlarmNode);
+NodeFactory.register(BinaryAlarmNode, "BinaryAlarm_ADV");
 
 export namespace BinaryAlarm {
 	export interface Interface extends Omit<InstanceType<typeof BinaryAlarmNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "BinaryAlarm";
+		nodeDefId: "BinaryAlarm" | "BinaryAlarm_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is BinaryAlarmNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["BinaryAlarm", "BinaryAlarm_ADV"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is BinaryAlarmNode {
+		return node.nodeDefId in ["BinaryAlarm", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "BinaryAlarm_ADV"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new BinaryAlarmNode(isy, nodeInfo);

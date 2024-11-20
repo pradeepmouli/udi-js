@@ -3,7 +3,7 @@
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
-import type { ISY } from "../../../ISY.js";
+import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
@@ -12,14 +12,14 @@ import { UDI } from "../../../Definitions/index.js";
 import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-export const nodeDefId = "EM3Channel";
+const nodeDefId = "EM3Channel";
 
 type Commands = Channel.Commands;
 type Drivers = Channel.Drivers;
 
 export class ChannelNode extends Base<Drivers, Commands> implements Channel.Interface {
-	public readonly commands = {};
-	static nodeDefId = "EM3Channel";
+	public override readonly commands = {};
+	static override nodeDefId = "EM3Channel";
 	declare readonly nodeDefId: "EM3Channel";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -45,7 +45,10 @@ export namespace Channel {
 		nodeDefId: "EM3Channel";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is ChannelNode {
-		return node.nodeDefId === nodeDefId;
+		return node.nodeDefId in ["EM3Channel"];
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ChannelNode {
+		return node.nodeDefId in ["EM3Channel", "EM3Main", "EM3MainChannel"];
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new ChannelNode(isy, nodeInfo);

@@ -4,9 +4,10 @@
   "description": "Node codegen for UDI.js",
   "main": "generate.js",
   "scripts": {
-    "codegen": "ts-node generate.ts",
+    "codegen": "tsx generate.ts",
     "build:watch": "tsc -p ./tsconfig.json --watch"
   },
+  "bin": "generate.js",
   "dependencies": {
     "isy-nodejs": "../../packages/isy-nodejs"
   },

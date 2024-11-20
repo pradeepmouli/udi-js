@@ -12,6 +12,7 @@ import { InsteonDimmerOutletDevice } from "./InsteonDimmerOutletDevice.js";
 import { InsteonRelaySwitchDevice } from "./InsteonRelaySwitchDevice.js";
 import { InsteonThermostatDevice } from "./InsteonThermostatDevice.js";
 import { InsteonDoorWindowSensorDevice } from './InsteonDoorWindowSensorDevice.js';
+import { RelayLampSwitch } from './Generated/RelayLampSwitch.js';
 
 export {InsteonBaseDevice as Base} from  "./InsteonBaseDevice.js";
 
@@ -25,7 +26,7 @@ export const Insteon = {
   DimmerSwitch: InsteonDimmerSwitchDevice,
   DimmerOutlet: InsteonDimmerOutletDevice,
 
-  Relay: InsteonRelayDevice,
+  Relay: RelayLampSwitch.Node,
   Dimmer: InsteonDimmableDevice,
   KeypadDimmer: InsteonKeypadDimmerDevice,
   Thermostat: InsteonThermostatDevice,
@@ -39,7 +40,7 @@ export namespace Insteon {
   export type LeakSensor = InsteonLeakSensorDevice;
   export type MotionSensor = InsteonMotionSensorDevice;
   export type SmokeSensor = InsteonSmokeSensorDevice;
-  export type RelaySwitch = InsteonRelaySwitchDevice;
+  export type RelaySwitch = InstanceType<typeof RelayLampSwitch.Node>;
   export type DimmerSwitch = InsteonDimmerSwitchDevice;
   export type DimmerOutlet = InsteonDimmerOutletDevice;
   export type Relay = InsteonRelayDevice;

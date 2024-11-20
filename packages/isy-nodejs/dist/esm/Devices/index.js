@@ -1,9 +1,9 @@
-import { Insteon } from "./Insteon/index.js";
-import { ZWaveBaseDevice } from "./ZWave/ZWaveBaseDevice.js";
+import { Insteon } from './Insteon/index.js';
+import { ZWaveBaseDevice } from './ZWave/ZWaveBaseDevice.js';
 export const Devices = {
     Insteon: Insteon,
     ZWave: { Base: ZWaveBaseDevice },
-    ZigBee: {},
+    ZigBee: {}
 };
 export default Devices;
 //# sourceMappingURL=index.js.map

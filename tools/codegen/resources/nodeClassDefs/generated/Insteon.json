@@ -90,8 +90,7 @@
       "OnOffControl_ADV",
       "SirenAlert",
       "SirenArm"
-    ],
-    "extends": "OnOffControl"
+    ]
   },
   "Thermostat": {
     "className": "Thermostat",
@@ -467,8 +466,7 @@
       "IRLincTx",
       "SirenAlert",
       "SirenArm"
-    ],
-    "extends": "TempLinc"
+    ]
   },
   "TempLinc": {
     "className": "TempLinc",
@@ -838,7 +836,9 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "IRLincTx"
+    "implementedBy": [
+      "Thermostat"
+    ]
   },
   "OnOffControl": {
     "className": "OnOffControl",
@@ -904,7 +904,13 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "SirenAlert"
+    "equivalents": [
+      "OnOffControl_ADV"
+    ],
+    "implementedBy": [
+      "X10",
+      "OnOffControl_ADV"
+    ]
   },
   "OnOffControl_ADV": {
     "className": "OnOffControlAdv",
@@ -973,6 +979,9 @@
     ],
     "equivalentTo": [
       "OnOffControl"
+    ],
+    "implementedBy": [
+      "X10"
     ]
   },
   "DimmerMotorSwitch": {
@@ -1314,7 +1323,12 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "RelaySwitchOnlyPlusQuery"
+    "equivalents": [
+      "DimmerMotorSwitch_ADV"
+    ],
+    "implementedBy": [
+      "DimmerMotorSwitch_ADV"
+    ]
   },
   "DimmerMotorSwitch_ADV": {
     "className": "DimmerMotorSwitchAdv",
@@ -1714,7 +1728,7 @@
           "25": {
             "uom": 25,
             "indexId": "IX_I_RR",
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 31
           }
@@ -1897,7 +1911,7 @@
           "25": {
             "uom": 25,
             "indexId": "IX_I_RR",
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 31
           }
@@ -1912,7 +1926,7 @@
               "25": {
                 "uom": 25,
                 "indexId": "IX_I_RR",
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 31
               }
@@ -2017,7 +2031,12 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "DimmerSwitchOnly"
+    "equivalents": [
+      "DimmerLampSwitch_ADV"
+    ],
+    "implementedBy": [
+      "DimmerLampSwitch_ADV"
+    ]
   },
   "DimmerLampSwitch_ADV": {
     "className": "DimmerLampSwitchAdv",
@@ -2073,7 +2092,7 @@
           "25": {
             "uom": 25,
             "indexId": "IX_I_RR",
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 31
           }
@@ -2256,7 +2275,7 @@
           "25": {
             "uom": 25,
             "indexId": "IX_I_RR",
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 31
           }
@@ -2271,7 +2290,7 @@
               "25": {
                 "uom": 25,
                 "indexId": "IX_I_RR",
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 31
               }
@@ -2435,7 +2454,7 @@
           "25": {
             "uom": 25,
             "indexId": "IX_I_RR",
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 31
           }
@@ -2618,7 +2637,7 @@
           "25": {
             "uom": 25,
             "indexId": "IX_I_RR",
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 31
           }
@@ -2633,7 +2652,7 @@
               "25": {
                 "uom": 25,
                 "indexId": "IX_I_RR",
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 31
               }
@@ -2652,7 +2671,7 @@
         "dataType": {
           "25": {
             "uom": 25,
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 9,
             "indexId": "IX_I3_RGB_LED",
@@ -2668,7 +2687,7 @@
             "dataType": {
               "25": {
                 "uom": 25,
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 9,
                 "indexId": "IX_I3_RGB_LED",
@@ -2773,7 +2792,12 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "DimmerSwitchOnly"
+    "equivalents": [
+      "DimmerLampSwitchLED_ADV"
+    ],
+    "implementedBy": [
+      "DimmerLampSwitchLED_ADV"
+    ]
   },
   "DimmerLampSwitchLED_ADV": {
     "className": "DimmerLampSwitchLedAdv",
@@ -2829,7 +2853,7 @@
           "25": {
             "uom": 25,
             "indexId": "IX_I_RR",
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 31
           }
@@ -3012,7 +3036,7 @@
           "25": {
             "uom": 25,
             "indexId": "IX_I_RR",
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 31
           }
@@ -3027,7 +3051,7 @@
               "25": {
                 "uom": 25,
                 "indexId": "IX_I_RR",
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 31
               }
@@ -3046,7 +3070,7 @@
         "dataType": {
           "25": {
             "uom": 25,
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 9,
             "indexId": "IX_I3_RGB_LED",
@@ -3062,7 +3086,7 @@
             "dataType": {
               "25": {
                 "uom": 25,
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 9,
                 "indexId": "IX_I3_RGB_LED",
@@ -3281,7 +3305,16 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "SirenAlert"
+    "equivalents": [
+      "DimmerSwitchOnly_ADV"
+    ],
+    "implementedBy": [
+      "DimmerLampSwitch",
+      "DimmerLampSwitch_ADV",
+      "DimmerLampSwitchLED",
+      "DimmerLampSwitchLED_ADV",
+      "DimmerSwitchOnly_ADV"
+    ]
   },
   "DimmerSwitchOnly_ADV": {
     "className": "DimmerSwitchOnlyAdv",
@@ -3395,6 +3428,12 @@
     ],
     "equivalentTo": [
       "DimmerSwitchOnly"
+    ],
+    "implementedBy": [
+      "DimmerLampSwitch",
+      "DimmerLampSwitch_ADV",
+      "DimmerLampSwitchLED",
+      "DimmerLampSwitchLED_ADV"
     ]
   },
   "DimmerLampOnly": {
@@ -3451,7 +3490,7 @@
           "25": {
             "uom": 25,
             "indexId": "IX_I_RR",
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 31
           }
@@ -3634,7 +3673,7 @@
           "25": {
             "uom": 25,
             "indexId": "IX_I_RR",
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 31
           }
@@ -3649,7 +3688,7 @@
               "25": {
                 "uom": 25,
                 "indexId": "IX_I_RR",
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 31
               }
@@ -3677,7 +3716,12 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "IRLincTx"
+    "implementedBy": [
+      "DimmerLampSwitch",
+      "DimmerLampSwitch_ADV",
+      "DimmerLampSwitchLED",
+      "DimmerLampSwitchLED_ADV"
+    ]
   },
   "KeypadDimmer": {
     "className": "KeypadDimmer",
@@ -3733,7 +3777,7 @@
           "25": {
             "uom": 25,
             "indexId": "IX_I_RR",
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 31
           }
@@ -3916,7 +3960,7 @@
           "25": {
             "uom": 25,
             "indexId": "IX_I_RR",
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 31
           }
@@ -3931,7 +3975,7 @@
               "25": {
                 "uom": 25,
                 "indexId": "IX_I_RR",
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 31
               }
@@ -3950,7 +3994,7 @@
         "dataType": {
           "25": {
             "uom": 25,
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 127,
             "indexId": "IX_I_BL",
@@ -3966,7 +4010,7 @@
             "dataType": {
               "25": {
                 "uom": 25,
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 127,
                 "indexId": "IX_I_BL",
@@ -4033,7 +4077,12 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "RemoteLinc2"
+    "equivalents": [
+      "KeypadDimmer_ADV"
+    ],
+    "implementedBy": [
+      "KeypadDimmer_ADV"
+    ]
   },
   "KeypadDimmer_ADV": {
     "className": "KeypadDimmerAdv",
@@ -4089,7 +4138,7 @@
           "25": {
             "uom": 25,
             "indexId": "IX_I_RR",
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 31
           }
@@ -4272,7 +4321,7 @@
           "25": {
             "uom": 25,
             "indexId": "IX_I_RR",
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 31
           }
@@ -4287,7 +4336,7 @@
               "25": {
                 "uom": 25,
                 "indexId": "IX_I_RR",
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 31
               }
@@ -4306,7 +4355,7 @@
         "dataType": {
           "25": {
             "uom": 25,
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 127,
             "indexId": "IX_I_BL",
@@ -4322,7 +4371,7 @@
             "dataType": {
               "25": {
                 "uom": 25,
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 127,
                 "indexId": "IX_I_BL",
@@ -4571,7 +4620,12 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "RelayLampOnly"
+    "equivalents": [
+      "BallastRelayLampSwitch_ADV"
+    ],
+    "implementedBy": [
+      "BallastRelayLampSwitch_ADV"
+    ]
   },
   "BallastRelayLampSwitch_ADV": {
     "className": "BallastRelayLampSwitchAdv",
@@ -4982,7 +5036,12 @@
       "PIR2844OnOff",
       "PIR2844OnOff_ADV"
     ],
-    "extends": "RelaySwitchOnlyPlusQuery"
+    "equivalents": [
+      "RelayLampSwitch_ADV"
+    ],
+    "implementedBy": [
+      "RelayLampSwitch_ADV"
+    ]
   },
   "RelayLampSwitch_ADV": {
     "className": "RelayLampSwitchAdv",
@@ -5356,7 +5415,7 @@
         "dataType": {
           "25": {
             "uom": 25,
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 9,
             "indexId": "IX_I3_RGB_LED",
@@ -5372,7 +5431,7 @@
             "dataType": {
               "25": {
                 "uom": 25,
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 9,
                 "indexId": "IX_I3_RGB_LED",
@@ -5478,7 +5537,12 @@
       "PIR2844OnOff",
       "PIR2844OnOff_ADV"
     ],
-    "extends": "RelaySwitchOnlyPlusQuery"
+    "equivalents": [
+      "RelayLampSwitchLED_ADV"
+    ],
+    "implementedBy": [
+      "RelayLampSwitchLED_ADV"
+    ]
   },
   "RelayLampSwitchLED_ADV": {
     "className": "RelayLampSwitchLedAdv",
@@ -5620,7 +5684,7 @@
         "dataType": {
           "25": {
             "uom": 25,
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 9,
             "indexId": "IX_I3_RGB_LED",
@@ -5636,7 +5700,7 @@
             "dataType": {
               "25": {
                 "uom": 25,
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 9,
                 "indexId": "IX_I3_RGB_LED",
@@ -5888,7 +5952,25 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "RelaySwitchOnly"
+    "extends": [
+      "RelaySwitchOnly"
+    ],
+    "equivalents": [
+      "RelaySwitchOnlyPlusQuery_ADV"
+    ],
+    "implementedBy": [
+      "DimmerMotorSwitch",
+      "DimmerMotorSwitch_ADV",
+      "DimmerLampSwitch",
+      "DimmerLampSwitch_ADV",
+      "DimmerLampSwitchLED",
+      "DimmerLampSwitchLED_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "RelaySwitchOnlyPlusQuery_ADV"
+    ]
   },
   "RelaySwitchOnlyPlusQuery_ADV": {
     "className": "RelaySwitchOnlyPlusQueryAdv",
@@ -6034,6 +6116,21 @@
     ],
     "equivalentTo": [
       "RelaySwitchOnlyPlusQuery"
+    ],
+    "extends": [
+      "RelaySwitchOnly"
+    ],
+    "implementedBy": [
+      "DimmerMotorSwitch",
+      "DimmerMotorSwitch_ADV",
+      "DimmerLampSwitch",
+      "DimmerLampSwitch_ADV",
+      "DimmerLampSwitchLED",
+      "DimmerLampSwitchLED_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV"
     ]
   },
   "RelaySwitchOnly": {
@@ -6170,7 +6267,24 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "IRLincTx"
+    "equivalents": [
+      "RelaySwitchOnly_ADV"
+    ],
+    "implementedBy": [
+      "DimmerMotorSwitch",
+      "DimmerMotorSwitch_ADV",
+      "DimmerLampSwitch",
+      "DimmerLampSwitch_ADV",
+      "DimmerLampSwitchLED",
+      "DimmerLampSwitchLED_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnlyPlusQuery_ADV",
+      "RelaySwitchOnly_ADV"
+    ]
   },
   "RelaySwitchOnly_ADV": {
     "className": "RelaySwitchOnlyAdv",
@@ -6309,6 +6423,20 @@
     ],
     "equivalentTo": [
       "RelaySwitchOnly"
+    ],
+    "implementedBy": [
+      "DimmerMotorSwitch",
+      "DimmerMotorSwitch_ADV",
+      "DimmerLampSwitch",
+      "DimmerLampSwitch_ADV",
+      "DimmerLampSwitchLED",
+      "DimmerLampSwitchLED_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnlyPlusQuery_ADV"
     ]
   },
   "RelayLampOnly": {
@@ -6462,7 +6590,18 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "IRLincTx"
+    "equivalents": [
+      "RelayLampOnly_ADV"
+    ],
+    "implementedBy": [
+      "BallastRelayLampSwitch",
+      "BallastRelayLampSwitch_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "RelayLampOnly_ADV"
+    ]
   },
   "RelayLampOnly_ADV": {
     "className": "RelayLampOnlyAdv",
@@ -6618,6 +6757,14 @@
     ],
     "equivalentTo": [
       "RelayLampOnly"
+    ],
+    "implementedBy": [
+      "BallastRelayLampSwitch",
+      "BallastRelayLampSwitch_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV"
     ]
   },
   "KeypadRelay": {
@@ -6760,7 +6907,7 @@
         "dataType": {
           "25": {
             "uom": 25,
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 127,
             "indexId": "IX_I_BL",
@@ -6776,7 +6923,7 @@
             "dataType": {
               "25": {
                 "uom": 25,
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 127,
                 "indexId": "IX_I_BL",
@@ -6847,7 +6994,12 @@
       "PIR2844OnOff",
       "PIR2844OnOff_ADV"
     ],
-    "extends": "IRLincTx"
+    "equivalents": [
+      "KeypadRelay_ADV"
+    ],
+    "implementedBy": [
+      "KeypadRelay_ADV"
+    ]
   },
   "KeypadRelay_ADV": {
     "className": "KeypadRelayAdv",
@@ -6989,7 +7141,7 @@
         "dataType": {
           "25": {
             "uom": 25,
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 127,
             "indexId": "IX_I_BL",
@@ -7005,7 +7157,7 @@
             "dataType": {
               "25": {
                 "uom": 25,
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 127,
                 "indexId": "IX_I_BL",
@@ -7171,7 +7323,20 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "SirenAlert"
+    "equivalents": [
+      "RemoteLinc2_ADV"
+    ],
+    "implementedBy": [
+      "DimmerMotorSwitch",
+      "DimmerMotorSwitch_ADV",
+      "DimmerLampSwitch",
+      "DimmerLampSwitch_ADV",
+      "DimmerLampSwitchLED",
+      "DimmerLampSwitchLED_ADV",
+      "KeypadDimmer",
+      "KeypadDimmer_ADV",
+      "RemoteLinc2_ADV"
+    ]
   },
   "RemoteLinc2_ADV": {
     "className": "RemoteLinc2Adv",
@@ -7266,6 +7431,16 @@
     ],
     "equivalentTo": [
       "RemoteLinc2"
+    ],
+    "implementedBy": [
+      "DimmerMotorSwitch",
+      "DimmerMotorSwitch_ADV",
+      "DimmerLampSwitch",
+      "DimmerLampSwitch_ADV",
+      "DimmerLampSwitchLED",
+      "DimmerLampSwitchLED_ADV",
+      "KeypadDimmer",
+      "KeypadDimmer_ADV"
     ]
   },
   "IRLincTx": {
@@ -7340,7 +7515,33 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "SirenAlert"
+    "implementedBy": [
+      "Thermostat",
+      "TempLinc",
+      "DimmerMotorSwitch",
+      "DimmerMotorSwitch_ADV",
+      "DimmerLampSwitch",
+      "DimmerLampSwitch_ADV",
+      "DimmerLampSwitchLED",
+      "DimmerLampSwitchLED_ADV",
+      "DimmerLampOnly",
+      "KeypadDimmer",
+      "KeypadDimmer_ADV",
+      "BallastRelayLampSwitch",
+      "BallastRelayLampSwitch_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnlyPlusQuery_ADV",
+      "RelaySwitchOnly",
+      "RelaySwitchOnly_ADV",
+      "RelayLampOnly",
+      "RelayLampOnly_ADV",
+      "KeypadRelay",
+      "KeypadRelay_ADV"
+    ]
   },
   "FanLincMotor": {
     "className": "FanLincMotor",
@@ -7503,8 +7704,7 @@
       "AlertModuleArmed",
       "SirenAlert",
       "SirenArm"
-    ],
-    "extends": "EZRAIN_Output"
+    ]
   },
   "KeypadButton": {
     "className": "KeypadButton",
@@ -7564,7 +7764,7 @@
         "dataType": {
           "25": {
             "uom": 25,
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 127,
             "indexId": "IX_I_BL",
@@ -7580,7 +7780,7 @@
             "dataType": {
               "25": {
                 "uom": 25,
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 127,
                 "indexId": "IX_I_BL",
@@ -7638,7 +7838,14 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "EZIO2x4_Input"
+    "equivalents": [
+      "KeypadButton_ADV"
+    ],
+    "implementedBy": [
+      "KeypadRelay",
+      "KeypadRelay_ADV",
+      "KeypadButton_ADV"
+    ]
   },
   "KeypadButton_ADV": {
     "className": "KeypadButtonAdv",
@@ -7698,7 +7905,7 @@
         "dataType": {
           "25": {
             "uom": 25,
-            "enum": false,
+            "enum": true,
             "min": 0,
             "max": 127,
             "indexId": "IX_I_BL",
@@ -7714,7 +7921,7 @@
             "dataType": {
               "25": {
                 "uom": 25,
-                "enum": false,
+                "enum": true,
                 "min": 0,
                 "max": 127,
                 "indexId": "IX_I_BL",
@@ -7775,6 +7982,10 @@
     ],
     "equivalentTo": [
       "KeypadButton"
+    ],
+    "implementedBy": [
+      "KeypadRelay",
+      "KeypadRelay_ADV"
     ]
   },
   "EZRAIN_Output": {
@@ -7916,7 +8127,19 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "EZIO2x4_Output"
+    "implementedBy": [
+      "BallastRelayLampSwitch",
+      "BallastRelayLampSwitch_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "RelayLampOnly",
+      "RelayLampOnly_ADV",
+      "KeypadRelay",
+      "KeypadRelay_ADV",
+      "FanLincMotor"
+    ]
   },
   "EZRAIN_Input": {
     "className": "EzrainInput",
@@ -7994,7 +8217,12 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "EZIO2x4_Input"
+    "equivalents": [
+      "EZRAIN_Input_ADV"
+    ],
+    "implementedBy": [
+      "EZRAIN_Input_ADV"
+    ]
   },
   "EZRAIN_Input_ADV": {
     "className": "EzrainInputAdv",
@@ -8183,7 +8411,20 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "SirenAlert"
+    "implementedBy": [
+      "BallastRelayLampSwitch",
+      "BallastRelayLampSwitch_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "RelayLampOnly",
+      "RelayLampOnly_ADV",
+      "KeypadRelay",
+      "KeypadRelay_ADV",
+      "FanLincMotor",
+      "EZRAIN_Output"
+    ]
   },
   "EZIO2x4_Input": {
     "className": "Ezio2x4Input",
@@ -8255,7 +8496,24 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "SirenAlert"
+    "equivalents": [
+      "EZIO2x4_Input_ADV"
+    ],
+    "implementedBy": [
+      "BallastRelayLampSwitch",
+      "BallastRelayLampSwitch_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "KeypadRelay",
+      "KeypadRelay_ADV",
+      "KeypadButton",
+      "KeypadButton_ADV",
+      "EZRAIN_Input",
+      "EZRAIN_Input_ADV",
+      "EZIO2x4_Input_ADV"
+    ]
   },
   "EZIO2x4_Input_ADV": {
     "className": "Ezio2x4InputAdv",
@@ -8330,6 +8588,20 @@
     ],
     "equivalentTo": [
       "EZIO2x4_Input"
+    ],
+    "implementedBy": [
+      "BallastRelayLampSwitch",
+      "BallastRelayLampSwitch_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "KeypadRelay",
+      "KeypadRelay_ADV",
+      "KeypadButton",
+      "KeypadButton_ADV",
+      "EZRAIN_Input",
+      "EZRAIN_Input_ADV"
     ]
   },
   "IMETER_SOLO": {
@@ -8419,8 +8691,7 @@
     "implements": [
       "SirenAlert",
       "SirenArm"
-    ],
-    "extends": "SirenAlert"
+    ]
   },
   "DoorLock": {
     "className": "DoorLock",
@@ -8494,7 +8765,15 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "SirenAlert"
+    "implementedBy": [
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "KeypadRelay",
+      "KeypadRelay_ADV",
+      "FanLincMotor"
+    ]
   },
   "BinaryAlarm": {
     "className": "BinaryAlarm",
@@ -8612,7 +8891,20 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "BinaryControl"
+    "equivalents": [
+      "BinaryAlarm_ADV"
+    ],
+    "implementedBy": [
+      "BallastRelayLampSwitch",
+      "BallastRelayLampSwitch_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "KeypadRelay",
+      "KeypadRelay_ADV",
+      "BinaryAlarm_ADV"
+    ]
   },
   "BinaryAlarm_ADV": {
     "className": "BinaryAlarmAdv",
@@ -8733,6 +9025,16 @@
     ],
     "equivalentTo": [
       "BinaryAlarm"
+    ],
+    "implementedBy": [
+      "BallastRelayLampSwitch",
+      "BallastRelayLampSwitch_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "KeypadRelay",
+      "KeypadRelay_ADV"
     ]
   },
   "BinaryControl": {
@@ -8841,7 +9143,22 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "SirenAlert"
+    "equivalents": [
+      "BinaryControl_ADV"
+    ],
+    "implementedBy": [
+      "BallastRelayLampSwitch",
+      "BallastRelayLampSwitch_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "KeypadRelay",
+      "KeypadRelay_ADV",
+      "BinaryAlarm",
+      "BinaryAlarm_ADV",
+      "BinaryControl_ADV"
+    ]
   },
   "BinaryControl_ADV": {
     "className": "BinaryControlAdv",
@@ -8952,6 +9269,18 @@
     ],
     "equivalentTo": [
       "BinaryControl"
+    ],
+    "implementedBy": [
+      "BallastRelayLampSwitch",
+      "BallastRelayLampSwitch_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "KeypadRelay",
+      "KeypadRelay_ADV",
+      "BinaryAlarm",
+      "BinaryAlarm_ADV"
     ]
   },
   "AlertModuleSiren": {
@@ -9091,7 +9420,12 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "AlertModuleArmed"
+    "equivalents": [
+      "AlertModuleSiren_ADV"
+    ],
+    "implementedBy": [
+      "AlertModuleSiren_ADV"
+    ]
   },
   "AlertModuleSiren_ADV": {
     "className": "AlertModuleSirenAdv",
@@ -9342,7 +9676,22 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "SirenAlert"
+    "implementedBy": [
+      "BallastRelayLampSwitch",
+      "BallastRelayLampSwitch_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "RelayLampOnly",
+      "RelayLampOnly_ADV",
+      "KeypadRelay",
+      "KeypadRelay_ADV",
+      "FanLincMotor",
+      "EZRAIN_Output",
+      "AlertModuleSiren",
+      "AlertModuleSiren_ADV"
+    ]
   },
   "Siren": {
     "className": "Siren",
@@ -9578,7 +9927,12 @@
       "SirenAlert",
       "SirenArm"
     ],
-    "extends": "SirenAlert"
+    "equivalents": [
+      "Siren_ADV"
+    ],
+    "implementedBy": [
+      "Siren_ADV"
+    ]
   },
   "Siren_ADV": {
     "className": "Siren",
@@ -9849,7 +10203,69 @@
     "family": 1,
     "label": "Siren Alert",
     "name": "SirenAlert",
-    "dynamic": true
+    "dynamic": true,
+    "equivalents": [
+      "SirenArm"
+    ],
+    "implementedBy": [
+      "X10",
+      "Thermostat",
+      "TempLinc",
+      "OnOffControl",
+      "OnOffControl_ADV",
+      "DimmerMotorSwitch",
+      "DimmerMotorSwitch_ADV",
+      "DimmerLampSwitch",
+      "DimmerLampSwitch_ADV",
+      "DimmerLampSwitchLED",
+      "DimmerLampSwitchLED_ADV",
+      "DimmerSwitchOnly",
+      "DimmerSwitchOnly_ADV",
+      "DimmerLampOnly",
+      "KeypadDimmer",
+      "KeypadDimmer_ADV",
+      "BallastRelayLampSwitch",
+      "BallastRelayLampSwitch_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnlyPlusQuery_ADV",
+      "RelaySwitchOnly",
+      "RelaySwitchOnly_ADV",
+      "RelayLampOnly",
+      "RelayLampOnly_ADV",
+      "KeypadRelay",
+      "KeypadRelay_ADV",
+      "RemoteLinc2",
+      "RemoteLinc2_ADV",
+      "IRLincTx",
+      "FanLincMotor",
+      "KeypadButton",
+      "KeypadButton_ADV",
+      "EZRAIN_Output",
+      "EZRAIN_Input",
+      "EZRAIN_Input_ADV",
+      "EZIO2x4_Output",
+      "EZIO2x4_Input",
+      "EZIO2x4_Input_ADV",
+      "IMETER_SOLO",
+      "DoorLock",
+      "BinaryAlarm",
+      "BinaryAlarm_ADV",
+      "BinaryControl",
+      "BinaryControl_ADV",
+      "AlertModuleSiren",
+      "AlertModuleSiren_ADV",
+      "AlertModuleArmed",
+      "Siren",
+      "Siren_ADV",
+      "SirenArm",
+      "PIR2844_ADV",
+      "PIR2844C_ADV",
+      "PIR2844OnOff_ADV"
+    ]
   },
   "SirenArm": {
     "className": "SirenArm",
@@ -9887,6 +10303,64 @@
     ],
     "equivalentTo": [
       "SirenAlert"
+    ],
+    "implementedBy": [
+      "X10",
+      "Thermostat",
+      "TempLinc",
+      "OnOffControl",
+      "OnOffControl_ADV",
+      "DimmerMotorSwitch",
+      "DimmerMotorSwitch_ADV",
+      "DimmerLampSwitch",
+      "DimmerLampSwitch_ADV",
+      "DimmerLampSwitchLED",
+      "DimmerLampSwitchLED_ADV",
+      "DimmerSwitchOnly",
+      "DimmerSwitchOnly_ADV",
+      "DimmerLampOnly",
+      "KeypadDimmer",
+      "KeypadDimmer_ADV",
+      "BallastRelayLampSwitch",
+      "BallastRelayLampSwitch_ADV",
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "RelaySwitchOnlyPlusQuery",
+      "RelaySwitchOnlyPlusQuery_ADV",
+      "RelaySwitchOnly",
+      "RelaySwitchOnly_ADV",
+      "RelayLampOnly",
+      "RelayLampOnly_ADV",
+      "KeypadRelay",
+      "KeypadRelay_ADV",
+      "RemoteLinc2",
+      "RemoteLinc2_ADV",
+      "IRLincTx",
+      "FanLincMotor",
+      "KeypadButton",
+      "KeypadButton_ADV",
+      "EZRAIN_Output",
+      "EZRAIN_Input",
+      "EZRAIN_Input_ADV",
+      "EZIO2x4_Output",
+      "EZIO2x4_Input",
+      "EZIO2x4_Input_ADV",
+      "IMETER_SOLO",
+      "DoorLock",
+      "BinaryAlarm",
+      "BinaryAlarm_ADV",
+      "BinaryControl",
+      "BinaryControl_ADV",
+      "AlertModuleSiren",
+      "AlertModuleSiren_ADV",
+      "AlertModuleArmed",
+      "Siren",
+      "Siren_ADV",
+      "PIR2844_ADV",
+      "PIR2844C_ADV",
+      "PIR2844OnOff_ADV"
     ]
   },
   "PIR2844": {
@@ -10101,11 +10575,12 @@
     "label": "PIR2844",
     "name": "Pir2844",
     "dynamic": true,
-    "implements": [
-      "SirenAlert",
+    "equivalents": [
       "PIR2844_ADV"
     ],
-    "extends": "PIR2844_ADV"
+    "implementedBy": [
+      "PIR2844_ADV"
+    ]
   },
   "PIR2844_ADV": {
     "className": "Pir2844Adv",
@@ -10320,9 +10795,13 @@
     "name": "Pir2844Adv",
     "dynamic": true,
     "implements": [
+      "PIR2844",
+      "SirenArm",
       "SirenAlert"
     ],
-    "extends": "SirenAlert"
+    "equivalentTo": [
+      "PIR2844"
+    ]
   },
   "PIR2844C": {
     "className": "Pir2844c",
@@ -10536,11 +11015,12 @@
     "label": "PIR2844C",
     "name": "Pir2844c",
     "dynamic": true,
-    "implements": [
-      "SirenAlert",
+    "equivalents": [
       "PIR2844C_ADV"
     ],
-    "extends": "PIR2844C_ADV"
+    "implementedBy": [
+      "PIR2844C_ADV"
+    ]
   },
   "PIR2844C_ADV": {
     "className": "Pir2844cAdv",
@@ -10755,9 +11235,13 @@
     "name": "Pir2844cAdv",
     "dynamic": true,
     "implements": [
+      "PIR2844C",
+      "SirenArm",
       "SirenAlert"
     ],
-    "extends": "SirenAlert"
+    "equivalentTo": [
+      "PIR2844C"
+    ]
   },
   "PIR2844OnOff": {
     "className": "Pir2844OnOff",
@@ -10902,11 +11386,18 @@
     "label": "PIR2844OnOff",
     "name": "Pir2844OnOff",
     "dynamic": true,
-    "implements": [
-      "SirenAlert",
+    "equivalents": [
       "PIR2844OnOff_ADV"
     ],
-    "extends": "PIR2844OnOff_ADV"
+    "implementedBy": [
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "KeypadRelay",
+      "KeypadRelay_ADV",
+      "PIR2844OnOff_ADV"
+    ]
   },
   "PIR2844OnOff_ADV": {
     "className": "Pir2844OnOffAdv",
@@ -11052,9 +11543,21 @@
     "name": "Pir2844OnOffAdv",
     "dynamic": true,
     "implements": [
+      "PIR2844OnOff",
+      "SirenArm",
       "SirenAlert"
     ],
-    "extends": "SirenAlert"
+    "equivalentTo": [
+      "PIR2844OnOff"
+    ],
+    "implementedBy": [
+      "RelayLampSwitch",
+      "RelayLampSwitch_ADV",
+      "RelayLampSwitchLED",
+      "RelayLampSwitchLED_ADV",
+      "KeypadRelay",
+      "KeypadRelay_ADV"
+    ]
   },
   "I3PaddleFlags": {
     "className": "I3PaddleFlags",
@@ -11512,10 +12015,9 @@
     "label": "I3PaddleFlags",
     "name": "I3PaddleFlags",
     "dynamic": true,
-    "implements": [
-      "SirenAlert"
-    ],
-    "extends": "SirenAlert"
+    "implementedBy": [
+      "I3KeypadFlags"
+    ]
   },
   "I3KeypadFlags": {
     "className": "I3KeypadFlags",
@@ -12092,10 +12594,7 @@
     "name": "I3KeypadFlags",
     "dynamic": true,
     "implements": [
-      "SirenAlert",
-      "I3PaddleFlags",
-      "SirenAlert"
-    ],
-    "extends": "I3PaddleFlags"
+      "I3PaddleFlags"
+    ]
   }
 }

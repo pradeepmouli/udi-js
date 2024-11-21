@@ -1,7 +1,7 @@
 import { Project, SourceFile, ts } from 'ts-morph';
-import { NodeClassDefinition } from '../Model/ClassDefinition.js';
 import { Family } from '../Definitions/index.js';
-import { NodeFactory } from './NodeFactory.js';
+import { NodeClassDefinition } from '../Model/ClassDefinition.js';
+import { CodeFactory } from './NodeFactory.js';
 type GeneratedNodeClass<T extends Family> = {
     family: T;
     name: string;
@@ -10,16 +10,17 @@ type GeneratedNodeClass<T extends Family> = {
     statements: any;
     sourceFile: SourceFile;
 };
-export declare class NodeClassFactory {
+export declare class NodeClassFactory extends CodeFactory {
     static _basePath: string;
     static project: Project;
-    static Factory: NodeFactory;
+    static instance: NodeClassFactory;
     static get basePath(): string;
     static set basePath(value: string);
     static buildNodeClasses<T extends Family>(map: {
         [x: string]: NodeClassDefinition<T>;
     }): GeneratedNodeClass<T>[];
-    static createNodeClass<T extends Family>(nodeClassDef: NodeClassDefinition<T>): {
+    N: any;
+    createNodeClass<T extends Family>(nodeClassDef: NodeClassDefinition<T>): {
         family: T;
         name: string;
         id: string;

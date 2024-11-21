@@ -10,6 +10,7 @@ type Drivers = PulseCounter.Drivers;
 export declare class PulseCounterNode extends Base<Drivers, Commands> implements PulseCounter.Interface {
     readonly commands: {};
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "EM3PulseCounter";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     get status(): number;

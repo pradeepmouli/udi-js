@@ -21,6 +21,7 @@ export declare class ThermostatNode extends Base<Drivers, Commands> implements T
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "Thermostat";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     updateHeatSetpoint(value: number): Promise<any>;

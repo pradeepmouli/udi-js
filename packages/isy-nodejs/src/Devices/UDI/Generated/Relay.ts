@@ -24,21 +24,16 @@ export class RelayNode extends Base<Drivers, Commands> implements Relay.Interfac
 		QUERY: this.query
 	};
 	static override nodeDefId = "EM3Relay";
+	static override implements = ["EM3Relay"];
 	declare readonly nodeDefId: "EM3Relay";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on() {
-		return this.sendCommand("DON");
-	}
-	async off() {
-		return this.sendCommand("DOF");
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
+	async on() { return this.sendCommand("DON"); }
+	async off() { return this.sendCommand("DOF"); }
+	async query() { return this.sendCommand("QUERY"); }
 	public get status(): (0 | 100) {
 		return this.drivers.ST?.value;
 	}
@@ -53,11 +48,9 @@ export namespace Relay {
 	export interface Interface extends Omit<InstanceType<typeof RelayNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "EM3Relay";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is RelayNode {
-		return node.nodeDefId in ["EM3Relay"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is RelayNode { return ["EM3Relay"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayNode {
-		return node.nodeDefId in ["EM3Relay"];
+		return ["EM3Relay"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new RelayNode(isy, nodeInfo);

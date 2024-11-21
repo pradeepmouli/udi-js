@@ -7,7 +7,7 @@ export function family(nodeInfo) {
     }
 }
 export function isDynamic(nodeInfo) {
-    return nodeInfo.family in [Family.ZWave, Family.ZigBee];
+    return [Family.ZWave, Family.ZigBee].includes(nodeInfo.family);
 }
 export function isStatic(nodeInfo) {
     return !isDynamic(nodeInfo);

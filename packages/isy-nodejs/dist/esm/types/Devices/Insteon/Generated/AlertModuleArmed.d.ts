@@ -16,6 +16,7 @@ export declare class AlertModuleArmedNode extends Base<Drivers, Commands> implem
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "AlertModuleArmed";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(): Promise<any>;

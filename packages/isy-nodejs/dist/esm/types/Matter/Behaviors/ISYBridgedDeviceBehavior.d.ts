@@ -16,10 +16,7 @@ export declare class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any
     events: ISYBridgedDeviceBehavior.Events & ISYBridgedDeviceBehavior.EventsFor<N["drivers"]>;
     initialize(_options?: {}): Promise<void>;
     get device(): ISYNode<any, any, any, any>;
-    get map(): {
-        deviceType: any;
-        mapping: import("../../Model/ClusterMap.js").EndpointMapping<any, ISYNode<any, any, any, any>>;
-    };
+    get map(): DeviceToClusterMap<ISYNode<any, any, any, any>, any>;
     mapForBehavior<B extends ClusterBehavior>(behavior: B): BehaviorMapping<B, typeof this.internal.device>;
     handlePropertyChange(driver: string, newValue: any, oldValue: any, formattedValue: string): void;
     [Symbol.asyncDispose](): import("@project-chip/matter.js/util").MaybePromise;

@@ -21,50 +21,25 @@ export class DimmerSwitchNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "119";
+    static implements = ["119"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
-    async on(value, rampRate) {
-        return this.sendCommand("DON", { value: value, RR: rampRate });
-    }
-    async off() {
-        return this.sendCommand("DOF");
-    }
-    async fastOn() {
-        return this.sendCommand("DFON");
-    }
-    async fastOff() {
-        return this.sendCommand("DFOF");
-    }
-    async brighten() {
-        return this.sendCommand("BRT");
-    }
-    async dim() {
-        return this.sendCommand("DIM");
-    }
-    async fadeUp(startLevel, rampRate) {
-        return this.sendCommand("FDUP", { STARTLEVEL: startLevel, RR: rampRate });
-    }
-    async fadeDown(startLevel, rampRate) {
-        return this.sendCommand("FDDOWN", { STARTLEVEL: startLevel, RR: rampRate });
-    }
-    async fade(direction, startLevel, rampRate, direction2, fadeRate2) {
-        return this.sendCommand("FADE", { DIR: direction, STARTLEVEL: startLevel, RR: rampRate, DIR2: direction2, STEP2: fadeRate2 });
-    }
-    async fadeStop() {
-        return this.sendCommand("FDSTOP");
-    }
-    async query() {
-        return this.sendCommand("QUERY");
-    }
-    async setConfiguration(parameterNumber, parameterValue) {
-        return this.sendCommand("CONFIG", { NUM: parameterNumber, VAL: parameterValue });
-    }
-    async writeChanges() {
-        return this.sendCommand("WDU");
-    }
+    async on(value, rampRate) { return this.sendCommand("DON", { value: value, RR: rampRate }); }
+    async off() { return this.sendCommand("DOF"); }
+    async fastOn() { return this.sendCommand("DFON"); }
+    async fastOff() { return this.sendCommand("DFOF"); }
+    async brighten() { return this.sendCommand("BRT"); }
+    async dim() { return this.sendCommand("DIM"); }
+    async fadeUp(startLevel, rampRate) { return this.sendCommand("FDUP", { STARTLEVEL: startLevel, RR: rampRate }); }
+    async fadeDown(startLevel, rampRate) { return this.sendCommand("FDDOWN", { STARTLEVEL: startLevel, RR: rampRate }); }
+    async fade(direction, startLevel, rampRate, direction2, fadeRate2) { return this.sendCommand("FADE", { DIR: direction, STARTLEVEL: startLevel, RR: rampRate, DIR2: direction2, STEP2: fadeRate2 }); }
+    async fadeStop() { return this.sendCommand("FDSTOP"); }
+    async query() { return this.sendCommand("QUERY"); }
+    async setConfiguration(parameterNumber, parameterValue) { return this.sendCommand("CONFIG", { NUM: parameterNumber, VAL: parameterValue }); }
+    async writeChanges() { return this.sendCommand("WDU"); }
     get status() {
         return this.drivers.ST?.value;
     }
@@ -75,12 +50,10 @@ export class DimmerSwitchNode extends Base {
 NodeFactory.register(DimmerSwitchNode);
 export var DimmerSwitch;
 (function (DimmerSwitch) {
-    function is(node) {
-        return node.nodeDefId in ["119"];
-    }
+    function is(node) { return ["119"].includes(node.nodeDefId); }
     DimmerSwitch.is = is;
     function isImplementedBy(node) {
-        return node.nodeDefId in ["119"];
+        return ["119"].includes(node.nodeDefId);
     }
     DimmerSwitch.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

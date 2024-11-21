@@ -1,12 +1,9 @@
-import { OnOffLightDevice } from '@project-chip/matter.js/devices/OnOffLightDevice';
 import { Family } from '../../Definitions/Global/Families.js';
 import { MappingRegistry } from '../../Model/ClusterMap.js';
-//import InsteonMap from "./Insteon.json";
-import { DimmableLightDevice } from '@project-chip/matter.js/devices/DimmableLightDevice';
-import { OnOffLightSwitchDevice } from '@matter/node/devices';
+import { OnOffLightDevice, DimmableLightDevice } from '@matter/node/devices';
 const map = {
     Family: Family.Insteon,
-    Relay: {
+    RelayLamp: {
         deviceType: OnOffLightDevice,
         mapping: {
             OnOff: {
@@ -17,8 +14,8 @@ const map = {
             }
         }
     },
-    RelaySwitch: {
-        deviceType: OnOffLightSwitchDevice,
+    RelayLampSwitch: {
+        deviceType: OnOffLightDevice,
         mapping: {
             OnOff: {
                 attributes: {
@@ -26,9 +23,31 @@ const map = {
                 },
                 commands: { on: 'DON' }
             }
+        },
+    },
+    DimmerLamp: {
+        deviceType: DimmableLightDevice,
+        // @ts-ignore
+        mapping: {
+            // @ts-ignore
+            OnOff: {
+                attributes: {
+                    onOff: { driver: 'ST', converter: 'LevelFrom0To255.Boolean' }
+                },
+                commands: { on: 'DON' }
+            },
+            LevelControl: {
+                // @ts-ignore
+                attributes: {
+                    currentLevel: { driver: 'ST', converter: 'LevelFrom0To255.LightingLevel' },
+                    startUpCurrentLevel: { driver: 'OL', converter: 'LevelFrom0To255.LightingLevel' },
+                    onLevel: { driver: 'OL', converter: 'LevelFrom0To255.LightingLevel' }
+                },
+                commands: { setLevel: { command: 'DON' } }
+            }
         }
     },
-    Dimmer: {
+    DimmerLampSwitch: {
         deviceType: DimmableLightDevice,
         // @ts-ignore
         mapping: {
@@ -51,7 +70,5 @@ const map = {
         }
     }
 };
-map.KeypadDimmer = map.Dimmer;
-map.DimmerSwitch = map.Dimmer;
 MappingRegistry.register(map);
 //# sourceMappingURL=Insteon.js.map

@@ -10,6 +10,7 @@ type Drivers = OnOffControl.Drivers;
 export declare class OnOffControlNode extends Base<Drivers, Commands> implements OnOffControl.Interface {
     readonly commands: {};
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "OnOffControl" | "OnOffControl_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     get status(): Insteon.OnLevelRelay | Insteon.OnLevelRelay;

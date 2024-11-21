@@ -14,6 +14,7 @@ export declare class DoorLockNode extends Base<Drivers, Commands> implements Doo
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "DoorLock";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     lock(): Promise<any>;

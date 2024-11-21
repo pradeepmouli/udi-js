@@ -22,6 +22,7 @@ export class MainNode extends Base<Drivers, Commands> implements Main.Interface 
 		QUERY: this.query
 	};
 	static override nodeDefId = "EM3Main";
+	static override implements = ["EM3Main"];
 	declare readonly nodeDefId: "EM3Main";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -29,9 +30,7 @@ export class MainNode extends Base<Drivers, Commands> implements Main.Interface 
 		this.drivers.TPW = Driver.create("TPW", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.KilowattsPerHour, label: "Total Energy", name: "totalEnergy" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
+	async query() { return this.sendCommand("QUERY"); }
 	public get status(): number {
 		return this.drivers.ST?.value;
 	}
@@ -49,11 +48,9 @@ export namespace Main {
 	export interface Interface extends Omit<InstanceType<typeof MainNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "EM3Main";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is MainNode {
-		return node.nodeDefId in ["EM3Main"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is MainNode { return ["EM3Main"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is MainNode {
-		return node.nodeDefId in ["EM3Main"];
+		return ["EM3Main"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new MainNode(isy, nodeInfo);

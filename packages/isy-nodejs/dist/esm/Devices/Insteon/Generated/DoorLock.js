@@ -11,20 +11,15 @@ export class DoorLockNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "DoorLock";
+    static implements = ["DoorLock", "SirenAlert", "SirenArm"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
-    async lock() {
-        return this.sendCommand("DON");
-    }
-    async unlock() {
-        return this.sendCommand("DOF");
-    }
-    async writeChanges() {
-        return this.sendCommand("WDU");
-    }
+    async lock() { return this.sendCommand("DON"); }
+    async unlock() { return this.sendCommand("DOF"); }
+    async writeChanges() { return this.sendCommand("WDU"); }
     get status() {
         return this.drivers.ST?.value;
     }
@@ -35,12 +30,10 @@ export class DoorLockNode extends Base {
 NodeFactory.register(DoorLockNode);
 export var DoorLock;
 (function (DoorLock) {
-    function is(node) {
-        return node.nodeDefId in ["DoorLock"];
-    }
+    function is(node) { return ["DoorLock"].includes(node.nodeDefId); }
     DoorLock.is = is;
     function isImplementedBy(node) {
-        return node.nodeDefId in ["DoorLock", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor"];
+        return ["DoorLock", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor"].includes(node.nodeDefId);
     }
     DoorLock.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

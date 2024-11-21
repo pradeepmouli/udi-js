@@ -12,6 +12,7 @@ export declare class EzrainInputNode extends Base<Drivers, Commands> implements 
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "EZRAIN_Input" | "EZRAIN_Input_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     writeChanges(): Promise<any>;

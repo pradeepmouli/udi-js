@@ -25,24 +25,17 @@ export class RelayNode extends Base<Drivers, Commands> implements Relay.Interfac
 		ADRPST: this.adr
 	};
 	static override nodeDefId = "NCDRelay";
+	static override implements = ["NCDRelay"];
 	declare readonly nodeDefId: "NCDRelay";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on() {
-		return this.sendCommand("DON");
-	}
-	async off() {
-		return this.sendCommand("DOF");
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async adr(value: (0 | 1)) {
-		return this.sendCommand("ADRPST", { value: value });
-	}
+	async on() { return this.sendCommand("DON"); }
+	async off() { return this.sendCommand("DOF"); }
+	async query() { return this.sendCommand("QUERY"); }
+	async adr(value: (0 | 1)) { return this.sendCommand("ADRPST", { value: value }); }
 	public get status(): (0 | 100) {
 		return this.drivers.ST?.value;
 	}
@@ -57,11 +50,9 @@ export namespace Relay {
 	export interface Interface extends Omit<InstanceType<typeof RelayNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "NCDRelay";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is RelayNode {
-		return node.nodeDefId in ["NCDRelay"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is RelayNode { return ["NCDRelay"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayNode {
-		return node.nodeDefId in ["NCDRelay"];
+		return ["NCDRelay"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new RelayNode(isy, nodeInfo);

@@ -14,6 +14,7 @@ export declare class LoadShedNode extends Base<Drivers, Commands> implements Loa
         QUERY: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "LUTLoadShed";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: (0 | 100)): Promise<any>;

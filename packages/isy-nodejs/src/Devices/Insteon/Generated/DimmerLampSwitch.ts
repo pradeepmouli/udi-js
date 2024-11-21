@@ -36,6 +36,7 @@ export class DimmerLampSwitchNode extends Base<Drivers, Commands> implements Dim
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "DimmerLampSwitch";
+	static override implements = ["DimmerLampSwitch", "DimmerSwitchOnly", "DimmerSwitchOnly_ADV", "DimmerLampOnly", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "DimmerLampSwitch" | "DimmerLampSwitch_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -44,51 +45,21 @@ export class DimmerLampSwitchNode extends Base<Drivers, Commands> implements Dim
 		this.drivers.RR = Driver.create("RR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Ramp Rate", name: "rampRate" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: number) {
-		return this.sendCommand("DON", { value: value });
-	}
-	async off() {
-		return this.sendCommand("DOF");
-	}
-	async fastOff() {
-		return this.sendCommand("DFOF");
-	}
-	async fastOn() {
-		return this.sendCommand("DFON");
-	}
-	async brighten() {
-		return this.sendCommand("BRT");
-	}
-	async dim() {
-		return this.sendCommand("DIM");
-	}
-	async fadeUp() {
-		return this.sendCommand("FDUP");
-	}
-	async fadeDown() {
-		return this.sendCommand("FDDOWN");
-	}
-	async fadeStop() {
-		return this.sendCommand("FDSTOP");
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async beep(value?: number) {
-		return this.sendCommand("BEEP", { value: value });
-	}
-	async updateOnLevel(value: number) {
-		return this.sendCommand("OL", { value: value });
-	}
-	async updateRampRate(value: Insteon.RampRate) {
-		return this.sendCommand("RR", { value: value });
-	}
-	async backlight(value: number) {
-		return this.sendCommand("BL", { value: value });
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async on(value?: number) { return this.sendCommand("DON", { value: value }); }
+	async off() { return this.sendCommand("DOF"); }
+	async fastOff() { return this.sendCommand("DFOF"); }
+	async fastOn() { return this.sendCommand("DFON"); }
+	async brighten() { return this.sendCommand("BRT"); }
+	async dim() { return this.sendCommand("DIM"); }
+	async fadeUp() { return this.sendCommand("FDUP"); }
+	async fadeDown() { return this.sendCommand("FDDOWN"); }
+	async fadeStop() { return this.sendCommand("FDSTOP"); }
+	async query() { return this.sendCommand("QUERY"); }
+	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
+	async updateOnLevel(value: number) { return this.sendCommand("OL", { value: value }); }
+	async updateRampRate(value: Insteon.RampRate) { return this.sendCommand("RR", { value: value }); }
+	async backlight(value: number) { return this.sendCommand("BL", { value: value }); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): number {
 		return this.drivers.ST?.value;
 	}
@@ -110,11 +81,9 @@ export namespace DimmerLampSwitch {
 	export interface Interface extends Omit<InstanceType<typeof DimmerLampSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "DimmerLampSwitch" | "DimmerLampSwitch_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is DimmerLampSwitchNode {
-		return node.nodeDefId in ["DimmerLampSwitch", "DimmerLampSwitch_ADV"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is DimmerLampSwitchNode { return ["DimmerLampSwitch", "DimmerLampSwitch_ADV"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerLampSwitchNode {
-		return node.nodeDefId in ["DimmerLampSwitch", "DimmerLampSwitch_ADV"];
+		return ["DimmerLampSwitch", "DimmerLampSwitch_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new DimmerLampSwitchNode(isy, nodeInfo);

@@ -131,7 +131,7 @@ export function family<F extends Family>(nodeInfo: NodeInfo<any>): nodeInfo is N
 }
 
 export function isDynamic(nodeInfo: NodeInfo<any>): nodeInfo is DynamicNodeInfo {
-	return nodeInfo.family in [Family.ZWave, Family.ZigBee];
+	return [Family.ZWave, Family.ZigBee].includes(nodeInfo.family);
 }
 
 export function isStatic(nodeInfo: NodeInfo<any>): nodeInfo is StaticNodeInfo {

@@ -14,6 +14,7 @@ export class ISYNode {
     nodeDefId;
     static family;
     static nodeDefId = 'Unknown';
+    static implements = [];
     baseName;
     commands;
     //public readonly formatted: DriverValues<keyof D,string> = {};

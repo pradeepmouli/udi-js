@@ -450,7 +450,7 @@
     "family": 12,
     "label": "Dimmer Switch",
     "name": "DimmerSwitch",
-    "dynamic": false
+    "dynamic": true
   },
   "186": {
     "className": "ColorSwitch",
@@ -770,6 +770,6 @@
     "family": 12,
     "label": "Color Switch",
     "name": "ColorSwitch",
-    "dynamic": false
+    "dynamic": true
   }
 }

@@ -1,10 +1,7 @@
-
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import type { Endpoint, EndpointType, MutableEndpoint } from '@project-chip/matter.js/endpoint';
 import type { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
-import 'winston'
-
-
+import 'winston';
 
 // export const ISYBinaryStateDevice = <K extends Family,D extends DriverSignatures, T extends Constructor<ISYDeviceNode<K,Driver.ToSignatures<'ST'>,any,any>>>(Base: T) => {
 // 	return class extends Base implements ISYBinaryStateDevice{
@@ -39,23 +36,18 @@ import 'winston'
 // 	};
 // };
 
-export interface ISYBinaryStateDevice
-{
-  get state(): Promise<boolean>;
-
+export interface ISYBinaryStateDevice {
+	get state(): Promise<boolean>;
 }
 
-export interface ISYLevelDevice
-{
+export interface ISYLevelDevice {
 	get level(): number;
 }
-
 
 // export const ISYUpdateableBinaryStateDevice = <K extends Family, T extends Constructor<ISYDeviceNode<K,any,any,string>>>(
 // 	Base: T
 // ) => {
 // 	return class extends Base implements ISYDevice<K,Driver.ToSignatures<'ST'>, any & {'DON': (...args) => boolean, 'DOF': (...args) => boolean}> {
-
 
 // 		get state(): Promise<boolean> {
 // 			return Promise.resolve(this.drivers > 0);
@@ -88,54 +80,13 @@ export interface ISYLevelDevice
 // 	};
 // };
 
-
-export interface MapsToEndpointType<T extends EndpointType>  {
+export interface MapsToEndpointType<T extends EndpointType> {
 	initialize(endpoint: Endpoint<T>): void;
-
 }
 
 type BehaviorList<T extends ClusterBehavior> = SupportedBehaviors & T;
 
-export interface MapsToEndpoint<T extends ClusterBehavior>
-{//@ts-ignore
-	initialize<K extends MutableEndpoint.With<EndpointType.Empty,BehaviorList<T>>>(endpoint: Endpoint<K>): void;
-
+export interface MapsToEndpoint<T extends ClusterBehavior> {
+	//@ts-ignore
+	initialize<K extends MutableEndpoint.With<EndpointType.Empty, BehaviorList<T>>>(endpoint: Endpoint<K>): void;
 }
-
-// export const ISYLevelDevice = <T extends Constructor<ISYDeviceNode<any,any,any,any>>>(base: T) =>
-// 	class extends base {
-// 		get level(): number {
-// 			return super.drivers.ST?.value;
-// 		}
-// 	};
-
-// tslint:disable-next-line: variable-name
-
-// export const ISYUpdateableLevelDevice = <T extends Constructor<ISYDeviceNode<any,any,any>>>(base: T) =>
-// 	class extends base {
-// 		get level(): number {
-// 			return this.local.ST;
-// 		}
-
-// 		public async updateLevel(level: number): Promise<any> {
-// 			if (level != this.local.ST && level !== (this.pending.ST ?? this.local.ST)) {
-
-// 				this.pending.ST = level;
-// 				if (level > 0) {
-// 					return this.sendCommand(
-// 						Commands.On,
-// 						this.convertTo(level, this.uom.ST)
-// 					).then((p) => {
-// 						//this.local.ST = this.pending.ST; *Wait to receive propertu update from subscription
-// 						this.pending.ST = null;
-// 					});
-// 				} else {
-// 					return this.sendCommand(Commands.Off).then((p) => {
-// 						//this.local.ST = this.pending.ST; *Wait to receive propertu update from subscription
-// 						this.pending.ST = null;
-// 					});
-// 				}
-// 			}
-// 			return Promise.resolve();
-// 		}
-// 	};

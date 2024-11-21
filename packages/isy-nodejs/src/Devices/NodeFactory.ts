@@ -4,33 +4,86 @@ import  { ISYNode } from '../ISYNode.js';
 import type { NodeDef } from '../Model/NodeDef.js';
 import { isDynamic, type NodeInfo } from '../Model/NodeInfo.js';
 import type { Constructor } from './Constructor.js';
-import type { IdentityOf } from '../Utils.js';
-import { Family } from '../Definitions/index.js';
+import type { IdentityOf, StringKeys } from '../Utils.js';
+import { Family, type EnumLiteral } from '../Definitions/index.js';
 
 
 
 export namespace NodeFactory {
 	export const registry: NodeClassRegistry = {};
 
+	export type NodeClass<T extends Family | keyof typeof Family> = T extends Family? typeof ISYNode<T, any, any, any> : T extends keyof typeof Family ? typeof ISYNode<typeof Family[T] , any, any, any> : never;
+
+	export const implementsRegistry: {[x in StringKeys<typeof Family>]?: {[x: string]: string[]}} = {};
+
+	export function register<F extends keyof typeof Family>(nodeClass: NodeClass<F>, id: string = nodeClass.nodeDefId) {
+		//let s; //FamilyNodeClassRegistry<(typeof Family)[F]>;
+		let f = Family[nodeClass.family];
+		let s = (registry[f] ?? (registry[f] = {})) as FamilyNodeClassRegistry<any>;
+		s[id] = nodeClass;
+		if (!implementsRegistry[f]) {
+			implementsRegistry[f] = {};
+		}
+		implementsRegistry[f][id] = nodeClass.implements;
 
 
-
-	export function register<F extends keyof typeof Family>(nodeClass: typeof ISYNode<(typeof Family)[F], any, any, any>, id: string = nodeClass.nodeDefId) {
-		let s: FamilyNodeClassRegistry<(typeof Family)[F]>;
-
-		s = registry[Family[nodeClass.family]] ?? (registry[nodeClass.family] = new Map());
-		s.set(nodeClass.nodeDefId, nodeClass);
 	}
 
-	export function getForNodeDefId<F extends keyof typeof Family>(family: F, nodeDefId: string): Constructor<ISYNode<(typeof Family)[F], any, any, any>> {
-		return registry[family]?.get(nodeDefId);
+
+	function compare(a: typeof ISYNode<any, any, any, any>, b: typeof ISYNode<any, any, any, any>)
+	{
+		if(a.nodeDefId === b.nodeDefId)
+		{
+			return 0;
+		}
+		if(a.implements.includes(b.nodeDefId))
+			return 1;
+		if(b.implements.includes(a.nodeDefId))
+			return -1;
+		return a.nodeDefId.localeCompare(b.nodeDefId);
 	}
 
-	export function getForNLSId<F extends keyof typeof Family>(family: F, nodeDefId: string): Constructor<ISYNode<(typeof Family)[F], any, any, any>> {
-		return registry[family].get(nodeDefId);
+	export function sortImplementsRegistry()
+	{
+		for (let f in implementsRegistry) {
+			let reg = implementsRegistry[f];
+			for (let e in reg) {
+
+				reg[e] = reg[e].sort((a,b) => compare(getForNodeDefId(f as keyof typeof Family, a), getForNodeDefId(f as keyof typeof Family, b)));
+			}
+		}
 	}
 
-	export async function get<F extends keyof typeof Family>(node: NodeInfo<typeof Family[F]>, isy: ISY = ISY.instance): Promise<Constructor<ISYNode<typeof Family[F], any, any, any>>> {
+	export function getImplements<F extends keyof typeof Family, T extends ISYNode<typeof Family[F],any,any,any>>(node: T) {
+		return implementsRegistry[Family[node.family] as F][node.nodeDefId];
+	}
+
+	export function getForNode<F extends keyof typeof Family>(family: F, node: NodeInfo<typeof Family[F]>): NodeClass<F> {
+		if(isDynamic(node))
+		{
+			return getForNodeDefId(family, node.sgid);
+		}
+		return getForNodeDefId(family, node.nodeDefId);
+	}
+
+
+
+	export function getForNodeDefId<F extends keyof typeof Family | Family>(family: F, nodeDefId: string): NodeClass<F> {
+		if(typeof family === "string")
+		{
+			return registry[family as keyof typeof Family][nodeDefId] as NodeClass<F>;
+		}
+		else if(typeof family === "number")
+		{
+			return registry[Family[family] as keyof typeof Family][nodeDefId] as NodeClass<F>;
+		}
+
+	}
+
+
+
+
+	export async function get<F extends keyof typeof Family>(node: NodeInfo<typeof Family[F]>, isy: ISY = ISY.instance): Promise<typeof ISYNode<typeof Family[F], any, any, any>> {
 		if (!isDynamic(node))
 		{
 			return Promise.resolve(getForNodeDefId(Family[node.family] as F, node.nodeDefId));
@@ -63,6 +116,7 @@ export namespace NodeFactory {
 		}
 	}
 }
-export type FamilyNodeClassRegistry<T extends Family> = Map<string, Constructor<ISYNode<T,any,any,any>>>;
+export type FamilyNodeClassRegistry<T extends Family> = {[x:string]:NodeFactory.NodeClass<T>};
 
-export type NodeClassRegistry = { [x in Extract<keyof typeof Family,string>]?: FamilyNodeClassRegistry<typeof Family[x]>};
+
+type NodeClassRegistry = { [x in Extract<keyof typeof Family,string>]?: FamilyNodeClassRegistry<typeof Family[x]>};

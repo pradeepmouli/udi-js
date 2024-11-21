@@ -24,6 +24,7 @@ export declare class DimmerSwitchNode extends Base<Drivers, Commands> implements
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "119";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: ZWave.PercentOpt | number, rampRate?: number | number): Promise<any>;

@@ -13,6 +13,7 @@ export class ColorSwitchNode extends Base {
         QUERY: this.query
     };
     static nodeDefId = "186";
+    static implements = ["186"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.GV0 = Driver.create("GV0", this, nodeInfo.property, { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Warm White", name: "warmWhite" });
@@ -20,21 +21,11 @@ export class ColorSwitchNode extends Base {
         this.drivers.GV3 = Driver.create("GV3", this, nodeInfo.property, { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Green", name: "green" });
         this.drivers.GV4 = Driver.create("GV4", this, nodeInfo.property, { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Blue", name: "blue" });
     }
-    async set(warmWhite, red, green, blue, duration) {
-        return this.sendCommand("DON", { GV0: warmWhite, GV2: red, GV3: green, GV4: blue, RR: duration });
-    }
-    async fadeUp(component, startLevel, duration) {
-        return this.sendCommand("FDUP", { ID: component, STARTLEVEL: startLevel, RR: duration });
-    }
-    async fadeDown(component, startLevel, duration) {
-        return this.sendCommand("FDDOWN", { ID: component, STARTLEVEL: startLevel, RR: duration });
-    }
-    async fadeStop(component) {
-        return this.sendCommand("FDSTOP", { ID: component });
-    }
-    async query() {
-        return this.sendCommand("QUERY");
-    }
+    async set(warmWhite, red, green, blue, duration) { return this.sendCommand("DON", { GV0: warmWhite, GV2: red, GV3: green, GV4: blue, RR: duration }); }
+    async fadeUp(component, startLevel, duration) { return this.sendCommand("FDUP", { ID: component, STARTLEVEL: startLevel, RR: duration }); }
+    async fadeDown(component, startLevel, duration) { return this.sendCommand("FDDOWN", { ID: component, STARTLEVEL: startLevel, RR: duration }); }
+    async fadeStop(component) { return this.sendCommand("FDSTOP", { ID: component }); }
+    async query() { return this.sendCommand("QUERY"); }
     get warmWhite() {
         return this.drivers.GV0?.value;
     }
@@ -51,12 +42,10 @@ export class ColorSwitchNode extends Base {
 NodeFactory.register(ColorSwitchNode);
 export var ColorSwitch;
 (function (ColorSwitch) {
-    function is(node) {
-        return node.nodeDefId in ["186"];
-    }
+    function is(node) { return ["186"].includes(node.nodeDefId); }
     ColorSwitch.is = is;
     function isImplementedBy(node) {
-        return node.nodeDefId in ["186"];
+        return ["186"].includes(node.nodeDefId);
     }
     ColorSwitch.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

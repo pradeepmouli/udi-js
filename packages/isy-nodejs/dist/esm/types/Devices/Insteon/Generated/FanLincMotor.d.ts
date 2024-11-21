@@ -18,6 +18,7 @@ export declare class FanLincMotorNode extends Base<Drivers, Commands> implements
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "FanLincMotor";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value: Insteon.FanLevel): Promise<any>;

@@ -365,6 +365,7 @@ export namespace Driver {
 		};
 	};
 
+	
 	export type For<D extends string, T, S extends boolean = false> = T extends Signature<infer U, infer V, infer SU, infer N, infer L> ? StatelessOrStateful<D, U, V, N, L, S> : never;
 
 	export type ForAll<T, S extends boolean = false> = {

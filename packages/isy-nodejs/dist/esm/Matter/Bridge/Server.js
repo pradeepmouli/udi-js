@@ -1,11 +1,8 @@
 import { Endpoint, EndpointServer, Environment, ServerNode, StorageService, VendorId } from '@matter/main';
 import { StorageBackendDisk } from '@project-chip/matter-node.js/storage';
-import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
 import { logEndpoint } from '@matter/main/protocol';
-import { DimmableLightDevice, OnOffLightDevice } from '@matter/main/devices';
 import { AggregatorEndpoint } from '@matter/main/endpoints/aggregator';
 import { LogLevel, logLevelFromString, Logger as MatterLogger } from '@matter/general';
-import { Devices } from '../../Devices/index.js';
 //@ts-ignore
 import PackageJson from '@project-chip/matter.js/package.json' with { type: 'json' };
 import { QrCode } from '@project-chip/matter.js/schema';
@@ -13,17 +10,18 @@ import path from 'path';
 import { format, loggers } from 'winston';
 import { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 import { ISY } from '../../ISY.js';
-import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
 import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
 import '../Mappings/Insteon.js';
-import { InsteonBaseDevice } from '../../Devices/Insteon/InsteonBaseDevice.js';
+import { MappingRegistry } from '../../Model/ClusterMap.js';
 import { DimmerLamp } from '../../Devices/Insteon/Generated/DimmerLamp.js';
+import { RelayLamp } from '../../Devices/Insteon/index.js';
 // #region Interfaces (1)
 export let instance;
 //@ts-ignore
 export let version = PackageJson.version;
 // #endregion Interfaces (1)
 // #region Functions (3)
+let t;
 export function create(isy, config) {
     return createMatterServer(isy, config);
 }
@@ -130,7 +128,7 @@ export async function createMatterServer(isy, config) {
             uniqueId: config.uniqueId
         }
     });
-    logger.info(`Bridge Server Added`);
+    logger.info(`Bridge server added`);
     /**
      * Matter Nodes are a composition of endpoints. Create and add a single multiple endpoint to the node to make it a
      * composed device. This example uses the OnOffLightDevice or OnOffPlugInUnitDevice depending on the value of the type
@@ -142,62 +140,71 @@ export async function createMatterServer(isy, config) {
      */
     const aggregator = new Endpoint(AggregatorEndpoint, { id: 'aggregator' });
     await server.add(aggregator);
-    logger.info(`Bridge Aggregator Added`);
+    logger.info(`Bridge aggregator added`);
+    let endpoints = 0;
     for (const node of isy.nodeMap.values()) {
         let device = node;
-        let deviceOptions = getDeviceOptions(node, config.DeviceOptions);
-        if (deviceOptions?.label) {
-            device.label = deviceOptions.label;
-        }
-        if (deviceOptions?.exclude) {
-            continue;
-        }
-        let serialNumber = `${device.address.replaceAll(' ', '_').replaceAll('.', '_')}`;
-        if (device.enabled) {
-            //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
-            //@ts-ignore
-            let baseBehavior; /*typeof (DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior)) | typeof (OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior));*/
-            if (DimmerLamp.isImplementedBy(device)) {
-                baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior);
-                // if(device instanceof InsteonSwitchDevice)
-                // {
-                //     baseBehavior = DimmerSwitchDevice.with(BridgedDeviceBasicInformationServer);
-                // }
+        try {
+            let deviceOptions = getDeviceOptions(node, config.DeviceOptions);
+            if (deviceOptions?.label) {
+                device.label = deviceOptions.label;
             }
-            else if (device instanceof Devices.Insteon.Relay || device instanceof Devices.Insteon.RelaySwitch) {
-                baseBehavior = OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior);
-                // if(device instanceof InsteonSwitchDevice)
-                // {
-                //     baseBehavior = OnOffLightSwitchDevice.with(BridgedDeviceBasicInformationServer);
-                // }
+            if (deviceOptions?.exclude) {
+                continue;
             }
-            if (baseBehavior !== undefined) {
+            let serialNumber = `${device.address.replaceAll(' ', '_').replaceAll('.', '_')}`;
+            if (device.enabled) {
+                //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
                 //@ts-ignore
-                const endpoint = new Endpoint(baseBehavior, {
-                    id: serialNumber,
-                    isyNode: {
-                        address: device.address
-                    },
-                    bridgedDeviceBasicInformation: {
-                        nodeLabel: device.label.rightWithToken(32),
-                        vendorName: device instanceof InsteonBaseDevice ? device.vendorName : isy.vendorName,
-                        vendorId: VendorId(config.vendorId),
-                        productName: device.productName.leftWithToken(32),
-                        productLabel: device.model.leftWithToken(64),
-                        hardwareVersion: Number(device.version),
-                        hardwareVersionString: `v.${device.version}`,
-                        softwareVersion: Number(device.version),
-                        softwareVersionString: `v.${device.version}`,
-                        serialNumber: serialNumber,
-                        reachable: true,
-                        uniqueId: device.address
-                    }
-                });
-                await aggregator.add(endpoint);
-                logger.info(`Endpoint Added ${JSON.stringify(endpoint.id)} for ${device.label} (${device.address})`);
-                //endpoints.push({0:endpoint,1:device});
+                //of (DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior)) | typeof (OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior));*/
+                let deviceType = MappingRegistry.getMapping(device)?.deviceType;
+                let baseBehavior = deviceType;
+                if (DimmerLamp.isImplementedBy(device)) {
+                    baseBehavior = deviceType?.with(ISYOnOffBehavior, ISYDimmableBehavior);
+                    // if(device instanceof InsteonSwitchDevice)
+                    // {
+                    //     baseBehavior = DimmerSwitchDevice.with(BridgedDeviceBasicInformationServer);
+                }
+                else if (RelayLamp.isImplementedBy(device)) {
+                    baseBehavior = deviceType?.with(ISYOnOffBehavior);
+                    // if(device instanceof InsteonSwitchDevice)
+                    // {
+                    //     baseBehavior = OnOffLightSwitchDevice.with(BridgedDeviceBasicInformationServer);
+                    // }
+                }
+                if (baseBehavior !== undefined) {
+                    logger.info(`Device ${device.label} (${device.address}) with NodeDefId = ${device.nodeDefId} mapped to ${deviceType.name}`);
+                    //@ts-ignore
+                    const endpoint = new Endpoint(baseBehavior, {
+                        id: serialNumber,
+                        isyNode: {
+                            address: device.address
+                        },
+                        bridgedDeviceBasicInformation: {
+                            nodeLabel: device.label.rightWithToken(32),
+                            vendorName: device instanceof ISYDeviceNode ? device.manufacturer : isy.vendorName,
+                            vendorId: VendorId(config.vendorId),
+                            productName: device.productName.leftWithToken(32),
+                            productLabel: device.model.leftWithToken(64),
+                            hardwareVersion: Number(device.version),
+                            hardwareVersionString: `v.${device.version}`,
+                            softwareVersion: Number(device.version),
+                            softwareVersionString: `v.${device.version}`,
+                            serialNumber: serialNumber,
+                            reachable: true,
+                            uniqueId: device.address
+                        }
+                    });
+                    await aggregator.add(endpoint);
+                    logger.info(`Endpoint added ${JSON.stringify(endpoint.id)} for ${device.label} (${device.address})`);
+                    endpoints++;
+                    //endpoints.push({0:endpoint,1:device});
+                }
+                //endpoint.lifecycle.ready.on(()=> device.initialize(endpoint as any));
             }
-            //endpoint.lifecycle.ready.on(()=> device.initialize(endpoint as any));
+        }
+        catch (e) {
+            logger.error(`Error adding endpoint for ${device.label} (${device.address}): ${e.message}`);
         }
         /**
          * Register state change handlers and events of the endpoint for identify and onoff states to react to the commands.
@@ -206,6 +213,7 @@ export async function createMatterServer(isy, config) {
          * reported back to the controller.
          */
     }
+    logger.info(`${endpoints} endpoints added to bridge.`);
     /**
      * In order to start the node and announce it into the network we use the run method which resolves when the node goes
      * offline again because we do not need anything more here. See the Full example for other starting options.

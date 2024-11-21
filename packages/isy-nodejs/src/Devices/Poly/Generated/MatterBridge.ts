@@ -25,23 +25,16 @@ export class MatterBridgeNode extends Base<Drivers, Commands> implements MatterB
 		STOP_BRIDGE: this.stopBridge
 	};
 	static override nodeDefId = "CONTROLLER";
+	static override implements = ["CONTROLLER"];
 	declare readonly nodeDefId: "CONTROLLER";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Unknown, label: "Status", name: "status" });
 	}
-	async discover() {
-		return this.sendCommand("DISCOVER");
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async startBridge() {
-		return this.sendCommand("START_BRIDGE");
-	}
-	async stopBridge() {
-		return this.sendCommand("STOP_BRIDGE");
-	}
+	async discover() { return this.sendCommand("DISCOVER"); }
+	async query() { return this.sendCommand("QUERY"); }
+	async startBridge() { return this.sendCommand("START_BRIDGE"); }
+	async stopBridge() { return this.sendCommand("STOP_BRIDGE"); }
 	public get status(): {
         
 return this.drivers.ST?.value;
@@ -54,11 +47,9 @@ export namespace MatterBridge {
 	export interface Interface extends Omit<InstanceType<typeof MatterBridgeNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "CONTROLLER";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is MatterBridgeNode {
-		return node.nodeDefId in ["CONTROLLER"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is MatterBridgeNode { return ["CONTROLLER"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is MatterBridgeNode {
-		return node.nodeDefId in ["CONTROLLER"];
+		return ["CONTROLLER"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new MatterBridgeNode(isy, nodeInfo);

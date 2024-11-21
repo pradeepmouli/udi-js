@@ -4,7 +4,6 @@ export class ISYDeviceNode extends ISYNode {
     deviceClass;
     category;
     subCategory;
-    declare;
     //public readonly isDimmable: boolean;
     //public _parentDevice: ISYDeviceNode<T, any, any, any>;
     //public readonly children: Array<ISYDeviceNode<T, any, any, any>> = [];
@@ -21,7 +20,7 @@ export class ISYDeviceNode extends ISYNode {
         this._enabled = node.enabled;
         this.deviceClass = node.deviceClass;
         this.parentAddress = node.pnode;
-        const s = this.type.split(".");
+        const s = this.type.split('.');
         this.category = Number(s[0]);
         this.subCategory = Number(s[1]);
         // console.log(nodeDetail);
@@ -53,6 +52,7 @@ export class ISYDeviceNode extends ISYNode {
         //   );
         // }
     }
+    manufacturer;
     productId;
     modelName;
     _parentDevice;

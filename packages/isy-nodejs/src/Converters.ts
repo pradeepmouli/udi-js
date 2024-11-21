@@ -1,5 +1,5 @@
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
-import { type Paths, type StringKeys } from './Utils.js';
+import { type Leaves, type Paths, type PathsWithLimit, type StringKeys } from './Utils.js';
 
 let BooleanPercentage: Converter<boolean, number>;
 let NullConverter: Converter<any, any>;
@@ -57,7 +57,7 @@ function registerConverters() {
 	}
 }
 
-export function registerConverter(
+function registerConverter(
 	from: keyof typeof StandardConverters | keyof typeof Converter.Matter | Paths<typeof StandardConverters> | Paths<typeof Converter.Matter> | string,
 	to: keyof typeof StandardConverters | keyof typeof Converter.Matter | string,
 	converter: Converter<any, any>
@@ -89,12 +89,26 @@ export namespace Converter {
 					: value
 			}
 
+		},
+		Percent: {
+			LightingLevel: {
+				from: (value) =>
+					value === 1 ? 0
+					: value === 254 ? 100
+					: Math.round(value / 254 * 100),
+				to: (value) =>
+					value === 0 ? 1
+					: value === 100 ? 254
+					: Math.round(value / 100 * 254)
+			}
 		}
 	};
 
 	export type ConverterTypes = `${StringKeys<typeof StandardConverters>}`;
 
 	export type StandardConverters = `${StringKeys<typeof StandardConverters>}.${StringKeys<typeof StandardConverters>}`;
+
+	//export type StandardConvertersList = PathsWithLimit<typeof StandardConverters, 1>;
 
 	export type MatterISYConvertibleTypes = `${StringKeys<(typeof Matter)[`${keyof typeof Matter}`]>}`;
 
@@ -105,7 +119,7 @@ export namespace Converter {
 	export type KnownConverters = StandardConverters | MatterConverters;
 	const cache: { [x: string]: Converter<any, any> } = {};
 	export function get(label: KnownConverters): Converter<any, any>;
-	export function get(from: UnitOfMeasure, to: UnitOfMeasure);
+	export function get(from: UnitOfMeasure, to: UnitOfMeasure): Converter<any,any>
 	export function get(from: ConverterTypes, to: ConverterTypes);
 	export function get(from: UnitOfMeasure, to: UnitOfMeasure);
 	export function get(from: MatterISYConvertibleTypes, to: ISYMatterConvertibleTypes);
@@ -141,6 +155,12 @@ export namespace Converter {
 		}
 		return null;
 	}
+
+
+	export function register<F,T>(from: UnitOfMeasure, to: UnitOfMeasure, converter: Converter<F, T>) {
+		registerConverter(UnitOfMeasure[from], UnitOfMeasure[to], converter);
+	}
+
 }
 
 registerConverters();

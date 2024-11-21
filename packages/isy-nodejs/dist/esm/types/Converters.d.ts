@@ -1,5 +1,5 @@
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
-import { type Paths, type StringKeys } from './Utils.js';
+import { type StringKeys } from './Utils.js';
 declare const StandardConverters: {
     Boolean: {
         LevelFrom0To255: {
@@ -20,7 +20,6 @@ declare const StandardConverters: {
 };
 export declare const StdConverterRegistry: Map<string | UnitOfMeasure, Map<string | UnitOfMeasure, Converter<any, any>>>;
 export declare const ConverterRegistry: Map<string, Converter<any, any>>;
-export declare function registerConverter(from: keyof typeof StandardConverters | keyof typeof Converter.Matter | Paths<typeof StandardConverters> | Paths<typeof Converter.Matter> | string, to: keyof typeof StandardConverters | keyof typeof Converter.Matter | string, converter: Converter<any, any>): void;
 export declare namespace Converter {
     const Standard: typeof StandardConverters;
     const Matter: {
@@ -28,6 +27,12 @@ export declare namespace Converter {
             LightingLevel: {
                 from: (value: any) => any;
                 to: (value: any) => any;
+            };
+        };
+        Percent: {
+            LightingLevel: {
+                from: (value: any) => number;
+                to: (value: any) => number;
             };
         };
     };
@@ -38,12 +43,13 @@ export declare namespace Converter {
     type MatterConverters = `${MatterISYConvertibleTypes}.${ISYMatterConvertibleTypes}` | `${ISYMatterConvertibleTypes}.${MatterISYConvertibleTypes}`;
     type KnownConverters = StandardConverters | MatterConverters;
     function get(label: KnownConverters): Converter<any, any>;
-    function get(from: UnitOfMeasure, to: UnitOfMeasure): any;
+    function get(from: UnitOfMeasure, to: UnitOfMeasure): Converter<any, any>;
     function get(from: ConverterTypes, to: ConverterTypes): any;
     function get(from: UnitOfMeasure, to: UnitOfMeasure): any;
     function get(from: MatterISYConvertibleTypes, to: ISYMatterConvertibleTypes): any;
     function get(to: ISYMatterConvertibleTypes, from: MatterISYConvertibleTypes): any;
     function convert<F, T>(from: UnitOfMeasure, to: UnitOfMeasure, value: F): T;
+    function register<F, T>(from: UnitOfMeasure, to: UnitOfMeasure, converter: Converter<F, T>): void;
 }
 export interface Converter<F, T> {
     from: (value: F) => T;

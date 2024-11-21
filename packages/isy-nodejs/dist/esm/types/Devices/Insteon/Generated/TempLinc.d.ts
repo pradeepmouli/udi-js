@@ -21,6 +21,7 @@ export declare class TempLincNode extends Base<Drivers, Commands> implements Tem
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "TempLinc";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     updateHeatSetpoint(value: number): Promise<any>;

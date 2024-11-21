@@ -4,6 +4,7 @@ import { InsteonDimmableDevice } from '../../../Devices/Insteon/InsteonDimmableD
 import { InsteonRelayDevice } from '../../../Devices/Insteon/InsteonRelayDevice.js';
 import { ISYClusterBehavior } from '../ISYClusterBehavior.js';
 import { Converter } from '../../../Converters.js';
+import { BehaviorRegistry } from '../BehaviorRegistry.js';
 export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.OnOffServer, InsteonRelayDevice) {
     async initialize(_options) {
         await super.initialize(_options);
@@ -22,6 +23,7 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.
         return super.handlePropertyChange({ driver, newValue, oldValue, formattedValue });
     }
 }
+BehaviorRegistry.register(ISYOnOffBehavior);
 export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequirements.LevelControlServer, InsteonDimmableDevice) {
     async initialize(_options) {
         await super.initialize(_options);
@@ -39,4 +41,5 @@ export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequire
         }
     }
 }
+BehaviorRegistry.register(ISYDimmableBehavior);
 //# sourceMappingURL=ISYOnOffBehavior.js.map

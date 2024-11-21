@@ -14,6 +14,7 @@ export declare class BinaryControlNode extends Base<Drivers, Commands> implement
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "BinaryControl" | "BinaryControl_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     query(): Promise<any>;

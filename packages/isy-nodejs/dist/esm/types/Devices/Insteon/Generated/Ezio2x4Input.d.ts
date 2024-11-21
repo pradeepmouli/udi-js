@@ -12,6 +12,7 @@ export declare class Ezio2x4InputNode extends Base<Drivers, Commands> implements
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "EZIO2x4_Input" | "EZIO2x4_Input_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     writeChanges(): Promise<any>;

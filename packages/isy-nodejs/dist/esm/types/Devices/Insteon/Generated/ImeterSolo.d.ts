@@ -14,6 +14,7 @@ export declare class ImeterSoloNode extends Base<Drivers, Commands> implements I
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "IMETER_SOLO";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     resetTotalEnergy(): Promise<any>;

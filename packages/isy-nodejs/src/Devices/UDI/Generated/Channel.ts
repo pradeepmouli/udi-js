@@ -20,6 +20,7 @@ type Drivers = Channel.Drivers;
 export class ChannelNode extends Base<Drivers, Commands> implements Channel.Interface {
 	public override readonly commands = {};
 	static override nodeDefId = "EM3Channel";
+	static override implements = ["EM3Channel"];
 	declare readonly nodeDefId: "EM3Channel";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -44,11 +45,9 @@ export namespace Channel {
 	export interface Interface extends Omit<InstanceType<typeof ChannelNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "EM3Channel";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is ChannelNode {
-		return node.nodeDefId in ["EM3Channel"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is ChannelNode { return ["EM3Channel"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ChannelNode {
-		return node.nodeDefId in ["EM3Channel", "EM3Main", "EM3MainChannel"];
+		return ["EM3Channel", "EM3Main", "EM3MainChannel"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new ChannelNode(isy, nodeInfo);

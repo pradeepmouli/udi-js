@@ -18,6 +18,7 @@ export declare class SirenNode extends Base<Drivers, Commands> implements Siren.
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "Siren" | "Siren_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(duration?: number): Promise<any>;

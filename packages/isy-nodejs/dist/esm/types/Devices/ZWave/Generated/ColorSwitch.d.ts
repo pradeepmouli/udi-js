@@ -16,6 +16,7 @@ export declare class ColorSwitchNode extends Base<Drivers, Commands> implements 
         QUERY: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "186";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     set(warmWhite?: number, red?: number, green?: number, blue?: number, duration?: number | number): Promise<any>;

@@ -12,6 +12,7 @@ export declare class RemoteLinc2Node extends Base<Drivers, Commands> implements 
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "RemoteLinc2" | "RemoteLinc2_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     writeChanges(): Promise<any>;

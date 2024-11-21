@@ -25,6 +25,7 @@ export class Pir2844cNode extends Base<Drivers, Commands> implements Pir2844c.In
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "PIR2844C";
+	static override implements = ["PIR2844C"];
 	declare readonly nodeDefId: "PIR2844C" | "PIR2844C_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -35,18 +36,10 @@ export class Pir2844cNode extends Base<Drivers, Commands> implements Pir2844c.In
 		this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Battery Powered", name: "batteryPowered" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async calibrateTemperature(value: number) {
-		return this.sendCommand("CLITEMP", { value: value });
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async beep(value?: number) {
-		return this.sendCommand("BEEP", { value: value });
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async calibrateTemperature(value: number) { return this.sendCommand("CLITEMP", { value: value }); }
+	async query() { return this.sendCommand("QUERY"); }
+	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
@@ -74,11 +67,9 @@ export namespace Pir2844c {
 	export interface Interface extends Omit<InstanceType<typeof Pir2844cNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "PIR2844C" | "PIR2844C_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is Pir2844cNode {
-		return node.nodeDefId in ["PIR2844C", "PIR2844C_ADV"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is Pir2844cNode { return ["PIR2844C", "PIR2844C_ADV"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is Pir2844cNode {
-		return node.nodeDefId in ["PIR2844C", "PIR2844C_ADV"];
+		return ["PIR2844C", "PIR2844C_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new Pir2844cNode(isy, nodeInfo);

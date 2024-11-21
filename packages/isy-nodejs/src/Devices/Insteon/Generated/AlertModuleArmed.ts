@@ -26,27 +26,18 @@ export class AlertModuleArmedNode extends Base<Drivers, Commands> implements Ale
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "AlertModuleArmed";
+	static override implements = ["AlertModuleArmed", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "AlertModuleArmed";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on() {
-		return this.sendCommand("DON");
-	}
-	async off() {
-		return this.sendCommand("DOF");
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async beep(value?: number) {
-		return this.sendCommand("BEEP", { value: value });
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async on() { return this.sendCommand("DON"); }
+	async off() { return this.sendCommand("DOF"); }
+	async query() { return this.sendCommand("QUERY"); }
+	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
@@ -61,11 +52,9 @@ export namespace AlertModuleArmed {
 	export interface Interface extends Omit<InstanceType<typeof AlertModuleArmedNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "AlertModuleArmed";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is AlertModuleArmedNode {
-		return node.nodeDefId in ["AlertModuleArmed"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is AlertModuleArmedNode { return ["AlertModuleArmed"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is AlertModuleArmedNode {
-		return node.nodeDefId in ["AlertModuleArmed", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor", "EZRAIN_Output", "AlertModuleSiren", "AlertModuleSiren_ADV"];
+		return ["AlertModuleArmed", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor", "EZRAIN_Output", "AlertModuleSiren", "AlertModuleSiren_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new AlertModuleArmedNode(isy, nodeInfo);

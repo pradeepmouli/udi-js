@@ -1,8 +1,8 @@
 import ts, { ModifierFlags, type ModifierSyntaxKind, type PunctuationSyntaxKind } from 'typescript';
 export declare const SyntaxKind: typeof ts.SyntaxKind;
 export type SyntaxKind = ts.SyntaxKind;
-export declare class NodeFactory {
-    private factory;
+export declare class CodeFactory {
+    protected factory: ts.NodeFactory;
     constructor(factory: ts.NodeFactory);
     private createIdentifier;
     createImportClause(isTypeOnly: boolean, name?: string, ...namedBindings: ts.NamedImportBindings[]): ts.ImportClause;
@@ -28,6 +28,7 @@ export declare class NodeFactory {
     createTypeAliasDeclaration(name: string, type: ts.TypeNode): ts.TypeAliasDeclaration;
     createClassDeclaration(name: string, members: ts.ClassElement[], heritageClauses?: ts.HeritageClause[]): ts.ClassDeclaration;
     and<T>(...flags: T[]): T;
+    or<T>(...flags: T[]): T;
     createModifiers(...flags: ts.ModifierFlags[]): ts.Modifier[];
     createMethodDeclaration(name: string, parameters: ts.ParameterDeclaration[], body: ts.Block, isAsync?: boolean): ts.MethodDeclaration;
     createPropertyDeclaration(name: string, initializer: ts.Expression, modifiers?: ts.Modifier[]): ts.PropertyDeclaration;
@@ -38,8 +39,10 @@ export declare class NodeFactory {
     createToken<T extends ModifierSyntaxKind>(kind: T): ts.ModifierLike;
     createToken<T extends PunctuationSyntaxKind>(kind: T): ts.PunctuationToken<T>;
     createPropertySignature(name: string, type: ts.TypeNode, optional?: boolean, ...modifiers: ModifierFlags[]): ts.PropertySignature;
-    createTypeReferenceNode(typeName: string, typeArguments?: ts.TypeNode[]): ts.TypeReferenceNode;
-    createUnionTypeNode(types: ts.TypeNode[]): ts.UnionTypeNode;
+    createTypeReferenceNode(typeName: string, qualifier: string): ts.TypeReferenceNode;
+    createTypeReferenceNode(typeName: string, ...typeArguments: ts.TypeNode[]): ts.TypeReferenceNode;
+    typesEqual(a: ts.TypeNode, b: ts.TypeNode): boolean;
+    createUnionTypeNode(...types: ts.TypeNode[]): ts.UnionTypeNode;
     createIntersectionTypeNode(types: ts.TypeNode[]): ts.IntersectionTypeNode;
     createTypeLiteralNode(members: ts.TypeElement[]): ts.TypeLiteralNode;
     createFunctionTypeNode(type: ts.TypeNode, typeParameters: readonly ts.TypeParameterDeclaration[], ...parameters: ts.ParameterDeclaration[]): ts.FunctionTypeNode;
@@ -60,7 +63,8 @@ export declare class NodeFactory {
     createPropertyAccessExpression(expression: ts.Expression, name: string): ts.PropertyAccessExpression;
     createHeritageClause(token: ts.SyntaxKind.ExtendsKeyword | ts.SyntaxKind.ImplementsKeyword, types: ts.ExpressionWithTypeArguments[]): ts.HeritageClause;
     createExpressionWithTypeArguments(expression: ts.Expression, typeArguments?: ts.TypeNode[]): ts.ExpressionWithTypeArguments;
-    createBlock(statements: ts.Statement[], multiLine?: boolean): ts.Block;
+    createBlock(multiLine: boolean, ...statements: ts.Statement[]): ts.Block;
+    createBlock(...statements: ts.Statement[]): any;
     createModuleBlock(statements: ts.Statement[]): ts.ModuleBlock;
     createInterfaceDeclaration(name: string, members: ts.TypeElement[], heritageClauses?: ts.HeritageClause[]): ts.InterfaceDeclaration;
     createTypeOperatorNode(operator: ts.SyntaxKind.KeyOfKeyword | ts.SyntaxKind.ReadonlyKeyword | ts.SyntaxKind.UniqueKeyword, type: ts.TypeNode): ts.TypeOperatorNode;

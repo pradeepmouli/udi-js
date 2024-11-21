@@ -29,36 +29,21 @@ export class KeypadRelayNode extends Base<Drivers, Commands> implements KeypadRe
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "KeypadRelay";
+	static override implements = ["KeypadRelay", "IRLincTx", "KeypadButton", "KeypadButton_ADV", "EZRAIN_Output", "EZIO2x4_Output", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "DoorLock", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl", "BinaryControl_ADV", "AlertModuleArmed", "SirenAlert", "SirenArm", "PIR2844OnOff", "PIR2844OnOff_ADV"];
 	declare readonly nodeDefId: "KeypadRelay" | "KeypadRelay_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: (0 | 100)) {
-		return this.sendCommand("DON", { value: value });
-	}
-	async off() {
-		return this.sendCommand("DOF");
-	}
-	async fastOff() {
-		return this.sendCommand("DFOF");
-	}
-	async fastOn() {
-		return this.sendCommand("DFON");
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async beep(value?: number) {
-		return this.sendCommand("BEEP", { value: value });
-	}
-	async backlight(value: number) {
-		return this.sendCommand("BL", { value: value });
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async on(value?: (0 | 100)) { return this.sendCommand("DON", { value: value }); }
+	async off() { return this.sendCommand("DOF"); }
+	async fastOff() { return this.sendCommand("DFOF"); }
+	async fastOn() { return this.sendCommand("DFON"); }
+	async query() { return this.sendCommand("QUERY"); }
+	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
+	async backlight(value: number) { return this.sendCommand("BL", { value: value }); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): number {
 		return this.drivers.ST?.value;
 	}
@@ -74,11 +59,9 @@ export namespace KeypadRelay {
 	export interface Interface extends Omit<InstanceType<typeof KeypadRelayNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "KeypadRelay" | "KeypadRelay_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is KeypadRelayNode {
-		return node.nodeDefId in ["KeypadRelay", "KeypadRelay_ADV"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is KeypadRelayNode { return ["KeypadRelay", "KeypadRelay_ADV"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is KeypadRelayNode {
-		return node.nodeDefId in ["KeypadRelay", "KeypadRelay_ADV"];
+		return ["KeypadRelay", "KeypadRelay_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new KeypadRelayNode(isy, nodeInfo);

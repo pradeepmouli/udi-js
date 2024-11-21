@@ -12,41 +12,32 @@ import { InsteonDimmerOutletDevice } from "./InsteonDimmerOutletDevice.js";
 import { InsteonRelaySwitchDevice } from "./InsteonRelaySwitchDevice.js";
 import { InsteonThermostatDevice } from "./InsteonThermostatDevice.js";
 import { InsteonDoorWindowSensorDevice } from './InsteonDoorWindowSensorDevice.js';
-import { RelayLampSwitch } from './Generated/RelayLampSwitch.js';
+
+import { ISYNode } from '../../ISYNode.js';
+import type * as GeneratedTypes from "./Generated/index.js";
 
 export {InsteonBaseDevice as Base} from  "./InsteonBaseDevice.js";
 
+export {InsteonLeakSensorDevice as LeakSensor} from "./InsteonLeakSensorDevice.js";
 
-export const Insteon = {
+export {InsteonMotionSensorDevice as MotionSensor} from "./InsteonMotionSensorDevice.js";
+
+export {InsteonSmokeSensorDevice as SmokeSensor} from "./InsteonSmokeSensorDevice.js";
+
+export {InsteonDoorWindowSensorDevice as DoorWindowSensor} from "./InsteonDoorWindowSensorDevice.js";
+
+export {InsteonDimmerOutletDevice as DimmerOutlet} from "./InsteonDimmerOutletDevice.js";
+
+/*export const Insteon = {
   LeakSensor: InsteonLeakSensorDevice,
   MotionSensor: InsteonMotionSensorDevice,
   SmokeSensor: InsteonSmokeSensorDevice,
-  RelaySwitch: InsteonRelaySwitchDevice,
   DoorWindowSensor: InsteonDoorWindowSensorDevice,
-  DimmerSwitch: InsteonDimmerSwitchDevice,
   DimmerOutlet: InsteonDimmerOutletDevice,
-
-  Relay: RelayLampSwitch.Node,
-  Dimmer: InsteonDimmableDevice,
-  KeypadDimmer: InsteonKeypadDimmerDevice,
   Thermostat: InsteonThermostatDevice,
   Lock: InsteonLockDevice,
-  Fan: InsteonFanDevice
-};
+  Fan: InsteonFanDevice,
+...Generated */
 
 
-export namespace Insteon {
-  //export type Base<D,C> = InsteonBaseDevice<D,C>;
-  export type LeakSensor = InsteonLeakSensorDevice;
-  export type MotionSensor = InsteonMotionSensorDevice;
-  export type SmokeSensor = InsteonSmokeSensorDevice;
-  export type RelaySwitch = InstanceType<typeof RelayLampSwitch.Node>;
-  export type DimmerSwitch = InsteonDimmerSwitchDevice;
-  export type DimmerOutlet = InsteonDimmerOutletDevice;
-  export type Relay = InsteonRelayDevice;
-  export type Dimmer = InsteonDimmableDevice;
-  export type KeypadDimmer = InsteonKeypadDimmerDevice;
-  export type Thermostat = InsteonThermostatDevice;
-  export type Lock = InsteonLockDevice;
-  export type Fan = InsteonFanDevice;
-}
+export * from './Generated/index.js';

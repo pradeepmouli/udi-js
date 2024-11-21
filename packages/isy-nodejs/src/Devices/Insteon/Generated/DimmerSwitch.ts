@@ -23,17 +23,14 @@ export class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerS
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "DimmerSwitchOnly";
+	static override implements = ["DimmerSwitchOnly", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "DimmerSwitchOnly" | "DimmerSwitchOnly_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async backlight(value: number) {
-		return this.sendCommand("BL", { value: value });
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async backlight(value: number) { return this.sendCommand("BL", { value: value }); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get responding(): Insteon.Error {
 		return this.drivers.ERR?.value;
 	}
@@ -46,11 +43,9 @@ export namespace DimmerSwitch {
 	export interface Interface extends Omit<InstanceType<typeof DimmerSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "DimmerSwitchOnly" | "DimmerSwitchOnly_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode {
-		return node.nodeDefId in ["DimmerSwitchOnly", "DimmerSwitchOnly_ADV"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode { return ["DimmerSwitchOnly", "DimmerSwitchOnly_ADV"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode {
-		return node.nodeDefId in ["DimmerSwitchOnly", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "DimmerSwitchOnly_ADV"];
+		return ["DimmerSwitchOnly", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "DimmerSwitchOnly_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new DimmerSwitchNode(isy, nodeInfo);

@@ -6,7 +6,6 @@ import 'winston';
 import { Command, Driver, UnitOfMeasure } from '../../Definitions/index.js';
 import type { DriverState } from '../../Model/DriverState.js';
 import type { NodeInfo, StaticNodeInfo } from '../../Model/NodeInfo.js';
-import { Insteon } from './index.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 

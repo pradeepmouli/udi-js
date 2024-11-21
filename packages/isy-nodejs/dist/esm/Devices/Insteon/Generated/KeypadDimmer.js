@@ -23,6 +23,7 @@ export class KeypadDimmerNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "KeypadDimmer";
+    static implements = ["KeypadDimmer", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
@@ -30,51 +31,21 @@ export class KeypadDimmerNode extends Base {
         this.drivers.RR = Driver.create("RR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Ramp Rate", name: "rampRate" });
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
-    async on(value) {
-        return this.sendCommand("DON", { value: value });
-    }
-    async off() {
-        return this.sendCommand("DOF");
-    }
-    async fastOff() {
-        return this.sendCommand("DFOF");
-    }
-    async fastOn() {
-        return this.sendCommand("DFON");
-    }
-    async brighten() {
-        return this.sendCommand("BRT");
-    }
-    async dim() {
-        return this.sendCommand("DIM");
-    }
-    async fadeUp() {
-        return this.sendCommand("FDUP");
-    }
-    async fadeDown() {
-        return this.sendCommand("FDDOWN");
-    }
-    async fadeStop() {
-        return this.sendCommand("FDSTOP");
-    }
-    async query() {
-        return this.sendCommand("QUERY");
-    }
-    async beep(value) {
-        return this.sendCommand("BEEP", { value: value });
-    }
-    async updateOnLevel(value) {
-        return this.sendCommand("OL", { value: value });
-    }
-    async updateRampRate(value) {
-        return this.sendCommand("RR", { value: value });
-    }
-    async backlight(value) {
-        return this.sendCommand("BL", { value: value });
-    }
-    async writeChanges() {
-        return this.sendCommand("WDU");
-    }
+    async on(value) { return this.sendCommand("DON", { value: value }); }
+    async off() { return this.sendCommand("DOF"); }
+    async fastOff() { return this.sendCommand("DFOF"); }
+    async fastOn() { return this.sendCommand("DFON"); }
+    async brighten() { return this.sendCommand("BRT"); }
+    async dim() { return this.sendCommand("DIM"); }
+    async fadeUp() { return this.sendCommand("FDUP"); }
+    async fadeDown() { return this.sendCommand("FDDOWN"); }
+    async fadeStop() { return this.sendCommand("FDSTOP"); }
+    async query() { return this.sendCommand("QUERY"); }
+    async beep(value) { return this.sendCommand("BEEP", { value: value }); }
+    async updateOnLevel(value) { return this.sendCommand("OL", { value: value }); }
+    async updateRampRate(value) { return this.sendCommand("RR", { value: value }); }
+    async backlight(value) { return this.sendCommand("BL", { value: value }); }
+    async writeChanges() { return this.sendCommand("WDU"); }
     get status() {
         return this.drivers.ST?.value;
     }
@@ -92,12 +63,10 @@ NodeFactory.register(KeypadDimmerNode);
 NodeFactory.register(KeypadDimmerNode, "KeypadDimmer_ADV");
 export var KeypadDimmer;
 (function (KeypadDimmer) {
-    function is(node) {
-        return node.nodeDefId in ["KeypadDimmer", "KeypadDimmer_ADV"];
-    }
+    function is(node) { return ["KeypadDimmer", "KeypadDimmer_ADV"].includes(node.nodeDefId); }
     KeypadDimmer.is = is;
     function isImplementedBy(node) {
-        return node.nodeDefId in ["KeypadDimmer", "KeypadDimmer_ADV"];
+        return ["KeypadDimmer", "KeypadDimmer_ADV"].includes(node.nodeDefId);
     }
     KeypadDimmer.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

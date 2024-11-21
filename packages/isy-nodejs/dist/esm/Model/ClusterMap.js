@@ -1,28 +1,48 @@
 import { DriverType } from '../Definitions/Global/Drivers.js';
-import { Devices } from '../Devices/index.js';
-import { Insteon } from '../Devices/Insteon/index.js';
+import { Devices, Insteon } from '../Devices/index.js';
+import { BridgedDeviceBasicInformationBehavior } from '@matter/node/behaviors';
+import { Family } from '../Definitions/index.js';
+import { NodeFactory } from '../Devices/NodeFactory.js';
+import { ISYBridgedDeviceBehavior } from '../Matter/Behaviors/ISYBridgedDeviceBehavior.js';
 import { ClusterType } from './ClusterType.js';
 // #endregion Type aliases (16)
 // #region Classes (1)
 export class MappingRegistry {
     // #region Properties (1)
     static map = new Map();
+    static cache = {};
     // #endregion Properties (1)
     // #region Public Static Methods (3)
     static getMapping(device) {
-        if (MappingRegistry.map.has(device.family)) {
-            let g = MappingRegistry.map.get(device.family);
-            if (g.has(device.constructor.name)) {
-                return g.get(device.constructor.name);
-            }
-            else if (g.has(device.nodeDefId)) {
-                return g.get(device.nodeDefId);
-            }
-            else if (g.has(device.type)) {
-                return g.get(device.type);
+        let m = this.cache[device.address];
+        if (!m) {
+            if (MappingRegistry.map.has(device.family)) {
+                let g = MappingRegistry.map.get(device.family);
+                //let m: DeviceToClusterMap<T,MutableEndpoint>;
+                if (g.has(device.constructor.name)) {
+                    m = g.get(device.constructor.name);
+                }
+                else if (g.has(device.nodeDefId)) {
+                    m = g.get(device.nodeDefId);
+                }
+                else if (g.has(device.type)) {
+                    m = g.get(device.type);
+                }
+                if (!m) {
+                    for (var nodeDefId of NodeFactory.getImplements(device)) {
+                        if (g.has(nodeDefId)) {
+                            device.logger(`Mapping found to ${Family[device.family]}.${nodeDefId}`, 'info');
+                            m = g.get(nodeDefId);
+                            g.set(device.nodeDefId, m);
+                            break;
+                        }
+                    }
+                }
+                if (m !== null)
+                    this.cache[device.address] = m;
             }
         }
-        return null;
+        return m;
     }
     static getMappingForBehavior(device, behavior) {
         //var m = MappingRegistry.getMapping(device);
@@ -42,8 +62,12 @@ export class MappingRegistry {
             regMap = MappingRegistry.map.get(map.Family);
             for (var key in map) {
                 if (key !== 'Family') {
-                    regMap.set(key, map[key]);
-                    regMap.set(Insteon[key]?.name, map[key]); //TODO: This is a hack to allow for the Insteon devices to be registered by name
+                    let m = map[key];
+                    m = { deviceType: m.deviceType.with(BridgedDeviceBasicInformationBehavior, ISYBridgedDeviceBehavior), mapping: m.mapping };
+                    regMap.set(key, m);
+                    regMap.set(Insteon[key]?.name, m);
+                    regMap.set(Insteon[key].nodeDefId, m);
+                    //TODO: This is a hack to allow for the Insteon devices to be registered by name
                 }
             }
         }
@@ -57,8 +81,10 @@ export class MappingRegistry {
                 }
                 //{family, key} = key.split(".")[0]
                 regMap = MappingRegistry.map.get(x.family);
-                regMap.set(keys[1], map[key]);
-                regMap.set(x.name, map[key]);
+                let m = map[key];
+                m = { deviceType: m.deviceType.with(BridgedDeviceBasicInformationBehavior, ISYBridgedDeviceBehavior), mapping: m.mapping };
+                regMap.set(keys[1], m);
+                regMap.set(x.name, m);
             }
         }
     }

@@ -20,6 +20,7 @@ export declare class I3PaddleFlagsNode extends Base<Drivers, Commands> implement
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "I3PaddleFlags";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     updateMode(value: Insteon.I3RelayDim): Promise<any>;

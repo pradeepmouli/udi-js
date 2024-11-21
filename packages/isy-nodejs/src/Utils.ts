@@ -20,9 +20,47 @@ export type PickOfType<T, U> = { [K in keyof T]: T[K] extends U ? (any extends T
 
 export type Paths<T> = T extends object ? { [K in keyof T]: `${Exclude<K, symbol>}${'' | `.${Paths<T[K]>}`}` }[keyof T] : never;
 
+export type Prev = [never, 0,1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+
+export type RelaxTypes<V> =
+	V extends number ? number
+	: V extends bigint ? bigint
+	: V extends object ?
+		V extends (...args: any[]) => any ?
+			V
+		:	{
+				[K in keyof V]: RelaxTypes<V[K]>;
+			}
+	:	V;
+
+type p = Prev[10];
+export type Join<K, P> =
+	K extends string | number ?
+		P extends string | number ?
+			`${K}${'' extends P ? '' : '.'}${P}`
+		:	never
+	:	never;
+export type PathsWithLimit<T, D extends number = 10> =
+	[D] extends [never] ? never
+	: T extends object ? { [K in keyof T]-?: K extends string | number ? `${K}` | Join<K, PathsWithLimit<T[K], Prev[D]>> : never }[keyof T]
+	: '';
+
+export type Leaves<T, D extends number = 10> =
+	[D] extends [never] ? never
+	: T extends object ? { [K in keyof T]-?: Join<K, Leaves<T[K], Prev[D]>> }[keyof T]
+	: '';
+
 export function getEnumValueByEnumKey<E extends { [index: string]: number }, T extends keyof E>(enumType: E, enumKey: T): E[T] {
 	return enumType[enumKey];
 }
+
+export type Replace<K extends string, T extends string, U extends string> = K extends `${infer L}${T}${infer R}` ? `${L}${U}${R}` : K;
+
+export type Remove<K extends string, T extends string> = K extends `${infer L}${T}${infer R}` ? `${L}${R}` : K;
+
+export type ReplaceAll<K extends string, T extends string, U extends string> = K extends `${infer L}${T}${infer R}` ? `${L}${U}${ReplaceAll<R, T, U>}` : K;
+
 
 export function getEnumKeyByEnumValue<E extends { [index: string]: number }, T extends E[keyof E]>(enumType: E, enumValue: E[T]): T {
 	return Object.keys(enumType).find((key) => enumType[key] === enumValue) as unknown as T;

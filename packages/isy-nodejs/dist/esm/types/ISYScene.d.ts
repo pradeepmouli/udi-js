@@ -2,7 +2,6 @@ import type { Command } from './Definitions/Global/Commands.js';
 import type { Driver } from './Definitions/Global/Drivers.js';
 import { Family } from './Definitions/Global/Families.js';
 import type { ISY } from './ISY.js';
-import { ISYDevice } from './ISYDevice.js';
 import { ISYNode } from './ISYNode.js';
 import type { StaticNodeInfo } from './Model/NodeInfo.js';
 interface SceneInfo extends StaticNodeInfo {
@@ -10,7 +9,7 @@ interface SceneInfo extends StaticNodeInfo {
         link: any;
     };
     flag?: any;
-    nodeDefId?: string;
+    nodeDefId?: 'InsteonDimmer';
     address: string;
     name: string;
     family?: Family;
@@ -23,7 +22,7 @@ export declare class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'S
     batteryOperated: boolean;
     deviceType: any;
     deviceFriendlyName: string;
-    members: ISYDevice<any, any, any>[];
+    members: ISYNode<any, any, any, any>[];
     typeCode: string;
     constructor(isy: ISY, scene: SceneInfo);
     get isOn(): boolean;

@@ -19,6 +19,7 @@ export declare class KeypadRelayNode extends Base<Drivers, Commands> implements 
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "KeypadRelay" | "KeypadRelay_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: (0 | 100)): Promise<any>;

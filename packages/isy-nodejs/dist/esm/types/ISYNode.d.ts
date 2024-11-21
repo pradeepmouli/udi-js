@@ -10,7 +10,7 @@ import type { Constructor } from './Devices/Constructor.js';
 import type { DriverState } from './Model/DriverState.js';
 import { NodeInfo } from './Model/NodeInfo.js';
 import type { NodeNotes } from './Model/NodeNotes.js';
-import { type StringKeys } from './Utils.js';
+import { type ObjectToUnion, type StringKeys } from './Utils.js';
 import { NodeType } from './ISYConstants.js';
 import type { ISYScene } from './ISYScene.js';
 import type { Merge, UnionToIntersection } from '@matter/general';
@@ -31,6 +31,7 @@ export declare class ISYNode<T extends Family = Family, D extends ISYNode.Driver
     readonly nodeDefId: string;
     static family: Family;
     static nodeDefId: string;
+    static implements: string[];
     baseName: any;
     commands: Command.ForAll<C>;
     drivers: Driver.ForAll<D>;
@@ -104,6 +105,18 @@ export declare namespace ISYNode {
     type CommandsOf<T> = T extends ISYNode<any, any, infer C, any> ? C : never;
     type EventsOf<T> = T extends ISYNode<any, any, any, infer E> ? E : never;
     type FamilyOf<T> = T extends ISYNode<infer F, any, any, any> ? F : never;
+    type DriverTypesOf<T extends ISYNode> = ObjectToUnion<DriversOf<T>>;
+    type CommandTypesOf<T extends ISYNode> = ObjectToUnion<CommandsOf<T>>;
+    type EventTypesOf<T extends ISYNode> = ObjectToUnion<EventsOf<T>>;
+    type EventNamesOf<T extends ISYNode> = EventTypesOf<T> extends {
+        name: infer U;
+    } ? U : never;
+    type DriverNamesOf<T extends ISYNode> = DriverTypesOf<T> extends {
+        name: infer U;
+    } ? U : never;
+    type CommandNamesOf<T extends ISYNode> = CommandTypesOf<T> extends {
+        name: infer U;
+    } ? U : never;
     type List = NodeList;
     type DriverMap<T extends NodeList> = Flatten<{
         [x in keyof T]: DriversOf<T[x]>;
@@ -123,7 +136,7 @@ export declare namespace ISYNode {
         new (...args: any[]): {
             drivers: Driver.ForAll<any, false>;
             commands: Command.ForAll<C>;
-            "__#1242778@#parentNode": ISYNode<any, any, any, any>;
+            "__#532633@#parentNode": ISYNode<any, any, any, any>;
             readonly address: string;
             readonly baseLabel: string;
             readonly flag: any;

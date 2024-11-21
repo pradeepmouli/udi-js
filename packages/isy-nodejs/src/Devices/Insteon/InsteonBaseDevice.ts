@@ -20,7 +20,9 @@ export class InsteonBaseDevice<D extends ISYNode.DriverSignatures = Driver.Signa
 	C
 > {
 	// #region Constructors (1)
-	readonly vendorName: string = 'Insteon Technologies, Inc.';
+	override readonly manufacturer: string = 'Insteon Technologies, Inc.';
+
+	static override family : Family.Insteon = Family.Insteon;
 	constructor(isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
 		this.family = Family.Insteon;

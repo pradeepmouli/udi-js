@@ -24,6 +24,7 @@ export declare class DimmerMotorSwitchNode extends Base<Drivers, Commands> imple
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "DimmerMotorSwitch" | "DimmerMotorSwitch_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: number): Promise<any>;

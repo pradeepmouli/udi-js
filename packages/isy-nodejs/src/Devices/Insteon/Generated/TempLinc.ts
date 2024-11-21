@@ -31,6 +31,7 @@ export class TempLincNode extends Base<Drivers, Commands> implements TempLinc.In
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "TempLinc";
+	static override implements = ["TempLinc", "IRLincTx", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "TempLinc";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -43,36 +44,16 @@ export class TempLincNode extends Base<Drivers, Commands> implements TempLinc.In
 		this.drivers.CLIHCS = Driver.create("CLIHCS", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.ThermostatHeatCoolState, label: "Heat/Cool State", name: "heatCoolState" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async updateHeatSetpoint(value: number) {
-		return this.sendCommand("CLISPH", { value: value });
-	}
-	async updateCoolSetpoint(value: number) {
-		return this.sendCommand("CLISPC", { value: value });
-	}
-	async updateMode(value: (0 | 1 | 2 | 3 | 5)) {
-		return this.sendCommand("CLIMD", { value: value });
-	}
-	async updateFanMode(value: (7 | 8)) {
-		return this.sendCommand("CLIFS", { value: value });
-	}
-	async setpointUp() {
-		return this.sendCommand("BRT");
-	}
-	async setpointDown() {
-		return this.sendCommand("DIM");
-	}
-	async beep(value?: number) {
-		return this.sendCommand("BEEP", { value: value });
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async setTime() {
-		return this.sendCommand("SETTIME");
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async updateHeatSetpoint(value: number) { return this.sendCommand("CLISPH", { value: value }); }
+	async updateCoolSetpoint(value: number) { return this.sendCommand("CLISPC", { value: value }); }
+	async updateMode(value: (0 | 1 | 2 | 3 | 5)) { return this.sendCommand("CLIMD", { value: value }); }
+	async updateFanMode(value: (7 | 8)) { return this.sendCommand("CLIFS", { value: value }); }
+	async setpointUp() { return this.sendCommand("BRT"); }
+	async setpointDown() { return this.sendCommand("DIM"); }
+	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
+	async query() { return this.sendCommand("QUERY"); }
+	async setTime() { return this.sendCommand("SETTIME"); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get temperature(): number {
 		return this.drivers.ST?.value;
 	}
@@ -105,11 +86,9 @@ export namespace TempLinc {
 	export interface Interface extends Omit<InstanceType<typeof TempLincNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "TempLinc";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is TempLincNode {
-		return node.nodeDefId in ["TempLinc"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is TempLincNode { return ["TempLinc"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is TempLincNode {
-		return node.nodeDefId in ["TempLinc", "Thermostat"];
+		return ["TempLinc", "Thermostat"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new TempLincNode(isy, nodeInfo);

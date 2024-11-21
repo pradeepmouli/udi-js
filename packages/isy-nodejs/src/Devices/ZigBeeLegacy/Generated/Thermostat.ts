@@ -30,6 +30,7 @@ export class ThermostatNode extends Base<Drivers, Commands> implements Thermosta
 		ADRPST: this.adr
 	};
 	static override nodeDefId = "Thermostat";
+	static override implements = ["Thermostat"];
 	declare readonly nodeDefId: "Thermostat";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -43,33 +44,15 @@ export class ThermostatNode extends Base<Drivers, Commands> implements Thermosta
 		this.drivers.CLISMD = Driver.create("CLISMD", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Unknown, label: "Schedule Mode", name: "scheduleMode" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Unknown, label: "Responding", name: "responding" });
 	}
-	async updateHeatSetpoint(value: ) {
-		return this.sendCommand("CLISPH", { value: value });
-	}
-	async updateCoolSetpoint(value: ) {
-		return this.sendCommand("CLISPC", { value: value });
-	}
-	async updateMode(value: ) {
-		return this.sendCommand("CLIMD", { value: value });
-	}
-	async updateFanMode(value: ) {
-		return this.sendCommand("CLIFS", { value: value });
-	}
-	async updateScheduleMode(value: ) {
-		return this.sendCommand("CLISMD", { value: value });
-	}
-	async heatSetpointShift(value: ) {
-		return this.sendCommand("CLISPHD", { value: value });
-	}
-	async coolSetpointShift(value: ) {
-		return this.sendCommand("CLISPCD", { value: value });
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async adr(value: ) {
-		return this.sendCommand("ADRPST", { value: value });
-	}
+	async updateHeatSetpoint(value: ) { return this.sendCommand("CLISPH", { value: value }); }
+	async updateCoolSetpoint(value: ) { return this.sendCommand("CLISPC", { value: value }); }
+	async updateMode(value: ) { return this.sendCommand("CLIMD", { value: value }); }
+	async updateFanMode(value: ) { return this.sendCommand("CLIFS", { value: value }); }
+	async updateScheduleMode(value: ) { return this.sendCommand("CLISMD", { value: value }); }
+	async heatSetpointShift(value: ) { return this.sendCommand("CLISPHD", { value: value }); }
+	async coolSetpointShift(value: ) { return this.sendCommand("CLISPCD", { value: value }); }
+	async query() { return this.sendCommand("QUERY"); }
+	async adr(value: ) { return this.sendCommand("ADRPST", { value: value }); }
 	public get temperature(): {
         
 return this.drivers.ST?.value;
@@ -122,11 +105,9 @@ export namespace Thermostat {
 	export interface Interface extends Omit<InstanceType<typeof ThermostatNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "Thermostat";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is ThermostatNode {
-		return node.nodeDefId in ["Thermostat"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is ThermostatNode { return ["Thermostat"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ThermostatNode {
-		return node.nodeDefId in ["Thermostat"];
+		return ["Thermostat"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new ThermostatNode(isy, nodeInfo);

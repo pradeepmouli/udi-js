@@ -28,33 +28,20 @@ export class RelayLampNode extends Base<Drivers, Commands> implements RelayLamp.
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "RelayLampOnly";
+	static override implements = ["RelayLampOnly", "IRLincTx", "EZRAIN_Output", "EZIO2x4_Output", "AlertModuleArmed", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "RelayLampOnly" | "RelayLampOnly_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: (0 | 100)) {
-		return this.sendCommand("DON", { value: value });
-	}
-	async off() {
-		return this.sendCommand("DOF");
-	}
-	async fastOff() {
-		return this.sendCommand("DFOF");
-	}
-	async fastOn() {
-		return this.sendCommand("DFON");
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async beep(value?: number) {
-		return this.sendCommand("BEEP", { value: value });
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async on(value?: (0 | 100)) { return this.sendCommand("DON", { value: value }); }
+	async off() { return this.sendCommand("DOF"); }
+	async fastOff() { return this.sendCommand("DFOF"); }
+	async fastOn() { return this.sendCommand("DFON"); }
+	async query() { return this.sendCommand("QUERY"); }
+	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): Insteon.OnLevelRelay | Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
@@ -70,11 +57,9 @@ export namespace RelayLamp {
 	export interface Interface extends Omit<InstanceType<typeof RelayLampNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "RelayLampOnly" | "RelayLampOnly_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is RelayLampNode {
-		return node.nodeDefId in ["RelayLampOnly", "RelayLampOnly_ADV"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is RelayLampNode { return ["RelayLampOnly", "RelayLampOnly_ADV"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayLampNode {
-		return node.nodeDefId in ["RelayLampOnly", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly_ADV"];
+		return ["RelayLampOnly", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new RelayLampNode(isy, nodeInfo);

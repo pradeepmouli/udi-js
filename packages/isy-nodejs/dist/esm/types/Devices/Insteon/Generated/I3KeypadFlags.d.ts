@@ -22,6 +22,7 @@ export declare class I3KeypadFlagsNode extends Base<Drivers, Commands> implement
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "I3KeypadFlags";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     updateMode(value: Insteon.I3RelayDim): Promise<any>;

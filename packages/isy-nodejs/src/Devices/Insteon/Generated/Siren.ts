@@ -28,6 +28,7 @@ export class SirenNode extends Base<Drivers, Commands> implements Siren.Interfac
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "Siren";
+	static override implements = ["Siren", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "Siren" | "Siren_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -37,27 +38,13 @@ export class SirenNode extends Base<Drivers, Commands> implements Siren.Interfac
 		this.drivers.DUR = Driver.create("DUR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.DurationInSeconds, label: "Siren Duration", name: "sirenDuration" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(duration?: number) {
-		return this.sendCommand("DON", { DUR: duration });
-	}
-	async off() {
-		return this.sendCommand("DOF");
-	}
-	async arm(value: Insteon.SirenMode) {
-		return this.sendCommand("ARM", { value: value });
-	}
-	async disarm() {
-		return this.sendCommand("DISARM");
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async beep(value?: number) {
-		return this.sendCommand("BEEP", { value: value });
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async on(duration?: number) { return this.sendCommand("DON", { DUR: duration }); }
+	async off() { return this.sendCommand("DOF"); }
+	async arm(value: Insteon.SirenMode) { return this.sendCommand("ARM", { value: value }); }
+	async disarm() { return this.sendCommand("DISARM"); }
+	async query() { return this.sendCommand("QUERY"); }
+	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get siren(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
@@ -82,11 +69,9 @@ export namespace Siren {
 	export interface Interface extends Omit<InstanceType<typeof SirenNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "Siren" | "Siren_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is SirenNode {
-		return node.nodeDefId in ["Siren", "Siren_ADV"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is SirenNode { return ["Siren", "Siren_ADV"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is SirenNode {
-		return node.nodeDefId in ["Siren", "Siren_ADV"];
+		return ["Siren", "Siren_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new SirenNode(isy, nodeInfo);

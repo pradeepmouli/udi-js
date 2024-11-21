@@ -20,6 +20,7 @@ type Drivers = OnOffControl.Drivers;
 export class OnOffControlNode extends Base<Drivers, Commands> implements OnOffControl.Interface {
 	public override readonly commands = {};
 	static override nodeDefId = "OnOffControl";
+	static override implements = ["OnOffControl", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "OnOffControl" | "OnOffControl_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -41,11 +42,9 @@ export namespace OnOffControl {
 	export interface Interface extends Omit<InstanceType<typeof OnOffControlNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "OnOffControl" | "OnOffControl_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is OnOffControlNode {
-		return node.nodeDefId in ["OnOffControl", "OnOffControl_ADV"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is OnOffControlNode { return ["OnOffControl", "OnOffControl_ADV"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is OnOffControlNode {
-		return node.nodeDefId in ["OnOffControl", "X10", "OnOffControl_ADV"];
+		return ["OnOffControl", "X10", "OnOffControl_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new OnOffControlNode(isy, nodeInfo);

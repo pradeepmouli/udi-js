@@ -6,7 +6,7 @@ import type { InsteonBaseDevice } from './InsteonBaseDevice.js';
 export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice>>(IB: T) => {
     new (...args: any[]): {
         isDimmable: boolean;
-        readonly vendorName: string;
+        readonly manufacturer: string;
         convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: "ST"): any;
         convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: "ST"): any;
         sendBeep(level?: number): Promise<any>;
@@ -15,7 +15,6 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         readonly deviceClass: any;
         readonly category: import("../../Definitions/index.js").Category;
         readonly subCategory: number;
-        declare: any;
         _enabled: any;
         productName: string;
         model: string;
@@ -26,7 +25,7 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/Global/Families.js").Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#1242778@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#532633@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -88,7 +87,7 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
 } & T;
 export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB: T) => {
     new (...args: any[]): {
-        readonly vendorName: string;
+        readonly manufacturer: string;
         convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: "ST"): any;
         convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: "ST"): any;
         sendBeep(level?: number): Promise<any>;
@@ -97,7 +96,6 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         readonly deviceClass: any;
         readonly category: import("../../Definitions/index.js").Category;
         readonly subCategory: number;
-        declare: any;
         _enabled: any;
         productName: string;
         model: string;
@@ -108,7 +106,7 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/Global/Families.js").Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#1242778@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#532633@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;

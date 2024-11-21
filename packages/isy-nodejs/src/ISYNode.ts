@@ -13,7 +13,7 @@ import type { Constructor } from './Devices/Constructor.js';
 import type { DriverState } from './Model/DriverState.js';
 import { NodeInfo } from './Model/NodeInfo.js';
 import type { NodeNotes } from './Model/NodeNotes.js';
-import { type StringKeys } from './Utils.js';
+import { type ObjectToUnion, type StringKeys } from './Utils.js';
 import { NodeType } from './ISYConstants.js';
 import type { ISYScene } from './ISYScene.js';
 import type { Merge, UnionToIntersection } from '@matter/general';
@@ -40,6 +40,8 @@ export class ISYNode<
 
 	public static family: Family;
 	public static nodeDefId = 'Unknown';
+
+	public static implements: string[] = [];
 
 	public baseName: any;
 	public commands: Command.ForAll<C>;
@@ -526,6 +528,17 @@ export namespace ISYNode {
 	export type EventsOf<T> = T extends ISYNode<any, any, any, infer E> ? E : never;
 	export type FamilyOf<T> = T extends ISYNode<infer F, any, any, any> ? F : never;
 
+	export type DriverTypesOf<T extends ISYNode> = ObjectToUnion<DriversOf<T>>;
+
+	export type CommandTypesOf<T extends ISYNode> = ObjectToUnion<CommandsOf<T>>;
+
+	export type EventTypesOf<T extends ISYNode> = ObjectToUnion<EventsOf<T>>;
+
+	export type EventNamesOf<T extends ISYNode> = EventTypesOf<T> extends { name: infer U } ? U : never;
+
+	export type DriverNamesOf<T extends ISYNode> = DriverTypesOf<T> extends { name: infer U } ? U : never;
+
+	export type CommandNamesOf<T extends ISYNode> = CommandTypesOf<T> extends { name: infer U } ? U : never;
 	export type List = NodeList;
 
 	export type DriverMap<T extends NodeList> = Flatten<{

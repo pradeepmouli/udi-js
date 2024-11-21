@@ -15,6 +15,7 @@ export declare class Ezio2x4OutputNode extends Base<Drivers, Commands> implement
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "EZIO2x4_Output";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: (0 | 100)): Promise<any>;

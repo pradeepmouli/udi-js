@@ -22,15 +22,14 @@ export class RemoteLinc2Node extends Base<Drivers, Commands> implements RemoteLi
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "RemoteLinc2";
+	static override implements = ["RemoteLinc2", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "RemoteLinc2" | "RemoteLinc2_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): number {
 		return this.drivers.ST?.value;
 	}
@@ -46,11 +45,9 @@ export namespace RemoteLinc2 {
 	export interface Interface extends Omit<InstanceType<typeof RemoteLinc2Node>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "RemoteLinc2" | "RemoteLinc2_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is RemoteLinc2Node {
-		return node.nodeDefId in ["RemoteLinc2", "RemoteLinc2_ADV"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is RemoteLinc2Node { return ["RemoteLinc2", "RemoteLinc2_ADV"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RemoteLinc2Node {
-		return node.nodeDefId in ["RemoteLinc2", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RemoteLinc2_ADV"];
+		return ["RemoteLinc2", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RemoteLinc2_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new RemoteLinc2Node(isy, nodeInfo);

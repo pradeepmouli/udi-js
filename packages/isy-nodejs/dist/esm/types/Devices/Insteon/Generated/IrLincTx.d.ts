@@ -13,6 +13,7 @@ export declare class IrLincTxNode extends Base<Drivers, Commands> implements IrL
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "IRLincTx";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     beep(value?: number): Promise<any>;

@@ -1,15 +1,19 @@
-import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import * as Clusters from '@project-chip/matter.js/cluster';
-import { OnOffLightDevice } from '@project-chip/matter.js/devices/OnOffLightDevice';
-import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
-import type { MutableEndpoint } from '@project-chip/matter.js/endpoint/type';
+
 import type { Converter } from '../Converters.js';
 import { DriverType } from '../Definitions/Global/Drivers.js';
-import { Devices } from '../Devices/index.js';
-import { Insteon } from '../Devices/Insteon/index.js';
+import { Devices, Insteon } from '../Devices/index.js';
 
-import type { Family } from '../Definitions/index.js';
+import { ClusterBehavior, MutableEndpoint, SupportedBehaviors } from '@matter/main';
+import type { OnOffLightDevice } from '@matter/main/devices';
+import { BridgedDeviceBasicInformationBehavior } from '@matter/node/behaviors';
+import type { DeviceTypeDefinition } from '@project-chip/matter.js/device';
+import { Family } from '../Definitions/index.js';
+import { NodeFactory } from '../Devices/NodeFactory.js';
 import { CommandsOf, DriversOf, ISYNode } from '../ISYNode.js';
+import { ISYBridgedDeviceBehavior } from '../Matter/Behaviors/ISYBridgedDeviceBehavior.js';
+import { ISYOnOffBehavior } from '../Matter/Behaviors/Insteon/ISYOnOffBehavior.js';
+import type { PickOfType, Remove } from '../Utils.js';
 import { ClusterType } from './ClusterType.js';
 
 // #region Type aliases (16)
@@ -84,15 +88,12 @@ export type CommandMapping<B, D> =
 //     behavior?: typeof ClusterBehavior;
 
 // }
-export type DeviceToClusterMap<T extends ISYNode<Family, any, any, any>, D extends { behaviors: SupportedBehaviors; deviceType: string }> =
-	D extends { behaviors: SupportedBehaviors; deviceType: string } ?
-		{
-			deviceType: D;
-			mapping: EndpointMapping<D, T>;
-		}
-	:	never;
-export type EndpointMapping<A extends { behaviors: any }, D extends ISYNode<Family, any, any, any>> = {
-	[K in Capitalize<StringKeys<A['behaviors']>>]?: BehaviorMapping<A['behaviors'][Uncapitalize<K>], D>; //{
+export type DeviceToClusterMap<T extends ISYNode<Family, any, any, any>, D extends MutableEndpoint> = {
+	deviceType: D;
+	mapping: EndpointMapping<D, T>;
+};
+export type EndpointMapping<A extends MutableEndpoint, D extends ISYNode<Family, any, any, any>> = {
+	[K in StringKeys<PickOfType<A['behaviors'], ClusterBehavior>> as Capitalize<K>]?: A['behaviors'][K] extends ClusterBehavior ? BehaviorMapping<A['behaviors'][K], D> : undefined; //{
 	/*attributes?: AttributeMapping<A['behaviors'][Uncapitalize<K>], D>;
 		commands?: CommandMapping<A['behaviors'][Uncapitalize<K>], D>;*/
 	//};
@@ -115,8 +116,9 @@ export type EndpointMapping1<A extends MutableEndpoint, K> = {
 	attributes?: SBAttributeMapping<A['behaviors'], K>;
 	commands?: SBCommandMapping<A['behaviors'], K>;
 };
+//@ts-ignore
 export type FamilyToClusterMap<T extends Family.Insteon | Family.ZWave | Family.ZigBee> = { Family: T } & {
-	[Type in keyof Devices.Insteon]?: DeviceToClusterMap<InstanceType<Devices.Insteon[Type]>, any>;
+	[Type in Extract<keyof Devices.Insteon, `${string}Node`> as Remove<Type, 'Node'>]?: DeviceToClusterMap<InstanceType<Devices.Insteon[Type]>, MutableEndpoint>;
 };
 export type SBAttributeMapping<SB extends SupportedBehaviors, D> = {
 	[K in keyof SB]: Partial<Record<any, DriversOf<D> | { driver: DriversOf<D>; converter?: string }>>;
@@ -139,24 +141,43 @@ export type parameterMapping = {
 export class MappingRegistry {
 	// #region Properties (1)
 
-	public static map: Map<Family, Map<string, DeviceToClusterMap<any, any>>> = new Map();
+	public static map: Map<Family, Map<string, DeviceToClusterMap<ISYNode, MutableEndpoint>>> = new Map();
+
+	public static cache: { [x: string]: DeviceToClusterMap<ISYNode, MutableEndpoint> } = {};
 
 	// #endregion Properties (1)
 
 	// #region Public Static Methods (3)
 
-	public static getMapping<T extends ISYNode<any, any, any, any>>(device: ISYNode<any, any, any, any>) {
-		if (MappingRegistry.map.has(device.family)) {
-			let g = MappingRegistry.map.get(device.family);
-			if (g.has(device.constructor.name)) {
-				return g.get(device.constructor.name);
-			} else if (g.has(device.nodeDefId)) {
-				return g.get(device.nodeDefId);
-			} else if (g.has(device.type)) {
-				return g.get(device.type);
+	public static getMapping<T extends ISYNode<any, any, any, any>>(device: T): DeviceToClusterMap<T, MutableEndpoint> {
+		let m = this.cache[device.address];
+		if (!m) {
+			if (MappingRegistry.map.has(device.family)) {
+				let g = MappingRegistry.map.get(device.family);
+				//let m: DeviceToClusterMap<T,MutableEndpoint>;
+				if (g.has(device.constructor.name)) {
+					m = g.get(device.constructor.name);
+				} else if (g.has(device.nodeDefId)) {
+					m = g.get(device.nodeDefId);
+				} else if (g.has(device.type)) {
+					m = g.get(device.type);
+				}
+				if (!m) {
+					for (var nodeDefId of NodeFactory.getImplements(device)) {
+						if (g.has(nodeDefId)) {
+							device.logger(`Mapping found to ${Family[device.family]}.${nodeDefId}`, 'info');
+							m = g.get(nodeDefId);
+							g.set(device.nodeDefId, m);
+
+							break;
+						}
+					}
+				}
+				if (m !== null) this.cache[device.address] = m;
 			}
 		}
-		return null;
+
+		return m;
 	}
 
 	public static getMappingForBehavior<T extends ISYNode<any, any, any, any>, B extends ClusterBehavior>(device: T, behavior: B): BehaviorMapping<B, T> {
@@ -174,11 +195,18 @@ export class MappingRegistry {
 			if (!MappingRegistry.map.has(map.Family)) {
 				MappingRegistry.map.set(map.Family, new Map());
 			}
+
 			regMap = MappingRegistry.map.get(map.Family);
 			for (var key in map) {
 				if (key !== 'Family') {
-					regMap.set(key, map[key]);
-					regMap.set(Insteon[key]?.name, map[key]); //TODO: This is a hack to allow for the Insteon devices to be registered by name
+					let m = map[key] as DeviceToClusterMap<ISYNode, MutableEndpoint>;
+
+					m = { deviceType: m.deviceType.with(BridgedDeviceBasicInformationBehavior, ISYBridgedDeviceBehavior), mapping: m.mapping };
+					regMap.set(key, m);
+					regMap.set(Insteon[key]?.name, m);
+					regMap.set(Insteon[key].nodeDefId, m);
+
+					//TODO: This is a hack to allow for the Insteon devices to be registered by name
 				}
 			}
 		} else {
@@ -192,9 +220,11 @@ export class MappingRegistry {
 				//{family, key} = key.split(".")[0]
 
 				regMap = MappingRegistry.map.get(x.family);
+				let m = map[key] as DeviceToClusterMap<ISYNode, MutableEndpoint>;
+				m = { deviceType: m.deviceType.with(BridgedDeviceBasicInformationBehavior, ISYBridgedDeviceBehavior), mapping: m.mapping };
 
-				regMap.set(keys[1], map[key]);
-				regMap.set(x.name, map[key]);
+				regMap.set(keys[1], m);
+				regMap.set(x.name, m);
 			}
 		}
 	}

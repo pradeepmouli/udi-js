@@ -26,27 +26,18 @@ export class Pir2844OnOffNode extends Base<Drivers, Commands> implements Pir2844
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "PIR2844OnOff";
+	static override implements = ["PIR2844OnOff"];
 	declare readonly nodeDefId: "PIR2844OnOff" | "PIR2844OnOff_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: (0 | 100)) {
-		return this.sendCommand("DON", { value: value });
-	}
-	async off() {
-		return this.sendCommand("DOF");
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async beep(value?: number) {
-		return this.sendCommand("BEEP", { value: value });
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async on(value?: (0 | 100)) { return this.sendCommand("DON", { value: value }); }
+	async off() { return this.sendCommand("DOF"); }
+	async query() { return this.sendCommand("QUERY"); }
+	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
@@ -62,11 +53,9 @@ export namespace Pir2844OnOff {
 	export interface Interface extends Omit<InstanceType<typeof Pir2844OnOffNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "PIR2844OnOff" | "PIR2844OnOff_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is Pir2844OnOffNode {
-		return node.nodeDefId in ["PIR2844OnOff", "PIR2844OnOff_ADV"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is Pir2844OnOffNode { return ["PIR2844OnOff", "PIR2844OnOff_ADV"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is Pir2844OnOffNode {
-		return node.nodeDefId in ["PIR2844OnOff", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "PIR2844OnOff_ADV"];
+		return ["PIR2844OnOff", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "PIR2844OnOff_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new Pir2844OnOffNode(isy, nodeInfo);

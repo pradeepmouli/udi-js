@@ -12,6 +12,8 @@ import { MappingRegistry } from '../../../Model/ClusterMap.js';
 import { ClusterForBehavior, ISYClusterBehavior, type PropertyChange } from '../ISYClusterBehavior.js';
 
 import { Converter } from '../../../Converters.js';
+import { BehaviorRegistry } from '../BehaviorRegistry.js';
+import type { ClusterBehavior } from '@matter/node';
 
 export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.OnOffServer, InsteonRelayDevice) {
 	override async initialize(_options?: {}) {
@@ -38,6 +40,8 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.
 	}
 }
 
+BehaviorRegistry.register(ISYOnOffBehavior);
+
 export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequirements.LevelControlServer, InsteonDimmableDevice) {
 	override async initialize(_options?: {}) {
 		await super.initialize(_options);
@@ -57,3 +61,5 @@ export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequire
 
 	}
 }
+
+BehaviorRegistry.register(ISYDimmableBehavior);

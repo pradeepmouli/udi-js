@@ -20,6 +20,8 @@ export class Base<Drivers extends ISYNode.DriverSignatures, Commands extends ISY
 		//// this.productName = InsteonNLS.getDeviceDescription(String.fromCharCode(category,device,version))
 }
 
+
+
 export async function create(...nodeInfo: NodeInfo<FamilyEnum.ZWave>[])
 {
 	let nodes = [] as Base<any, any>[];
@@ -30,3 +32,5 @@ export async function create(...nodeInfo: NodeInfo<FamilyEnum.ZWave>[])
 	}
 	return nodes;
 }
+
+//export * from './Generated/index.js';

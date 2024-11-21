@@ -24,21 +24,16 @@ export class DoorLockNode extends Base<Drivers, Commands> implements DoorLock.In
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "DoorLock";
+	static override implements = ["DoorLock", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "DoorLock";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async lock() {
-		return this.sendCommand("DON");
-	}
-	async unlock() {
-		return this.sendCommand("DOF");
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async lock() { return this.sendCommand("DON"); }
+	async unlock() { return this.sendCommand("DOF"); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): Insteon.Lock {
 		return this.drivers.ST?.value;
 	}
@@ -53,11 +48,9 @@ export namespace DoorLock {
 	export interface Interface extends Omit<InstanceType<typeof DoorLockNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "DoorLock";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is DoorLockNode {
-		return node.nodeDefId in ["DoorLock"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is DoorLockNode { return ["DoorLock"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is DoorLockNode {
-		return node.nodeDefId in ["DoorLock", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor"];
+		return ["DoorLock", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new DoorLockNode(isy, nodeInfo);

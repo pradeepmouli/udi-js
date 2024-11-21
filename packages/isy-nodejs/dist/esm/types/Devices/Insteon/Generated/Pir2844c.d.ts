@@ -15,6 +15,7 @@ export declare class Pir2844cNode extends Base<Drivers, Commands> implements Pir
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "PIR2844C" | "PIR2844C_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     calibrateTemperature(value: number): Promise<any>;

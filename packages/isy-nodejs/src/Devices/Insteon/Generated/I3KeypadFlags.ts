@@ -32,6 +32,7 @@ export class I3KeypadFlagsNode extends Base<Drivers, Commands> implements I3Keyp
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "I3KeypadFlags";
+	static override implements = ["I3KeypadFlags"];
 	declare readonly nodeDefId: "I3KeypadFlags";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -46,39 +47,17 @@ export class I3KeypadFlagsNode extends Base<Drivers, Commands> implements I3Keyp
 		this.drivers.GV8 = Driver.create("GV8", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Cleanup Reports", name: "cleanupReports" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async updateMode(value: Insteon.I3RelayDim) {
-		return this.sendCommand("GV0", { value: value });
-	}
-	async updateProgramLock(value: Insteon.I3OnOff) {
-		return this.sendCommand("GV1", { value: value });
-	}
-	async updateResumeDim(value: Insteon.I3OnOff) {
-		return this.sendCommand("GV2", { value: value });
-	}
-	async updateRelayAtFullOn(value: Insteon.I3OnOff) {
-		return this.sendCommand("GV3", { value: value });
-	}
-	async updateKeyBeep(value: Insteon.I3OnOff) {
-		return this.sendCommand("GV4", { value: value });
-	}
-	async updateDisableRf(value: Insteon.I3OnOff) {
-		return this.sendCommand("GV5", { value: value });
-	}
-	async updateButtonLock(value: Insteon.I3OnOff) {
-		return this.sendCommand("GV6", { value: value });
-	}
-	async updateErrorBlink(value: Insteon.I3OnOff) {
-		return this.sendCommand("GV7", { value: value });
-	}
-	async updateCleanupReports(value: Insteon.I3OnOff) {
-		return this.sendCommand("GV8", { value: value });
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async updateMode(value: Insteon.I3RelayDim) { return this.sendCommand("GV0", { value: value }); }
+	async updateProgramLock(value: Insteon.I3OnOff) { return this.sendCommand("GV1", { value: value }); }
+	async updateResumeDim(value: Insteon.I3OnOff) { return this.sendCommand("GV2", { value: value }); }
+	async updateRelayAtFullOn(value: Insteon.I3OnOff) { return this.sendCommand("GV3", { value: value }); }
+	async updateKeyBeep(value: Insteon.I3OnOff) { return this.sendCommand("GV4", { value: value }); }
+	async updateDisableRf(value: Insteon.I3OnOff) { return this.sendCommand("GV5", { value: value }); }
+	async updateButtonLock(value: Insteon.I3OnOff) { return this.sendCommand("GV6", { value: value }); }
+	async updateErrorBlink(value: Insteon.I3OnOff) { return this.sendCommand("GV7", { value: value }); }
+	async updateCleanupReports(value: Insteon.I3OnOff) { return this.sendCommand("GV8", { value: value }); }
+	async query() { return this.sendCommand("QUERY"); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get mode(): Insteon.I3RelayDim {
 		return this.drivers.ST?.value;
 	}
@@ -117,11 +96,9 @@ export namespace I3KeypadFlags {
 	export interface Interface extends Omit<InstanceType<typeof I3KeypadFlagsNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "I3KeypadFlags";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is I3KeypadFlagsNode {
-		return node.nodeDefId in ["I3KeypadFlags"];
-	}
+	export function is(node: ISYNode<any, any, any, any>): node is I3KeypadFlagsNode { return ["I3KeypadFlags"].includes(node.nodeDefId); }
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is I3KeypadFlagsNode {
-		return node.nodeDefId in ["I3KeypadFlags"];
+		return ["I3KeypadFlags"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new I3KeypadFlagsNode(isy, nodeInfo);

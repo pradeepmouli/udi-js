@@ -12,6 +12,7 @@ export declare class MainNode extends Base<Drivers, Commands> implements Main.In
         QUERY: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "EM3Main";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     query(): Promise<any>;

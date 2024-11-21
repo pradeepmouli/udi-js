@@ -19,6 +19,7 @@ export declare class RelayLampSwitchNode extends Base<Drivers, Commands> impleme
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "RelayLampSwitch" | "RelayLampSwitch_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: (0 | 100)): Promise<any>;

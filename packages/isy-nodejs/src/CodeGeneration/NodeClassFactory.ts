@@ -3,10 +3,10 @@ import { factory, Statement, type Declaration } from 'typescript';
 import type { Driver } from '../Definitions/Global/Drivers.js';
 import { UnitOfMeasure } from '../Definitions/Global/UOM.js';
 
+import { Family } from '../Definitions/index.js';
 import { CommandDefinition, DataTypeDefinition, DriverDefinition, NodeClassDefinition, ParameterDefinition } from '../Model/ClassDefinition.js';
 import { EnumDefinitionMap } from '../Model/EnumDefinition.js';
-import { Family } from '../Definitions/index.js';
-import { NodeFactory } from './NodeFactory.js';
+import { CodeFactory } from './NodeFactory.js';
 
 // #region Type aliases (1)
 
@@ -23,7 +23,7 @@ type GeneratedNodeClass<T extends Family> = {
 
 // #region Classes (1)
 
-export class NodeClassFactory {
+export class NodeClassFactory extends CodeFactory {
 	// #region Properties (2)
 
 	public static _basePath: string;
@@ -39,7 +39,7 @@ export class NodeClassFactory {
 		}
 	});
 
-	static Factory = new NodeFactory(ts.factory);
+	static instance: NodeClassFactory = new NodeClassFactory(ts.factory);
 
 	// #endregion Properties (2)
 
@@ -58,16 +58,20 @@ export class NodeClassFactory {
 	// #region Public Static Methods (4)
 
 	public static buildNodeClasses<T extends Family>(map: { [x: string]: NodeClassDefinition<T> }): GeneratedNodeClass<T>[] {
-		return Object.values(map).filter(p => !p.equivalentTo).map((p) => {
-			try {
-				return this.createNodeClass(p);
-			} catch (e) {
-				console.error(e);
-			}
-		});
+		return Object.values(map)
+			.filter((p) => !p.equivalentTo)
+			.map((p) => {
+				try {
+					return NodeClassFactory.instance.createNodeClass(p);
+				} catch (e) {
+					console.error(e);
+				}
+			});
 	}
 
-	public static createNodeClass<T extends Family>(nodeClassDef: NodeClassDefinition<T>) {
+	N;
+
+	public createNodeClass<T extends Family>(nodeClassDef: NodeClassDefinition<T>) {
 		let path = `${NodeClassFactory.basePath}/${Family[nodeClassDef.family]}/Generated/${nodeClassDef.name}.ts`;
 		let sf = ts.createSourceFile(path, '', ts.ScriptTarget.ES2023, true, ts.ScriptKind.TS);
 		//@ts-expect-error
@@ -91,7 +95,7 @@ export class NodeClassFactory {
 				factory.createStringLiteral('../../../Model/NodeInfo.js'),
 				undefined
 			),
-			this.Factory.createImportDeclaration('../../../ISY.js', ['ISY']),
+			this.createImportDeclaration('../../../ISY.js', ['ISY']),
 			factory.createImportDeclaration(
 				undefined,
 				factory.createImportClause(true, undefined, factory.createNamedImports([factory.createImportSpecifier(false, undefined, factory.createIdentifier('ISYNode'))])),
@@ -199,17 +203,28 @@ export class NodeClassFactory {
 						undefined,
 						factory.createStringLiteral(nodeClassDef.id)
 					),
+					this.createPropertyDeclaration(
+						'implements',
+						factory.createArrayLiteralExpression(
+							nodeClassDef.implementedBy ?
+								[this.createStringLiteral(nodeClassDef.id)].concat(
+									!nodeClassDef.implements || nodeClassDef.implements.length == 0 ? [] : nodeClassDef.implements?.map((p) => factory.createStringLiteral(p))
+								)
+							:	[this.createStringLiteral(nodeClassDef.id)]
+						),
+						this.createModifiers(ts.ModifierFlags.Static | ts.ModifierFlags.Override)
+					),
 					factory.createPropertyDeclaration(
 						[factory.createToken(ts.SyntaxKind.DeclareKeyword), factory.createToken(ts.SyntaxKind.ReadonlyKeyword)],
 						factory.createIdentifier('nodeDefId'),
 						undefined,
 						nodeClassDef.equivalents ?
-							factory.createUnionTypeNode(
-								[this.Factory.createLiteralTypeNode(nodeClassDef.id)].concat(
+							NodeClassFactory.instance.createUnionTypeNode(
+								...[this.createLiteralTypeNode(nodeClassDef.id)].concat(
 									!nodeClassDef.equivalents || nodeClassDef.equivalents.length == 0 ? [] : nodeClassDef.equivalents?.map((p) => factory.createLiteralTypeNode(factory.createStringLiteral(p)))
 								)
 							)
-						:	this.Factory.createLiteralTypeNode(nodeClassDef.id),
+						:	this.createLiteralTypeNode(nodeClassDef.id),
 						undefined
 					),
 					factory.createConstructorDeclaration(
@@ -271,7 +286,7 @@ export class NodeClassFactory {
 						[
 							factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
 								factory.createExpressionWithTypeArguments(factory.createIdentifier('Omit'), [
-									factory.createTypeReferenceNode(factory.createIdentifier('InstanceType'), [factory.createTypeQueryNode(factory.createIdentifier(`${nodeClassDef.name}Node`), undefined)]),
+									this.createTypeReferenceNode('InstanceType', this.factory.createTypeQueryNode(factory.createIdentifier(`${nodeClassDef.name}Node`))),
 									factory.createTypeOperatorNode(
 										ts.SyntaxKind.KeyOfKeyword,
 										factory.createTypeReferenceNode(factory.createIdentifier('ISYDeviceNode'), [
@@ -290,12 +305,12 @@ export class NodeClassFactory {
 								factory.createIdentifier('nodeDefId'),
 								undefined,
 								nodeClassDef.equivalents ?
-									factory.createUnionTypeNode(
-										[this.Factory.createLiteralTypeNode(nodeClassDef.id)].concat(
+									this.createUnionTypeNode(
+										...[this.createLiteralTypeNode(nodeClassDef.id)].concat(
 											!nodeClassDef.equivalents || nodeClassDef.equivalents.length == 0 ? [] : nodeClassDef.equivalents?.map((p) => factory.createLiteralTypeNode(factory.createStringLiteral(p)))
 										)
 									)
-								:	this.Factory.createLiteralTypeNode(nodeClassDef.id)
+								:	this.createLiteralTypeNode(nodeClassDef.id)
 							)
 						]
 					),
@@ -321,23 +336,23 @@ export class NodeClassFactory {
 							)
 						],
 						factory.createTypePredicateNode(undefined, factory.createIdentifier('node'), factory.createTypeReferenceNode(factory.createIdentifier(`${nodeClassDef.name}Node`), undefined)),
-						factory.createBlock(
-							[
-								factory.createReturnStatement(
-									factory.createBinaryExpression(
-										factory.createPropertyAccessExpression(factory.createIdentifier('node'), factory.createIdentifier('nodeDefId')),
-										factory.createToken(ts.SyntaxKind.InKeyword),
+						this.createBlock(
+							this.createReturnStatement(
+								factory.createCallExpression(
+									factory.createPropertyAccessExpression(
 										factory.createArrayLiteralExpression(
 											nodeClassDef.equivalents ?
-												[this.Factory.createStringLiteral(nodeClassDef.id)].concat(
+												[this.createStringLiteral(nodeClassDef.id)].concat(
 													!nodeClassDef.equivalents || nodeClassDef.equivalents.length == 0 ? [] : nodeClassDef.equivalents?.map((p) => factory.createStringLiteral(p))
 												)
-											:	[this.Factory.createStringLiteral(nodeClassDef.id)]
-										)
-									)
+											:	[this.createStringLiteral(nodeClassDef.id)]
+										),
+										'includes'
+									),
+									undefined,
+									[factory.createPropertyAccessExpression(factory.createIdentifier('node'), factory.createIdentifier('nodeDefId'))]
 								)
-							],
-							true
+							)
 						)
 					),
 					factory.createFunctionDeclaration(
@@ -361,23 +376,25 @@ export class NodeClassFactory {
 							)
 						],
 						factory.createTypePredicateNode(undefined, factory.createIdentifier('node'), factory.createTypeReferenceNode(factory.createIdentifier(`${nodeClassDef.name}Node`), undefined)),
-						factory.createBlock(
-							[
-								factory.createReturnStatement(
-									factory.createBinaryExpression(
-										factory.createPropertyAccessExpression(factory.createIdentifier('node'), factory.createIdentifier('nodeDefId')),
-										factory.createToken(ts.SyntaxKind.InKeyword),
+						this.createBlock(
+							true,
+
+							factory.createReturnStatement(
+								factory.createCallExpression(
+									factory.createPropertyAccessExpression(
 										factory.createArrayLiteralExpression(
 											nodeClassDef.implementedBy ?
-												[this.Factory.createStringLiteral(nodeClassDef.id)].concat(
+												[this.createStringLiteral(nodeClassDef.id)].concat(
 													!nodeClassDef.implementedBy || nodeClassDef.implementedBy.length == 0 ? [] : nodeClassDef.implementedBy?.map((p) => factory.createStringLiteral(p))
 												)
-											:	[this.Factory.createStringLiteral(nodeClassDef.id)]
-										)
-									)
+											:	[this.createStringLiteral(nodeClassDef.id)]
+										),
+										'includes'
+									),
+									undefined,
+									[factory.createPropertyAccessExpression(factory.createIdentifier('node'), factory.createIdentifier('nodeDefId'))]
 								)
-							],
-							true
+							)
 						)
 					),
 					factory.createFunctionDeclaration(
@@ -511,8 +528,8 @@ function createCommandMethodDeclaration(def: CommandDefinition) {
 
 		def.parameters ? Object.values(def.parameters).map(createParameterDeclarationSignature) : undefined,
 		undefined,
-		factory.createBlock(
-			[
+		NodeClassFactory.instance.createBlock(
+
 				factory.createReturnStatement(
 					factory.createCallExpression(factory.createPropertyAccessExpression(factory.createThis(), factory.createIdentifier('sendCommand')), undefined, [
 						factory.createStringLiteral(def.id),
@@ -526,8 +543,7 @@ function createCommandMethodDeclaration(def: CommandDefinition) {
 						:	[])
 					])
 				)
-			],
-			true
+
 		)
 	);
 }
@@ -545,10 +561,10 @@ function createCommandParameterType(def: DataTypeDefinition, parent: ParameterDe
 			}
 
 			if (def.values) {
-				return factory.createUnionTypeNode(Object.keys(def.values).map((p) => factory.createLiteralTypeNode(factory.createNumericLiteral(p))));
+				return NodeClassFactory.instance.createUnionTypeNode(...Object.keys(def.values).map((p) => factory.createLiteralTypeNode(factory.createNumericLiteral(p))));
 			}
 
-			//   return factory.createUnionTypeNode(
+			//   return NodeClassFactory.instance.createUnionTypeNode(...
 			//     Object.values(def.values).map((p) => factory.createTypeReferenceNode(
 			//   factory.createQualifiedName(
 			//     factory.createIdentifier("UnitOfMeasure"),
@@ -588,7 +604,7 @@ function createDriverGetDeclaration(def: DriverDefinition) {
 		[factory.createToken(ts.SyntaxKind.PublicKeyword)],
 		factory.createIdentifier(def.name),
 		[],
-		factory.createUnionTypeNode(Object.values(def.dataType).map((p) => createDriverPropertyReturnType(p, def))),
+		NodeClassFactory.instance.createUnionTypeNode(...Object.values(def.dataType).map((p) => createDriverPropertyReturnType(p, def))),
 		factory.createBlock(
 			[
 				factory.createReturnStatement(
@@ -644,10 +660,10 @@ function createDriverPropertyReturnType(def: DataTypeDefinition, parent: DriverD
 				}
 			}
 			if (def.values) {
-				return factory.createUnionTypeNode(Object.keys(def.values).map((p) => factory.createLiteralTypeNode(factory.createNumericLiteral(p))));
+				return NodeClassFactory.instance.createUnionTypeNode(...Object.keys(def.values).map((p) => factory.createLiteralTypeNode(factory.createNumericLiteral(p))));
 			}
 
-			//   return factory.createUnionTypeNode(
+			//   return NodeClassFactory.instance.createUnionTypeNode(...
 			//     Object.values(def.values).map((p) => factory.createTypeReferenceNode(
 			//   factory.createQualifiedName(
 			//     factory.createIdentifier("UnitOfMeasure"),
@@ -670,13 +686,17 @@ function createDriverSignature(def: DriverDefinition) {
 				undefined,
 				factory.createIdentifier('uom'),
 				undefined,
-				def.dataType ? factory.createUnionTypeNode(Object.values(def.dataType).map((p) => createTypeNodeForUOM(p.uom))) : factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword)
+				def.dataType ?
+					NodeClassFactory.instance.createUnionTypeNode(...Object.values(def.dataType).map((p) => createTypeNodeForUOM(p.uom)))
+				:	factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword)
 			),
 			factory.createPropertySignature(
 				undefined,
 				factory.createIdentifier('value'),
 				undefined,
-				def.dataType ? factory.createUnionTypeNode(Object.values(def.dataType).map((p) => createDriverSignatureReturnType(p, def))) : factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword)
+				def.dataType ?
+					NodeClassFactory.instance.createUnionTypeNode(...Object.values(def.dataType).map((p) => createDriverSignatureReturnType(p, def)))
+				:	factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword)
 			),
 			factory.createPropertySignature(undefined, factory.createIdentifier('label'), undefined, factory.createLiteralTypeNode(factory.createStringLiteral(def.label))),
 			factory.createPropertySignature(undefined, factory.createIdentifier('name'), undefined, factory.createLiteralTypeNode(factory.createStringLiteral(def.name)))
@@ -695,7 +715,7 @@ function createDriverSignatureReturnType(def: DataTypeDefinition, parent: Driver
 			}
 		}
 		if (def.values) {
-			return factory.createUnionTypeNode(Object.keys(def.values).map((p) => factory.createLiteralTypeNode(factory.createNumericLiteral(p))));
+			return NodeClassFactory.instance.createUnionTypeNode(...Object.keys(def.values).map((p) => factory.createLiteralTypeNode(factory.createNumericLiteral(p))));
 		}
 	}
 	return factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
@@ -707,7 +727,9 @@ function createParameterDeclarationSignature(def: ParameterDefinition) {
 		undefined,
 		factory.createIdentifier(def.name ?? 'value'),
 		def.optional ? factory.createToken(ts.SyntaxKind.QuestionToken) : undefined,
-		def.dataType ? factory.createUnionTypeNode(Object.values(def.dataType).map((p) => createCommandParameterType(p, def))) : factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword),
+		def.dataType ?
+			NodeClassFactory.instance.createUnionTypeNode(...Object.values(def.dataType).map((p) => createCommandParameterType(p, def)))
+		:	factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword),
 		undefined
 	);
 }
@@ -718,13 +740,15 @@ function createParameterSignature(def: ParameterDefinition) {
 		undefined,
 		factory.createIdentifier(def.id ?? 'value'),
 		def.optional ? factory.createToken(ts.SyntaxKind.QuestionToken) : undefined,
-		def.dataType ? factory.createUnionTypeNode(Object.values(def.dataType).map((p) => createCommandParameterType(p, def))) : factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword),
+		def.dataType ?
+			NodeClassFactory.instance.createUnionTypeNode(...Object.values(def.dataType).map((p) => createCommandParameterType(p, def)))
+		:	factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword),
 		undefined
 	);
 }
 
 function createTypeNodeForUOM(uom: number): ts.TypeNode {
-	return factory.createTypeReferenceNode(factory.createQualifiedName(factory.createIdentifier('UnitOfMeasure'), factory.createIdentifier(UnitOfMeasure[uom] ?? 'Unknown')));
+	return NodeClassFactory.instance.createTypeReferenceNode(UnitOfMeasure[uom] ?? 'Unknown', 'UnitOfMeasure');
 }
 
 // #endregion Functions (12)

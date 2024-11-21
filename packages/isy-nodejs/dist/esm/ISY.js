@@ -402,12 +402,17 @@ export class ISY extends EventEmitter {
         }
     }
     async loadVariables(type) {
-        const that = this;
-        this.logger.info(`Loading ISY Variables of type: ${type}`);
-        return this.sendRequest(`vars/definitions/${type}`)
-            .then((result) => that.#createVariables(type, result))
-            .then(() => that.sendRequest(`vars/get/${type}`))
-            .then(that.#setVariableValues.bind(that));
+        try {
+            const that = this;
+            this.logger.info(`Loading ISY Variables of type: ${type}`);
+            return this.sendRequest(`vars/definitions/${type}`)
+                .then((result) => that.#createVariables(type, result))
+                .then(() => that.sendRequest(`vars/get/${type}`))
+                .then(that.#setVariableValues.bind(that));
+        }
+        catch {
+            this.logger.warn('error loading variables');
+        }
     }
     nodeChangedHandler(node, propertyName = null) {
         const that = this;

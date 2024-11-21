@@ -470,12 +470,18 @@ export class ISY extends EventEmitter implements Disposable {
 	}
 
 	public async loadVariables(type: VariableType): Promise<any> {
+		try
+		{
 		const that = this;
 		this.logger.info(`Loading ISY Variables of type: ${type}`);
 		return this.sendRequest(`vars/definitions/${type}`)
 			.then((result) => that.#createVariables(type, result))
 			.then(() => that.sendRequest(`vars/get/${type}`))
 			.then(that.#setVariableValues.bind(that));
+		}
+		catch{
+			this.logger.warn('error loading variables');
+		}
 	}
 
 	public nodeChangedHandler(node: ELKAlarmPanelDevice | ElkAlarmSensorDevice, propertyName = null) {

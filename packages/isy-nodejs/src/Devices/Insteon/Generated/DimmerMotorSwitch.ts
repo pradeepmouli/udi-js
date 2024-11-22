@@ -43,7 +43,7 @@ export class DimmerMotorSwitchNode extends Base<Drivers, Commands> implements Di
 		this.drivers.DUR = Driver.create("DUR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.DurationInSeconds, label: "Max Duration", name: "maxDuration" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: number) { return this.sendCommand("DON", { value: value }); }
+	async on(value?: number) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
 	async fastOff() { return this.sendCommand("DFOF"); }
 	async fastOn() { return this.sendCommand("DFON"); }
@@ -51,10 +51,10 @@ export class DimmerMotorSwitchNode extends Base<Drivers, Commands> implements Di
 	async fadeDown() { return this.sendCommand("FDDOWN"); }
 	async fadeStop() { return this.sendCommand("FDSTOP"); }
 	async query() { return this.sendCommand("QUERY"); }
-	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
-	async updateOnLevel(value: number) { return this.sendCommand("OL", { value: value }); }
-	async updateMaxDuration(value: number) { return this.sendCommand("DUR", { value: value }); }
-	async backlight(value: number) { return this.sendCommand("BL", { value: value }); }
+	async beep(value?: number) { return this.sendCommand("BEEP", value); }
+	async updateOnLevel(value: number) { return this.sendCommand("OL", value); }
+	async updateMaxDuration(value: number) { return this.sendCommand("DUR", value); }
+	async backlight(value: number) { return this.sendCommand("BL", value); }
 	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): number {
 		return this.drivers.ST?.value;

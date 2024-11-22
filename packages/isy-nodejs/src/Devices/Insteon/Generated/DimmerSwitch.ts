@@ -29,7 +29,7 @@ export class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerS
 		super(isy, nodeInfo);
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async backlight(value: number) { return this.sendCommand("BL", { value: value }); }
+	async backlight(value: number) { return this.sendCommand("BL", value); }
 	async writeChanges() { return this.sendCommand("WDU"); }
 	public get responding(): Insteon.Error {
 		return this.drivers.ERR?.value;

@@ -43,7 +43,7 @@ export class SceneNode extends Base<Drivers, Commands> implements Scene.Interfac
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 	}
-	async on(value?: number) { return this.sendCommand("DON", { value: value }); }
+	async on(value?: number) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
 	async fastOff() { return this.sendCommand("DFOF"); }
 	async fastOn() { return this.sendCommand("DFON"); }
@@ -54,12 +54,12 @@ export class SceneNode extends Base<Drivers, Commands> implements Scene.Interfac
 	async fadeStop() { return this.sendCommand("FDSTOP"); }
 	async beep() { return this.sendCommand("BEEP"); }
 	async query() { return this.sendCommand("QUERY"); }
-	async mode(value: number) { return this.sendCommand("CLIMD", { value: value }); }
-	async fanMode(value: (0 | 1)) { return this.sendCommand("CLIFS", { value: value }); }
-	async heatSetpoint(value: number) { return this.sendCommand("CLISPH", { value: value }); }
-	async coolSetpoint(value: number) { return this.sendCommand("CLISPC", { value: value }); }
-	async heatSetpointShift(value: number) { return this.sendCommand("CLISPHD", { value: value }); }
-	async coolSetpointShift(value: number) { return this.sendCommand("CLISPCD", { value: value }); }
+	async mode(value: number) { return this.sendCommand("CLIMD", value); }
+	async fanMode(value: (0 | 1)) { return this.sendCommand("CLIFS", value); }
+	async heatSetpoint(value: number) { return this.sendCommand("CLISPH", value); }
+	async coolSetpoint(value: number) { return this.sendCommand("CLISPC", value); }
+	async heatSetpointShift(value: number) { return this.sendCommand("CLISPHD", value); }
+	async coolSetpointShift(value: number) { return this.sendCommand("CLISPCD", value); }
 }
 
 NodeFactory.register(SceneNode);

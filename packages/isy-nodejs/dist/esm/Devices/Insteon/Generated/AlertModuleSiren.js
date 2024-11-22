@@ -26,7 +26,7 @@ export class AlertModuleSirenNode extends Base {
     async fastOff() { return this.sendCommand("DFOF"); }
     async fastOn() { return this.sendCommand("DFON"); }
     async query() { return this.sendCommand("QUERY"); }
-    async beep(value) { return this.sendCommand("BEEP", { value: value }); }
+    async beep(value) { return this.sendCommand("BEEP", value); }
     async writeChanges() { return this.sendCommand("WDU"); }
     get status() {
         return this.drivers.ST?.value;

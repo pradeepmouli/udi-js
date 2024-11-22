@@ -538,7 +538,7 @@ export class ISY extends EventEmitter implements Disposable {
 			if (typeof parameters == 'object') {
 				var q = parameters as Record<P, string | number>;
 				for (const paramName in q) {
-					if (paramName === 'value') {
+					if (paramName === 'value' || paramName === 'default') {
 						uriToUse += `/${q[paramName]}`;
 						continue;
 					}

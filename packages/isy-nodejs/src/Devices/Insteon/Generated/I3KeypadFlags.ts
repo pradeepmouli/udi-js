@@ -47,15 +47,15 @@ export class I3KeypadFlagsNode extends Base<Drivers, Commands> implements I3Keyp
 		this.drivers.GV8 = Driver.create("GV8", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Cleanup Reports", name: "cleanupReports" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async updateMode(value: Insteon.I3RelayDim) { return this.sendCommand("GV0", { value: value }); }
-	async updateProgramLock(value: Insteon.I3OnOff) { return this.sendCommand("GV1", { value: value }); }
-	async updateResumeDim(value: Insteon.I3OnOff) { return this.sendCommand("GV2", { value: value }); }
-	async updateRelayAtFullOn(value: Insteon.I3OnOff) { return this.sendCommand("GV3", { value: value }); }
-	async updateKeyBeep(value: Insteon.I3OnOff) { return this.sendCommand("GV4", { value: value }); }
-	async updateDisableRf(value: Insteon.I3OnOff) { return this.sendCommand("GV5", { value: value }); }
-	async updateButtonLock(value: Insteon.I3OnOff) { return this.sendCommand("GV6", { value: value }); }
-	async updateErrorBlink(value: Insteon.I3OnOff) { return this.sendCommand("GV7", { value: value }); }
-	async updateCleanupReports(value: Insteon.I3OnOff) { return this.sendCommand("GV8", { value: value }); }
+	async updateMode(value: Insteon.I3RelayDim) { return this.sendCommand("GV0", value); }
+	async updateProgramLock(value: Insteon.I3OnOff) { return this.sendCommand("GV1", value); }
+	async updateResumeDim(value: Insteon.I3OnOff) { return this.sendCommand("GV2", value); }
+	async updateRelayAtFullOn(value: Insteon.I3OnOff) { return this.sendCommand("GV3", value); }
+	async updateKeyBeep(value: Insteon.I3OnOff) { return this.sendCommand("GV4", value); }
+	async updateDisableRf(value: Insteon.I3OnOff) { return this.sendCommand("GV5", value); }
+	async updateButtonLock(value: Insteon.I3OnOff) { return this.sendCommand("GV6", value); }
+	async updateErrorBlink(value: Insteon.I3OnOff) { return this.sendCommand("GV7", value); }
+	async updateCleanupReports(value: Insteon.I3OnOff) { return this.sendCommand("GV8", value); }
 	async query() { return this.sendCommand("QUERY"); }
 	async writeChanges() { return this.sendCommand("WDU"); }
 	public get mode(): Insteon.I3RelayDim {

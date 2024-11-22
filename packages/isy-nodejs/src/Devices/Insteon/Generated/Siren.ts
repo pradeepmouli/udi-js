@@ -40,10 +40,10 @@ export class SirenNode extends Base<Drivers, Commands> implements Siren.Interfac
 	}
 	async on(duration?: number) { return this.sendCommand("DON", { DUR: duration }); }
 	async off() { return this.sendCommand("DOF"); }
-	async arm(value: Insteon.SirenMode) { return this.sendCommand("ARM", { value: value }); }
+	async arm(value: Insteon.SirenMode) { return this.sendCommand("ARM", value); }
 	async disarm() { return this.sendCommand("DISARM"); }
 	async query() { return this.sendCommand("QUERY"); }
-	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
+	async beep(value?: number) { return this.sendCommand("BEEP", value); }
 	async writeChanges() { return this.sendCommand("WDU"); }
 	public get siren(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;

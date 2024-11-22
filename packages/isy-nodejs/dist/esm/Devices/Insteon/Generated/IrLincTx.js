@@ -15,7 +15,7 @@ export class IrLincTxNode extends Base {
         super(isy, nodeInfo);
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
-    async beep(value) { return this.sendCommand("BEEP", { value: value }); }
+    async beep(value) { return this.sendCommand("BEEP", value); }
     async writeChanges() { return this.sendCommand("WDU"); }
     get responding() {
         return this.drivers.ERR?.value;

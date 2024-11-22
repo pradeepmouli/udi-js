@@ -36,9 +36,9 @@ export class Pir2844Node extends Base<Drivers, Commands> implements Pir2844.Inte
 		this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Battery Powered", name: "batteryPowered" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async calibrateTemperature(value: number) { return this.sendCommand("CLITEMP", { value: value }); }
+	async calibrateTemperature(value: number) { return this.sendCommand("CLITEMP", value); }
 	async query() { return this.sendCommand("QUERY"); }
-	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
+	async beep(value?: number) { return this.sendCommand("BEEP", value); }
 	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;

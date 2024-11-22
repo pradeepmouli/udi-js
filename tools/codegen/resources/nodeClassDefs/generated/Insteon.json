@@ -84,7 +84,7 @@
     "family": 1,
     "label": "X10",
     "name": "X10",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "OnOffControl",
       "OnOffControl_ADV",
@@ -460,7 +460,7 @@
     "family": 1,
     "label": "Thermostat",
     "name": "Thermostat",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "TempLinc",
       "IRLincTx",
@@ -830,7 +830,7 @@
     "family": 1,
     "label": "TempLinc",
     "name": "TempLinc",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "IRLincTx",
       "SirenAlert",
@@ -899,7 +899,7 @@
     "family": 1,
     "label": "On/Off Control",
     "name": "OnOffControl",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "SirenAlert",
       "SirenArm"
@@ -971,7 +971,7 @@
     "family": 1,
     "label": "OnOffControl_ADV",
     "name": "OnOffControlAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "OnOffControl",
       "SirenAlert",
@@ -1311,7 +1311,7 @@
     "family": 1,
     "label": "DimmerMotorSwitch",
     "name": "DimmerMotorSwitch",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "RelaySwitchOnlyPlusQuery",
       "RelaySwitchOnlyPlusQuery_ADV",
@@ -1657,7 +1657,7 @@
     "family": 1,
     "label": "DimmerMotorSwitch_ADV",
     "name": "DimmerMotorSwitchAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "DimmerMotorSwitch",
       "RelaySwitchOnlyPlusQuery",
@@ -2016,7 +2016,7 @@
     "family": 1,
     "label": "Dimmer Lamp & Switch",
     "name": "DimmerLampSwitch",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "DimmerSwitchOnly",
       "DimmerSwitchOnly_ADV",
@@ -2380,7 +2380,7 @@
     "family": 1,
     "label": "DimmerLampSwitch_ADV",
     "name": "DimmerLampSwitchAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "DimmerLampSwitch",
       "DimmerSwitchOnly",
@@ -2777,7 +2777,7 @@
     "family": 1,
     "label": "DimmerLampSwitchLED",
     "name": "DimmerLampSwitchLed",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "DimmerSwitchOnly",
       "DimmerSwitchOnly_ADV",
@@ -3176,7 +3176,7 @@
     "family": 1,
     "label": "DimmerLampSwitchLED_ADV",
     "name": "DimmerLampSwitchLedAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "DimmerLampSwitchLED",
       "DimmerSwitchOnly",
@@ -3300,7 +3300,7 @@
     "family": 1,
     "label": "Dimmer Switch",
     "name": "DimmerSwitch",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "SirenAlert",
       "SirenArm"
@@ -3420,7 +3420,7 @@
     "family": 1,
     "label": "DimmerSwitchOnly_ADV",
     "name": "DimmerSwitchOnlyAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "DimmerSwitchOnly",
       "SirenAlert",
@@ -3710,7 +3710,7 @@
     "family": 1,
     "label": "Dimmer Lamp",
     "name": "DimmerLamp",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "IRLincTx",
       "SirenAlert",
@@ -4069,7 +4069,7 @@
     "family": 1,
     "label": "KeypadDimmer",
     "name": "KeypadDimmer",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "RemoteLinc2",
       "RemoteLinc2_ADV",
@@ -4430,7 +4430,7 @@
     "family": 1,
     "label": "KeypadDimmer_ADV",
     "name": "KeypadDimmerAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "KeypadDimmer",
       "RemoteLinc2",
@@ -4603,7 +4603,7 @@
     "family": 1,
     "label": "Ballast Relay Lamp Switch",
     "name": "BallastRelayLampSwitch",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "RelayLampOnly",
       "RelayLampOnly_ADV",
@@ -4787,7 +4787,7 @@
     "family": 1,
     "label": "BallastRelayLampSwitch_ADV",
     "name": "BallastRelayLampSwitchAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "BallastRelayLampSwitch",
       "RelayLampOnly",
@@ -5012,7 +5012,7 @@
     "family": 1,
     "label": "Relay Lamp & Switch",
     "name": "RelayLampSwitch",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "RelaySwitchOnlyPlusQuery",
       "RelaySwitchOnlyPlusQuery_ADV",
@@ -5246,7 +5246,7 @@
     "family": 1,
     "label": "RelayLampSwitch_ADV",
     "name": "RelayLampSwitchAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "RelayLampSwitch",
       "RelaySwitchOnlyPlusQuery",
@@ -5513,7 +5513,7 @@
     "family": 1,
     "label": "RelayLampSwitchLED",
     "name": "RelayLampSwitchLed",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "RelaySwitchOnlyPlusQuery",
       "RelaySwitchOnlyPlusQuery_ADV",
@@ -5782,7 +5782,7 @@
     "family": 1,
     "label": "RelayLampSwitchLED_ADV",
     "name": "RelayLampSwitchLedAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "RelayLampSwitchLED",
       "RelaySwitchOnlyPlusQuery",
@@ -5944,7 +5944,7 @@
     "family": 1,
     "label": "RelaySwitchOnlyPlusQuery",
     "name": "RelaySwitchOnlyPlusQuery",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "RelaySwitchOnly",
       "RelaySwitchOnly_ADV",
@@ -6105,7 +6105,7 @@
     "family": 1,
     "label": "RelaySwitchOnlyPlusQuery_ADV",
     "name": "RelaySwitchOnlyPlusQueryAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "RelaySwitchOnlyPlusQuery",
       "RelaySwitchOnly",
@@ -6261,7 +6261,7 @@
     "family": 1,
     "label": "Relay Switch",
     "name": "RelaySwitch",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "IRLincTx",
       "SirenAlert",
@@ -6414,7 +6414,7 @@
     "family": 1,
     "label": "RelaySwitchOnly_ADV",
     "name": "RelaySwitchOnlyAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "RelaySwitchOnly",
       "IRLincTx",
@@ -6581,7 +6581,7 @@
     "family": 1,
     "label": "Relay Lamp",
     "name": "RelayLamp",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "IRLincTx",
       "EZRAIN_Output",
@@ -6745,7 +6745,7 @@
     "family": 1,
     "label": "RelayLampOnly_ADV",
     "name": "RelayLampOnlyAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "RelayLampOnly",
       "IRLincTx",
@@ -6974,7 +6974,7 @@
     "family": 1,
     "label": "KeypadRelay",
     "name": "KeypadRelay",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "IRLincTx",
       "KeypadButton",
@@ -7208,7 +7208,7 @@
     "family": 1,
     "label": "KeypadRelay_ADV",
     "name": "KeypadRelayAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "KeypadRelay",
       "IRLincTx",
@@ -7318,7 +7318,7 @@
     "family": 1,
     "label": "RemoteLinc2",
     "name": "RemoteLinc2",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "SirenAlert",
       "SirenArm"
@@ -7423,7 +7423,7 @@
     "family": 1,
     "label": "RemoteLinc2_ADV",
     "name": "RemoteLinc2Adv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "RemoteLinc2",
       "SirenAlert",
@@ -7510,7 +7510,7 @@
     "family": 1,
     "label": "IRLincTx",
     "name": "IrLincTx",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "SirenAlert",
       "SirenArm"
@@ -7696,7 +7696,7 @@
     "family": 1,
     "label": "FanLincMotor",
     "name": "FanLincMotor",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "EZRAIN_Output",
       "EZIO2x4_Output",
@@ -7831,7 +7831,7 @@
     "family": 1,
     "label": "KeypadButton",
     "name": "KeypadButton",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "EZIO2x4_Input",
       "EZIO2x4_Input_ADV",
@@ -7972,7 +7972,7 @@
     "family": 1,
     "label": "KeypadButton_ADV",
     "name": "KeypadButtonAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "KeypadButton",
       "EZIO2x4_Input",
@@ -8120,7 +8120,7 @@
     "family": 1,
     "label": "EZRAIN_Output",
     "name": "EzrainOutput",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "EZIO2x4_Output",
       "AlertModuleArmed",
@@ -8210,7 +8210,7 @@
     "family": 1,
     "label": "EZRAIN_Input",
     "name": "EzrainInput",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "EZIO2x4_Input",
       "EZIO2x4_Input_ADV",
@@ -8293,7 +8293,7 @@
     "family": 1,
     "label": "EZRAIN_Input_ADV",
     "name": "EzrainInputAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "EZRAIN_Input",
       "EZIO2x4_Input",
@@ -8406,7 +8406,7 @@
     "family": 1,
     "label": "EZIO2x4 Output",
     "name": "Ezio2x4Output",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "SirenAlert",
       "SirenArm"
@@ -8491,7 +8491,7 @@
     "family": 1,
     "label": "EZIO2x4 Input",
     "name": "Ezio2x4Input",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "SirenAlert",
       "SirenArm"
@@ -8580,7 +8580,7 @@
     "family": 1,
     "label": "EZIO2x4_Input_ADV",
     "name": "Ezio2x4InputAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "EZIO2x4_Input",
       "SirenAlert",
@@ -8687,7 +8687,7 @@
     "family": 1,
     "label": "IMETER_SOLO",
     "name": "ImeterSolo",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "SirenAlert",
       "SirenArm"
@@ -8760,7 +8760,7 @@
     "family": 1,
     "label": "DoorLock",
     "name": "DoorLock",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "SirenAlert",
       "SirenArm"
@@ -8884,7 +8884,7 @@
     "family": 1,
     "label": "BinaryAlarm",
     "name": "BinaryAlarm",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "BinaryControl",
       "BinaryControl_ADV",
@@ -9015,7 +9015,7 @@
     "family": 1,
     "label": "BinaryAlarm_ADV",
     "name": "BinaryAlarmAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "BinaryAlarm",
       "BinaryControl",
@@ -9138,7 +9138,7 @@
     "family": 1,
     "label": "BinaryControl",
     "name": "BinaryControl",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "SirenAlert",
       "SirenArm"
@@ -9261,7 +9261,7 @@
     "family": 1,
     "label": "BinaryControl_ADV",
     "name": "BinaryControlAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "BinaryControl",
       "SirenAlert",
@@ -9414,7 +9414,7 @@
     "family": 1,
     "label": "AlertModuleSiren",
     "name": "AlertModuleSiren",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "AlertModuleArmed",
       "SirenAlert",
@@ -9558,7 +9558,7 @@
     "family": 1,
     "label": "AlertModuleSiren_ADV",
     "name": "AlertModuleSirenAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "AlertModuleSiren",
       "AlertModuleArmed",
@@ -9671,7 +9671,7 @@
     "family": 1,
     "label": "AlertModuleArmed",
     "name": "AlertModuleArmed",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "SirenAlert",
       "SirenArm"
@@ -9922,7 +9922,7 @@
     "family": 1,
     "label": "Siren",
     "name": "Siren",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "SirenAlert",
       "SirenArm"
@@ -10163,7 +10163,7 @@
     "family": 1,
     "label": "Siren",
     "name": "Siren",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "Siren",
       "SirenAlert",
@@ -10203,7 +10203,7 @@
     "family": 1,
     "label": "Siren Alert",
     "name": "SirenAlert",
-    "dynamic": false,
+    "dynamic": true,
     "equivalents": [
       "SirenArm"
     ],
@@ -10297,7 +10297,7 @@
     "family": 1,
     "label": "Siren Arm",
     "name": "SirenArm",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "SirenAlert"
     ],
@@ -10574,7 +10574,7 @@
     "family": 1,
     "label": "PIR2844",
     "name": "Pir2844",
-    "dynamic": false,
+    "dynamic": true,
     "equivalents": [
       "PIR2844_ADV"
     ],
@@ -10793,7 +10793,7 @@
     "family": 1,
     "label": "PIR2844_ADV",
     "name": "Pir2844Adv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "PIR2844",
       "SirenArm",
@@ -11014,7 +11014,7 @@
     "family": 1,
     "label": "PIR2844C",
     "name": "Pir2844c",
-    "dynamic": false,
+    "dynamic": true,
     "equivalents": [
       "PIR2844C_ADV"
     ],
@@ -11233,7 +11233,7 @@
     "family": 1,
     "label": "PIR2844C_ADV",
     "name": "Pir2844cAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "PIR2844C",
       "SirenArm",
@@ -11385,7 +11385,7 @@
     "family": 1,
     "label": "PIR2844OnOff",
     "name": "Pir2844OnOff",
-    "dynamic": false,
+    "dynamic": true,
     "equivalents": [
       "PIR2844OnOff_ADV"
     ],
@@ -11541,7 +11541,7 @@
     "family": 1,
     "label": "PIR2844OnOff_ADV",
     "name": "Pir2844OnOffAdv",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "PIR2844OnOff",
       "SirenArm",
@@ -12014,7 +12014,7 @@
     "family": 1,
     "label": "I3PaddleFlags",
     "name": "I3PaddleFlags",
-    "dynamic": false,
+    "dynamic": true,
     "implementedBy": [
       "I3KeypadFlags"
     ]
@@ -12592,7 +12592,7 @@
     "family": 1,
     "label": "I3KeypadFlags",
     "name": "I3KeypadFlags",
-    "dynamic": false,
+    "dynamic": true,
     "implements": [
       "I3PaddleFlags"
     ]

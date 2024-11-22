@@ -1,19 +1,11 @@
 
-import { DriverType } from '../../Definitions/Global/Drivers.js';
-import { Family, type t } from '../../Definitions/Global/Families.js';
-import  * as Insteon from '../../Devices/Insteon/index.js';
-import { Devices } from '../../Devices/index.js';
-import { MappingRegistry, type DeviceToClusterMap, type EndpointMapping, type FamilyToClusterMap } from '../../Model/ClusterMap.js';
+import { Family } from '../../Definitions/Global/Families.js';
+import * as Insteon from '../../Devices/Insteon/index.js';
+import { MappingRegistry, type EndpointMapping, type FamilyToClusterMap } from '../../Model/ClusterMap.js';
 
 //import InsteonMap from "./Insteon.json";
 
-import { Converter } from '../../Converters.js';
-import type { InsteonRelaySwitchDevice } from '../../Devices/Insteon/InsteonRelaySwitchDevice.js';
-import { DimmerSwitchDevice, GenericSwitchDevice, OnOffLightSwitchDevice, OnOffLightDevice, DimmableLightDevice } from '@matter/node/devices';
-import type { Identity } from '@matter/general';
-import { SwitchServer } from '@matter/node/behaviors';
-import type { Device } from '@project-chip/matter.js/device';
-import type { MutableEndpoint } from '@matter/node';
+import { OnOffLightDevice, DimmableLightDevice } from '@matter/node/devices';
 
 const map: FamilyToClusterMap<Family.Insteon> = {
 	Family: Family.Insteon,

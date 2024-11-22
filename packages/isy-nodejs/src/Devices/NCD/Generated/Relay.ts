@@ -35,7 +35,7 @@ export class RelayNode extends Base<Drivers, Commands> implements Relay.Interfac
 	async on() { return this.sendCommand("DON"); }
 	async off() { return this.sendCommand("DOF"); }
 	async query() { return this.sendCommand("QUERY"); }
-	async adr(value: (0 | 1)) { return this.sendCommand("ADRPST", { value: value }); }
+	async adr(value: (0 | 1)) { return this.sendCommand("ADRPST", value); }
 	public get status(): (0 | 100) {
 		return this.drivers.ST?.value;
 	}

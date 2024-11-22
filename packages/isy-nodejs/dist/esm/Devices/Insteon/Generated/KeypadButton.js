@@ -18,7 +18,7 @@ export class KeypadButtonNode extends Base {
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async query() { return this.sendCommand("QUERY"); }
-    async backlight(value) { return this.sendCommand("BL", { value: value }); }
+    async backlight(value) { return this.sendCommand("BL", value); }
     async writeChanges() { return this.sendCommand("WDU"); }
     get status() {
         return this.drivers.ST?.value;

@@ -35,12 +35,12 @@ export class RelayLampNode extends Base<Drivers, Commands> implements RelayLamp.
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: (0 | 100)) { return this.sendCommand("DON", { value: value }); }
+	async on(value?: (0 | 100)) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
 	async fastOff() { return this.sendCommand("DFOF"); }
 	async fastOn() { return this.sendCommand("DFON"); }
 	async query() { return this.sendCommand("QUERY"); }
-	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
+	async beep(value?: number) { return this.sendCommand("BEEP", value); }
 	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): Insteon.OnLevelRelay | Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;

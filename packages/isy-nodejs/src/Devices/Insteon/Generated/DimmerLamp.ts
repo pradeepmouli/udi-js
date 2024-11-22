@@ -44,7 +44,7 @@ export class DimmerLampNode extends Base<Drivers, Commands> implements DimmerLam
 		this.drivers.RR = Driver.create("RR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Ramp Rate", name: "rampRate" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: number) { return this.sendCommand("DON", { value: value }); }
+	async on(value?: number) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
 	async fastOff() { return this.sendCommand("DFOF"); }
 	async fastOn() { return this.sendCommand("DFON"); }
@@ -54,9 +54,9 @@ export class DimmerLampNode extends Base<Drivers, Commands> implements DimmerLam
 	async fadeDown() { return this.sendCommand("FDDOWN"); }
 	async fadeStop() { return this.sendCommand("FDSTOP"); }
 	async query() { return this.sendCommand("QUERY"); }
-	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
-	async updateOnLevel(value: number) { return this.sendCommand("OL", { value: value }); }
-	async updateRampRate(value: Insteon.RampRate) { return this.sendCommand("RR", { value: value }); }
+	async beep(value?: number) { return this.sendCommand("BEEP", value); }
+	async updateOnLevel(value: number) { return this.sendCommand("OL", value); }
+	async updateRampRate(value: Insteon.RampRate) { return this.sendCommand("RR", value); }
 	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): number {
 		return this.drivers.ST?.value;

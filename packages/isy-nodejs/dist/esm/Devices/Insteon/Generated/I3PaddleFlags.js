@@ -29,13 +29,13 @@ export class I3PaddleFlagsNode extends Base {
         this.drivers.GV7 = Driver.create("GV7", this, nodeInfo.property, { uom: UnitOfMeasure.Boolean, label: "Error Blink", name: "errorBlink" });
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
-    async updateMode(value) { return this.sendCommand("GV0", { value: value }); }
-    async updateProgramLock(value) { return this.sendCommand("GV1", { value: value }); }
-    async updateResumeDim(value) { return this.sendCommand("GV2", { value: value }); }
-    async updateKeyBeep(value) { return this.sendCommand("GV4", { value: value }); }
-    async updateDisableRf(value) { return this.sendCommand("GV5", { value: value }); }
-    async updateButtonLock(value) { return this.sendCommand("GV6", { value: value }); }
-    async updateErrorBlink(value) { return this.sendCommand("GV7", { value: value }); }
+    async updateMode(value) { return this.sendCommand("GV0", value); }
+    async updateProgramLock(value) { return this.sendCommand("GV1", value); }
+    async updateResumeDim(value) { return this.sendCommand("GV2", value); }
+    async updateKeyBeep(value) { return this.sendCommand("GV4", value); }
+    async updateDisableRf(value) { return this.sendCommand("GV5", value); }
+    async updateButtonLock(value) { return this.sendCommand("GV6", value); }
+    async updateErrorBlink(value) { return this.sendCommand("GV7", value); }
     async query() { return this.sendCommand("QUERY"); }
     async writeChanges() { return this.sendCommand("WDU"); }
     get mode() {

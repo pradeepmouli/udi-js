@@ -33,11 +33,11 @@ export class EzrainOutputNode extends Base<Drivers, Commands> implements EzrainO
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: (0 | 100)) { return this.sendCommand("DON", { value: value }); }
+	async on(value?: (0 | 100)) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
 	async query() { return this.sendCommand("QUERY"); }
 	async writeChanges() { return this.sendCommand("WDU"); }
-	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
+	async beep(value?: number) { return this.sendCommand("BEEP", value); }
 	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}

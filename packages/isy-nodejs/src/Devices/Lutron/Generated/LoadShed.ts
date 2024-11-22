@@ -31,7 +31,7 @@ export class LoadShedNode extends Base<Drivers, Commands> implements LoadShed.In
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: (0 | 100)) { return this.sendCommand("DON", { value: value }); }
+	async on(value?: (0 | 100)) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
 	async query() { return this.sendCommand("QUERY"); }
 	public get status(): (0 | 100) {

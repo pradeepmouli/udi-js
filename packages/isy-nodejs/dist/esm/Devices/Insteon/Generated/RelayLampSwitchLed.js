@@ -23,14 +23,14 @@ export class RelayLampSwitchLedNode extends Base {
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Boolean, label: "Status", name: "status" });
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
-    async on(value) { return this.sendCommand("DON", { value: value }); }
+    async on(value) { return this.sendCommand("DON", value); }
     async off() { return this.sendCommand("DOF"); }
     async fastOff() { return this.sendCommand("DFOF"); }
     async fastOn() { return this.sendCommand("DFON"); }
     async query() { return this.sendCommand("QUERY"); }
-    async beep(value) { return this.sendCommand("BEEP", { value: value }); }
-    async led(value) { return this.sendCommand("LED", { value: value }); }
-    async backlight(value) { return this.sendCommand("BL", { value: value }); }
+    async beep(value) { return this.sendCommand("BEEP", value); }
+    async led(value) { return this.sendCommand("LED", value); }
+    async backlight(value) { return this.sendCommand("BL", value); }
     async writeChanges() { return this.sendCommand("WDU"); }
     get status() {
         return this.drivers.ST?.value;

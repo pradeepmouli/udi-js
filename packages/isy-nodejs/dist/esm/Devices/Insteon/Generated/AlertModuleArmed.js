@@ -22,7 +22,7 @@ export class AlertModuleArmedNode extends Base {
     async on() { return this.sendCommand("DON"); }
     async off() { return this.sendCommand("DOF"); }
     async query() { return this.sendCommand("QUERY"); }
-    async beep(value) { return this.sendCommand("BEEP", { value: value }); }
+    async beep(value) { return this.sendCommand("BEEP", value); }
     async writeChanges() { return this.sendCommand("WDU"); }
     get status() {
         return this.drivers.ST?.value;

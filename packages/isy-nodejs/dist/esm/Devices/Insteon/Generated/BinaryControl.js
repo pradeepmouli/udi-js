@@ -18,7 +18,7 @@ export class BinaryControlNode extends Base {
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async query() { return this.sendCommand("QUERY"); }
-    async beep(value) { return this.sendCommand("BEEP", { value: value }); }
+    async beep(value) { return this.sendCommand("BEEP", value); }
     async writeChanges() { return this.sendCommand("WDU"); }
     get status() {
         return this.drivers.ST?.value;

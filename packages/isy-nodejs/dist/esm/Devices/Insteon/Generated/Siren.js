@@ -26,10 +26,10 @@ export class SirenNode extends Base {
     }
     async on(duration) { return this.sendCommand("DON", { DUR: duration }); }
     async off() { return this.sendCommand("DOF"); }
-    async arm(value) { return this.sendCommand("ARM", { value: value }); }
+    async arm(value) { return this.sendCommand("ARM", value); }
     async disarm() { return this.sendCommand("DISARM"); }
     async query() { return this.sendCommand("QUERY"); }
-    async beep(value) { return this.sendCommand("BEEP", { value: value }); }
+    async beep(value) { return this.sendCommand("BEEP", value); }
     async writeChanges() { return this.sendCommand("WDU"); }
     get siren() {
         return this.drivers.ST?.value;

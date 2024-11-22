@@ -36,7 +36,7 @@ export class AlertModuleArmedNode extends Base<Drivers, Commands> implements Ale
 	async on() { return this.sendCommand("DON"); }
 	async off() { return this.sendCommand("DOF"); }
 	async query() { return this.sendCommand("QUERY"); }
-	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
+	async beep(value?: number) { return this.sendCommand("BEEP", value); }
 	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;

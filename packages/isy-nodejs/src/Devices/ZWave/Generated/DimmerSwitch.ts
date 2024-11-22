@@ -41,7 +41,7 @@ export class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerS
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: ZWave.PercentOpt | number, rampRate?: number | number) { return this.sendCommand("DON", { value: value, RR: rampRate }); }
+	async on(value?: ZWave.PercentOpt | number, rampRate?: number | number) { return this.sendCommand("DON", value, { RR: rampRate }); }
 	async off() { return this.sendCommand("DOF"); }
 	async fastOn() { return this.sendCommand("DFON"); }
 	async fastOff() { return this.sendCommand("DFOF"); }

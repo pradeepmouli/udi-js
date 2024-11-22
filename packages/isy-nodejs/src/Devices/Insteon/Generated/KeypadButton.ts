@@ -32,7 +32,7 @@ export class KeypadButtonNode extends Base<Drivers, Commands> implements KeypadB
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async query() { return this.sendCommand("QUERY"); }
-	async backlight(value: Insteon.Backlight) { return this.sendCommand("BL", { value: value }); }
+	async backlight(value: Insteon.Backlight) { return this.sendCommand("BL", value); }
 	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;

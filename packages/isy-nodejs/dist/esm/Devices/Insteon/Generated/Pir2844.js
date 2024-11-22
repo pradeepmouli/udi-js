@@ -22,9 +22,9 @@ export class Pir2844Node extends Base {
         this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.property, { uom: UnitOfMeasure.Boolean, label: "Battery Powered", name: "batteryPowered" });
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
-    async calibrateTemperature(value) { return this.sendCommand("CLITEMP", { value: value }); }
+    async calibrateTemperature(value) { return this.sendCommand("CLITEMP", value); }
     async query() { return this.sendCommand("QUERY"); }
-    async beep(value) { return this.sendCommand("BEEP", { value: value }); }
+    async beep(value) { return this.sendCommand("BEEP", value); }
     async writeChanges() { return this.sendCommand("WDU"); }
     get status() {
         return this.drivers.ST?.value;

@@ -461,7 +461,7 @@ export class ISY extends EventEmitter {
             if (typeof parameters == 'object') {
                 var q = parameters;
                 for (const paramName in q) {
-                    if (paramName === 'value') {
+                    if (paramName === 'value' || paramName === 'default') {
                         uriToUse += `/${q[paramName]}`;
                         continue;
                     }

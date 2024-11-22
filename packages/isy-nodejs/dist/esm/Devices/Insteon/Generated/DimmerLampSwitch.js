@@ -31,7 +31,7 @@ export class DimmerLampSwitchNode extends Base {
         this.drivers.RR = Driver.create("RR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Ramp Rate", name: "rampRate" });
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
-    async on(value) { return this.sendCommand("DON", { value: value }); }
+    async on(value) { return this.sendCommand("DON", value); }
     async off() { return this.sendCommand("DOF"); }
     async fastOff() { return this.sendCommand("DFOF"); }
     async fastOn() { return this.sendCommand("DFON"); }
@@ -41,10 +41,10 @@ export class DimmerLampSwitchNode extends Base {
     async fadeDown() { return this.sendCommand("FDDOWN"); }
     async fadeStop() { return this.sendCommand("FDSTOP"); }
     async query() { return this.sendCommand("QUERY"); }
-    async beep(value) { return this.sendCommand("BEEP", { value: value }); }
-    async updateOnLevel(value) { return this.sendCommand("OL", { value: value }); }
-    async updateRampRate(value) { return this.sendCommand("RR", { value: value }); }
-    async backlight(value) { return this.sendCommand("BL", { value: value }); }
+    async beep(value) { return this.sendCommand("BEEP", value); }
+    async updateOnLevel(value) { return this.sendCommand("OL", value); }
+    async updateRampRate(value) { return this.sendCommand("RR", value); }
+    async backlight(value) { return this.sendCommand("BL", value); }
     async writeChanges() { return this.sendCommand("WDU"); }
     get status() {
         return this.drivers.ST?.value;

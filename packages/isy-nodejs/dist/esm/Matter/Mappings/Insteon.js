@@ -1,5 +1,6 @@
 import { Family } from '../../Definitions/Global/Families.js';
 import { MappingRegistry } from '../../Model/ClusterMap.js';
+//import InsteonMap from "./Insteon.json";
 import { OnOffLightDevice, DimmableLightDevice } from '@matter/node/devices';
 const map = {
     Family: Family.Insteon,

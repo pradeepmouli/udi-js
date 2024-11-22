@@ -32,8 +32,8 @@ export class RelaySwitchOnlyPlusQueryNode extends Base<Drivers, Commands> implem
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async query() { return this.sendCommand("QUERY"); }
-	async beep(value?: number) { return this.sendCommand("BEEP", { value: value }); }
-	async backlight(value: number) { return this.sendCommand("BL", { value: value }); }
+	async beep(value?: number) { return this.sendCommand("BEEP", value); }
+	async backlight(value: number) { return this.sendCommand("BL", value); }
 	async writeChanges() { return this.sendCommand("WDU"); }
 	public get responding(): Insteon.Error {
 		return this.drivers.ERR?.value;

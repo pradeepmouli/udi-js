@@ -1,4 +1,3 @@
-
 import { Logger } from 'winston';
 import { Driver } from './Definitions/Global/Drivers.js';
 import { Family } from './Definitions/Global/Families.js';
@@ -52,7 +51,7 @@ export class ISYNode<
 	public drivers: Driver.ForAll<D> = {} as Driver.ForAll<D>;
 	public enabled: boolean;
 	//TODO: add signature for non-command/non-driver events
-	public events: Merge<Event.NodeEventEmitter<this>,Event.FunctionSigFor<E, Event.NodeEventEmitter<this>>>;
+	public events: Merge<Event.NodeEventEmitter<this>, Event.FunctionSigFor<E, Event.NodeEventEmitter<this>>>;
 	//Event.FunctionSigFor<Event.ForAll<E,typeof this>> & Omit<EventEmitter,'on'>
 	/*{
 		[x in E]: x extends keyof D ? {name:`${D[x]["name"]}Changed`, driver: x, value: D[x]["value"], formatted: string, uom: UnitOfMeasure}
@@ -126,7 +125,6 @@ export class ISYNode<
 			};
 		}
 		this.events = Event.createEmitter(this);
-
 
 		//this.logger(this.nodeDefId);
 		this.lastChanged = new Date();

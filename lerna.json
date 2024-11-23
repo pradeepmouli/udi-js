@@ -3,7 +3,7 @@
     "packages/*",
     "apps/*"
   ],
-  "version": "1.0.3-y.0",
+  "version": "1.0.4-alpha.0",
   "npmClient": "npm",
   "command": {
     "publish": {

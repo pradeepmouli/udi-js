@@ -1,10 +1,10 @@
 import { writeFile } from 'fs';
-import { Parser } from 'xml2js';
-import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
-import WebSocket from 'ws';
 import axios from 'axios';
 import { EventEmitter } from 'events';
 import { format, Logger, loggers } from 'winston';
+import WebSocket from 'ws';
+import { Parser } from 'xml2js';
+import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
 import { DeviceFactory } from './Devices/DeviceFactory.js';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
 import { ISYDeviceNode } from './Devices/ISYDeviceNode.js';
@@ -313,7 +313,6 @@ export class ISY extends EventEmitter {
                 this.logger.error(`Error initializing ISY: ${e.message}`);
                 return false;
             }
-            throw e;
         }
         finally {
             if (this.nodesLoaded !== true) {
@@ -328,7 +327,7 @@ export class ISY extends EventEmitter {
             //const auth = `Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
             let address = `${this.wsprotocol}://${this.address}/rest/subscribe`;
             if (this.socketPath) {
-                address = `ws+unix:/${this.socketPath}:/rest/subscribe`;
+                address = `ws+unix:${this.socketPath}:/rest/subscribe`;
             }
             this.logger.info(`Opening webSocket: ${address}`);
             this.logger.info('Using the following websocket options: ' + JSON.stringify(this.webSocketOptions));
@@ -341,16 +340,17 @@ export class ISY extends EventEmitter {
                 }
             }
             /*headers: {
-                Origin: 'com.universal-devices.websockets.isy',
-                auth
-            },
+                    Origin: 'com.universal-devices.websockets.isy',
+                    auth
+                },
 
-            ping: 10*/
+                ping: 10*/
             let p = new Promise((resolve, reject) => {
                 this.webSocket = new WebSocket(`${address}`, ['ISYSUB'], this.webSocketOptions);
                 this.lastActivity = new Date();
                 //this.webSocket.onmessage = (event) => {this.handleWebSocketMessage()
-                this.webSocket.on('open', () => {
+                this.webSocket
+                    .on('open', () => {
                     this.logger.info('Websocket connection open');
                     resolve();
                 })

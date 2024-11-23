@@ -1,12 +1,11 @@
-
 import { writeFile } from 'fs';
 
-import { Parser, type ParserOptions } from 'xml2js';
-import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
-import WebSocket from 'ws';
 import axios, { type AxiosRequestConfig } from 'axios';
 import { EventEmitter } from 'events';
 import { format, Logger, loggers, type LeveledLogMethod } from 'winston';
+import WebSocket from 'ws';
+import { Parser, type ParserOptions } from 'xml2js';
+import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
 import { DeviceFactory } from './Devices/DeviceFactory.js';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
 import { ElkAlarmSensorDevice } from './Devices/Elk/ElkAlarmSensorDevice.js';
@@ -22,16 +21,14 @@ import type { NodeInfo } from './Model/NodeInfo.js';
 import * as Utils from './Utils.js';
 
 import { X2jOptions, XMLParser } from 'fast-xml-parser';
+import type { ClientRequestArgs } from 'http';
 import path from 'path';
+import { textChangeRangeIsUnchanged } from 'typescript';
+import { promisify } from 'util';
 import { NodeFactory } from './Devices/NodeFactory.js';
 import { ISYError } from './ISYError.js';
 import type { Config } from './Model/Config.js';
 import { findPackageJson } from './Utils.js';
-import { textChangeRangeIsUnchanged } from 'typescript';
-import type { ClientRequestArgs } from 'http';
-import { promisify } from 'util';
-
-
 
 type InitStep = 'config' | 'loadNodes' | 'readFolders' | 'readDevices' | 'readScenes' | 'variables' | 'websocket' | 'refreshStatuses' | 'initialize';
 
@@ -180,12 +177,10 @@ export class ISY extends EventEmitter implements Disposable {
 		this.webSocketOptions = { origin: 'com.universal-devices.websockets.isy' };
 
 		if (this.socketPath) {
-
 			this.webSocketOptions.socketPath = this.socketPath;
 		} else {
 			this.webSocketOptions.auth = `${this.credentials.username}:${this.credentials.password}`;
 		}
-
 
 		//this.elkEnabled = config.elkEnabled ?? false;
 
@@ -375,10 +370,9 @@ export class ISY extends EventEmitter implements Disposable {
 			return true;
 		} catch (e) {
 			if (e instanceof ISYInitializationError) {
-				if(e.step === 'variables')
-				{
+				if (e.step === 'variables') {
 					this.logger.warn(`Error loading variables: ${e.message}`);
-				    await this.#finishInitialize(true);
+					await this.#finishInitialize(true);
 					return true;
 				}
 				this.logger.error(`Error initializing ISY during (${e.step}): ${e.message}`);
@@ -387,7 +381,6 @@ export class ISY extends EventEmitter implements Disposable {
 				this.logger.error(`Error initializing ISY: ${e.message}`);
 				return false;
 			}
-			throw e;
 		} finally {
 			if (this.nodesLoaded !== true) {
 				await that.#finishInitialize(false);
@@ -402,10 +395,9 @@ export class ISY extends EventEmitter implements Disposable {
 			const that = this;
 
 			//const auth = `Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
-			let address = `${this.wsprotocol}://${this.address}/rest/subscribe`
-			if(this.socketPath)
-			{
-				address = `ws+unix:/${this.socketPath}:/rest/subscribe`;
+			let address = `${this.wsprotocol}://${this.address}/rest/subscribe`;
+			if (this.socketPath) {
+				address = `ws+unix:${this.socketPath}:/rest/subscribe`;
 			}
 			this.logger.info(`Opening webSocket: ${address}`);
 			this.logger.info('Using the following websocket options: ' + JSON.stringify(this.webSocketOptions));
@@ -417,42 +409,42 @@ export class ISY extends EventEmitter implements Disposable {
 				}
 			}
 
-				/*headers: {
+			/*headers: {
 					Origin: 'com.universal-devices.websockets.isy',
 					auth
 				},
 
 				ping: 10*/
-			let p  = new Promise<void>((resolve, reject) => {
-
-			this.webSocket = new WebSocket(`${address}`, ['ISYSUB'], this.webSocketOptions);
-			this.lastActivity = new Date();
-			//this.webSocket.onmessage = (event) => {this.handleWebSocketMessage()
-			this.webSocket.on('open',() => {
-				this.logger.info('Websocket connection open');
-				resolve();
-			})
-				.on('message',(data,b)=> {
-					that.logger.silly(`Received message: ${Utils.logStringify(data, 1)}`);
-					that.handleWebSocketMessage({data: data});
-				})
-				.on('error', (err: any, response: any) => {
-					that.logger.warn(`Websocket subscription error: ${err}`);
-					return reject(new ISYInitializationError('Websocket subscription error', 'websocket'));
-				})
-				.on('fail', (data: string, response: any) => {
-					that.logger.warn(`Websocket subscription failure: ${data}`);
-					return reject(new Error('Websocket subscription failure'));
-				})
-				.on('abort', () => {
-					that.logger.warn('Websocket subscription aborted.');
-					throw new Error('Websocket subscription aborted.');
-				})
-				.on('timeout', (ms: string) => {
-					that.logger.warn(`Websocket subscription timed out after ${ms} milliseconds.`);
-					return reject(new Error('Timeout contacting ISY'));
-					//throw new Error('Timeout contacting ISY');
-				});
+			let p = new Promise<void>((resolve, reject) => {
+				this.webSocket = new WebSocket(`${address}`, ['ISYSUB'], this.webSocketOptions);
+				this.lastActivity = new Date();
+				//this.webSocket.onmessage = (event) => {this.handleWebSocketMessage()
+				this.webSocket
+					.on('open', () => {
+						this.logger.info('Websocket connection open');
+						resolve();
+					})
+					.on('message', (data, b) => {
+						that.logger.silly(`Received message: ${Utils.logStringify(data, 1)}`);
+						that.handleWebSocketMessage({ data: data });
+					})
+					.on('error', (err: any, response: any) => {
+						that.logger.warn(`Websocket subscription error: ${err}`);
+						return reject(new ISYInitializationError('Websocket subscription error', 'websocket'));
+					})
+					.on('fail', (data: string, response: any) => {
+						that.logger.warn(`Websocket subscription failure: ${data}`);
+						return reject(new Error('Websocket subscription failure'));
+					})
+					.on('abort', () => {
+						that.logger.warn('Websocket subscription aborted.');
+						throw new Error('Websocket subscription aborted.');
+					})
+					.on('timeout', (ms: string) => {
+						that.logger.warn(`Websocket subscription timed out after ${ms} milliseconds.`);
+						return reject(new Error('Timeout contacting ISY'));
+						//throw new Error('Timeout contacting ISY');
+					});
 			});
 			return p;
 		} catch (e) {
@@ -509,16 +501,14 @@ export class ISY extends EventEmitter implements Disposable {
 	}
 
 	public async loadVariables(type: VariableType): Promise<any> {
-		try
-		{
-		const that = this;
-		this.logger.info(`Loading ISY Variables of type: ${type}`);
-		return this.sendRequest(`vars/definitions/${type}`)
-			.then((result) => that.#createVariables(type, result))
-			.then(() => that.sendRequest(`vars/get/${type}`))
-			.then(that.#setVariableValues.bind(that));
-		}
-		catch{
+		try {
+			const that = this;
+			this.logger.info(`Loading ISY Variables of type: ${type}`);
+			return this.sendRequest(`vars/definitions/${type}`)
+				.then((result) => that.#createVariables(type, result))
+				.then(() => that.sendRequest(`vars/get/${type}`))
+				.then(that.#setVariableValues.bind(that));
+		} catch {
 			this.logger.warn('error loading variables');
 		}
 	}
@@ -580,8 +570,7 @@ export class ISY extends EventEmitter implements Disposable {
 					if (paramName === 'value' || paramName === 'default') {
 						uriToUse += `/${q[paramName]}`;
 						continue;
-					}
-					else if (typeof q[paramName] === 'string' || typeof q[paramName] === 'number') 		uriToUse += `/${paramName}/${q[paramName]}`;
+					} else if (typeof q[paramName] === 'string' || typeof q[paramName] === 'number') uriToUse += `/${paramName}/${q[paramName]}`;
 				}
 
 				//uriToUse += `/${q[((p : Record<string,number|number>) => `${p[]}/${p.paramValue}` ).join('/')}`;
@@ -699,7 +688,6 @@ export class ISY extends EventEmitter implements Disposable {
 				}
 			}
 		}
-
 	}
 
 	async #guardian() {
@@ -784,13 +772,10 @@ export class ISY extends EventEmitter implements Disposable {
 						return acc;
 					}, {});
 
-					if(cls)
-					{
+					if (cls) {
 						try {
 							newDevice = new cls(this, nodeInfo) as ISYDeviceNode<any, any, any, any>;
-						}
-						catch(e)
-						{
+						} catch (e) {
 							this.logger.error(`Error creating device ${nodeInfo.name} with type ${nodeInfo.type} and nodedef ${nodeInfo.nodeDefId}: ${e.message}`);
 							continue;
 						}

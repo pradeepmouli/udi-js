@@ -1,13 +1,9 @@
 import type { Command } from './Definitions/Global/Commands.js';
 import type { Driver } from './Definitions/Global/Drivers.js';
-import type { UnitOfMeasure } from './Definitions/Global/UOM.js';
 import type { Category, Family } from './Definitions/index.js';
 import { ISYDeviceNode } from './Devices/ISYDeviceNode.js';
-import type { ISY } from './ISY.js';
 import type { ISYNode } from './ISYNode.js';
 import type { ISYScene } from './ISYScene.js';
-import type { DriverState } from './Model/DriverState.js';
-import type { StringKeys } from './Utils.js';
 
 export interface ISYDevice<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures> extends ISYDeviceInfo {
 	// #region Properties (22)

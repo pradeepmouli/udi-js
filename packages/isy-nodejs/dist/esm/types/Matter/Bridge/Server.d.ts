@@ -1,7 +1,7 @@
 import { ServerNode } from '@matter/main';
 import { ISY } from '../../ISY.js';
-import '../Mappings/Insteon.js';
 import type { ISYNode } from '../../ISYNode.js';
+import '../Mappings/index.js';
 export declare let instance: ServerNode;
 export declare let version: string;
 export interface Config {

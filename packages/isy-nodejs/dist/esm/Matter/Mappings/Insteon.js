@@ -37,11 +37,12 @@ export const map = {
                 },
                 commands: { on: 'DON' }
             },
+            //@ts-ignore
             LevelControl: {
                 // @ts-ignore
                 attributes: {
                     currentLevel: { driver: 'ST', converter: 'Percent.LightingLevel' },
-                    startUpCurrentLevel: { driver: 'OL', converter: 'Percent.LightingLevel' },
+                    //startUpCurrentLevel: { driver: 'OL', converter: 'Percent.LightingLevel' },
                     onLevel: { driver: 'OL', converter: 'Percent.LightingLevel' }
                 },
                 commands: { setLevel: { command: 'DON' } }
@@ -60,10 +61,9 @@ export const map = {
                 commands: { on: 'DON' }
             },
             LevelControl: {
-                // @ts-ignore
                 attributes: {
                     currentLevel: { driver: 'ST', converter: 'Percent.LightingLevel' },
-                    startUpCurrentLevel: { driver: 'OL', converter: 'Percent.LightingLevel' },
+                    //startUpCurrentLevel: { driver: 'OL', converter: 'Percent.LightingLevel' },
                     onLevel: { driver: 'OL', converter: 'Percent.LightingLevel' }
                 },
                 commands: { setLevel: { command: 'DON' } }
@@ -71,6 +71,8 @@ export const map = {
         }
     }
 };
+map.KeypadDimmer = map.DimmerLamp;
+map.KeypadRelay = map.RelayLampSwitch;
 /*let newMap = add(map, Insteon.DimmerLamp.Node, {
     deviceType: DimmableLightDevice,
     // @ts-ignore

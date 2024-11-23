@@ -44,11 +44,12 @@ export const map: FamilyToClusterMap<Family.Insteon> = {
 				},
 				commands: { on: 'DON' }
 			},
+			//@ts-ignore
 			LevelControl: {
 				// @ts-ignore
 				attributes: {
 					currentLevel: { driver: 'ST', converter: 'Percent.LightingLevel' },
-					startUpCurrentLevel: { driver: 'OL', converter: 'Percent.LightingLevel' },
+					//startUpCurrentLevel: { driver: 'OL', converter: 'Percent.LightingLevel' },
 					onLevel: { driver: 'OL', converter: 'Percent.LightingLevel' }
 				},
 				commands: { setLevel: { command: 'DON' } }
@@ -67,17 +68,24 @@ export const map: FamilyToClusterMap<Family.Insteon> = {
 				commands: { on: 'DON' }
 			},
 			LevelControl: {
-				// @ts-ignore
+
 				attributes: {
 					currentLevel: { driver: 'ST', converter: 'Percent.LightingLevel' },
-					startUpCurrentLevel: { driver: 'OL', converter: 'Percent.LightingLevel' },
+					//startUpCurrentLevel: { driver: 'OL', converter: 'Percent.LightingLevel' },
 					onLevel: { driver: 'OL', converter: 'Percent.LightingLevel' }
+
 				},
 				commands: { setLevel: { command: 'DON' } }
 			}
 		} as EndpointMapping<DimmableLightDevice, Insteon.DimmerLampNode>
 	}
 };
+
+map.KeypadDimmer = map.DimmerLamp;
+map.KeypadRelay = map.RelayLampSwitch;
+
+
+
 
 /*let newMap = add(map, Insteon.DimmerLamp.Node, {
 	deviceType: DimmableLightDevice,

@@ -1,32 +1,19 @@
-import { Endpoint, EndpointServer, Environment, MutableEndpoint, ServerNode, StorageService, Time, VendorId, type SupportedBehaviors } from '@matter/main';
-import { StorageBackendDisk } from '@project-chip/matter-node.js/storage';
-import { BridgedDeviceBasicInformationServer, type BridgedDeviceBasicInformationBehavior } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
-import { logEndpoint } from '@matter/main/protocol';
-import { DimmableLightDevice, OnOffLightDevice } from '@matter/main/devices';
+import { LogLevel, logLevelFromString, Logger as MatterLogger } from '@matter/general';
+import { Endpoint, EndpointServer, Environment, MutableEndpoint, ServerNode, StorageService, VendorId } from '@matter/main';
 import { AggregatorEndpoint } from '@matter/main/endpoints/aggregator';
-import { LogLevel, logLevelFromString, Logger as MatterLogger, toHex } from '@matter/general';
-import { Devices } from '../../Devices/index.js';
-//@ts-ignore
+import { logEndpoint } from '@matter/main/protocol';
 import PackageJson from '@project-chip/matter.js/package.json' with { type: 'json' };
-import { QrCode } from '@project-chip/matter.js/schema';
-import path, { resolve } from 'path';
+import path from 'path';
 import { format, loggers } from 'winston';
 import { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 import { ISY } from '../../ISY.js';
-import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
-import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
-import '../Mappings/Insteon.js';
 import type { ISYNode } from '../../ISYNode.js';
-
-import { Options } from '../../Definitions/ZWave/index.js';
-import { InsteonBaseDevice } from '../../Devices/Insteon/InsteonBaseDevice.js';
-import { DimmerLamp } from '../../Devices/Insteon/Generated/DimmerLamp.js';
-import { Family } from '../../Definitions/index.js';
-import { RelayLamp } from '../../Devices/Insteon/index.js';
-import type { DeviceTypeDefinition } from '@project-chip/matter.js/device';
+import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
+import '../Mappings/index.js';
+import { RelayLamp, DimmerLamp } from '../../Devices/Insteon/index.js';
 import { MappingRegistry } from '../Mappings/MappingRegistry.js';
-import type { BridgedISYNodeInformationServer } from '../../Devices/EndpointFor.js';
-import { BasicInformation } from '@project-chip/matter.js/cluster';
+import { QrCode } from '@matter/main/types';
+
 
 
 // #region Interfaces (1)
@@ -57,7 +44,7 @@ export interface Config {
 }
 
 export interface DeviceOptions {
-	applyTo:
+		applyTo:
 		| {
 				classes: (typeof ISYNode<any, any, any, any>)[];
 		  }
@@ -276,9 +263,9 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 						softwareVersion: Number(device.version),
 						softwareVersionString: `v.${device.version}`,
 
-						serialNumber: device.address,
+						serialNumber: uniqueId,
 						reachable: true,
-						uniqueId: uniqueId
+						uniqueId: device.address
 
 					},
 
@@ -366,8 +353,8 @@ async function initializeConfiguration(isy: ISY, config?: Config): Promise<Confi
 		storageService.location = storagePath;
 	});
 
-	storageService.factory = (namespace) => new StorageBackendDisk(path.resolve(storageService.location ?? '.', namespace), environment.vars.get('storage.clear', false));
 	logger.info(`Matter storage location: ${storageService.location} (Directory)`);
+	logger.info(`Matter storage service type: ${storageService.factory.name}`);
 
 	const deviceStorage = (await storageService.open('bridge')).createContext('data');
 
@@ -390,7 +377,7 @@ async function initializeConfiguration(isy: ISY, config?: Config): Promise<Confi
 
 	environment.vars.set('uniqueid', isy.id.replaceAll(':', '_'));
 
-
+	//logger.info(`Matter configuration: ${JSON.stringify(environment.vars)}`);
 
 	const vendorName = isy.vendorName;
 	const passcode = environment.vars.number('passcode') ?? (await deviceStorage.get('passcode', 20202021));

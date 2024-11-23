@@ -1,20 +1,17 @@
-import { Endpoint, EndpointServer, Environment, ServerNode, StorageService, VendorId } from '@matter/main';
-import { StorageBackendDisk } from '@project-chip/matter-node.js/storage';
-import { logEndpoint } from '@matter/main/protocol';
-import { AggregatorEndpoint } from '@matter/main/endpoints/aggregator';
 import { LogLevel, logLevelFromString, Logger as MatterLogger } from '@matter/general';
-//@ts-ignore
+import { Endpoint, EndpointServer, Environment, ServerNode, StorageService, VendorId } from '@matter/main';
+import { AggregatorEndpoint } from '@matter/main/endpoints/aggregator';
+import { logEndpoint } from '@matter/main/protocol';
 import PackageJson from '@project-chip/matter.js/package.json' with { type: 'json' };
-import { QrCode } from '@project-chip/matter.js/schema';
 import path from 'path';
 import { format, loggers } from 'winston';
 import { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 import { ISY } from '../../ISY.js';
 import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
-import '../Mappings/Insteon.js';
-import { DimmerLamp } from '../../Devices/Insteon/Generated/DimmerLamp.js';
-import { RelayLamp } from '../../Devices/Insteon/index.js';
+import '../Mappings/index.js';
+import { RelayLamp, DimmerLamp } from '../../Devices/Insteon/index.js';
 import { MappingRegistry } from '../Mappings/MappingRegistry.js';
+import { QrCode } from '@matter/main/types';
 // #region Interfaces (1)
 export let instance;
 //@ts-ignore
@@ -190,9 +187,9 @@ export async function createMatterServer(isy, config) {
                             hardwareVersionString: `v.${device.version}`,
                             softwareVersion: Number(device.version),
                             softwareVersionString: `v.${device.version}`,
-                            serialNumber: device.address,
+                            serialNumber: uniqueId,
                             reachable: true,
-                            uniqueId: uniqueId
+                            uniqueId: device.address
                         },
                     });
                     await aggregator.add(endpoint);
@@ -257,8 +254,8 @@ async function initializeConfiguration(isy, config) {
     environment.vars.use(() => {
         storageService.location = storagePath;
     });
-    storageService.factory = (namespace) => new StorageBackendDisk(path.resolve(storageService.location ?? '.', namespace), environment.vars.get('storage.clear', false));
     logger.info(`Matter storage location: ${storageService.location} (Directory)`);
+    logger.info(`Matter storage service type: ${storageService.factory.name}`);
     const deviceStorage = (await storageService.open('bridge')).createContext('data');
     if (config.passcode) {
         environment.vars.set('passcode', config.passcode);
@@ -273,6 +270,7 @@ async function initializeConfiguration(isy, config) {
         environment.vars.set('productid', config.productId);
     }
     environment.vars.set('uniqueid', isy.id.replaceAll(':', '_'));
+    //logger.info(`Matter configuration: ${JSON.stringify(environment.vars)}`);
     const vendorName = isy.vendorName;
     const passcode = environment.vars.number('passcode') ?? (await deviceStorage.get('passcode', 20202021));
     const discriminator = environment.vars.number('discriminator') ?? (await deviceStorage.get('discriminator', 3840));

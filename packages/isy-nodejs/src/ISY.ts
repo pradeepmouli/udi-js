@@ -405,7 +405,7 @@ export class ISY extends EventEmitter implements Disposable {
 			let address = `${this.wsprotocol}://${this.address}/rest/subscribe`
 			if(this.socketPath)
 			{
-				address = `ws+unix://${this.socketPath}/rest/subscribe`;
+				address = `ws+unix://${this.socketPath}:rest/subscribe`;
 			}
 			this.logger.info(`Opening webSocket: ${address}`);
 			this.logger.info('Using the following websocket options: ' + JSON.stringify(this.webSocketOptions));

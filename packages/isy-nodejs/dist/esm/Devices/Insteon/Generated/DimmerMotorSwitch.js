@@ -59,7 +59,9 @@ NodeFactory.register(DimmerMotorSwitchNode);
 NodeFactory.register(DimmerMotorSwitchNode, "DimmerMotorSwitch_ADV");
 export var DimmerMotorSwitch;
 (function (DimmerMotorSwitch) {
-    function is(node) { return ["DimmerMotorSwitch", "DimmerMotorSwitch_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["DimmerMotorSwitch", "DimmerMotorSwitch_ADV"].includes(node.nodeDefId);
+    }
     DimmerMotorSwitch.is = is;
     function isImplementedBy(node) {
         return ["DimmerMotorSwitch", "DimmerMotorSwitch_ADV"].includes(node.nodeDefId);

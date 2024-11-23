@@ -36,7 +36,7 @@ export class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadD
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "KeypadDimmer";
-	static override implements = ["KeypadDimmer", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
+	static override implements = ["KeypadDimmer", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "KeypadDimmer" | "KeypadDimmer_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -81,7 +81,9 @@ export namespace KeypadDimmer {
 	export interface Interface extends Omit<InstanceType<typeof KeypadDimmerNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "KeypadDimmer" | "KeypadDimmer_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is KeypadDimmerNode { return ["KeypadDimmer", "KeypadDimmer_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is KeypadDimmerNode {
+		return ["KeypadDimmer", "KeypadDimmer_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is KeypadDimmerNode {
 		return ["KeypadDimmer", "KeypadDimmer_ADV"].includes(node.nodeDefId);
 	}

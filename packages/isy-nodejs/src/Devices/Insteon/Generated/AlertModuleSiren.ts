@@ -57,7 +57,9 @@ export namespace AlertModuleSiren {
 	export interface Interface extends Omit<InstanceType<typeof AlertModuleSirenNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "AlertModuleSiren" | "AlertModuleSiren_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is AlertModuleSirenNode { return ["AlertModuleSiren", "AlertModuleSiren_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is AlertModuleSirenNode {
+		return ["AlertModuleSiren", "AlertModuleSiren_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is AlertModuleSirenNode {
 		return ["AlertModuleSiren", "AlertModuleSiren_ADV"].includes(node.nodeDefId);
 	}

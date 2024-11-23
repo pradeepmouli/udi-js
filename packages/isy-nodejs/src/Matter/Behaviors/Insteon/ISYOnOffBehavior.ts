@@ -8,7 +8,7 @@ import type { MaybePromise } from '@project-chip/matter.js/util';
 import { DriverType } from '../../../Definitions/Global/Drivers.js';
 import { InsteonDimmableDevice } from '../../../Devices/Insteon/InsteonDimmableDevice.js';
 import { InsteonRelayDevice } from '../../../Devices/Insteon/InsteonRelayDevice.js';
-import { MappingRegistry } from '../../../Model/ClusterMap.js';
+
 import { ClusterForBehavior, ISYClusterBehavior, type PropertyChange } from '../ISYClusterBehavior.js';
 
 import { Converter } from '../../../Converters.js';
@@ -53,6 +53,7 @@ export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequire
 
 	override setLevel(level: number): MaybePromise<void> {
 		level = Converter.Matter.LevelFrom0To255.LightingLevel.from(level);
+		
 		if (level > 0) {
 			return this.device.on(level);
 		} else {

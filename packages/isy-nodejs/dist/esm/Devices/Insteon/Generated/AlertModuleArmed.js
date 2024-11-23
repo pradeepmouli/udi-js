@@ -34,7 +34,9 @@ export class AlertModuleArmedNode extends Base {
 NodeFactory.register(AlertModuleArmedNode);
 export var AlertModuleArmed;
 (function (AlertModuleArmed) {
-    function is(node) { return ["AlertModuleArmed"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["AlertModuleArmed"].includes(node.nodeDefId);
+    }
     AlertModuleArmed.is = is;
     function isImplementedBy(node) {
         return ["AlertModuleArmed", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor", "EZRAIN_Output", "AlertModuleSiren", "AlertModuleSiren_ADV"].includes(node.nodeDefId);

@@ -34,7 +34,7 @@ export type RelaxTypes<V> =
 			}
 	:	V;
 
-type p = Prev[10];
+
 export type Join<K, P> =
 	K extends string | number ?
 		P extends string | number ?

@@ -15,7 +15,7 @@ export declare class RelayLampSwitchLedNode extends Base<Drivers, Commands> impl
         DFON: () => Promise<any>;
         QUERY: () => Promise<any>;
         BEEP: (value?: number) => Promise<any>;
-        LED: (value: number) => Promise<any>;
+        LED: (value: Insteon.I3RgbLed) => Promise<any>;
         BL: (value: number) => Promise<any>;
         WDU: () => Promise<any>;
     };
@@ -29,10 +29,10 @@ export declare class RelayLampSwitchLedNode extends Base<Drivers, Commands> impl
     fastOn(): Promise<any>;
     query(): Promise<any>;
     beep(value?: number): Promise<any>;
-    led(value: number): Promise<any>;
+    led(value: Insteon.I3RgbLed): Promise<any>;
     backlight(value: number): Promise<any>;
     writeChanges(): Promise<any>;
-    get status(): Insteon.OnLevelRelay | Insteon.OnLevelRelay;
+    get status(): Insteon.OnLevelRelay;
     get responding(): Insteon.Error;
 }
 export declare namespace RelayLampSwitchLed {
@@ -68,7 +68,7 @@ export declare namespace RelayLampSwitchLed {
             label: "Beep";
             name: "beep";
         };
-        LED: ((value: number) => Promise<boolean>) & {
+        LED: ((value: Insteon.I3RgbLed) => Promise<boolean>) & {
             label: "LED";
             name: "led";
         };
@@ -83,8 +83,8 @@ export declare namespace RelayLampSwitchLed {
     };
     type Drivers = {
         ST: {
-            uom: UnitOfMeasure.Boolean | UnitOfMeasure.Percent;
-            value: Insteon.OnLevelRelay | Insteon.OnLevelRelay;
+            uom: UnitOfMeasure.Percent;
+            value: Insteon.OnLevelRelay;
             label: "Status";
             name: "status";
         };

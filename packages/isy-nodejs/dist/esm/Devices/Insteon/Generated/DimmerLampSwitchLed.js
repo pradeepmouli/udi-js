@@ -65,7 +65,9 @@ NodeFactory.register(DimmerLampSwitchLedNode);
 NodeFactory.register(DimmerLampSwitchLedNode, "DimmerLampSwitchLED_ADV");
 export var DimmerLampSwitchLed;
 (function (DimmerLampSwitchLed) {
-    function is(node) { return ["DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV"].includes(node.nodeDefId);
+    }
     DimmerLampSwitchLed.is = is;
     function isImplementedBy(node) {
         return ["DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV"].includes(node.nodeDefId);

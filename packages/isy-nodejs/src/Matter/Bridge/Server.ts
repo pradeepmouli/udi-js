@@ -17,14 +17,16 @@ import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.
 import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
 import '../Mappings/Insteon.js';
 import type { ISYNode } from '../../ISYNode.js';
-import { MappingRegistry, type DeviceToClusterMap } from '../../Model/ClusterMap.js';
+
 import { Options } from '../../Definitions/ZWave/index.js';
 import { InsteonBaseDevice } from '../../Devices/Insteon/InsteonBaseDevice.js';
 import { DimmerLamp } from '../../Devices/Insteon/Generated/DimmerLamp.js';
 import { Family } from '../../Definitions/index.js';
 import { RelayLamp } from '../../Devices/Insteon/index.js';
 import type { DeviceTypeDefinition } from '@project-chip/matter.js/device';
+import { MappingRegistry } from '../Mappings/MappingRegistry.js';
 import type { BridgedISYNodeInformationServer } from '../../Devices/EndpointFor.js';
+import { BasicInformation } from '@project-chip/matter.js/cluster';
 
 
 // #region Interfaces (1)
@@ -226,7 +228,7 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 		if (deviceOptions?.exclude) {
 			continue;
 		}
-		let serialNumber = `${device.address.replaceAll(' ', '_').replaceAll('.', '_')}`;
+		let uniqueId = `${device.address.replaceAll(' ', '_').replaceAll('.', '_')}`;
 		if (device.enabled) {
 			//const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
 
@@ -257,7 +259,7 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 				logger.info(`Device ${device.label} (${device.address}) with NodeDefId = ${device.nodeDefId} mapped to ${deviceType.name}`);
 				//@ts-ignore
 				const endpoint = new Endpoint(baseBehavior, {
-					id: serialNumber,
+					id: uniqueId,
 					isyNode: {
 						address: device.address
 					},
@@ -274,10 +276,12 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 						softwareVersion: Number(device.version),
 						softwareVersionString: `v.${device.version}`,
 
-						serialNumber: serialNumber,
+						serialNumber: device.address,
 						reachable: true,
-						uniqueId: device.address
-					}
+						uniqueId: uniqueId
+
+					},
+
 				});
 
 				await aggregator.add(endpoint);

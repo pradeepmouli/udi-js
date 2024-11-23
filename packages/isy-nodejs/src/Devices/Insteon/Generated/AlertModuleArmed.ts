@@ -52,7 +52,9 @@ export namespace AlertModuleArmed {
 	export interface Interface extends Omit<InstanceType<typeof AlertModuleArmedNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "AlertModuleArmed";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is AlertModuleArmedNode { return ["AlertModuleArmed"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is AlertModuleArmedNode {
+		return ["AlertModuleArmed"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is AlertModuleArmedNode {
 		return ["AlertModuleArmed", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor", "EZRAIN_Output", "AlertModuleSiren", "AlertModuleSiren_ADV"].includes(node.nodeDefId);
 	}

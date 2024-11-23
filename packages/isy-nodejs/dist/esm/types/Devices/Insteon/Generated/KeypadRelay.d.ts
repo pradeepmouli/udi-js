@@ -15,7 +15,7 @@ export declare class KeypadRelayNode extends Base<Drivers, Commands> implements 
         DFON: () => Promise<any>;
         QUERY: () => Promise<any>;
         BEEP: (value?: number) => Promise<any>;
-        BL: (value: number) => Promise<any>;
+        BL: (value: Insteon.Backlight) => Promise<any>;
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
@@ -28,9 +28,9 @@ export declare class KeypadRelayNode extends Base<Drivers, Commands> implements 
     fastOn(): Promise<any>;
     query(): Promise<any>;
     beep(value?: number): Promise<any>;
-    backlight(value: number): Promise<any>;
+    backlight(value: Insteon.Backlight): Promise<any>;
     writeChanges(): Promise<any>;
-    get status(): number;
+    get status(): Insteon.OnLevelRelay;
     get responding(): Insteon.Error;
 }
 export declare namespace KeypadRelay {
@@ -66,7 +66,7 @@ export declare namespace KeypadRelay {
             label: "Beep";
             name: "beep";
         };
-        BL: ((value: number) => Promise<boolean>) & {
+        BL: ((value: Insteon.Backlight) => Promise<boolean>) & {
             label: "Backlight";
             name: "backlight";
         };
@@ -77,8 +77,8 @@ export declare namespace KeypadRelay {
     };
     type Drivers = {
         ST: {
-            uom: UnitOfMeasure.Boolean;
-            value: number;
+            uom: UnitOfMeasure.Percent;
+            value: Insteon.OnLevelRelay;
             label: "Status";
             name: "status";
         };

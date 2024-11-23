@@ -12,9 +12,9 @@ import { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 import { ISY } from '../../ISY.js';
 import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
 import '../Mappings/Insteon.js';
-import { MappingRegistry } from '../../Model/ClusterMap.js';
 import { DimmerLamp } from '../../Devices/Insteon/Generated/DimmerLamp.js';
 import { RelayLamp } from '../../Devices/Insteon/index.js';
+import { MappingRegistry } from '../Mappings/MappingRegistry.js';
 // #region Interfaces (1)
 export let instance;
 //@ts-ignore
@@ -152,7 +152,7 @@ export async function createMatterServer(isy, config) {
             if (deviceOptions?.exclude) {
                 continue;
             }
-            let serialNumber = `${device.address.replaceAll(' ', '_').replaceAll('.', '_')}`;
+            let uniqueId = `${device.address.replaceAll(' ', '_').replaceAll('.', '_')}`;
             if (device.enabled) {
                 //const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
                 //@ts-ignore
@@ -176,7 +176,7 @@ export async function createMatterServer(isy, config) {
                     logger.info(`Device ${device.label} (${device.address}) with NodeDefId = ${device.nodeDefId} mapped to ${deviceType.name}`);
                     //@ts-ignore
                     const endpoint = new Endpoint(baseBehavior, {
-                        id: serialNumber,
+                        id: uniqueId,
                         isyNode: {
                             address: device.address
                         },
@@ -190,10 +190,10 @@ export async function createMatterServer(isy, config) {
                             hardwareVersionString: `v.${device.version}`,
                             softwareVersion: Number(device.version),
                             softwareVersionString: `v.${device.version}`,
-                            serialNumber: serialNumber,
+                            serialNumber: device.address,
                             reachable: true,
-                            uniqueId: device.address
-                        }
+                            uniqueId: uniqueId
+                        },
                     });
                     await aggregator.add(endpoint);
                     logger.info(`Endpoint added ${JSON.stringify(endpoint.id)} for ${device.label} (${device.address})`);

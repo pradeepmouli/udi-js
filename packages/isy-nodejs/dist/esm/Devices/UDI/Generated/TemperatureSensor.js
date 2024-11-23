@@ -23,7 +23,9 @@ export class TemperatureSensorNode extends Base {
 NodeFactory.register(TemperatureSensorNode);
 export var TemperatureSensor;
 (function (TemperatureSensor) {
-    function is(node) { return ["EM3TempSensor"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["EM3TempSensor"].includes(node.nodeDefId);
+    }
     TemperatureSensor.is = is;
     function isImplementedBy(node) {
         return ["EM3TempSensor"].includes(node.nodeDefId);

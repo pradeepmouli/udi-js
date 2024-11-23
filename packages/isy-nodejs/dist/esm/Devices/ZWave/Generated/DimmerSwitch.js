@@ -50,7 +50,9 @@ export class DimmerSwitchNode extends Base {
 NodeFactory.register(DimmerSwitchNode);
 export var DimmerSwitch;
 (function (DimmerSwitch) {
-    function is(node) { return ["119"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["119"].includes(node.nodeDefId);
+    }
     DimmerSwitch.is = is;
     function isImplementedBy(node) {
         return ["119"].includes(node.nodeDefId);

@@ -32,7 +32,9 @@ export class Ezio2x4OutputNode extends Base {
 NodeFactory.register(Ezio2x4OutputNode);
 export var Ezio2x4Output;
 (function (Ezio2x4Output) {
-    function is(node) { return ["EZIO2x4_Output"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["EZIO2x4_Output"].includes(node.nodeDefId);
+    }
     Ezio2x4Output.is = is;
     function isImplementedBy(node) {
         return ["EZIO2x4_Output", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor", "EZRAIN_Output"].includes(node.nodeDefId);

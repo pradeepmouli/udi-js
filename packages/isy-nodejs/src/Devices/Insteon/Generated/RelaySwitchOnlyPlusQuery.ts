@@ -47,9 +47,11 @@ export namespace RelaySwitchOnlyPlusQuery {
 	export interface Interface extends Omit<InstanceType<typeof RelaySwitchOnlyPlusQueryNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "RelaySwitchOnlyPlusQuery" | "RelaySwitchOnlyPlusQuery_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is RelaySwitchOnlyPlusQueryNode { return ["RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is RelaySwitchOnlyPlusQueryNode {
+		return ["RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelaySwitchOnlyPlusQueryNode {
-		return ["RelaySwitchOnlyPlusQuery", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery_ADV"].includes(node.nodeDefId);
+		return ["RelaySwitchOnlyPlusQuery", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new RelaySwitchOnlyPlusQueryNode(isy, nodeInfo);

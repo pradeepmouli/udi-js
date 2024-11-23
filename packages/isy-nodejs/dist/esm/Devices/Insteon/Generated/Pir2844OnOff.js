@@ -35,7 +35,9 @@ NodeFactory.register(Pir2844OnOffNode);
 NodeFactory.register(Pir2844OnOffNode, "PIR2844OnOff_ADV");
 export var Pir2844OnOff;
 (function (Pir2844OnOff) {
-    function is(node) { return ["PIR2844OnOff", "PIR2844OnOff_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["PIR2844OnOff", "PIR2844OnOff_ADV"].includes(node.nodeDefId);
+    }
     Pir2844OnOff.is = is;
     function isImplementedBy(node) {
         return ["PIR2844OnOff", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "PIR2844OnOff_ADV"].includes(node.nodeDefId);

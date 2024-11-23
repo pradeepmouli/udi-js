@@ -10,8 +10,8 @@
         "readonly": true,
         "id": "ST",
         "editorId": "BT_WATTS",
-        "dataType": {
-          "73": {
+        "dataType": [
+          {
             "uom": 73,
             "enum": false,
             "min": 0,
@@ -19,7 +19,7 @@
             "step": 0.01,
             "precision": 2
           }
-        },
+        ],
         "name": "status"
       },
       "TPW": {
@@ -29,8 +29,8 @@
         "readonly": true,
         "id": "TPW",
         "editorId": "BT_KWH",
-        "dataType": {
-          "33": {
+        "dataType": [
+          {
             "uom": 33,
             "enum": false,
             "min": 0,
@@ -38,7 +38,7 @@
             "step": 0.01,
             "precision": 2
           }
-        },
+        ],
         "name": "totalEnergy"
       },
       "CV": {
@@ -48,8 +48,8 @@
         "readonly": true,
         "id": "CV",
         "editorId": "BT_VOLTS",
-        "dataType": {
-          "72": {
+        "dataType": [
+          {
             "uom": 72,
             "enum": false,
             "min": 0,
@@ -57,7 +57,7 @@
             "step": 0.01,
             "precision": 2
           }
-        },
+        ],
         "name": "currentVoltage"
       },
       "CC": {
@@ -67,8 +67,8 @@
         "readonly": true,
         "id": "CC",
         "editorId": "BT_AMPS",
-        "dataType": {
-          "1": {
+        "dataType": [
+          {
             "uom": 1,
             "enum": false,
             "min": 0,
@@ -76,7 +76,7 @@
             "step": 0.01,
             "precision": 2
           }
-        },
+        ],
         "name": "currentCurrent"
       },
       "PPW": {
@@ -86,8 +86,8 @@
         "readonly": true,
         "id": "PPW",
         "editorId": "BT_WATTS",
-        "dataType": {
-          "73": {
+        "dataType": [
+          {
             "uom": 73,
             "enum": false,
             "min": 0,
@@ -95,7 +95,7 @@
             "step": 0.01,
             "precision": 2
           }
-        },
+        ],
         "name": "polarizedPower"
       },
       "ERR": {
@@ -105,8 +105,8 @@
         "readonly": true,
         "id": "ERR",
         "editorId": "BT_ERR",
-        "dataType": {
-          "25": {
+        "dataType": [
+          {
             "uom": 25,
             "indexId": "IX_ERR",
             "enum": true,
@@ -115,7 +115,7 @@
               "1": "False"
             }
           }
-        },
+        ],
         "name": "responding"
       }
     },
@@ -146,8 +146,8 @@
         "readonly": true,
         "id": "ST",
         "editorId": "BT_WATTS",
-        "dataType": {
-          "73": {
+        "dataType": [
+          {
             "uom": 73,
             "enum": false,
             "min": 0,
@@ -155,7 +155,7 @@
             "step": 0.01,
             "precision": 2
           }
-        },
+        ],
         "name": "status"
       },
       "TPW": {
@@ -165,8 +165,8 @@
         "readonly": true,
         "id": "TPW",
         "editorId": "BT_KWH",
-        "dataType": {
-          "33": {
+        "dataType": [
+          {
             "uom": 33,
             "enum": false,
             "min": 0,
@@ -174,7 +174,7 @@
             "step": 0.01,
             "precision": 2
           }
-        },
+        ],
         "name": "totalEnergy"
       },
       "ERR": {
@@ -184,8 +184,8 @@
         "readonly": true,
         "id": "ERR",
         "editorId": "BT_ERR",
-        "dataType": {
-          "25": {
+        "dataType": [
+          {
             "uom": 25,
             "indexId": "IX_ERR",
             "enum": true,
@@ -194,7 +194,7 @@
               "1": "False"
             }
           }
-        },
+        ],
         "name": "responding"
       }
     },

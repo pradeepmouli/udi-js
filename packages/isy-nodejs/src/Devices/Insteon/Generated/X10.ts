@@ -52,7 +52,9 @@ export namespace X10 {
 	export interface Interface extends Omit<InstanceType<typeof X10Node>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "X10";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is X10Node { return ["X10"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is X10Node {
+		return ["X10"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is X10Node {
 		return ["X10"].includes(node.nodeDefId);
 	}

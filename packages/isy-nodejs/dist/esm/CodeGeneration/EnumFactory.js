@@ -74,7 +74,7 @@ function createDriverInitializationStatement(def) {
         factory.createThis(),
         factory.createAsExpression(factory.createPropertyAccessExpression(factory.createIdentifier("nodeInfo"), factory.createIdentifier("property")), factory.createTypeReferenceNode(factory.createIdentifier("DriverState"), undefined)),
         factory.createObjectLiteralExpression([
-            factory.createPropertyAssignment(factory.createIdentifier("uom"), factory.createPropertyAccessExpression(factory.createIdentifier("UnitOfMeasure"), factory.createIdentifier(UnitOfMeasure[Object.values(def.dataType)[0]?.uom] ?? "Unknown"))),
+            factory.createPropertyAssignment(factory.createIdentifier("uom"), factory.createPropertyAccessExpression(factory.createIdentifier("UnitOfMeasure"), factory.createIdentifier(UnitOfMeasure[def.dataType[0]?.uom] ?? "Unknown"))),
             factory.createPropertyAssignment(factory.createIdentifier("label"), factory.createStringLiteral(def.label)),
             factory.createPropertyAssignment(factory.createIdentifier("name"), factory.createStringLiteral(def.name)),
         ], false),

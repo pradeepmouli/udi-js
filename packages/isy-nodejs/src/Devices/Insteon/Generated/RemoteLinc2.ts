@@ -45,7 +45,9 @@ export namespace RemoteLinc2 {
 	export interface Interface extends Omit<InstanceType<typeof RemoteLinc2Node>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "RemoteLinc2" | "RemoteLinc2_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is RemoteLinc2Node { return ["RemoteLinc2", "RemoteLinc2_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is RemoteLinc2Node {
+		return ["RemoteLinc2", "RemoteLinc2_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RemoteLinc2Node {
 		return ["RemoteLinc2", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RemoteLinc2_ADV"].includes(node.nodeDefId);
 	}

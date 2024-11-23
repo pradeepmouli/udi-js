@@ -35,7 +35,8 @@ export class NodeClassFactory extends CodeFactory {
 			useTrailingCommas: false,
 			indentationText: IndentationText.Tab,
 			newLineKind: ts.NewLineKind.CarriageReturnLineFeed,
-			insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces: true
+			insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces: true,
+
 		}
 	});
 
@@ -336,7 +337,7 @@ export class NodeClassFactory extends CodeFactory {
 							)
 						],
 						factory.createTypePredicateNode(undefined, factory.createIdentifier('node'), factory.createTypeReferenceNode(factory.createIdentifier(`${nodeClassDef.name}Node`), undefined)),
-						NodeClassFactory.instance.createBlock(
+						NodeClassFactory.instance.createBlock(true,
 							NodeClassFactory.instance.createReturnStatement(
 								factory.createCallExpression(
 									factory.createPropertyAccessExpression(
@@ -624,7 +625,7 @@ export class NodeClassFactory extends CodeFactory {
 			[factory.createToken(ts.SyntaxKind.PublicKeyword)],
 			factory.createIdentifier(def.name),
 			[],
-			NodeClassFactory.instance.createUnionTypeNode(...Object.values(def.dataType).map((p) => NodeClassFactory.instance.createDriverPropertyReturnType(p, def))),
+			NodeClassFactory.instance.createUnionTypeNode(...def.dataType?.map((p) => NodeClassFactory.instance.createDriverPropertyReturnType(p, def))),
 			factory.createBlock(
 				[
 					factory.createReturnStatement(
@@ -656,7 +657,7 @@ export class NodeClassFactory extends CodeFactory {
 						[
 							factory.createPropertyAssignment(
 								factory.createIdentifier('uom'),
-								factory.createPropertyAccessExpression(factory.createIdentifier('UnitOfMeasure'), factory.createIdentifier(UnitOfMeasure[parseInt(Object.keys(def.dataType)[0])] ?? 'Unknown'))
+								factory.createPropertyAccessExpression(factory.createIdentifier('UnitOfMeasure'), factory.createIdentifier(UnitOfMeasure[def.dataType[0]?.uom] ?? 'Unknown'))
 							),
 							factory.createPropertyAssignment(factory.createIdentifier('label'), factory.createStringLiteral(def.label)),
 							factory.createPropertyAssignment(factory.createIdentifier('name'), factory.createStringLiteral(def.name))
@@ -707,7 +708,7 @@ export class NodeClassFactory extends CodeFactory {
 					factory.createIdentifier('uom'),
 					undefined,
 					def.dataType ?
-						NodeClassFactory.instance.createUnionTypeNode(...Object.values(def.dataType).map((p) => NodeClassFactory.instance.createTypeNodeForUOM(p.uom)))
+						NodeClassFactory.instance.createUnionTypeNode(...def.dataType?.map((p) => NodeClassFactory.instance.createTypeNodeForUOM(p.uom)))
 					:	factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword)
 				),
 				factory.createPropertySignature(
@@ -715,7 +716,7 @@ export class NodeClassFactory extends CodeFactory {
 					factory.createIdentifier('value'),
 					undefined,
 					def.dataType ?
-						NodeClassFactory.instance.createUnionTypeNode(...Object.values(def.dataType).map((p) => NodeClassFactory.instance.createDriverSignatureReturnType(p, def)))
+						NodeClassFactory.instance.createUnionTypeNode(...def.dataType.map((p) => NodeClassFactory.instance.createDriverSignatureReturnType(p, def)))
 					:	factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword)
 				),
 				factory.createPropertySignature(undefined, factory.createIdentifier('label'), undefined, factory.createLiteralTypeNode(factory.createStringLiteral(def.label))),
@@ -748,7 +749,7 @@ export class NodeClassFactory extends CodeFactory {
 			factory.createIdentifier(def.name ?? 'value'),
 			def.optional ? factory.createToken(ts.SyntaxKind.QuestionToken) : undefined,
 			def.dataType ?
-				NodeClassFactory.instance.createUnionTypeNode(...Object.values(def.dataType).map((p) => NodeClassFactory.instance.createCommandParameterType(p, def)))
+				NodeClassFactory.instance.createUnionTypeNode(...def.dataType?.map((p) => NodeClassFactory.instance.createCommandParameterType(p, def)))
 			:	factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword),
 			undefined
 		);
@@ -761,7 +762,7 @@ export class NodeClassFactory extends CodeFactory {
 			factory.createIdentifier(def.id ?? 'value'),
 			def.optional ? factory.createToken(ts.SyntaxKind.QuestionToken) : undefined,
 			def.dataType ?
-				NodeClassFactory.instance.createUnionTypeNode(...Object.values(def.dataType).map((p) => NodeClassFactory.instance.createCommandParameterType(p, def)))
+				NodeClassFactory.instance.createUnionTypeNode(...def.dataType?.map((p) => NodeClassFactory.instance.createCommandParameterType(p, def)))
 			:	factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword),
 			undefined
 		);

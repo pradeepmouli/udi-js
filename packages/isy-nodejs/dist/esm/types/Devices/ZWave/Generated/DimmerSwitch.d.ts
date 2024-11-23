@@ -9,36 +9,36 @@ type Commands = DimmerSwitch.Commands;
 type Drivers = DimmerSwitch.Drivers;
 export declare class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerSwitch.Interface {
     readonly commands: {
-        DON: (value?: ZWave.PercentOpt | number, rampRate?: number | number) => Promise<any>;
+        DON: (value?: number | ZWave.PercentOpt, rampRate?: number) => Promise<any>;
         DOF: () => Promise<any>;
         DFON: () => Promise<any>;
         DFOF: () => Promise<any>;
         BRT: () => Promise<any>;
         DIM: () => Promise<any>;
-        FDUP: (startLevel?: ZWave.PercentOpt | number, rampRate?: number | number) => Promise<any>;
-        FDDOWN: (startLevel?: ZWave.PercentOpt | number, rampRate?: number | number) => Promise<any>;
-        FADE: (direction: ZWave.FadeDirection, startLevel?: ZWave.PercentOpt | number, rampRate?: number | number, direction2?: ZWave.FadeDirection, fadeRate2?: number | number) => Promise<any>;
+        FDUP: (startLevel?: number | ZWave.PercentOpt, rampRate?: number) => Promise<any>;
+        FDDOWN: (startLevel?: number | ZWave.PercentOpt, rampRate?: number) => Promise<any>;
+        FADE: (direction: ZWave.FadeDirection, startLevel?: number | ZWave.PercentOpt, rampRate?: number, direction2?: ZWave.FadeDirection, fadeRate2?: number) => Promise<any>;
         FDSTOP: () => Promise<any>;
         QUERY: () => Promise<any>;
-        CONFIG: (parameterNumber: number, parameterValue: number | number | number | number | number | number) => Promise<any>;
+        CONFIG: (parameterNumber: number, parameterValue: number) => Promise<any>;
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: "119";
     constructor(isy: ISY, nodeInfo: NodeInfo);
-    on(value?: ZWave.PercentOpt | number, rampRate?: number | number): Promise<any>;
+    on(value?: number | ZWave.PercentOpt, rampRate?: number): Promise<any>;
     off(): Promise<any>;
     fastOn(): Promise<any>;
     fastOff(): Promise<any>;
     brighten(): Promise<any>;
     dim(): Promise<any>;
-    fadeUp(startLevel?: ZWave.PercentOpt | number, rampRate?: number | number): Promise<any>;
-    fadeDown(startLevel?: ZWave.PercentOpt | number, rampRate?: number | number): Promise<any>;
-    fade(direction: ZWave.FadeDirection, startLevel?: ZWave.PercentOpt | number, rampRate?: number | number, direction2?: ZWave.FadeDirection, fadeRate2?: number | number): Promise<any>;
+    fadeUp(startLevel?: number | ZWave.PercentOpt, rampRate?: number): Promise<any>;
+    fadeDown(startLevel?: number | ZWave.PercentOpt, rampRate?: number): Promise<any>;
+    fade(direction: ZWave.FadeDirection, startLevel?: number | ZWave.PercentOpt, rampRate?: number, direction2?: ZWave.FadeDirection, fadeRate2?: number): Promise<any>;
     fadeStop(): Promise<any>;
     query(): Promise<any>;
-    setConfiguration(parameterNumber: number, parameterValue: number | number | number | number | number | number): Promise<any>;
+    setConfiguration(parameterNumber: number, parameterValue: number): Promise<any>;
     writeChanges(): Promise<any>;
     get status(): number;
     get responding(): ZWave.Error;
@@ -52,7 +52,7 @@ export declare namespace DimmerSwitch {
     function create(isy: ISY, nodeInfo: NodeInfo): DimmerSwitchNode;
     const Node: typeof DimmerSwitchNode;
     type Commands = {
-        DON: ((value?: ZWave.PercentOpt | number, RR?: number | number) => Promise<boolean>) & {
+        DON: ((value?: number | ZWave.PercentOpt, RR?: number) => Promise<boolean>) & {
             label: "On";
             name: "on";
         };
@@ -76,15 +76,15 @@ export declare namespace DimmerSwitch {
             label: "Dim";
             name: "dim";
         };
-        FDUP: ((STARTLEVEL?: ZWave.PercentOpt | number, RR?: number | number) => Promise<boolean>) & {
+        FDUP: ((STARTLEVEL?: number | ZWave.PercentOpt, RR?: number) => Promise<boolean>) & {
             label: "Fade Up";
             name: "fadeUp";
         };
-        FDDOWN: ((STARTLEVEL?: ZWave.PercentOpt | number, RR?: number | number) => Promise<boolean>) & {
+        FDDOWN: ((STARTLEVEL?: number | ZWave.PercentOpt, RR?: number) => Promise<boolean>) & {
             label: "Fade Down";
             name: "fadeDown";
         };
-        FADE: ((DIR: ZWave.FadeDirection, STARTLEVEL?: ZWave.PercentOpt | number, RR?: number | number, DIR2?: ZWave.FadeDirection, STEP2?: number | number) => Promise<boolean>) & {
+        FADE: ((DIR: ZWave.FadeDirection, STARTLEVEL?: number | ZWave.PercentOpt, RR?: number, DIR2?: ZWave.FadeDirection, STEP2?: number) => Promise<boolean>) & {
             label: "Fade";
             name: "fade";
         };
@@ -96,7 +96,7 @@ export declare namespace DimmerSwitch {
             label: "Query";
             name: "query";
         };
-        CONFIG: ((NUM: number, VAL: number | number | number | number | number | number) => Promise<boolean>) & {
+        CONFIG: ((NUM: number, VAL: number) => Promise<boolean>) & {
             label: "Set Configuration";
             name: "setConfiguration";
         };

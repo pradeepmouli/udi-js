@@ -27,7 +27,9 @@ NodeFactory.register(RemoteLinc2Node);
 NodeFactory.register(RemoteLinc2Node, "RemoteLinc2_ADV");
 export var RemoteLinc2;
 (function (RemoteLinc2) {
-    function is(node) { return ["RemoteLinc2", "RemoteLinc2_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["RemoteLinc2", "RemoteLinc2_ADV"].includes(node.nodeDefId);
+    }
     RemoteLinc2.is = is;
     function isImplementedBy(node) {
         return ["RemoteLinc2", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RemoteLinc2_ADV"].includes(node.nodeDefId);

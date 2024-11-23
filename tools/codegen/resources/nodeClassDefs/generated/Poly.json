@@ -11,7 +11,7 @@
         "readonly": true,
         "id": "ST",
         "editorId": "CONTROLLER",
-        "dataType": {},
+        "dataType": [],
         "name": "status"
       }
     },

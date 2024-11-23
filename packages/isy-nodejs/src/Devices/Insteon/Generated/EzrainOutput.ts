@@ -52,7 +52,9 @@ export namespace EzrainOutput {
 	export interface Interface extends Omit<InstanceType<typeof EzrainOutputNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "EZRAIN_Output";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is EzrainOutputNode { return ["EZRAIN_Output"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is EzrainOutputNode {
+		return ["EZRAIN_Output"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is EzrainOutputNode {
 		return ["EZRAIN_Output", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor"].includes(node.nodeDefId);
 	}

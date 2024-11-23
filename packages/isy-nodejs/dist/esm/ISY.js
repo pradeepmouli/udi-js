@@ -1,7 +1,7 @@
-import WebSocket from 'faye-websocket';
 import { writeFile } from 'fs';
 import { Parser } from 'xml2js';
 import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
+import WebSocket from 'ws';
 import axios from 'axios';
 import { EventEmitter } from 'events';
 import { format, Logger, loggers } from 'winston';
@@ -112,6 +112,7 @@ export class ISY extends EventEmitter {
         };
         this.protocol = config.protocol;
         this.wsprotocol = config.protocol === 'https' ? 'wss' : 'ws';
+        this.socketPath = config.socketPath;
         this.axiosOptions = {
             baseURL: `${this.protocol}://${this.host}:${this.port}`,
             validateStatus: (status) => status >= 200 && status < 300
@@ -121,6 +122,13 @@ export class ISY extends EventEmitter {
         }
         else {
             this.axiosOptions.auth = { username: this.credentials.username, password: this.credentials.password };
+        }
+        this.webSocketOptions = { origin: 'com.universal-devices.websockets.isy' };
+        if (this.socketPath) {
+            this.webSocketOptions.socketPath = this.socketPath;
+        }
+        else {
+            this.webSocketOptions.auth = `${this.credentials.username}:${this.credentials.password}`;
         }
         //this.elkEnabled = config.elkEnabled ?? false;
         this.nodesLoaded = false;
@@ -285,31 +293,39 @@ export class ISY extends EventEmitter {
         try {
             await this.loadConfig();
             await this.loadNodes();
+            await this.refreshStatuses();
             await this.loadVariables(VariableType.Integer);
             await this.loadVariables(VariableType.State);
-            await this.refreshStatuses();
             await this.#finishInitialize(true);
             return true;
         }
         catch (e) {
             if (e instanceof ISYInitializationError) {
+                if (e.step === 'variables') {
+                    this.logger.warn(`Error loading variables: ${e.message}`);
+                    await this.#finishInitialize(true);
+                    return true;
+                }
                 this.logger.error(`Error initializing ISY during (${e.step}): ${e.message}`);
+                return false;
             }
             else {
                 this.logger.error(`Error initializing ISY: ${e.message}`);
+                return false;
             }
             throw e;
         }
         finally {
             if (this.nodesLoaded !== true) {
-                that.#finishInitialize(false);
+                await that.#finishInitialize(false);
             }
         }
     }
+    webSocketOptions;
     async initializeWebSocket() {
         try {
             const that = this;
-            const auth = `Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
+            //const auth = `Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
             this.logger.info(`Opening webSocket: ${this.wsprotocol}://${this.address}/rest/subscribe`);
             if (this.webSocket) {
                 try {
@@ -319,34 +335,43 @@ export class ISY extends EventEmitter {
                     this.logger.warn(`Error closing existing websocket: ${e.message}`);
                 }
             }
-            this.webSocket = new WebSocket.Client(`${this.wsprotocol}://${this.address}/rest/subscribe`, ['ISYSUB'], {
-                headers: {
-                    Origin: 'com.universal-devices.websockets.isy',
-                    Authorization: auth
-                },
-                ping: 10
+            /*headers: {
+                Origin: 'com.universal-devices.websockets.isy',
+                auth
+            },
+
+            ping: 10*/
+            let p = new Promise((resolve, reject) => {
+                this.webSocket = new WebSocket(`${this.wsprotocol}://${this.address}/rest/subscribe`, ['ISYSUB'], this.webSocketOptions);
+                this.lastActivity = new Date();
+                //this.webSocket.onmessage = (event) => {this.handleWebSocketMessage()
+                this.webSocket.on('open', () => {
+                    this.logger.info('Websocket connection open');
+                    resolve();
+                })
+                    .on('message', (data, b) => {
+                    that.logger.silly(`Received message: ${Utils.logStringify(data, 1)}`);
+                    that.handleWebSocketMessage({ data: data });
+                })
+                    .on('error', (err, response) => {
+                    that.logger.warn(`Websocket subscription error: ${err}`);
+                    return reject(new ISYInitializationError('Websocket subscription error', 'websocket'));
+                })
+                    .on('fail', (data, response) => {
+                    that.logger.warn(`Websocket subscription failure: ${data}`);
+                    return reject(new Error('Websocket subscription failure'));
+                })
+                    .on('abort', () => {
+                    that.logger.warn('Websocket subscription aborted.');
+                    throw new Error('Websocket subscription aborted.');
+                })
+                    .on('timeout', (ms) => {
+                    that.logger.warn(`Websocket subscription timed out after ${ms} milliseconds.`);
+                    return reject(new Error('Timeout contacting ISY'));
+                    //throw new Error('Timeout contacting ISY');
+                });
             });
-            this.lastActivity = new Date();
-            this.webSocket
-                .on('message', (event) => {
-                that.logger.silly(`Received message: ${Utils.logStringify(event.data, 1)}`);
-                that.handleWebSocketMessage(event);
-            })
-                .on('error', (err, response) => {
-                that.logger.warn(`Websocket subscription error: ${Utils.logStringify(err, 1)}`);
-            })
-                .on('fail', (data, response) => {
-                that.logger.warn(`Websocket subscription failure: ${data}`);
-                throw new Error('Websocket subscription failure');
-            })
-                .on('abort', () => {
-                that.logger.warn('Websocket subscription aborted.');
-                throw new Error('Websocket subscription aborted.');
-            })
-                .on('timeout', (ms) => {
-                that.logger.warn(`Websocket subscription timed out after ${ms} milliseconds.`);
-                throw new Error('Timeout contacting ISY');
-            });
+            return p;
         }
         catch (e) {
             throw new ISYInitializationError(e, 'websocket');
@@ -556,7 +581,7 @@ export class ISY extends EventEmitter {
             this.variableList.set(this.#createVariableKey(type, id), newVariable);
         }
     }
-    #finishInitialize(success) {
+    async #finishInitialize(success) {
         if (!this.nodesLoaded) {
             this.nodesLoaded = true;
             //initializeCompleted();
@@ -566,7 +591,7 @@ export class ISY extends EventEmitter {
                 // }
                 if (this.enableWebSocket) {
                     this.guardianTimer = setInterval(this.#guardian.bind(this), 60000);
-                    this.initializeWebSocket();
+                    return this.initializeWebSocket();
                 }
             }
         }

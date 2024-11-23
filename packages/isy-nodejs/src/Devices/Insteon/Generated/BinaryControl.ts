@@ -49,7 +49,9 @@ export namespace BinaryControl {
 	export interface Interface extends Omit<InstanceType<typeof BinaryControlNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "BinaryControl" | "BinaryControl_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is BinaryControlNode { return ["BinaryControl", "BinaryControl_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is BinaryControlNode {
+		return ["BinaryControl", "BinaryControl_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is BinaryControlNode {
 		return ["BinaryControl", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl_ADV"].includes(node.nodeDefId);
 	}

@@ -69,7 +69,9 @@ export namespace Siren {
 	export interface Interface extends Omit<InstanceType<typeof SirenNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "Siren" | "Siren_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is SirenNode { return ["Siren", "Siren_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is SirenNode {
+		return ["Siren", "Siren_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is SirenNode {
 		return ["Siren", "Siren_ADV"].includes(node.nodeDefId);
 	}

@@ -31,7 +31,9 @@ export class PulseCounterNode extends Base {
 NodeFactory.register(PulseCounterNode);
 export var PulseCounter;
 (function (PulseCounter) {
-    function is(node) { return ["EM3PulseCounter"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["EM3PulseCounter"].includes(node.nodeDefId);
+    }
     PulseCounter.is = is;
     function isImplementedBy(node) {
         return ["EM3PulseCounter"].includes(node.nodeDefId);

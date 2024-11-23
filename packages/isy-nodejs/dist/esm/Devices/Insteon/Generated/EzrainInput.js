@@ -27,7 +27,9 @@ NodeFactory.register(EzrainInputNode);
 NodeFactory.register(EzrainInputNode, "EZRAIN_Input_ADV");
 export var EzrainInput;
 (function (EzrainInput) {
-    function is(node) { return ["EZRAIN_Input", "EZRAIN_Input_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["EZRAIN_Input", "EZRAIN_Input_ADV"].includes(node.nodeDefId);
+    }
     EzrainInput.is = is;
     function isImplementedBy(node) {
         return ["EZRAIN_Input", "EZRAIN_Input_ADV"].includes(node.nodeDefId);

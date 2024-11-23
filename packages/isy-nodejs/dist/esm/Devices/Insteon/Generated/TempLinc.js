@@ -68,7 +68,9 @@ export class TempLincNode extends Base {
 NodeFactory.register(TempLincNode);
 export var TempLinc;
 (function (TempLinc) {
-    function is(node) { return ["TempLinc"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["TempLinc"].includes(node.nodeDefId);
+    }
     TempLinc.is = is;
     function isImplementedBy(node) {
         return ["TempLinc", "Thermostat"].includes(node.nodeDefId);

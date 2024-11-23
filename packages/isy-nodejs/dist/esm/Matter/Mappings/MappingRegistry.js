@@ -1,10 +1,15 @@
-import { DriverType } from '../Definitions/Global/Drivers.js';
-import { Devices, Insteon } from '../Devices/index.js';
+import { DriverType } from '../../Definitions/Global/Drivers.js';
+import { Devices, Insteon } from '../../Devices/index.js';
 import { BridgedDeviceBasicInformationBehavior } from '@matter/node/behaviors';
-import { Family } from '../Definitions/index.js';
-import { NodeFactory } from '../Devices/NodeFactory.js';
-import { ISYBridgedDeviceBehavior } from '../Matter/Behaviors/ISYBridgedDeviceBehavior.js';
-import { ClusterType } from './ClusterType.js';
+import { Family } from '../../Definitions/index.js';
+import { NodeFactory } from '../../Devices/NodeFactory.js';
+import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
+import { ClusterType } from '../../Model/ClusterType.js';
+export function add(familyToClusterMap, deviceClass, mapping) {
+    const map = {};
+    map[deviceClass.name] = mapping;
+    return { ...map, ...familyToClusterMap };
+}
 // #endregion Type aliases (16)
 // #region Classes (1)
 export class MappingRegistry {
@@ -111,4 +116,4 @@ var clusterMap = {
     }
 };*/
 // #endregion Variables (3)
-//# sourceMappingURL=ClusterMap.js.map
+//# sourceMappingURL=MappingRegistry.js.map

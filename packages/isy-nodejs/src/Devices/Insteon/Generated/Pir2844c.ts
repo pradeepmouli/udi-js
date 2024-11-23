@@ -67,9 +67,11 @@ export namespace Pir2844c {
 	export interface Interface extends Omit<InstanceType<typeof Pir2844cNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "PIR2844C" | "PIR2844C_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is Pir2844cNode { return ["PIR2844C", "PIR2844C_ADV"].includes(node.nodeDefId); }
-	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is Pir2844cNode {
+	export function is(node: ISYNode<any, any, any, any>): node is Pir2844cNode {
 		return ["PIR2844C", "PIR2844C_ADV"].includes(node.nodeDefId);
+	}
+	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is Pir2844cNode {
+		return ["PIR2844C", "PIR2844", "PIR2844_ADV", "PIR2844C_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new Pir2844cNode(isy, nodeInfo);

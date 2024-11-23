@@ -49,10 +49,12 @@ NodeFactory.register(Pir2844cNode);
 NodeFactory.register(Pir2844cNode, "PIR2844C_ADV");
 export var Pir2844c;
 (function (Pir2844c) {
-    function is(node) { return ["PIR2844C", "PIR2844C_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["PIR2844C", "PIR2844C_ADV"].includes(node.nodeDefId);
+    }
     Pir2844c.is = is;
     function isImplementedBy(node) {
-        return ["PIR2844C", "PIR2844C_ADV"].includes(node.nodeDefId);
+        return ["PIR2844C", "PIR2844", "PIR2844_ADV", "PIR2844C_ADV"].includes(node.nodeDefId);
     }
     Pir2844c.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

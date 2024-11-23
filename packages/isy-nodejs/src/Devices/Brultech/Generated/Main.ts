@@ -60,7 +60,9 @@ export namespace Main {
 	export interface Interface extends Omit<InstanceType<typeof MainNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "BTMain";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is MainNode { return ["BTMain"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is MainNode {
+		return ["BTMain"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is MainNode {
 		return ["BTMain"].includes(node.nodeDefId);
 	}

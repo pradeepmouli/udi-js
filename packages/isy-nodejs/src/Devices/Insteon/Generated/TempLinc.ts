@@ -86,7 +86,9 @@ export namespace TempLinc {
 	export interface Interface extends Omit<InstanceType<typeof TempLincNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "TempLinc";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is TempLincNode { return ["TempLinc"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is TempLincNode {
+		return ["TempLinc"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is TempLincNode {
 		return ["TempLinc", "Thermostat"].includes(node.nodeDefId);
 	}

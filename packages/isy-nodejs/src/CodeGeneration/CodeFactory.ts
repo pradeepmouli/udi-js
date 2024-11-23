@@ -1,4 +1,6 @@
+import { unique } from 'moderndash';
 import ts, { ModifierFlags, type ModifierSyntaxKind, type PunctuationSyntaxKind } from 'typescript';
+import { types } from 'util';
 
 type ParameterType<F> = F extends (arg0: infer P) => any ? P : never;
 
@@ -207,10 +209,17 @@ export class CodeFactory {
 				return a.typeName.text === b.typeName.text;
 			}
 		}
+		if(a.kind === ts.SyntaxKind.NumberKeyword || a.kind === ts.SyntaxKind.StringKeyword || a.kind === ts.SyntaxKind.BigIntKeyword)
+		{
+			return a.kind === b.kind;
+		}
 		return false;
 	}
 
 	createUnionTypeNode(...types: ts.TypeNode[]): ts.UnionTypeNode {
+		let t = unique(types, this.typesEqual);
+		/*try
+		{
 		let t = [types[0]];
 		for (let i = 1; i < types.length; i++) {
 			if (types[i].kind !== ts.SyntaxKind.NeverKeyword) {
@@ -219,7 +228,14 @@ export class CodeFactory {
 				} else if (!t.some((x) => this.typesEqual(x, types[i]))) t.push(types[i]);
 			}
 		}
-		return ts.factory.createUnionTypeNode(types);
+			return ts.factory.createUnionTypeNode(t);
+		}
+		catch(e)
+		{*/
+			//console.warn(e);
+			return ts.factory.createUnionTypeNode(t);
+		//}
+
 	}
 
 	createIntersectionTypeNode(types: ts.TypeNode[]): ts.IntersectionTypeNode {
@@ -311,7 +327,7 @@ export class CodeFactory {
 		if(typeof multiLine === 'boolean') {
 			return ts.factory.createBlock(statements, multiLine);
 		}
-		return ts.factory.createBlock([multiLine, ...statements]);
+		return ts.factory.createBlock([multiLine, ...statements],true);
 
 	}
 

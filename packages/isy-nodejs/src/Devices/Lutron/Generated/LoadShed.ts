@@ -48,7 +48,9 @@ export namespace LoadShed {
 	export interface Interface extends Omit<InstanceType<typeof LoadShedNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "LUTLoadShed";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is LoadShedNode { return ["LUTLoadShed"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is LoadShedNode {
+		return ["LUTLoadShed"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is LoadShedNode {
 		return ["LUTLoadShed"].includes(node.nodeDefId);
 	}

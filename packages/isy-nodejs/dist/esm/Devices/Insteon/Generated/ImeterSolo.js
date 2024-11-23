@@ -34,7 +34,9 @@ export class ImeterSoloNode extends Base {
 NodeFactory.register(ImeterSoloNode);
 export var ImeterSolo;
 (function (ImeterSolo) {
-    function is(node) { return ["IMETER_SOLO"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["IMETER_SOLO"].includes(node.nodeDefId);
+    }
     ImeterSolo.is = is;
     function isImplementedBy(node) {
         return ["IMETER_SOLO"].includes(node.nodeDefId);

@@ -50,7 +50,9 @@ export namespace Relay {
 	export interface Interface extends Omit<InstanceType<typeof RelayNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "NCDRelay";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is RelayNode { return ["NCDRelay"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is RelayNode {
+		return ["NCDRelay"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayNode {
 		return ["NCDRelay"].includes(node.nodeDefId);
 	}

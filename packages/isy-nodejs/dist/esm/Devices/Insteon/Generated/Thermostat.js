@@ -68,7 +68,9 @@ export class ThermostatNode extends Base {
 NodeFactory.register(ThermostatNode);
 export var Thermostat;
 (function (Thermostat) {
-    function is(node) { return ["Thermostat"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["Thermostat"].includes(node.nodeDefId);
+    }
     Thermostat.is = is;
     function isImplementedBy(node) {
         return ["Thermostat"].includes(node.nodeDefId);

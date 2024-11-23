@@ -105,7 +105,9 @@ export namespace Thermostat {
 	export interface Interface extends Omit<InstanceType<typeof ThermostatNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "Thermostat";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is ThermostatNode { return ["Thermostat"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is ThermostatNode {
+		return ["Thermostat"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ThermostatNode {
 		return ["Thermostat"].includes(node.nodeDefId);
 	}

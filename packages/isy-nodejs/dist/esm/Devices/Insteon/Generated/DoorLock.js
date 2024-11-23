@@ -30,7 +30,9 @@ export class DoorLockNode extends Base {
 NodeFactory.register(DoorLockNode);
 export var DoorLock;
 (function (DoorLock) {
-    function is(node) { return ["DoorLock"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["DoorLock"].includes(node.nodeDefId);
+    }
     DoorLock.is = is;
     function isImplementedBy(node) {
         return ["DoorLock", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor"].includes(node.nodeDefId);

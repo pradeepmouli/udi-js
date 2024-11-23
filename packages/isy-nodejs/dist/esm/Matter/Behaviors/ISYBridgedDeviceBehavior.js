@@ -5,7 +5,7 @@
  */ import { Behavior } from '@project-chip/matter.js/behavior';
 import { EventEmitter, Observable } from '@project-chip/matter.js/util';
 import { ISY } from '../../ISY.js';
-import { MappingRegistry } from '../../Model/ClusterMap.js';
+import { MappingRegistry } from '../Mappings/MappingRegistry.js';
 export class ISYBridgedDeviceBehavior extends Behavior {
     static id = 'isyNode';
     static early = true;

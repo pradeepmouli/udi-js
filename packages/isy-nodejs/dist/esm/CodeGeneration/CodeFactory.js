@@ -1,3 +1,4 @@
+import { unique } from 'moderndash';
 import ts from 'typescript';
 export const SyntaxKind = ts.SyntaxKind;
 export class CodeFactory {
@@ -139,20 +140,30 @@ export class CodeFactory {
                 return a.typeName.text === b.typeName.text;
             }
         }
+        if (a.kind === ts.SyntaxKind.NumberKeyword || a.kind === ts.SyntaxKind.StringKeyword || a.kind === ts.SyntaxKind.BigIntKeyword) {
+            return a.kind === b.kind;
+        }
         return false;
     }
     createUnionTypeNode(...types) {
+        let t = unique(types, this.typesEqual);
+        /*try
+        {
         let t = [types[0]];
         for (let i = 1; i < types.length; i++) {
             if (types[i].kind !== ts.SyntaxKind.NeverKeyword) {
                 if (types[i].kind === ts.SyntaxKind.UnionType) {
-                    types.push(...types[i].types);
-                }
-                else if (!t.some((x) => this.typesEqual(x, types[i])))
-                    t.push(types[i]);
+                    types.push(...(types[i] as ts.UnionTypeNode).types);
+                } else if (!t.some((x) => this.typesEqual(x, types[i]))) t.push(types[i]);
             }
         }
-        return ts.factory.createUnionTypeNode(types);
+            return ts.factory.createUnionTypeNode(t);
+        }
+        catch(e)
+        {*/
+        //console.warn(e);
+        return ts.factory.createUnionTypeNode(t);
+        //}
     }
     createIntersectionTypeNode(types) {
         return ts.factory.createIntersectionTypeNode(types);
@@ -221,7 +232,7 @@ export class CodeFactory {
         if (typeof multiLine === 'boolean') {
             return ts.factory.createBlock(statements, multiLine);
         }
-        return ts.factory.createBlock([multiLine, ...statements]);
+        return ts.factory.createBlock([multiLine, ...statements], true);
     }
     createModuleBlock(statements) {
         return ts.factory.createModuleBlock(statements);

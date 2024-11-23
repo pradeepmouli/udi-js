@@ -15,20 +15,20 @@ const StandardConverters = {
 			from: (value: number) => value > 0
 		},
 		Percent: {
-			to: (value: number): boolean => {
-				return value > 0;
-			},
-			from: (value: boolean): number => {
-				return value ? 100 : 0;
-			}
+			to: (value: boolean) => (value ? 100 : 0),
+			from: (value: number) => value > 0
 		}
 	},
 	LevelFrom0To255: {
 		Percent: {
 			to: (value: number): number => {
+				if(value === 0) return 0;
+				if(value === 255) return 100;
 				return Math.round((value * 100) / 255);
 			},
 			from: (value: number): number => {
+				if(value === 0) return 0;
+				if(value === 100) return 255;
 				return Math.round((value * 255) / 100);
 			}
 		}
@@ -79,11 +79,11 @@ export namespace Converter {
 	export const Matter = {
 		LevelFrom0To255: {
 			LightingLevel: {
-				from: (value) =>
+				from: (value: number) =>
 					value === 1 ? 0
 					: value === 254 ? 255
 					: value,
-				to: (value) =>
+				to: (value: number) =>
 					value === 0 ? 1
 					: value === 255 ? 254
 					: value
@@ -92,14 +92,20 @@ export namespace Converter {
 		},
 		Percent: {
 			LightingLevel: {
-				from: (value) =>
+				from: (value: number) =>
 					value === 1 ? 0
 					: value === 254 ? 100
 					: Math.round(value / 254 * 100),
-				to: (value) =>
+				to: (value: number) =>
 					value === 0 ? 1
 					: value === 100 ? 254
 					: Math.round(value / 100 * 254)
+			}
+		},
+		Boolean: {
+			LightingLevel: {
+				from: (value: number) => value > 0,
+				to: (value: any) => value ? 254 : 0
 			}
 		}
 	};

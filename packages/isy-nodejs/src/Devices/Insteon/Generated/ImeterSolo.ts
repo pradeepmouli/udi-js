@@ -52,7 +52,9 @@ export namespace ImeterSolo {
 	export interface Interface extends Omit<InstanceType<typeof ImeterSoloNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "IMETER_SOLO";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is ImeterSoloNode { return ["IMETER_SOLO"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is ImeterSoloNode {
+		return ["IMETER_SOLO"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ImeterSoloNode {
 		return ["IMETER_SOLO"].includes(node.nodeDefId);
 	}

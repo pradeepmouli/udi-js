@@ -83,7 +83,9 @@ export namespace DimmerLampSwitchLed {
 	export interface Interface extends Omit<InstanceType<typeof DimmerLampSwitchLedNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "DimmerLampSwitchLED" | "DimmerLampSwitchLED_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is DimmerLampSwitchLedNode { return ["DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is DimmerLampSwitchLedNode {
+		return ["DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerLampSwitchLedNode {
 		return ["DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV"].includes(node.nodeDefId);
 	}

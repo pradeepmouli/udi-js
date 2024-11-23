@@ -49,7 +49,9 @@ export namespace KeypadButton {
 	export interface Interface extends Omit<InstanceType<typeof KeypadButtonNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "KeypadButton" | "KeypadButton_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is KeypadButtonNode { return ["KeypadButton", "KeypadButton_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is KeypadButtonNode {
+		return ["KeypadButton", "KeypadButton_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is KeypadButtonNode {
 		return ["KeypadButton", "KeypadRelay", "KeypadRelay_ADV", "KeypadButton_ADV"].includes(node.nodeDefId);
 	}

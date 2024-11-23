@@ -31,7 +31,9 @@ NodeFactory.register(KeypadButtonNode);
 NodeFactory.register(KeypadButtonNode, "KeypadButton_ADV");
 export var KeypadButton;
 (function (KeypadButton) {
-    function is(node) { return ["KeypadButton", "KeypadButton_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["KeypadButton", "KeypadButton_ADV"].includes(node.nodeDefId);
+    }
     KeypadButton.is = is;
     function isImplementedBy(node) {
         return ["KeypadButton", "KeypadRelay", "KeypadRelay_ADV", "KeypadButton_ADV"].includes(node.nodeDefId);

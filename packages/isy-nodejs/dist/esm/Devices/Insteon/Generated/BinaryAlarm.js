@@ -31,7 +31,9 @@ NodeFactory.register(BinaryAlarmNode);
 NodeFactory.register(BinaryAlarmNode, "BinaryAlarm_ADV");
 export var BinaryAlarm;
 (function (BinaryAlarm) {
-    function is(node) { return ["BinaryAlarm", "BinaryAlarm_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["BinaryAlarm", "BinaryAlarm_ADV"].includes(node.nodeDefId);
+    }
     BinaryAlarm.is = is;
     function isImplementedBy(node) {
         return ["BinaryAlarm", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "BinaryAlarm_ADV"].includes(node.nodeDefId);

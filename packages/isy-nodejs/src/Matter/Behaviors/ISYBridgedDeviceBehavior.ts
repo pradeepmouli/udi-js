@@ -11,10 +11,10 @@ import internal from 'stream';
 import type { Driver } from '../../Definitions/Global/Drivers.js';
 import { ISY } from '../../ISY.js';
 import type { ISYDevice } from '../../ISYDevice.js';
-import { DeviceToClusterMap, MappingRegistry, type ClusterMapping, type BehaviorMapping } from '../../Model/ClusterMap.js';
 import { server } from 'typescript';
 import type { ISYNode } from '../../ISYNode.js';
 import type { Family } from '../../Definitions/index.js';
+import { MappingRegistry, type BehaviorMapping, type DeviceToClusterMap } from '../Mappings/MappingRegistry.js';
 
 
 

@@ -27,10 +27,12 @@ NodeFactory.register(RelaySwitchNode);
 NodeFactory.register(RelaySwitchNode, "RelaySwitchOnly_ADV");
 export var RelaySwitch;
 (function (RelaySwitch) {
-    function is(node) { return ["RelaySwitchOnly", "RelaySwitchOnly_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["RelaySwitchOnly", "RelaySwitchOnly_ADV"].includes(node.nodeDefId);
+    }
     RelaySwitch.is = is;
     function isImplementedBy(node) {
-        return ["RelaySwitchOnly", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly_ADV"].includes(node.nodeDefId);
+        return ["RelaySwitchOnly", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly_ADV"].includes(node.nodeDefId);
     }
     RelaySwitch.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

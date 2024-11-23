@@ -27,7 +27,9 @@ export class ChannelNode extends Base {
 NodeFactory.register(ChannelNode);
 export var Channel;
 (function (Channel) {
-    function is(node) { return ["EM3Channel"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["EM3Channel"].includes(node.nodeDefId);
+    }
     Channel.is = is;
     function isImplementedBy(node) {
         return ["EM3Channel", "EM3Main", "EM3MainChannel"].includes(node.nodeDefId);

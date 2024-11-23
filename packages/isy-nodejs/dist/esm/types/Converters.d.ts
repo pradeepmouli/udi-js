@@ -7,8 +7,8 @@ declare const StandardConverters: {
             from: (value: number) => boolean;
         };
         Percent: {
-            to: (value: number) => boolean;
-            from: (value: boolean) => number;
+            to: (value: boolean) => 0 | 100;
+            from: (value: number) => boolean;
         };
     };
     LevelFrom0To255: {
@@ -25,14 +25,20 @@ export declare namespace Converter {
     const Matter: {
         LevelFrom0To255: {
             LightingLevel: {
-                from: (value: any) => any;
-                to: (value: any) => any;
+                from: (value: number) => number;
+                to: (value: number) => number;
             };
         };
         Percent: {
             LightingLevel: {
-                from: (value: any) => number;
-                to: (value: any) => number;
+                from: (value: number) => number;
+                to: (value: number) => number;
+            };
+        };
+        Boolean: {
+            LightingLevel: {
+                from: (value: number) => boolean;
+                to: (value: any) => 0 | 254;
             };
         };
     };

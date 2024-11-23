@@ -39,7 +39,9 @@ NodeFactory.register(AlertModuleSirenNode);
 NodeFactory.register(AlertModuleSirenNode, "AlertModuleSiren_ADV");
 export var AlertModuleSiren;
 (function (AlertModuleSiren) {
-    function is(node) { return ["AlertModuleSiren", "AlertModuleSiren_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["AlertModuleSiren", "AlertModuleSiren_ADV"].includes(node.nodeDefId);
+    }
     AlertModuleSiren.is = is;
     function isImplementedBy(node) {
         return ["AlertModuleSiren", "AlertModuleSiren_ADV"].includes(node.nodeDefId);

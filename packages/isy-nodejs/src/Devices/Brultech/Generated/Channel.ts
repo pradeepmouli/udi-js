@@ -45,7 +45,9 @@ export namespace Channel {
 	export interface Interface extends Omit<InstanceType<typeof ChannelNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "BTChannel";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is ChannelNode { return ["BTChannel"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is ChannelNode {
+		return ["BTChannel"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ChannelNode {
 		return ["BTChannel", "BTMain"].includes(node.nodeDefId);
 	}

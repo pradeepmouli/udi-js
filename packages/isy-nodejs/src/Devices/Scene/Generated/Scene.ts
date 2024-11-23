@@ -68,7 +68,9 @@ export namespace Scene {
 	export interface Interface extends Omit<InstanceType<typeof SceneNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "InsteonDimmer";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is SceneNode { return ["InsteonDimmer"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is SceneNode {
+		return ["InsteonDimmer"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is SceneNode {
 		return ["InsteonDimmer"].includes(node.nodeDefId);
 	}

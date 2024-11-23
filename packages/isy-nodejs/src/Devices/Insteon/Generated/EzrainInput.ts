@@ -45,7 +45,9 @@ export namespace EzrainInput {
 	export interface Interface extends Omit<InstanceType<typeof EzrainInputNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "EZRAIN_Input" | "EZRAIN_Input_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is EzrainInputNode { return ["EZRAIN_Input", "EZRAIN_Input_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is EzrainInputNode {
+		return ["EZRAIN_Input", "EZRAIN_Input_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is EzrainInputNode {
 		return ["EZRAIN_Input", "EZRAIN_Input_ADV"].includes(node.nodeDefId);
 	}

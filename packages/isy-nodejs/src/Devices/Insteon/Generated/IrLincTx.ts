@@ -42,7 +42,9 @@ export namespace IrLincTx {
 	export interface Interface extends Omit<InstanceType<typeof IrLincTxNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "IRLincTx";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is IrLincTxNode { return ["IRLincTx"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is IrLincTxNode {
+		return ["IRLincTx"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is IrLincTxNode {
 		return ["IRLincTx", "Thermostat", "TempLinc", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "DimmerLampOnly", "KeypadDimmer", "KeypadDimmer_ADV", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV"].includes(node.nodeDefId);
 	}

@@ -96,7 +96,9 @@ export namespace I3KeypadFlags {
 	export interface Interface extends Omit<InstanceType<typeof I3KeypadFlagsNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "I3KeypadFlags";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is I3KeypadFlagsNode { return ["I3KeypadFlags"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is I3KeypadFlagsNode {
+		return ["I3KeypadFlags"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is I3KeypadFlagsNode {
 		return ["I3KeypadFlags"].includes(node.nodeDefId);
 	}

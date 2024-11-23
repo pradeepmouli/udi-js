@@ -8,28 +8,28 @@
         "label": "On",
         "id": "DON",
         "editorId": "I_OL_PARAM",
-        "dataType": {
-          "51": {
+        "dataType": [
+          {
             "uom": 51,
             "enum": false,
             "min": 0,
             "max": 100
           }
-        },
+        ],
         "name": "on",
         "optional": true,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "I_OL_PARAM",
-            "dataType": {
-              "51": {
+            "dataType": [
+              {
                 "uom": 51,
                 "enum": false,
                 "min": 0,
                 "max": 100
               }
-            },
+            ],
             "name": "value",
             "optional": true
           }
@@ -89,28 +89,28 @@
         "label": "Mode",
         "id": "CLIMD",
         "editorId": "GNC_TSTAT_MODE",
-        "dataType": {
-          "67": {
+        "dataType": [
+          {
             "uom": 67,
             "enum": false,
             "min": 0,
             "max": 3
           }
-        },
+        ],
         "name": "mode",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "GNC_TSTAT_MODE",
-            "dataType": {
-              "67": {
+            "dataType": [
+              {
                 "uom": 67,
                 "enum": false,
                 "min": 0,
                 "max": 3
               }
-            },
+            ],
             "name": "value",
             "optional": false
           }
@@ -120,8 +120,8 @@
         "label": "Fan Mode",
         "id": "CLIFS",
         "editorId": "GNC_TSTAT_FAN_MODE",
-        "dataType": {
-          "68": {
+        "dataType": [
+          {
             "uom": 68,
             "enum": true,
             "values": {
@@ -129,15 +129,15 @@
               "1": ""
             }
           }
-        },
+        ],
         "name": "fanMode",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "GNC_TSTAT_FAN_MODE",
-            "dataType": {
-              "68": {
+            "dataType": [
+              {
                 "uom": 68,
                 "enum": true,
                 "values": {
@@ -145,7 +145,7 @@
                   "1": ""
                 }
               }
-            },
+            ],
             "name": "value",
             "optional": false
           }
@@ -155,28 +155,28 @@
         "label": "Heat Setpoint",
         "id": "CLISPH",
         "editorId": "GNC_CLISPH_DEG",
-        "dataType": {
-          "14": {
+        "dataType": [
+          {
             "uom": 14,
             "enum": false,
             "min": 0,
             "max": 120
           }
-        },
+        ],
         "name": "heatSetpoint",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "GNC_CLISPH_DEG",
-            "dataType": {
-              "14": {
+            "dataType": [
+              {
                 "uom": 14,
                 "enum": false,
                 "min": 0,
                 "max": 120
               }
-            },
+            ],
             "name": "value",
             "optional": false
           }
@@ -186,28 +186,28 @@
         "label": "Cool Setpoint",
         "id": "CLISPC",
         "editorId": "GNC_CLISPC_DEG",
-        "dataType": {
-          "14": {
+        "dataType": [
+          {
             "uom": 14,
             "enum": false,
             "min": 0,
             "max": 120
           }
-        },
+        ],
         "name": "coolSetpoint",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "GNC_CLISPC_DEG",
-            "dataType": {
-              "14": {
+            "dataType": [
+              {
                 "uom": 14,
                 "enum": false,
                 "min": 0,
                 "max": 120
               }
-            },
+            ],
             "name": "value",
             "optional": false
           }
@@ -217,28 +217,28 @@
         "label": "Heat Setpoint Shift",
         "id": "CLISPHD",
         "editorId": "GNC_DELTA_DEG",
-        "dataType": {
-          "14": {
+        "dataType": [
+          {
             "uom": 14,
             "enum": false,
             "min": -25,
             "max": 25
           }
-        },
+        ],
         "name": "heatSetpointShift",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "GNC_DELTA_DEG",
-            "dataType": {
-              "14": {
+            "dataType": [
+              {
                 "uom": 14,
                 "enum": false,
                 "min": -25,
                 "max": 25
               }
-            },
+            ],
             "name": "value",
             "optional": false
           }
@@ -248,28 +248,28 @@
         "label": "Cool Setpoint Shift",
         "id": "CLISPCD",
         "editorId": "GNC_DELTA_DEG",
-        "dataType": {
-          "14": {
+        "dataType": [
+          {
             "uom": 14,
             "enum": false,
             "min": -25,
             "max": 25
           }
-        },
+        ],
         "name": "coolSetpointShift",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "GNC_DELTA_DEG",
-            "dataType": {
-              "14": {
+            "dataType": [
+              {
                 "uom": 14,
                 "enum": false,
                 "min": -25,
                 "max": 25
               }
-            },
+            ],
             "name": "value",
             "optional": false
           }

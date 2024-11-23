@@ -50,7 +50,9 @@ export namespace Ezio2x4Output {
 	export interface Interface extends Omit<InstanceType<typeof Ezio2x4OutputNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "EZIO2x4_Output";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is Ezio2x4OutputNode { return ["EZIO2x4_Output"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is Ezio2x4OutputNode {
+		return ["EZIO2x4_Output"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is Ezio2x4OutputNode {
 		return ["EZIO2x4_Output", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor", "EZRAIN_Output"].includes(node.nodeDefId);
 	}

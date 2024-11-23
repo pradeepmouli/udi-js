@@ -24,7 +24,9 @@ export class IrLincTxNode extends Base {
 NodeFactory.register(IrLincTxNode);
 export var IrLincTx;
 (function (IrLincTx) {
-    function is(node) { return ["IRLincTx"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["IRLincTx"].includes(node.nodeDefId);
+    }
     IrLincTx.is = is;
     function isImplementedBy(node) {
         return ["IRLincTx", "Thermostat", "TempLinc", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "DimmerLampOnly", "KeypadDimmer", "KeypadDimmer_ADV", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV"].includes(node.nodeDefId);

@@ -25,7 +25,7 @@ export class Pir2844Node extends Base<Drivers, Commands> implements Pir2844.Inte
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "PIR2844";
-	static override implements = ["PIR2844"];
+	static override implements = ["PIR2844", "PIR2844C", "PIR2844C_ADV"];
 	declare readonly nodeDefId: "PIR2844" | "PIR2844_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -67,7 +67,9 @@ export namespace Pir2844 {
 	export interface Interface extends Omit<InstanceType<typeof Pir2844Node>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "PIR2844" | "PIR2844_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is Pir2844Node { return ["PIR2844", "PIR2844_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is Pir2844Node {
+		return ["PIR2844", "PIR2844_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is Pir2844Node {
 		return ["PIR2844", "PIR2844_ADV"].includes(node.nodeDefId);
 	}

@@ -30,7 +30,9 @@ export class RelayNode extends Base {
 NodeFactory.register(RelayNode);
 export var Relay;
 (function (Relay) {
-    function is(node) { return ["EM3Relay"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["EM3Relay"].includes(node.nodeDefId);
+    }
     Relay.is = is;
     function isImplementedBy(node) {
         return ["EM3Relay"].includes(node.nodeDefId);

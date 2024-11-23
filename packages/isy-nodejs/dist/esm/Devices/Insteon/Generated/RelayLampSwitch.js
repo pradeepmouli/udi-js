@@ -19,7 +19,7 @@ export class RelayLampSwitchNode extends Base {
     static implements = ["RelayLampSwitch", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "IRLincTx", "EZRAIN_Output", "EZIO2x4_Output", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "DoorLock", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl", "BinaryControl_ADV", "AlertModuleArmed", "SirenAlert", "SirenArm", "PIR2844OnOff", "PIR2844OnOff_ADV"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Boolean, label: "Status", name: "status" });
+        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async on(value) { return this.sendCommand("DON", value); }
@@ -41,7 +41,9 @@ NodeFactory.register(RelayLampSwitchNode);
 NodeFactory.register(RelayLampSwitchNode, "RelayLampSwitch_ADV");
 export var RelayLampSwitch;
 (function (RelayLampSwitch) {
-    function is(node) { return ["RelayLampSwitch", "RelayLampSwitch_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["RelayLampSwitch", "RelayLampSwitch_ADV"].includes(node.nodeDefId);
+    }
     RelayLampSwitch.is = is;
     function isImplementedBy(node) {
         return ["RelayLampSwitch", "RelayLampSwitch_ADV"].includes(node.nodeDefId);

@@ -30,7 +30,9 @@ export class LoadShedNode extends Base {
 NodeFactory.register(LoadShedNode);
 export var LoadShed;
 (function (LoadShed) {
-    function is(node) { return ["LUTLoadShed"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["LUTLoadShed"].includes(node.nodeDefId);
+    }
     LoadShed.is = is;
     function isImplementedBy(node) {
         return ["LUTLoadShed"].includes(node.nodeDefId);

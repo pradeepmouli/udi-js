@@ -30,7 +30,9 @@ export class MainNode extends Base {
 NodeFactory.register(MainNode);
 export var Main;
 (function (Main) {
-    function is(node) { return ["EM3Main"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["EM3Main"].includes(node.nodeDefId);
+    }
     Main.is = is;
     function isImplementedBy(node) {
         return ["EM3Main"].includes(node.nodeDefId);

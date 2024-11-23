@@ -1,20 +1,21 @@
 import * as Clusters from '@project-chip/matter.js/cluster';
 
-import type { Converter } from '../Converters.js';
-import { DriverType } from '../Definitions/Global/Drivers.js';
-import { Devices, Insteon } from '../Devices/index.js';
+import type { Converter } from '../../Converters.js';
+import { DriverType } from '../../Definitions/Global/Drivers.js';
+import { Devices, Insteon } from '../../Devices/index.js';
 
 import { ClusterBehavior, MutableEndpoint, SupportedBehaviors } from '@matter/main';
 import type { OnOffLightDevice } from '@matter/main/devices';
 import { BridgedDeviceBasicInformationBehavior } from '@matter/node/behaviors';
 import type { DeviceTypeDefinition } from '@project-chip/matter.js/device';
-import { Family } from '../Definitions/index.js';
-import { NodeFactory } from '../Devices/NodeFactory.js';
-import { CommandsOf, DriversOf, ISYNode } from '../ISYNode.js';
-import { ISYBridgedDeviceBehavior } from '../Matter/Behaviors/ISYBridgedDeviceBehavior.js';
-import { ISYOnOffBehavior } from '../Matter/Behaviors/Insteon/ISYOnOffBehavior.js';
-import type { PickOfType, Remove } from '../Utils.js';
-import { ClusterType } from './ClusterType.js';
+import { Family } from '../../Definitions/index.js';
+import { NodeFactory } from '../../Devices/NodeFactory.js';
+import { CommandsOf, DriversOf, ISYNode } from '../../ISYNode.js';
+import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
+import { ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
+import type { PathsWithLimit, PickOfType, Remove } from '../../Utils.js';
+import { ClusterType } from '../../Model/ClusterType.js';
+import type { Constructor } from '../../Devices/Constructor.js';
 
 // #region Type aliases (16)
 
@@ -117,9 +118,20 @@ export type EndpointMapping1<A extends MutableEndpoint, K> = {
 	commands?: SBCommandMapping<A['behaviors'], K>;
 };
 //@ts-ignore
-export type FamilyToClusterMap<T extends Family.Insteon | Family.ZWave | Family.ZigBee> = { Family: T } & {
+
+type SupportedFamily = Family.Insteon | Family.ZWave | Family.ZigBee;
+export type FamilyToClusterMap<T extends SupportedFamily> = { Family: T } & {
 	[Type in Extract<keyof Devices.Insteon, `${string}Node`> as Remove<Type, 'Node'>]?: DeviceToClusterMap<InstanceType<Devices.Insteon[Type]>, MutableEndpoint>;
 };
+
+
+export function add<const F extends SupportedFamily, const T extends ISYNode<F>, const D extends MutableEndpoint> (familyToClusterMap: FamilyToClusterMap<F>, deviceClass: Constructor<T>,  mapping: DeviceToClusterMap<T, D> )
+{
+	 const map = {};
+	 map[deviceClass.name] = mapping;
+
+	 return {...map,...familyToClusterMap};
+}
 export type SBAttributeMapping<SB extends SupportedBehaviors, D> = {
 	[K in keyof SB]: Partial<Record<any, DriversOf<D> | { driver: DriversOf<D>; converter?: string }>>;
 };
@@ -149,7 +161,7 @@ export class MappingRegistry {
 
 	// #region Public Static Methods (3)
 
-	public static getMapping<T extends ISYNode<any, any, any, any>>(device: T): DeviceToClusterMap<T, MutableEndpoint> {
+	public static getMapping<const T extends ISYNode>(device: T): DeviceToClusterMap<T, MutableEndpoint> {
 		let m = this.cache[device.address];
 		if (!m) {
 			if (MappingRegistry.map.has(device.family)) {
@@ -180,7 +192,7 @@ export class MappingRegistry {
 		return m;
 	}
 
-	public static getMappingForBehavior<T extends ISYNode<any, any, any, any>, B extends ClusterBehavior>(device: T, behavior: B): BehaviorMapping<B, T> {
+	public static getMappingForBehavior<T extends ISYNode<any, any, any, any>, const B extends ClusterBehavior>(device: T, behavior: B): BehaviorMapping<B, T> {
 		//var m = MappingRegistry.getMapping(device);
 
 		//return m[behavior.cluster.name];
@@ -189,7 +201,7 @@ export class MappingRegistry {
 		}
 	}
 	//@ts-ignore
-	public static register(map: Partial<FamilyToClusterMap<any>> | { [x in Paths<typeof Devices>]: DeviceToClusterMap<any, any> }) {
+	public static register<const T extends Family.Insteon | Family.ZWave | Family.ZigBee>(map: Partial<FamilyToClusterMap<T>> | { [x in PathsWithLimit<typeof Devices,1>]: DeviceToClusterMap<any, any> }) {
 		if ('Family' in map) {
 			let regMap: Map<string, DeviceToClusterMap<any, any>>;
 			if (!MappingRegistry.map.has(map.Family)) {

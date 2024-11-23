@@ -11,7 +11,7 @@
         "readonly": true,
         "id": "ST",
         "editorId": "RCS_TEMP_DEG",
-        "dataType": {},
+        "dataType": [],
         "name": "temperature"
       },
       "CLISPH": {
@@ -21,7 +21,7 @@
         "readonly": false,
         "id": "CLISPH",
         "editorId": "RCS_CLISPH_DEG",
-        "dataType": {},
+        "dataType": [],
         "name": "heatSetpoint"
       },
       "CLISPC": {
@@ -31,7 +31,7 @@
         "readonly": false,
         "id": "CLISPC",
         "editorId": "RCS_CLISPC_DEG",
-        "dataType": {},
+        "dataType": [],
         "name": "coolSetpoint"
       },
       "CLIMD": {
@@ -41,7 +41,7 @@
         "readonly": false,
         "id": "CLIMD",
         "editorId": "RCS_TSTAT_MODE",
-        "dataType": {},
+        "dataType": [],
         "name": "mode"
       },
       "CLIFS": {
@@ -51,7 +51,7 @@
         "readonly": false,
         "id": "CLIFS",
         "editorId": "RCS_TSTAT_FAN_MODE",
-        "dataType": {},
+        "dataType": [],
         "name": "fanMode"
       },
       "CLIHCS": {
@@ -61,7 +61,7 @@
         "readonly": true,
         "id": "CLIHCS",
         "editorId": "RCS_TSTAT_HCS",
-        "dataType": {},
+        "dataType": [],
         "name": "heatCoolState"
       },
       "CLIFRS": {
@@ -71,7 +71,7 @@
         "readonly": true,
         "id": "CLIFRS",
         "editorId": "RCS_CLIFRS",
-        "dataType": {},
+        "dataType": [],
         "name": "fanState"
       },
       "CLISMD": {
@@ -81,7 +81,7 @@
         "readonly": false,
         "id": "CLISMD",
         "editorId": "RCS_SMD",
-        "dataType": {},
+        "dataType": [],
         "name": "scheduleMode"
       },
       "ERR": {
@@ -91,7 +91,7 @@
         "readonly": true,
         "id": "ERR",
         "editorId": "RCS_ERR",
-        "dataType": {},
+        "dataType": [],
         "name": "responding"
       }
     },
@@ -106,7 +106,7 @@
           "value": {
             "id": "value",
             "editorId": "RCS_CLISPH_DEG",
-            "dataType": {},
+            "dataType": [],
             "name": "value",
             "optional": false,
             "initialValue": "CLISPH"
@@ -124,7 +124,7 @@
           "value": {
             "id": "value",
             "editorId": "RCS_CLISPC_DEG",
-            "dataType": {},
+            "dataType": [],
             "name": "value",
             "optional": false,
             "initialValue": "CLISPC"
@@ -142,7 +142,7 @@
           "value": {
             "id": "value",
             "editorId": "RCS_TSTAT_MODE",
-            "dataType": {},
+            "dataType": [],
             "name": "value",
             "optional": false,
             "initialValue": "CLIMD"
@@ -160,7 +160,7 @@
           "value": {
             "id": "value",
             "editorId": "RCS_TSTAT_FAN_MODE",
-            "dataType": {},
+            "dataType": [],
             "name": "value",
             "optional": false,
             "initialValue": "CLIFS"
@@ -178,7 +178,7 @@
           "value": {
             "id": "value",
             "editorId": "RCS_SMD",
-            "dataType": {},
+            "dataType": [],
             "name": "value",
             "optional": false,
             "initialValue": "CLISMD"
@@ -196,7 +196,7 @@
           "value": {
             "id": "value",
             "editorId": "RCS_DELTA_DEG",
-            "dataType": {},
+            "dataType": [],
             "name": "value",
             "optional": false
           }
@@ -212,7 +212,7 @@
           "value": {
             "id": "value",
             "editorId": "RCS_DELTA_DEG",
-            "dataType": {},
+            "dataType": [],
             "name": "value",
             "optional": false
           }
@@ -233,7 +233,7 @@
           "value": {
             "id": "value",
             "editorId": "RCS_ADRPST",
-            "dataType": {},
+            "dataType": [],
             "name": "value",
             "optional": false
           }
@@ -258,7 +258,7 @@
         "readonly": true,
         "id": "ST",
         "editorId": "RCS_OL_RELAY",
-        "dataType": {},
+        "dataType": [],
         "name": "status"
       },
       "ERR": {
@@ -268,7 +268,7 @@
         "readonly": true,
         "id": "ERR",
         "editorId": "RCS_ERR",
-        "dataType": {},
+        "dataType": [],
         "name": "responding"
       }
     },
@@ -298,7 +298,7 @@
           "value": {
             "id": "value",
             "editorId": "RCS_ADRPST",
-            "dataType": {},
+            "dataType": [],
             "name": "value",
             "optional": false
           }

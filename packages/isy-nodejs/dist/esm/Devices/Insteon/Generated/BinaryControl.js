@@ -31,7 +31,9 @@ NodeFactory.register(BinaryControlNode);
 NodeFactory.register(BinaryControlNode, "BinaryControl_ADV");
 export var BinaryControl;
 (function (BinaryControl) {
-    function is(node) { return ["BinaryControl", "BinaryControl_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["BinaryControl", "BinaryControl_ADV"].includes(node.nodeDefId);
+    }
     BinaryControl.is = is;
     function isImplementedBy(node) {
         return ["BinaryControl", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl_ADV"].includes(node.nodeDefId);

@@ -33,7 +33,7 @@ export class KeypadRelayNode extends Base<Drivers, Commands> implements KeypadRe
 	declare readonly nodeDefId: "KeypadRelay" | "KeypadRelay_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Status", name: "status" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(value?: (0 | 100)) { return this.sendCommand("DON", value); }
@@ -42,9 +42,9 @@ export class KeypadRelayNode extends Base<Drivers, Commands> implements KeypadRe
 	async fastOn() { return this.sendCommand("DFON"); }
 	async query() { return this.sendCommand("QUERY"); }
 	async beep(value?: number) { return this.sendCommand("BEEP", value); }
-	async backlight(value: number) { return this.sendCommand("BL", value); }
+	async backlight(value: Insteon.Backlight) { return this.sendCommand("BL", value); }
 	async writeChanges() { return this.sendCommand("WDU"); }
-	public get status(): number {
+	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
 	public get responding(): Insteon.Error {
@@ -59,7 +59,9 @@ export namespace KeypadRelay {
 	export interface Interface extends Omit<InstanceType<typeof KeypadRelayNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "KeypadRelay" | "KeypadRelay_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is KeypadRelayNode { return ["KeypadRelay", "KeypadRelay_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is KeypadRelayNode {
+		return ["KeypadRelay", "KeypadRelay_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is KeypadRelayNode {
 		return ["KeypadRelay", "KeypadRelay_ADV"].includes(node.nodeDefId);
 	}
@@ -92,7 +94,7 @@ export namespace KeypadRelay {
 			label: "Beep";
 			name: "beep";
 		};
-		BL: ((value: number) => Promise<boolean>) & {
+		BL: ((value: Insteon.Backlight) => Promise<boolean>) & {
 			label: "Backlight";
 			name: "backlight";
 		};
@@ -103,8 +105,8 @@ export namespace KeypadRelay {
 	};
 	export type Drivers = {
 		ST: {
-			uom: UnitOfMeasure.Boolean;
-			value: number;
+			uom: UnitOfMeasure.Percent;
+			value: Insteon.OnLevelRelay;
 			label: "Status";
 			name: "status";
 		};

@@ -23,7 +23,7 @@ export class KeypadDimmerNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "KeypadDimmer";
-    static implements = ["KeypadDimmer", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
+    static implements = ["KeypadDimmer", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
@@ -63,7 +63,9 @@ NodeFactory.register(KeypadDimmerNode);
 NodeFactory.register(KeypadDimmerNode, "KeypadDimmer_ADV");
 export var KeypadDimmer;
 (function (KeypadDimmer) {
-    function is(node) { return ["KeypadDimmer", "KeypadDimmer_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["KeypadDimmer", "KeypadDimmer_ADV"].includes(node.nodeDefId);
+    }
     KeypadDimmer.is = is;
     function isImplementedBy(node) {
         return ["KeypadDimmer", "KeypadDimmer_ADV"].includes(node.nodeDefId);

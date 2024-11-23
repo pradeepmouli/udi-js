@@ -78,7 +78,9 @@ export class I3KeypadFlagsNode extends Base {
 NodeFactory.register(I3KeypadFlagsNode);
 export var I3KeypadFlags;
 (function (I3KeypadFlags) {
-    function is(node) { return ["I3KeypadFlags"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["I3KeypadFlags"].includes(node.nodeDefId);
+    }
     I3KeypadFlags.is = is;
     function isImplementedBy(node) {
         return ["I3KeypadFlags"].includes(node.nodeDefId);

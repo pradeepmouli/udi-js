@@ -84,7 +84,9 @@ export namespace I3PaddleFlags {
 	export interface Interface extends Omit<InstanceType<typeof I3PaddleFlagsNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "I3PaddleFlags";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is I3PaddleFlagsNode { return ["I3PaddleFlags"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is I3PaddleFlagsNode {
+		return ["I3PaddleFlags"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is I3PaddleFlagsNode {
 		return ["I3PaddleFlags", "I3KeypadFlags"].includes(node.nodeDefId);
 	}

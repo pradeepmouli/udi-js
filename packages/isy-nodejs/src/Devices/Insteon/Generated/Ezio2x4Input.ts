@@ -45,7 +45,9 @@ export namespace Ezio2x4Input {
 	export interface Interface extends Omit<InstanceType<typeof Ezio2x4InputNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "EZIO2x4_Input" | "EZIO2x4_Input_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is Ezio2x4InputNode { return ["EZIO2x4_Input", "EZIO2x4_Input_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is Ezio2x4InputNode {
+		return ["EZIO2x4_Input", "EZIO2x4_Input_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is Ezio2x4InputNode {
 		return ["EZIO2x4_Input", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "KeypadButton", "KeypadButton_ADV", "EZRAIN_Input", "EZRAIN_Input_ADV", "EZIO2x4_Input_ADV"].includes(node.nodeDefId);
 	}

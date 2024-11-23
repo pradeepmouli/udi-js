@@ -47,7 +47,9 @@ export namespace MatterBridge {
 	export interface Interface extends Omit<InstanceType<typeof MatterBridgeNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "CONTROLLER";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is MatterBridgeNode { return ["CONTROLLER"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is MatterBridgeNode {
+		return ["CONTROLLER"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is MatterBridgeNode {
 		return ["CONTROLLER"].includes(node.nodeDefId);
 	}

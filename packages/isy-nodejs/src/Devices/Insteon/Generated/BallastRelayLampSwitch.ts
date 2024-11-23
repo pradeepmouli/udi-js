@@ -57,7 +57,9 @@ export namespace BallastRelayLampSwitch {
 	export interface Interface extends Omit<InstanceType<typeof BallastRelayLampSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "BallastRelayLampSwitch" | "BallastRelayLampSwitch_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is BallastRelayLampSwitchNode { return ["BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is BallastRelayLampSwitchNode {
+		return ["BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is BallastRelayLampSwitchNode {
 		return ["BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId);
 	}

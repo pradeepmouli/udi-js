@@ -41,7 +41,9 @@ export namespace TemperatureSensor {
 	export interface Interface extends Omit<InstanceType<typeof TemperatureSensorNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "EM3TempSensor";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is TemperatureSensorNode { return ["EM3TempSensor"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is TemperatureSensorNode {
+		return ["EM3TempSensor"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is TemperatureSensorNode {
 		return ["EM3TempSensor"].includes(node.nodeDefId);
 	}

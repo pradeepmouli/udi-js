@@ -48,7 +48,9 @@ export namespace DoorLock {
 	export interface Interface extends Omit<InstanceType<typeof DoorLockNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "DoorLock";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is DoorLockNode { return ["DoorLock"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is DoorLockNode {
+		return ["DoorLock"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is DoorLockNode {
 		return ["DoorLock", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor"].includes(node.nodeDefId);
 	}

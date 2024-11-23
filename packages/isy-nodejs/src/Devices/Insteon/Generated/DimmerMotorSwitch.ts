@@ -77,7 +77,9 @@ export namespace DimmerMotorSwitch {
 	export interface Interface extends Omit<InstanceType<typeof DimmerMotorSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "DimmerMotorSwitch" | "DimmerMotorSwitch_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is DimmerMotorSwitchNode { return ["DimmerMotorSwitch", "DimmerMotorSwitch_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is DimmerMotorSwitchNode {
+		return ["DimmerMotorSwitch", "DimmerMotorSwitch_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerMotorSwitchNode {
 		return ["DimmerMotorSwitch", "DimmerMotorSwitch_ADV"].includes(node.nodeDefId);
 	}

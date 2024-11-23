@@ -38,7 +38,9 @@ export namespace SirenAlert {
 	export interface Interface extends Omit<InstanceType<typeof SirenAlertNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "SirenAlert" | "SirenArm";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is SirenAlertNode { return ["SirenAlert", "SirenArm"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is SirenAlertNode {
+		return ["SirenAlert", "SirenArm"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is SirenAlertNode {
 		return ["SirenAlert", "X10", "Thermostat", "TempLinc", "OnOffControl", "OnOffControl_ADV", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "DimmerSwitchOnly", "DimmerSwitchOnly_ADV", "DimmerLampOnly", "KeypadDimmer", "KeypadDimmer_ADV", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "FanLincMotor", "KeypadButton", "KeypadButton_ADV", "EZRAIN_Output", "EZRAIN_Input", "EZRAIN_Input_ADV", "EZIO2x4_Output", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "IMETER_SOLO", "DoorLock", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl", "BinaryControl_ADV", "AlertModuleSiren", "AlertModuleSiren_ADV", "AlertModuleArmed", "Siren", "Siren_ADV", "SirenArm", "PIR2844_ADV", "PIR2844C_ADV", "PIR2844OnOff_ADV"].includes(node.nodeDefId);
 	}

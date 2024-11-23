@@ -1,9 +1,9 @@
-import WebSocket from 'faye-websocket';
+
 import { writeFile } from 'fs';
 
 import { Parser, type ParserOptions } from 'xml2js';
 import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
-
+import WebSocket from 'ws';
 import axios, { type AxiosRequestConfig } from 'axios';
 import { EventEmitter } from 'events';
 import { format, Logger, loggers, type LeveledLogMethod } from 'winston';
@@ -27,6 +27,9 @@ import { NodeFactory } from './Devices/NodeFactory.js';
 import { ISYError } from './ISYError.js';
 import type { Config } from './Model/Config.js';
 import { findPackageJson } from './Utils.js';
+import { textChangeRangeIsUnchanged } from 'typescript';
+import type { ClientRequestArgs } from 'http';
+import { promisify } from 'util';
 
 
 
@@ -94,9 +97,9 @@ interface ISYConfig {
 	port: number;
 	protocol: 'http' | 'https';
 	username: string;
-
 	socketPath?: string;
-
+	axiosOptions?: AxiosRequestConfig;
+	webSocketOptions?: WebSocket.ClientOptions & ClientRequestArgs;
 	// #endregion Properties (8)
 }
 
@@ -135,7 +138,7 @@ export class ISY extends EventEmitter implements Disposable {
 	public productName = 'eisy';
 	public firmwareVersion: any;
 	public vendorName = 'Universal Devices, Inc.';
-	public webSocket: WebSocket.Client;
+	public webSocket: WebSocket;
 
 	public apiVersion: string;
 
@@ -162,7 +165,7 @@ export class ISY extends EventEmitter implements Disposable {
 		};
 		this.protocol = config.protocol;
 		this.wsprotocol = config.protocol === 'https' ? 'wss' : 'ws';
-
+		this.socketPath = config.socketPath;
 		this.axiosOptions = {
 			baseURL: `${this.protocol}://${this.host}:${this.port}`,
 			validateStatus: (status) => status >= 200 && status < 300
@@ -173,6 +176,15 @@ export class ISY extends EventEmitter implements Disposable {
 		} else {
 			this.axiosOptions.auth = { username: this.credentials.username, password: this.credentials.password };
 		}
+
+		this.webSocketOptions = { origin: 'com.universal-devices.websockets.isy' };
+
+		if (this.socketPath) {
+			this.webSocketOptions.socketPath = this.socketPath;
+		} else {
+			this.webSocketOptions.auth = `${this.credentials.username}:${this.credentials.password}`;
+		}
+
 
 		//this.elkEnabled = config.elkEnabled ?? false;
 
@@ -355,29 +367,40 @@ export class ISY extends EventEmitter implements Disposable {
 		try {
 			await this.loadConfig();
 			await this.loadNodes();
+			await this.refreshStatuses();
 			await this.loadVariables(VariableType.Integer);
 			await this.loadVariables(VariableType.State);
-			await this.refreshStatuses();
 			await this.#finishInitialize(true);
 			return true;
 		} catch (e) {
 			if (e instanceof ISYInitializationError) {
+				if(e.step === 'variables')
+				{
+					this.logger.warn(`Error loading variables: ${e.message}`);
+				    await this.#finishInitialize(true);
+					return true;
+				}
 				this.logger.error(`Error initializing ISY during (${e.step}): ${e.message}`);
+				return false;
 			} else {
 				this.logger.error(`Error initializing ISY: ${e.message}`);
+				return false;
 			}
 			throw e;
 		} finally {
 			if (this.nodesLoaded !== true) {
-				that.#finishInitialize(false);
+				await that.#finishInitialize(false);
 			}
 		}
 	}
 
+	webSocketOptions: WebSocket.ClientOptions & ClientRequestArgs;
+
 	public async initializeWebSocket() {
 		try {
 			const that = this;
-			const auth = `Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
+
+			//const auth = `Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
 			this.logger.info(`Opening webSocket: ${this.wsprotocol}://${this.address}/rest/subscribe`);
 			if (this.webSocket) {
 				try {
@@ -386,27 +409,33 @@ export class ISY extends EventEmitter implements Disposable {
 					this.logger.warn(`Error closing existing websocket: ${e.message}`);
 				}
 			}
-			this.webSocket = new WebSocket.Client(`${this.wsprotocol}://${this.address}/rest/subscribe`, ['ISYSUB'], {
-				headers: {
+
+				/*headers: {
 					Origin: 'com.universal-devices.websockets.isy',
-					Authorization: auth
+					auth
 				},
-				ping: 10
-			});
 
+				ping: 10*/
+			let p  = new Promise<void>((resolve, reject) => {
+
+			this.webSocket = new WebSocket(`${this.wsprotocol}://${this.address}/rest/subscribe`, ['ISYSUB'], this.webSocketOptions);
 			this.lastActivity = new Date();
-
-			this.webSocket
-				.on('message', (event: any) => {
-					that.logger.silly(`Received message: ${Utils.logStringify(event.data, 1)}`);
-					that.handleWebSocketMessage(event);
+			//this.webSocket.onmessage = (event) => {this.handleWebSocketMessage()
+			this.webSocket.on('open',() => {
+				this.logger.info('Websocket connection open');
+				resolve();
+			})
+				.on('message',(data,b)=> {
+					that.logger.silly(`Received message: ${Utils.logStringify(data, 1)}`);
+					that.handleWebSocketMessage({data: data});
 				})
 				.on('error', (err: any, response: any) => {
-					that.logger.warn(`Websocket subscription error: ${Utils.logStringify(err, 1)}`);
+					that.logger.warn(`Websocket subscription error: ${err}`);
+					return reject(new ISYInitializationError('Websocket subscription error', 'websocket'));
 				})
 				.on('fail', (data: string, response: any) => {
 					that.logger.warn(`Websocket subscription failure: ${data}`);
-					throw new Error('Websocket subscription failure');
+					return reject(new Error('Websocket subscription failure'));
 				})
 				.on('abort', () => {
 					that.logger.warn('Websocket subscription aborted.');
@@ -414,8 +443,11 @@ export class ISY extends EventEmitter implements Disposable {
 				})
 				.on('timeout', (ms: string) => {
 					that.logger.warn(`Websocket subscription timed out after ${ms} milliseconds.`);
-					throw new Error('Timeout contacting ISY');
+					return reject(new Error('Timeout contacting ISY'));
+					//throw new Error('Timeout contacting ISY');
 				});
+			});
+			return p;
 		} catch (e) {
 			throw new ISYInitializationError(e, 'websocket');
 		}
@@ -646,7 +678,7 @@ export class ISY extends EventEmitter implements Disposable {
 		}
 	}
 
-	#finishInitialize(success: boolean) {
+	async #finishInitialize(success: boolean) {
 		if (!this.nodesLoaded) {
 			this.nodesLoaded = true;
 			//initializeCompleted();
@@ -656,10 +688,11 @@ export class ISY extends EventEmitter implements Disposable {
 				// }
 				if (this.enableWebSocket) {
 					this.guardianTimer = setInterval(this.#guardian.bind(this), 60000);
-					this.initializeWebSocket();
+					return this.initializeWebSocket();
 				}
 			}
 		}
+
 	}
 
 	async #guardian() {

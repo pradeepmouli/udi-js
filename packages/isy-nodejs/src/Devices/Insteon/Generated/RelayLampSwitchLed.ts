@@ -34,7 +34,7 @@ export class RelayLampSwitchLedNode extends Base<Drivers, Commands> implements R
 	declare readonly nodeDefId: "RelayLampSwitchLED" | "RelayLampSwitchLED_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Status", name: "status" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(value?: (0 | 100)) { return this.sendCommand("DON", value); }
@@ -43,10 +43,10 @@ export class RelayLampSwitchLedNode extends Base<Drivers, Commands> implements R
 	async fastOn() { return this.sendCommand("DFON"); }
 	async query() { return this.sendCommand("QUERY"); }
 	async beep(value?: number) { return this.sendCommand("BEEP", value); }
-	async led(value: number) { return this.sendCommand("LED", value); }
+	async led(value: Insteon.I3RgbLed) { return this.sendCommand("LED", value); }
 	async backlight(value: number) { return this.sendCommand("BL", value); }
 	async writeChanges() { return this.sendCommand("WDU"); }
-	public get status(): Insteon.OnLevelRelay | Insteon.OnLevelRelay {
+	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
 	public get responding(): Insteon.Error {
@@ -61,7 +61,9 @@ export namespace RelayLampSwitchLed {
 	export interface Interface extends Omit<InstanceType<typeof RelayLampSwitchLedNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "RelayLampSwitchLED" | "RelayLampSwitchLED_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is RelayLampSwitchLedNode { return ["RelayLampSwitchLED", "RelayLampSwitchLED_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is RelayLampSwitchLedNode {
+		return ["RelayLampSwitchLED", "RelayLampSwitchLED_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayLampSwitchLedNode {
 		return ["RelayLampSwitchLED", "RelayLampSwitchLED_ADV"].includes(node.nodeDefId);
 	}
@@ -94,7 +96,7 @@ export namespace RelayLampSwitchLed {
 			label: "Beep";
 			name: "beep";
 		};
-		LED: ((value: number) => Promise<boolean>) & {
+		LED: ((value: Insteon.I3RgbLed) => Promise<boolean>) & {
 			label: "LED";
 			name: "led";
 		};
@@ -109,8 +111,8 @@ export namespace RelayLampSwitchLed {
 	};
 	export type Drivers = {
 		ST: {
-			uom: UnitOfMeasure.Boolean | UnitOfMeasure.Percent;
-			value: Insteon.OnLevelRelay | Insteon.OnLevelRelay;
+			uom: UnitOfMeasure.Percent;
+			value: Insteon.OnLevelRelay;
 			label: "Status";
 			name: "status";
 		};

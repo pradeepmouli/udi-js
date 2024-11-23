@@ -51,7 +51,9 @@ NodeFactory.register(SirenNode);
 NodeFactory.register(SirenNode, "Siren_ADV");
 export var Siren;
 (function (Siren) {
-    function is(node) { return ["Siren", "Siren_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["Siren", "Siren_ADV"].includes(node.nodeDefId);
+    }
     Siren.is = is;
     function isImplementedBy(node) {
         return ["Siren", "Siren_ADV"].includes(node.nodeDefId);

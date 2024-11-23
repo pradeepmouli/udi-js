@@ -39,7 +39,9 @@ NodeFactory.register(BallastRelayLampSwitchNode);
 NodeFactory.register(BallastRelayLampSwitchNode, "BallastRelayLampSwitch_ADV");
 export var BallastRelayLampSwitch;
 (function (BallastRelayLampSwitch) {
-    function is(node) { return ["BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId);
+    }
     BallastRelayLampSwitch.is = is;
     function isImplementedBy(node) {
         return ["BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId);

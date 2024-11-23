@@ -18,7 +18,7 @@ export class NodeClassFactory extends CodeFactory {
             useTrailingCommas: false,
             indentationText: IndentationText.Tab,
             newLineKind: ts.NewLineKind.CarriageReturnLineFeed,
-            insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces: true
+            insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces: true,
         }
     });
     static instance = new NodeClassFactory(ts.factory);
@@ -135,7 +135,7 @@ export class NodeClassFactory extends CodeFactory {
                         factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword),
                         factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword)
                     ]), undefined)
-                ], factory.createTypePredicateNode(undefined, factory.createIdentifier('node'), factory.createTypeReferenceNode(factory.createIdentifier(`${nodeClassDef.name}Node`), undefined)), NodeClassFactory.instance.createBlock(NodeClassFactory.instance.createReturnStatement(factory.createCallExpression(factory.createPropertyAccessExpression(factory.createArrayLiteralExpression(nodeClassDef.equivalents ?
+                ], factory.createTypePredicateNode(undefined, factory.createIdentifier('node'), factory.createTypeReferenceNode(factory.createIdentifier(`${nodeClassDef.name}Node`), undefined)), NodeClassFactory.instance.createBlock(true, NodeClassFactory.instance.createReturnStatement(factory.createCallExpression(factory.createPropertyAccessExpression(factory.createArrayLiteralExpression(nodeClassDef.equivalents ?
                     [NodeClassFactory.instance.createStringLiteral(nodeClassDef.id)].concat(!nodeClassDef.equivalents || nodeClassDef.equivalents.length == 0 ? [] : nodeClassDef.equivalents?.map((p) => factory.createStringLiteral(p)))
                     : [NodeClassFactory.instance.createStringLiteral(nodeClassDef.id)]), 'includes'), undefined, [factory.createPropertyAccessExpression(factory.createIdentifier('node'), factory.createIdentifier('nodeDefId'))])))),
                 factory.createFunctionDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], undefined, factory.createIdentifier('isImplementedBy'), undefined, [
@@ -269,7 +269,7 @@ export class NodeClassFactory extends CodeFactory {
         ]));
     }
     createDriverGetDeclaration(def) {
-        return factory.createGetAccessorDeclaration([factory.createToken(ts.SyntaxKind.PublicKeyword)], factory.createIdentifier(def.name), [], NodeClassFactory.instance.createUnionTypeNode(...Object.values(def.dataType).map((p) => NodeClassFactory.instance.createDriverPropertyReturnType(p, def))), factory.createBlock([
+        return factory.createGetAccessorDeclaration([factory.createToken(ts.SyntaxKind.PublicKeyword)], factory.createIdentifier(def.name), [], NodeClassFactory.instance.createUnionTypeNode(...def.dataType?.map((p) => NodeClassFactory.instance.createDriverPropertyReturnType(p, def))), factory.createBlock([
             factory.createReturnStatement(factory.createPropertyAccessChain(factory.createPropertyAccessExpression(factory.createPropertyAccessExpression(factory.createThis(), factory.createIdentifier('drivers')), factory.createIdentifier(def.id)), factory.createToken(ts.SyntaxKind.QuestionDotToken), factory.createIdentifier('value')))
         ], true));
     }
@@ -279,7 +279,7 @@ export class NodeClassFactory extends CodeFactory {
             factory.createThis(),
             factory.createAsExpression(factory.createPropertyAccessExpression(factory.createIdentifier('nodeInfo'), factory.createIdentifier('property')), factory.createTypeReferenceNode(factory.createIdentifier('DriverState'), undefined)),
             factory.createObjectLiteralExpression([
-                factory.createPropertyAssignment(factory.createIdentifier('uom'), factory.createPropertyAccessExpression(factory.createIdentifier('UnitOfMeasure'), factory.createIdentifier(UnitOfMeasure[parseInt(Object.keys(def.dataType)[0])] ?? 'Unknown'))),
+                factory.createPropertyAssignment(factory.createIdentifier('uom'), factory.createPropertyAccessExpression(factory.createIdentifier('UnitOfMeasure'), factory.createIdentifier(UnitOfMeasure[def.dataType[0]?.uom] ?? 'Unknown'))),
                 factory.createPropertyAssignment(factory.createIdentifier('label'), factory.createStringLiteral(def.label)),
                 factory.createPropertyAssignment(factory.createIdentifier('name'), factory.createStringLiteral(def.name))
             ], false)
@@ -313,10 +313,10 @@ export class NodeClassFactory extends CodeFactory {
     createDriverSignature(def) {
         return factory.createPropertySignature(undefined, factory.createIdentifier(def.id), undefined, factory.createTypeLiteralNode([
             factory.createPropertySignature(undefined, factory.createIdentifier('uom'), undefined, def.dataType ?
-                NodeClassFactory.instance.createUnionTypeNode(...Object.values(def.dataType).map((p) => NodeClassFactory.instance.createTypeNodeForUOM(p.uom)))
+                NodeClassFactory.instance.createUnionTypeNode(...def.dataType?.map((p) => NodeClassFactory.instance.createTypeNodeForUOM(p.uom)))
                 : factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword)),
             factory.createPropertySignature(undefined, factory.createIdentifier('value'), undefined, def.dataType ?
-                NodeClassFactory.instance.createUnionTypeNode(...Object.values(def.dataType).map((p) => NodeClassFactory.instance.createDriverSignatureReturnType(p, def)))
+                NodeClassFactory.instance.createUnionTypeNode(...def.dataType.map((p) => NodeClassFactory.instance.createDriverSignatureReturnType(p, def)))
                 : factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword)),
             factory.createPropertySignature(undefined, factory.createIdentifier('label'), undefined, factory.createLiteralTypeNode(factory.createStringLiteral(def.label))),
             factory.createPropertySignature(undefined, factory.createIdentifier('name'), undefined, factory.createLiteralTypeNode(factory.createStringLiteral(def.name)))
@@ -339,12 +339,12 @@ export class NodeClassFactory extends CodeFactory {
     }
     createParameterDeclarationSignature(def) {
         return factory.createParameterDeclaration(undefined, undefined, factory.createIdentifier(def.name ?? 'value'), def.optional ? factory.createToken(ts.SyntaxKind.QuestionToken) : undefined, def.dataType ?
-            NodeClassFactory.instance.createUnionTypeNode(...Object.values(def.dataType).map((p) => NodeClassFactory.instance.createCommandParameterType(p, def)))
+            NodeClassFactory.instance.createUnionTypeNode(...def.dataType?.map((p) => NodeClassFactory.instance.createCommandParameterType(p, def)))
             : factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword), undefined);
     }
     createParameterSignature(def) {
         return factory.createParameterDeclaration(undefined, undefined, factory.createIdentifier(def.id ?? 'value'), def.optional ? factory.createToken(ts.SyntaxKind.QuestionToken) : undefined, def.dataType ?
-            NodeClassFactory.instance.createUnionTypeNode(...Object.values(def.dataType).map((p) => NodeClassFactory.instance.createCommandParameterType(p, def)))
+            NodeClassFactory.instance.createUnionTypeNode(...def.dataType?.map((p) => NodeClassFactory.instance.createCommandParameterType(p, def)))
             : factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword), undefined);
     }
     createTypeNodeForUOM(uom) {

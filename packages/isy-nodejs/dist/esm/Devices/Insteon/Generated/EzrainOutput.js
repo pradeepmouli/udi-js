@@ -34,7 +34,9 @@ export class EzrainOutputNode extends Base {
 NodeFactory.register(EzrainOutputNode);
 export var EzrainOutput;
 (function (EzrainOutput) {
-    function is(node) { return ["EZRAIN_Output"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["EZRAIN_Output"].includes(node.nodeDefId);
+    }
     EzrainOutput.is = is;
     function isImplementedBy(node) {
         return ["EZRAIN_Output", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor"].includes(node.nodeDefId);

@@ -34,7 +34,9 @@ export class X10Node extends Base {
 NodeFactory.register(X10Node);
 export var X10;
 (function (X10) {
-    function is(node) { return ["X10"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["X10"].includes(node.nodeDefId);
+    }
     X10.is = is;
     function isImplementedBy(node) {
         return ["X10"].includes(node.nodeDefId);

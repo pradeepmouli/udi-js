@@ -1,5 +1,5 @@
 import { factory } from "typescript";
-import { createWrappedNode, ts, type EnumDeclaration, EnumMember, Identifier } from 'ts-morph'
+import { createWrappedNode, ts, type EnumDeclaration, EnumMember, Identifier} from 'ts-morph'
 import { UnitOfMeasure } from "../Definitions/Global/UOM.js";
 
 import type {
@@ -7,6 +7,7 @@ import type {
   DriverDefinition,
   ParameterDefinition,
   CommandDefinition,
+  DataTypeDefinition,
 } from "../Model/ClassDefinition.js";
 import { EnumDefinition, EnumDefinitionMap } from "../Model/EnumDefinition.js";
 import { isGeneratorFunction } from "util/types";
@@ -136,7 +137,7 @@ function createDriverInitializationStatement(def: DriverDefinition): ts.Statemen
                 factory.createIdentifier("uom"),
                 factory.createPropertyAccessExpression(
                   factory.createIdentifier("UnitOfMeasure"),
-                  factory.createIdentifier(UnitOfMeasure[Object.values(def.dataType)[0]?.uom] ?? "Unknown")
+                  factory.createIdentifier(UnitOfMeasure[def.dataType[0]?.uom] ?? "Unknown")
                 )
               ),
               factory.createPropertyAssignment(
@@ -153,7 +154,7 @@ function createDriverInitializationStatement(def: DriverDefinition): ts.Statemen
   );
 }
 
-function createDriverSignatureReturnType(def: DriverDefinition["dataType"]["AbsoluteHumidity"]): ts.TypeNode {
+function createDriverSignatureReturnType(def: DataTypeDefinition): ts.TypeNode {
   if (def.enum) {
     return factory.createUnionTypeNode(
       Object.keys(def.values).map((p) => factory.createLiteralTypeNode(factory.createNumericLiteral(p)))
@@ -161,7 +162,7 @@ function createDriverSignatureReturnType(def: DriverDefinition["dataType"]["Abso
   } else return factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
 }
 
-function createDriverPropertyReturnType(def: DriverDefinition["dataType"]["AbsoluteHumidity"]): ts.TypeNode {
+function createDriverPropertyReturnType(def: DataTypeDefinition): ts.TypeNode {
   if (def.enum) {
     {
       if (Object.keys(def.values).length == 2) {

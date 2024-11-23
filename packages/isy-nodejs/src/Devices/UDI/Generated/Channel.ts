@@ -45,7 +45,9 @@ export namespace Channel {
 	export interface Interface extends Omit<InstanceType<typeof ChannelNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "EM3Channel";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is ChannelNode { return ["EM3Channel"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is ChannelNode {
+		return ["EM3Channel"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ChannelNode {
 		return ["EM3Channel", "EM3Main", "EM3MainChannel"].includes(node.nodeDefId);
 	}

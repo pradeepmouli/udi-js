@@ -53,7 +53,9 @@ export namespace Pir2844OnOff {
 	export interface Interface extends Omit<InstanceType<typeof Pir2844OnOffNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "PIR2844OnOff" | "PIR2844OnOff_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is Pir2844OnOffNode { return ["PIR2844OnOff", "PIR2844OnOff_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is Pir2844OnOffNode {
+		return ["PIR2844OnOff", "PIR2844OnOff_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is Pir2844OnOffNode {
 		return ["PIR2844OnOff", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "PIR2844OnOff_ADV"].includes(node.nodeDefId);
 	}

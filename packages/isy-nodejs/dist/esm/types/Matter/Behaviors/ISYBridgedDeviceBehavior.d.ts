@@ -6,8 +6,8 @@
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import { EventEmitter, Observable } from '@project-chip/matter.js/util';
 import type { Driver } from '../../Definitions/Global/Drivers.js';
-import { DeviceToClusterMap, type BehaviorMapping } from '../../Model/ClusterMap.js';
 import type { ISYNode } from '../../ISYNode.js';
+import { type BehaviorMapping, type DeviceToClusterMap } from '../Mappings/MappingRegistry.js';
 export declare class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D extends ISYNode.DriverSignatures = ISYNode.DriverSignatures> extends Behavior {
     static readonly id = "isyNode";
     static readonly early = true;

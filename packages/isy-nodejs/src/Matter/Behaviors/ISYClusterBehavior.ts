@@ -4,8 +4,9 @@ import '@project-chip/matter.js/device';
 import { Converter } from '../../Converters.js';
 import type { Constructor } from '../../Devices/Constructor.js';
 import type { DriversOf, ISYNode } from '../../ISYNode.js';
-import { BehaviorMapping } from '../../Model/ClusterMap.js';
+
 import { ISYBridgedDeviceBehavior } from './ISYBridgedDeviceBehavior.js';
+import type { BehaviorMapping } from '../Mappings/MappingRegistry.js';
 
 // #region Type aliases (6)
 

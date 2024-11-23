@@ -38,7 +38,9 @@ export class FanLincMotorNode extends Base {
 NodeFactory.register(FanLincMotorNode);
 export var FanLincMotor;
 (function (FanLincMotor) {
-    function is(node) { return ["FanLincMotor"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["FanLincMotor"].includes(node.nodeDefId);
+    }
     FanLincMotor.is = is;
     function isImplementedBy(node) {
         return ["FanLincMotor"].includes(node.nodeDefId);

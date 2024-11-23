@@ -49,7 +49,9 @@ export namespace PulseCounter {
 	export interface Interface extends Omit<InstanceType<typeof PulseCounterNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "EM3PulseCounter";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is PulseCounterNode { return ["EM3PulseCounter"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is PulseCounterNode {
+		return ["EM3PulseCounter"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is PulseCounterNode {
 		return ["EM3PulseCounter"].includes(node.nodeDefId);
 	}

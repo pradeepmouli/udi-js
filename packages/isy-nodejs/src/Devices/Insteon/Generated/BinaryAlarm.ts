@@ -49,7 +49,9 @@ export namespace BinaryAlarm {
 	export interface Interface extends Omit<InstanceType<typeof BinaryAlarmNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "BinaryAlarm" | "BinaryAlarm_ADV";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is BinaryAlarmNode { return ["BinaryAlarm", "BinaryAlarm_ADV"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is BinaryAlarmNode {
+		return ["BinaryAlarm", "BinaryAlarm_ADV"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is BinaryAlarmNode {
 		return ["BinaryAlarm", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "BinaryAlarm_ADV"].includes(node.nodeDefId);
 	}

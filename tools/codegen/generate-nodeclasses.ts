@@ -1,5 +1,5 @@
 import { existsSync, mkdirSync, readFile, readFileSync, writeFileSync } from "fs";
-import { Project, IndentationText, NewLineKind, QuoteKind, createWrappedNode } from "ts-morph";
+import { Project, IndentationText, NewLineKind, QuoteKind, createWrappedNode, ts } from "ts-morph";
 import { NodeClassFactory } from "isy-nodejs/CodeGeneration/NodeClassFactory";
 
 import { NodeClassDefinition } from "isy-nodejs/Model/ClassDefinition";
@@ -7,12 +7,13 @@ import { buildEnums, EnumFactory } from "isy-nodejs/CodeGeneration/EnumFactory";
 import { buildEnumDefinitions, EnumDefinition } from "isy-nodejs/Model/EnumDefinition";
 import { EditorDefMap } from "isy-nodejs/Model/EditorDef";
 import { NLSRecordMap, NLSIndexMap } from "isy-nodejs/Model/NLS";
-import ts from "typescript";
+
 import fs from "fs";
 import type { NodeDef } from "isy-nodejs/Model/NodeDef";
 import winston from "winston";
 import { toArray } from "isy-nodejs/Utils";
 import { Family } from 'isy-nodejs/Definitions/index';
+
 
 const format = winston.format;
 const myFormat = format.combine(

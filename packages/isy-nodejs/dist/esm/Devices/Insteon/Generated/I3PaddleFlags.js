@@ -66,7 +66,9 @@ export class I3PaddleFlagsNode extends Base {
 NodeFactory.register(I3PaddleFlagsNode);
 export var I3PaddleFlags;
 (function (I3PaddleFlags) {
-    function is(node) { return ["I3PaddleFlags"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["I3PaddleFlags"].includes(node.nodeDefId);
+    }
     I3PaddleFlags.is = is;
     function isImplementedBy(node) {
         return ["I3PaddleFlags", "I3KeypadFlags"].includes(node.nodeDefId);

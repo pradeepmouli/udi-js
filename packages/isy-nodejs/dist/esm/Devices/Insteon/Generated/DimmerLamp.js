@@ -60,7 +60,9 @@ export class DimmerLampNode extends Base {
 NodeFactory.register(DimmerLampNode);
 export var DimmerLamp;
 (function (DimmerLamp) {
-    function is(node) { return ["DimmerLampOnly"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["DimmerLampOnly"].includes(node.nodeDefId);
+    }
     DimmerLamp.is = is;
     function isImplementedBy(node) {
         return ["DimmerLampOnly", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV"].includes(node.nodeDefId);

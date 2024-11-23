@@ -41,18 +41,18 @@ export class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerS
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: ZWave.PercentOpt | number, rampRate?: number | number) { return this.sendCommand("DON", value, { RR: rampRate }); }
+	async on(value?: number | ZWave.PercentOpt, rampRate?: number) { return this.sendCommand("DON", value, { RR: rampRate }); }
 	async off() { return this.sendCommand("DOF"); }
 	async fastOn() { return this.sendCommand("DFON"); }
 	async fastOff() { return this.sendCommand("DFOF"); }
 	async brighten() { return this.sendCommand("BRT"); }
 	async dim() { return this.sendCommand("DIM"); }
-	async fadeUp(startLevel?: ZWave.PercentOpt | number, rampRate?: number | number) { return this.sendCommand("FDUP", { STARTLEVEL: startLevel, RR: rampRate }); }
-	async fadeDown(startLevel?: ZWave.PercentOpt | number, rampRate?: number | number) { return this.sendCommand("FDDOWN", { STARTLEVEL: startLevel, RR: rampRate }); }
-	async fade(direction: ZWave.FadeDirection, startLevel?: ZWave.PercentOpt | number, rampRate?: number | number, direction2?: ZWave.FadeDirection, fadeRate2?: number | number) { return this.sendCommand("FADE", { DIR: direction, STARTLEVEL: startLevel, RR: rampRate, DIR2: direction2, STEP2: fadeRate2 }); }
+	async fadeUp(startLevel?: number | ZWave.PercentOpt, rampRate?: number) { return this.sendCommand("FDUP", { STARTLEVEL: startLevel, RR: rampRate }); }
+	async fadeDown(startLevel?: number | ZWave.PercentOpt, rampRate?: number) { return this.sendCommand("FDDOWN", { STARTLEVEL: startLevel, RR: rampRate }); }
+	async fade(direction: ZWave.FadeDirection, startLevel?: number | ZWave.PercentOpt, rampRate?: number, direction2?: ZWave.FadeDirection, fadeRate2?: number) { return this.sendCommand("FADE", { DIR: direction, STARTLEVEL: startLevel, RR: rampRate, DIR2: direction2, STEP2: fadeRate2 }); }
 	async fadeStop() { return this.sendCommand("FDSTOP"); }
 	async query() { return this.sendCommand("QUERY"); }
-	async setConfiguration(parameterNumber: number, parameterValue: number | number | number | number | number | number) { return this.sendCommand("CONFIG", { NUM: parameterNumber, VAL: parameterValue }); }
+	async setConfiguration(parameterNumber: number, parameterValue: number) { return this.sendCommand("CONFIG", { NUM: parameterNumber, VAL: parameterValue }); }
 	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): number {
 		return this.drivers.ST?.value;
@@ -68,7 +68,9 @@ export namespace DimmerSwitch {
 	export interface Interface extends Omit<InstanceType<typeof DimmerSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
 		nodeDefId: "119";
 	}
-	export function is(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode { return ["119"].includes(node.nodeDefId); }
+	export function is(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode {
+		return ["119"].includes(node.nodeDefId);
+	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode {
 		return ["119"].includes(node.nodeDefId);
 	}
@@ -77,7 +79,7 @@ export namespace DimmerSwitch {
 	}
 	export const Node = DimmerSwitchNode;
 	export type Commands = {
-		DON: ((value?: ZWave.PercentOpt | number, RR?: number | number) => Promise<boolean>) & {
+		DON: ((value?: number | ZWave.PercentOpt, RR?: number) => Promise<boolean>) & {
 			label: "On";
 			name: "on";
 		};
@@ -101,15 +103,15 @@ export namespace DimmerSwitch {
 			label: "Dim";
 			name: "dim";
 		};
-		FDUP: ((STARTLEVEL?: ZWave.PercentOpt | number, RR?: number | number) => Promise<boolean>) & {
+		FDUP: ((STARTLEVEL?: number | ZWave.PercentOpt, RR?: number) => Promise<boolean>) & {
 			label: "Fade Up";
 			name: "fadeUp";
 		};
-		FDDOWN: ((STARTLEVEL?: ZWave.PercentOpt | number, RR?: number | number) => Promise<boolean>) & {
+		FDDOWN: ((STARTLEVEL?: number | ZWave.PercentOpt, RR?: number) => Promise<boolean>) & {
 			label: "Fade Down";
 			name: "fadeDown";
 		};
-		FADE: ((DIR: ZWave.FadeDirection, STARTLEVEL?: ZWave.PercentOpt | number, RR?: number | number, DIR2?: ZWave.FadeDirection, STEP2?: number | number) => Promise<boolean>) & {
+		FADE: ((DIR: ZWave.FadeDirection, STARTLEVEL?: number | ZWave.PercentOpt, RR?: number, DIR2?: ZWave.FadeDirection, STEP2?: number) => Promise<boolean>) & {
 			label: "Fade";
 			name: "fade";
 		};
@@ -121,7 +123,7 @@ export namespace DimmerSwitch {
 			label: "Query";
 			name: "query";
 		};
-		CONFIG: ((NUM: number, VAL: number | number | number | number | number | number) => Promise<boolean>) & {
+		CONFIG: ((NUM: number, VAL: number) => Promise<boolean>) & {
 			label: "Set Configuration";
 			name: "setConfiguration";
 		};

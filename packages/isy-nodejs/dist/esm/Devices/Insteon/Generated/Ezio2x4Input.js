@@ -27,7 +27,9 @@ NodeFactory.register(Ezio2x4InputNode);
 NodeFactory.register(Ezio2x4InputNode, "EZIO2x4_Input_ADV");
 export var Ezio2x4Input;
 (function (Ezio2x4Input) {
-    function is(node) { return ["EZIO2x4_Input", "EZIO2x4_Input_ADV"].includes(node.nodeDefId); }
+    function is(node) {
+        return ["EZIO2x4_Input", "EZIO2x4_Input_ADV"].includes(node.nodeDefId);
+    }
     Ezio2x4Input.is = is;
     function isImplementedBy(node) {
         return ["EZIO2x4_Input", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "KeypadButton", "KeypadButton_ADV", "EZRAIN_Input", "EZRAIN_Input_ADV", "EZIO2x4_Input_ADV"].includes(node.nodeDefId);

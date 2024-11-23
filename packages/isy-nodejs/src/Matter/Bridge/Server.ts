@@ -354,7 +354,7 @@ async function initializeConfiguration(isy: ISY, config?: Config): Promise<Confi
 	});
 
 	logger.info(`Matter storage location: ${storageService.location} (Directory)`);
-	logger.info(`Matter storage service type: ${storageService.factory.name}`);
+	//logger.info(`Matter storage service type: ${storageService.factory.name}`);
 
 	const deviceStorage = (await storageService.open('bridge')).createContext('data');
 

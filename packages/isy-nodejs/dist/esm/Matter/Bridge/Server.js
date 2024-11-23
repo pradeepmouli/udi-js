@@ -255,7 +255,7 @@ async function initializeConfiguration(isy, config) {
         storageService.location = storagePath;
     });
     logger.info(`Matter storage location: ${storageService.location} (Directory)`);
-    logger.info(`Matter storage service type: ${storageService.factory.name}`);
+    //logger.info(`Matter storage service type: ${storageService.factory.name}`);
     const deviceStorage = (await storageService.open('bridge')).createContext('data');
     if (config.passcode) {
         environment.vars.set('passcode', config.passcode);

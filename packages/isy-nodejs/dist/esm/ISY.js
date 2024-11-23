@@ -326,7 +326,12 @@ export class ISY extends EventEmitter {
         try {
             const that = this;
             //const auth = `Basic ${Buffer.from(`${this.credentials.username}:${this.credentials.password}`).toString('base64')}`;
-            this.logger.info(`Opening webSocket: ${this.wsprotocol}://${this.address}/rest/subscribe`);
+            let address = `${this.wsprotocol}://${this.address}/rest/subscribe`;
+            if (this.socketPath) {
+                address = `ws+unix://${this.socketPath}/rest/subscribe`;
+            }
+            this.logger.info(`Opening webSocket: ${address}`);
+            this.logger.info('Using the following websocket options: ' + JSON.stringify(this.webSocketOptions));
             if (this.webSocket) {
                 try {
                     this.webSocket.close();
@@ -342,7 +347,7 @@ export class ISY extends EventEmitter {
 
             ping: 10*/
             let p = new Promise((resolve, reject) => {
-                this.webSocket = new WebSocket(`${this.wsprotocol}://${this.address}/rest/subscribe`, ['ISYSUB'], this.webSocketOptions);
+                this.webSocket = new WebSocket(`${address}`, ['ISYSUB'], this.webSocketOptions);
                 this.lastActivity = new Date();
                 //this.webSocket.onmessage = (event) => {this.handleWebSocketMessage()
                 this.webSocket.on('open', () => {

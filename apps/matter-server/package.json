@@ -1,6 +1,6 @@
 {
   "name": "@pmouli/isy-matter-server",
-  "version": "1.0.3-alpha.3",
+  "version": "1.0.3-alpha.4",
   "description": "Service to expose an ISY device as a Matter Border router",
   "keywords": [
     "matter",
@@ -35,7 +35,7 @@
     "commander": "12.1.0",
     "dotenv": "^16.4.5",
     "dotenv-expand": "12.0.1",
-    "isy-nodejs": "^1.0.3-alpha.3",
+    "isy-nodejs": "^1.0.3-alpha.4",
     "winston": "^3.17.0"
   },
   "publishConfig": {

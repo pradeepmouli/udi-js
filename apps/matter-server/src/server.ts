@@ -382,18 +382,20 @@ console.log(`Options: ${logStringify(options)}`);
 
 ({ isyConfig, matterConfig, serverConfig } = loadConfigs());
 
-if(options.autoStart && (!isyConfig.password && process.env.LOGNAME !== 'polyglot'))
-{
+
+
+logger = createLogger();
+
+
+if (options.autoStart && !isyConfig.password && process.env.LOGNAME !== 'polyglot') {
 	logger.error('Auto start requires ISY password');
 	exit(1);
 }
-if(process.env.LOGNAME === 'polyglot' || process.env.USER === 'polyglot')
-{
+if (process.env.LOGNAME === 'polyglot' || process.env.USER === 'polyglot') {
+	logger.info('Running as polyglot');
 	options.requireAuth = false;
-	isyConfig.socketPath = '/tmp/ns2isy182652'
+	isyConfig.socketPath = '/tmp/ns2isy182652';
 }
-
-logger = createLogger();
 
 console.log(`ISY config: ${logStringify(isyConfig)}`);
 console.log(`Matter config: ${logStringify(matterConfig)}`);

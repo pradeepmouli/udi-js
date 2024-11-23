@@ -338,7 +338,7 @@ if (options.autoStart && !isyConfig.password && process.env.LOGNAME !== 'polyglo
     logger.error('Auto start requires ISY password');
     exit(1);
 }
-if (process.env.LOGNAME === 'polyglot' || process.env.USER === 'polyglot') {
+if (options.autoStart && (process.env.LOGNAME === 'polyglot' || process.env.USER === 'polyglot')) {
     logger.info('Running as polyglot');
     options.requireAuth = false;
     isyConfig.socketPath = '/tmp/ns2isy182652';

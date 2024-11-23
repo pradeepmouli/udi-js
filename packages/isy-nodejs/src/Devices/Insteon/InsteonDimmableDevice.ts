@@ -11,7 +11,8 @@ import { OnOff, ClusterType } from '@project-chip/matter.js/cluster';
 import 'winston';
 import { UnitOfMeasure } from '../../Definitions/Global/UOM.js';
 import type { NodeInfo } from '../../Model/NodeInfo.js';
-import { DimmerLampSwitch } from './DimmerLampSwitch.js';
+import { DimmerLampSwitchNode } from './Generated/DimmerLampSwitch.js';
+
 
 // #region Type aliases (2)
 
@@ -23,7 +24,7 @@ type OnOffBehavior = typeof OOB;
 // #region Classes (1)
 
 //@ts-ignore
-export class InsteonDimmableDevice extends DimmerLampSwitch.Node{
+export class InsteonDimmableDevice extends DimmerLampSwitchNode{
 	// #region Constructors (1)
 
 	constructor(isy: ISY, node: NodeInfo) {

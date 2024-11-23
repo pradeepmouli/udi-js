@@ -1,12 +1,11 @@
-import { Endpoint } from '@project-chip/matter.js/endpoint';
-import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
+import { Endpoint, type EndpointType, type MutableEndpoint } from '@project-chip/matter.js/endpoint';
 import { Behavior } from '@project-chip/matter.js/behavior';
-import { MutableEndpoint, EndpointType } from '@project-chip/matter.js/endpoint/type';
 import type { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import { type ClusterType } from '@project-chip/matter.js/cluster';
 import type { Constructor } from './Constructor.js';
 import type { ISYDeviceNode } from '../Devices/ISYDeviceNode.js';
 import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
+import type { SupportedBehaviors } from '@matter/node';
 export type RelaxTypes<V> = V extends number ? number : V extends bigint ? bigint : V extends object ? V extends (...args: any[]) => any ? V : {
     [K in keyof V]: RelaxTypes<V[K]>;
 } : V;
@@ -40,7 +39,7 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         _parentDevice: import("../ISYDevice.js").ISYDevice<any, any, any, any>;
         children: import("../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#678886@#parentNode": import("../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#514691@#parentNode": import("../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -97,7 +96,8 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         refreshNotes(): Promise<void>;
         sendCommand(command: string): Promise<any>;
         sendCommand(command: string, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: string, parameters: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
+        sendCommand(command: string, value: string | number): Promise<any>;
+        sendCommand(command: string, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     };
 } & T;

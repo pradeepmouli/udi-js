@@ -25,7 +25,7 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/Global/Families.js").Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#678886@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#514691@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -81,7 +81,8 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         refreshNotes(): Promise<void>;
         sendCommand(command: never): Promise<any>;
         sendCommand(command: never, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: never, parameters: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
+        sendCommand(command: never, value: string | number): Promise<any>;
+        sendCommand(command: never, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     };
 } & T;
@@ -106,7 +107,7 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/Global/Families.js").Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#678886@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#514691@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -163,7 +164,8 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         refreshNotes(): Promise<void>;
         sendCommand(command: never): Promise<any>;
         sendCommand(command: never, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: never, parameters: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
+        sendCommand(command: never, value: string | number): Promise<any>;
+        sendCommand(command: never, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     };
 } & T;

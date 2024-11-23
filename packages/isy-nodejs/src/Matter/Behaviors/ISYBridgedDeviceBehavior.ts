@@ -4,8 +4,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */ import { Behavior } from '@project-chip/matter.js/behavior';
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
-import type { StateType } from '@project-chip/matter.js/behavior/state';
-import { Internal } from '@project-chip/matter.js/behavior/state/managed';
+
 import { EventEmitter, Observable } from '@project-chip/matter.js/util';
 import internal from 'stream';
 import type { Driver } from '../../Definitions/Global/Drivers.js';

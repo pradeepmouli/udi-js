@@ -300,11 +300,19 @@ export class ISYNode {
             that.logger(e);
         }
     }
-    async sendCommand(command, value, parameters) {
-        if (value !== undefined && typeof parameters === 'object') {
-            return this.isy.sendNodeCommand(this, command, { default: value, ...parameters });
+    async sendCommand(command, valueOrParameters, parameters) {
+        if (valueOrParameters === null || valueOrParameters === undefined) {
+            return this.isy.sendNodeCommand(this, command);
         }
-        return this.isy.sendNodeCommand(this, command, parameters);
+        if (parameters === null || parameters === undefined) {
+            return this.isy.sendNodeCommand(this, command, valueOrParameters);
+        }
+        if (typeof valueOrParameters === 'object') {
+            return this.isy.sendNodeCommand(this, command, { ...valueOrParameters, ...parameters });
+        }
+        if (typeof valueOrParameters === 'string' || typeof valueOrParameters === 'number') {
+            return this.isy.sendNodeCommand(this, command, { default: valueOrParameters, ...parameters });
+        }
     }
     async updateProperty(propertyName, value) {
         var l = this.drivers[propertyName];

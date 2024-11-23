@@ -352,12 +352,25 @@ export class ISYNode<
 	}
 	public async sendCommand(command: StringKeys<C>): Promise<any>;
 	public async sendCommand(command: StringKeys<C>, value: string | number, parameters: Record<string | symbol, string | number | undefined>);
-	public async sendCommand(command: StringKeys<C>, parameters: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
-	async sendCommand(command: StringKeys<C>, value?: string | number, parameters?: Record<string | symbol, string | number | undefined> | string | number): Promise<any> {
-		if (value !== undefined && typeof parameters === 'object') {
-			return this.isy.sendNodeCommand(this, command, { default: value, ...parameters });
+	public async sendCommand(command: StringKeys<C>, value: string | number): Promise<any>;
+	public async sendCommand(command: StringKeys<C>, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+	async sendCommand(command: StringKeys<C>, valueOrParameters?: string | number | Record<string | symbol, string | number | undefined>, parameters?: Record<string | symbol, string | number | undefined>): Promise<any> {
+		if (valueOrParameters === null || valueOrParameters === undefined) {
+			return this.isy.sendNodeCommand(this, command);
 		}
-		return this.isy.sendNodeCommand(this, command, parameters);
+
+			if(parameters === null || parameters === undefined) {
+				return this.isy.sendNodeCommand(this, command, valueOrParameters);
+			}
+			if(typeof valueOrParameters === 'object') {
+				return this.isy.sendNodeCommand(this, command, {...valueOrParameters,...parameters});
+			}
+			if(typeof valueOrParameters === 'string' || typeof valueOrParameters === 'number') {
+				return this.isy.sendNodeCommand(this, command, { default: valueOrParameters, ...parameters });
+			}
+
+		
+
 	}
 
 	public async updateProperty(propertyName: string, value: any): Promise<any> {

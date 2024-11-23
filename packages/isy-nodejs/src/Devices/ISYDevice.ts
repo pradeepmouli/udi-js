@@ -1,6 +1,7 @@
+import type { SupportedBehaviors } from '@matter/node';
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import type { Endpoint, EndpointType, MutableEndpoint } from '@project-chip/matter.js/endpoint';
-import type { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
+
 import 'winston';
 
 // export const ISYBinaryStateDevice = <K extends Family,D extends DriverSignatures, T extends Constructor<ISYDeviceNode<K,Driver.ToSignatures<'ST'>,any,any>>>(Base: T) => {

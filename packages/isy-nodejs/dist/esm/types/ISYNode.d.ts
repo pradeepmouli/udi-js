@@ -83,7 +83,8 @@ export declare class ISYNode<T extends Family = Family, D extends ISYNode.Driver
     refreshNotes(): Promise<void>;
     sendCommand(command: StringKeys<C>): Promise<any>;
     sendCommand(command: StringKeys<C>, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-    sendCommand(command: StringKeys<C>, parameters: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
+    sendCommand(command: StringKeys<C>, value: string | number): Promise<any>;
+    sendCommand(command: StringKeys<C>, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
     updateProperty(propertyName: string, value: any): Promise<any>;
 }
 export type Flatten<T, Level extends Number = 2, K = keyof T> = UnionToIntersection<T extends Record<string, unknown> ? K extends string ? T[K] extends Record<string, unknown> ? keyof T[K] extends string ? {
@@ -136,7 +137,7 @@ export declare namespace ISYNode {
         new (...args: any[]): {
             drivers: Driver.ForAll<any, false>;
             commands: Command.ForAll<C>;
-            "__#678886@#parentNode": ISYNode<any, any, any, any>;
+            "__#514691@#parentNode": ISYNode<any, any, any, any>;
             readonly address: string;
             readonly baseLabel: string;
             readonly flag: any;
@@ -196,7 +197,8 @@ export declare namespace ISYNode {
             refreshNotes(): Promise<void>;
             sendCommand(command: string): Promise<any>;
             sendCommand(command: string, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-            sendCommand(command: string, parameters: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
+            sendCommand(command: string, value: string | number): Promise<any>;
+            sendCommand(command: string, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
             updateProperty(propertyName: string, value: any): Promise<any>;
         };
     } & T;

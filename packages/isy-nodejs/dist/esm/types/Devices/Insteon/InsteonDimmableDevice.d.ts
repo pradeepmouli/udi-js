@@ -1,4 +1,4 @@
-import { ISY } from '../../ISY.js';
+import type { ISY } from '../../ISY.js';
 import 'winston';
 import type { NodeInfo } from '../../Model/NodeInfo.js';
 import { DimmerLampSwitchNode } from './Generated/DimmerLampSwitch.js';

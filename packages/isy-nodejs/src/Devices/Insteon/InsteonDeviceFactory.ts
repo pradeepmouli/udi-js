@@ -2,6 +2,7 @@ import { Category } from '../../Definitions/Global/Categories.js';
 
 import { parseTypeCode } from '../../Utils.js';
 import { NodeInfo } from '../../Model/NodeInfo.js';
+import * as Insteon from './index.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 import { InsteonDimmerOutletDevice } from './InsteonDimmerOutletDevice.js';
 import { InsteonDimmerSwitchDevice } from './InsteonDimmerSwitchDevice.js';

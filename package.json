@@ -35,7 +35,7 @@
   "author": "Pradeep Mouli",
   "license": "MIT",
   "dependencies": {
-    "@matter/general": "^0.11.4",
+    "@matter/general": "^0.11.5",
     "@matter/main": "^0.11.4",
     "@matter/node": "^0.11.4",
     "@matter/nodejs": "^0.11.4",

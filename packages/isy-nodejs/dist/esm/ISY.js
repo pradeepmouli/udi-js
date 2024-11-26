@@ -7,7 +7,6 @@ import { Parser } from 'xml2js';
 import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
 import { DeviceFactory } from './Devices/DeviceFactory.js';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
-import { ISYDeviceNode } from './Devices/ISYDeviceNode.js';
 import { EventType } from './Events/EventType.js';
 import { VariableType } from './ISYConstants.js';
 import { ISYScene } from './ISYScene.js';
@@ -18,6 +17,7 @@ import path from 'path';
 import { NodeFactory } from './Devices/NodeFactory.js';
 import { ISYError } from './ISYError.js';
 import { findPackageJson } from './Utils.js';
+import { GenericNode } from './Devices/GenericNode.js';
 class ISYInitializationError extends ISYError {
     step;
     constructor(messageOrError, step) {
@@ -468,7 +468,7 @@ export class ISY extends EventEmitter {
             for (const node of result.nodes.node) {
                 let device = that.getNode(node.id);
                 if (device !== null && device !== undefined) {
-                    device.parseResult(node.property);
+                    device.parseResult(node);
                 }
             }
         }
@@ -694,7 +694,7 @@ export class ISY extends EventEmitter {
                     if (enabled) {
                         if (newDevice === null) {
                             this.logger.warn(`Device type resolution failed for ${nodeInfo.name} with type: ${nodeInfo.type} and nodedef: ${nodeInfo.nodeDefId}`);
-                            newDevice = new ISYDeviceNode(this, nodeInfo);
+                            newDevice = new GenericNode(this, nodeInfo);
                         }
                         else if (newDevice !== null) {
                             if (m.unsupported) {

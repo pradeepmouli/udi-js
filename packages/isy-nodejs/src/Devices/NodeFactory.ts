@@ -86,7 +86,7 @@ export namespace NodeFactory {
 	export async function get<F extends keyof typeof Family>(node: NodeInfo<typeof Family[F]>, isy: ISY = ISY.instance): Promise<typeof ISYNode<typeof Family[F], any, any, any>> {
 		if (!isDynamic(node))
 		{
-			return Promise.resolve(getForNodeDefId(Family[node.family] as F, node.nodeDefId));
+			return Promise.resolve(getForNodeDefId(Family[node.family ?? Family.Insteon]  as F, node.nodeDefId));
 		}
 
 		else {

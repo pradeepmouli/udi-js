@@ -6,7 +6,7 @@ import * as Insteon from '../../Devices/Insteon/index.js';
 //import InsteonMap from "./Insteon.json";
 
 import { OnOffLightDevice, DimmableLightDevice } from '@matter/node/devices';
-import { add, MappingRegistry, type EndpointMapping, type FamilyToClusterMap } from './MappingRegistry.js';
+import {  MappingRegistry, type EndpointMapping, type FamilyToClusterMap } from './MappingRegistry.js';
 
 export const map: FamilyToClusterMap<Family.Insteon> = {
 	Family: Family.Insteon,
@@ -16,7 +16,7 @@ export const map: FamilyToClusterMap<Family.Insteon> = {
 		mapping: {
 			OnOff: {
 				attributes: {
-					onOff: { driver: 'ST', converter: 'Percent.Boolean' }
+					onOff: { driver: 'ST', converter: 'LightingLevel.Boolean' }
 				},
 				commands: { on: 'DON' }
 			}
@@ -44,7 +44,8 @@ export const map: FamilyToClusterMap<Family.Insteon> = {
 				},
 				commands: { on: 'DON' }
 			},
-			//@ts-ignore
+
+
 			LevelControl: {
 				// @ts-ignore
 				attributes: {
@@ -60,7 +61,7 @@ export const map: FamilyToClusterMap<Family.Insteon> = {
 		deviceType: DimmableLightDevice,
 		// @ts-ignore
 		mapping: {
-			// @ts-ignore
+			
 			OnOff: {
 				attributes: {
 					onOff: { driver: 'ST', converter: 'Percent.Boolean' }
@@ -81,9 +82,8 @@ export const map: FamilyToClusterMap<Family.Insteon> = {
 	}
 };
 
-map.KeypadDimmer = map.DimmerLamp;
-map.KeypadRelay = map.RelayLampSwitch;
-
+map.KeypadDimmer = {...map.DimmerLamp};
+map.KeypadRelay = {...map.RelayLamp};
 
 
 

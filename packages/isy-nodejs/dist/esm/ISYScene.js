@@ -1,5 +1,5 @@
 import { Insteon } from './Devices/index.js';
-import { Commands, LinkType } from './ISYConstants.js';
+import { LinkType } from './ISYConstants.js';
 import { ISYNode } from './ISYNode.js';
 export class ISYScene extends ISYNode {
     connectionType;
@@ -100,10 +100,10 @@ export class ISYScene extends ISYNode {
         }
     }
     async updateIsOn(lightState) {
-        return this.isy.sendNodeCommand(this, lightState ? Commands.On : Commands.Off);
+        return this.isy.sendNodeCommand(this, lightState ? 'DON' : 'DOF');
     }
     async updateBrightnessLevel(level) {
-        return this.isy.sendNodeCommand(this, level > 0 ? Commands.On : Commands.Off, level);
+        return this.isy.sendNodeCommand(this, level > 0 ? 'DON' : 'DOF', level);
     }
     getAreAllLightsInSpecifiedState(state) {
         for (const device of this.members) {

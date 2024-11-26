@@ -1,14 +1,13 @@
-import { Commands } from '../../ISYConstants.js';
-import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
-export class InsteonMotionSensorDevice extends InsteonBaseDevice {
+import { Pir2844OnOff } from './Generated/Pir2844OnOff.js';
+export class InsteonMotionSensorDevice extends Pir2844OnOff.Node {
     _isMotionDetected;
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
         this._isMotionDetected = false;
     }
     handleControlTrigger(controlName) {
-        if (controlName === Commands.On) {
+        if (controlName === 'DON') {
             this.logger('Motion detected.');
             this._isMotionDetected = true;
             this.emit('controlTriggered', controlName);
@@ -20,7 +19,7 @@ export class InsteonMotionSensorDevice extends InsteonBaseDevice {
             }, 30000);
             return true;
         }
-        else if (controlName === Commands.Off) {
+        else if (controlName === 'DOF') {
             this._isMotionDetected = false;
             this.logger('No motion detected.');
             this.emit('controlTriggered', controlName);

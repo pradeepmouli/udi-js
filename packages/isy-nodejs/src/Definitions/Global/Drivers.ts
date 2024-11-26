@@ -365,7 +365,7 @@ export namespace Driver {
 		};
 	};
 
-	
+
 	export type For<D extends string, T, S extends boolean = false> = T extends Signature<infer U, infer V, infer SU, infer N, infer L> ? StatelessOrStateful<D, U, V, N, L, S> : never;
 
 	export type ForAll<T, S extends boolean = false> = {
@@ -398,10 +398,11 @@ export namespace Driver {
 			return {
 				id: driver as D,
 				stateless: true,
-				uom: initState.uom as U,
+				uom: driverSignature.uom as U,
+				serverUom: initState?.uom != driverSignature.uom ? initState?.uom : undefined,
 				state: {
 					initial: true,
-					value: node.convertFrom(initState?.value, initState?.uom, driver as D) as T,
+					value: initState?.value, //TODO include converter
 					formattedValue: initState.formatted,
 					pendingValue: null
 				},
@@ -422,16 +423,17 @@ export namespace Driver {
 				value:
 					initState ?
 						converter ? converter.from(initState.value)
-						:	(node.convertFrom(initState?.value, initState?.uom, driver as D) as T)
-					:	null,
+						: driverSignature?.uom && initState?.uom != driverSignature?.uom ? Converter.convert(initState.uom, driverSignature.uom, initState.value)
+					:	initState.value : null,
 				rawValue: initState ? initState.value : null,
 				formattedValue: initState ? initState.formatted : null,
 				pendingValue: null
 			},
 			async query() {
 				let s = await query();
-				this.state.value = converter ? converter.from(s.value) : node.convertFrom(s.value, s.uom, driver as D);
+				this.state.value = converter ? converter.from(s.value) : this.uom !== s.uom ? Converter.convert(s.value, s.uom, this.uom) : s.value;
 				this.state.formattedValue = s.formatted;
+				this.state.rawValue = s.value;
 				return s;
 			},
 			apply(state: DriverState, notify = false) {

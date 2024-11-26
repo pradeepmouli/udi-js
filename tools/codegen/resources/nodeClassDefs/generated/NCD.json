@@ -11,17 +11,7 @@
         "readonly": true,
         "id": "ST",
         "editorId": "NCD_OL_RELAY",
-        "dataType": [
-          {
-            "uom": 51,
-            "indexId": "R_OL",
-            "enum": true,
-            "values": {
-              "0": "",
-              "100": ""
-            }
-          }
-        ],
+        "dataType": [],
         "name": "status"
       },
       "ERR": {
@@ -31,17 +21,7 @@
         "readonly": true,
         "id": "ERR",
         "editorId": "NCD_ERR",
-        "dataType": [
-          {
-            "uom": 25,
-            "indexId": "IX_ERR",
-            "enum": true,
-            "values": {
-              "0": "True",
-              "1": "False"
-            }
-          }
-        ],
+        "dataType": [],
         "name": "responding"
       }
     },
@@ -65,34 +45,13 @@
         "label": "ADR",
         "id": "ADRPST",
         "editorId": "NCD_ADRPST",
-        "dataType": [
-          {
-            "uom": 25,
-            "indexId": "R_ADRPST",
-            "enum": true,
-            "values": {
-              "0": "",
-              "1": ""
-            }
-          }
-        ],
         "name": "adr",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "NCD_ADRPST",
-            "dataType": [
-              {
-                "uom": 25,
-                "indexId": "R_ADRPST",
-                "enum": true,
-                "values": {
-                  "0": "",
-                  "1": ""
-                }
-              }
-            ],
+            "dataType": [],
             "name": "value",
             "optional": false
           }

@@ -1,59 +1,73 @@
-import * as Clusters from '@project-chip/matter.js/cluster';
+import * as Cluster from '@matter/types/cluster';
 import type { Converter } from '../../Converters.js';
 import { Devices, Insteon } from '../../Devices/index.js';
 import { ClusterBehavior, MutableEndpoint, SupportedBehaviors } from '@matter/main';
 import { Family } from '../../Definitions/index.js';
-import { CommandsOf, DriversOf, ISYNode } from '../../ISYNode.js';
-import type { PathsWithLimit, PickOfType, Remove } from '../../Utils.js';
 import type { Constructor } from '../../Devices/Constructor.js';
+import { CommandsOf, DriversOf, ISYNode } from '../../ISYNode.js';
+import type { PathsWithLimit, Remove } from '../../Utils.js';
 export type AttributeMapping<B, D> = B extends {
     cluster: {
         attributes: infer E extends {
-            [K in string]: Clusters.ClusterType.Attribute;
+            [K in string]: Cluster.ClusterType.Attribute;
         };
     };
 } ? Partial<Record<keyof E, keyof DriversOf<D> | {
     driver: keyof DriversOf<D>;
     converter?: Converter.KnownConverters;
 }>> : never;
-export type BehaviorMapping<B extends {
-    cluster?: any;
-}, T extends ISYNode<any, any, any, any>> = {
-    attributes?: AttributeMapping<B, T>;
-    commands?: CommandMapping<B, T>;
+export type ClusterMapping<B, T extends ISYNode<any, any, any, any>> = {
+    attributes?: ClusterAttributeMapping<B, T>;
+    commands?: ClusterCommandMapping<B, T>;
 };
 export type ClusterAttributeMapping<A, K> = {
-    [key in keyof Clusters.ClusterType.AttributesOf<A>]?: {
+    [key in keyof Cluster.ClusterType.AttributesOf<A>]: {
         driver: Extract<keyof DriversOf<K>, string>;
-        converter?: (value: any) => any;
+        converter?: Converter.KnownConverters;
     } | Extract<keyof DriversOf<K>, string>;
 };
 export type ClusterCommandMapping<A, K> = {
-    [key in keyof Clusters.ClusterType.CommandsOf<A>]?: {
+    [key in keyof Cluster.ClusterType.CommandsOf<A>]: {
         command: keyof CommandsOf<K>;
         parameters?: parameterMapping;
     } | keyof CommandsOf<K>;
 };
-export type ClusterMapping<A, K> = {
-    attributes: ClusterAttributeMapping<A, K>;
-    commands: ClusterCommandMapping<A, K>;
-};
 export type CommandMapping<B, D> = B extends ({
     cluster: {
         commands: infer E extends {
-            [K in string]: Clusters.ClusterType.Command;
+            [K in string]: Cluster.ClusterType.Command;
         };
     };
 }) ? Partial<Record<keyof E, keyof CommandsOf<D> | {
     command: keyof CommandsOf<D>;
     parameters?: parameterMapping;
 }>> : never;
-export type DeviceToClusterMap<T extends ISYNode<Family, any, any, any>, D extends MutableEndpoint> = {
+export interface DeviceToClusterMap<T extends ISYNode<Family, any, any, any>, D extends MutableEndpoint> {
     deviceType: D;
     mapping: EndpointMapping<D, T>;
-};
+}
+export interface Mapping<T extends ISYNode, D extends MutableEndpoint> {
+    deviceType: D;
+    nodeType?: T;
+    mapping?: {
+        [K in keyof D['behaviors']]?: {
+            attributes?: {
+                [K2 in keyof Cluster.ClusterType.AttributesOf<D['behaviors'][K]>]: {
+                    driver: keyof DriversOf<T>;
+                    converter?: Converter.KnownConverters;
+                } | keyof DriversOf<T>;
+            };
+            commands?: {
+                [K2 in keyof Cluster.ClusterType.CommandsOf<D['behaviors'][K]>]: {
+                    command: keyof CommandsOf<T>;
+                    converter?: Converter.KnownConverters;
+                } | keyof CommandsOf<T>;
+            };
+        };
+    };
+}
 export type EndpointMapping<A extends MutableEndpoint, D extends ISYNode<Family, any, any, any>> = {
-    [K in StringKeys<PickOfType<A['behaviors'], ClusterBehavior>> as Capitalize<K>]?: A['behaviors'][K] extends ClusterBehavior ? BehaviorMapping<A['behaviors'][K], D> : undefined;
+    [K in StringKeys<A['behaviors']>]?: ClusterMapping<A['behaviors'][K], D>;
 };
 export type EndpointMapping1<A extends MutableEndpoint, K> = {
     attributes?: SBAttributeMapping<A['behaviors'], K>;
@@ -135,7 +149,7 @@ export declare class MappingRegistry {
         [x: string]: DeviceToClusterMap<ISYNode, MutableEndpoint>;
     };
     static getMapping<const T extends ISYNode>(device: T): DeviceToClusterMap<T, MutableEndpoint>;
-    static getMappingForBehavior<T extends ISYNode<any, any, any, any>, const B extends ClusterBehavior>(device: T, behavior: B): BehaviorMapping<B, T>;
+    static getMappingForBehavior<T extends ISYNode<any, any, any, any>, const B extends ClusterBehavior>(device: T, behavior: B): ClusterMapping<B, T>;
     static register<const T extends Family.Insteon | Family.ZWave | Family.ZigBee>(map: Partial<FamilyToClusterMap<T>> | {
         [x in PathsWithLimit<typeof Devices, 1>]: DeviceToClusterMap<any, any>;
     }): void;

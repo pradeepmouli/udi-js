@@ -1,9 +1,8 @@
 import { NodeInfo } from '../../Model/NodeInfo.js';
-import { InsteonRelayDevice } from './InsteonRelayDevice.js';
+import * as Insteon from './index.js';
 import { ISYNode } from '../../ISYNode.js';
 import type { Constructor } from '../Constructor.js';
 import { Family } from '../../Definitions/index.js';
-import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 export declare class InsteonDeviceFactory {
     static getDeviceDetails(node: NodeInfo): {
         name: string;
@@ -29,13 +28,13 @@ export declare class InsteonDeviceFactory {
         name: string;
         modelNumber?: string;
         version?: string;
-        class?: InsteonBaseDevice;
+        class?: Insteon.Base;
     };
     static getSwitchLightInfo(deviceCode: number, subAddress: string): {
         name: string;
         modelNumber?: string;
         version?: string;
-        class?: typeof InsteonRelayDevice;
+        class?: typeof Insteon.RelayLampSwitch.Node | typeof Insteon.KeypadRelay.Node | typeof Insteon.KeypadButton.Node | typeof Insteon.OnOffOutlet;
     };
     private static getDimLightInfo;
     private static getControllerInfo;

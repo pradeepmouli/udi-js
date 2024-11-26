@@ -1,4 +1,4 @@
-import { Commands, States } from '../../ISYConstants.js';
+import { ZWave } from '../../Definitions/index.js';
 import { ZWaveBaseDevice } from './ZWaveBaseDevice.js';
 import 'winston';
 export class ZwaveLockDevice extends ZWaveBaseDevice {
@@ -17,18 +17,18 @@ export class ZwaveLockDevice extends ZWaveBaseDevice {
     }
     async sendNonSecureLockCommand(lockState) {
         if (lockState) {
-            return this.isy.sendNodeCommand(this, Commands.Lock.Lock);
+            return this.isy.sendNodeCommand(this, 'DON');
         }
         else {
-            return this.isy.sendNodeCommand(this, Commands.Lock.Unlock);
+            return this.isy.sendNodeCommand(this, 'DOF');
         }
     }
     async sendSecureLockCommand(lockState) {
         if (lockState) {
-            return this.isy.sendNodeCommand(this, Commands.On, States.SecureLock.Secured);
+            return this.isy.sendNodeCommand(this, 'DON', ZWave.OnOff);
         }
         else {
-            return this.isy.sendNodeCommand(this, Commands.On, States.SecureLock.NotSecured);
+            return this.isy.sendNodeCommand(this, 'DON', 0);
         }
     }
 }

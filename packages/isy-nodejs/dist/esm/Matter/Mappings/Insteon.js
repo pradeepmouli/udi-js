@@ -9,7 +9,7 @@ export const map = {
         mapping: {
             OnOff: {
                 attributes: {
-                    onOff: { driver: 'ST', converter: 'Percent.Boolean' }
+                    onOff: { driver: 'ST', converter: 'LightingLevel.Boolean' }
                 },
                 commands: { on: 'DON' }
             }
@@ -37,7 +37,6 @@ export const map = {
                 },
                 commands: { on: 'DON' }
             },
-            //@ts-ignore
             LevelControl: {
                 // @ts-ignore
                 attributes: {
@@ -53,7 +52,6 @@ export const map = {
         deviceType: DimmableLightDevice,
         // @ts-ignore
         mapping: {
-            // @ts-ignore
             OnOff: {
                 attributes: {
                     onOff: { driver: 'ST', converter: 'Percent.Boolean' }
@@ -71,8 +69,8 @@ export const map = {
         }
     }
 };
-map.KeypadDimmer = map.DimmerLamp;
-map.KeypadRelay = map.RelayLampSwitch;
+map.KeypadDimmer = { ...map.DimmerLamp };
+map.KeypadRelay = { ...map.RelayLamp };
 /*let newMap = add(map, Insteon.DimmerLamp.Node, {
     deviceType: DimmableLightDevice,
     // @ts-ignore

@@ -1,5 +1,6 @@
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
-import { type Leaves, type Paths, type PathsWithLimit, type StringKeys } from './Utils.js';
+import {type PathsWithLimit, type StringKeys } from './Utils.js';
+import {Paths} from 'type-fest'
 
 let BooleanPercentage: Converter<boolean, number>;
 let NullConverter: Converter<any, any>;
@@ -112,17 +113,19 @@ export namespace Converter {
 
 	export type ConverterTypes = `${StringKeys<typeof StandardConverters>}`;
 
-	export type StandardConverters = `${StringKeys<typeof StandardConverters>}.${StringKeys<typeof StandardConverters>}`;
+	type StandardConverters = Paths<typeof StandardConverters, {maxRecursionDepth: 1, bracketNotation: false}>
 
+	type Invert<K extends string> = K extends `${infer T}.${infer U}` ? `${U}.${T}` | K  : never;
 	//export type StandardConvertersList = PathsWithLimit<typeof StandardConverters, 1>;
+
 
 	export type MatterISYConvertibleTypes = `${StringKeys<(typeof Matter)[`${keyof typeof Matter}`]>}`;
 
 	export type ISYMatterConvertibleTypes = `${StringKeys<typeof Matter>}`;
 
-	export type MatterConverters = `${MatterISYConvertibleTypes}.${ISYMatterConvertibleTypes}` | `${ISYMatterConvertibleTypes}.${MatterISYConvertibleTypes}`;
+	export type MatterConverters = Paths<typeof Matter, {maxRecursionDepth: 1, bracketNotation: false}>
 
-	export type KnownConverters = StandardConverters | MatterConverters;
+	export type KnownConverters = Invert<StandardConverters> | Invert<MatterConverters>;
 	const cache: { [x: string]: Converter<any, any> } = {};
 	export function get(label: KnownConverters): Converter<any, any>;
 	export function get(from: UnitOfMeasure, to: UnitOfMeasure): Converter<any,any>

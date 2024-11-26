@@ -3,8 +3,12 @@ import { Devices, Insteon } from '../../Devices/index.js';
 import { BridgedDeviceBasicInformationBehavior } from '@matter/node/behaviors';
 import { Family } from '../../Definitions/index.js';
 import { NodeFactory } from '../../Devices/NodeFactory.js';
-import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
 import { ClusterType } from '../../Model/ClusterType.js';
+import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
+;
+function addA(mapping1, mapping2) {
+    return { deviceType: mapping1.deviceType, nodeType: mapping1.nodeType, mapping: { ...mapping1.mapping, ...mapping2.mapping } };
+}
 export function add(familyToClusterMap, deviceClass, mapping) {
     const map = {};
     map[deviceClass.name] = mapping;
@@ -104,16 +108,29 @@ var clusterMap = {
         moveToColor: { command: DriverType.CustomControl1, parameters: { colorX: { parameter: 'colorX' }, colorY: { parameter: 'colorY' }, colorTemperature: { parameter: 'colorTemperature' } } }
     }
 };
-/*const map: EndpointMapping<OnOffLightDevice, InsteonRelayDevice> = {
-    Identify: {},
-    OnOff: {
-        attributes: {
-            onOff: { driver: 'ST' }
+/*
+const map = {
+    deviceType: DimmableLightDevice,
+    mapping: {
+
+        onOff: {
+            attributes: {
+            onOff: { driver: 'ST', converter: 'Percent.Boolean' },
+
+            },
+            commands: {
+                onWithTimedOff: { command: 'DON' },
+
+            }
         },
-        commands: {
-            onWithTimedOff: { command: 'DON' }
+        levelControl: {
+            attributes: {
+
+
+            }
         }
     }
-};*/
+} as Mapping<Insteon.RelayLampNode, DimmableLightDevice>;
+*/
 // #endregion Variables (3)
 //# sourceMappingURL=MappingRegistry.js.map

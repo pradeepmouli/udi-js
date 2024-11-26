@@ -3,7 +3,7 @@ import type { Driver } from './Definitions/Global/Drivers.js';
 import { Family } from './Definitions/Global/Families.js';
 import {Insteon} from './Devices/index.js';
 import type { ISY } from './ISY.js';
-import { Commands, LinkType } from './ISYConstants.js';
+import {  LinkType } from './ISYConstants.js';
 import { ISYDevice } from './ISYDevice.js';
 import { ISYNode } from './ISYNode.js';
 import type { NodeInfo, StaticNodeInfo } from './Model/NodeInfo.js';
@@ -123,10 +123,10 @@ export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>, Com
 		}
 	}
 	public async updateIsOn(lightState: boolean) {
-		return this.isy.sendNodeCommand(this, lightState ? Commands.On : Commands.Off);
+		return this.isy.sendNodeCommand(this, lightState ? 'DON' : 'DOF');
 	}
 	public async updateBrightnessLevel(level) {
-		return this.isy.sendNodeCommand(this, level > 0 ? Commands.On : Commands.Off, level);
+		return this.isy.sendNodeCommand(this, level > 0 ? 'DON' : 'DOF', level);
 	}
 	public getAreAllLightsInSpecifiedState(state) {
 		for (const device of this.members) {

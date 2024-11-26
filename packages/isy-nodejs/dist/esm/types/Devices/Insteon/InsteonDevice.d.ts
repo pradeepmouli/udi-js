@@ -10,7 +10,7 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: "ST"): any;
         convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: "ST"): any;
         sendBeep(level?: number): Promise<any>;
-        family: import("../../Definitions/Global/Families.js").Family.Insteon;
+        family: import("../../Definitions/index.js").Family.Insteon;
         readonly typeCode: string;
         readonly deviceClass: any;
         readonly category: import("../../Definitions/index.js").Category;
@@ -22,10 +22,10 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         version: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/Global/Families.js").Family.Insteon, any, any, any>;
+        _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/index.js").Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#127@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#149988@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -37,8 +37,8 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
             ST: import("../../Definitions/index.js").Driver.Signature<import("../../Definitions/index.js").UnitOfMeasure, any, import("../../Definitions/index.js").UnitOfMeasure, string, string>;
         }, false>;
         enabled: boolean;
-        events: import("@matter/general").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter<any>, {
-            on(eventName: `${string}Changed`, listener: (driver: "ST", newValue: any, oldValue: any, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter<any>;
+        events: import("@matter/general").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
+            on(eventName: `${string}Changed`, listener: (driver: "ST", newValue: any, oldValue: any, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         }>;
         folder: string;
         hidden: boolean;
@@ -92,7 +92,7 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: "ST"): any;
         convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: "ST"): any;
         sendBeep(level?: number): Promise<any>;
-        family: import("../../Definitions/Global/Families.js").Family.Insteon;
+        family: import("../../Definitions/index.js").Family.Insteon;
         readonly typeCode: string;
         readonly deviceClass: any;
         readonly category: import("../../Definitions/index.js").Category;
@@ -104,10 +104,10 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         version: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/Global/Families.js").Family.Insteon, any, any, any>;
+        _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/index.js").Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#127@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#149988@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -119,8 +119,8 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
             ST: import("../../Definitions/index.js").Driver.Signature<import("../../Definitions/index.js").UnitOfMeasure, any, import("../../Definitions/index.js").UnitOfMeasure, string, string>;
         }, false>;
         enabled: boolean;
-        events: import("@matter/general").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter<any>, {
-            on(eventName: `${string}Changed`, listener: (driver: "ST", newValue: any, oldValue: any, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter<any>;
+        events: import("@matter/general").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
+            on(eventName: `${string}Changed`, listener: (driver: "ST", newValue: any, oldValue: any, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         }>;
         folder: string;
         hidden: boolean;

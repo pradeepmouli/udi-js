@@ -3,19 +3,16 @@ import winston, { Logger, type LeveledLogMethod } from 'winston';
 import { EventEmitter as BaseEventEmitter } from 'events';
 import { Category } from './Definitions/Global/Categories.js';
 import type { PackageJson } from '@npmcli/package-json';
-import { EventType } from './Events/EventType.js';
 import type { AxiosRequestConfig } from 'axios';
+import { EventType } from './Events/EventType.js';
 export type StringKeys<T> = Extract<keyof T, string>;
 export type PickOfType<T, U> = {
-    [K in keyof T]: T[K] extends U ? (any extends T[K] ? never : K) : undefined;
+    [K in keyof T]: T[K] extends U ? any extends T[K] ? never : K : undefined;
 }[keyof T];
 export type Paths<T> = T extends object ? {
     [K in keyof T]: `${Exclude<K, symbol>}${'' | `.${Paths<T[K]>}`}`;
 }[keyof T] : never;
 export type Prev = [never, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-export type RelaxTypes<V> = V extends number ? number : V extends bigint ? bigint : V extends object ? V extends (...args: any[]) => any ? V : {
-    [K in keyof V]: RelaxTypes<V[K]>;
-} : V;
 export type Join<K, P> = K extends string | number ? P extends string | number ? `${K}${'' extends P ? '' : '.'}${P}` : never : never;
 export type PathsWithLimit<T, D extends number = 10> = [
     D
@@ -94,5 +91,8 @@ export declare function getSubcategory(device: {
 }): number;
 export declare function findPackageJson(currentPath?: string): Promise<PackageJson>;
 export declare function logStringify(obj: any, indent?: number): string;
+export type RelaxTypes<V> = V extends number ? number : V extends bigint ? bigint : V extends object ? V extends (...args: any[]) => any ? V : {
+    [K in keyof V]: RelaxTypes<V[K]>;
+} : V;
 export {};
 //# sourceMappingURL=Utils.d.ts.map

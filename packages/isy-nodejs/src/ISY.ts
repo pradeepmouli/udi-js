@@ -23,12 +23,11 @@ import * as Utils from './Utils.js';
 import { X2jOptions, XMLParser } from 'fast-xml-parser';
 import type { ClientRequestArgs } from 'http';
 import path from 'path';
-import { textChangeRangeIsUnchanged } from 'typescript';
-import { promisify } from 'util';
 import { NodeFactory } from './Devices/NodeFactory.js';
 import { ISYError } from './ISYError.js';
 import type { Config } from './Model/Config.js';
 import { findPackageJson } from './Utils.js';
+import { GenericNode } from './Devices/GenericNode.js';
 
 type InitStep = 'config' | 'loadNodes' | 'readFolders' | 'readDevices' | 'readScenes' | 'variables' | 'websocket' | 'refreshStatuses' | 'initialize';
 
@@ -541,7 +540,7 @@ export class ISY extends EventEmitter implements Disposable {
 			for (const node of result.nodes.node) {
 				let device = that.getNode(node.id) as unknown as ISYNode<any, any, any, any>;
 				if (device !== null && device !== undefined) {
-					device.parseResult(node.property);
+					device.parseResult(node);
 				}
 			}
 		} catch (e) {
@@ -792,7 +791,7 @@ export class ISY extends EventEmitter implements Disposable {
 					if (enabled) {
 						if (newDevice === null) {
 							this.logger.warn(`Device type resolution failed for ${nodeInfo.name} with type: ${nodeInfo.type} and nodedef: ${nodeInfo.nodeDefId}`);
-							newDevice = new ISYDeviceNode<any, any, any, any>(this, nodeInfo);
+							newDevice = new GenericNode(this, nodeInfo);
 						} else if (newDevice !== null) {
 							if (m.unsupported) {
 								this.logger.warn('Device not currently supported: ' + JSON.stringify(nodeInfo) + ' /n It has been mapped to: ' + d.name);

@@ -137,7 +137,7 @@ export declare namespace ISYNode {
         new (...args: any[]): {
             drivers: Driver.ForAll<any, false>;
             commands: Command.ForAll<C>;
-            "__#127@#parentNode": ISYNode<any, any, any, any>;
+            "__#149988@#parentNode": ISYNode<any, any, any, any>;
             readonly address: string;
             readonly baseLabel: string;
             readonly flag: any;
@@ -145,12 +145,12 @@ export declare namespace ISYNode {
             readonly nodeDefId: string;
             baseName: any;
             enabled: boolean;
-            events: Merge<Event.NodeEventEmitter<any>, {
-                on(eventName: any, listener: (driver: any, newValue: any, oldValue: any, formatted: string, uom: any) => void): Event.NodeEventEmitter<any>;
+            events: Merge<Event.NodeEventEmitter</*elided*/ any>, {
+                on(eventName: any, listener: (driver: any, newValue: any, oldValue: any, formatted: string, uom: any) => void): Event.NodeEventEmitter</*elided*/ any>;
             } & {
-                on(eventName: any, listener: (command: any) => void): Event.NodeEventEmitter<any>;
+                on(eventName: any, listener: (command: any) => void): Event.NodeEventEmitter</*elided*/ any>;
             } & {
-                on(eventName: any, listener: (...args: any[]) => void): Event.NodeEventEmitter<any>;
+                on(eventName: any, listener: (...args: any[]) => void): Event.NodeEventEmitter</*elided*/ any>;
             }>;
             family: K;
             folder: string;

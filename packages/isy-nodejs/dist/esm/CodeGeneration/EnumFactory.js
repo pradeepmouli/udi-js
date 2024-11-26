@@ -1,5 +1,5 @@
 import { factory } from "typescript";
-import { ts } from 'ts-morph';
+import ts from "typescript";
 import { UnitOfMeasure } from "../Definitions/Global/UOM.js";
 import { EnumDefinitionMap } from "../Model/EnumDefinition.js";
 import { loggers } from "winston";

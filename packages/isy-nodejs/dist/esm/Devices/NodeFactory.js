@@ -58,7 +58,7 @@ export var NodeFactory;
     NodeFactory.getForNodeDefId = getForNodeDefId;
     async function get(node, isy = ISY.instance) {
         if (!isDynamic(node)) {
-            return Promise.resolve(getForNodeDefId(Family[node.family], node.nodeDefId));
+            return Promise.resolve(getForNodeDefId(Family[node.family ?? Family.Insteon], node.nodeDefId));
         }
         else {
             var nd = getForNodeDefId(Family[node.family], node.sgid);

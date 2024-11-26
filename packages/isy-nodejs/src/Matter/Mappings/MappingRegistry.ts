@@ -1,34 +1,36 @@
-import * as Clusters from '@project-chip/matter.js/cluster';
+import type * as Clusters from '@matter/types/clusters';
+import * as Cluster from '@matter/types/cluster'
 
 import type { Converter } from '../../Converters.js';
 import { DriverType } from '../../Definitions/Global/Drivers.js';
 import { Devices, Insteon } from '../../Devices/index.js';
-
+import type {Simplify, SimplifyDeep} from 'type-fest';
 import { ClusterBehavior, MutableEndpoint, SupportedBehaviors } from '@matter/main';
-import type { OnOffLightDevice } from '@matter/main/devices';
+import { DimmableLightDevice, OnOffLightDevice } from '@matter/main/devices';
 import { BridgedDeviceBasicInformationBehavior } from '@matter/node/behaviors';
 import type { DeviceTypeDefinition } from '@project-chip/matter.js/device';
 import { Family } from '../../Definitions/index.js';
+import type { Constructor } from '../../Devices/Constructor.js';
 import { NodeFactory } from '../../Devices/NodeFactory.js';
 import { CommandsOf, DriversOf, ISYNode } from '../../ISYNode.js';
+import { ClusterType } from '../../Model/ClusterType.js';
+import type { PathsWithLimit, PickOfType, Remove } from '../../Utils.js';
 import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
 import { ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
-import type { PathsWithLimit, PickOfType, Remove } from '../../Utils.js';
-import { ClusterType } from '../../Model/ClusterType.js';
-import type { Constructor } from '../../Devices/Constructor.js';
 
 // #region Type aliases (16)
 
 export type AttributeMapping<B, D> =
-	B extends { cluster: { attributes: infer E extends { [K in string]: Clusters.ClusterType.Attribute } } } ?
+	B extends { cluster: { attributes: infer E extends { [K in string]: Cluster.ClusterType.Attribute } } } ?
 		Partial<Record<keyof E, keyof DriversOf<D> | { driver: keyof DriversOf<D>; converter?: Converter.KnownConverters }>>
 	:	never;
-export type BehaviorMapping<B extends { cluster? }, T extends ISYNode<any, any, any, any>> = {
-	attributes?: AttributeMapping<B, T>;
-	commands?: CommandMapping<B, T>;
+export type ClusterMapping<B, T extends ISYNode<any, any, any, any>> = {
+	attributes?: ClusterAttributeMapping<B, T>;
+	commands?: ClusterCommandMapping<B, T>;
+
 };
 export type ClusterAttributeMapping<A, K> = {
-	[key in keyof Clusters.ClusterType.AttributesOf<A>]?: { driver: Extract<keyof DriversOf<K>, string>; converter?: (value: any) => any } | Extract<keyof DriversOf<K>, string>;
+	[key in keyof Cluster.ClusterType.AttributesOf<A>]: { driver: Extract<keyof DriversOf<K>, string>; converter?: Converter.KnownConverters } | Extract<keyof DriversOf<K>, string>;
 };
 // export type ClusterTypeCommandMapping<A extends ClusterType, K> = {
 //   [key in keyof Clusters.ClusterType.CommandsOf<ToCompleteClusterByName<A>>]?:
@@ -36,7 +38,7 @@ export type ClusterAttributeMapping<A, K> = {
 //     | CommandsOf<K>
 // };
 export type ClusterCommandMapping<A, K> = {
-	[key in keyof Clusters.ClusterType.CommandsOf<A>]?: { command: keyof CommandsOf<K>; parameters?: parameterMapping } | keyof CommandsOf<K>;
+	[key in keyof Cluster.ClusterType.CommandsOf<A>]: { command: keyof CommandsOf<K>; parameters?: parameterMapping } | keyof CommandsOf<K>;
 };
 //export type FamilyToDeviceMap<T extends Family> = Record<keyof Devices<T>, DeviceToClusterMap<ISYDevice<T>>>;
 
@@ -44,14 +46,14 @@ export type ClusterCommandMapping<A, K> = {
 //     attributes: ClusterTypeAttributeMapping<A,K>,
 //     commands: ClusterTypeCommandMapping<A,K>
 // };
-export type ClusterMapping<A, K> = {
+/*export type ClusterMapping<A, K> = {
 	attributes: ClusterAttributeMapping<A, K>;
 	commands: ClusterCommandMapping<A, K>;
-};
+};*/
 export type CommandMapping<B, D> =
 	B extends (
 		{
-			cluster: { commands: infer E extends { [K in string]: Clusters.ClusterType.Command } };
+			cluster: { commands: infer E extends { [K in string]: Cluster.ClusterType.Command } };
 		}
 	) ?
 		Partial<Record<keyof E, keyof CommandsOf<D> | { command: keyof CommandsOf<D>; parameters?: parameterMapping }>>
@@ -89,12 +91,43 @@ export type CommandMapping<B, D> =
 //     behavior?: typeof ClusterBehavior;
 
 // }
-export type DeviceToClusterMap<T extends ISYNode<Family, any, any, any>, D extends MutableEndpoint> = {
+export interface DeviceToClusterMap<T extends ISYNode<Family, any, any, any>, D extends MutableEndpoint>  {
 	deviceType: D;
 	mapping: EndpointMapping<D, T>;
 };
+
+
+
+
+export interface Mapping<T extends ISYNode, D extends MutableEndpoint> {
+	deviceType: D;
+
+	nodeType?: T;
+	mapping?: {
+		[K in keyof D['behaviors']]?:
+		{attributes?: {
+			[K2 in keyof Cluster.ClusterType.AttributesOf<D['behaviors'][K]>]: { driver: keyof DriversOf<T>; converter?: Converter.KnownConverters } | keyof DriversOf<T>;
+		},
+		commands?: {
+			[K2 in keyof Cluster.ClusterType.CommandsOf<D['behaviors'][K]>]: { command: keyof CommandsOf<T>; converter?: Converter.KnownConverters } | keyof CommandsOf<T>;
+		}
+		}
+	}
+
+
+
+}
+
+   function addA<T extends ISYNode<any,any,any,any>,D extends MutableEndpoint>(mapping1: Mapping<T,D>, mapping2: Mapping<T,D>) : Mapping<T,D> {
+		return {deviceType: mapping1.deviceType, nodeType: mapping1.nodeType, mapping: {...mapping1.mapping, ...mapping2.mapping}};
+
+	}
+
+
+
+
 export type EndpointMapping<A extends MutableEndpoint, D extends ISYNode<Family, any, any, any>> = {
-	[K in StringKeys<PickOfType<A['behaviors'], ClusterBehavior>> as Capitalize<K>]?: A['behaviors'][K] extends ClusterBehavior ? BehaviorMapping<A['behaviors'][K], D> : undefined; //{
+	[K in StringKeys<A['behaviors']>]?: ClusterMapping<A['behaviors'][K],D> //{
 	/*attributes?: AttributeMapping<A['behaviors'][Uncapitalize<K>], D>;
 		commands?: CommandMapping<A['behaviors'][Uncapitalize<K>], D>;*/
 	//};
@@ -124,13 +157,20 @@ export type FamilyToClusterMap<T extends SupportedFamily> = { Family: T } & {
 	[Type in Extract<keyof Devices.Insteon, `${string}Node`> as Remove<Type, 'Node'>]?: DeviceToClusterMap<InstanceType<Devices.Insteon[Type]>, MutableEndpoint>;
 };
 
+interface ISYtoMatterMapping<N extends ISYNode, M extends MutableEndpoint> extends DeviceToClusterMap<N, M> {
 
-export function add<const F extends SupportedFamily, const T extends ISYNode<F>, const D extends MutableEndpoint> (familyToClusterMap: FamilyToClusterMap<F>, deviceClass: Constructor<T>,  mapping: DeviceToClusterMap<T, D> )
-{
-	 const map = {};
-	 map[deviceClass.name] = mapping;
 
-	 return {...map,...familyToClusterMap};
+}
+
+export function add<const F extends SupportedFamily, const T extends ISYNode<F>, const D extends MutableEndpoint>(
+	familyToClusterMap: FamilyToClusterMap<F>,
+	deviceClass: Constructor<T>,
+	mapping: DeviceToClusterMap<T, D>
+) {
+	const map = {};
+	map[deviceClass.name] = mapping;
+
+	return { ...map, ...familyToClusterMap };
 }
 export type SBAttributeMapping<SB extends SupportedBehaviors, D> = {
 	[K in keyof SB]: Partial<Record<any, DriversOf<D> | { driver: DriversOf<D>; converter?: string }>>;
@@ -140,7 +180,7 @@ export type SBCommandMapping<SB extends SupportedBehaviors, D> = {
 	[K in Capitalize<keyof SB>]?: SB[Uncapitalize<K>] extends { cluster: { commands } } ? Partial<Record<string, CommandsOf<D> | { driver: DriversOf<D>; converter?: string }>> : never;
 };
 type StringKeys<T> = Extract<keyof T, string>;
-type a = Clusters.ClusterType.CommandsOf<OnOffLightDevice['behaviors']['onOff']['cluster']>;
+type a = Cluster.ClusterType.CommandsOf<OnOffLightDevice['behaviors']['onOff']['cluster']>;
 type d = FamilyToClusterMap<Family.Insteon>;
 export type parameterMapping = {
 	[key: string]: { parameter: string; converter?: string };
@@ -192,16 +232,18 @@ export class MappingRegistry {
 		return m;
 	}
 
-	public static getMappingForBehavior<T extends ISYNode<any, any, any, any>, const B extends ClusterBehavior>(device: T, behavior: B): BehaviorMapping<B, T> {
+	public static getMappingForBehavior<T extends ISYNode<any, any, any, any>, const B extends ClusterBehavior>(device: T, behavior: B): ClusterMapping<B, T> {
 		//var m = MappingRegistry.getMapping(device);
 
 		//return m[behavior.cluster.name];
 		for (var m in MappingRegistry.getMapping(device).mapping) {
-			if (behavior.cluster.name === m) return MappingRegistry.getMapping(device).mapping[m] as unknown as BehaviorMapping<B, T>;
+			if (behavior.cluster.name === m) return MappingRegistry.getMapping(device).mapping[m] as unknown as ClusterMapping<B, T>;
 		}
 	}
 	//@ts-ignore
-	public static register<const T extends Family.Insteon | Family.ZWave | Family.ZigBee>(map: Partial<FamilyToClusterMap<T>> | { [x in PathsWithLimit<typeof Devices,1>]: DeviceToClusterMap<any, any> }) {
+	public static register<const T extends Family.Insteon | Family.ZWave | Family.ZigBee>(
+		map: Partial<FamilyToClusterMap<T>> | { [x in PathsWithLimit<typeof Devices, 1>]: DeviceToClusterMap<any, any> }
+	) {
 		if ('Family' in map) {
 			let regMap: Map<string, DeviceToClusterMap<any, any>>;
 			if (!MappingRegistry.map.has(map.Family)) {
@@ -256,16 +298,32 @@ var clusterMap = {
 		moveToColor: { command: DriverType.CustomControl1, parameters: { colorX: { parameter: 'colorX' }, colorY: { parameter: 'colorY' }, colorTemperature: { parameter: 'colorTemperature' } } }
 	}
 };
-/*const map: EndpointMapping<OnOffLightDevice, InsteonRelayDevice> = {
-	Identify: {},
-	OnOff: {
-		attributes: {
-			onOff: { driver: 'ST' }
+
+
+interface SimplyEndpointMapping<T extends ISYNode<Family, any, any, any>,K extends MutableEndpoint> extends SimplifyDeep<ISYtoMatterMapping<T,K>> {}
+
+/*
+const map = {
+	deviceType: DimmableLightDevice,
+	mapping: {
+
+		onOff: {
+			attributes: {
+			onOff: { driver: 'ST', converter: 'Percent.Boolean' },
+
+			},
+			commands: {
+				onWithTimedOff: { command: 'DON' },
+
+			}
 		},
-		commands: {
-			onWithTimedOff: { command: 'DON' }
+		levelControl: {
+			attributes: {
+
+
+			}
 		}
 	}
-};*/
-
+} as Mapping<Insteon.RelayLampNode, DimmableLightDevice>;
+*/
 // #endregion Variables (3)

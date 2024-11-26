@@ -5,8 +5,9 @@ import { Converter } from '../../Converters.js';
 import type { Constructor } from '../../Devices/Constructor.js';
 import type { DriversOf, ISYNode } from '../../ISYNode.js';
 
+import type { ClusterMapping } from '../Mappings/MappingRegistry.js';
 import { ISYBridgedDeviceBehavior } from './ISYBridgedDeviceBehavior.js';
-import type { BehaviorMapping } from '../Mappings/MappingRegistry.js';
+import { isYieldExpression } from 'typescript';
 
 // #region Type aliases (6)
 
@@ -20,7 +21,7 @@ export type DeviceBehavior<P extends ISYNode<any, any, any, any>, T extends { cl
 	bridgedDeviceBehavior: ISYBridgedDeviceBehavior<P>;
 
 	//ts-ignore
-	map: BehaviorMapping<T, P>;
+	map: ClusterMapping<T, P>;
 
 	handlePropertyChange(chg: PropertyChange<P>): void;
 };
@@ -49,7 +50,7 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 		bridgedDeviceBehavior: ISYBridgedDeviceBehavior<P>;
 		///public map: ClusterMapping<ToClusterTypeByName<ClusterForBehavior<ConstructedType<typeof base>>["name"]>,ISYDeviceNode<any, any, any>>;
 
-		map: BehaviorMapping<T, P>;
+		map: ClusterMapping<T, P>;
 
 		override async initialize(_options?: {}) {
 			await super.initialize(_options);
@@ -58,6 +59,7 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 			this.bridgedDeviceBehavior = behavior;
 			//var behavior = this.agent.get(ISYBridgedDeviceBehavior);
 			this._device = behavior.device as P;
+			this._device.logger('Initializing cluster behavior');
 			//@ts-ignore
 
 			this.map = behavior.mapForBehavior<T>(this as unknown as T);
@@ -70,17 +72,16 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 					this.handlers[val] = (newValue, oldValue, formattedValue) => {
 						this.state[key2 as string] = newValue;
 					};
-
-				} else if (val.driver as DriversOf<P>) {
+				} else if (val.driver as keyof DriversOf<P>) {
 					driverObj = this._device.drivers[val.driver as string];
 
 					let { driver, converter } = val;
 					const convFunc = Converter.get(converter)?.to;
-					if(!convFunc) throw new Error(`Converter ${converter} not found`);
+					if (!convFunc) throw new Error(`Converter ${converter} not found`);
 					this.state[key2 as string] = convFunc(this._device.drivers[driver as string].value);
 					this.handlers[driver] = (newValue, oldValue, formattedValue) => {
 						//if (convFunc) this.state[key2 as string] = convFunc(newValue);
-						 this.state[key2 as string] = convFunc(newValue);
+						this.state[key2 as string] = convFunc(newValue);
 					};
 				}
 				if (driverObj) {

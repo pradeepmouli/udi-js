@@ -35,7 +35,7 @@ export class ISYBridgedDeviceBehavior extends Behavior {
         return this.internal.map;
     }
     mapForBehavior(behavior) {
-        return this.map.mapping[behavior.cluster['name']];
+        return this.map.mapping[behavior.cluster.name];
     }
     handlePropertyChange(driver, newValue, oldValue, formattedValue) {
         this.events.propertyChanged.emit({ driver, newValue, oldValue, formattedValue });

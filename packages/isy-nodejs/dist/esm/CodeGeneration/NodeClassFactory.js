@@ -1,5 +1,6 @@
-import { IndentationText, Project, QuoteKind, ts } from 'ts-morph';
+import { IndentationText, Project, QuoteKind, ScriptTarget } from 'ts-morph';
 import { factory } from 'typescript';
+import ts from 'typescript';
 import { UnitOfMeasure } from '../Definitions/Global/UOM.js';
 import { Family } from '../Definitions/index.js';
 import { NodeClassDefinition } from '../Model/ClassDefinition.js';
@@ -11,7 +12,7 @@ export class NodeClassFactory extends CodeFactory {
     // #region Properties (2)
     static _basePath;
     static project = new Project({
-        compilerOptions: { target: ts.ScriptTarget.ESNext, module: ts.ModuleKind.ESNext },
+        compilerOptions: { target: ScriptTarget.ESNext, module: ts.ModuleKind.ESNext },
         manipulationSettings: {
             usePrefixAndSuffixTextForRename: true,
             quoteKind: QuoteKind.Single,
@@ -172,11 +173,11 @@ export class NodeClassFactory extends CodeFactory {
         });
         let currentKind = ts.SyntaxKind.Unknown;
         for (const s of f.getStatements()) {
-            if (currentKind != s.getKind()) {
+            if (currentKind.valueOf() != s.getKind().valueOf()) {
                 if (currentKind != ts.SyntaxKind.Unknown) {
                     s.prependWhitespace('\n');
                 }
-                currentKind = s.getKind();
+                currentKind = s.getKind().valueOf();
             }
         }
         f.insertText(0, '/* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */\n\n');

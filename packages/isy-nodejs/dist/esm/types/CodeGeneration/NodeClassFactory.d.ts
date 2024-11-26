@@ -1,4 +1,6 @@
-import { Project, SourceFile, ts } from 'ts-morph';
+import { Project, SourceFile } from 'ts-morph';
+import { Statement } from 'typescript';
+import ts from 'typescript';
 import { Family } from '../Definitions/index.js';
 import { CommandDefinition, DataTypeDefinition, DriverDefinition, NodeClassDefinition, ParameterDefinition } from '../Model/ClassDefinition.js';
 import { CodeFactory } from './CodeFactory.js';
@@ -24,7 +26,7 @@ export declare class NodeClassFactory extends CodeFactory {
         name: string;
         id: string;
         path: string;
-        statements: ts.NodeArray<ts.Statement>;
+        statements: ts.NodeArray<Statement>;
         sourceFile: SourceFile;
     };
     static generateAll(): {
@@ -36,19 +38,19 @@ export declare class NodeClassFactory extends CodeFactory {
     static buildClassIndex<T extends Family>(family: T, classes: GeneratedNodeClass<T>[]): {
         family: T;
         path: string;
-        statements: import("typescript").ExportDeclaration[];
+        statements: ts.ExportDeclaration[];
     };
     createCommandArguments(def: CommandDefinition): any[];
-    createCommandMethodDeclaration(def: CommandDefinition): import("typescript").MethodDeclaration;
+    createCommandMethodDeclaration(def: CommandDefinition): ts.MethodDeclaration;
     createCommandParameterType(def: DataTypeDefinition, parent: ParameterDefinition): ts.TypeNode;
-    createCommandSignature(def: CommandDefinition): import("typescript").PropertySignature;
-    createDriverGetDeclaration(def: DriverDefinition): import("typescript").GetAccessorDeclaration;
+    createCommandSignature(def: CommandDefinition): ts.PropertySignature;
+    createDriverGetDeclaration(def: DriverDefinition): ts.GetAccessorDeclaration;
     createDriverInitializationStatement(def: DriverDefinition): ts.Statement;
     createDriverPropertyReturnType(def: DataTypeDefinition, parent: DriverDefinition): ts.TypeNode;
-    createDriverSignature(def: DriverDefinition): import("typescript").PropertySignature;
+    createDriverSignature(def: DriverDefinition): ts.PropertySignature;
     createDriverSignatureReturnType(def: DataTypeDefinition, parent: DriverDefinition): ts.TypeNode;
-    createParameterDeclarationSignature(def: ParameterDefinition): import("typescript").ParameterDeclaration;
-    createParameterSignature(def: ParameterDefinition): import("typescript").ParameterDeclaration;
+    createParameterDeclarationSignature(def: ParameterDefinition): ts.ParameterDeclaration;
+    createParameterSignature(def: ParameterDefinition): ts.ParameterDeclaration;
     createTypeNodeForUOM(uom: number): ts.TypeNode;
 }
 export {};

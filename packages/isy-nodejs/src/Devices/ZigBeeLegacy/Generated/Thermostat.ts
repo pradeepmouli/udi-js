@@ -34,69 +34,52 @@ export class ThermostatNode extends Base<Drivers, Commands> implements Thermosta
 	declare readonly nodeDefId: "Thermostat";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Unknown, label: "Temperature", name: "temperature" });
-		this.drivers.CLISPH = Driver.create("CLISPH", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Unknown, label: "Heat Setpoint", name: "heatSetpoint" });
-		this.drivers.CLISPC = Driver.create("CLISPC", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Unknown, label: "Cool Setpoint", name: "coolSetpoint" });
-		this.drivers.CLIMD = Driver.create("CLIMD", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Unknown, label: "Mode", name: "mode" });
-		this.drivers.CLIFS = Driver.create("CLIFS", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Unknown, label: "Fan Mode", name: "fanMode" });
-		this.drivers.CLIHCS = Driver.create("CLIHCS", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Unknown, label: "Heat/Cool State", name: "heatCoolState" });
-		this.drivers.CLIFRS = Driver.create("CLIFRS", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Unknown, label: "Fan State", name: "fanState" });
-		this.drivers.CLISMD = Driver.create("CLISMD", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Unknown, label: "Schedule Mode", name: "scheduleMode" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Unknown, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Degree, label: "Temperature", name: "temperature" });
+		this.drivers.CLISPH = Driver.create("CLISPH", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Degree, label: "Heat Setpoint", name: "heatSetpoint" });
+		this.drivers.CLISPC = Driver.create("CLISPC", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Degree, label: "Cool Setpoint", name: "coolSetpoint" });
+		this.drivers.CLIMD = Driver.create("CLIMD", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.ThermostatMode, label: "Mode", name: "mode" });
+		this.drivers.CLIFS = Driver.create("CLIFS", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.ThermostatFanMode, label: "Fan Mode", name: "fanMode" });
+		this.drivers.CLIHCS = Driver.create("CLIHCS", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.ThermostatHeatCoolState, label: "Heat/Cool State", name: "heatCoolState" });
+		this.drivers.CLIFRS = Driver.create("CLIFRS", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.ThermostatFanRunState, label: "Fan State", name: "fanState" });
+		this.drivers.CLISMD = Driver.create("CLISMD", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Schedule Mode", name: "scheduleMode" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async updateHeatSetpoint(value: ) { return this.sendCommand("CLISPH", value); }
-	async updateCoolSetpoint(value: ) { return this.sendCommand("CLISPC", value); }
-	async updateMode(value: ) { return this.sendCommand("CLIMD", value); }
-	async updateFanMode(value: ) { return this.sendCommand("CLIFS", value); }
-	async updateScheduleMode(value: ) { return this.sendCommand("CLISMD", value); }
-	async heatSetpointShift(value: ) { return this.sendCommand("CLISPHD", value); }
-	async coolSetpointShift(value: ) { return this.sendCommand("CLISPCD", value); }
+	async updateHeatSetpoint(value: number) { return this.sendCommand("CLISPH", value); }
+	async updateCoolSetpoint(value: number) { return this.sendCommand("CLISPC", value); }
+	async updateMode(value: number) { return this.sendCommand("CLIMD", value); }
+	async updateFanMode(value: (0 | 1)) { return this.sendCommand("CLIFS", value); }
+	async updateScheduleMode(value: number) { return this.sendCommand("CLISMD", value); }
+	async heatSetpointShift(value: number) { return this.sendCommand("CLISPHD", value); }
+	async coolSetpointShift(value: number) { return this.sendCommand("CLISPCD", value); }
 	async query() { return this.sendCommand("QUERY"); }
-	async adr(value: ) { return this.sendCommand("ADRPST", value); }
-	public get temperature(): {
-        
-return this.drivers.ST?.value;
-    }
-    public 
-get heatSetpoint(): 
-{
-	return this.drivers.CLISPH?.value;
-}
-    public 
-get coolSetpoint(): 
-{
-	return this.drivers.CLISPC?.value;
-}
-    public 
-get mode(): 
-{
-	return this.drivers.CLIMD?.value;
-}
-    public 
-get fanMode(): 
-{
-	return this.drivers.CLIFS?.value;
-}
-    public 
-get heatCoolState(): 
-{
-	return this.drivers.CLIHCS?.value;
-}
-    public 
-get fanState(): 
-{
-	return this.drivers.CLIFRS?.value;
-}
-    public 
-get scheduleMode(): 
-{
-	return this.drivers.CLISMD?.value;
-}
-    public 
-get responding(): 
-{
-	return this.drivers.ERR?.value;
-}
+	async adr(value: (0 | 1)) { return this.sendCommand("ADRPST", value); }
+	public get temperature(): number {
+		return this.drivers.ST?.value;
+	}
+	public get heatSetpoint(): number {
+		return this.drivers.CLISPH?.value;
+	}
+	public get coolSetpoint(): number {
+		return this.drivers.CLISPC?.value;
+	}
+	public get mode(): number {
+		return this.drivers.CLIMD?.value;
+	}
+	public get fanMode(): (0 | 1) {
+		return this.drivers.CLIFS?.value;
+	}
+	public get heatCoolState(): number {
+		return this.drivers.CLIHCS?.value;
+	}
+	public get fanState(): (0 | 1) {
+		return this.drivers.CLIFRS?.value;
+	}
+	public get scheduleMode(): number {
+		return this.drivers.CLISMD?.value;
+	}
+	public get responding(): ZigBeeLegacy.Error {
+		return this.drivers.ERR?.value;
+	}
 }
 
 NodeFactory.register(ThermostatNode);
@@ -116,31 +99,31 @@ export namespace Thermostat {
 	}
 	export const Node = ThermostatNode;
 	export type Commands = {
-		CLISPH: ((value: ) => Promise<boolean>) & {
+		CLISPH: ((value: number) => Promise<boolean>) & {
 			label: "Heat Setpoint";
 			name: "updateHeatSetpoint";
 		};
-		CLISPC: ((value: ) => Promise<boolean>) & {
+		CLISPC: ((value: number) => Promise<boolean>) & {
 			label: "Cool Setpoint";
 			name: "updateCoolSetpoint";
 		};
-		CLIMD: ((value: ) => Promise<boolean>) & {
+		CLIMD: ((value: number) => Promise<boolean>) & {
 			label: "Mode";
 			name: "updateMode";
 		};
-		CLIFS: ((value: ) => Promise<boolean>) & {
+		CLIFS: ((value: (0 | 1)) => Promise<boolean>) & {
 			label: "Fan Mode";
 			name: "updateFanMode";
 		};
-		CLISMD: ((value: ) => Promise<boolean>) & {
+		CLISMD: ((value: number) => Promise<boolean>) & {
 			label: "Schedule Mode";
 			name: "updateScheduleMode";
 		};
-		CLISPHD: ((value: ) => Promise<boolean>) & {
+		CLISPHD: ((value: number) => Promise<boolean>) & {
 			label: "Heat Setpoint Shift";
 			name: "heatSetpointShift";
 		};
-		CLISPCD: ((value: ) => Promise<boolean>) & {
+		CLISPCD: ((value: number) => Promise<boolean>) & {
 			label: "Cool Setpoint Shift";
 			name: "coolSetpointShift";
 		};
@@ -148,63 +131,63 @@ export namespace Thermostat {
 			label: "Query";
 			name: "query";
 		};
-		ADRPST: ((value: ) => Promise<boolean>) & {
+		ADRPST: ((value: (0 | 1)) => Promise<boolean>) & {
 			label: "ADR";
 			name: "adr";
 		};
 	};
 	export type Drivers = {
 		ST: {
-			uom: ;
-			value: ;
+			uom: UnitOfMeasure.Degree;
+			value: number;
 			label: "Temperature";
 			name: "temperature";
 		};
 		CLISPH: {
-			uom: ;
-			value: ;
+			uom: UnitOfMeasure.Degree;
+			value: number;
 			label: "Heat Setpoint";
 			name: "heatSetpoint";
 		};
 		CLISPC: {
-			uom: ;
-			value: ;
+			uom: UnitOfMeasure.Degree;
+			value: number;
 			label: "Cool Setpoint";
 			name: "coolSetpoint";
 		};
 		CLIMD: {
-			uom: ;
-			value: ;
+			uom: UnitOfMeasure.ThermostatMode;
+			value: number;
 			label: "Mode";
 			name: "mode";
 		};
 		CLIFS: {
-			uom: ;
-			value: ;
+			uom: UnitOfMeasure.ThermostatFanMode;
+			value: (0 | 1);
 			label: "Fan Mode";
 			name: "fanMode";
 		};
 		CLIHCS: {
-			uom: ;
-			value: ;
+			uom: UnitOfMeasure.ThermostatHeatCoolState;
+			value: number;
 			label: "Heat/Cool State";
 			name: "heatCoolState";
 		};
 		CLIFRS: {
-			uom: ;
-			value: ;
+			uom: UnitOfMeasure.ThermostatFanRunState;
+			value: (0 | 1);
 			label: "Fan State";
 			name: "fanState";
 		};
 		CLISMD: {
-			uom: ;
-			value: ;
+			uom: UnitOfMeasure.Index;
+			value: number;
 			label: "Schedule Mode";
 			name: "scheduleMode";
 		};
 		ERR: {
-			uom: ;
-			value: ;
+			uom: UnitOfMeasure.Index;
+			value: ZigBeeLegacy.Error;
 			label: "Responding";
 			name: "responding";
 		};

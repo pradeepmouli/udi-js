@@ -223,10 +223,10 @@ export class ISYNode {
             const e = event.control;
             const dispName = this.commands[e]?.name;
             if (dispName !== undefined && dispName !== null) {
-                this.logger(`Command ${dispName} (${e}) event sent.`);
+                this.logger(`Command ${dispName} (${e}) event received.`);
             }
             else {
-                this.logger(`Command ${e} event sent.`);
+                this.logger(`Command ${e} event received.`);
             }
             this.handleControlTrigger(e);
             return true;
@@ -235,11 +235,12 @@ export class ISYNode {
     handlePropertyChange(propertyName, value, uom, prec, formattedValue) {
         this.lastChanged = new Date();
         let driver = this.drivers[propertyName];
-        this.logger(`Driver ${propertyName} (${driver?.label} value update ${value} (${formattedValue}) uom: ${UnitOfMeasure[uom]} event received.`);
-        const oldValue = driver?.value;
+        /*this.logger(`Driver ${propertyName} (${driver?.label} value update ${value} (${formattedValue}) uom: ${UnitOfMeasure[uom]} event received.`);*/
+        const oldValue = driver?.state.value;
+        const oldValueRaw = driver?.state.rawValue;
         if (driver?.patch(value, formattedValue, uom, prec)) {
-            this.logger(`Driver ${driver.label} updated from ${oldValue} to ${value} (${formattedValue})`);
-            this.emit('propertyChanged', propertyName, value, oldValue, formattedValue);
+            this.logger(`Driver ${driver.label} updated from ${oldValue} (${oldValueRaw}) to ${driver.state.value} (${driver.state.rawValue})`);
+            //this.emit('propertyChanged', propertyName, value, oldValue, formattedValue);
             this.scenes?.forEach((element) => {
                 this.logger(`Recalulating ${element.deviceFriendlyName}`);
                 element.recalculateState();

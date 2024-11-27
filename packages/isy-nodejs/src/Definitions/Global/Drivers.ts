@@ -282,6 +282,7 @@ export interface Driver<
 		value: T;
 		formattedValue?: any;
 		pendingValue: T;
+		rawValue?: ST;
 	};
 	uom: U;
 

@@ -59,7 +59,7 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 			this.bridgedDeviceBehavior = behavior;
 			//var behavior = this.agent.get(ISYBridgedDeviceBehavior);
 			this._device = behavior.device as P;
-			this._device.logger('Initializing cluster behavior');
+			this._device.logger(`Initializing cluster behavior: ${this.constructor.name}`);
 			//@ts-ignore
 
 			this.map = behavior.mapForBehavior<T>(this as unknown as T);
@@ -80,7 +80,8 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 					if (!convFunc) throw new Error(`Converter ${converter} not found`);
 					this.state[key2 as string] = convFunc(this._device.drivers[driver as string].value);
 					this.handlers[driver] = (newValue, oldValue, formattedValue) => {
-						//if (convFunc) this.state[key2 as string] = convFunc(newValue);
+						//this.device.logger(`Handling property change for ${driver} (${key2}) with value ${newValue}`);
+												//if (convFunc) this.state[key2 as string] = convFunc(newValue);
 						this.state[key2 as string] = convFunc(newValue);
 					};
 				}
@@ -102,7 +103,8 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 
 		async handlePropertyChange({ driver, newValue, oldValue, formattedValue }: PropertyChange<P>) {
 			// for (const key2 in this.map.attributes) {
-			await this.initialize();
+			//await this.initialize();
+			this.device.logger(`${this.constructor.name}: handling property change for ${String(driver)} with value ${newValue}`);
 			if (this.handlers[driver]) {
 				this.handlers[driver](newValue, oldValue, formattedValue);
 			}

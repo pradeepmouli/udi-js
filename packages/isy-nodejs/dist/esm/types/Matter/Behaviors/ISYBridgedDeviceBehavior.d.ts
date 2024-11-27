@@ -27,7 +27,7 @@ export declare namespace ISYBridgedDeviceBehavior {
         map?: DeviceToClusterMap<typeof this.device, any>;
     }
     type EventsFor<D extends {
-        [x: string]: Driver<any, any, any>;
+        [x: string]: Driver<any, any, any, any, any, any>;
     }> = {
         [s in keyof D as `${D[s]['name']}Changed`]: Observable<[{
             driver: s;

@@ -137,7 +137,7 @@ export declare namespace ISYNode {
         new (...args: any[]): {
             drivers: Driver.ForAll<any, false>;
             commands: Command.ForAll<C>;
-            "__#129@#parentNode": ISYNode<any, any, any, any>;
+            "__#298813@#parentNode": ISYNode<any, any, any, any>;
             readonly address: string;
             readonly baseLabel: string;
             readonly flag: any;
@@ -203,9 +203,7 @@ export declare namespace ISYNode {
         };
     } & T;
     type WithDrivers<D extends DriverSignatures> = D extends Driver.Signatures<infer U extends keyof D> ? {
-        [K in D[U]['name']]: D[U] extends {
-            name: K;
-        } ? D[U]['value'] : unknown;
+        [K in D[U] as K['name']]: K['value'];
     } : never;
 }
 export {};

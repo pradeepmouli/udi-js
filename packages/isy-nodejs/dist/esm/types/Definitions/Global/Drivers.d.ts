@@ -189,6 +189,7 @@ export interface Driver<D extends DriverType | EnumLiteral<DriverType> | `${stri
         value: T;
         formattedValue?: any;
         pendingValue: T;
+        rawValue?: ST;
     };
     uom: U;
     apply(state: DriverState, notify?: boolean): boolean;

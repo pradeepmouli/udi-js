@@ -68,7 +68,7 @@ export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D ext
 
 	override [Symbol.asyncDispose]() {
 		this.internal.device = null;
-		
+
 
 		return super[Symbol.asyncDispose]();
 	}
@@ -80,7 +80,7 @@ export namespace ISYBridgedDeviceBehavior {
 		map?: DeviceToClusterMap<typeof this.device, any>;
 	}
 
-	export type EventsFor<D extends { [x: string]: Driver<any, any, any> }> = {
+	export type EventsFor<D extends { [x: string]: Driver<any,any,any,any,any,any> }> = {
 		[s in keyof D as `${D[s]['name']}Changed`]: Observable<[{ driver: s; newValue: any; oldValue: any; formattedValue: string }]>;
 	};
 

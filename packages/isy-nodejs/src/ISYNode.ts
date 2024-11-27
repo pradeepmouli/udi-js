@@ -1,4 +1,3 @@
-
 import { Logger } from 'winston';
 import { Driver } from './Definitions/Global/Drivers.js';
 import { Family } from './Definitions/Global/Families.js';
@@ -13,7 +12,7 @@ import type { Constructor } from './Devices/Constructor.js';
 import type { DriverState } from './Model/DriverState.js';
 import { NodeInfo } from './Model/NodeInfo.js';
 import type { NodeNotes } from './Model/NodeNotes.js';
-import { type StringKeys } from './Utils.js';
+import { type ObjectToUnion, type StringKeys } from './Utils.js';
 import { NodeType } from './ISYConstants.js';
 import type { ISYScene } from './ISYScene.js';
 import type { Merge, UnionToIntersection } from '@matter/general';
@@ -41,6 +40,8 @@ export class ISYNode<
 	public static family: Family;
 	public static nodeDefId = 'Unknown';
 
+	public static implements: string[] = [];
+
 	public baseName: any;
 	public commands: Command.ForAll<C>;
 	//public readonly formatted: DriverValues<keyof D,string> = {};
@@ -50,7 +51,7 @@ export class ISYNode<
 	public drivers: Driver.ForAll<D> = {} as Driver.ForAll<D>;
 	public enabled: boolean;
 	//TODO: add signature for non-command/non-driver events
-	public events: Merge<Event.NodeEventEmitter<this>,Event.FunctionSigFor<E, Event.NodeEventEmitter<this>>>;
+	public events: Merge<Event.NodeEventEmitter<this>, Event.FunctionSigFor<E, Event.NodeEventEmitter<this>>>;
 	//Event.FunctionSigFor<Event.ForAll<E,typeof this>> & Omit<EventEmitter,'on'>
 	/*{
 		[x in E]: x extends keyof D ? {name:`${D[x]["name"]}Changed`, driver: x, value: D[x]["value"], formatted: string, uom: UnitOfMeasure}
@@ -125,7 +126,6 @@ export class ISYNode<
 		}
 		this.events = Event.createEmitter(this);
 
-
 		//this.logger(this.nodeDefId);
 		this.lastChanged = new Date();
 	}
@@ -156,15 +156,20 @@ export class ISYNode<
 	}
 
 	public applyStatus(prop: DriverState) {
+		try {
 		var d = this.drivers[prop.id];
 
 		if (d) {
 			d.apply(prop);
 
-			this.logger(`Property ${d.label} (${prop.id}) refreshed to: ${d.value} (${d.state.formattedValue}})`);
+			this.logger(`Property ${d?.label ?? prop.id} (${prop.id}) refreshed to: ${d.value} (${prop.formatted}})`);
 			//d.state.value = this.convertFrom(prop.value, prop.uom, prop.id);
 			//d.state.formatted = prop.formatted;
 			//d.state.uom = prop.uom;
+		}
+		}
+		catch(e) {
+			this.logger(e?.message ?? e, 'error');
 		}
 	}
 
@@ -352,12 +357,25 @@ export class ISYNode<
 	}
 	public async sendCommand(command: StringKeys<C>): Promise<any>;
 	public async sendCommand(command: StringKeys<C>, value: string | number, parameters: Record<string | symbol, string | number | undefined>);
-	public async sendCommand(command: StringKeys<C>, parameters: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
-	async sendCommand(command: StringKeys<C>, value?: string | number, parameters?: Record<string | symbol, string | number | undefined> | string | number): Promise<any> {
-		if (value !== undefined && typeof parameters === 'object') {
-			return this.isy.sendNodeCommand(this, command, { default: value, ...parameters });
+	public async sendCommand(command: StringKeys<C>, value: string | number): Promise<any>;
+	public async sendCommand(command: StringKeys<C>, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+	async sendCommand(command: StringKeys<C>, valueOrParameters?: string | number | Record<string | symbol, string | number | undefined>, parameters?: Record<string | symbol, string | number | undefined>): Promise<any> {
+		if (valueOrParameters === null || valueOrParameters === undefined) {
+			return this.isy.sendNodeCommand(this, command);
 		}
-		return this.isy.sendNodeCommand(this, command, parameters);
+
+			if(parameters === null || parameters === undefined) {
+				return this.isy.sendNodeCommand(this, command, valueOrParameters);
+			}
+			if(typeof valueOrParameters === 'object') {
+				return this.isy.sendNodeCommand(this, command, {...valueOrParameters,...parameters});
+			}
+			if(typeof valueOrParameters === 'string' || typeof valueOrParameters === 'number') {
+				return this.isy.sendNodeCommand(this, command, { default: valueOrParameters, ...parameters });
+			}
+
+
+
 	}
 
 	public async updateProperty(propertyName: string, value: any): Promise<any> {
@@ -526,6 +544,17 @@ export namespace ISYNode {
 	export type EventsOf<T> = T extends ISYNode<any, any, any, infer E> ? E : never;
 	export type FamilyOf<T> = T extends ISYNode<infer F, any, any, any> ? F : never;
 
+	export type DriverTypesOf<T extends ISYNode> = ObjectToUnion<DriversOf<T>>;
+
+	export type CommandTypesOf<T extends ISYNode> = ObjectToUnion<CommandsOf<T>>;
+
+	export type EventTypesOf<T extends ISYNode> = ObjectToUnion<EventsOf<T>>;
+
+	export type EventNamesOf<T extends ISYNode> = EventTypesOf<T> extends { name: infer U } ? U : never;
+
+	export type DriverNamesOf<T extends ISYNode> = DriverTypesOf<T> extends { name: infer U } ? U : never;
+
+	export type CommandNamesOf<T extends ISYNode> = CommandTypesOf<T> extends { name: infer U } ? U : never;
 	export type List = NodeList;
 
 	export type DriverMap<T extends NodeList> = Flatten<{

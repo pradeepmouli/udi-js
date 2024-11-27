@@ -15,6 +15,7 @@ export class SirenNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "Siren";
+    static implements = ["Siren", "SirenAlert", "SirenArm"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Siren", name: "siren" });
@@ -23,27 +24,13 @@ export class SirenNode extends Base {
         this.drivers.DUR = Driver.create("DUR", this, nodeInfo.property, { uom: UnitOfMeasure.DurationInSeconds, label: "Siren Duration", name: "sirenDuration" });
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
-    async on(duration) {
-        return this.sendCommand("DON", { DUR: duration });
-    }
-    async off() {
-        return this.sendCommand("DOF");
-    }
-    async arm(value) {
-        return this.sendCommand("ARM", { value: value });
-    }
-    async disarm() {
-        return this.sendCommand("DISARM");
-    }
-    async query() {
-        return this.sendCommand("QUERY");
-    }
-    async beep(value) {
-        return this.sendCommand("BEEP", { value: value });
-    }
-    async writeChanges() {
-        return this.sendCommand("WDU");
-    }
+    async on(duration) { return this.sendCommand("DON", { DUR: duration }); }
+    async off() { return this.sendCommand("DOF"); }
+    async arm(value) { return this.sendCommand("ARM", value); }
+    async disarm() { return this.sendCommand("DISARM"); }
+    async query() { return this.sendCommand("QUERY"); }
+    async beep(value) { return this.sendCommand("BEEP", value); }
+    async writeChanges() { return this.sendCommand("WDU"); }
     get siren() {
         return this.drivers.ST?.value;
     }
@@ -65,11 +52,11 @@ NodeFactory.register(SirenNode, "Siren_ADV");
 export var Siren;
 (function (Siren) {
     function is(node) {
-        return node.nodeDefId in ["Siren", "Siren_ADV"];
+        return ["Siren", "Siren_ADV"].includes(node.nodeDefId);
     }
     Siren.is = is;
     function isImplementedBy(node) {
-        return node.nodeDefId in ["Siren", "Siren_ADV"];
+        return ["Siren", "Siren_ADV"].includes(node.nodeDefId);
     }
     Siren.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

@@ -1,7 +1,7 @@
 import { Family } from '../Definitions/Global/Families.js';
 import { Category } from '../Definitions/Global/Categories.js';
 import type { Devices } from './index.js';
-type DeviceNames<T extends Family> = `${T extends Family.Insteon | Family.ZWave | Family.ZigBee ? Devices<T>[keyof Devices<T>]["name"] : ""}`;
+type DeviceNames<T extends Family> = `${T extends Family.Insteon | Family.ZWave | Family.ZigBee ? Devices<T>[keyof Devices<T>]["constructor"]["name"] : ""}`;
 export interface DeviceDef<T extends Family> {
     id: number;
     type?: string;

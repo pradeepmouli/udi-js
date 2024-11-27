@@ -12,20 +12,24 @@ const StandardConverters = {
             from: (value) => value > 0
         },
         Percent: {
-            to: (value) => {
-                return value > 0;
-            },
-            from: (value) => {
-                return value ? 100 : 0;
-            }
+            to: (value) => (value ? 100 : 0),
+            from: (value) => value > 0
         }
     },
     LevelFrom0To255: {
         Percent: {
             to: (value) => {
+                if (value === 0)
+                    return 0;
+                if (value === 255)
+                    return 100;
                 return Math.round((value * 100) / 255);
             },
             from: (value) => {
+                if (value === 0)
+                    return 0;
+                if (value === 100)
+                    return 255;
                 return Math.round((value * 255) / 100);
             }
         }
@@ -49,7 +53,7 @@ function registerConverters() {
         }
     }
 }
-export function registerConverter(from, to, converter) {
+function registerConverter(from, to, converter) {
     if (!StdConverterRegistry.has(from)) {
         StdConverterRegistry.set(from, new Map());
     }
@@ -71,6 +75,22 @@ export var Converter;
                 to: (value) => value === 0 ? 1
                     : value === 255 ? 254
                         : value
+            }
+        },
+        Percent: {
+            LightingLevel: {
+                from: (value) => value === 1 ? 0
+                    : value === 254 ? 100
+                        : Math.round(value / 254 * 100),
+                to: (value) => value === 0 ? 1
+                    : value === 100 ? 254
+                        : Math.round(value / 100 * 254)
+            }
+        },
+        Boolean: {
+            LightingLevel: {
+                from: (value) => value > 0,
+                to: (value) => value ? 254 : 0
             }
         }
     };
@@ -107,6 +127,10 @@ export var Converter;
         return null;
     }
     Converter.convert = convert;
+    function register(from, to, converter) {
+        registerConverter(UnitOfMeasure[from], UnitOfMeasure[to], converter);
+    }
+    Converter.register = register;
 })(Converter || (Converter = {}));
 registerConverters();
 //type DriverLabel = Values<IdentityOf<DriverType>>;

@@ -44,7 +44,8 @@ function loadConfigs() {
 		password: process.env.ISY_PASSWORD,
 		port: process.env.ISY_HOST_PORT ?? 8080,
 		protocol: process.env.ISY_HOST_PROTOCOL ?? 'http',
-		username: process.env.ISY_USERNAME ?? 'admin'
+		username: process.env.ISY_USERNAME ?? 'admin',
+
 	};
 	let matterConfig: Partial<MatterServer.Config> = {
 		passcode: Number(process.env.MATTER_PASSCODE),
@@ -268,7 +269,7 @@ async function startBridgeServer() {
 		logger.info(`ISY api version: ${isy.apiVersion}`);
 		logger.info(`Matter api version: ${matterServer.version}`);
 		logger.info('*'.repeat(80));
-		
+
 	}
 	catch(e)
 	{
@@ -381,7 +382,20 @@ console.log(`Options: ${logStringify(options)}`);
 
 ({ isyConfig, matterConfig, serverConfig } = loadConfigs());
 
+
+
 logger = createLogger();
+
+
+if (options.autoStart && !isyConfig.password && process.env.LOGNAME !== 'polyglot') {
+	logger.error('Auto start requires ISY password');
+	exit(1);
+}
+if (options.autoStart && (process.env.LOGNAME === 'polyglot' || process.env.USER === 'polyglot')) {
+	logger.info('Running as polyglot');
+	options.requireAuth = false;
+	isyConfig.socketPath = '/tmp/ns2isy182652';
+}
 
 console.log(`ISY config: ${logStringify(isyConfig)}`);
 console.log(`Matter config: ${logStringify(matterConfig)}`);

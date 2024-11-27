@@ -15,6 +15,7 @@ export declare class RelaySwitchOnlyPlusQueryNode extends Base<Drivers, Commands
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "RelaySwitchOnlyPlusQuery" | "RelaySwitchOnlyPlusQuery_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     query(): Promise<any>;

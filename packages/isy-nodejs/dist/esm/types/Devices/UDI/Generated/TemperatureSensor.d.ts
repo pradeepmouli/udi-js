@@ -10,6 +10,7 @@ type Drivers = TemperatureSensor.Drivers;
 export declare class TemperatureSensorNode extends Base<Drivers, Commands> implements TemperatureSensor.Interface {
     readonly commands: {};
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "EM3TempSensor";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     get temperature(): number;

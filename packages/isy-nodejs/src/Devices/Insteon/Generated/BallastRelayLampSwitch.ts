@@ -28,33 +28,20 @@ export class BallastRelayLampSwitchNode extends Base<Drivers, Commands> implemen
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "BallastRelayLampSwitch";
+	static override implements = ["BallastRelayLampSwitch", "RelayLampOnly", "RelayLampOnly_ADV", "IRLincTx", "EZRAIN_Output", "EZIO2x4_Output", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl", "BinaryControl_ADV", "AlertModuleArmed", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "BallastRelayLampSwitch" | "BallastRelayLampSwitch_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: (0 | 100)) {
-		return this.sendCommand("DON", { value: value });
-	}
-	async off() {
-		return this.sendCommand("DOF");
-	}
-	async fastOff() {
-		return this.sendCommand("DFOF");
-	}
-	async fastOn() {
-		return this.sendCommand("DFON");
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async beep(value?: number) {
-		return this.sendCommand("BEEP", { value: value });
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async on(value?: (0 | 100)) { return this.sendCommand("DON", value); }
+	async off() { return this.sendCommand("DOF"); }
+	async fastOff() { return this.sendCommand("DFOF"); }
+	async fastOn() { return this.sendCommand("DFON"); }
+	async query() { return this.sendCommand("QUERY"); }
+	async beep(value?: number) { return this.sendCommand("BEEP", value); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): Insteon.Sml {
 		return this.drivers.ST?.value;
 	}
@@ -71,10 +58,10 @@ export namespace BallastRelayLampSwitch {
 		nodeDefId: "BallastRelayLampSwitch" | "BallastRelayLampSwitch_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is BallastRelayLampSwitchNode {
-		return node.nodeDefId in ["BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV"];
+		return ["BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is BallastRelayLampSwitchNode {
-		return node.nodeDefId in ["BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV"];
+		return ["BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new BallastRelayLampSwitchNode(isy, nodeInfo);

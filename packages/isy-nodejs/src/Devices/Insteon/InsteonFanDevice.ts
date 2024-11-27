@@ -1,12 +1,11 @@
 import { Family } from '../../Definitions/Global/Families.js';
 import { ISY } from '../../ISY.js';
-import { States } from '../../ISYConstants.js';
+
 
 import 'winston';
 import { Command, Driver, UnitOfMeasure } from '../../Definitions/index.js';
 import type { DriverState } from '../../Model/DriverState.js';
 import type { NodeInfo, StaticNodeInfo } from '../../Model/NodeInfo.js';
-import { Insteon } from './index.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 

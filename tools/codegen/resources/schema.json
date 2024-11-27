@@ -1,0 +1,247 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "NodeClassDefinition",
+  "type": "object",
+  "properties": {
+    "commands": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/CommandDefinition"
+      }
+    },
+    "drivers": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/DriverDefinition"
+      }
+    },
+    "dynamic": {
+      "type": "boolean"
+    },
+    "equivalentTo": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "equivalents": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "events": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/definitions/EventDefinition"
+      }
+    },
+    "extends": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "family": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "implements": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "implementedBy": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "label": {
+      "type": "string"
+    },
+    "nlsId": {
+      "type": "string"
+    }
+  },
+  "required": ["commands", "drivers", "dynamic", "equivalentTo", "equivalents", "events", "family", "id", "implements", "implementedBy", "label", "nlsId"],
+  "definitions": {
+    "CommandDefinition": {
+      "type": "object",
+      "properties": {
+        "initialValue": {
+          "type": "string"
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/definitions/ParameterDefinition"
+          }
+        },
+        "label": {
+          "type": "string"
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "editorId": {
+          "type": "string"
+        },
+        "dataType": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataTypeDefinition"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "boolean"
+        }
+      },
+      "required": ["id", "dataType"]
+    },
+    "DriverDefinition": {
+      "type": "object",
+      "properties": {
+        "readonly": {
+          "type": "boolean"
+        },
+        "label": {
+          "type": "string"
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "editorId": {
+          "type": "string"
+        },
+        "dataType": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataTypeDefinition"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "boolean"
+        }
+      },
+      "required": ["id", "dataType"]
+    },
+    "EventDefinition": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "editorId": {
+          "type": "string"
+        },
+        "dataType": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataTypeDefinition"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "boolean"
+        }
+      },
+      "required": ["id", "dataType"]
+    },
+    "ParameterDefinition": {
+      "type": "object",
+      "properties": {
+        "initialValue": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "hidden": {
+          "type": "boolean"
+        },
+        "id": {
+          "type": "string"
+        },
+        "editorId": {
+          "type": "string"
+        },
+        "dataType": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DataTypeDefinition"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "optional": {
+          "type": "boolean"
+        }
+      },
+      "required": ["id", "dataType"]
+    },
+    "DataTypeDefinition": {
+      "type": "object",
+      "properties": {
+        "uom": {
+          "type": "string"
+        },
+        "serverUom": {
+          "type": "string"
+        },
+        "enum": {
+          "type": "boolean"
+        },
+        "indexId": {
+          "type": "string"
+        },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "step": {
+          "type": "number"
+        },
+        "precision": {
+          "type": "number"
+        },
+        "returnType": {
+          "type": "string"
+        },
+        "values": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["uom", "enum"]
+    }
+  }
+}

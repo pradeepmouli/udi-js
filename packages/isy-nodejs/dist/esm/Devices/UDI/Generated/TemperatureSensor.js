@@ -7,6 +7,7 @@ const nodeDefId = "EM3TempSensor";
 export class TemperatureSensorNode extends Base {
     commands = {};
     static nodeDefId = "EM3TempSensor";
+    static implements = ["EM3TempSensor"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Degree, label: "Temperature", name: "temperature" });
@@ -23,11 +24,11 @@ NodeFactory.register(TemperatureSensorNode);
 export var TemperatureSensor;
 (function (TemperatureSensor) {
     function is(node) {
-        return node.nodeDefId in ["EM3TempSensor"];
+        return ["EM3TempSensor"].includes(node.nodeDefId);
     }
     TemperatureSensor.is = is;
     function isImplementedBy(node) {
-        return node.nodeDefId in ["EM3TempSensor"];
+        return ["EM3TempSensor"].includes(node.nodeDefId);
     }
     TemperatureSensor.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

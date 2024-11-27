@@ -20,6 +20,7 @@ type Drivers = Em3MainChannel.Drivers;
 export class Em3MainChannelNode extends Base<Drivers, Commands> implements Em3MainChannel.Interface {
 	public override readonly commands = {};
 	static override nodeDefId = "EM3MainChannel";
+	static override implements = ["EM3MainChannel"];
 	declare readonly nodeDefId: "EM3MainChannel";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -57,10 +58,10 @@ export namespace Em3MainChannel {
 		nodeDefId: "EM3MainChannel";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is Em3MainChannelNode {
-		return node.nodeDefId in ["EM3MainChannel"];
+		return ["EM3MainChannel"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is Em3MainChannelNode {
-		return node.nodeDefId in ["EM3MainChannel"];
+		return ["EM3MainChannel"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new Em3MainChannelNode(isy, nodeInfo);

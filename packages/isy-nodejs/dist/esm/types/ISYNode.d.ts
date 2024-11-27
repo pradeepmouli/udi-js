@@ -10,7 +10,7 @@ import type { Constructor } from './Devices/Constructor.js';
 import type { DriverState } from './Model/DriverState.js';
 import { NodeInfo } from './Model/NodeInfo.js';
 import type { NodeNotes } from './Model/NodeNotes.js';
-import { type StringKeys } from './Utils.js';
+import { type ObjectToUnion, type StringKeys } from './Utils.js';
 import { NodeType } from './ISYConstants.js';
 import type { ISYScene } from './ISYScene.js';
 import type { Merge, UnionToIntersection } from '@matter/general';
@@ -31,6 +31,7 @@ export declare class ISYNode<T extends Family = Family, D extends ISYNode.Driver
     readonly nodeDefId: string;
     static family: Family;
     static nodeDefId: string;
+    static implements: string[];
     baseName: any;
     commands: Command.ForAll<C>;
     drivers: Driver.ForAll<D>;
@@ -82,7 +83,8 @@ export declare class ISYNode<T extends Family = Family, D extends ISYNode.Driver
     refreshNotes(): Promise<void>;
     sendCommand(command: StringKeys<C>): Promise<any>;
     sendCommand(command: StringKeys<C>, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-    sendCommand(command: StringKeys<C>, parameters: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
+    sendCommand(command: StringKeys<C>, value: string | number): Promise<any>;
+    sendCommand(command: StringKeys<C>, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
     updateProperty(propertyName: string, value: any): Promise<any>;
 }
 export type Flatten<T, Level extends Number = 2, K = keyof T> = UnionToIntersection<T extends Record<string, unknown> ? K extends string ? T[K] extends Record<string, unknown> ? keyof T[K] extends string ? {
@@ -104,6 +106,18 @@ export declare namespace ISYNode {
     type CommandsOf<T> = T extends ISYNode<any, any, infer C, any> ? C : never;
     type EventsOf<T> = T extends ISYNode<any, any, any, infer E> ? E : never;
     type FamilyOf<T> = T extends ISYNode<infer F, any, any, any> ? F : never;
+    type DriverTypesOf<T extends ISYNode> = ObjectToUnion<DriversOf<T>>;
+    type CommandTypesOf<T extends ISYNode> = ObjectToUnion<CommandsOf<T>>;
+    type EventTypesOf<T extends ISYNode> = ObjectToUnion<EventsOf<T>>;
+    type EventNamesOf<T extends ISYNode> = EventTypesOf<T> extends {
+        name: infer U;
+    } ? U : never;
+    type DriverNamesOf<T extends ISYNode> = DriverTypesOf<T> extends {
+        name: infer U;
+    } ? U : never;
+    type CommandNamesOf<T extends ISYNode> = CommandTypesOf<T> extends {
+        name: infer U;
+    } ? U : never;
     type List = NodeList;
     type DriverMap<T extends NodeList> = Flatten<{
         [x in keyof T]: DriversOf<T[x]>;
@@ -123,7 +137,7 @@ export declare namespace ISYNode {
         new (...args: any[]): {
             drivers: Driver.ForAll<any, false>;
             commands: Command.ForAll<C>;
-            "__#1242778@#parentNode": ISYNode<any, any, any, any>;
+            "__#149988@#parentNode": ISYNode<any, any, any, any>;
             readonly address: string;
             readonly baseLabel: string;
             readonly flag: any;
@@ -131,12 +145,12 @@ export declare namespace ISYNode {
             readonly nodeDefId: string;
             baseName: any;
             enabled: boolean;
-            events: Merge<Event.NodeEventEmitter<any>, {
-                on(eventName: any, listener: (driver: any, newValue: any, oldValue: any, formatted: string, uom: any) => void): Event.NodeEventEmitter<any>;
+            events: Merge<Event.NodeEventEmitter</*elided*/ any>, {
+                on(eventName: any, listener: (driver: any, newValue: any, oldValue: any, formatted: string, uom: any) => void): Event.NodeEventEmitter</*elided*/ any>;
             } & {
-                on(eventName: any, listener: (command: any) => void): Event.NodeEventEmitter<any>;
+                on(eventName: any, listener: (command: any) => void): Event.NodeEventEmitter</*elided*/ any>;
             } & {
-                on(eventName: any, listener: (...args: any[]) => void): Event.NodeEventEmitter<any>;
+                on(eventName: any, listener: (...args: any[]) => void): Event.NodeEventEmitter</*elided*/ any>;
             }>;
             family: K;
             folder: string;
@@ -183,7 +197,8 @@ export declare namespace ISYNode {
             refreshNotes(): Promise<void>;
             sendCommand(command: string): Promise<any>;
             sendCommand(command: string, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-            sendCommand(command: string, parameters: Record<string | symbol, string | number | undefined> | string | number): Promise<any>;
+            sendCommand(command: string, value: string | number): Promise<any>;
+            sendCommand(command: string, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
             updateProperty(propertyName: string, value: any): Promise<any>;
         };
     } & T;

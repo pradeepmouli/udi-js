@@ -1,65 +1,115 @@
-import { OnOffLightDevice } from '@project-chip/matter.js/devices/OnOffLightDevice';
-import { DriverType } from '../../Definitions/Global/Drivers.js';
-import { Family, type t } from '../../Definitions/Global/Families.js';
-import { Insteon } from '../../Devices/Insteon/index.js';
-import { Devices } from '../../Devices/index.js';
-import { MappingRegistry, type DeviceToClusterMap, type EndpointMapping, type FamilyToClusterMap } from '../../Model/ClusterMap.js';
+
+import { Family } from '../../Definitions/Global/Families.js';
+import * as Insteon from '../../Devices/Insteon/index.js';
+
 
 //import InsteonMap from "./Insteon.json";
-import { DimmableLightDevice } from '@project-chip/matter.js/devices/DimmableLightDevice';
-import { Converter } from '../../Converters.js';
-import type { InsteonRelaySwitchDevice } from '../../Devices/Insteon/InsteonRelaySwitchDevice.js';
-import { OnOffLightSwitchDevice } from '@matter/node/devices';
 
-const map: FamilyToClusterMap<Family.Insteon> = {
+import { OnOffLightDevice, DimmableLightDevice } from '@matter/node/devices';
+import {  MappingRegistry, type EndpointMapping, type FamilyToClusterMap } from './MappingRegistry.js';
+
+export const map: FamilyToClusterMap<Family.Insteon> = {
 	Family: Family.Insteon,
-	Relay: {
+
+	RelayLamp: {
 		deviceType: OnOffLightDevice,
 		mapping: {
 			OnOff: {
 				attributes: {
-					onOff: { driver: 'ST', converter: 'LevelFrom0To255.Boolean' }
-				},
-				commands: { on: 'DON' }
-			}
-		} as EndpointMapping<OnOffLightDevice, Insteon.RelaySwitch>
-	},
-	RelaySwitch: {
-		deviceType: OnOffLightSwitchDevice,
-		mapping: {
-			OnOff: {
-				attributes: {
-					onOff: { driver: 'ST', converter: 'LevelFrom0To255.Boolean' }
+					onOff: { driver: 'ST', converter: 'LightingLevel.Boolean' }
 				},
 				commands: { on: 'DON' }
 			}
 		}
 	},
-	Dimmer: {
+	RelayLampSwitch: {
+		deviceType: OnOffLightDevice,
+		mapping: {
+			OnOff: {
+				attributes: {
+					onOff: { driver: 'ST', converter: 'Percent.Boolean' }
+				},
+				commands: { on: 'DON' }
+			}
+		}
+	},
+	DimmerLamp: {
 		deviceType: DimmableLightDevice,
 		// @ts-ignore
 		mapping: {
 			// @ts-ignore
 			OnOff: {
 				attributes: {
-					onOff: { driver: 'ST', converter: 'LevelFrom0To255.Boolean' }
+					onOff: { driver: 'ST', converter: 'Percent.Boolean' }
+				},
+				commands: { on: 'DON' }
+			},
+
+
+			LevelControl: {
+				// @ts-ignore
+				attributes: {
+					currentLevel: { driver: 'ST', converter: 'Percent.LightingLevel' },
+					//startUpCurrentLevel: { driver: 'OL', converter: 'Percent.LightingLevel' },
+					onLevel: { driver: 'OL', converter: 'Percent.LightingLevel' }
+				},
+				commands: { setLevel: { command: 'DON' } }
+			}
+		} as EndpointMapping<DimmableLightDevice, Insteon.DimmerLampNode>
+	},
+	DimmerLampSwitch: {
+		deviceType: DimmableLightDevice,
+		// @ts-ignore
+		mapping: {
+			
+			OnOff: {
+				attributes: {
+					onOff: { driver: 'ST', converter: 'Percent.Boolean' }
 				},
 				commands: { on: 'DON' }
 			},
 			LevelControl: {
-				// @ts-ignore
+
 				attributes: {
-					currentLevel: { driver: 'ST', converter: 'LevelFrom0To255.LightingLevel' },
-					startUpCurrentLevel: { driver: 'OL', converter: 'LevelFrom0To255.LightingLevel' },
-					onLevel: { driver: 'OL', converter: 'LevelFrom0To255.LightingLevel' }
+					currentLevel: { driver: 'ST', converter: 'Percent.LightingLevel' },
+					//startUpCurrentLevel: { driver: 'OL', converter: 'Percent.LightingLevel' },
+					onLevel: { driver: 'OL', converter: 'Percent.LightingLevel' }
+
 				},
 				commands: { setLevel: { command: 'DON' } }
 			}
-		} as EndpointMapping<DimmableLightDevice, Insteon.Dimmer>
+		} as EndpointMapping<DimmableLightDevice, Insteon.DimmerLampNode>
 	}
 };
 
-map.KeypadDimmer = map.Dimmer;
-map.DimmerSwitch = map.Dimmer;
+map.KeypadDimmer = {...map.DimmerLamp};
+map.KeypadRelay = {...map.RelayLamp};
+
+
+
+/*let newMap = add(map, Insteon.DimmerLamp.Node, {
+	deviceType: DimmableLightDevice,
+	// @ts-ignore
+	mapping: {
+		// @ts-ignore
+		OnOff: {
+			attributes: {
+				onOff: { driver: 'ST', converter: 'Percent.Boolean' ,
+			},
+			commands: { on: 'DON' }
+		},
+		//@ts-ignore
+		LevelControl: {
+			// @ts-ignore
+			attributes: {
+				currentLevel: { driver: 'ST', converter: 'Percent.LightingLevel' },
+				startUpCurrentLevel: { driver: 'OL', converter: 'Percent.LightingLevel' },
+				onLevel: { driver: 'OL', converter: 'Percent.LightingLevel' }
+			},
+			commands: { setLevel: { command: 'DON' } }
+		}
+	}
+}});*/
+
 
 MappingRegistry.register(map);

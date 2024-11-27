@@ -1,8 +1,8 @@
-import WebSocket from 'faye-websocket';
-import { type ParserOptions } from 'xml2js';
 import { type AxiosRequestConfig } from 'axios';
 import { EventEmitter } from 'events';
 import { Logger } from 'winston';
+import WebSocket from 'ws';
+import { type ParserOptions } from 'xml2js';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
 import { ElkAlarmSensorDevice } from './Devices/Elk/ElkAlarmSensorDevice.js';
 import { VariableType } from './ISYConstants.js';
@@ -11,6 +11,7 @@ import { ISYNode } from './ISYNode.js';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
 import * as Utils from './Utils.js';
+import type { ClientRequestArgs } from 'http';
 import type { Config } from './Model/Config.js';
 export declare let Controls: {};
 interface ISYConfig {
@@ -23,6 +24,8 @@ interface ISYConfig {
     protocol: 'http' | 'https';
     username: string;
     socketPath?: string;
+    axiosOptions?: AxiosRequestConfig;
+    webSocketOptions?: WebSocket.ClientOptions & ClientRequestArgs;
 }
 export declare class ISY extends EventEmitter implements Disposable {
     #private;
@@ -58,7 +61,7 @@ export declare class ISY extends EventEmitter implements Disposable {
     productName: string;
     firmwareVersion: any;
     vendorName: string;
-    webSocket: WebSocket.Client;
+    webSocket: WebSocket;
     apiVersion: string;
     socketPath: string;
     axiosOptions: AxiosRequestConfig;
@@ -78,6 +81,7 @@ export declare class ISY extends EventEmitter implements Disposable {
         data: any;
     }): void;
     initialize(): Promise<boolean>;
+    webSocketOptions: WebSocket.ClientOptions & ClientRequestArgs;
     initializeWebSocket(): Promise<void>;
     loadConfig(): Promise<any>;
     loadNodes(): Promise<any>;

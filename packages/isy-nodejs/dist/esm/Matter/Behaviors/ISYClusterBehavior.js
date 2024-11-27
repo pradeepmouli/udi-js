@@ -16,6 +16,7 @@ export function ISYClusterBehavior(base, p) {
             this.bridgedDeviceBehavior = behavior;
             //var behavior = this.agent.get(ISYBridgedDeviceBehavior);
             this._device = behavior.device;
+            this._device.logger('Initializing cluster behavior');
             //@ts-ignore
             this.map = behavior.mapForBehavior(this);
             for (const key2 in this.map.attributes) {

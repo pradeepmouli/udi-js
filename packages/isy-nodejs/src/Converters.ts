@@ -1,5 +1,6 @@
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
-import { type Paths, type StringKeys } from './Utils.js';
+import {type PathsWithLimit, type StringKeys } from './Utils.js';
+import {Paths} from 'type-fest'
 
 let BooleanPercentage: Converter<boolean, number>;
 let NullConverter: Converter<any, any>;
@@ -15,20 +16,20 @@ const StandardConverters = {
 			from: (value: number) => value > 0
 		},
 		Percent: {
-			to: (value: number): boolean => {
-				return value > 0;
-			},
-			from: (value: boolean): number => {
-				return value ? 100 : 0;
-			}
+			to: (value: boolean) => (value ? 100 : 0),
+			from: (value: number) => value > 0
 		}
 	},
 	LevelFrom0To255: {
 		Percent: {
 			to: (value: number): number => {
+				if(value === 0) return 0;
+				if(value === 255) return 100;
 				return Math.round((value * 100) / 255);
 			},
 			from: (value: number): number => {
+				if(value === 0) return 0;
+				if(value === 100) return 255;
 				return Math.round((value * 255) / 100);
 			}
 		}
@@ -57,7 +58,7 @@ function registerConverters() {
 	}
 }
 
-export function registerConverter(
+function registerConverter(
 	from: keyof typeof StandardConverters | keyof typeof Converter.Matter | Paths<typeof StandardConverters> | Paths<typeof Converter.Matter> | string,
 	to: keyof typeof StandardConverters | keyof typeof Converter.Matter | string,
 	converter: Converter<any, any>
@@ -79,33 +80,55 @@ export namespace Converter {
 	export const Matter = {
 		LevelFrom0To255: {
 			LightingLevel: {
-				from: (value) =>
+				from: (value: number) =>
 					value === 1 ? 0
 					: value === 254 ? 255
 					: value,
-				to: (value) =>
+				to: (value: number) =>
 					value === 0 ? 1
 					: value === 255 ? 254
 					: value
 			}
 
+		},
+		Percent: {
+			LightingLevel: {
+				from: (value: number) =>
+					value === 1 ? 0
+					: value === 254 ? 100
+					: Math.round(value / 254 * 100),
+				to: (value: number) =>
+					value === 0 ? 1
+					: value === 100 ? 254
+					: Math.round(value / 100 * 254)
+			}
+		},
+		Boolean: {
+			LightingLevel: {
+				from: (value: number) => value > 0,
+				to: (value: any) => value ? 254 : 0
+			}
 		}
 	};
 
 	export type ConverterTypes = `${StringKeys<typeof StandardConverters>}`;
 
-	export type StandardConverters = `${StringKeys<typeof StandardConverters>}.${StringKeys<typeof StandardConverters>}`;
+	type StandardConverters = Paths<typeof StandardConverters, {maxRecursionDepth: 1, bracketNotation: false}>
+
+	type Invert<K extends string> = K extends `${infer T}.${infer U}` ? `${U}.${T}` | K  : never;
+	//export type StandardConvertersList = PathsWithLimit<typeof StandardConverters, 1>;
+
 
 	export type MatterISYConvertibleTypes = `${StringKeys<(typeof Matter)[`${keyof typeof Matter}`]>}`;
 
 	export type ISYMatterConvertibleTypes = `${StringKeys<typeof Matter>}`;
 
-	export type MatterConverters = `${MatterISYConvertibleTypes}.${ISYMatterConvertibleTypes}` | `${ISYMatterConvertibleTypes}.${MatterISYConvertibleTypes}`;
+	export type MatterConverters = Paths<typeof Matter, {maxRecursionDepth: 1, bracketNotation: false}>
 
-	export type KnownConverters = StandardConverters | MatterConverters;
+	export type KnownConverters = Invert<StandardConverters> | Invert<MatterConverters>;
 	const cache: { [x: string]: Converter<any, any> } = {};
 	export function get(label: KnownConverters): Converter<any, any>;
-	export function get(from: UnitOfMeasure, to: UnitOfMeasure);
+	export function get(from: UnitOfMeasure, to: UnitOfMeasure): Converter<any,any>
 	export function get(from: ConverterTypes, to: ConverterTypes);
 	export function get(from: UnitOfMeasure, to: UnitOfMeasure);
 	export function get(from: MatterISYConvertibleTypes, to: ISYMatterConvertibleTypes);
@@ -141,6 +164,12 @@ export namespace Converter {
 		}
 		return null;
 	}
+
+
+	export function register<F,T>(from: UnitOfMeasure, to: UnitOfMeasure, converter: Converter<F, T>) {
+		registerConverter(UnitOfMeasure[from], UnitOfMeasure[to], converter);
+	}
+
 }
 
 registerConverters();

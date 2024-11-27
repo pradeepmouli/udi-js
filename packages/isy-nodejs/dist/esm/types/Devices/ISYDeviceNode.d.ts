@@ -1,18 +1,10 @@
-import { type ISY } from '../ISY.js';
-import type { ISYDevice } from '../ISYDevice.js';
-import { ISYNode } from '../ISYNode.js';
-import type { NodeInfo } from '../Model/NodeInfo.js';
 import type { Category } from '../Definitions/Global/Categories.js';
 import type { Event } from '../Definitions/Global/Events.js';
 import type { Family } from '../Definitions/index.js';
-export interface ISYDeviceInfo {
-    type: string;
-    deviceClass: any;
-    productName: string;
-    productId: string | number;
-    modelName: string;
-    modelNumber: string;
-}
+import { type ISY } from '../ISY.js';
+import type { ISYDevice, ISYDeviceInfo } from '../ISYDevice.js';
+import { ISYNode } from '../ISYNode.js';
+import type { NodeInfo } from '../Model/NodeInfo.js';
 export declare class ISYDeviceNode<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures = {
     [x in keyof D]: Event.DriverToEvent<D[x]> & {
         driver: x;
@@ -27,13 +19,13 @@ export declare class ISYDeviceNode<T extends Family, D extends ISYNode.DriverSig
     readonly deviceClass: any;
     readonly category: Category;
     readonly subCategory: number;
-    declare: any;
     _enabled: any;
     productName: string;
     model: string;
     modelNumber: string;
     version: string;
     constructor(isy: ISY, node: NodeInfo);
+    manufacturer: string;
     productId: string | number;
     modelName: string;
     _parentDevice: ISYDevice<T, any, any, any>;

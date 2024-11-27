@@ -13,28 +13,20 @@ export class ColorSwitchNode extends Base {
         QUERY: this.query
     };
     static nodeDefId = "186";
+    static implements = ["186"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.GV0 = Driver.create("GV0", this, nodeInfo.property, { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Warm White", name: "warmWhite" });
         this.drivers.GV2 = Driver.create("GV2", this, nodeInfo.property, { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Red", name: "red" });
         this.drivers.GV3 = Driver.create("GV3", this, nodeInfo.property, { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Green", name: "green" });
         this.drivers.GV4 = Driver.create("GV4", this, nodeInfo.property, { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Blue", name: "blue" });
+        this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.property, { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Cold White", name: "coldWhite" });
     }
-    async set(warmWhite, red, green, blue, duration) {
-        return this.sendCommand("DON", { GV0: warmWhite, GV2: red, GV3: green, GV4: blue, RR: duration });
-    }
-    async fadeUp(component, startLevel, duration) {
-        return this.sendCommand("FDUP", { ID: component, STARTLEVEL: startLevel, RR: duration });
-    }
-    async fadeDown(component, startLevel, duration) {
-        return this.sendCommand("FDDOWN", { ID: component, STARTLEVEL: startLevel, RR: duration });
-    }
-    async fadeStop(component) {
-        return this.sendCommand("FDSTOP", { ID: component });
-    }
-    async query() {
-        return this.sendCommand("QUERY");
-    }
+    async set(warmWhite, red, green, blue, duration, coldWhite) { return this.sendCommand("DON", { GV0: warmWhite, GV2: red, GV3: green, GV4: blue, RR: duration, GV1: coldWhite }); }
+    async fadeUp(component, startLevel, duration) { return this.sendCommand("FDUP", { ID: component, STARTLEVEL: startLevel, RR: duration }); }
+    async fadeDown(component, startLevel, duration) { return this.sendCommand("FDDOWN", { ID: component, STARTLEVEL: startLevel, RR: duration }); }
+    async fadeStop(component) { return this.sendCommand("FDSTOP", { ID: component }); }
+    async query() { return this.sendCommand("QUERY"); }
     get warmWhite() {
         return this.drivers.GV0?.value;
     }
@@ -47,16 +39,19 @@ export class ColorSwitchNode extends Base {
     get blue() {
         return this.drivers.GV4?.value;
     }
+    get coldWhite() {
+        return this.drivers.GV1?.value;
+    }
 }
 NodeFactory.register(ColorSwitchNode);
 export var ColorSwitch;
 (function (ColorSwitch) {
     function is(node) {
-        return node.nodeDefId in ["186"];
+        return ["186"].includes(node.nodeDefId);
     }
     ColorSwitch.is = is;
     function isImplementedBy(node) {
-        return node.nodeDefId in ["186"];
+        return ["186"].includes(node.nodeDefId);
     }
     ColorSwitch.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

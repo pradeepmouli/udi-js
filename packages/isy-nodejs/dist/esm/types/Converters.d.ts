@@ -1,5 +1,6 @@
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
-import { type Paths, type StringKeys } from './Utils.js';
+import { type StringKeys } from './Utils.js';
+import { Paths } from 'type-fest';
 declare const StandardConverters: {
     Boolean: {
         LevelFrom0To255: {
@@ -7,8 +8,8 @@ declare const StandardConverters: {
             from: (value: number) => boolean;
         };
         Percent: {
-            to: (value: number) => boolean;
-            from: (value: boolean) => number;
+            to: (value: boolean) => 0 | 100;
+            from: (value: number) => boolean;
         };
     };
     LevelFrom0To255: {
@@ -20,30 +21,50 @@ declare const StandardConverters: {
 };
 export declare const StdConverterRegistry: Map<string | UnitOfMeasure, Map<string | UnitOfMeasure, Converter<any, any>>>;
 export declare const ConverterRegistry: Map<string, Converter<any, any>>;
-export declare function registerConverter(from: keyof typeof StandardConverters | keyof typeof Converter.Matter | Paths<typeof StandardConverters> | Paths<typeof Converter.Matter> | string, to: keyof typeof StandardConverters | keyof typeof Converter.Matter | string, converter: Converter<any, any>): void;
 export declare namespace Converter {
-    const Standard: typeof StandardConverters;
-    const Matter: {
+    export const Standard: typeof StandardConverters;
+    export const Matter: {
         LevelFrom0To255: {
             LightingLevel: {
-                from: (value: any) => any;
-                to: (value: any) => any;
+                from: (value: number) => number;
+                to: (value: number) => number;
+            };
+        };
+        Percent: {
+            LightingLevel: {
+                from: (value: number) => number;
+                to: (value: number) => number;
+            };
+        };
+        Boolean: {
+            LightingLevel: {
+                from: (value: number) => boolean;
+                to: (value: any) => 0 | 254;
             };
         };
     };
-    type ConverterTypes = `${StringKeys<typeof StandardConverters>}`;
-    type StandardConverters = `${StringKeys<typeof StandardConverters>}.${StringKeys<typeof StandardConverters>}`;
-    type MatterISYConvertibleTypes = `${StringKeys<(typeof Matter)[`${keyof typeof Matter}`]>}`;
-    type ISYMatterConvertibleTypes = `${StringKeys<typeof Matter>}`;
-    type MatterConverters = `${MatterISYConvertibleTypes}.${ISYMatterConvertibleTypes}` | `${ISYMatterConvertibleTypes}.${MatterISYConvertibleTypes}`;
-    type KnownConverters = StandardConverters | MatterConverters;
-    function get(label: KnownConverters): Converter<any, any>;
-    function get(from: UnitOfMeasure, to: UnitOfMeasure): any;
-    function get(from: ConverterTypes, to: ConverterTypes): any;
-    function get(from: UnitOfMeasure, to: UnitOfMeasure): any;
-    function get(from: MatterISYConvertibleTypes, to: ISYMatterConvertibleTypes): any;
-    function get(to: ISYMatterConvertibleTypes, from: MatterISYConvertibleTypes): any;
-    function convert<F, T>(from: UnitOfMeasure, to: UnitOfMeasure, value: F): T;
+    export type ConverterTypes = `${StringKeys<typeof StandardConverters>}`;
+    type StandardConverters = Paths<typeof StandardConverters, {
+        maxRecursionDepth: 1;
+        bracketNotation: false;
+    }>;
+    type Invert<K extends string> = K extends `${infer T}.${infer U}` ? `${U}.${T}` | K : never;
+    export type MatterISYConvertibleTypes = `${StringKeys<(typeof Matter)[`${keyof typeof Matter}`]>}`;
+    export type ISYMatterConvertibleTypes = `${StringKeys<typeof Matter>}`;
+    export type MatterConverters = Paths<typeof Matter, {
+        maxRecursionDepth: 1;
+        bracketNotation: false;
+    }>;
+    export type KnownConverters = Invert<StandardConverters> | Invert<MatterConverters>;
+    export function get(label: KnownConverters): Converter<any, any>;
+    export function get(from: UnitOfMeasure, to: UnitOfMeasure): Converter<any, any>;
+    export function get(from: ConverterTypes, to: ConverterTypes): any;
+    export function get(from: UnitOfMeasure, to: UnitOfMeasure): any;
+    export function get(from: MatterISYConvertibleTypes, to: ISYMatterConvertibleTypes): any;
+    export function get(to: ISYMatterConvertibleTypes, from: MatterISYConvertibleTypes): any;
+    export function convert<F, T>(from: UnitOfMeasure, to: UnitOfMeasure, value: F): T;
+    export function register<F, T>(from: UnitOfMeasure, to: UnitOfMeasure, converter: Converter<F, T>): void;
+    export {};
 }
 export interface Converter<F, T> {
     from: (value: F) => T;

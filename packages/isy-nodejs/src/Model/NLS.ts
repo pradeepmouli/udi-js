@@ -2,7 +2,7 @@ import { merge } from 'moderndash';
 import type { DriverType } from "../Definitions/Global/Drivers.js";
 import { Family } from "../Definitions/Global/Families.js";
 import "../Utils.js";
-import type { TransactionalInteractionServer } from '@project-chip/matter.js/node/server';
+
 
 export enum NLSRecordType {
   Generic = "GEN",

@@ -25,23 +25,16 @@ export class RelaySwitchOnlyPlusQueryNode extends Base<Drivers, Commands> implem
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "RelaySwitchOnlyPlusQuery";
+	static override implements = ["RelaySwitchOnlyPlusQuery", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "RelaySwitchOnlyPlusQuery" | "RelaySwitchOnlyPlusQuery_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async beep(value?: number) {
-		return this.sendCommand("BEEP", { value: value });
-	}
-	async backlight(value: number) {
-		return this.sendCommand("BL", { value: value });
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async query() { return this.sendCommand("QUERY"); }
+	async beep(value?: number) { return this.sendCommand("BEEP", value); }
+	async backlight(value: number) { return this.sendCommand("BL", value); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get responding(): Insteon.Error {
 		return this.drivers.ERR?.value;
 	}
@@ -55,10 +48,10 @@ export namespace RelaySwitchOnlyPlusQuery {
 		nodeDefId: "RelaySwitchOnlyPlusQuery" | "RelaySwitchOnlyPlusQuery_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is RelaySwitchOnlyPlusQueryNode {
-		return node.nodeDefId in ["RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV"];
+		return ["RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelaySwitchOnlyPlusQueryNode {
-		return node.nodeDefId in ["RelaySwitchOnlyPlusQuery", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery_ADV"];
+		return ["RelaySwitchOnlyPlusQuery", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new RelaySwitchOnlyPlusQueryNode(isy, nodeInfo);

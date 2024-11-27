@@ -7,6 +7,7 @@ const nodeDefId = "EM3Channel";
 export class ChannelNode extends Base {
     commands = {};
     static nodeDefId = "EM3Channel";
+    static implements = ["EM3Channel"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Watt, label: "Status", name: "status" });
@@ -27,11 +28,11 @@ NodeFactory.register(ChannelNode);
 export var Channel;
 (function (Channel) {
     function is(node) {
-        return node.nodeDefId in ["EM3Channel"];
+        return ["EM3Channel"].includes(node.nodeDefId);
     }
     Channel.is = is;
     function isImplementedBy(node) {
-        return node.nodeDefId in ["EM3Channel", "EM3Main", "EM3MainChannel"];
+        return ["EM3Channel", "EM3Main", "EM3MainChannel"].includes(node.nodeDefId);
     }
     Channel.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

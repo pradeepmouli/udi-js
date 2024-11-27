@@ -11,20 +11,15 @@ export class RelayNode extends Base {
         QUERY: this.query
     };
     static nodeDefId = "EM3Relay";
+    static implements = ["EM3Relay"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
-    async on() {
-        return this.sendCommand("DON");
-    }
-    async off() {
-        return this.sendCommand("DOF");
-    }
-    async query() {
-        return this.sendCommand("QUERY");
-    }
+    async on() { return this.sendCommand("DON"); }
+    async off() { return this.sendCommand("DOF"); }
+    async query() { return this.sendCommand("QUERY"); }
     get status() {
         return this.drivers.ST?.value;
     }
@@ -36,11 +31,11 @@ NodeFactory.register(RelayNode);
 export var Relay;
 (function (Relay) {
     function is(node) {
-        return node.nodeDefId in ["EM3Relay"];
+        return ["EM3Relay"].includes(node.nodeDefId);
     }
     Relay.is = is;
     function isImplementedBy(node) {
-        return node.nodeDefId in ["EM3Relay"];
+        return ["EM3Relay"].includes(node.nodeDefId);
     }
     Relay.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

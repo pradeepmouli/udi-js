@@ -327,7 +327,7 @@ export class NodeMemberDefinition {
         this.classDef = classDef;
         if (def) {
             this.editorId = def.editor;
-            this.dataType = {};
+            this.dataType = [];
             var r = this.parseEditorId(def.editor);
             if (r)
                 this.applyEditorDef({ id: def.editor, range: r });
@@ -342,13 +342,14 @@ export class NodeMemberDefinition {
     // #region Public Methods (6)
     applyEditorDef(e) {
         if (e.id === this.editorId) {
-            var d = {};
+            var d = [];
             for (const rangeDef of toArray(e.range)) {
+                let dt = {};
                 if ('subset' in rangeDef) {
-                    d[rangeDef.uom] = { uom: rangeDef.uom, indexId: rangeDef.nls, ...this.#parseSubset(e) };
+                    dt = { uom: rangeDef.uom, indexId: rangeDef.nls, ...this.#parseSubset(e) };
                 }
                 else {
-                    d[rangeDef.uom] = {
+                    dt = {
                         uom: rangeDef.uom,
                         enum: false,
                         min: rangeDef.min,
@@ -360,8 +361,9 @@ export class NodeMemberDefinition {
                     };
                 }
                 if (rangeDef.uom === UnitOfMeasure.Index) {
-                    d[rangeDef.uom].enum = true;
+                    dt.enum = true;
                 }
+                d.push(dt);
             }
             this.dataType = d;
         }

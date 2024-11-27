@@ -139,7 +139,6 @@ const ISYConstants = {
         polyNode: 'PolyNode'
     },
 };
-export const Properties = {};
 export var VariableType;
 (function (VariableType) {
     VariableType[VariableType["Integer"] = 1] = "Integer";
@@ -157,8 +156,4 @@ export var LinkType;
     LinkType[LinkType["Controller"] = 16] = "Controller";
     LinkType[LinkType["Responder"] = 0] = "Responder";
 })(LinkType || (LinkType = {}));
-export default ISYConstants;
-export const Props = ISYConstants.Props;
-export const States = ISYConstants.States;
-export const Commands = ISYConstants.Cmds;
 //# sourceMappingURL=ISYConstants.js.map

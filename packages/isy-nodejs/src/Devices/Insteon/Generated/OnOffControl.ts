@@ -20,13 +20,14 @@ type Drivers = OnOffControl.Drivers;
 export class OnOffControlNode extends Base<Drivers, Commands> implements OnOffControl.Interface {
 	public override readonly commands = {};
 	static override nodeDefId = "OnOffControl";
+	static override implements = ["OnOffControl", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "OnOffControl" | "OnOffControl_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Status", name: "status" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	public get status(): Insteon.OnLevelRelay | Insteon.OnLevelRelay {
+	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
 	public get responding(): Insteon.Error {
@@ -42,10 +43,10 @@ export namespace OnOffControl {
 		nodeDefId: "OnOffControl" | "OnOffControl_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is OnOffControlNode {
-		return node.nodeDefId in ["OnOffControl", "OnOffControl_ADV"];
+		return ["OnOffControl", "OnOffControl_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is OnOffControlNode {
-		return node.nodeDefId in ["OnOffControl", "X10", "OnOffControl_ADV"];
+		return ["OnOffControl", "X10", "OnOffControl_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new OnOffControlNode(isy, nodeInfo);
@@ -54,8 +55,8 @@ export namespace OnOffControl {
 	export type Commands = {};
 	export type Drivers = {
 		ST: {
-			uom: UnitOfMeasure.Boolean | UnitOfMeasure.Percent;
-			value: Insteon.OnLevelRelay | Insteon.OnLevelRelay;
+			uom: UnitOfMeasure.Percent;
+			value: Insteon.OnLevelRelay;
 			label: "Status";
 			name: "status";
 		};

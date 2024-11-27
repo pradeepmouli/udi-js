@@ -1,19 +1,15 @@
 import type { Command } from './Definitions/Global/Commands.js';
 import type { Driver } from './Definitions/Global/Drivers.js';
-import type { UnitOfMeasure } from './Definitions/Global/UOM.js';
-import type { Family } from './Definitions/index.js';
+import type { Category, Family } from './Definitions/index.js';
 import type { ISYNode } from './ISYNode.js';
 import type { ISYScene } from './ISYScene.js';
-import type { DriverState } from './Model/DriverState.js';
-import type { StringKeys } from './Utils.js';
-export interface ISYDevice<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends string = string> {
-    _parentDevice: ISYDevice<T, any, any, any>;
+export interface ISYDevice<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures> extends ISYDeviceInfo {
     address: string;
-    category: number;
-    children: Array<ISYNode<any, any, any, any>>;
+    category: Category;
     commands: Command.ForAll<C>;
     deviceClass: any;
     drivers: Driver.ForAll<D>;
+    events: E;
     enabled: boolean;
     family: T;
     hidden: boolean;
@@ -29,25 +25,20 @@ export interface ISYDevice<T extends Family, D extends ISYNode.DriverSignatures,
     type: any;
     typeCode: string;
     version: string;
-    addChild(childDevice: ISYNode<any, any, any, any>): void;
-    addLink(isyScene: ISYScene): void;
-    convertFrom(value: any, uom: number): any;
-    convertFrom(value: any, uom: number, propertyName: keyof D): any;
-    convertTo(value: any, uom: number): any;
-    convertTo(value: any, uom: number, propertyName: keyof D): any;
-    handleControlTrigger(controlName: E): boolean;
-    handleEvent(evt: any): unknown;
-    handlePropertyChange(propertyName: keyof D & string, value: any, uom: UnitOfMeasure, prec: number, formattedValue: string): boolean;
-    logger(arg0: string): unknown;
-    on(arg0: string, arg1: any): unknown;
-    parseResult(node: {
-        property: DriverState | DriverState[];
-    }): void;
-    readProperties(): Promise<DriverState[]>;
-    readProperty(propertyName: keyof D): Promise<DriverState>;
-    refresh(): Promise<any>;
-    refreshNotes(): Promise<void>;
-    sendCommand(command: StringKeys<C>, parameters?: Record<string | symbol, string | number> | string | number): Promise<any>;
-    updateProperty(propertyName: StringKeys<D>, value: string): Promise<any>;
+    vendorName: string;
+}
+export declare function isDevice<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures>(device: ISYNode<T, D, C, E>): device is ISYDevice<T, D, C, E> & ISYNode<T, D, C, E>;
+export declare function isDeviceClass<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures>(device: typeof ISYNode<T, D, C, E>): device is (new (...args: any[]) => ISYDevice<T, D, C, E>) & typeof ISYNode<T, D, C, E>;
+export interface ISYDeviceInfo {
+    type: string;
+    deviceClass: any;
+    productName: string;
+    productId: string | number;
+    modelName: string;
+    modelNumber: string;
+    version: string;
+    category: Category;
+    subCategory: number;
+    manufacturer: string;
 }
 //# sourceMappingURL=ISYDevice.d.ts.map

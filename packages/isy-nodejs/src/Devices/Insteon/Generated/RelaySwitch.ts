@@ -24,20 +24,15 @@ export class RelaySwitchNode extends Base<Drivers, Commands> implements RelaySwi
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "RelaySwitchOnly";
+	static override implements = ["RelaySwitchOnly", "IRLincTx", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "RelaySwitchOnly" | "RelaySwitchOnly_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async beep(value?: number) {
-		return this.sendCommand("BEEP", { value: value });
-	}
-	async backlight(value: number) {
-		return this.sendCommand("BL", { value: value });
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async beep(value?: number) { return this.sendCommand("BEEP", value); }
+	async backlight(value: number) { return this.sendCommand("BL", value); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get responding(): Insteon.Error {
 		return this.drivers.ERR?.value;
 	}
@@ -51,10 +46,10 @@ export namespace RelaySwitch {
 		nodeDefId: "RelaySwitchOnly" | "RelaySwitchOnly_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is RelaySwitchNode {
-		return node.nodeDefId in ["RelaySwitchOnly", "RelaySwitchOnly_ADV"];
+		return ["RelaySwitchOnly", "RelaySwitchOnly_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelaySwitchNode {
-		return node.nodeDefId in ["RelaySwitchOnly", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly_ADV"];
+		return ["RelaySwitchOnly", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new RelaySwitchNode(isy, nodeInfo);

@@ -13,26 +13,17 @@ export class X10Node extends Base {
         QUERY: this.query
     };
     static nodeDefId = "X10";
+    static implements = ["X10"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
-    async on() {
-        return this.sendCommand("DON");
-    }
-    async off() {
-        return this.sendCommand("DOF");
-    }
-    async brighten() {
-        return this.sendCommand("BRT");
-    }
-    async dim() {
-        return this.sendCommand("DIM");
-    }
-    async query() {
-        return this.sendCommand("QUERY");
-    }
+    async on() { return this.sendCommand("DON"); }
+    async off() { return this.sendCommand("DOF"); }
+    async brighten() { return this.sendCommand("BRT"); }
+    async dim() { return this.sendCommand("DIM"); }
+    async query() { return this.sendCommand("QUERY"); }
     get status() {
         return this.drivers.ST?.value;
     }
@@ -44,11 +35,11 @@ NodeFactory.register(X10Node);
 export var X10;
 (function (X10) {
     function is(node) {
-        return node.nodeDefId in ["X10"];
+        return ["X10"].includes(node.nodeDefId);
     }
     X10.is = is;
     function isImplementedBy(node) {
-        return node.nodeDefId in ["X10"];
+        return ["X10"].includes(node.nodeDefId);
     }
     X10.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

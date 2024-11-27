@@ -38,61 +38,28 @@ export class SceneNode extends Base<Drivers, Commands> implements Scene.Interfac
 		CLISPCD: this.coolSetpointShift
 	};
 	static override nodeDefId = "InsteonDimmer";
+	static override implements = ["InsteonDimmer"];
 	declare readonly nodeDefId: "InsteonDimmer";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 	}
-	async on(value?: number) {
-		return this.sendCommand("DON", { value: value });
-	}
-	async off() {
-		return this.sendCommand("DOF");
-	}
-	async fastOff() {
-		return this.sendCommand("DFOF");
-	}
-	async fastOn() {
-		return this.sendCommand("DFON");
-	}
-	async brighten() {
-		return this.sendCommand("BRT");
-	}
-	async dim() {
-		return this.sendCommand("DIM");
-	}
-	async fadeUp() {
-		return this.sendCommand("FDUP");
-	}
-	async fadeDown() {
-		return this.sendCommand("FDDOWN");
-	}
-	async fadeStop() {
-		return this.sendCommand("FDSTOP");
-	}
-	async beep() {
-		return this.sendCommand("BEEP");
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async mode(value: number) {
-		return this.sendCommand("CLIMD", { value: value });
-	}
-	async fanMode(value: (0 | 1)) {
-		return this.sendCommand("CLIFS", { value: value });
-	}
-	async heatSetpoint(value: number) {
-		return this.sendCommand("CLISPH", { value: value });
-	}
-	async coolSetpoint(value: number) {
-		return this.sendCommand("CLISPC", { value: value });
-	}
-	async heatSetpointShift(value: number) {
-		return this.sendCommand("CLISPHD", { value: value });
-	}
-	async coolSetpointShift(value: number) {
-		return this.sendCommand("CLISPCD", { value: value });
-	}
+	async on(value?: number) { return this.sendCommand("DON", value); }
+	async off() { return this.sendCommand("DOF"); }
+	async fastOff() { return this.sendCommand("DFOF"); }
+	async fastOn() { return this.sendCommand("DFON"); }
+	async brighten() { return this.sendCommand("BRT"); }
+	async dim() { return this.sendCommand("DIM"); }
+	async fadeUp() { return this.sendCommand("FDUP"); }
+	async fadeDown() { return this.sendCommand("FDDOWN"); }
+	async fadeStop() { return this.sendCommand("FDSTOP"); }
+	async beep() { return this.sendCommand("BEEP"); }
+	async query() { return this.sendCommand("QUERY"); }
+	async mode(value: number) { return this.sendCommand("CLIMD", value); }
+	async fanMode(value: (0 | 1)) { return this.sendCommand("CLIFS", value); }
+	async heatSetpoint(value: number) { return this.sendCommand("CLISPH", value); }
+	async coolSetpoint(value: number) { return this.sendCommand("CLISPC", value); }
+	async heatSetpointShift(value: number) { return this.sendCommand("CLISPHD", value); }
+	async coolSetpointShift(value: number) { return this.sendCommand("CLISPCD", value); }
 }
 
 NodeFactory.register(SceneNode);
@@ -102,10 +69,10 @@ export namespace Scene {
 		nodeDefId: "InsteonDimmer";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is SceneNode {
-		return node.nodeDefId in ["InsteonDimmer"];
+		return ["InsteonDimmer"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is SceneNode {
-		return node.nodeDefId in ["InsteonDimmer"];
+		return ["InsteonDimmer"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new SceneNode(isy, nodeInfo);

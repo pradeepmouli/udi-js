@@ -1,8 +1,8 @@
 import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
-import { ISYDeviceNode } from '../ISYDeviceNode.js';
 import 'winston';
+import { DynamicNode } from '../DynamicNode.js';
 // import { InsteonNLS } from './insteonfam'
-export class ZWaveBaseDevice extends ISYDeviceNode {
+export class ZWaveBaseDevice extends DynamicNode {
     async getNodeDef() {
         return this.isy.sendRequest(`zmatter/zwave/node/${this.address}/def/get?full=true`);
     }

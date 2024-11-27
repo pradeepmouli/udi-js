@@ -1,26 +1,19 @@
-import { Endpoint, EndpointServer, Environment, ServerNode, StorageService, Time, VendorId } from '@matter/main';
-import { StorageBackendDisk } from '@project-chip/matter-node.js/storage';
-import { BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
-import { logEndpoint } from '@matter/main/protocol';
-import { DimmableLightDevice, OnOffLightDevice } from '@matter/main/devices';
+import { LogLevel, logLevelFromString, Logger as MatterLogger } from '@matter/general';
+import { Endpoint, EndpointServer, Environment, MutableEndpoint, ServerNode, StorageService, VendorId } from '@matter/main';
 import { AggregatorEndpoint } from '@matter/main/endpoints/aggregator';
-import { LogLevel, logLevelFromString, Logger as MatterLogger, toHex } from '@matter/general';
-import { Devices } from '../../Devices/index.js';
-//@ts-ignore
+import { logEndpoint } from '@matter/main/protocol';
 import PackageJson from '@project-chip/matter.js/package.json' with { type: 'json' };
-import { QrCode } from '@project-chip/matter.js/schema';
-import path, { resolve } from 'path';
+import path from 'path';
 import { format, loggers } from 'winston';
 import { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 import { ISY } from '../../ISY.js';
-import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
-import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
-import '../Mappings/Insteon.js';
 import type { ISYNode } from '../../ISYNode.js';
-import type { DeviceToClusterMap } from '../../Model/ClusterMap.js';
-import { Options } from '../../Definitions/ZWave/index.js';
-import { InsteonBaseDevice } from '../../Devices/Insteon/InsteonBaseDevice.js';
-import { DimmerLamp } from '../../Devices/Insteon/Generated/DimmerLamp.js';
+import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
+import '../Mappings/index.js';
+import { RelayLamp, DimmerLamp } from '../../Devices/Insteon/index.js';
+import { MappingRegistry } from '../Mappings/MappingRegistry.js';
+import { QrCode } from '@matter/main/types';
+
 
 
 // #region Interfaces (1)
@@ -51,7 +44,7 @@ export interface Config {
 }
 
 export interface DeviceOptions {
-	applyTo:
+		applyTo:
 		| {
 				classes: (typeof ISYNode<any, any, any, any>)[];
 		  }
@@ -70,6 +63,10 @@ export interface DeviceOptions {
 // #endregion Interfaces (1)
 
 // #region Functions (3)
+
+let t : MutableEndpoint;
+
+
 
 export function create(isy?: ISY, config?: Config): Promise<ServerNode> {
 	return createMatterServer(isy, config);
@@ -188,7 +185,7 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 		}
 	});
 
-	logger.info(`Bridge Server Added`);
+	logger.info(`Bridge server added`);
 
 	/**
 	 * Matter Nodes are a composition of endpoints. Create and add a single multiple endpoint to the node to make it a
@@ -204,10 +201,12 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 
 	await server.add(aggregator);
 
-	logger.info(`Bridge Aggregator Added`);
-
+	logger.info(`Bridge aggregator added`);
+	let endpoints = 0;
 	for (const node of isy.nodeMap.values()) {
 		let device = node as ISYDeviceNode<any, any, any>;
+		try
+		{
 		let deviceOptions = getDeviceOptions(node, config.DeviceOptions);
 		if(deviceOptions?.label)
 		{
@@ -216,21 +215,26 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 		if (deviceOptions?.exclude) {
 			continue;
 		}
-		let serialNumber = `${device.address.replaceAll(' ', '_').replaceAll('.', '_')}`;
+		let uniqueId = `${device.address.replaceAll(' ', '_').replaceAll('.', '_')}`;
 		if (device.enabled) {
 			//const name = `OnOff ${isASocket ? "Socket" : "Light"} ${i}`;
 
 			//@ts-ignore
-			let baseBehavior: any; /*typeof (DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior)) | typeof (OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior));*/
+			//of (DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior)) | typeof (OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior));*/
+			let deviceType = MappingRegistry.getMapping(device)?.deviceType;
 
+
+
+			let baseBehavior = deviceType;
 			if (DimmerLamp.isImplementedBy(device)) {
-				baseBehavior = DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior);
+
+				baseBehavior = deviceType?.with(ISYOnOffBehavior, ISYDimmableBehavior);
 				// if(device instanceof InsteonSwitchDevice)
 				// {
 				//     baseBehavior = DimmerSwitchDevice.with(BridgedDeviceBasicInformationServer);
-				// }
-			} else if (device instanceof Devices.Insteon.Relay || device instanceof Devices.Insteon.RelaySwitch) {
-				baseBehavior = OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior);
+			}
+			else if (RelayLamp.isImplementedBy(device)) {
+				baseBehavior = deviceType?.with(ISYOnOffBehavior);
 				// if(device instanceof InsteonSwitchDevice)
 				// {
 				//     baseBehavior = OnOffLightSwitchDevice.with(BridgedDeviceBasicInformationServer);
@@ -238,16 +242,18 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 			}
 
 			if (baseBehavior !== undefined) {
+
+				logger.info(`Device ${device.label} (${device.address}) with NodeDefId = ${device.nodeDefId} mapped to ${deviceType.name}`);
 				//@ts-ignore
 				const endpoint = new Endpoint(baseBehavior, {
-					id: serialNumber,
+					id: uniqueId,
 					isyNode: {
 						address: device.address
 					},
 
 					bridgedDeviceBasicInformation: {
 						nodeLabel: device.label.rightWithToken(32),
-						vendorName: device instanceof InsteonBaseDevice ? device.vendorName : isy.vendorName,
+						vendorName: device instanceof ISYDeviceNode ? device.manufacturer : isy.vendorName,
 						vendorId: VendorId(config.vendorId),
 						productName: device.productName.leftWithToken(32),
 						productLabel: device.model.leftWithToken(64),
@@ -257,17 +263,24 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 						softwareVersion: Number(device.version),
 						softwareVersionString: `v.${device.version}`,
 
-						serialNumber: serialNumber,
+						serialNumber: uniqueId,
 						reachable: true,
 						uniqueId: device.address
-					}
+
+					},
+
 				});
 
 				await aggregator.add(endpoint);
-				logger.info(`Endpoint Added ${JSON.stringify(endpoint.id)} for ${device.label} (${device.address})`);
+				logger.info(`Endpoint added ${JSON.stringify(endpoint.id)} for ${device.label} (${device.address})`);
+				endpoints++;
 				//endpoints.push({0:endpoint,1:device});
 			}
 			//endpoint.lifecycle.ready.on(()=> device.initialize(endpoint as any));
+		}}
+		catch(e)
+		{
+			logger.error(`Error adding endpoint for ${device.label} (${device.address}): ${e.message}`);
 		}
 
 		/**
@@ -276,8 +289,9 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 		 * If the code in these change handlers fail then the change is also rolled back and not executed and an error is
 		 * reported back to the controller.
 		 */
-	}
 
+	}
+	logger.info(`${endpoints} endpoints added to bridge.`);
 	/**
 	 * In order to start the node and announce it into the network we use the run method which resolves when the node goes
 	 * offline again because we do not need anything more here. See the Full example for other starting options.
@@ -339,8 +353,8 @@ async function initializeConfiguration(isy: ISY, config?: Config): Promise<Confi
 		storageService.location = storagePath;
 	});
 
-	storageService.factory = (namespace) => new StorageBackendDisk(path.resolve(storageService.location ?? '.', namespace), environment.vars.get('storage.clear', false));
 	logger.info(`Matter storage location: ${storageService.location} (Directory)`);
+	//logger.info(`Matter storage service type: ${storageService.factory.name}`);
 
 	const deviceStorage = (await storageService.open('bridge')).createContext('data');
 
@@ -363,7 +377,7 @@ async function initializeConfiguration(isy: ISY, config?: Config): Promise<Confi
 
 	environment.vars.set('uniqueid', isy.id.replaceAll(':', '_'));
 
-
+	//logger.info(`Matter configuration: ${JSON.stringify(environment.vars)}`);
 
 	const vendorName = isy.vendorName;
 	const passcode = environment.vars.number('passcode') ?? (await deviceStorage.get('passcode', 20202021));

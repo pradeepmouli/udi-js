@@ -14,6 +14,7 @@ export declare class RelayNode extends Base<Drivers, Commands> implements Relay.
         QUERY: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "EM3Relay";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(): Promise<any>;

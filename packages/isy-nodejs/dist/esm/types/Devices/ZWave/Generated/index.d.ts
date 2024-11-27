@@ -1,3 +1,3 @@
-export * from './ColorSwitch.ts';
-export * from './DimmerSwitch.ts';
+export * from './ColorSwitch.js';
+export * from './DimmerSwitch.js';
 //# sourceMappingURL=index.d.ts.map

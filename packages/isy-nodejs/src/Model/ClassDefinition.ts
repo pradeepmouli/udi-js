@@ -136,6 +136,8 @@ function buildNodeClassDefinitions<T extends Family>(nodeDefs: NodeDef[], family
 	return map;
 }
 
+export type NCD = NodeClassDefinition<Family>;
+
 export class NodeClassDefinition<T extends Family> {
 	// #region Properties (11)
 
@@ -370,15 +372,17 @@ export class NodeClassDefinition<T extends Family> {
 }
 
 export type DataTypeDefinition =
-	| {
+	 {
 			uom: UnitOfMeasure;
 			serverUom?: UnitOfMeasure;
 			enum: false;
+			indexId?: string;
 			min: number;
 			max: number;
 			step?: number;
 			precision?: number;
-	  }
+			returnType?: string;
+	 }
 	| {
 			uom: UnitOfMeasure;
 			enum: true;
@@ -386,15 +390,15 @@ export type DataTypeDefinition =
 			values: {
 				[x: number]: string;
 			};
+			returnType?: string;
 	  };
 
 export abstract class NodeMemberDefinition<TId extends string> {
 	// #region Properties (7)
 
 	public classDef: NodeClassDefinition<any>;
-	public dataType: {
-		[x in keyof typeof UnitOfMeasure]?: DataTypeDefinition;
-	};
+	public dataType: DataTypeDefinition[];
+
 	public editorId: string;
 	public hidden: boolean;
 	public id: TId;
@@ -409,7 +413,7 @@ export abstract class NodeMemberDefinition<TId extends string> {
 		this.classDef = classDef;
 		if (def) {
 			this.editorId = def.editor;
-			this.dataType = {};
+			this.dataType = [];
 
 			var r = this.parseEditorId(def.editor);
 			if (r) this.applyEditorDef({ id: def.editor, range: r });
@@ -430,12 +434,13 @@ export abstract class NodeMemberDefinition<TId extends string> {
 
 	public applyEditorDef(e: EditorDef) {
 		if (e.id === this.editorId) {
-			var d = {};
+			var d = [];
 			for (const rangeDef of toArray(e.range)) {
+				let dt = {} as DataTypeDefinition;
 				if ('subset' in rangeDef) {
-					d[rangeDef.uom]= { uom: rangeDef.uom, indexId: rangeDef.nls, ...this.#parseSubset(e) };
+				 	dt = { uom: rangeDef.uom, indexId: rangeDef.nls, ...this.#parseSubset(e) };
 				} else {
-					d[rangeDef.uom] = {
+					dt = {
 						uom: rangeDef.uom,
 						enum: false,
 						min: rangeDef.min,
@@ -448,8 +453,9 @@ export abstract class NodeMemberDefinition<TId extends string> {
 				}
 				if(rangeDef.uom === UnitOfMeasure.Index)
 				{
-					d[rangeDef.uom].enum = true;
+					dt.enum = true;
 				}
+				d.push(dt);
 
 			}
 			this.dataType = d;

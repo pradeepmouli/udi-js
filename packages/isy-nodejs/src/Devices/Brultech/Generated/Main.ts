@@ -22,6 +22,7 @@ export class MainNode extends Base<Drivers, Commands> implements Main.Interface 
 		QUERY: this.query
 	};
 	static override nodeDefId = "BTMain";
+	static override implements = ["BTMain"];
 	declare readonly nodeDefId: "BTMain";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -32,9 +33,7 @@ export class MainNode extends Base<Drivers, Commands> implements Main.Interface 
 		this.drivers.PPW = Driver.create("PPW", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Watt, label: "Polarized Power", name: "polarizedPower" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
+	async query() { return this.sendCommand("QUERY"); }
 	public get status(): number {
 		return this.drivers.ST?.value;
 	}
@@ -62,10 +61,10 @@ export namespace Main {
 		nodeDefId: "BTMain";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is MainNode {
-		return node.nodeDefId in ["BTMain"];
+		return ["BTMain"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is MainNode {
-		return node.nodeDefId in ["BTMain"];
+		return ["BTMain"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new MainNode(isy, nodeInfo);

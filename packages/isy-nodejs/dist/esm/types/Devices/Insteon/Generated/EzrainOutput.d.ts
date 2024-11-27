@@ -16,6 +16,7 @@ export declare class EzrainOutputNode extends Base<Drivers, Commands> implements
         BEEP: (value?: number) => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "EZRAIN_Output";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: (0 | 100)): Promise<any>;

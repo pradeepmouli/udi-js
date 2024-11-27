@@ -10,6 +10,7 @@ type Drivers = Em3MainChannel.Drivers;
 export declare class Em3MainChannelNode extends Base<Drivers, Commands> implements Em3MainChannel.Interface {
     readonly commands: {};
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "EM3MainChannel";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     get status(): number;

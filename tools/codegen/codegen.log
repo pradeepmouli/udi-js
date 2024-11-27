@@ -393,3 +393,1207 @@
 [31m2024-11-19 22:31:21 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
 [31m2024-11-19 22:31:21 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
 [31m2024-11-19 22:31:21 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 14:12:46 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 14:12:46 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 14:12:46 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 14:12:46 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 14:12:46 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 14:12:46 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 14:12:46 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 14:12:46 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 14:12:46 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 14:12:46 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Lutron undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating NCD undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating Scene undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:12:47 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:55 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 14:19:55 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 14:19:55 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 14:19:55 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 14:19:55 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 14:19:55 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 14:19:55 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 14:19:55 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 14:19:55 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 14:19:55 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Lutron undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating NCD undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating Scene undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:19:56 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:23:32 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 14:23:32 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 14:23:32 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 14:23:32 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 14:23:32 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 14:23:32 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 14:23:32 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 14:23:32 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 14:23:32 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 14:23:32 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 14:23:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:23:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:23:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:23:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:23:32 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:23:32 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:23:32 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:23:32 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:23:32 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:24:14 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 14:24:14 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 14:24:14 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 14:24:14 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 14:24:14 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 14:24:14 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 14:24:14 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 14:24:14 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 14:24:14 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 14:24:14 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 14:26:52 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:26:52 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:26:52 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:26:52 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:26:52 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:26:52 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:26:52 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:26:52 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:26:52 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:28:08 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 14:28:08 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 14:28:08 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 14:28:08 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 14:28:08 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 14:28:08 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 14:28:08 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 14:28:08 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 14:28:08 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 14:28:08 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 14:28:09 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:28:09 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:28:09 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:28:57 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 14:28:57 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 14:28:57 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 14:28:57 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 14:28:57 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 14:28:57 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 14:28:57 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 14:28:57 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 14:28:57 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 14:28:57 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 14:28:57 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:28:57 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:28:57 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:31:15 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 14:32:21 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 14:32:21 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 14:32:21 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 14:32:21 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 14:32:21 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 14:32:21 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 14:32:21 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 14:32:21 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 14:32:21 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 14:32:21 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 14:32:21 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:32:21 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:32:21 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:32:46 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 14:32:46 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 14:32:46 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 14:32:46 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 14:32:46 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 14:32:46 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 14:32:46 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 14:32:46 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 14:32:46 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 14:32:46 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 14:34:31 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:34:31 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:34:31 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-20 14:35:18 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 14:35:18 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 14:35:18 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 14:35:18 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 14:35:18 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 14:35:18 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 14:35:18 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 14:35:18 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 14:35:18 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 14:35:18 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 14:39:14 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 14:39:14 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 14:39:14 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 14:39:14 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 14:39:14 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 14:39:14 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 14:39:14 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 14:39:14 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 14:39:14 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 14:39:14 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 14:39:53 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 14:39:53 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 14:39:53 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 14:39:53 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 14:39:53 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 14:39:53 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 14:39:53 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 14:39:53 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 14:39:53 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 14:39:53 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 14:43:24 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 14:43:24 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 14:43:24 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 14:43:24 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 14:43:24 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 14:43:24 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 14:43:24 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 14:43:24 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 14:43:24 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 14:43:24 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 14:47:38 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 14:47:38 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 14:47:38 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 14:47:38 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 14:47:38 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 14:47:38 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 14:47:38 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 14:47:38 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 14:47:38 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 14:47:38 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 15:40:37 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 15:40:37 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 15:40:37 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 15:40:37 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 15:40:37 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 15:40:37 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 15:40:37 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 15:40:37 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 15:40:37 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 15:40:37 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 16:27:45 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 16:27:45 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 16:27:45 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 16:27:45 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 16:27:45 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 16:27:45 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 16:27:45 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 16:27:45 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 16:27:45 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 16:27:45 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 17:00:18 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 17:00:18 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 17:00:18 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 17:00:18 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 17:00:18 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 17:00:18 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 17:00:18 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 17:00:18 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 17:00:18 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 17:00:18 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 17:02:14 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 17:02:14 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 17:02:14 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 17:02:14 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 17:02:14 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 17:02:14 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 17:02:14 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 17:02:14 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 17:02:14 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 17:02:14 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-20 17:07:00 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-20 17:07:00 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-20 17:07:00 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-20 17:07:00 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-20 17:07:00 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-20 17:07:00 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-20 17:07:00 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-20 17:07:00 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-20 17:07:00 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-20 17:07:00 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 20:32:00 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 20:32:00 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 20:32:00 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 20:32:00 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 20:32:00 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 20:32:00 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 20:32:00 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 20:32:00 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 20:32:00 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 20:32:00 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 20:33:31 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 20:33:31 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 20:33:31 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 20:33:31 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 20:33:31 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 20:33:31 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 20:33:31 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 20:33:31 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 20:33:31 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 20:33:31 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Lutron undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating NCD undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating Scene undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:33:32 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:35:35 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 20:35:35 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 20:35:35 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 20:35:35 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 20:35:35 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 20:35:35 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 20:35:35 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 20:35:35 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 20:35:35 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 20:35:35 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 20:37:36 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 20:37:36 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 20:37:36 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 20:37:36 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 20:37:36 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 20:37:36 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 20:37:36 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 20:37:36 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 20:37:36 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 20:37:36 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 20:38:18 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 20:38:18 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 20:38:18 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 20:38:18 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 20:38:18 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 20:38:18 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 20:38:18 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 20:38:18 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 20:38:18 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 20:38:18 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 20:41:00 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 20:41:00 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 20:41:00 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 20:41:00 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 20:41:00 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 20:41:00 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 20:41:00 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 20:41:00 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 20:41:00 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 20:41:00 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 20:41:36 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 20:41:36 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 20:41:36 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 20:41:36 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 20:41:36 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 20:41:36 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 20:41:36 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 20:41:36 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 20:41:36 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 20:41:36 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Lutron undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating NCD undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating Scene undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:41:36 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:42:39 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 20:42:39 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 20:42:39 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 20:42:39 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 20:42:39 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 20:42:39 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 20:42:39 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 20:42:39 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 20:42:39 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 20:42:39 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Lutron undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating NCD undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating Scene undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:44:36 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 20:47:21 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 20:47:21 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 20:47:21 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 20:47:21 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 20:47:21 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 20:47:21 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 20:47:21 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 20:47:21 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 20:47:21 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Lutron undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating NCD undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating Scene undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:47:21 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 20:50:02 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 20:50:02 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 20:50:02 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 20:50:02 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 20:50:02 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 20:50:02 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 20:50:02 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 20:50:02 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 20:50:02 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Lutron undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating NCD undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating Scene undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:02 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 20:50:43 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 20:50:43 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 20:50:43 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 20:50:43 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 20:50:43 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 20:50:43 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 20:50:43 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 20:50:43 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 20:50:43 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Lutron undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating NCD undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating Scene undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:50:43 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:21 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 20:51:21 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 20:51:21 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 20:51:21 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 20:51:21 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 20:51:21 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 20:51:21 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 20:51:21 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 20:51:21 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 20:51:21 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Lutron undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating NCD undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating Scene undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:51:22 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 20:52:23 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 20:52:23 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 20:52:23 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 20:52:23 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 20:52:23 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 20:52:23 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 20:52:23 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 20:52:23 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 20:52:23 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Lutron undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating NCD undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating Scene undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:52:23 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:05 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 20:53:05 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 20:53:05 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 20:53:05 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 20:53:05 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 20:53:05 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 20:53:05 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 20:53:05 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 20:53:05 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 20:53:05 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 20:53:23 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:23 error: codegen: Error creating Brultech undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Lutron undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating NCD undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating Scene undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating UDI undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 20:53:42 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 21:00:04 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 21:00:04 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 21:00:04 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 21:00:04 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 21:00:04 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 21:00:04 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 21:00:04 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 21:00:04 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 21:00:04 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Lutron undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating NCD undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating Scene undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:04 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-21 21:00:38 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 21:00:38 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 21:00:38 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 21:00:38 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 21:00:38 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 21:00:38 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 21:00:38 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 21:00:38 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 21:00:38 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 21:00:38 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 21:54:07 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 21:54:07 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 21:54:07 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 21:54:07 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 21:54:07 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 21:54:07 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 21:54:07 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 21:54:07 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 21:54:07 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 21:54:07 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 21:57:34 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 21:57:34 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 21:57:34 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 21:57:34 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 21:57:34 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 21:57:34 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 21:57:34 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 21:57:34 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 21:57:34 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 21:57:34 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-21 22:01:34 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-21 22:01:34 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-21 22:01:34 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-21 22:01:34 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-21 22:01:34 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-21 22:01:34 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-21 22:01:34 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-21 22:01:34 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-21 22:01:34 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-21 22:01:34 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-22 16:56:38 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-22 16:56:38 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-22 16:56:38 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-22 16:56:38 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-22 16:56:38 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-22 16:56:38 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-22 16:56:38 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-22 16:56:38 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-22 16:56:38 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-22 16:56:38 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-22 16:56:39 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 16:56:39 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 16:56:39 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 16:56:39 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 16:56:39 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 16:56:39 error: codegen: Error creating Poly undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 16:56:39 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 16:56:39 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 16:56:39 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 16:56:39 error: codegen: Error creating ZigBeeLegacy undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:25 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-22 17:02:25 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-22 17:02:25 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-22 17:02:25 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-22 17:02:25 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-22 17:02:25 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-22 17:02:25 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-22 17:02:25 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-22 17:02:25 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-22 17:02:25 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:02:26 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:06:02 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-22 17:06:02 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-22 17:06:02 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-22 17:06:02 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-22 17:06:02 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-22 17:06:02 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-22 17:06:02 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-22 17:06:02 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-22 17:06:02 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-22 17:06:02 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-22 17:06:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:06:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:06:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:06:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:06:02 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:06:02 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:06:02 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:07:20 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-22 17:07:20 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-22 17:07:20 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-22 17:07:20 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-22 17:07:20 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-22 17:07:20 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-22 17:07:20 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-22 17:07:20 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-22 17:07:20 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-22 17:07:20 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-22 17:07:20 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:07:20 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:07:20 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:07:20 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:07:20 error: codegen: Error creating Insteon undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:07:20 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:07:20 error: codegen: Error creating ZWave undefined class: Cannot read properties of undefined (reading 'sourceFile')[39m
+[31m2024-11-22 17:09:09 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-22 17:09:09 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-22 17:09:09 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-22 17:09:09 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-22 17:09:09 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-22 17:09:09 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-22 17:09:09 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-22 17:09:09 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-22 17:09:09 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-22 17:09:09 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-22 17:18:20 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-22 17:18:20 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-22 17:18:20 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-22 17:18:20 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-22 17:18:20 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-22 17:18:20 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-22 17:18:20 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-22 17:18:20 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-22 17:18:20 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-22 17:18:20 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-22 18:00:40 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-22 18:00:40 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-22 18:00:40 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-22 18:00:40 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-22 18:00:40 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-22 18:00:40 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-22 18:00:40 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-22 18:00:40 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-22 18:00:40 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-22 18:00:40 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-22 18:12:36 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-22 18:12:36 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-22 18:12:36 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-22 18:12:36 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-22 18:12:36 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-22 18:12:36 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-22 18:12:36 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-22 18:12:36 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-22 18:12:36 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-22 18:12:36 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-22 18:18:33 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-22 18:18:33 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-22 18:18:33 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-22 18:18:33 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-22 18:18:33 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-22 18:18:33 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-22 18:18:33 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-22 18:18:33 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-22 18:18:33 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-22 18:18:33 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-22 18:21:57 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-22 18:21:57 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-22 18:21:57 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-22 18:21:57 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-22 18:21:57 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-22 18:21:57 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-22 18:21:57 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-22 18:21:57 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-22 18:21:57 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-22 18:21:57 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-22 18:23:48 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-22 18:23:48 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-22 18:23:48 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-22 18:23:48 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-22 18:23:48 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-22 18:23:48 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-22 18:23:48 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-22 18:23:48 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-22 18:23:48 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-22 18:23:48 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-22 18:38:58 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-22 18:38:58 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-22 18:38:58 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-22 18:38:58 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-22 18:38:58 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-22 18:38:58 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-22 18:38:58 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-22 18:38:58 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-22 18:38:58 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-22 18:38:58 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-22 23:27:23 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-22 23:27:23 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-22 23:27:23 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-22 23:27:24 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-22 23:27:24 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-22 23:27:24 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-22 23:27:24 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-22 23:27:24 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-22 23:27:24 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-22 23:27:24 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m
+[31m2024-11-25 09:56:59 error: codegen: Error generating enums for Insteon: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Insteon/generated'[39m
+[31m2024-11-25 09:56:59 error: codegen: Error generating enums for ZigBeeLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBeeLegacy/generated'[39m
+[31m2024-11-25 09:56:59 error: codegen: Error generating enums for ZWaveLegacy: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWaveLegacy/generated'[39m
+[31m2024-11-25 09:56:59 error: codegen: Error generating enums for UDI: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/UDI/generated'[39m
+[31m2024-11-25 09:56:59 error: codegen: Error generating enums for Brultech: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Brultech/generated'[39m
+[31m2024-11-25 09:56:59 error: codegen: Error generating enums for NCD: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/NCD/generated'[39m
+[31m2024-11-25 09:56:59 error: codegen: Error generating enums for Poly: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Poly/generated'[39m
+[31m2024-11-25 09:56:59 error: codegen: Error generating enums for Lutron: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/Lutron/generated'[39m
+[31m2024-11-25 09:56:59 error: codegen: Error generating enums for ZWave: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZWave/generated'[39m
+[31m2024-11-25 09:56:59 error: codegen: Error generating enums for ZigBee: ENOTEMPTY: directory not empty, rmdir '../../packages/isy-nodejs/src/Definitions/ZigBee/generated'[39m

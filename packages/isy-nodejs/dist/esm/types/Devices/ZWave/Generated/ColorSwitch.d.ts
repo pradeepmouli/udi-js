@@ -9,24 +9,26 @@ type Commands = ColorSwitch.Commands;
 type Drivers = ColorSwitch.Drivers;
 export declare class ColorSwitchNode extends Base<Drivers, Commands> implements ColorSwitch.Interface {
     readonly commands: {
-        DON: (warmWhite?: number, red?: number, green?: number, blue?: number, duration?: number | number) => Promise<any>;
-        FDUP: (component: ZWave.ColorComponent, startLevel?: number, duration?: number | number) => Promise<any>;
-        FDDOWN: (component: ZWave.ColorComponent, startLevel?: number, duration?: number | number) => Promise<any>;
+        DON: (warmWhite?: number, red?: number, green?: number, blue?: number, duration?: number, coldWhite?: number) => Promise<any>;
+        FDUP: (component: ZWave.ColorComponent, startLevel?: number, duration?: number) => Promise<any>;
+        FDDOWN: (component: ZWave.ColorComponent, startLevel?: number, duration?: number) => Promise<any>;
         FDSTOP: (component: ZWave.ColorComponent) => Promise<any>;
         QUERY: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "186";
     constructor(isy: ISY, nodeInfo: NodeInfo);
-    set(warmWhite?: number, red?: number, green?: number, blue?: number, duration?: number | number): Promise<any>;
-    fadeUp(component: ZWave.ColorComponent, startLevel?: number, duration?: number | number): Promise<any>;
-    fadeDown(component: ZWave.ColorComponent, startLevel?: number, duration?: number | number): Promise<any>;
+    set(warmWhite?: number, red?: number, green?: number, blue?: number, duration?: number, coldWhite?: number): Promise<any>;
+    fadeUp(component: ZWave.ColorComponent, startLevel?: number, duration?: number): Promise<any>;
+    fadeDown(component: ZWave.ColorComponent, startLevel?: number, duration?: number): Promise<any>;
     fadeStop(component: ZWave.ColorComponent): Promise<any>;
     query(): Promise<any>;
     get warmWhite(): number;
     get red(): number;
     get green(): number;
     get blue(): number;
+    get coldWhite(): number;
 }
 export declare namespace ColorSwitch {
     interface Interface extends Omit<InstanceType<typeof ColorSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
@@ -37,15 +39,15 @@ export declare namespace ColorSwitch {
     function create(isy: ISY, nodeInfo: NodeInfo): ColorSwitchNode;
     const Node: typeof ColorSwitchNode;
     type Commands = {
-        DON: ((GV0?: number, GV2?: number, GV3?: number, GV4?: number, RR?: number | number) => Promise<boolean>) & {
+        DON: ((GV0?: number, GV2?: number, GV3?: number, GV4?: number, RR?: number, GV1?: number) => Promise<boolean>) & {
             label: "Set";
             name: "set";
         };
-        FDUP: ((ID: ZWave.ColorComponent, STARTLEVEL?: number, RR?: number | number) => Promise<boolean>) & {
+        FDUP: ((ID: ZWave.ColorComponent, STARTLEVEL?: number, RR?: number) => Promise<boolean>) & {
             label: "Fade Up";
             name: "fadeUp";
         };
-        FDDOWN: ((ID: ZWave.ColorComponent, STARTLEVEL?: number, RR?: number | number) => Promise<boolean>) & {
+        FDDOWN: ((ID: ZWave.ColorComponent, STARTLEVEL?: number, RR?: number) => Promise<boolean>) & {
             label: "Fade Down";
             name: "fadeDown";
         };
@@ -82,6 +84,12 @@ export declare namespace ColorSwitch {
             value: number;
             label: "Blue";
             name: "blue";
+        };
+        GV1: {
+            uom: UnitOfMeasure.Raw1ByteUnsignedValue;
+            value: number;
+            label: "Cold White";
+            name: "coldWhite";
         };
     };
 }

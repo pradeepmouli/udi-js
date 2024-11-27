@@ -212,10 +212,11 @@ export var Driver;
             return {
                 id: driver,
                 stateless: true,
-                uom: initState.uom,
+                uom: driverSignature.uom,
+                serverUom: initState?.uom != driverSignature.uom ? initState?.uom : undefined,
                 state: {
                     initial: true,
-                    value: node.convertFrom(initState?.value, initState?.uom, driver),
+                    value: initState?.value, //TODO include converter
                     formattedValue: initState.formatted,
                     pendingValue: null
                 },
@@ -235,16 +236,17 @@ export var Driver;
                 initial: true,
                 value: initState ?
                     converter ? converter.from(initState.value)
-                        : node.convertFrom(initState?.value, initState?.uom, driver)
-                    : null,
+                        : driverSignature?.uom && initState?.uom != driverSignature?.uom ? Converter.convert(initState.uom, driverSignature.uom, initState.value)
+                            : initState.value : null,
                 rawValue: initState ? initState.value : null,
                 formattedValue: initState ? initState.formatted : null,
                 pendingValue: null
             },
             async query() {
                 let s = await query();
-                this.state.value = converter ? converter.from(s.value) : node.convertFrom(s.value, s.uom, driver);
+                this.state.value = converter ? converter.from(s.value) : this.uom !== s.uom ? Converter.convert(s.value, s.uom, this.uom) : s.value;
                 this.state.formattedValue = s.formatted;
+                this.state.rawValue = s.value;
                 return s;
             },
             apply(state, notify = false) {

@@ -1,19 +1,22 @@
 import type { NodeInfo } from '../../Model/NodeInfo.js';
 import { ISY } from '../../ISY.js';
-import { Commands } from '../../ISYConstants.js';
+
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
+import { Pir2844 } from './Generated/Pir2844.js';
+import type { Pir2844c } from './Generated/Pir2844c.js';
+import { Pir2844OnOff } from './Generated/Pir2844OnOff.js';
 
-export class InsteonMotionSensorDevice extends InsteonBaseDevice {
+export class InsteonMotionSensorDevice extends Pir2844OnOff.Node {
 	private _isMotionDetected: boolean;
 	constructor (isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
 		this._isMotionDetected = false;
 	}
 
-	public override handleControlTrigger(controlName: string) {
+	public override handleControlTrigger(controlName: keyof Pir2844OnOff.Commands) {
 
-			if (controlName === Commands.On) {
+			if (controlName === 'DON') {
 				this.logger('Motion detected.');
 				this._isMotionDetected = true;
 				this.emit('controlTriggered',controlName);
@@ -27,7 +30,7 @@ export class InsteonMotionSensorDevice extends InsteonBaseDevice {
 				return true;
 			}
 
-			else if (controlName === Commands.Off) {
+			else if (controlName === 'DOF') {
 				this._isMotionDetected = false;
 				this.logger('No motion detected.');
 				this.emit('controlTriggered',controlName);

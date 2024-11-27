@@ -4,20 +4,16 @@
  * SPDX-License-Identifier: Apache-2.0
  */ import { Behavior } from '@project-chip/matter.js/behavior';
 import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
-import type { StateType } from '@project-chip/matter.js/behavior/state';
-import { Internal } from '@project-chip/matter.js/behavior/state/managed';
+
 import { EventEmitter, Observable } from '@project-chip/matter.js/util';
 import internal from 'stream';
+import { server } from 'typescript';
 import type { Driver } from '../../Definitions/Global/Drivers.js';
+import type { Family } from '../../Definitions/index.js';
 import { ISY } from '../../ISY.js';
 import type { ISYDevice } from '../../ISYDevice.js';
-import { DeviceToClusterMap, MappingRegistry, type ClusterMapping, type BehaviorMapping } from '../../Model/ClusterMap.js';
-import { server } from 'typescript';
 import type { ISYNode } from '../../ISYNode.js';
-import type { Family } from '../../Definitions/index.js';
-
-
-
+import { MappingRegistry, type ClusterMapping, type DeviceToClusterMap } from '../Mappings/MappingRegistry.js';
 
 type ClusterForBehavior<B extends ClusterBehavior> = B extends ClusterBehavior.Type<infer C> ? C : never;
 export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D extends ISYNode.DriverSignatures = ISYNode.DriverSignatures> extends Behavior {
@@ -28,7 +24,7 @@ export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D ext
 	declare internal: ISYBridgedDeviceBehavior.Internal;
 	declare state: ISYBridgedDeviceBehavior.State;
 
-	declare events: ISYBridgedDeviceBehavior.Events & ISYBridgedDeviceBehavior.EventsFor<N["drivers"]>;
+	declare events: ISYBridgedDeviceBehavior.Events & ISYBridgedDeviceBehavior.EventsFor<N['drivers']>;
 
 	override async initialize(_options?: {}) {
 		await super.initialize(_options);
@@ -41,20 +37,15 @@ export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D ext
 		if (d) {
 			d.events.on('propertyChanged', this.handlePropertyChange.bind(this));
 
-			for(const f in d.drivers)
-			{
+			for (const f in d.drivers) {
 				let evt = `${d.drivers[f].name}Changed`;
 				const obs = Observable<[{ driver: string; newValue: any; oldValue: any; formattedValue: string }]>();
-
-
 
 				d.events.on(evt, (driver: string, newValue: any, oldValue: any, formattedValue: string) => obs.emit({ driver, newValue, oldValue, formattedValue }));
 				this.events[evt] = obs;
 
-
 				//@ts-ignore
 				//d.events.on(evt, (driver: string, newValue: any, oldValue: any, formattedValue: string) => this.events.emit(evt, { driver, newValue, oldValue, formattedValue } as unknown as any));
-
 			}
 		}
 	}
@@ -67,21 +58,17 @@ export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D ext
 		return this.internal.map;
 	}
 
-	mapForBehavior<B extends ClusterBehavior>(behavior: B): BehaviorMapping<B, typeof this.internal.device> {
-		return this.map.mapping[behavior.cluster['name']];
+	mapForBehavior<B extends ClusterBehavior>(behavior: B): ClusterMapping<B, typeof this.internal.device> {
+		return this.map.mapping[behavior.cluster.name];
 	}
 
 	handlePropertyChange(driver: string, newValue: any, oldValue: any, formattedValue: string) {
-
 		this.events.propertyChanged.emit({ driver, newValue, oldValue, formattedValue });
-
-
 	}
 
 	override [Symbol.asyncDispose]() {
-
 		this.internal.device = null;
-
+		
 
 		return super[Symbol.asyncDispose]();
 	}
@@ -93,18 +80,12 @@ export namespace ISYBridgedDeviceBehavior {
 		map?: DeviceToClusterMap<typeof this.device, any>;
 	}
 
-	export type EventsFor<D extends {[x: string]: Driver<any,any,any>}> = {
-		[s in keyof D as `${D[s]["name"]}Changed`] : Observable<[{ driver: s; newValue: any; oldValue: any; formattedValue: string }]>;
-	}
+	export type EventsFor<D extends { [x: string]: Driver<any, any, any> }> = {
+		[s in keyof D as `${D[s]['name']}Changed`]: Observable<[{ driver: s; newValue: any; oldValue: any; formattedValue: string }]>;
+	};
 
-
-
-
-	export class Events extends EventEmitter{
+	export class Events extends EventEmitter {
 		propertyChanged = Observable<[{ driver: string; newValue: any; oldValue: any; formattedValue: string }]>();
-
-
-
 	}
 
 	export class State {

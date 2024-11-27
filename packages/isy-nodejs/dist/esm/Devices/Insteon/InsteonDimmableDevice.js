@@ -1,9 +1,9 @@
 import 'winston';
-import { DimmerLampSwitch } from './DimmerLampSwitch.js';
+import { DimmerLampSwitchNode } from './Generated/DimmerLampSwitch.js';
 // #endregion Type aliases (2)
 // #region Classes (1)
 //@ts-ignore
-export class InsteonDimmableDevice extends DimmerLampSwitch.Node {
+export class InsteonDimmableDevice extends DimmerLampSwitchNode {
     // #region Constructors (1)
     constructor(isy, node) {
         super(isy, node);

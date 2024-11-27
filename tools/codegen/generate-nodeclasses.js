@@ -1,11 +1,10 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
-import { Project, IndentationText, NewLineKind, QuoteKind } from "ts-morph";
+import { Project, IndentationText, NewLineKind, QuoteKind, ts } from "ts-morph";
 import { NodeClassFactory } from "isy-nodejs/CodeGeneration/NodeClassFactory";
 import { NodeClassDefinition } from "isy-nodejs/Model/ClassDefinition";
 import { EnumFactory } from "isy-nodejs/CodeGeneration/EnumFactory";
 import { buildEnumDefinitions, EnumDefinition } from "isy-nodejs/Model/EnumDefinition";
 import { NLSIndexMap } from "isy-nodejs/Model/NLS";
-import ts from "typescript";
 import fs from "fs";
 import winston from "winston";
 import { toArray } from "isy-nodejs/Utils";

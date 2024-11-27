@@ -24,21 +24,16 @@ export class KeypadButtonNode extends Base<Drivers, Commands> implements KeypadB
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "KeypadButton";
+	static override implements = ["KeypadButton", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "KeypadButton" | "KeypadButton_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async backlight(value: Insteon.Backlight) {
-		return this.sendCommand("BL", { value: value });
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async query() { return this.sendCommand("QUERY"); }
+	async backlight(value: Insteon.Backlight) { return this.sendCommand("BL", value); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
@@ -55,10 +50,10 @@ export namespace KeypadButton {
 		nodeDefId: "KeypadButton" | "KeypadButton_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is KeypadButtonNode {
-		return node.nodeDefId in ["KeypadButton", "KeypadButton_ADV"];
+		return ["KeypadButton", "KeypadButton_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is KeypadButtonNode {
-		return node.nodeDefId in ["KeypadButton", "KeypadRelay", "KeypadRelay_ADV", "KeypadButton_ADV"];
+		return ["KeypadButton", "KeypadRelay", "KeypadRelay_ADV", "KeypadButton_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new KeypadButtonNode(isy, nodeInfo);

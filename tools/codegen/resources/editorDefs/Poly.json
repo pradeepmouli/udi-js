@@ -1,87 +1,26 @@
 {
-  "BRD_ST": {
+  "NCD_ERR": {
     "range": {
       "uom": 25,
-      "subset": "0,1,101",
-      "nls": "IX_BRD_ST"
+      "subset": "0,1",
+      "nls": "IX_ERR"
     },
-    "$comment": " ISY Index UOM with custom labels in NLS ",
-    "id": "BRD_ST"
+    "id": "NCD_ERR"
   },
-  "NS_STATUS": {
+  "NCD_ADRPST": {
     "range": {
       "uom": 25,
-      "subset": "-1,0-2",
-      "nls": "IX_NS_STATUS"
+      "subset": "0,1",
+      "nls": "R_ADRPST"
     },
-    "$comment": " ISY Index UOM custom labels in NLS ",
-    "id": "NS_STATUS"
+    "id": "NCD_ADRPST"
   },
-  "CFN_ST": {
+  "NCD_OL_RELAY": {
     "range": {
       "uom": 51,
-      "subset": "0-100,101",
-      "nls": "IX_CFN_ST"
+      "subset": "0,100",
+      "nls": "R_OL"
     },
-    "$comment": " ISY Percent UOM ",
-    "id": "CFN_ST"
-  },
-  "CFN_SPEED": {
-    "range": {
-      "uom": 56,
-      "subset": "1-10"
-    },
-    "$comment": " ISY raw UOM ",
-    "id": "CFN_SPEED"
-  },
-  "CFN_DIR": {
-    "range": {
-      "uom": 25,
-      "subset": "0-2",
-      "nls": "IX_CFN_DIR"
-    },
-    "$comment": " ISY Index UOM with custom labels in NLS ",
-    "id": "CFN_DIR"
-  },
-  "LGT_ST": {
-    "range": {
-      "uom": 51,
-      "subset": "0-100,101",
-      "nls": "IX_LGT_ST"
-    },
-    "$comment": " ISY Percent UOM ",
-    "id": "LGT_ST"
-  },
-  "NDL_ST": {
-    "range": {
-      "uom": 78,
-      "subset": "0,100,101"
-    },
-    "$comment": " ISY On/Off UOM ",
-    "id": "NDL_ST"
-  },
-  "SHD_ST": {
-    "range": {
-      "uom": 97,
-      "subset": "0-100,101"
-    },
-    "$comment": " ISY Barrier Status UOM ",
-    "id": "SHD_ST"
-  },
-  "FPL_ST": {
-    "range": {
-      "uom": 78,
-      "subset": "0,100,101"
-    },
-    "$comment": " ISY On/Off UOM ",
-    "id": "FPL_ST"
-  },
-  "GNR_ST": {
-    "range": {
-      "uom": 78,
-      "subset": "0,100,101"
-    },
-    "$comment": " ISY On/Off UOM ",
-    "id": "GNR_ST"
+    "id": "NCD_OL_RELAY"
   }
 }

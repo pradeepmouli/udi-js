@@ -20,6 +20,7 @@ type Drivers = TemperatureSensor.Drivers;
 export class TemperatureSensorNode extends Base<Drivers, Commands> implements TemperatureSensor.Interface {
 	public override readonly commands = {};
 	static override nodeDefId = "EM3TempSensor";
+	static override implements = ["EM3TempSensor"];
 	declare readonly nodeDefId: "EM3TempSensor";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -41,10 +42,10 @@ export namespace TemperatureSensor {
 		nodeDefId: "EM3TempSensor";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is TemperatureSensorNode {
-		return node.nodeDefId in ["EM3TempSensor"];
+		return ["EM3TempSensor"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is TemperatureSensorNode {
-		return node.nodeDefId in ["EM3TempSensor"];
+		return ["EM3TempSensor"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new TemperatureSensorNode(isy, nodeInfo);

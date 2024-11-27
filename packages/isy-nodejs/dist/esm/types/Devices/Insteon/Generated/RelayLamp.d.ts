@@ -18,6 +18,7 @@ export declare class RelayLampNode extends Base<Drivers, Commands> implements Re
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "RelayLampOnly" | "RelayLampOnly_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: (0 | 100)): Promise<any>;
@@ -27,7 +28,7 @@ export declare class RelayLampNode extends Base<Drivers, Commands> implements Re
     query(): Promise<any>;
     beep(value?: number): Promise<any>;
     writeChanges(): Promise<any>;
-    get status(): Insteon.OnLevelRelay | Insteon.OnLevelRelay;
+    get status(): Insteon.OnLevelRelay;
     get responding(): Insteon.Error;
 }
 export declare namespace RelayLamp {
@@ -70,8 +71,8 @@ export declare namespace RelayLamp {
     };
     type Drivers = {
         ST: {
-            uom: UnitOfMeasure.Boolean | UnitOfMeasure.Percent;
-            value: Insteon.OnLevelRelay | Insteon.OnLevelRelay;
+            uom: UnitOfMeasure.Percent;
+            value: Insteon.OnLevelRelay;
             label: "Status";
             name: "status";
         };

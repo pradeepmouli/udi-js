@@ -30,40 +30,23 @@ export class RelayLampSwitchLedNode extends Base<Drivers, Commands> implements R
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "RelayLampSwitchLED";
+	static override implements = ["RelayLampSwitchLED", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "IRLincTx", "EZRAIN_Output", "EZIO2x4_Output", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "DoorLock", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl", "BinaryControl_ADV", "AlertModuleArmed", "SirenAlert", "SirenArm", "PIR2844OnOff", "PIR2844OnOff_ADV"];
 	declare readonly nodeDefId: "RelayLampSwitchLED" | "RelayLampSwitchLED_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Status", name: "status" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: (0 | 100)) {
-		return this.sendCommand("DON", { value: value });
-	}
-	async off() {
-		return this.sendCommand("DOF");
-	}
-	async fastOff() {
-		return this.sendCommand("DFOF");
-	}
-	async fastOn() {
-		return this.sendCommand("DFON");
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async beep(value?: number) {
-		return this.sendCommand("BEEP", { value: value });
-	}
-	async led(value: number) {
-		return this.sendCommand("LED", { value: value });
-	}
-	async backlight(value: number) {
-		return this.sendCommand("BL", { value: value });
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
-	public get status(): Insteon.OnLevelRelay | Insteon.OnLevelRelay {
+	async on(value?: (0 | 100)) { return this.sendCommand("DON", value); }
+	async off() { return this.sendCommand("DOF"); }
+	async fastOff() { return this.sendCommand("DFOF"); }
+	async fastOn() { return this.sendCommand("DFON"); }
+	async query() { return this.sendCommand("QUERY"); }
+	async beep(value?: number) { return this.sendCommand("BEEP", value); }
+	async led(value: Insteon.I3RgbLed) { return this.sendCommand("LED", value); }
+	async backlight(value: number) { return this.sendCommand("BL", value); }
+	async writeChanges() { return this.sendCommand("WDU"); }
+	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
 	public get responding(): Insteon.Error {
@@ -79,10 +62,10 @@ export namespace RelayLampSwitchLed {
 		nodeDefId: "RelayLampSwitchLED" | "RelayLampSwitchLED_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is RelayLampSwitchLedNode {
-		return node.nodeDefId in ["RelayLampSwitchLED", "RelayLampSwitchLED_ADV"];
+		return ["RelayLampSwitchLED", "RelayLampSwitchLED_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayLampSwitchLedNode {
-		return node.nodeDefId in ["RelayLampSwitchLED", "RelayLampSwitchLED_ADV"];
+		return ["RelayLampSwitchLED", "RelayLampSwitchLED_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new RelayLampSwitchLedNode(isy, nodeInfo);
@@ -113,7 +96,7 @@ export namespace RelayLampSwitchLed {
 			label: "Beep";
 			name: "beep";
 		};
-		LED: ((value: number) => Promise<boolean>) & {
+		LED: ((value: Insteon.I3RgbLed) => Promise<boolean>) & {
 			label: "LED";
 			name: "led";
 		};
@@ -128,8 +111,8 @@ export namespace RelayLampSwitchLed {
 	};
 	export type Drivers = {
 		ST: {
-			uom: UnitOfMeasure.Boolean | UnitOfMeasure.Percent;
-			value: Insteon.OnLevelRelay | Insteon.OnLevelRelay;
+			uom: UnitOfMeasure.Percent;
+			value: Insteon.OnLevelRelay;
 			label: "Status";
 			name: "status";
 		};

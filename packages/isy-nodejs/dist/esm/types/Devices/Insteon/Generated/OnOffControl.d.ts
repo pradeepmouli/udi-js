@@ -10,9 +10,10 @@ type Drivers = OnOffControl.Drivers;
 export declare class OnOffControlNode extends Base<Drivers, Commands> implements OnOffControl.Interface {
     readonly commands: {};
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "OnOffControl" | "OnOffControl_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
-    get status(): Insteon.OnLevelRelay | Insteon.OnLevelRelay;
+    get status(): Insteon.OnLevelRelay;
     get responding(): Insteon.Error;
 }
 export declare namespace OnOffControl {
@@ -26,8 +27,8 @@ export declare namespace OnOffControl {
     type Commands = {};
     type Drivers = {
         ST: {
-            uom: UnitOfMeasure.Boolean | UnitOfMeasure.Percent;
-            value: Insteon.OnLevelRelay | Insteon.OnLevelRelay;
+            uom: UnitOfMeasure.Percent;
+            value: Insteon.OnLevelRelay;
             label: "Status";
             name: "status";
         };

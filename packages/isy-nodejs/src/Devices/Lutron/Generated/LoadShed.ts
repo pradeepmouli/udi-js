@@ -24,21 +24,16 @@ export class LoadShedNode extends Base<Drivers, Commands> implements LoadShed.In
 		QUERY: this.query
 	};
 	static override nodeDefId = "LUTLoadShed";
+	static override implements = ["LUTLoadShed"];
 	declare readonly nodeDefId: "LUTLoadShed";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on(value?: (0 | 100)) {
-		return this.sendCommand("DON", { value: value });
-	}
-	async off() {
-		return this.sendCommand("DOF");
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
+	async on(value?: (0 | 100)) { return this.sendCommand("DON", value); }
+	async off() { return this.sendCommand("DOF"); }
+	async query() { return this.sendCommand("QUERY"); }
 	public get status(): (0 | 100) {
 		return this.drivers.ST?.value;
 	}
@@ -54,10 +49,10 @@ export namespace LoadShed {
 		nodeDefId: "LUTLoadShed";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is LoadShedNode {
-		return node.nodeDefId in ["LUTLoadShed"];
+		return ["LUTLoadShed"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is LoadShedNode {
-		return node.nodeDefId in ["LUTLoadShed"];
+		return ["LUTLoadShed"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new LoadShedNode(isy, nodeInfo);

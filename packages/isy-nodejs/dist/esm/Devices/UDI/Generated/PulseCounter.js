@@ -7,6 +7,7 @@ const nodeDefId = "EM3PulseCounter";
 export class PulseCounterNode extends Base {
     commands = {};
     static nodeDefId = "EM3PulseCounter";
+    static implements = ["EM3PulseCounter"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.PulseCount, label: "Status", name: "status" });
@@ -31,11 +32,11 @@ NodeFactory.register(PulseCounterNode);
 export var PulseCounter;
 (function (PulseCounter) {
     function is(node) {
-        return node.nodeDefId in ["EM3PulseCounter"];
+        return ["EM3PulseCounter"].includes(node.nodeDefId);
     }
     PulseCounter.is = is;
     function isImplementedBy(node) {
-        return node.nodeDefId in ["EM3PulseCounter"];
+        return ["EM3PulseCounter"].includes(node.nodeDefId);
     }
     PulseCounter.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

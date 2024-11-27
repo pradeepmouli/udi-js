@@ -14,6 +14,7 @@ export class ISYNode {
     nodeDefId;
     static family;
     static nodeDefId = 'Unknown';
+    static implements = [];
     baseName;
     commands;
     //public readonly formatted: DriverValues<keyof D,string> = {};
@@ -112,13 +113,18 @@ export class ISYNode {
         this.scenes.push(isyScene);
     }
     applyStatus(prop) {
-        var d = this.drivers[prop.id];
-        if (d) {
-            d.apply(prop);
-            this.logger(`Property ${d.label} (${prop.id}) refreshed to: ${d.value} (${d.state.formattedValue}})`);
-            //d.state.value = this.convertFrom(prop.value, prop.uom, prop.id);
-            //d.state.formatted = prop.formatted;
-            //d.state.uom = prop.uom;
+        try {
+            var d = this.drivers[prop.id];
+            if (d) {
+                d.apply(prop);
+                this.logger(`Property ${d?.label ?? prop.id} (${prop.id}) refreshed to: ${d.value} (${prop.formatted}})`);
+                //d.state.value = this.convertFrom(prop.value, prop.uom, prop.id);
+                //d.state.formatted = prop.formatted;
+                //d.state.uom = prop.uom;
+            }
+        }
+        catch (e) {
+            this.logger(e?.message ?? e, 'error');
         }
     }
     convert(value, from, to) {
@@ -299,11 +305,19 @@ export class ISYNode {
             that.logger(e);
         }
     }
-    async sendCommand(command, value, parameters) {
-        if (value !== undefined && typeof parameters === 'object') {
-            return this.isy.sendNodeCommand(this, command, { default: value, ...parameters });
+    async sendCommand(command, valueOrParameters, parameters) {
+        if (valueOrParameters === null || valueOrParameters === undefined) {
+            return this.isy.sendNodeCommand(this, command);
         }
-        return this.isy.sendNodeCommand(this, command, parameters);
+        if (parameters === null || parameters === undefined) {
+            return this.isy.sendNodeCommand(this, command, valueOrParameters);
+        }
+        if (typeof valueOrParameters === 'object') {
+            return this.isy.sendNodeCommand(this, command, { ...valueOrParameters, ...parameters });
+        }
+        if (typeof valueOrParameters === 'string' || typeof valueOrParameters === 'number') {
+            return this.isy.sendNodeCommand(this, command, { default: valueOrParameters, ...parameters });
+        }
     }
     async updateProperty(propertyName, value) {
         var l = this.drivers[propertyName];

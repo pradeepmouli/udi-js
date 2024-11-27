@@ -10,6 +10,7 @@ type Drivers = SirenAlert.Drivers;
 export declare class SirenAlertNode extends Base<Drivers, Commands> implements SirenAlert.Interface {
     readonly commands: {};
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "SirenAlert" | "SirenArm";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     get responding(): Insteon.Error;

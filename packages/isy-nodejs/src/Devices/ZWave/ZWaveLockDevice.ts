@@ -1,11 +1,12 @@
+import { ZWave, type Driver } from '../../Definitions/index.js';
 import { ISY } from '../../ISY.js';
-import { Commands, States } from '../../ISYConstants.js';
+
 
 import { ZWaveBaseDevice } from './ZWaveBaseDevice.js';
 import 'winston';
 
 
-export class ZwaveLockDevice extends ZWaveBaseDevice {
+export class ZwaveLockDevice extends ZWaveBaseDevice<Driver.Signatures<'ST'>,any,any> {
 	constructor (isy: ISY, deviceNode: any
 	) {
 		super(isy, deviceNode);
@@ -27,18 +28,18 @@ export class ZwaveLockDevice extends ZWaveBaseDevice {
 
 	public async sendNonSecureLockCommand(lockState: any) {
 		if (lockState) {
-			return this.isy.sendNodeCommand(this, Commands.Lock.Lock);
+			return this.isy.sendNodeCommand(this, 'DON');
 		}
 		else {
-			return this.isy.sendNodeCommand(this, Commands.Lock.Unlock);
+			return this.isy.sendNodeCommand(this, 'DOF');
 		}
 	}
 	public async sendSecureLockCommand(lockState: any) {
 		if (lockState) {
-			return this.isy.sendNodeCommand(this, Commands.On, States.SecureLock.Secured);
+			return this.isy.sendNodeCommand(this, 'DON', ZWave.OnOff);
 		}
 		else {
-			return this.isy.sendNodeCommand(this, Commands.On, States.SecureLock.NotSecured);
+			return this.isy.sendNodeCommand(this, 'DON', 0);
 		}
 	}
 }

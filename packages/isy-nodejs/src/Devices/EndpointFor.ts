@@ -1,13 +1,14 @@
-import { Endpoint } from '@project-chip/matter.js/endpoint';
-import { SupportedBehaviors } from '@project-chip/matter.js/endpoint/properties';
+import { Endpoint, type EndpointType, type MutableEndpoint } from '@project-chip/matter.js/endpoint';
+
 import { Behavior } from '@project-chip/matter.js/behavior';
-import { MutableEndpoint, EndpointType } from '@project-chip/matter.js/endpoint/type';
+
 import type { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import { type ClusterType } from '@project-chip/matter.js/cluster';
 import type { Constructor } from './Constructor.js';
 import type { ISYDeviceNode } from '../Devices/ISYDeviceNode.js';
 
 import { BridgedDeviceBasicInformationBehavior, BridgedDeviceBasicInformationServer } from '@project-chip/matter.js/behaviors/bridged-device-basic-information';
+import type { SupportedBehaviors } from '@matter/node';
 
 
 export type RelaxTypes<V> = V extends number

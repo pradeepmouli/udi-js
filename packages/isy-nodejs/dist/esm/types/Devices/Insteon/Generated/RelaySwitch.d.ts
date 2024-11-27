@@ -14,6 +14,7 @@ export declare class RelaySwitchNode extends Base<Drivers, Commands> implements 
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "RelaySwitchOnly" | "RelaySwitchOnly_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     beep(value?: number): Promise<any>;

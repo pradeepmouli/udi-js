@@ -11,7 +11,14 @@
         "readonly": true,
         "id": "ST",
         "editorId": "RCS_TEMP_DEG",
-        "dataType": {},
+        "dataType": [
+          {
+            "uom": 14,
+            "enum": false,
+            "min": -64,
+            "max": 191
+          }
+        ],
         "name": "temperature"
       },
       "CLISPH": {
@@ -21,7 +28,14 @@
         "readonly": false,
         "id": "CLISPH",
         "editorId": "RCS_CLISPH_DEG",
-        "dataType": {},
+        "dataType": [
+          {
+            "uom": 14,
+            "enum": false,
+            "min": 0,
+            "max": 120
+          }
+        ],
         "name": "heatSetpoint"
       },
       "CLISPC": {
@@ -31,7 +45,14 @@
         "readonly": false,
         "id": "CLISPC",
         "editorId": "RCS_CLISPC_DEG",
-        "dataType": {},
+        "dataType": [
+          {
+            "uom": 14,
+            "enum": false,
+            "min": 0,
+            "max": 120
+          }
+        ],
         "name": "coolSetpoint"
       },
       "CLIMD": {
@@ -41,7 +62,14 @@
         "readonly": false,
         "id": "CLIMD",
         "editorId": "RCS_TSTAT_MODE",
-        "dataType": {},
+        "dataType": [
+          {
+            "uom": 67,
+            "enum": false,
+            "min": 0,
+            "max": 3
+          }
+        ],
         "name": "mode"
       },
       "CLIFS": {
@@ -51,7 +79,16 @@
         "readonly": false,
         "id": "CLIFS",
         "editorId": "RCS_TSTAT_FAN_MODE",
-        "dataType": {},
+        "dataType": [
+          {
+            "uom": 68,
+            "enum": true,
+            "values": {
+              "0": "",
+              "1": ""
+            }
+          }
+        ],
         "name": "fanMode"
       },
       "CLIHCS": {
@@ -61,7 +98,14 @@
         "readonly": true,
         "id": "CLIHCS",
         "editorId": "RCS_TSTAT_HCS",
-        "dataType": {},
+        "dataType": [
+          {
+            "uom": 66,
+            "enum": false,
+            "min": 0,
+            "max": 2
+          }
+        ],
         "name": "heatCoolState"
       },
       "CLIFRS": {
@@ -71,7 +115,16 @@
         "readonly": true,
         "id": "CLIFRS",
         "editorId": "RCS_CLIFRS",
-        "dataType": {},
+        "dataType": [
+          {
+            "uom": 80,
+            "enum": true,
+            "values": {
+              "0": "",
+              "1": ""
+            }
+          }
+        ],
         "name": "fanState"
       },
       "CLISMD": {
@@ -81,7 +134,15 @@
         "readonly": false,
         "id": "CLISMD",
         "editorId": "RCS_SMD",
-        "dataType": {},
+        "dataType": [
+          {
+            "uom": 25,
+            "enum": true,
+            "min": 0,
+            "max": 2,
+            "indexId": "R_SMD"
+          }
+        ],
         "name": "scheduleMode"
       },
       "ERR": {
@@ -91,7 +152,17 @@
         "readonly": true,
         "id": "ERR",
         "editorId": "RCS_ERR",
-        "dataType": {},
+        "dataType": [
+          {
+            "uom": 25,
+            "indexId": "IX_ERR",
+            "enum": true,
+            "values": {
+              "0": "True",
+              "1": "False"
+            }
+          }
+        ],
         "name": "responding"
       }
     },
@@ -100,13 +171,28 @@
         "label": "Heat Setpoint",
         "id": "CLISPH",
         "editorId": "RCS_CLISPH_DEG",
+        "dataType": [
+          {
+            "uom": 14,
+            "enum": false,
+            "min": 0,
+            "max": 120
+          }
+        ],
         "name": "updateHeatSetpoint",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "RCS_CLISPH_DEG",
-            "dataType": {},
+            "dataType": [
+              {
+                "uom": 14,
+                "enum": false,
+                "min": 0,
+                "max": 120
+              }
+            ],
             "name": "value",
             "optional": false,
             "initialValue": "CLISPH"
@@ -118,13 +204,28 @@
         "label": "Cool Setpoint",
         "id": "CLISPC",
         "editorId": "RCS_CLISPC_DEG",
+        "dataType": [
+          {
+            "uom": 14,
+            "enum": false,
+            "min": 0,
+            "max": 120
+          }
+        ],
         "name": "updateCoolSetpoint",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "RCS_CLISPC_DEG",
-            "dataType": {},
+            "dataType": [
+              {
+                "uom": 14,
+                "enum": false,
+                "min": 0,
+                "max": 120
+              }
+            ],
             "name": "value",
             "optional": false,
             "initialValue": "CLISPC"
@@ -136,13 +237,28 @@
         "label": "Mode",
         "id": "CLIMD",
         "editorId": "RCS_TSTAT_MODE",
+        "dataType": [
+          {
+            "uom": 67,
+            "enum": false,
+            "min": 0,
+            "max": 3
+          }
+        ],
         "name": "updateMode",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "RCS_TSTAT_MODE",
-            "dataType": {},
+            "dataType": [
+              {
+                "uom": 67,
+                "enum": false,
+                "min": 0,
+                "max": 3
+              }
+            ],
             "name": "value",
             "optional": false,
             "initialValue": "CLIMD"
@@ -154,13 +270,32 @@
         "label": "Fan Mode",
         "id": "CLIFS",
         "editorId": "RCS_TSTAT_FAN_MODE",
+        "dataType": [
+          {
+            "uom": 68,
+            "enum": true,
+            "values": {
+              "0": "",
+              "1": ""
+            }
+          }
+        ],
         "name": "updateFanMode",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "RCS_TSTAT_FAN_MODE",
-            "dataType": {},
+            "dataType": [
+              {
+                "uom": 68,
+                "enum": true,
+                "values": {
+                  "0": "",
+                  "1": ""
+                }
+              }
+            ],
             "name": "value",
             "optional": false,
             "initialValue": "CLIFS"
@@ -172,13 +307,30 @@
         "label": "Schedule Mode",
         "id": "CLISMD",
         "editorId": "RCS_SMD",
+        "dataType": [
+          {
+            "uom": 25,
+            "enum": true,
+            "min": 0,
+            "max": 2,
+            "indexId": "R_SMD"
+          }
+        ],
         "name": "updateScheduleMode",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "RCS_SMD",
-            "dataType": {},
+            "dataType": [
+              {
+                "uom": 25,
+                "enum": true,
+                "min": 0,
+                "max": 2,
+                "indexId": "R_SMD"
+              }
+            ],
             "name": "value",
             "optional": false,
             "initialValue": "CLISMD"
@@ -190,13 +342,28 @@
         "label": "Heat Setpoint Shift",
         "id": "CLISPHD",
         "editorId": "RCS_DELTA_DEG",
+        "dataType": [
+          {
+            "uom": 14,
+            "enum": false,
+            "min": -25,
+            "max": 25
+          }
+        ],
         "name": "heatSetpointShift",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "RCS_DELTA_DEG",
-            "dataType": {},
+            "dataType": [
+              {
+                "uom": 14,
+                "enum": false,
+                "min": -25,
+                "max": 25
+              }
+            ],
             "name": "value",
             "optional": false
           }
@@ -206,13 +373,28 @@
         "label": "Cool Setpoint Shift",
         "id": "CLISPCD",
         "editorId": "RCS_DELTA_DEG",
+        "dataType": [
+          {
+            "uom": 14,
+            "enum": false,
+            "min": -25,
+            "max": 25
+          }
+        ],
         "name": "coolSetpointShift",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "RCS_DELTA_DEG",
-            "dataType": {},
+            "dataType": [
+              {
+                "uom": 14,
+                "enum": false,
+                "min": -25,
+                "max": 25
+              }
+            ],
             "name": "value",
             "optional": false
           }
@@ -227,13 +409,34 @@
         "label": "ADR",
         "id": "ADRPST",
         "editorId": "RCS_ADRPST",
+        "dataType": [
+          {
+            "uom": 25,
+            "indexId": "R_ADRPST",
+            "enum": true,
+            "values": {
+              "0": "",
+              "1": ""
+            }
+          }
+        ],
         "name": "adr",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "RCS_ADRPST",
-            "dataType": {},
+            "dataType": [
+              {
+                "uom": 25,
+                "indexId": "R_ADRPST",
+                "enum": true,
+                "values": {
+                  "0": "",
+                  "1": ""
+                }
+              }
+            ],
             "name": "value",
             "optional": false
           }
@@ -258,7 +461,17 @@
         "readonly": true,
         "id": "ST",
         "editorId": "RCS_OL_RELAY",
-        "dataType": {},
+        "dataType": [
+          {
+            "uom": 51,
+            "indexId": "R_OL",
+            "enum": true,
+            "values": {
+              "0": "",
+              "100": ""
+            }
+          }
+        ],
         "name": "status"
       },
       "ERR": {
@@ -268,7 +481,17 @@
         "readonly": true,
         "id": "ERR",
         "editorId": "RCS_ERR",
-        "dataType": {},
+        "dataType": [
+          {
+            "uom": 25,
+            "indexId": "IX_ERR",
+            "enum": true,
+            "values": {
+              "0": "True",
+              "1": "False"
+            }
+          }
+        ],
         "name": "responding"
       }
     },
@@ -292,13 +515,34 @@
         "label": "ADR",
         "id": "ADRPST",
         "editorId": "RCS_ADRPST",
+        "dataType": [
+          {
+            "uom": 25,
+            "indexId": "R_ADRPST",
+            "enum": true,
+            "values": {
+              "0": "",
+              "1": ""
+            }
+          }
+        ],
         "name": "adr",
         "optional": false,
         "parameters": {
           "value": {
             "id": "value",
             "editorId": "RCS_ADRPST",
-            "dataType": {},
+            "dataType": [
+              {
+                "uom": 25,
+                "indexId": "R_ADRPST",
+                "enum": true,
+                "values": {
+                  "0": "",
+                  "1": ""
+                }
+              }
+            ],
             "name": "value",
             "optional": false
           }

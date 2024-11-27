@@ -18,6 +18,7 @@ export declare class BallastRelayLampSwitchNode extends Base<Drivers, Commands> 
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "BallastRelayLampSwitch" | "BallastRelayLampSwitch_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: (0 | 100)): Promise<any>;

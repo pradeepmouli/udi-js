@@ -22,15 +22,14 @@ export class EzrainInputNode extends Base<Drivers, Commands> implements EzrainIn
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "EZRAIN_Input";
+	static override implements = ["EZRAIN_Input", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "EZRAIN_Input" | "EZRAIN_Input_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
@@ -47,10 +46,10 @@ export namespace EzrainInput {
 		nodeDefId: "EZRAIN_Input" | "EZRAIN_Input_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is EzrainInputNode {
-		return node.nodeDefId in ["EZRAIN_Input", "EZRAIN_Input_ADV"];
+		return ["EZRAIN_Input", "EZRAIN_Input_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is EzrainInputNode {
-		return node.nodeDefId in ["EZRAIN_Input", "EZRAIN_Input_ADV"];
+		return ["EZRAIN_Input", "EZRAIN_Input_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new EzrainInputNode(isy, nodeInfo);

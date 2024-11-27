@@ -14,6 +14,7 @@ export declare class BinaryAlarmNode extends Base<Drivers, Commands> implements 
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "BinaryAlarm" | "BinaryAlarm_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     query(): Promise<any>;

@@ -154,10 +154,6 @@ const ISYConstants = {
 
 };
 
-export const Properties =
-{
-
-}
 
 export enum VariableType {
 	Integer = 1,
@@ -174,9 +170,3 @@ export enum LinkType
 	Controller = 16,
 	Responder = 0
 }
-
-
-export default ISYConstants;
-export const Props = ISYConstants.Props;
-export const States = ISYConstants.States;
-export const Commands = ISYConstants.Cmds;

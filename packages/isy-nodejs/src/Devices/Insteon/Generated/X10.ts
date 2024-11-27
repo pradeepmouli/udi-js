@@ -26,27 +26,18 @@ export class X10Node extends Base<Drivers, Commands> implements X10.Interface {
 		QUERY: this.query
 	};
 	static override nodeDefId = "X10";
+	static override implements = ["X10"];
 	declare readonly nodeDefId: "X10";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async on() {
-		return this.sendCommand("DON");
-	}
-	async off() {
-		return this.sendCommand("DOF");
-	}
-	async brighten() {
-		return this.sendCommand("BRT");
-	}
-	async dim() {
-		return this.sendCommand("DIM");
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
+	async on() { return this.sendCommand("DON"); }
+	async off() { return this.sendCommand("DOF"); }
+	async brighten() { return this.sendCommand("BRT"); }
+	async dim() { return this.sendCommand("DIM"); }
+	async query() { return this.sendCommand("QUERY"); }
 	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
@@ -62,10 +53,10 @@ export namespace X10 {
 		nodeDefId: "X10";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is X10Node {
-		return node.nodeDefId in ["X10"];
+		return ["X10"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is X10Node {
-		return node.nodeDefId in ["X10"];
+		return ["X10"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new X10Node(isy, nodeInfo);

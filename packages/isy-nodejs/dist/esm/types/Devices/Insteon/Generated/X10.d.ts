@@ -16,6 +16,7 @@ export declare class X10Node extends Base<Drivers, Commands> implements X10.Inte
         QUERY: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "X10";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(): Promise<any>;

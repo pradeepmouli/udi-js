@@ -17,6 +17,7 @@ export class I3PaddleFlagsNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "I3PaddleFlags";
+    static implements = ["I3PaddleFlags"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Boolean, label: "Mode", name: "mode" });
@@ -28,33 +29,15 @@ export class I3PaddleFlagsNode extends Base {
         this.drivers.GV7 = Driver.create("GV7", this, nodeInfo.property, { uom: UnitOfMeasure.Boolean, label: "Error Blink", name: "errorBlink" });
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
-    async updateMode(value) {
-        return this.sendCommand("GV0", { value: value });
-    }
-    async updateProgramLock(value) {
-        return this.sendCommand("GV1", { value: value });
-    }
-    async updateResumeDim(value) {
-        return this.sendCommand("GV2", { value: value });
-    }
-    async updateKeyBeep(value) {
-        return this.sendCommand("GV4", { value: value });
-    }
-    async updateDisableRf(value) {
-        return this.sendCommand("GV5", { value: value });
-    }
-    async updateButtonLock(value) {
-        return this.sendCommand("GV6", { value: value });
-    }
-    async updateErrorBlink(value) {
-        return this.sendCommand("GV7", { value: value });
-    }
-    async query() {
-        return this.sendCommand("QUERY");
-    }
-    async writeChanges() {
-        return this.sendCommand("WDU");
-    }
+    async updateMode(value) { return this.sendCommand("GV0", value); }
+    async updateProgramLock(value) { return this.sendCommand("GV1", value); }
+    async updateResumeDim(value) { return this.sendCommand("GV2", value); }
+    async updateKeyBeep(value) { return this.sendCommand("GV4", value); }
+    async updateDisableRf(value) { return this.sendCommand("GV5", value); }
+    async updateButtonLock(value) { return this.sendCommand("GV6", value); }
+    async updateErrorBlink(value) { return this.sendCommand("GV7", value); }
+    async query() { return this.sendCommand("QUERY"); }
+    async writeChanges() { return this.sendCommand("WDU"); }
     get mode() {
         return this.drivers.ST?.value;
     }
@@ -84,11 +67,11 @@ NodeFactory.register(I3PaddleFlagsNode);
 export var I3PaddleFlags;
 (function (I3PaddleFlags) {
     function is(node) {
-        return node.nodeDefId in ["I3PaddleFlags"];
+        return ["I3PaddleFlags"].includes(node.nodeDefId);
     }
     I3PaddleFlags.is = is;
     function isImplementedBy(node) {
-        return node.nodeDefId in ["I3PaddleFlags", "I3KeypadFlags"];
+        return ["I3PaddleFlags", "I3KeypadFlags"].includes(node.nodeDefId);
     }
     I3PaddleFlags.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

@@ -16,6 +16,7 @@ export declare class Pir2844OnOffNode extends Base<Drivers, Commands> implements
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "PIR2844OnOff" | "PIR2844OnOff_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: (0 | 100)): Promise<any>;

@@ -1,6 +1,6 @@
-import { ZWaveBaseDevice } from './ZWaveBaseDevice.js';
+import { DimmerSwitch } from './Generated/DimmerSwitch.js';
 import 'winston';
-export class ZWaveDimmerSwitchDevice extends ZWaveBaseDevice {
+export class ZWaveDimmerSwitchDevice extends DimmerSwitch.Node {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
     }

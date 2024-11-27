@@ -1,17 +1,14 @@
-import { Identity } from '@project-chip/matter.js/util';
-import { ISY } from '../../ISY.js';
+import type { ISY } from '../../ISY.js';
 
 
-import { InsteonRelayDevice } from './InsteonRelayDevice.js';
+
 //
 import type { DimmableLightRequirements } from '@project-chip/matter.js/devices/DimmableLightDevice';
-import { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
-import { OnOffBehavior as OOB, OnOffInterface } from '@project-chip/matter.js/behaviors/on-off';
-import { OnOff, ClusterType } from '@project-chip/matter.js/cluster';
+import { OnOffBehavior as OOB } from '@project-chip/matter.js/behaviors/on-off';
 import 'winston';
-import { UnitOfMeasure } from '../../Definitions/Global/UOM.js';
 import type { NodeInfo } from '../../Model/NodeInfo.js';
-import { DimmerLampSwitch } from './DimmerLampSwitch.js';
+import { DimmerLampSwitchNode } from './Generated/DimmerLampSwitch.js';
+
 
 // #region Type aliases (2)
 
@@ -23,7 +20,7 @@ type OnOffBehavior = typeof OOB;
 // #region Classes (1)
 
 //@ts-ignore
-export class InsteonDimmableDevice extends DimmerLampSwitch.Node{
+export class InsteonDimmableDevice extends DimmerLampSwitchNode{
 	// #region Constructors (1)
 
 	constructor(isy: ISY, node: NodeInfo) {

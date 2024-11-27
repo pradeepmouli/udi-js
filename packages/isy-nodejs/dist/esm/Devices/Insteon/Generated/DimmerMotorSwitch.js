@@ -21,6 +21,7 @@ export class DimmerMotorSwitchNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "DimmerMotorSwitch";
+    static implements = ["DimmerMotorSwitch", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
@@ -28,45 +29,19 @@ export class DimmerMotorSwitchNode extends Base {
         this.drivers.DUR = Driver.create("DUR", this, nodeInfo.property, { uom: UnitOfMeasure.DurationInSeconds, label: "Max Duration", name: "maxDuration" });
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
-    async on(value) {
-        return this.sendCommand("DON", { value: value });
-    }
-    async off() {
-        return this.sendCommand("DOF");
-    }
-    async fastOff() {
-        return this.sendCommand("DFOF");
-    }
-    async fastOn() {
-        return this.sendCommand("DFON");
-    }
-    async fadeUp() {
-        return this.sendCommand("FDUP");
-    }
-    async fadeDown() {
-        return this.sendCommand("FDDOWN");
-    }
-    async fadeStop() {
-        return this.sendCommand("FDSTOP");
-    }
-    async query() {
-        return this.sendCommand("QUERY");
-    }
-    async beep(value) {
-        return this.sendCommand("BEEP", { value: value });
-    }
-    async updateOnLevel(value) {
-        return this.sendCommand("OL", { value: value });
-    }
-    async updateMaxDuration(value) {
-        return this.sendCommand("DUR", { value: value });
-    }
-    async backlight(value) {
-        return this.sendCommand("BL", { value: value });
-    }
-    async writeChanges() {
-        return this.sendCommand("WDU");
-    }
+    async on(value) { return this.sendCommand("DON", value); }
+    async off() { return this.sendCommand("DOF"); }
+    async fastOff() { return this.sendCommand("DFOF"); }
+    async fastOn() { return this.sendCommand("DFON"); }
+    async fadeUp() { return this.sendCommand("FDUP"); }
+    async fadeDown() { return this.sendCommand("FDDOWN"); }
+    async fadeStop() { return this.sendCommand("FDSTOP"); }
+    async query() { return this.sendCommand("QUERY"); }
+    async beep(value) { return this.sendCommand("BEEP", value); }
+    async updateOnLevel(value) { return this.sendCommand("OL", value); }
+    async updateMaxDuration(value) { return this.sendCommand("DUR", value); }
+    async backlight(value) { return this.sendCommand("BL", value); }
+    async writeChanges() { return this.sendCommand("WDU"); }
     get status() {
         return this.drivers.ST?.value;
     }
@@ -85,11 +60,11 @@ NodeFactory.register(DimmerMotorSwitchNode, "DimmerMotorSwitch_ADV");
 export var DimmerMotorSwitch;
 (function (DimmerMotorSwitch) {
     function is(node) {
-        return node.nodeDefId in ["DimmerMotorSwitch", "DimmerMotorSwitch_ADV"];
+        return ["DimmerMotorSwitch", "DimmerMotorSwitch_ADV"].includes(node.nodeDefId);
     }
     DimmerMotorSwitch.is = is;
     function isImplementedBy(node) {
-        return node.nodeDefId in ["DimmerMotorSwitch", "DimmerMotorSwitch_ADV"];
+        return ["DimmerMotorSwitch", "DimmerMotorSwitch_ADV"].includes(node.nodeDefId);
     }
     DimmerMotorSwitch.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

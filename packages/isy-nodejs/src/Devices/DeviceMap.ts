@@ -12,7 +12,7 @@ import type { getCategory } from '../Utils.js';
 
 type s<T extends Family> = ISYDevice<T,any,any,any>;
 
-type DeviceNames<T extends Family> = `${T extends Family.Insteon | Family.ZWave | Family.ZigBee ? Devices<T>[keyof Devices<T>]["name"] : ""}`;
+type DeviceNames<T extends Family> = `${T extends Family.Insteon | Family.ZWave | Family.ZigBee ? Devices<T>[keyof Devices<T>]["constructor"]["name"] : ""}`;
 type x = DeviceNames<Family.Insteon>
 export interface DeviceDef<T extends Family>
 {

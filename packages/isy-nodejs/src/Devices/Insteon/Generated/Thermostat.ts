@@ -31,6 +31,7 @@ export class ThermostatNode extends Base<Drivers, Commands> implements Thermosta
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "Thermostat";
+	static override implements = ["Thermostat"];
 	declare readonly nodeDefId: "Thermostat";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
@@ -43,36 +44,16 @@ export class ThermostatNode extends Base<Drivers, Commands> implements Thermosta
 		this.drivers.CLIHCS = Driver.create("CLIHCS", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.ThermostatHeatCoolState, label: "Heat/Cool State", name: "heatCoolState" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async updateHeatSetpoint(value: number) {
-		return this.sendCommand("CLISPH", { value: value });
-	}
-	async updateCoolSetpoint(value: number) {
-		return this.sendCommand("CLISPC", { value: value });
-	}
-	async updateMode(value: (0 | 1 | 2 | 3 | 5 | 6 | 7)) {
-		return this.sendCommand("CLIMD", { value: value });
-	}
-	async updateFanMode(value: (7 | 8)) {
-		return this.sendCommand("CLIFS", { value: value });
-	}
-	async setpointUp() {
-		return this.sendCommand("BRT");
-	}
-	async setpointDown() {
-		return this.sendCommand("DIM");
-	}
-	async beep(value?: number) {
-		return this.sendCommand("BEEP", { value: value });
-	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async setTime() {
-		return this.sendCommand("SETTIME");
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async updateHeatSetpoint(value: number) { return this.sendCommand("CLISPH", value); }
+	async updateCoolSetpoint(value: number) { return this.sendCommand("CLISPC", value); }
+	async updateMode(value: (0 | 1 | 2 | 3 | 5 | 6 | 7)) { return this.sendCommand("CLIMD", value); }
+	async updateFanMode(value: (7 | 8)) { return this.sendCommand("CLIFS", value); }
+	async setpointUp() { return this.sendCommand("BRT"); }
+	async setpointDown() { return this.sendCommand("DIM"); }
+	async beep(value?: number) { return this.sendCommand("BEEP", value); }
+	async query() { return this.sendCommand("QUERY"); }
+	async setTime() { return this.sendCommand("SETTIME"); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get temperature(): number {
 		return this.drivers.ST?.value;
 	}
@@ -106,10 +87,10 @@ export namespace Thermostat {
 		nodeDefId: "Thermostat";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is ThermostatNode {
-		return node.nodeDefId in ["Thermostat"];
+		return ["Thermostat"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ThermostatNode {
-		return node.nodeDefId in ["Thermostat"];
+		return ["Thermostat"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new ThermostatNode(isy, nodeInfo);

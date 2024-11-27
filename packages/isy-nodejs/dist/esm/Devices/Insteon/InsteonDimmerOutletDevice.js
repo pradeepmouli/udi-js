@@ -1,5 +1,5 @@
-import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
-export class InsteonDimmerOutletDevice extends InsteonDimmableDevice {
+import { DimmerLampNode } from './Generated/DimmerLamp.js';
+export class InsteonDimmerOutletDevice extends DimmerLampNode {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
     }

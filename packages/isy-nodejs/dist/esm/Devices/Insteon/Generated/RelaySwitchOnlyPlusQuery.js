@@ -12,22 +12,15 @@ export class RelaySwitchOnlyPlusQueryNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "RelaySwitchOnlyPlusQuery";
+    static implements = ["RelaySwitchOnlyPlusQuery", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
-    async query() {
-        return this.sendCommand("QUERY");
-    }
-    async beep(value) {
-        return this.sendCommand("BEEP", { value: value });
-    }
-    async backlight(value) {
-        return this.sendCommand("BL", { value: value });
-    }
-    async writeChanges() {
-        return this.sendCommand("WDU");
-    }
+    async query() { return this.sendCommand("QUERY"); }
+    async beep(value) { return this.sendCommand("BEEP", value); }
+    async backlight(value) { return this.sendCommand("BL", value); }
+    async writeChanges() { return this.sendCommand("WDU"); }
     get responding() {
         return this.drivers.ERR?.value;
     }
@@ -37,11 +30,11 @@ NodeFactory.register(RelaySwitchOnlyPlusQueryNode, "RelaySwitchOnlyPlusQuery_ADV
 export var RelaySwitchOnlyPlusQuery;
 (function (RelaySwitchOnlyPlusQuery) {
     function is(node) {
-        return node.nodeDefId in ["RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV"];
+        return ["RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV"].includes(node.nodeDefId);
     }
     RelaySwitchOnlyPlusQuery.is = is;
     function isImplementedBy(node) {
-        return node.nodeDefId in ["RelaySwitchOnlyPlusQuery", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery_ADV"];
+        return ["RelaySwitchOnlyPlusQuery", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery_ADV"].includes(node.nodeDefId);
     }
     RelaySwitchOnlyPlusQuery.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

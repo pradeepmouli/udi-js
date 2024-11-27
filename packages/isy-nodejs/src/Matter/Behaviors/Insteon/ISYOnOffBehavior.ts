@@ -8,10 +8,12 @@ import type { MaybePromise } from '@project-chip/matter.js/util';
 import { DriverType } from '../../../Definitions/Global/Drivers.js';
 import { InsteonDimmableDevice } from '../../../Devices/Insteon/InsteonDimmableDevice.js';
 import { InsteonRelayDevice } from '../../../Devices/Insteon/InsteonRelayDevice.js';
-import { MappingRegistry } from '../../../Model/ClusterMap.js';
+
 import { ClusterForBehavior, ISYClusterBehavior, type PropertyChange } from '../ISYClusterBehavior.js';
 
 import { Converter } from '../../../Converters.js';
+import { BehaviorRegistry } from '../BehaviorRegistry.js';
+import type { ClusterBehavior } from '@matter/node';
 
 export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.OnOffServer, InsteonRelayDevice) {
 	override async initialize(_options?: {}) {
@@ -38,6 +40,8 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.
 	}
 }
 
+BehaviorRegistry.register(ISYOnOffBehavior);
+
 export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequirements.LevelControlServer, InsteonDimmableDevice) {
 	override async initialize(_options?: {}) {
 		await super.initialize(_options);
@@ -49,6 +53,7 @@ export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequire
 
 	override setLevel(level: number): MaybePromise<void> {
 		level = Converter.Matter.LevelFrom0To255.LightingLevel.from(level);
+		
 		if (level > 0) {
 			return this.device.on(level);
 		} else {
@@ -57,3 +62,5 @@ export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequire
 
 	}
 }
+
+BehaviorRegistry.register(ISYDimmableBehavior);

@@ -9,14 +9,13 @@ export class RemoteLinc2Node extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "RemoteLinc2";
+    static implements = ["RemoteLinc2", "SirenAlert", "SirenArm"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
         this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
         this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
-    async writeChanges() {
-        return this.sendCommand("WDU");
-    }
+    async writeChanges() { return this.sendCommand("WDU"); }
     get status() {
         return this.drivers.ST?.value;
     }
@@ -29,11 +28,11 @@ NodeFactory.register(RemoteLinc2Node, "RemoteLinc2_ADV");
 export var RemoteLinc2;
 (function (RemoteLinc2) {
     function is(node) {
-        return node.nodeDefId in ["RemoteLinc2", "RemoteLinc2_ADV"];
+        return ["RemoteLinc2", "RemoteLinc2_ADV"].includes(node.nodeDefId);
     }
     RemoteLinc2.is = is;
     function isImplementedBy(node) {
-        return node.nodeDefId in ["RemoteLinc2", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RemoteLinc2_ADV"];
+        return ["RemoteLinc2", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RemoteLinc2_ADV"].includes(node.nodeDefId);
     }
     RemoteLinc2.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

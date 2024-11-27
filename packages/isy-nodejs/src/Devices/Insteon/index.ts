@@ -1,52 +1,39 @@
-import { InsteonLeakSensorDevice } from "./InsteonLeakSensorDevice.js";
+
 //import Base from "./InsteonBaseDevice.js"
-import { InsteonLockDevice } from "./InsteonLockDevice.js";
-import { InsteonFanDevice } from "./InsteonFanDevice.js";
-import { InsteonRelayDevice } from "./InsteonRelayDevice.js";
-import { InsteonDimmableDevice } from "./InsteonDimmableDevice.js";
-import { InsteonKeypadDimmerDevice } from "./InsteonKeypadDimmerDevice.js";
-import { InsteonMotionSensorDevice } from "./InsteonMotionSensorDevice.js";
-import { InsteonDimmerSwitchDevice } from "./InsteonDimmerSwitchDevice.js";
-import { InsteonSmokeSensorDevice } from "./InsteonSmokeSensorDevice.js";
-import { InsteonDimmerOutletDevice } from "./InsteonDimmerOutletDevice.js";
-import { InsteonRelaySwitchDevice } from "./InsteonRelaySwitchDevice.js";
-import { InsteonThermostatDevice } from "./InsteonThermostatDevice.js";
-import { InsteonDoorWindowSensorDevice } from './InsteonDoorWindowSensorDevice.js';
-import { RelayLampSwitch } from './Generated/RelayLampSwitch.js';
+
+
 
 export {InsteonBaseDevice as Base} from  "./InsteonBaseDevice.js";
 
+export {InsteonOnOffOutletDevice as OnOffOutlet} from "./InsteonOnOffOutletDevice.js";
 
-export const Insteon = {
+export * from './Generated/index.js';
+
+export {InsteonDimmableDevice as Dimmable} from "./InsteonDimmableDevice.js";
+
+export {InsteonFanDevice as Fan} from "./InsteonFanDevice.js";
+
+export {InsteonLockDevice as Lock} from "./InsteonLockDevice.js";
+
+export {InsteonRelayDevice as Relay} from "./InsteonRelayDevice.js";
+
+export {InsteonLeakSensorDevice as LeakSensor} from "./InsteonLeakSensorDevice.js";
+
+export {InsteonMotionSensorDevice as MotionSensor} from "./InsteonMotionSensorDevice.js";
+
+export {InsteonSmokeSensorDevice as SmokeSensor} from "./InsteonSmokeSensorDevice.js";
+
+export {InsteonDoorWindowSensorDevice as DoorWindowSensor} from "./InsteonDoorWindowSensorDevice.js";
+
+export {InsteonDimmerOutletDevice as DimmerOutlet} from "./InsteonDimmerOutletDevice.js";
+
+/*export const Insteon = {
   LeakSensor: InsteonLeakSensorDevice,
   MotionSensor: InsteonMotionSensorDevice,
   SmokeSensor: InsteonSmokeSensorDevice,
-  RelaySwitch: InsteonRelaySwitchDevice,
   DoorWindowSensor: InsteonDoorWindowSensorDevice,
-  DimmerSwitch: InsteonDimmerSwitchDevice,
   DimmerOutlet: InsteonDimmerOutletDevice,
-
-  Relay: RelayLampSwitch.Node,
-  Dimmer: InsteonDimmableDevice,
-  KeypadDimmer: InsteonKeypadDimmerDevice,
   Thermostat: InsteonThermostatDevice,
   Lock: InsteonLockDevice,
-  Fan: InsteonFanDevice
-};
-
-
-export namespace Insteon {
-  //export type Base<D,C> = InsteonBaseDevice<D,C>;
-  export type LeakSensor = InsteonLeakSensorDevice;
-  export type MotionSensor = InsteonMotionSensorDevice;
-  export type SmokeSensor = InsteonSmokeSensorDevice;
-  export type RelaySwitch = InstanceType<typeof RelayLampSwitch.Node>;
-  export type DimmerSwitch = InsteonDimmerSwitchDevice;
-  export type DimmerOutlet = InsteonDimmerOutletDevice;
-  export type Relay = InsteonRelayDevice;
-  export type Dimmer = InsteonDimmableDevice;
-  export type KeypadDimmer = InsteonKeypadDimmerDevice;
-  export type Thermostat = InsteonThermostatDevice;
-  export type Lock = InsteonLockDevice;
-  export type Fan = InsteonFanDevice;
-}
+  Fan: InsteonFanDevice,
+...Generated */

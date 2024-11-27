@@ -7,7 +7,8 @@ import { ISYDeviceNode } from '../ISYDeviceNode.js';
 // import { InsteonNLS } from './insteonfam.js'
 export class InsteonBaseDevice extends ISYDeviceNode {
     // #region Constructors (1)
-    vendorName = 'Insteon Technologies, Inc.';
+    manufacturer = 'Insteon Technologies, Inc.';
+    static family = Family.Insteon;
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
         this.family = Family.Insteon;

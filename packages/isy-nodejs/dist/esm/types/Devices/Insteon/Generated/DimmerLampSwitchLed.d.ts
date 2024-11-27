@@ -27,6 +27,7 @@ export declare class DimmerLampSwitchLedNode extends Base<Drivers, Commands> imp
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "DimmerLampSwitchLED" | "DimmerLampSwitchLED_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: number): Promise<any>;

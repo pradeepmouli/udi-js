@@ -1,45 +1,13 @@
-import { InsteonLeakSensorDevice } from "./InsteonLeakSensorDevice.js";
-import { InsteonLockDevice } from "./InsteonLockDevice.js";
-import { InsteonFanDevice } from "./InsteonFanDevice.js";
-import { InsteonRelayDevice } from "./InsteonRelayDevice.js";
-import { InsteonDimmableDevice } from "./InsteonDimmableDevice.js";
-import { InsteonKeypadDimmerDevice } from "./InsteonKeypadDimmerDevice.js";
-import { InsteonMotionSensorDevice } from "./InsteonMotionSensorDevice.js";
-import { InsteonDimmerSwitchDevice } from "./InsteonDimmerSwitchDevice.js";
-import { InsteonSmokeSensorDevice } from "./InsteonSmokeSensorDevice.js";
-import { InsteonDimmerOutletDevice } from "./InsteonDimmerOutletDevice.js";
-import { InsteonRelaySwitchDevice } from "./InsteonRelaySwitchDevice.js";
-import { InsteonThermostatDevice } from "./InsteonThermostatDevice.js";
-import { InsteonDoorWindowSensorDevice } from './InsteonDoorWindowSensorDevice.js';
-import { RelayLampSwitch } from './Generated/RelayLampSwitch.js';
 export { InsteonBaseDevice as Base } from "./InsteonBaseDevice.js";
-export declare const Insteon: {
-    LeakSensor: typeof InsteonLeakSensorDevice;
-    MotionSensor: typeof InsteonMotionSensorDevice;
-    SmokeSensor: typeof InsteonSmokeSensorDevice;
-    RelaySwitch: typeof InsteonRelaySwitchDevice;
-    DoorWindowSensor: typeof InsteonDoorWindowSensorDevice;
-    DimmerSwitch: typeof InsteonDimmerSwitchDevice;
-    DimmerOutlet: typeof InsteonDimmerOutletDevice;
-    Relay: typeof import("./Generated/RelayLampSwitch.js").RelayLampSwitchNode;
-    Dimmer: typeof InsteonDimmableDevice;
-    KeypadDimmer: typeof InsteonKeypadDimmerDevice;
-    Thermostat: typeof InsteonThermostatDevice;
-    Lock: typeof InsteonLockDevice;
-    Fan: typeof InsteonFanDevice;
-};
-export declare namespace Insteon {
-    type LeakSensor = InsteonLeakSensorDevice;
-    type MotionSensor = InsteonMotionSensorDevice;
-    type SmokeSensor = InsteonSmokeSensorDevice;
-    type RelaySwitch = InstanceType<typeof RelayLampSwitch.Node>;
-    type DimmerSwitch = InsteonDimmerSwitchDevice;
-    type DimmerOutlet = InsteonDimmerOutletDevice;
-    type Relay = InsteonRelayDevice;
-    type Dimmer = InsteonDimmableDevice;
-    type KeypadDimmer = InsteonKeypadDimmerDevice;
-    type Thermostat = InsteonThermostatDevice;
-    type Lock = InsteonLockDevice;
-    type Fan = InsteonFanDevice;
-}
+export { InsteonOnOffOutletDevice as OnOffOutlet } from "./InsteonOnOffOutletDevice.js";
+export * from './Generated/index.js';
+export { InsteonDimmableDevice as Dimmable } from "./InsteonDimmableDevice.js";
+export { InsteonFanDevice as Fan } from "./InsteonFanDevice.js";
+export { InsteonLockDevice as Lock } from "./InsteonLockDevice.js";
+export { InsteonRelayDevice as Relay } from "./InsteonRelayDevice.js";
+export { InsteonLeakSensorDevice as LeakSensor } from "./InsteonLeakSensorDevice.js";
+export { InsteonMotionSensorDevice as MotionSensor } from "./InsteonMotionSensorDevice.js";
+export { InsteonSmokeSensorDevice as SmokeSensor } from "./InsteonSmokeSensorDevice.js";
+export { InsteonDoorWindowSensorDevice as DoorWindowSensor } from "./InsteonDoorWindowSensorDevice.js";
+export { InsteonDimmerOutletDevice as DimmerOutlet } from "./InsteonDimmerOutletDevice.js";
 //# sourceMappingURL=index.d.ts.map

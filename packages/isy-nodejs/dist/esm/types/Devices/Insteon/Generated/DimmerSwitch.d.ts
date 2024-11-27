@@ -13,6 +13,7 @@ export declare class DimmerSwitchNode extends Base<Drivers, Commands> implements
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
+    static implements: string[];
     readonly nodeDefId: "DimmerSwitchOnly" | "DimmerSwitchOnly_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     backlight(value: number): Promise<any>;

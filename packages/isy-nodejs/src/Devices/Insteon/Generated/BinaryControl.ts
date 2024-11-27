@@ -24,21 +24,16 @@ export class BinaryControlNode extends Base<Drivers, Commands> implements Binary
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "BinaryControl";
+	static override implements = ["BinaryControl", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: "BinaryControl" | "BinaryControl_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
-	async query() {
-		return this.sendCommand("QUERY");
-	}
-	async beep(value?: number) {
-		return this.sendCommand("BEEP", { value: value });
-	}
-	async writeChanges() {
-		return this.sendCommand("WDU");
-	}
+	async query() { return this.sendCommand("QUERY"); }
+	async beep(value?: number) { return this.sendCommand("BEEP", value); }
+	async writeChanges() { return this.sendCommand("WDU"); }
 	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
@@ -55,10 +50,10 @@ export namespace BinaryControl {
 		nodeDefId: "BinaryControl" | "BinaryControl_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is BinaryControlNode {
-		return node.nodeDefId in ["BinaryControl", "BinaryControl_ADV"];
+		return ["BinaryControl", "BinaryControl_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is BinaryControlNode {
-		return node.nodeDefId in ["BinaryControl", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl_ADV"];
+		return ["BinaryControl", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new BinaryControlNode(isy, nodeInfo);

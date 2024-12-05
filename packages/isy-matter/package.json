@@ -3,7 +3,7 @@
         "@matter/main": "0.11.8"
     },
     "devDependencies": {
-        "@types/node": "^22.8.7",
+        "@types/node": "^22.10.1",
         "typescript": "~5.7.2"
     },
     "name": "matter-app",

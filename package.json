@@ -39,7 +39,7 @@
     "@matter/general": "^0.11.6",
     "@matter/main": "^0.11.6",
     "@matter/node": "^0.11.5",
-    "@matter/nodejs": "^0.11.6",
+    "@matter/nodejs": "^0.11.8",
     "@matter/types": "^0.11.8",
     "@npmcli/package-json": "^6.0.1",
     "@project-chip/matter-node.js": "^0.11.4",

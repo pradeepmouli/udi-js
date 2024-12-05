@@ -140,9 +140,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "offTriggered", listener: (command: "DOF") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -249,9 +249,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -362,9 +362,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").Sml, oldValue: import("../../Definitions/Insteon/index.js").Sml, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -467,9 +467,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "queryTriggered", listener: (command: "QUERY") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -564,9 +564,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "queryTriggered", listener: (command: "QUERY") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -685,13 +685,13 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "brightenTriggered", listener: (command: "BRT") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "dimTriggered", listener: (command: "DIM") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fadeDownTriggered", listener: (command: "FDDOWN") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -826,13 +826,13 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "brightenTriggered", listener: (command: "BRT") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "dimTriggered", listener: (command: "DIM") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fadeDownTriggered", listener: (command: "FDDOWN") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -971,13 +971,13 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "brightenTriggered", listener: (command: "BRT") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "dimTriggered", listener: (command: "DIM") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fadeDownTriggered", listener: (command: "FDDOWN") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -1112,9 +1112,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fadeDownTriggered", listener: (command: "FDDOWN") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -1173,7 +1173,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
         readProperties(): Promise<import("../../Model/DriverState.js").DriverState[]>;
-        readProperty(propertyName: "ST" | "ERR" | "DUR" | "OL"): Promise<import("../../Model/DriverState.js").DriverState>;
+        readProperty(propertyName: "ST" | "DUR" | "ERR" | "OL"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
         sendCommand(command: keyof Insteon.DimmerMotorSwitch.Commands): Promise<any>;
@@ -1695,9 +1695,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "offTriggered", listener: (command: "DOF") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -1804,9 +1804,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").FanLevel, oldValue: import("../../Definitions/Insteon/index.js").FanLevel, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -1933,9 +1933,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "modeChanged" | "modeInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").I3RelayDim, oldValue: import("../../Definitions/Insteon/index.js").I3RelayDim, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Boolean) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "updateModeTriggered", listener: (command: "GV0") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "queryTriggered", listener: (command: "QUERY") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -1978,7 +1978,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
         readProperties(): Promise<import("../../Model/DriverState.js").DriverState[]>;
-        readProperty(propertyName: "ST" | "ERR" | "GV1" | "GV2" | "GV3" | "GV4" | "GV5" | "GV6" | "GV7" | "GV8"): Promise<import("../../Model/DriverState.js").DriverState>;
+        readProperty(propertyName: "ST" | "GV1" | "GV2" | "GV3" | "GV4" | "GV5" | "GV6" | "GV7" | "GV8" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
         sendCommand(command: keyof Insteon.I3KeypadFlags.Commands): Promise<any>;
@@ -2048,9 +2048,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "modeChanged" | "modeInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").I3RelayDim, oldValue: import("../../Definitions/Insteon/index.js").I3RelayDim, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Boolean) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "updateModeTriggered", listener: (command: "GV0") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "queryTriggered", listener: (command: "QUERY") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -2093,7 +2093,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
         readProperties(): Promise<import("../../Model/DriverState.js").DriverState[]>;
-        readProperty(propertyName: "ST" | "ERR" | "GV1" | "GV2" | "GV4" | "GV5" | "GV6" | "GV7"): Promise<import("../../Model/DriverState.js").DriverState>;
+        readProperty(propertyName: "ST" | "GV1" | "GV2" | "GV4" | "GV5" | "GV6" | "GV7" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
         sendCommand(command: keyof Insteon.I3PaddleFlags.Commands): Promise<any>;
@@ -2240,9 +2240,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.IrLincTx.Drivers, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "writeChangesTriggered", listener: (command: "WDU") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         }>;
@@ -2458,13 +2458,13 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "brightenTriggered", listener: (command: "BRT") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "dimTriggered", listener: (command: "DIM") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fadeDownTriggered", listener: (command: "FDDOWN") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -2585,9 +2585,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -2782,13 +2782,13 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "batteryLevelChanged" | "batteryLevelInitialized", listener: (driver: "BATLVL", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "batteryPoweredChanged" | "batteryPoweredInitialized", listener: (driver: "GV1", newValue: import("../../Definitions/Insteon/index.js").Boolean, oldValue: import("../../Definitions/Insteon/index.js").Boolean, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Boolean) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "luminanceChanged" | "luminanceInitialized", listener: (driver: "LUMIN", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -2833,7 +2833,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
         readProperties(): Promise<import("../../Model/DriverState.js").DriverState[]>;
-        readProperty(propertyName: "ST" | "ERR" | "BATLVL" | "CLITEMP" | "GV1" | "LUMIN"): Promise<import("../../Model/DriverState.js").DriverState>;
+        readProperty(propertyName: "ST" | "BATLVL" | "CLITEMP" | "GV1" | "ERR" | "LUMIN"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
         sendCommand(command: keyof Insteon.Pir2844.Commands): Promise<any>;
@@ -2891,13 +2891,13 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "batteryLevelChanged" | "batteryLevelInitialized", listener: (driver: "BATLVL", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "batteryPoweredChanged" | "batteryPoweredInitialized", listener: (driver: "GV1", newValue: import("../../Definitions/Insteon/index.js").Boolean, oldValue: import("../../Definitions/Insteon/index.js").Boolean, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Boolean) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "luminanceChanged" | "luminanceInitialized", listener: (driver: "LUMIN", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -2942,7 +2942,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
         readProperties(): Promise<import("../../Model/DriverState.js").DriverState[]>;
-        readProperty(propertyName: "ST" | "ERR" | "BATLVL" | "CLITEMP" | "GV1" | "LUMIN"): Promise<import("../../Model/DriverState.js").DriverState>;
+        readProperty(propertyName: "ST" | "BATLVL" | "CLITEMP" | "GV1" | "ERR" | "LUMIN"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
         sendCommand(command: keyof Insteon.Pir2844c.Commands): Promise<any>;
@@ -2998,9 +2998,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "offTriggered", listener: (command: "DOF") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -3107,9 +3107,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -3222,9 +3222,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -3341,9 +3341,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -3447,9 +3447,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.RelaySwitch.Drivers, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "writeChangesTriggered", listener: (command: "WDU") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -3543,9 +3543,9 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.RelaySwitchOnlyPlusQuery.Drivers, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "queryTriggered", listener: (command: "QUERY") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -3742,13 +3742,13 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "sirenChanged" | "sirenInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "armCountdownChanged" | "armCountdownInitialized", listener: (driver: "DELAY", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.DurationInSeconds) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "sirenDurationChanged" | "sirenDurationInitialized", listener: (driver: "DUR", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.DurationInSeconds) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "modeChanged" | "modeInitialized", listener: (driver: "MODE", newValue: import("../../Definitions/Insteon/index.js").SirenModeQuery, oldValue: import("../../Definitions/Insteon/index.js").SirenModeQuery, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -3801,7 +3801,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
         readProperties(): Promise<import("../../Model/DriverState.js").DriverState[]>;
-        readProperty(propertyName: "ST" | "ERR" | "DELAY" | "DUR" | "MODE"): Promise<import("../../Model/DriverState.js").DriverState>;
+        readProperty(propertyName: "ST" | "DELAY" | "DUR" | "ERR" | "MODE"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
         sendCommand(command: keyof Insteon.Siren.Commands): Promise<any>;
@@ -3954,13 +3954,13 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "temperatureChanged" | "temperatureInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Degree) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "setpointUpTriggered", listener: (command: "BRT") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "setpointDownTriggered", listener: (command: "DIM") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "heatCoolStateChanged" | "heatCoolStateInitialized", listener: (driver: "CLIHCS", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.ThermostatHeatCoolState) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -4009,7 +4009,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
         readProperties(): Promise<import("../../Model/DriverState.js").DriverState[]>;
-        readProperty(propertyName: "ST" | "ERR" | "CLISPC" | "CLIFS" | "CLIHCS" | "CLISPH" | "CLIHUM" | "CLIMD"): Promise<import("../../Model/DriverState.js").DriverState>;
+        readProperty(propertyName: "ST" | "CLISPC" | "ERR" | "CLIFS" | "CLIHCS" | "CLISPH" | "CLIHUM" | "CLIMD"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
         sendCommand(command: keyof Insteon.TempLinc.Commands): Promise<any>;
@@ -4081,13 +4081,13 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "temperatureChanged" | "temperatureInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Degree) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "setpointUpTriggered", listener: (command: "BRT") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "setpointDownTriggered", listener: (command: "DIM") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "heatCoolStateChanged" | "heatCoolStateInitialized", listener: (driver: "CLIHCS", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.ThermostatHeatCoolState) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
@@ -4136,7 +4136,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
         readProperties(): Promise<import("../../Model/DriverState.js").DriverState[]>;
-        readProperty(propertyName: "ST" | "ERR" | "CLISPC" | "CLIFS" | "CLIHCS" | "CLISPH" | "CLIHUM" | "CLIMD"): Promise<import("../../Model/DriverState.js").DriverState>;
+        readProperty(propertyName: "ST" | "CLISPC" | "ERR" | "CLIFS" | "CLIHCS" | "CLISPH" | "CLIHUM" | "CLIMD"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
         sendCommand(command: keyof Insteon.Thermostat.Commands): Promise<any>;
@@ -4192,11 +4192,11 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "brightenTriggered", listener: (command: "BRT") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "dimTriggered", listener: (command: "DIM") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "offTriggered", listener: (command: "DOF") => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {

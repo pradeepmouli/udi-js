@@ -84,13 +84,13 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
     events: import("@matter/general").Merge<import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
         on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
-        on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../../Definitions/Insteon/index.js").Error, oldValue: import("../../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-    } & {
         on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
         on(eventName: "brightenTriggered", listener: (command: "BRT") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
         on(eventName: "dimTriggered", listener: (command: "DIM") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+    } & {
+        on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../../Definitions/Insteon/index.js").Error, oldValue: import("../../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
         on(eventName: "fadeDownTriggered", listener: (command: "FDDOWN") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
@@ -240,13 +240,13 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
         events: import("@matter/general").Merge<import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../../Definitions/Insteon/index.js").Error, oldValue: import("../../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "brightenTriggered", listener: (command: "BRT") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "dimTriggered", listener: (command: "DIM") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../../Definitions/Insteon/index.js").Error, oldValue: import("../../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fadeDownTriggered", listener: (command: "FDDOWN") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {

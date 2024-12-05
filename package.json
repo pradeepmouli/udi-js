@@ -37,7 +37,7 @@
   "license": "MIT",
   "dependencies": {
     "@matter/general": "^0.11.6",
-    "@matter/main": "^0.11.6",
+    "@matter/main": "^0.11.8",
     "@matter/node": "^0.11.5",
     "@matter/nodejs": "^0.11.6",
     "@matter/types": "^0.11.8",

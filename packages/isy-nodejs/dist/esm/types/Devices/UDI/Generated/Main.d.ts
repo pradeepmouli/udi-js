@@ -7,13 +7,13 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { UDI } from "../../../Definitions/index.js";
 type Commands = Main.Commands;
 type Drivers = Main.Drivers;
-export declare class MainNode extends Base<Drivers, Commands> implements Main.Interface {
+declare class MainNode extends Base<Drivers, Commands> implements Main.Interface {
     readonly commands: {
         QUERY: () => Promise<any>;
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "EM3Main";
+    readonly nodeDefId: 'EM3Main';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     query(): Promise<any>;
     get status(): number;
@@ -22,7 +22,6 @@ export declare class MainNode extends Base<Drivers, Commands> implements Main.In
 }
 export declare namespace Main {
     interface Interface extends Omit<InstanceType<typeof MainNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "EM3Main";
     }
     function is(node: ISYNode<any, any, any, any>): node is MainNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is MainNode;

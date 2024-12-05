@@ -1,30 +1,33 @@
 import { Family } from '../../Definitions/Global/Families.js';
 import { ISY } from '../../ISY.js';
 
-
 import 'winston';
 import { Command, Driver, UnitOfMeasure } from '../../Definitions/index.js';
 import type { DriverState } from '../../Model/DriverState.js';
 import type { NodeInfo, StaticNodeInfo } from '../../Model/NodeInfo.js';
+import { CompositeDevice, CompositeOf } from '../CompositeDevice.js';
+import { DimmerLamp } from './Generated/DimmerLamp.js';
+import { FanLincMotor } from './Generated/FanLincMotor.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 
-export class InsteonFanMotorDevice extends InsteonBaseDevice<Driver.Signatures<'ST'>, Command.Signatures<'DON' | 'DOF'>> {
+export class InsteonFanMotorDevice extends FanLincMotor.Node {
 	constructor(isy: ISY, deviceNode: StaticNodeInfo) {
 		super(isy, deviceNode);
-		this.drivers.ST = Driver.create('ST', this, deviceNode.property as DriverState, { uom: UnitOfMeasure.Percent, label: 'Fan Speed (%)', name: 'fanSpeed' });
+		//*this.drivers. == Driver.create('ST', this, deviceNode.property as DriverState, { uom: UnitOfMeasure.Percent, label: 'Fan Speed (%)', name: 'fanSpeed' });
 		this.hidden = true;
+
 	}
 
 	get isOn() {
-		return this.drivers.ST.value !== 0;
+		return this.status !== 0;
 	}
 	get fanSpeed() {
-		return this.drivers.ST.value;
+		return this.status;
 	}
 
 	public async updateFanSpeed(level: number) {
-		return level;
+		return this.on(level);
 	}
 	public async updateIsOn(isOn: boolean) {
 		if (!isOn) {
@@ -35,40 +38,22 @@ export class InsteonFanMotorDevice extends InsteonBaseDevice<Driver.Signatures<'
 	}
 }
 
-export class InsteonFanDevice extends InsteonBaseDevice {
-	public light?: InsteonDimmableDevice;
-	public motor: InsteonFanMotorDevice;
+export class FanDevice extends CompositeDevice.of({ light: DimmerLamp.Node, motor: FanLincMotor.Node }, {light: 1, motor: 2}) {
 	constructor(isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
-		this.light = new InsteonDimmableDevice(isy, deviceNode);
+
+
 		/*this.light.events.on('PropertyChanged', ((a: any, b: any, c: any, d: string) => { this.emit('PropertyChanged', `light.${a}`, b, c, d); }).bind(this));*/
-		this.addChild(this.light);
 	}
+}
 
-	public override handleEvent(event: { control?: string; data?: any; node?: any }): boolean {
-		this.logger(JSON.stringify(event));
-		const child = this.children.find((p) => p.address === event.node);
-		if (child !== undefined) {
-			return child.handleEvent(event);
-		}
-		return false;
-	}
 
-	public override addChild(childDevice) {
-		super.addChild(childDevice);
-		if (childDevice instanceof InsteonFanMotorDevice) {
-			this.logger('Fan Motor Found');
-			this.motor = childDevice as InsteonFanMotorDevice;
-			this.motor.events.on(
-				'statusChanged',
-				((a: any, b: any, c: any, d: string) => {
-					this.emit('propertyChanged', `motor.${a}`, b, c, d);
-				}).bind(this)
-			);
-		}
-	}
+export namespace Fan {
+	export class Device extends FanDevice { }
 
-	public async updateFanSpeed(level: number) {
-		return this.motor.updateFanSpeed(level);
-	}
+	export const Motor = FanLincMotor;
+
+	export const Light = DimmerLamp;
+
+
 }

@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = I3KeypadFlags.Commands;
 type Drivers = I3KeypadFlags.Drivers;
-export declare class I3KeypadFlagsNode extends Base<Drivers, Commands> implements I3KeypadFlags.Interface {
+declare class I3KeypadFlagsNode extends Base<Drivers, Commands> implements I3KeypadFlags.Interface {
     readonly commands: {
         GV0: (value: Insteon.I3RelayDim) => Promise<any>;
         GV1: (value: Insteon.I3OnOff) => Promise<any>;
@@ -23,7 +23,7 @@ export declare class I3KeypadFlagsNode extends Base<Drivers, Commands> implement
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "I3KeypadFlags";
+    readonly nodeDefId: 'I3KeypadFlags';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     updateMode(value: Insteon.I3RelayDim): Promise<any>;
     updateProgramLock(value: Insteon.I3OnOff): Promise<any>;
@@ -49,7 +49,6 @@ export declare class I3KeypadFlagsNode extends Base<Drivers, Commands> implement
 }
 export declare namespace I3KeypadFlags {
     interface Interface extends Omit<InstanceType<typeof I3KeypadFlagsNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "I3KeypadFlags";
     }
     function is(node: ISYNode<any, any, any, any>): node is I3KeypadFlagsNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is I3KeypadFlagsNode;

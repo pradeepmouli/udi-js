@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { UDI } from "../../../Definitions/index.js";
 type Commands = Relay.Commands;
 type Drivers = Relay.Drivers;
-export declare class RelayNode extends Base<Drivers, Commands> implements Relay.Interface {
+declare class RelayNode extends Base<Drivers, Commands> implements Relay.Interface {
     readonly commands: {
         DON: () => Promise<any>;
         DOF: () => Promise<any>;
@@ -15,7 +15,7 @@ export declare class RelayNode extends Base<Drivers, Commands> implements Relay.
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "EM3Relay";
+    readonly nodeDefId: 'EM3Relay';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(): Promise<any>;
     off(): Promise<any>;
@@ -25,7 +25,6 @@ export declare class RelayNode extends Base<Drivers, Commands> implements Relay.
 }
 export declare namespace Relay {
     interface Interface extends Omit<InstanceType<typeof RelayNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "EM3Relay";
     }
     function is(node: ISYNode<any, any, any, any>): node is RelayNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayNode;

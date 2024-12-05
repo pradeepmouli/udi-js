@@ -7,11 +7,11 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { UDI } from "../../../Definitions/index.js";
 type Commands = Em3MainChannel.Commands;
 type Drivers = Em3MainChannel.Drivers;
-export declare class Em3MainChannelNode extends Base<Drivers, Commands> implements Em3MainChannel.Interface {
+declare class Em3MainChannelNode extends Base<Drivers, Commands> implements Em3MainChannel.Interface {
     readonly commands: {};
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "EM3MainChannel";
+    readonly nodeDefId: 'EM3MainChannel';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     get status(): number;
     get totalEnergy(): number;
@@ -22,7 +22,6 @@ export declare class Em3MainChannelNode extends Base<Drivers, Commands> implemen
 }
 export declare namespace Em3MainChannel {
     interface Interface extends Omit<InstanceType<typeof Em3MainChannelNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "EM3MainChannel";
     }
     function is(node: ISYNode<any, any, any, any>): node is Em3MainChannelNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is Em3MainChannelNode;

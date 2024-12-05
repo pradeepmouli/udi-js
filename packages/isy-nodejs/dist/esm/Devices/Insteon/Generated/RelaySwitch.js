@@ -4,17 +4,17 @@ import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
 const nodeDefId = "RelaySwitchOnly";
-export class RelaySwitchNode extends Base {
+class RelaySwitchNode extends Base {
     commands = {
         BEEP: this.beep,
         BL: this.backlight,
         WDU: this.writeChanges
     };
     static nodeDefId = "RelaySwitchOnly";
-    static implements = ["RelaySwitchOnly", "IRLincTx", "SirenAlert", "SirenArm"];
+    static implements = ['RelaySwitchOnly', "IRLincTx", "SirenAlert", "SirenArm"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async beep(value) { return this.sendCommand("BEEP", value); }
     async backlight(value) { return this.sendCommand("BL", value); }
@@ -28,11 +28,11 @@ NodeFactory.register(RelaySwitchNode, "RelaySwitchOnly_ADV");
 export var RelaySwitch;
 (function (RelaySwitch) {
     function is(node) {
-        return ["RelaySwitchOnly", "RelaySwitchOnly_ADV"].includes(node.nodeDefId);
+        return ['RelaySwitchOnly', "RelaySwitchOnly_ADV"].includes(node.nodeDefId);
     }
     RelaySwitch.is = is;
     function isImplementedBy(node) {
-        return ["RelaySwitchOnly", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly_ADV"].includes(node.nodeDefId);
+        return ['RelaySwitchOnly', "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly_ADV"].includes(node.nodeDefId);
     }
     RelaySwitch.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

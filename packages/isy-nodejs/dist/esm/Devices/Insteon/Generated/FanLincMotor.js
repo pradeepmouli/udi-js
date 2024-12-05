@@ -4,7 +4,7 @@ import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
 const nodeDefId = "FanLincMotor";
-export class FanLincMotorNode extends Base {
+class FanLincMotorNode extends Base {
     commands = {
         DON: this.on,
         DOF: this.off,
@@ -15,11 +15,11 @@ export class FanLincMotorNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "FanLincMotor";
-    static implements = ["FanLincMotor"];
+    static implements = ['FanLincMotor'];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async on(value) { return this.sendCommand("DON", value); }
     async off() { return this.sendCommand("DOF"); }
@@ -39,11 +39,11 @@ NodeFactory.register(FanLincMotorNode);
 export var FanLincMotor;
 (function (FanLincMotor) {
     function is(node) {
-        return ["FanLincMotor"].includes(node.nodeDefId);
+        return ['FanLincMotor'].includes(node.nodeDefId);
     }
     FanLincMotor.is = is;
     function isImplementedBy(node) {
-        return ["FanLincMotor"].includes(node.nodeDefId);
+        return ['FanLincMotor'].includes(node.nodeDefId);
     }
     FanLincMotor.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

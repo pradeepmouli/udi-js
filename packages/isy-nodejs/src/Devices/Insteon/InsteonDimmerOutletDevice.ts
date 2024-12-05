@@ -1,8 +1,9 @@
 import type { NodeInfo } from '../../Model/NodeInfo.js';
 import type { ISY } from '../../ISY.js';
-import { DimmerLampNode } from './Generated/DimmerLamp.js';
+import { DimmerLamp } from './Generated/DimmerLamp.js';
 
-export class InsteonDimmerOutletDevice extends DimmerLampNode {
+
+export class InsteonDimmerOutletDevice extends DimmerLamp.Node{
 	constructor (isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
 	}

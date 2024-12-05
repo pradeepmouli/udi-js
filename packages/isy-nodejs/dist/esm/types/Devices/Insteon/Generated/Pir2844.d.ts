@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = Pir2844.Commands;
 type Drivers = Pir2844.Drivers;
-export declare class Pir2844Node extends Base<Drivers, Commands> implements Pir2844.Interface {
+declare class Pir2844Node extends Base<Drivers, Commands> implements Pir2844.Interface {
     readonly commands: {
         CLITEMP: (value: number) => Promise<any>;
         QUERY: () => Promise<any>;
@@ -16,7 +16,7 @@ export declare class Pir2844Node extends Base<Drivers, Commands> implements Pir2
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "PIR2844" | "PIR2844_ADV";
+    readonly nodeDefId: 'PIR2844' | "PIR2844_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     calibrateTemperature(value: number): Promise<any>;
     query(): Promise<any>;
@@ -31,7 +31,6 @@ export declare class Pir2844Node extends Base<Drivers, Commands> implements Pir2
 }
 export declare namespace Pir2844 {
     interface Interface extends Omit<InstanceType<typeof Pir2844Node>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "PIR2844" | "PIR2844_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is Pir2844Node;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is Pir2844Node;

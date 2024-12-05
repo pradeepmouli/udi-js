@@ -17,7 +17,7 @@ const nodeDefId = "EZRAIN_Output";
 type Commands = EzrainOutput.Commands;
 type Drivers = EzrainOutput.Drivers;
 
-export class EzrainOutputNode extends Base<Drivers, Commands> implements EzrainOutput.Interface {
+class EzrainOutputNode extends Base<Drivers, Commands> implements EzrainOutput.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -26,12 +26,12 @@ export class EzrainOutputNode extends Base<Drivers, Commands> implements EzrainO
 		BEEP: this.beep
 	};
 	static override nodeDefId = "EZRAIN_Output";
-	static override implements = ["EZRAIN_Output", "EZIO2x4_Output", "AlertModuleArmed", "SirenAlert", "SirenArm"];
-	declare readonly nodeDefId: "EZRAIN_Output";
+	static override implements = ['EZRAIN_Output', "EZIO2x4_Output", "AlertModuleArmed", "SirenAlert", "SirenArm"];
+	declare readonly nodeDefId: 'EZRAIN_Output';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(value?: (0 | 100)) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
@@ -50,13 +50,12 @@ NodeFactory.register(EzrainOutputNode);
 
 export namespace EzrainOutput {
 	export interface Interface extends Omit<InstanceType<typeof EzrainOutputNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "EZRAIN_Output";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is EzrainOutputNode {
-		return ["EZRAIN_Output"].includes(node.nodeDefId);
+		return ['EZRAIN_Output'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is EzrainOutputNode {
-		return ["EZRAIN_Output", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor"].includes(node.nodeDefId);
+		return ['EZRAIN_Output', "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new EzrainOutputNode(isy, nodeInfo);

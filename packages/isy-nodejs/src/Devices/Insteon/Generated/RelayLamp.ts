@@ -17,7 +17,7 @@ const nodeDefId = "RelayLampOnly";
 type Commands = RelayLamp.Commands;
 type Drivers = RelayLamp.Drivers;
 
-export class RelayLampNode extends Base<Drivers, Commands> implements RelayLamp.Interface {
+class RelayLampNode extends Base<Drivers, Commands> implements RelayLamp.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -28,12 +28,12 @@ export class RelayLampNode extends Base<Drivers, Commands> implements RelayLamp.
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "RelayLampOnly";
-	static override implements = ["RelayLampOnly", "IRLincTx", "EZRAIN_Output", "EZIO2x4_Output", "AlertModuleArmed", "SirenAlert", "SirenArm"];
-	declare readonly nodeDefId: "RelayLampOnly" | "RelayLampOnly_ADV";
+	static override implements = ['RelayLampOnly', "IRLincTx", "EZRAIN_Output", "EZIO2x4_Output", "AlertModuleArmed", "SirenAlert", "SirenArm"];
+	declare readonly nodeDefId: 'RelayLampOnly' | "RelayLampOnly_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(value?: (0 | 100)) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
@@ -55,13 +55,12 @@ NodeFactory.register(RelayLampNode, "RelayLampOnly_ADV");
 
 export namespace RelayLamp {
 	export interface Interface extends Omit<InstanceType<typeof RelayLampNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "RelayLampOnly" | "RelayLampOnly_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is RelayLampNode {
-		return ["RelayLampOnly", "RelayLampOnly_ADV"].includes(node.nodeDefId);
+		return ['RelayLampOnly', "RelayLampOnly_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayLampNode {
-		return ["RelayLampOnly", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly_ADV"].includes(node.nodeDefId);
+		return ['RelayLampOnly', "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new RelayLampNode(isy, nodeInfo);

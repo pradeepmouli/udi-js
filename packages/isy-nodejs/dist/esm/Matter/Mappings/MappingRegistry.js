@@ -1,11 +1,10 @@
-import { DriverType } from '../../Definitions/Global/Drivers.js';
-import { Devices, Insteon } from '../../Devices/index.js';
 import { BridgedDeviceBasicInformationBehavior } from '@matter/node/behaviors';
+import { DriverType } from '../../Definitions/Global/Drivers.js';
 import { Family } from '../../Definitions/index.js';
 import { NodeFactory } from '../../Devices/NodeFactory.js';
+import { Devices, Insteon } from '../../Devices/index.js';
 import { ClusterType } from '../../Model/ClusterType.js';
 import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
-;
 function addA(mapping1, mapping2) {
     return { deviceType: mapping1.deviceType, nodeType: mapping1.nodeType, mapping: { ...mapping1.mapping, ...mapping2.mapping } };
 }
@@ -91,7 +90,9 @@ export class MappingRegistry {
                 //{family, key} = key.split(".")[0]
                 regMap = MappingRegistry.map.get(x.family);
                 let m = map[key];
-                m = { deviceType: m.deviceType.with(BridgedDeviceBasicInformationBehavior, ISYBridgedDeviceBehavior), mapping: m.mapping };
+                let deviceType = m.deviceType;
+                deviceType = deviceType.with(BridgedDeviceBasicInformationBehavior, ISYBridgedDeviceBehavior);
+                m = { deviceType: deviceType, mapping: m.mapping };
                 regMap.set(keys[1], m);
                 regMap.set(x.name, m);
             }

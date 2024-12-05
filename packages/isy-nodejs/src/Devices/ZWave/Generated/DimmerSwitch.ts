@@ -17,7 +17,7 @@ const nodeDefId = "119";
 type Commands = DimmerSwitch.Commands;
 type Drivers = DimmerSwitch.Drivers;
 
-export class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerSwitch.Interface {
+class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerSwitch.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -34,12 +34,12 @@ export class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerS
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "119";
-	static override implements = ["119"];
-	declare readonly nodeDefId: "119";
+	static override implements = ['119'];
+	declare readonly nodeDefId: '119';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(value?: number | ZWave.PercentOpt, rampRate?: number) { return this.sendCommand("DON", value, { RR: rampRate }); }
 	async off() { return this.sendCommand("DOF"); }
@@ -66,13 +66,12 @@ NodeFactory.register(DimmerSwitchNode);
 
 export namespace DimmerSwitch {
 	export interface Interface extends Omit<InstanceType<typeof DimmerSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "119";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode {
-		return ["119"].includes(node.nodeDefId);
+		return ['119'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode {
-		return ["119"].includes(node.nodeDefId);
+		return ['119'].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new DimmerSwitchNode(isy, nodeInfo);

@@ -7,13 +7,13 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = RemoteLinc2.Commands;
 type Drivers = RemoteLinc2.Drivers;
-export declare class RemoteLinc2Node extends Base<Drivers, Commands> implements RemoteLinc2.Interface {
+declare class RemoteLinc2Node extends Base<Drivers, Commands> implements RemoteLinc2.Interface {
     readonly commands: {
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "RemoteLinc2" | "RemoteLinc2_ADV";
+    readonly nodeDefId: 'RemoteLinc2' | "RemoteLinc2_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     writeChanges(): Promise<any>;
     get status(): number;
@@ -21,7 +21,6 @@ export declare class RemoteLinc2Node extends Base<Drivers, Commands> implements 
 }
 export declare namespace RemoteLinc2 {
     interface Interface extends Omit<InstanceType<typeof RemoteLinc2Node>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "RemoteLinc2" | "RemoteLinc2_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is RemoteLinc2Node;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is RemoteLinc2Node;

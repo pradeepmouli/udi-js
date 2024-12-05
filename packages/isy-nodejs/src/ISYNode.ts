@@ -4,18 +4,22 @@ import { Family } from './Definitions/Global/Families.js';
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
 import { ISY } from './ISY.js';
 
+import type { Merge, UnionToIntersection } from '@matter/general';
 import { CliConfigSetLevels } from 'winston/lib/winston/config/index.js';
 import { Converter } from './Converters.js';
 import type { Command } from './Definitions/Global/Commands.js';
 import { Event } from './Definitions/Global/Events.js';
+import type { CompositeDevice } from './Devices/CompositeDevice.js';
 import type { Constructor } from './Devices/Constructor.js';
+
+
+import { NodeType } from './ISYConstants.js';
+import type { ISYScene } from './ISYScene.js';
 import type { DriverState } from './Model/DriverState.js';
 import { NodeInfo } from './Model/NodeInfo.js';
 import type { NodeNotes } from './Model/NodeNotes.js';
 import { type ObjectToUnion, type StringKeys } from './Utils.js';
-import { NodeType } from './ISYConstants.js';
-import type { ISYScene } from './ISYScene.js';
-import type { Merge, UnionToIntersection } from '@matter/general';
+import type { ISYDevice } from './ISYDevice.js';
 
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 
@@ -24,7 +28,7 @@ export class ISYNode<
 	D extends ISYNode.DriverSignatures = {},
 	C extends ISYNode.CommandSignatures = {},
 	E extends ISYNode.EventSignatures = { [x in keyof D]: Event.DriverToEvent<D[x]> & { driver: x } } & { [x in keyof C]: Event.CommandToEvent<C[x]> & { command: x } }
-> {
+>  {
 	// #region Properties (32)
 
 	static #displayNameFunction: Function;
@@ -157,18 +161,17 @@ export class ISYNode<
 
 	public applyStatus(prop: DriverState) {
 		try {
-		var d = this.drivers[prop.id];
+			var d = this.drivers[prop.id];
 
-		if (d) {
-			d.apply(prop);
+			if (d) {
+				d.apply(prop);
 
-			this.logger(`Property ${d?.label ?? prop.id} (${prop.id}) refreshed to: ${d.value} (${prop.formatted}})`);
-			//d.state.value = this.convertFrom(prop.value, prop.uom, prop.id);
-			//d.state.formatted = prop.formatted;
-			//d.state.uom = prop.uom;
-		}
-		}
-		catch(e) {
+				this.logger(`Property ${d?.label ?? prop.id} (${prop.id}) refreshed to: ${d.value} (${prop.formatted}})`);
+				//d.state.value = this.convertFrom(prop.value, prop.uom, prop.id);
+				//d.state.formatted = prop.formatted;
+				//d.state.uom = prop.uom;
+			}
+		} catch (e) {
 			this.logger(e?.message ?? e, 'error');
 		}
 	}
@@ -360,23 +363,24 @@ export class ISYNode<
 	public async sendCommand(command: StringKeys<C>, value: string | number, parameters: Record<string | symbol, string | number | undefined>);
 	public async sendCommand(command: StringKeys<C>, value: string | number): Promise<any>;
 	public async sendCommand(command: StringKeys<C>, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
-	async sendCommand(command: StringKeys<C>, valueOrParameters?: string | number | Record<string | symbol, string | number | undefined>, parameters?: Record<string | symbol, string | number | undefined>): Promise<any> {
+	async sendCommand(
+		command: StringKeys<C>,
+		valueOrParameters?: string | number | Record<string | symbol, string | number | undefined>,
+		parameters?: Record<string | symbol, string | number | undefined>
+	): Promise<any> {
 		if (valueOrParameters === null || valueOrParameters === undefined) {
 			return this.isy.sendNodeCommand(this, command);
 		}
 
-			if(parameters === null || parameters === undefined) {
-				return this.isy.sendNodeCommand(this, command, valueOrParameters);
-			}
-			if(typeof valueOrParameters === 'object') {
-				return this.isy.sendNodeCommand(this, command, {...valueOrParameters,...parameters});
-			}
-			if(typeof valueOrParameters === 'string' || typeof valueOrParameters === 'number') {
-				return this.isy.sendNodeCommand(this, command, { default: valueOrParameters, ...parameters });
-			}
-
-
-
+		if (parameters === null || parameters === undefined) {
+			return this.isy.sendNodeCommand(this, command, valueOrParameters);
+		}
+		if (typeof valueOrParameters === 'object') {
+			return this.isy.sendNodeCommand(this, command, { ...valueOrParameters, ...parameters });
+		}
+		if (typeof valueOrParameters === 'string' || typeof valueOrParameters === 'number') {
+			return this.isy.sendNodeCommand(this, command, { default: valueOrParameters, ...parameters });
+		}
 	}
 
 	public async updateProperty(propertyName: string, value: any): Promise<any> {
@@ -540,12 +544,17 @@ export type EventsOf<T> = T extends ISYNode<any, any, any, infer E> ? E : never;
 export namespace ISYNode {
 	export type FromSignatures<T> = T extends DriverSignatures ? Driver.ForAll<T> : never;
 
-	export type DriversOf<T> = T extends ISYNode<any, infer D, any, any> ? D : never;
+	type InternalDriversOf<T> = T extends ISYNode<any, infer D, any, any> ? D : never;
+
+	export type DriversOf<T> =
+		T extends ISYNode<any, any, any, any> ? InternalDriversOf<T>
+		: T extends CompositeDevice<any, any> ? T['drivers']
+		: never;
 	export type CommandsOf<T> = T extends ISYNode<any, any, infer C, any> ? C : never;
 	export type EventsOf<T> = T extends ISYNode<any, any, any, infer E> ? E : never;
 	export type FamilyOf<T> = T extends ISYNode<infer F, any, any, any> ? F : never;
 
-	export type DriverTypesOf<T extends ISYNode> = ObjectToUnion<DriversOf<T>>;
+	export type DriverTypesOf<T> = ObjectToUnion<DriversOf<T>>;
 
 	export type CommandTypesOf<T extends ISYNode> = ObjectToUnion<CommandsOf<T>>;
 
@@ -553,9 +562,16 @@ export namespace ISYNode {
 
 	export type EventNamesOf<T extends ISYNode> = EventTypesOf<T> extends { name: infer U } ? U : never;
 
-	export type DriverNamesOf<T extends ISYNode> = DriverTypesOf<T> extends { name: infer U } ? U : never;
+	export type DriverNamesOf<T> =
+		DriverTypesOf<T> extends { name: infer U } ? U
+		: DriversOf<T> extends { name: infer U } ? U
+		: never;
 
-	export type CommandNamesOf<T extends ISYNode> = CommandTypesOf<T> extends { name: infer U } ? U : never;
+	export type DriverKeysOf<T> = keyof DriversOf<T>;
+
+	export type CommandKeysOf<T> = keyof CommandsOf<T>;
+
+	export type CommandNamesOf<T extends ISYNode> = CommandsOf<T> extends { name: infer U } ? U : never;
 	export type List = NodeList;
 
 	export type DriverMap<T extends NodeList> = Flatten<{
@@ -585,7 +601,7 @@ export namespace ISYNode {
 
 	export const With = <K extends Family, D extends DriverSignatures, C extends CommandSignatures, T extends Constructor<ISYNode<K, any, any, any>>>(Base: T) => {
 		return class extends Base implements Omit<ISYNode<K, D, C>, 'events'> {
-			declare drivers: Driver.ForAll<any, false>;
+			declare drivers: Driver.ForAll<D, false>;
 			declare commands: Command.ForAll<C>;
 		};
 	};

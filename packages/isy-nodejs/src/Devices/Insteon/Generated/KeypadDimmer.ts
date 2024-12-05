@@ -17,7 +17,7 @@ const nodeDefId = "KeypadDimmer";
 type Commands = KeypadDimmer.Commands;
 type Drivers = KeypadDimmer.Drivers;
 
-export class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadDimmer.Interface {
+class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadDimmer.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -36,14 +36,14 @@ export class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadD
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "KeypadDimmer";
-	static override implements = ["KeypadDimmer", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
-	declare readonly nodeDefId: "KeypadDimmer" | "KeypadDimmer_ADV";
+	static override implements = ['KeypadDimmer', "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
+	declare readonly nodeDefId: 'KeypadDimmer' | "KeypadDimmer_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.OL = Driver.create("OL", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "On Level", name: "onLevel" });
-		this.drivers.RR = Driver.create("RR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Ramp Rate", name: "rampRate" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.OL = Driver.create("OL", this, nodeInfo.state['OL'], { uom: UnitOfMeasure.Percent, label: "On Level", name: "onLevel" });
+		this.drivers.RR = Driver.create("RR", this, nodeInfo.state['RR'], { uom: UnitOfMeasure.Index, label: "Ramp Rate", name: "rampRate" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(value?: number) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
@@ -79,13 +79,12 @@ NodeFactory.register(KeypadDimmerNode, "KeypadDimmer_ADV");
 
 export namespace KeypadDimmer {
 	export interface Interface extends Omit<InstanceType<typeof KeypadDimmerNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "KeypadDimmer" | "KeypadDimmer_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is KeypadDimmerNode {
-		return ["KeypadDimmer", "KeypadDimmer_ADV"].includes(node.nodeDefId);
+		return ['KeypadDimmer', "KeypadDimmer_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is KeypadDimmerNode {
-		return ["KeypadDimmer", "KeypadDimmer_ADV"].includes(node.nodeDefId);
+		return ['KeypadDimmer', "KeypadDimmer_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new KeypadDimmerNode(isy, nodeInfo);

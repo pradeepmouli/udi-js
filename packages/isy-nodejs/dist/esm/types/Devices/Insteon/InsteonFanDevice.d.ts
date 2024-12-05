@@ -1,26 +1,28 @@
+import { Family } from '../../Definitions/Global/Families.js';
 import { ISY } from '../../ISY.js';
 import 'winston';
-import { Command, Driver } from '../../Definitions/index.js';
 import type { NodeInfo, StaticNodeInfo } from '../../Model/NodeInfo.js';
-import { InsteonBaseDevice } from './InsteonBaseDevice.js';
-import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
-export declare class InsteonFanMotorDevice extends InsteonBaseDevice<Driver.Signatures<'ST'>, Command.Signatures<'DON' | 'DOF'>> {
+import { CompositeDevice } from '../CompositeDevice.js';
+import { DimmerLamp } from './Generated/DimmerLamp.js';
+import { FanLincMotor } from './Generated/FanLincMotor.js';
+export declare class InsteonFanMotorDevice extends FanLincMotor.Node {
     constructor(isy: ISY, deviceNode: StaticNodeInfo);
     get isOn(): boolean;
-    get fanSpeed(): any;
-    updateFanSpeed(level: number): Promise<number>;
+    get fanSpeed(): import("../../Definitions/Insteon/index.js").FanLevel;
+    updateFanSpeed(level: number): Promise<any>;
     updateIsOn(isOn: boolean): Promise<void>;
 }
-export declare class InsteonFanDevice extends InsteonBaseDevice {
-    light?: InsteonDimmableDevice;
-    motor: InsteonFanMotorDevice;
+declare const FanDevice_base: import("type-fest").Constructor<CompositeDevice<Family, {
+    [x: string]: import("../ISYDeviceNode.js").ISYDeviceNode<any, any, any, any>;
+}, import("../ISYDeviceNode.js").ISYDeviceNode<any, any, any, any>>>;
+export declare class FanDevice extends FanDevice_base {
     constructor(isy: ISY, deviceNode: NodeInfo);
-    handleEvent(event: {
-        control?: string;
-        data?: any;
-        node?: any;
-    }): boolean;
-    addChild(childDevice: any): void;
-    updateFanSpeed(level: number): Promise<number>;
 }
+export declare namespace Fan {
+    class Device extends FanDevice {
+    }
+    const Motor: typeof FanLincMotor;
+    const Light: typeof DimmerLamp;
+}
+export {};
 //# sourceMappingURL=InsteonFanDevice.d.ts.map

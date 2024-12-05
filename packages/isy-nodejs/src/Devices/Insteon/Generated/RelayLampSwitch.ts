@@ -17,7 +17,7 @@ const nodeDefId = "RelayLampSwitch";
 type Commands = RelayLampSwitch.Commands;
 type Drivers = RelayLampSwitch.Drivers;
 
-export class RelayLampSwitchNode extends Base<Drivers, Commands> implements RelayLampSwitch.Interface {
+class RelayLampSwitchNode extends Base<Drivers, Commands> implements RelayLampSwitch.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -29,12 +29,12 @@ export class RelayLampSwitchNode extends Base<Drivers, Commands> implements Rela
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "RelayLampSwitch";
-	static override implements = ["RelayLampSwitch", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "IRLincTx", "EZRAIN_Output", "EZIO2x4_Output", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "DoorLock", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl", "BinaryControl_ADV", "AlertModuleArmed", "SirenAlert", "SirenArm", "PIR2844OnOff", "PIR2844OnOff_ADV"];
-	declare readonly nodeDefId: "RelayLampSwitch" | "RelayLampSwitch_ADV";
+	static override implements = ['RelayLampSwitch', "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "IRLincTx", "EZRAIN_Output", "EZIO2x4_Output", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "DoorLock", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl", "BinaryControl_ADV", "AlertModuleArmed", "SirenAlert", "SirenArm", "PIR2844OnOff", "PIR2844OnOff_ADV"];
+	declare readonly nodeDefId: 'RelayLampSwitch' | "RelayLampSwitch_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(value?: (0 | 100)) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
@@ -57,13 +57,12 @@ NodeFactory.register(RelayLampSwitchNode, "RelayLampSwitch_ADV");
 
 export namespace RelayLampSwitch {
 	export interface Interface extends Omit<InstanceType<typeof RelayLampSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "RelayLampSwitch" | "RelayLampSwitch_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is RelayLampSwitchNode {
-		return ["RelayLampSwitch", "RelayLampSwitch_ADV"].includes(node.nodeDefId);
+		return ['RelayLampSwitch', "RelayLampSwitch_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayLampSwitchNode {
-		return ["RelayLampSwitch", "RelayLampSwitch_ADV"].includes(node.nodeDefId);
+		return ['RelayLampSwitch', "RelayLampSwitch_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new RelayLampSwitchNode(isy, nodeInfo);

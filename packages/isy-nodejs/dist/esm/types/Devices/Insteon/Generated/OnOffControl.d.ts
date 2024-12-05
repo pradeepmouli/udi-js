@@ -7,18 +7,17 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = OnOffControl.Commands;
 type Drivers = OnOffControl.Drivers;
-export declare class OnOffControlNode extends Base<Drivers, Commands> implements OnOffControl.Interface {
+declare class OnOffControlNode extends Base<Drivers, Commands> implements OnOffControl.Interface {
     readonly commands: {};
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "OnOffControl" | "OnOffControl_ADV";
+    readonly nodeDefId: 'OnOffControl' | "OnOffControl_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     get status(): Insteon.OnLevelRelay;
     get responding(): Insteon.Error;
 }
 export declare namespace OnOffControl {
     interface Interface extends Omit<InstanceType<typeof OnOffControlNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "OnOffControl" | "OnOffControl_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is OnOffControlNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is OnOffControlNode;

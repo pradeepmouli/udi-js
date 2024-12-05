@@ -17,7 +17,7 @@ const nodeDefId = "I3KeypadFlags";
 type Commands = I3KeypadFlags.Commands;
 type Drivers = I3KeypadFlags.Drivers;
 
-export class I3KeypadFlagsNode extends Base<Drivers, Commands> implements I3KeypadFlags.Interface {
+class I3KeypadFlagsNode extends Base<Drivers, Commands> implements I3KeypadFlags.Interface {
 	public override readonly commands = {
 		GV0: this.updateMode,
 		GV1: this.updateProgramLock,
@@ -32,20 +32,20 @@ export class I3KeypadFlagsNode extends Base<Drivers, Commands> implements I3Keyp
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "I3KeypadFlags";
-	static override implements = ["I3KeypadFlags"];
-	declare readonly nodeDefId: "I3KeypadFlags";
+	static override implements = ['I3KeypadFlags'];
+	declare readonly nodeDefId: 'I3KeypadFlags';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Mode", name: "mode" });
-		this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Program Lock", name: "programLock" });
-		this.drivers.GV2 = Driver.create("GV2", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Resume Dim", name: "resumeDim" });
-		this.drivers.GV3 = Driver.create("GV3", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Relay at Full On", name: "relayAtFullOn" });
-		this.drivers.GV4 = Driver.create("GV4", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Key Beep", name: "keyBeep" });
-		this.drivers.GV5 = Driver.create("GV5", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Disable RF", name: "disableRf" });
-		this.drivers.GV6 = Driver.create("GV6", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Button Lock", name: "buttonLock" });
-		this.drivers.GV7 = Driver.create("GV7", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Error Blink", name: "errorBlink" });
-		this.drivers.GV8 = Driver.create("GV8", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Cleanup Reports", name: "cleanupReports" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Boolean, label: "Mode", name: "mode" });
+		this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.state['GV1'], { uom: UnitOfMeasure.Boolean, label: "Program Lock", name: "programLock" });
+		this.drivers.GV2 = Driver.create("GV2", this, nodeInfo.state['GV2'], { uom: UnitOfMeasure.Boolean, label: "Resume Dim", name: "resumeDim" });
+		this.drivers.GV3 = Driver.create("GV3", this, nodeInfo.state['GV3'], { uom: UnitOfMeasure.Boolean, label: "Relay at Full On", name: "relayAtFullOn" });
+		this.drivers.GV4 = Driver.create("GV4", this, nodeInfo.state['GV4'], { uom: UnitOfMeasure.Boolean, label: "Key Beep", name: "keyBeep" });
+		this.drivers.GV5 = Driver.create("GV5", this, nodeInfo.state['GV5'], { uom: UnitOfMeasure.Boolean, label: "Disable RF", name: "disableRf" });
+		this.drivers.GV6 = Driver.create("GV6", this, nodeInfo.state['GV6'], { uom: UnitOfMeasure.Boolean, label: "Button Lock", name: "buttonLock" });
+		this.drivers.GV7 = Driver.create("GV7", this, nodeInfo.state['GV7'], { uom: UnitOfMeasure.Boolean, label: "Error Blink", name: "errorBlink" });
+		this.drivers.GV8 = Driver.create("GV8", this, nodeInfo.state['GV8'], { uom: UnitOfMeasure.Boolean, label: "Cleanup Reports", name: "cleanupReports" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async updateMode(value: Insteon.I3RelayDim) { return this.sendCommand("GV0", value); }
 	async updateProgramLock(value: Insteon.I3OnOff) { return this.sendCommand("GV1", value); }
@@ -94,13 +94,12 @@ NodeFactory.register(I3KeypadFlagsNode);
 
 export namespace I3KeypadFlags {
 	export interface Interface extends Omit<InstanceType<typeof I3KeypadFlagsNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "I3KeypadFlags";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is I3KeypadFlagsNode {
-		return ["I3KeypadFlags"].includes(node.nodeDefId);
+		return ['I3KeypadFlags'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is I3KeypadFlagsNode {
-		return ["I3KeypadFlags"].includes(node.nodeDefId);
+		return ['I3KeypadFlags'].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new I3KeypadFlagsNode(isy, nodeInfo);

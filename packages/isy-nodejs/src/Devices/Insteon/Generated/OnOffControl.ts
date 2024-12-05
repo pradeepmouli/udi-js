@@ -17,15 +17,15 @@ const nodeDefId = "OnOffControl";
 type Commands = OnOffControl.Commands;
 type Drivers = OnOffControl.Drivers;
 
-export class OnOffControlNode extends Base<Drivers, Commands> implements OnOffControl.Interface {
+class OnOffControlNode extends Base<Drivers, Commands> implements OnOffControl.Interface {
 	public override readonly commands = {};
 	static override nodeDefId = "OnOffControl";
-	static override implements = ["OnOffControl", "SirenAlert", "SirenArm"];
-	declare readonly nodeDefId: "OnOffControl" | "OnOffControl_ADV";
+	static override implements = ['OnOffControl', "SirenAlert", "SirenArm"];
+	declare readonly nodeDefId: 'OnOffControl' | "OnOffControl_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
@@ -40,13 +40,12 @@ NodeFactory.register(OnOffControlNode, "OnOffControl_ADV");
 
 export namespace OnOffControl {
 	export interface Interface extends Omit<InstanceType<typeof OnOffControlNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "OnOffControl" | "OnOffControl_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is OnOffControlNode {
-		return ["OnOffControl", "OnOffControl_ADV"].includes(node.nodeDefId);
+		return ['OnOffControl', "OnOffControl_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is OnOffControlNode {
-		return ["OnOffControl", "X10", "OnOffControl_ADV"].includes(node.nodeDefId);
+		return ['OnOffControl', "X10", "OnOffControl_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new OnOffControlNode(isy, nodeInfo);

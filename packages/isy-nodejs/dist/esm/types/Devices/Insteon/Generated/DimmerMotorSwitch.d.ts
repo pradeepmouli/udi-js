@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = DimmerMotorSwitch.Commands;
 type Drivers = DimmerMotorSwitch.Drivers;
-export declare class DimmerMotorSwitchNode extends Base<Drivers, Commands> implements DimmerMotorSwitch.Interface {
+declare class DimmerMotorSwitchNode extends Base<Drivers, Commands> implements DimmerMotorSwitch.Interface {
     readonly commands: {
         DON: (value?: number) => Promise<any>;
         DOF: () => Promise<any>;
@@ -25,7 +25,7 @@ export declare class DimmerMotorSwitchNode extends Base<Drivers, Commands> imple
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "DimmerMotorSwitch" | "DimmerMotorSwitch_ADV";
+    readonly nodeDefId: 'DimmerMotorSwitch' | "DimmerMotorSwitch_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: number): Promise<any>;
     off(): Promise<any>;
@@ -47,7 +47,6 @@ export declare class DimmerMotorSwitchNode extends Base<Drivers, Commands> imple
 }
 export declare namespace DimmerMotorSwitch {
     interface Interface extends Omit<InstanceType<typeof DimmerMotorSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "DimmerMotorSwitch" | "DimmerMotorSwitch_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is DimmerMotorSwitchNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerMotorSwitchNode;

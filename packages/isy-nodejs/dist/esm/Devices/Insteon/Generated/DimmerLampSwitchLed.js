@@ -4,7 +4,7 @@ import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
 const nodeDefId = "DimmerLampSwitchLED";
-export class DimmerLampSwitchLedNode extends Base {
+class DimmerLampSwitchLedNode extends Base {
     commands = {
         DON: this.on,
         DOF: this.off,
@@ -24,13 +24,13 @@ export class DimmerLampSwitchLedNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "DimmerLampSwitchLED";
-    static implements = ["DimmerLampSwitchLED", "DimmerSwitchOnly", "DimmerSwitchOnly_ADV", "DimmerLampOnly", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
+    static implements = ['DimmerLampSwitchLED', "DimmerSwitchOnly", "DimmerSwitchOnly_ADV", "DimmerLampOnly", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-        this.drivers.OL = Driver.create("OL", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "On Level", name: "onLevel" });
-        this.drivers.RR = Driver.create("RR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Ramp Rate", name: "rampRate" });
-        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+        this.drivers.OL = Driver.create("OL", this, nodeInfo.state['OL'], { uom: UnitOfMeasure.Percent, label: "On Level", name: "onLevel" });
+        this.drivers.RR = Driver.create("RR", this, nodeInfo.state['RR'], { uom: UnitOfMeasure.Index, label: "Ramp Rate", name: "rampRate" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async on(value) { return this.sendCommand("DON", value); }
     async off() { return this.sendCommand("DOF"); }
@@ -66,11 +66,11 @@ NodeFactory.register(DimmerLampSwitchLedNode, "DimmerLampSwitchLED_ADV");
 export var DimmerLampSwitchLed;
 (function (DimmerLampSwitchLed) {
     function is(node) {
-        return ["DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV"].includes(node.nodeDefId);
+        return ['DimmerLampSwitchLED', "DimmerLampSwitchLED_ADV"].includes(node.nodeDefId);
     }
     DimmerLampSwitchLed.is = is;
     function isImplementedBy(node) {
-        return ["DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV"].includes(node.nodeDefId);
+        return ['DimmerLampSwitchLED', "DimmerLampSwitchLED_ADV"].includes(node.nodeDefId);
     }
     DimmerLampSwitchLed.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

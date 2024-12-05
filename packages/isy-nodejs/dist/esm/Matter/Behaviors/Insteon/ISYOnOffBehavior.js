@@ -1,11 +1,11 @@
 import { DimmableLightRequirements } from '@project-chip/matter.js/devices/DimmableLightDevice';
 import { OnOffLightRequirements } from '@project-chip/matter.js/devices/OnOffLightDevice';
-import { InsteonDimmableDevice } from '../../../Devices/Insteon/InsteonDimmableDevice.js';
 import { InsteonRelayDevice } from '../../../Devices/Insteon/InsteonRelayDevice.js';
 import { ISYClusterBehavior } from '../ISYClusterBehavior.js';
 import { Converter } from '../../../Converters.js';
+import { Insteon } from '../../../Devices/index.js';
 import { BehaviorRegistry } from '../BehaviorRegistry.js';
-export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.OnOffServer, InsteonRelayDevice) {
+export class RelayOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.OnOffServer, InsteonRelayDevice) {
     async initialize(_options) {
         await super.initialize(_options);
         //this.state.onOff = this.device.status;
@@ -23,8 +23,8 @@ export class ISYOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.
         return super.handlePropertyChange({ driver, newValue, oldValue, formattedValue });
     }
 }
-BehaviorRegistry.register(ISYOnOffBehavior);
-export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequirements.LevelControlServer, InsteonDimmableDevice) {
+BehaviorRegistry.register(RelayOnOffBehavior);
+export class ISYDimmableBehavior extends ISYClusterBehavior(DimmableLightRequirements.LevelControlServer, Insteon.DimmerLampNode) {
     async initialize(_options) {
         await super.initialize(_options);
         /*this.state.onLevel = Converter.get('Level255toZero.LightingLevel').to(this.device.drivers.OL)*/

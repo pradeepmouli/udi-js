@@ -217,19 +217,20 @@ export var Driver;
                 state: {
                     initial: true,
                     value: initState?.value, //TODO include converter
-                    formattedValue: initState.formatted,
+                    formattedValue: initState?.formatted,
                     pendingValue: null
                 },
                 query,
                 get value() {
                     return query().then((p) => p.value);
                 },
-                name: initState.name ?? driverSignature.name ?? driverSignature.label ?? driver,
+                name: initState?.name ?? driverSignature.name ?? driverSignature.label ?? driver,
                 label: driverSignature.label ?? driver
             };
         }
         var c = {
             id: driver,
+            initialized: initState ? true : false,
             uom: driverSignature?.uom,
             serverUom: initState?.uom != driverSignature?.uom ? initState?.uom : undefined,
             state: {
@@ -237,38 +238,47 @@ export var Driver;
                 value: initState ?
                     converter ? converter.from(initState.value)
                         : driverSignature?.uom && initState?.uom != driverSignature?.uom ? Converter.convert(initState.uom, driverSignature.uom, initState.value)
-                            : initState.value : null,
+                            : initState.value
+                    : null,
                 rawValue: initState ? initState.value : null,
                 formattedValue: initState ? initState.formatted : null,
                 pendingValue: null
             },
             async query() {
                 let s = await query();
-                this.state.value = converter ? converter.from(s.value) : this.uom !== s.uom ? Converter.convert(s.value, s.uom, this.uom) : s.value;
+                this.state.value =
+                    converter ? converter.from(s.value)
+                        : this.uom !== s.uom ? Converter.convert(s.value, s.uom, this.uom)
+                            : s.value;
                 this.state.formattedValue = s.formatted;
                 this.state.rawValue = s.value;
                 return s;
             },
-            apply(state, notify = false) {
-                let previousValue = this.state.rawValue;
-                this.state.rawValue = state.value;
-                if (previousValue === this.state.rawValue) {
-                    return false;
+            apply(state, notify = true) {
+                if (state.id == this.id) {
+                    let previousValue = this.state.rawValue;
+                    this.state.rawValue = state.value;
+                    if (previousValue === this.state.rawValue) {
+                        return false;
+                    }
+                    if (state.uom != this.uom) {
+                        this.serverUom == state.uom;
+                        this.state.value = converter ? converter.from(this.state.rawValue) : Converter.convert(state.uom, this.uom, this.state.rawValue);
+                    }
+                    else if (converter) {
+                        this.state.value = converter.from(state.value);
+                    }
+                    else {
+                        this.state.value = state.value;
+                    }
+                    this.state.formattedValue = state.formatted;
+                    if (notify)
+                        node.events.emit(`${this.name}Changed`, driver, this.state.value, previousValue, this.state.formattedValue);
+                    if (!this.initialized) {
+                        this.initialized = true;
+                    }
+                    return true;
                 }
-                if (state.uom != this.uom) {
-                    this.serverUom == state.uom;
-                    this.state.value = converter ? converter.from(this.state.rawValue) : Converter.convert(state.uom, this.uom, this.state.rawValue);
-                }
-                else if (converter) {
-                    this.state.value = converter.from(state.value);
-                }
-                else {
-                    this.state.value = state.value;
-                }
-                this.state.formattedValue = state.formatted;
-                if (notify)
-                    node.events.emit(`${this.name}Changed`, driver, this.state.value, previousValue, this.state.formattedValue);
-                return true;
             },
             patch(value, formattedValue, uom, prec, notify = true) {
                 let previousValue = this.state.rawValue;
@@ -289,6 +299,9 @@ export var Driver;
                 }
                 if (notify)
                     node.events.emit(`${this.name}Changed`, driver, this.state.value, previousValue, formattedValue);
+                if (!this.initialized) {
+                    this.initialized = true;
+                }
                 return true;
             },
             get value() {

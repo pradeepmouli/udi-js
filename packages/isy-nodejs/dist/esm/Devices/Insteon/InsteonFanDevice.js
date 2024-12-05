@@ -1,21 +1,21 @@
 import 'winston';
-import { Driver, UnitOfMeasure } from '../../Definitions/index.js';
-import { InsteonBaseDevice } from './InsteonBaseDevice.js';
-import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
-export class InsteonFanMotorDevice extends InsteonBaseDevice {
+import { CompositeDevice } from '../CompositeDevice.js';
+import { DimmerLamp } from './Generated/DimmerLamp.js';
+import { FanLincMotor } from './Generated/FanLincMotor.js';
+export class InsteonFanMotorDevice extends FanLincMotor.Node {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
-        this.drivers.ST = Driver.create('ST', this, deviceNode.property, { uom: UnitOfMeasure.Percent, label: 'Fan Speed (%)', name: 'fanSpeed' });
+        //*this.drivers. == Driver.create('ST', this, deviceNode.property as DriverState, { uom: UnitOfMeasure.Percent, label: 'Fan Speed (%)', name: 'fanSpeed' });
         this.hidden = true;
     }
     get isOn() {
-        return this.drivers.ST.value !== 0;
+        return this.status !== 0;
     }
     get fanSpeed() {
-        return this.drivers.ST.value;
+        return this.status;
     }
     async updateFanSpeed(level) {
-        return level;
+        return this.on(level);
     }
     async updateIsOn(isOn) {
         if (!isOn) {
@@ -26,35 +26,18 @@ export class InsteonFanMotorDevice extends InsteonBaseDevice {
         }
     }
 }
-export class InsteonFanDevice extends InsteonBaseDevice {
-    light;
-    motor;
+export class FanDevice extends CompositeDevice.of({ light: DimmerLamp.Node, motor: FanLincMotor.Node }, { light: 1, motor: 2 }) {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
-        this.light = new InsteonDimmableDevice(isy, deviceNode);
         /*this.light.events.on('PropertyChanged', ((a: any, b: any, c: any, d: string) => { this.emit('PropertyChanged', `light.${a}`, b, c, d); }).bind(this));*/
-        this.addChild(this.light);
-    }
-    handleEvent(event) {
-        this.logger(JSON.stringify(event));
-        const child = this.children.find((p) => p.address === event.node);
-        if (child !== undefined) {
-            return child.handleEvent(event);
-        }
-        return false;
-    }
-    addChild(childDevice) {
-        super.addChild(childDevice);
-        if (childDevice instanceof InsteonFanMotorDevice) {
-            this.logger('Fan Motor Found');
-            this.motor = childDevice;
-            this.motor.events.on('statusChanged', ((a, b, c, d) => {
-                this.emit('propertyChanged', `motor.${a}`, b, c, d);
-            }).bind(this));
-        }
-    }
-    async updateFanSpeed(level) {
-        return this.motor.updateFanSpeed(level);
     }
 }
+export var Fan;
+(function (Fan) {
+    class Device extends FanDevice {
+    }
+    Fan.Device = Device;
+    Fan.Motor = FanLincMotor;
+    Fan.Light = DimmerLamp;
+})(Fan || (Fan = {}));
 //# sourceMappingURL=InsteonFanDevice.js.map

@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = KeypadDimmer.Commands;
 type Drivers = KeypadDimmer.Drivers;
-export declare class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadDimmer.Interface {
+declare class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadDimmer.Interface {
     readonly commands: {
         DON: (value?: number) => Promise<any>;
         DOF: () => Promise<any>;
@@ -27,7 +27,7 @@ export declare class KeypadDimmerNode extends Base<Drivers, Commands> implements
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "KeypadDimmer" | "KeypadDimmer_ADV";
+    readonly nodeDefId: 'KeypadDimmer' | "KeypadDimmer_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: number): Promise<any>;
     off(): Promise<any>;
@@ -51,7 +51,6 @@ export declare class KeypadDimmerNode extends Base<Drivers, Commands> implements
 }
 export declare namespace KeypadDimmer {
     interface Interface extends Omit<InstanceType<typeof KeypadDimmerNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "KeypadDimmer" | "KeypadDimmer_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is KeypadDimmerNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is KeypadDimmerNode;

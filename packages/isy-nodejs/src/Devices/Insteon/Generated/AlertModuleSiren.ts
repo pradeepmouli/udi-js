@@ -17,7 +17,7 @@ const nodeDefId = "AlertModuleSiren";
 type Commands = AlertModuleSiren.Commands;
 type Drivers = AlertModuleSiren.Drivers;
 
-export class AlertModuleSirenNode extends Base<Drivers, Commands> implements AlertModuleSiren.Interface {
+class AlertModuleSirenNode extends Base<Drivers, Commands> implements AlertModuleSiren.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -28,12 +28,12 @@ export class AlertModuleSirenNode extends Base<Drivers, Commands> implements Ale
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "AlertModuleSiren";
-	static override implements = ["AlertModuleSiren", "AlertModuleArmed", "SirenAlert", "SirenArm"];
-	declare readonly nodeDefId: "AlertModuleSiren" | "AlertModuleSiren_ADV";
+	static override implements = ['AlertModuleSiren', "AlertModuleArmed", "SirenAlert", "SirenArm"];
+	declare readonly nodeDefId: 'AlertModuleSiren' | "AlertModuleSiren_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(onLevel?: number) { return this.sendCommand("DON", { OL: onLevel }); }
 	async off() { return this.sendCommand("DOF"); }
@@ -55,13 +55,12 @@ NodeFactory.register(AlertModuleSirenNode, "AlertModuleSiren_ADV");
 
 export namespace AlertModuleSiren {
 	export interface Interface extends Omit<InstanceType<typeof AlertModuleSirenNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "AlertModuleSiren" | "AlertModuleSiren_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is AlertModuleSirenNode {
-		return ["AlertModuleSiren", "AlertModuleSiren_ADV"].includes(node.nodeDefId);
+		return ['AlertModuleSiren', "AlertModuleSiren_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is AlertModuleSirenNode {
-		return ["AlertModuleSiren", "AlertModuleSiren_ADV"].includes(node.nodeDefId);
+		return ['AlertModuleSiren', "AlertModuleSiren_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new AlertModuleSirenNode(isy, nodeInfo);

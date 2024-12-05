@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { ZWave } from "../../../Definitions/index.js";
 type Commands = ColorSwitch.Commands;
 type Drivers = ColorSwitch.Drivers;
-export declare class ColorSwitchNode extends Base<Drivers, Commands> implements ColorSwitch.Interface {
+declare class ColorSwitchNode extends Base<Drivers, Commands> implements ColorSwitch.Interface {
     readonly commands: {
         DON: (warmWhite?: number, red?: number, green?: number, blue?: number, duration?: number, coldWhite?: number) => Promise<any>;
         FDUP: (component: ZWave.ColorComponent, startLevel?: number, duration?: number) => Promise<any>;
@@ -17,7 +17,7 @@ export declare class ColorSwitchNode extends Base<Drivers, Commands> implements 
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "186";
+    readonly nodeDefId: '186';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     set(warmWhite?: number, red?: number, green?: number, blue?: number, duration?: number, coldWhite?: number): Promise<any>;
     fadeUp(component: ZWave.ColorComponent, startLevel?: number, duration?: number): Promise<any>;
@@ -32,7 +32,6 @@ export declare class ColorSwitchNode extends Base<Drivers, Commands> implements 
 }
 export declare namespace ColorSwitch {
     interface Interface extends Omit<InstanceType<typeof ColorSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "186";
     }
     function is(node: ISYNode<any, any, any, any>): node is ColorSwitchNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is ColorSwitchNode;

@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = FanLincMotor.Commands;
 type Drivers = FanLincMotor.Drivers;
-export declare class FanLincMotorNode extends Base<Drivers, Commands> implements FanLincMotor.Interface {
+declare class FanLincMotorNode extends Base<Drivers, Commands> implements FanLincMotor.Interface {
     readonly commands: {
         DON: (value: Insteon.FanLevel) => Promise<any>;
         DOF: () => Promise<any>;
@@ -19,7 +19,7 @@ export declare class FanLincMotorNode extends Base<Drivers, Commands> implements
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "FanLincMotor";
+    readonly nodeDefId: 'FanLincMotor';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value: Insteon.FanLevel): Promise<any>;
     off(): Promise<any>;
@@ -33,7 +33,6 @@ export declare class FanLincMotorNode extends Base<Drivers, Commands> implements
 }
 export declare namespace FanLincMotor {
     interface Interface extends Omit<InstanceType<typeof FanLincMotorNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "FanLincMotor";
     }
     function is(node: ISYNode<any, any, any, any>): node is FanLincMotorNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is FanLincMotorNode;

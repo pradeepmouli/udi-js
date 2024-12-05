@@ -20,12 +20,13 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         model: string;
         modelNumber: string;
         version: string;
+        vendorName: string;
         productId: string | number;
         modelName: string;
         _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/index.js").Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#298813@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#4676205@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -34,11 +35,11 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         baseName: any;
         commands: import("../../Definitions/index.js").Command.ForAll<{}>;
         drivers: import("../../Definitions/index.js").Driver.ForAll<{
-            ST: import("../../Definitions/index.js").Driver.Signature<import("../../Definitions/index.js").UnitOfMeasure, any, import("../../Definitions/index.js").UnitOfMeasure, string, string>;
+            ST: import("../../Definitions/index.js").Driver.Signature<import("../../Definitions/index.js").UnitOfMeasure, any, import("../../Definitions/index.js").UnitOfMeasure, "ST", "ST">;
         }, false>;
         enabled: boolean;
         events: import("@matter/general").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
-            on(eventName: `${string}Changed`, listener: (driver: "ST", newValue: any, oldValue: any, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+            on(eventName: "STChanged" | "STInitialized", listener: (driver: "ST", newValue: any, oldValue: any, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         }>;
         folder: string;
         hidden: boolean;
@@ -102,12 +103,13 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         model: string;
         modelNumber: string;
         version: string;
+        vendorName: string;
         productId: string | number;
         modelName: string;
         _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/index.js").Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#298813@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#4676205@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -116,11 +118,11 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         baseName: any;
         commands: import("../../Definitions/index.js").Command.ForAll<{}>;
         drivers: import("../../Definitions/index.js").Driver.ForAll<{
-            ST: import("../../Definitions/index.js").Driver.Signature<import("../../Definitions/index.js").UnitOfMeasure, any, import("../../Definitions/index.js").UnitOfMeasure, string, string>;
+            ST: import("../../Definitions/index.js").Driver.Signature<import("../../Definitions/index.js").UnitOfMeasure, any, import("../../Definitions/index.js").UnitOfMeasure, "ST", "ST">;
         }, false>;
         enabled: boolean;
         events: import("@matter/general").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
-            on(eventName: `${string}Changed`, listener: (driver: "ST", newValue: any, oldValue: any, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+            on(eventName: "STChanged" | "STInitialized", listener: (driver: "ST", newValue: any, oldValue: any, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         }>;
         folder: string;
         hidden: boolean;

@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = BinaryAlarm.Commands;
 type Drivers = BinaryAlarm.Drivers;
-export declare class BinaryAlarmNode extends Base<Drivers, Commands> implements BinaryAlarm.Interface {
+declare class BinaryAlarmNode extends Base<Drivers, Commands> implements BinaryAlarm.Interface {
     readonly commands: {
         QUERY: () => Promise<any>;
         BEEP: (value?: number) => Promise<any>;
@@ -15,7 +15,7 @@ export declare class BinaryAlarmNode extends Base<Drivers, Commands> implements 
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "BinaryAlarm" | "BinaryAlarm_ADV";
+    readonly nodeDefId: 'BinaryAlarm' | "BinaryAlarm_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     query(): Promise<any>;
     beep(value?: number): Promise<any>;
@@ -25,7 +25,6 @@ export declare class BinaryAlarmNode extends Base<Drivers, Commands> implements 
 }
 export declare namespace BinaryAlarm {
     interface Interface extends Omit<InstanceType<typeof BinaryAlarmNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "BinaryAlarm" | "BinaryAlarm_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is BinaryAlarmNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is BinaryAlarmNode;

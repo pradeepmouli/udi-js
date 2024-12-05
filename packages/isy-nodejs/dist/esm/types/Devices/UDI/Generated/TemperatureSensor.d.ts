@@ -7,18 +7,17 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { UDI } from "../../../Definitions/index.js";
 type Commands = TemperatureSensor.Commands;
 type Drivers = TemperatureSensor.Drivers;
-export declare class TemperatureSensorNode extends Base<Drivers, Commands> implements TemperatureSensor.Interface {
+declare class TemperatureSensorNode extends Base<Drivers, Commands> implements TemperatureSensor.Interface {
     readonly commands: {};
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "EM3TempSensor";
+    readonly nodeDefId: 'EM3TempSensor';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     get temperature(): number;
     get responding(): UDI.Error;
 }
 export declare namespace TemperatureSensor {
     interface Interface extends Omit<InstanceType<typeof TemperatureSensorNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "EM3TempSensor";
     }
     function is(node: ISYNode<any, any, any, any>): node is TemperatureSensorNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is TemperatureSensorNode;

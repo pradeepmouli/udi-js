@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = TempLinc.Commands;
 type Drivers = TempLinc.Drivers;
-export declare class TempLincNode extends Base<Drivers, Commands> implements TempLinc.Interface {
+declare class TempLincNode extends Base<Drivers, Commands> implements TempLinc.Interface {
     readonly commands: {
         CLISPH: (value: number) => Promise<any>;
         CLISPC: (value: number) => Promise<any>;
@@ -22,7 +22,7 @@ export declare class TempLincNode extends Base<Drivers, Commands> implements Tem
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "TempLinc";
+    readonly nodeDefId: 'TempLinc';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     updateHeatSetpoint(value: number): Promise<any>;
     updateCoolSetpoint(value: number): Promise<any>;
@@ -45,7 +45,6 @@ export declare class TempLincNode extends Base<Drivers, Commands> implements Tem
 }
 export declare namespace TempLinc {
     interface Interface extends Omit<InstanceType<typeof TempLincNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "TempLinc";
     }
     function is(node: ISYNode<any, any, any, any>): node is TempLincNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is TempLincNode;

@@ -5,14 +5,14 @@ import { ISYDeviceNode } from './Devices/ISYDeviceNode.js';
 import type { ISYNode } from './ISYNode.js';
 import type { ISYScene } from './ISYScene.js';
 
-export interface ISYDevice<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures> extends ISYDeviceInfo {
+export interface ISYDevice<T extends Family, D, C, E> extends ISYDeviceInfo {
 	// #region Properties (22)
 
 	address: string;
 	category: Category;
-	commands: Command.ForAll<C>;
+	commands: C;
 	deviceClass: any;
-	drivers: Driver.ForAll<D>;
+	drivers: D;
 
 	events: E;
 	enabled: boolean;
@@ -51,6 +51,7 @@ export function isDeviceClass<T extends Family, D extends ISYNode.DriverSignatur
 ): device is (new (...args) => ISYDevice<T, D, C, E>) & typeof ISYNode<T, D, C, E> {
 	return device.prototype instanceof ISYDeviceNode;
 }
+
 
 export interface ISYDeviceInfo {
 	type: string;

@@ -17,7 +17,7 @@ const nodeDefId = "X10";
 type Commands = X10.Commands;
 type Drivers = X10.Drivers;
 
-export class X10Node extends Base<Drivers, Commands> implements X10.Interface {
+class X10Node extends Base<Drivers, Commands> implements X10.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -26,12 +26,12 @@ export class X10Node extends Base<Drivers, Commands> implements X10.Interface {
 		QUERY: this.query
 	};
 	static override nodeDefId = "X10";
-	static override implements = ["X10"];
-	declare readonly nodeDefId: "X10";
+	static override implements = ['X10'];
+	declare readonly nodeDefId: 'X10';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on() { return this.sendCommand("DON"); }
 	async off() { return this.sendCommand("DOF"); }
@@ -50,13 +50,12 @@ NodeFactory.register(X10Node);
 
 export namespace X10 {
 	export interface Interface extends Omit<InstanceType<typeof X10Node>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "X10";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is X10Node {
-		return ["X10"].includes(node.nodeDefId);
+		return ['X10'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is X10Node {
-		return ["X10"].includes(node.nodeDefId);
+		return ['X10'].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new X10Node(isy, nodeInfo);

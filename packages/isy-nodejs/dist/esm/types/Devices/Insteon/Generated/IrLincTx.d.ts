@@ -7,14 +7,14 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = IrLincTx.Commands;
 type Drivers = IrLincTx.Drivers;
-export declare class IrLincTxNode extends Base<Drivers, Commands> implements IrLincTx.Interface {
+declare class IrLincTxNode extends Base<Drivers, Commands> implements IrLincTx.Interface {
     readonly commands: {
         BEEP: (value?: number) => Promise<any>;
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "IRLincTx";
+    readonly nodeDefId: 'IRLincTx';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     beep(value?: number): Promise<any>;
     writeChanges(): Promise<any>;
@@ -22,7 +22,6 @@ export declare class IrLincTxNode extends Base<Drivers, Commands> implements IrL
 }
 export declare namespace IrLincTx {
     interface Interface extends Omit<InstanceType<typeof IrLincTxNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "IRLincTx";
     }
     function is(node: ISYNode<any, any, any, any>): node is IrLincTxNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is IrLincTxNode;

@@ -17,7 +17,7 @@ const nodeDefId = "BallastRelayLampSwitch";
 type Commands = BallastRelayLampSwitch.Commands;
 type Drivers = BallastRelayLampSwitch.Drivers;
 
-export class BallastRelayLampSwitchNode extends Base<Drivers, Commands> implements BallastRelayLampSwitch.Interface {
+class BallastRelayLampSwitchNode extends Base<Drivers, Commands> implements BallastRelayLampSwitch.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -28,12 +28,12 @@ export class BallastRelayLampSwitchNode extends Base<Drivers, Commands> implemen
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "BallastRelayLampSwitch";
-	static override implements = ["BallastRelayLampSwitch", "RelayLampOnly", "RelayLampOnly_ADV", "IRLincTx", "EZRAIN_Output", "EZIO2x4_Output", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl", "BinaryControl_ADV", "AlertModuleArmed", "SirenAlert", "SirenArm"];
-	declare readonly nodeDefId: "BallastRelayLampSwitch" | "BallastRelayLampSwitch_ADV";
+	static override implements = ['BallastRelayLampSwitch', "RelayLampOnly", "RelayLampOnly_ADV", "IRLincTx", "EZRAIN_Output", "EZIO2x4_Output", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl", "BinaryControl_ADV", "AlertModuleArmed", "SirenAlert", "SirenArm"];
+	declare readonly nodeDefId: 'BallastRelayLampSwitch' | "BallastRelayLampSwitch_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(value?: (0 | 100)) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
@@ -55,13 +55,12 @@ NodeFactory.register(BallastRelayLampSwitchNode, "BallastRelayLampSwitch_ADV");
 
 export namespace BallastRelayLampSwitch {
 	export interface Interface extends Omit<InstanceType<typeof BallastRelayLampSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "BallastRelayLampSwitch" | "BallastRelayLampSwitch_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is BallastRelayLampSwitchNode {
-		return ["BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId);
+		return ['BallastRelayLampSwitch', "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is BallastRelayLampSwitchNode {
-		return ["BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId);
+		return ['BallastRelayLampSwitch', "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new BallastRelayLampSwitchNode(isy, nodeInfo);

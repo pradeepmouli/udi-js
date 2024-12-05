@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = BallastRelayLampSwitch.Commands;
 type Drivers = BallastRelayLampSwitch.Drivers;
-export declare class BallastRelayLampSwitchNode extends Base<Drivers, Commands> implements BallastRelayLampSwitch.Interface {
+declare class BallastRelayLampSwitchNode extends Base<Drivers, Commands> implements BallastRelayLampSwitch.Interface {
     readonly commands: {
         DON: (value?: (0 | 100)) => Promise<any>;
         DOF: () => Promise<any>;
@@ -19,7 +19,7 @@ export declare class BallastRelayLampSwitchNode extends Base<Drivers, Commands> 
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "BallastRelayLampSwitch" | "BallastRelayLampSwitch_ADV";
+    readonly nodeDefId: 'BallastRelayLampSwitch' | "BallastRelayLampSwitch_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: (0 | 100)): Promise<any>;
     off(): Promise<any>;
@@ -33,7 +33,6 @@ export declare class BallastRelayLampSwitchNode extends Base<Drivers, Commands> 
 }
 export declare namespace BallastRelayLampSwitch {
     interface Interface extends Omit<InstanceType<typeof BallastRelayLampSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "BallastRelayLampSwitch" | "BallastRelayLampSwitch_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is BallastRelayLampSwitchNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is BallastRelayLampSwitchNode;

@@ -17,7 +17,7 @@ const nodeDefId = "FanLincMotor";
 type Commands = FanLincMotor.Commands;
 type Drivers = FanLincMotor.Drivers;
 
-export class FanLincMotorNode extends Base<Drivers, Commands> implements FanLincMotor.Interface {
+class FanLincMotorNode extends Base<Drivers, Commands> implements FanLincMotor.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -28,12 +28,12 @@ export class FanLincMotorNode extends Base<Drivers, Commands> implements FanLinc
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "FanLincMotor";
-	static override implements = ["FanLincMotor"];
-	declare readonly nodeDefId: "FanLincMotor";
+	static override implements = ['FanLincMotor'];
+	declare readonly nodeDefId: 'FanLincMotor';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(value: Insteon.FanLevel) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
@@ -54,13 +54,12 @@ NodeFactory.register(FanLincMotorNode);
 
 export namespace FanLincMotor {
 	export interface Interface extends Omit<InstanceType<typeof FanLincMotorNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "FanLincMotor";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is FanLincMotorNode {
-		return ["FanLincMotor"].includes(node.nodeDefId);
+		return ['FanLincMotor'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is FanLincMotorNode {
-		return ["FanLincMotor"].includes(node.nodeDefId);
+		return ['FanLincMotor'].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new FanLincMotorNode(isy, nodeInfo);

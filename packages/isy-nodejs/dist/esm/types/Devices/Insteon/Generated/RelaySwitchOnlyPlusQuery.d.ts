@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = RelaySwitchOnlyPlusQuery.Commands;
 type Drivers = RelaySwitchOnlyPlusQuery.Drivers;
-export declare class RelaySwitchOnlyPlusQueryNode extends Base<Drivers, Commands> implements RelaySwitchOnlyPlusQuery.Interface {
+declare class RelaySwitchOnlyPlusQueryNode extends Base<Drivers, Commands> implements RelaySwitchOnlyPlusQuery.Interface {
     readonly commands: {
         QUERY: () => Promise<any>;
         BEEP: (value?: number) => Promise<any>;
@@ -16,7 +16,7 @@ export declare class RelaySwitchOnlyPlusQueryNode extends Base<Drivers, Commands
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "RelaySwitchOnlyPlusQuery" | "RelaySwitchOnlyPlusQuery_ADV";
+    readonly nodeDefId: 'RelaySwitchOnlyPlusQuery' | "RelaySwitchOnlyPlusQuery_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     query(): Promise<any>;
     beep(value?: number): Promise<any>;
@@ -26,7 +26,6 @@ export declare class RelaySwitchOnlyPlusQueryNode extends Base<Drivers, Commands
 }
 export declare namespace RelaySwitchOnlyPlusQuery {
     interface Interface extends Omit<InstanceType<typeof RelaySwitchOnlyPlusQueryNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "RelaySwitchOnlyPlusQuery" | "RelaySwitchOnlyPlusQuery_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is RelaySwitchOnlyPlusQueryNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelaySwitchOnlyPlusQueryNode;

@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { ZWave } from "../../../Definitions/index.js";
 type Commands = DimmerSwitch.Commands;
 type Drivers = DimmerSwitch.Drivers;
-export declare class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerSwitch.Interface {
+declare class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerSwitch.Interface {
     readonly commands: {
         DON: (value?: number | ZWave.PercentOpt, rampRate?: number) => Promise<any>;
         DOF: () => Promise<any>;
@@ -25,7 +25,7 @@ export declare class DimmerSwitchNode extends Base<Drivers, Commands> implements
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "119";
+    readonly nodeDefId: '119';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: number | ZWave.PercentOpt, rampRate?: number): Promise<any>;
     off(): Promise<any>;
@@ -45,7 +45,6 @@ export declare class DimmerSwitchNode extends Base<Drivers, Commands> implements
 }
 export declare namespace DimmerSwitch {
     interface Interface extends Omit<InstanceType<typeof DimmerSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "119";
     }
     function is(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode;

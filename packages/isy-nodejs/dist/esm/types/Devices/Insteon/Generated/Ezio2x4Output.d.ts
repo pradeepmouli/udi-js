@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = Ezio2x4Output.Commands;
 type Drivers = Ezio2x4Output.Drivers;
-export declare class Ezio2x4OutputNode extends Base<Drivers, Commands> implements Ezio2x4Output.Interface {
+declare class Ezio2x4OutputNode extends Base<Drivers, Commands> implements Ezio2x4Output.Interface {
     readonly commands: {
         DON: (value?: (0 | 100)) => Promise<any>;
         DOF: () => Promise<any>;
@@ -16,7 +16,7 @@ export declare class Ezio2x4OutputNode extends Base<Drivers, Commands> implement
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "EZIO2x4_Output";
+    readonly nodeDefId: 'EZIO2x4_Output';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: (0 | 100)): Promise<any>;
     off(): Promise<any>;
@@ -27,7 +27,6 @@ export declare class Ezio2x4OutputNode extends Base<Drivers, Commands> implement
 }
 export declare namespace Ezio2x4Output {
     interface Interface extends Omit<InstanceType<typeof Ezio2x4OutputNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "EZIO2x4_Output";
     }
     function is(node: ISYNode<any, any, any, any>): node is Ezio2x4OutputNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is Ezio2x4OutputNode;

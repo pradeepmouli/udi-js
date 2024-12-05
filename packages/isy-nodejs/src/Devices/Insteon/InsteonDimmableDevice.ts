@@ -7,7 +7,8 @@ import type { DimmableLightRequirements } from '@project-chip/matter.js/devices/
 import { OnOffBehavior as OOB } from '@project-chip/matter.js/behaviors/on-off';
 import 'winston';
 import type { NodeInfo } from '../../Model/NodeInfo.js';
-import { DimmerLampSwitchNode } from './Generated/DimmerLampSwitch.js';
+import { DimmerLampSwitch } from './Generated/DimmerLampSwitch.js';
+
 
 
 // #region Type aliases (2)
@@ -19,13 +20,12 @@ type OnOffBehavior = typeof OOB;
 
 // #region Classes (1)
 
-//@ts-ignore
-export class InsteonDimmableDevice extends DimmerLampSwitchNode{
+export class InsteonDimmableDevice extends DimmerLampSwitch.Node {
 	// #region Constructors (1)
 
 	constructor(isy: ISY, node: NodeInfo) {
 		super(isy, node);
-		this.isDimmable = true;
+
 	}
 
 	// #endregion Constructors (1)

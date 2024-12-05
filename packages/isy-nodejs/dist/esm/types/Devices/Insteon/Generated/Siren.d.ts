@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = Siren.Commands;
 type Drivers = Siren.Drivers;
-export declare class SirenNode extends Base<Drivers, Commands> implements Siren.Interface {
+declare class SirenNode extends Base<Drivers, Commands> implements Siren.Interface {
     readonly commands: {
         DON: (duration?: number) => Promise<any>;
         DOF: () => Promise<any>;
@@ -19,7 +19,7 @@ export declare class SirenNode extends Base<Drivers, Commands> implements Siren.
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "Siren" | "Siren_ADV";
+    readonly nodeDefId: 'Siren' | "Siren_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(duration?: number): Promise<any>;
     off(): Promise<any>;
@@ -36,7 +36,6 @@ export declare class SirenNode extends Base<Drivers, Commands> implements Siren.
 }
 export declare namespace Siren {
     interface Interface extends Omit<InstanceType<typeof SirenNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "Siren" | "Siren_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is SirenNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is SirenNode;

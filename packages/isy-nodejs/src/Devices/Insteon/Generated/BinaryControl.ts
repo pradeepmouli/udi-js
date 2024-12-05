@@ -17,19 +17,19 @@ const nodeDefId = "BinaryControl";
 type Commands = BinaryControl.Commands;
 type Drivers = BinaryControl.Drivers;
 
-export class BinaryControlNode extends Base<Drivers, Commands> implements BinaryControl.Interface {
+class BinaryControlNode extends Base<Drivers, Commands> implements BinaryControl.Interface {
 	public override readonly commands = {
 		QUERY: this.query,
 		BEEP: this.beep,
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "BinaryControl";
-	static override implements = ["BinaryControl", "SirenAlert", "SirenArm"];
-	declare readonly nodeDefId: "BinaryControl" | "BinaryControl_ADV";
+	static override implements = ['BinaryControl', "SirenAlert", "SirenArm"];
+	declare readonly nodeDefId: 'BinaryControl' | "BinaryControl_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async query() { return this.sendCommand("QUERY"); }
 	async beep(value?: number) { return this.sendCommand("BEEP", value); }
@@ -47,13 +47,12 @@ NodeFactory.register(BinaryControlNode, "BinaryControl_ADV");
 
 export namespace BinaryControl {
 	export interface Interface extends Omit<InstanceType<typeof BinaryControlNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "BinaryControl" | "BinaryControl_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is BinaryControlNode {
-		return ["BinaryControl", "BinaryControl_ADV"].includes(node.nodeDefId);
+		return ['BinaryControl', "BinaryControl_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is BinaryControlNode {
-		return ["BinaryControl", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl_ADV"].includes(node.nodeDefId);
+		return ['BinaryControl', "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new BinaryControlNode(isy, nodeInfo);

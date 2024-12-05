@@ -52,6 +52,7 @@ export class ISYDeviceNode extends ISYNode {
         //   );
         // }
     }
+    vendorName;
     manufacturer;
     productId;
     modelName;

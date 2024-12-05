@@ -55,13 +55,13 @@ export const map: FamilyToClusterMap<Family.Insteon> = {
 				},
 				commands: { setLevel: { command: 'DON' } }
 			}
-		} as EndpointMapping<DimmableLightDevice, Insteon.DimmerLampNode>
+		} as EndpointMapping<DimmableLightDevice, InstanceType<typeof Insteon.DimmerLamp.Node>>
 	},
 	DimmerLampSwitch: {
 		deviceType: DimmableLightDevice,
 		// @ts-ignore
 		mapping: {
-			
+
 			OnOff: {
 				attributes: {
 					onOff: { driver: 'ST', converter: 'Percent.Boolean' }
@@ -78,7 +78,7 @@ export const map: FamilyToClusterMap<Family.Insteon> = {
 				},
 				commands: { setLevel: { command: 'DON' } }
 			}
-		} as EndpointMapping<DimmableLightDevice, Insteon.DimmerLampNode>
+		} as EndpointMapping<DimmableLightDevice, InstanceType<typeof Insteon.DimmerLamp.Node>>
 	}
 };
 

@@ -17,19 +17,19 @@ const nodeDefId = "LUTLoadShed";
 type Commands = LoadShed.Commands;
 type Drivers = LoadShed.Drivers;
 
-export class LoadShedNode extends Base<Drivers, Commands> implements LoadShed.Interface {
+class LoadShedNode extends Base<Drivers, Commands> implements LoadShed.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		QUERY: this.query
 	};
 	static override nodeDefId = "LUTLoadShed";
-	static override implements = ["LUTLoadShed"];
-	declare readonly nodeDefId: "LUTLoadShed";
+	static override implements = ['LUTLoadShed'];
+	declare readonly nodeDefId: 'LUTLoadShed';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(value?: (0 | 100)) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
@@ -46,13 +46,12 @@ NodeFactory.register(LoadShedNode);
 
 export namespace LoadShed {
 	export interface Interface extends Omit<InstanceType<typeof LoadShedNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "LUTLoadShed";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is LoadShedNode {
-		return ["LUTLoadShed"].includes(node.nodeDefId);
+		return ['LUTLoadShed'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is LoadShedNode {
-		return ["LUTLoadShed"].includes(node.nodeDefId);
+		return ['LUTLoadShed'].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new LoadShedNode(isy, nodeInfo);

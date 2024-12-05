@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = RelaySwitch.Commands;
 type Drivers = RelaySwitch.Drivers;
-export declare class RelaySwitchNode extends Base<Drivers, Commands> implements RelaySwitch.Interface {
+declare class RelaySwitchNode extends Base<Drivers, Commands> implements RelaySwitch.Interface {
     readonly commands: {
         BEEP: (value?: number) => Promise<any>;
         BL: (value: number) => Promise<any>;
@@ -15,7 +15,7 @@ export declare class RelaySwitchNode extends Base<Drivers, Commands> implements 
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "RelaySwitchOnly" | "RelaySwitchOnly_ADV";
+    readonly nodeDefId: 'RelaySwitchOnly' | "RelaySwitchOnly_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     beep(value?: number): Promise<any>;
     backlight(value: number): Promise<any>;
@@ -24,7 +24,6 @@ export declare class RelaySwitchNode extends Base<Drivers, Commands> implements 
 }
 export declare namespace RelaySwitch {
     interface Interface extends Omit<InstanceType<typeof RelaySwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "RelaySwitchOnly" | "RelaySwitchOnly_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is RelaySwitchNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelaySwitchNode;

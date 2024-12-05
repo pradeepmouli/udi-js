@@ -17,19 +17,19 @@ const nodeDefId = "EM3MainChannel";
 type Commands = Em3MainChannel.Commands;
 type Drivers = Em3MainChannel.Drivers;
 
-export class Em3MainChannelNode extends Base<Drivers, Commands> implements Em3MainChannel.Interface {
+class Em3MainChannelNode extends Base<Drivers, Commands> implements Em3MainChannel.Interface {
 	public override readonly commands = {};
 	static override nodeDefId = "EM3MainChannel";
-	static override implements = ["EM3MainChannel"];
-	declare readonly nodeDefId: "EM3MainChannel";
+	static override implements = ['EM3MainChannel'];
+	declare readonly nodeDefId: 'EM3MainChannel';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Watt, label: "Status", name: "status" });
-		this.drivers.TPW = Driver.create("TPW", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.KilowattsPerHour, label: "Total Energy", name: "totalEnergy" });
-		this.drivers.CV = Driver.create("CV", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Volt, label: "Current Voltage", name: "currentVoltage" });
-		this.drivers.CC = Driver.create("CC", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Ampere, label: "Current Current", name: "currentCurrent" });
-		this.drivers.PF = Driver.create("PF", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.PowerFactor, label: "Power Factor", name: "powerFactor" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Watt, label: "Status", name: "status" });
+		this.drivers.TPW = Driver.create("TPW", this, nodeInfo.state['TPW'], { uom: UnitOfMeasure.KilowattsPerHour, label: "Total Energy", name: "totalEnergy" });
+		this.drivers.CV = Driver.create("CV", this, nodeInfo.state['CV'], { uom: UnitOfMeasure.Volt, label: "Current Voltage", name: "currentVoltage" });
+		this.drivers.CC = Driver.create("CC", this, nodeInfo.state['CC'], { uom: UnitOfMeasure.Ampere, label: "Current Current", name: "currentCurrent" });
+		this.drivers.PF = Driver.create("PF", this, nodeInfo.state['PF'], { uom: UnitOfMeasure.PowerFactor, label: "Power Factor", name: "powerFactor" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	public get status(): number {
 		return this.drivers.ST?.value;
@@ -55,13 +55,12 @@ NodeFactory.register(Em3MainChannelNode);
 
 export namespace Em3MainChannel {
 	export interface Interface extends Omit<InstanceType<typeof Em3MainChannelNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "EM3MainChannel";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is Em3MainChannelNode {
-		return ["EM3MainChannel"].includes(node.nodeDefId);
+		return ['EM3MainChannel'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is Em3MainChannelNode {
-		return ["EM3MainChannel"].includes(node.nodeDefId);
+		return ['EM3MainChannel'].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new Em3MainChannelNode(isy, nodeInfo);

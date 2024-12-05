@@ -17,7 +17,7 @@ const nodeDefId = "InsteonDimmer";
 type Commands = Scene.Commands;
 type Drivers = Scene.Drivers;
 
-export class SceneNode extends Base<Drivers, Commands> implements Scene.Interface {
+class SceneNode extends Base<Drivers, Commands> implements Scene.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -38,8 +38,8 @@ export class SceneNode extends Base<Drivers, Commands> implements Scene.Interfac
 		CLISPCD: this.coolSetpointShift
 	};
 	static override nodeDefId = "InsteonDimmer";
-	static override implements = ["InsteonDimmer"];
-	declare readonly nodeDefId: "InsteonDimmer";
+	static override implements = ['InsteonDimmer'];
+	declare readonly nodeDefId: 'InsteonDimmer';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 	}
@@ -66,13 +66,12 @@ NodeFactory.register(SceneNode);
 
 export namespace Scene {
 	export interface Interface extends Omit<InstanceType<typeof SceneNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "InsteonDimmer";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is SceneNode {
-		return ["InsteonDimmer"].includes(node.nodeDefId);
+		return ['InsteonDimmer'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is SceneNode {
-		return ["InsteonDimmer"].includes(node.nodeDefId);
+		return ['InsteonDimmer'].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new SceneNode(isy, nodeInfo);

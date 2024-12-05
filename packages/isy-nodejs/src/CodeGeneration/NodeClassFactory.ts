@@ -76,7 +76,7 @@ export class NodeClassFactory extends CodeFactory {
 
 	public createNodeClass<T extends Family>(nodeClassDef: NodeClassDefinition<T>) {
 		let path = `${NodeClassFactory.basePath}/${Family[nodeClassDef.family]}/Generated/${nodeClassDef.name}.ts`;
-		let sf = ts.createSourceFile(path, '', ts.ScriptTarget.ES2023, true, ts.ScriptKind.TS);
+		let sf = ts.createSourceFile(path, '', ts.ScriptTarget.ES2024, true, ts.ScriptKind.TS);
 		//@ts-expect-error
 
 		sf.statements = [
@@ -163,7 +163,7 @@ export class NodeClassFactory extends CodeFactory {
 			),
 
 			factory.createClassDeclaration(
-				[factory.createToken(ts.SyntaxKind.ExportKeyword)],
+				[],
 				factory.createIdentifier(`${nodeClassDef.name}Node`),
 				undefined,
 				[
@@ -303,7 +303,7 @@ export class NodeClassFactory extends CodeFactory {
 							])
 						],
 						[
-							factory.createPropertySignature(
+							/*factory.createPropertySignature(
 								undefined,
 								factory.createIdentifier('nodeDefId'),
 								undefined,
@@ -314,7 +314,7 @@ export class NodeClassFactory extends CodeFactory {
 										)
 									)
 								:	NodeClassFactory.instance.createLiteralTypeNode(nodeClassDef.id)
-							)
+							)*/
 						]
 					),
 
@@ -472,7 +472,8 @@ export class NodeClassFactory extends CodeFactory {
 			newLineCharacter: '\n',
 			trimTrailingWhitespace: true,
 			ensureNewLineAtEndOfFile: true,
-			indentStyle: ts.IndentStyle.Smart
+			indentStyle: ts.IndentStyle.Smart,
+
 		});
 		let currentKind = ts.SyntaxKind.Unknown;
 		for (const s of f.getStatements()) {
@@ -652,10 +653,7 @@ export class NodeClassFactory extends CodeFactory {
 				factory.createCallExpression(factory.createPropertyAccessExpression(factory.createIdentifier('Driver'), factory.createIdentifier('create')), undefined, [
 					factory.createStringLiteral(def.id),
 					factory.createThis(),
-					factory.createAsExpression(
-						factory.createPropertyAccessExpression(factory.createIdentifier('nodeInfo'), factory.createIdentifier('property')),
-						factory.createTypeReferenceNode(factory.createIdentifier('DriverState'), undefined)
-					),
+					factory.createElementAccessExpression(factory.createPropertyAccessExpression(factory.createIdentifier('nodeInfo'), factory.createIdentifier('state')), this.createStringLiteral(def.id)),
 					factory.createObjectLiteralExpression(
 						[
 							factory.createPropertyAssignment(

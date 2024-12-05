@@ -17,7 +17,7 @@ const nodeDefId = "DimmerMotorSwitch";
 type Commands = DimmerMotorSwitch.Commands;
 type Drivers = DimmerMotorSwitch.Drivers;
 
-export class DimmerMotorSwitchNode extends Base<Drivers, Commands> implements DimmerMotorSwitch.Interface {
+class DimmerMotorSwitchNode extends Base<Drivers, Commands> implements DimmerMotorSwitch.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -34,14 +34,14 @@ export class DimmerMotorSwitchNode extends Base<Drivers, Commands> implements Di
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "DimmerMotorSwitch";
-	static override implements = ["DimmerMotorSwitch", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
-	declare readonly nodeDefId: "DimmerMotorSwitch" | "DimmerMotorSwitch_ADV";
+	static override implements = ['DimmerMotorSwitch', "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
+	declare readonly nodeDefId: 'DimmerMotorSwitch' | "DimmerMotorSwitch_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.OL = Driver.create("OL", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "On Level", name: "onLevel" });
-		this.drivers.DUR = Driver.create("DUR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.DurationInSeconds, label: "Max Duration", name: "maxDuration" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.OL = Driver.create("OL", this, nodeInfo.state['OL'], { uom: UnitOfMeasure.Percent, label: "On Level", name: "onLevel" });
+		this.drivers.DUR = Driver.create("DUR", this, nodeInfo.state['DUR'], { uom: UnitOfMeasure.DurationInSeconds, label: "Max Duration", name: "maxDuration" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(value?: number) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
@@ -75,13 +75,12 @@ NodeFactory.register(DimmerMotorSwitchNode, "DimmerMotorSwitch_ADV");
 
 export namespace DimmerMotorSwitch {
 	export interface Interface extends Omit<InstanceType<typeof DimmerMotorSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "DimmerMotorSwitch" | "DimmerMotorSwitch_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is DimmerMotorSwitchNode {
-		return ["DimmerMotorSwitch", "DimmerMotorSwitch_ADV"].includes(node.nodeDefId);
+		return ['DimmerMotorSwitch', "DimmerMotorSwitch_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerMotorSwitchNode {
-		return ["DimmerMotorSwitch", "DimmerMotorSwitch_ADV"].includes(node.nodeDefId);
+		return ['DimmerMotorSwitch', "DimmerMotorSwitch_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new DimmerMotorSwitchNode(isy, nodeInfo);

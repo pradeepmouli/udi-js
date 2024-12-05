@@ -4,7 +4,7 @@ import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
 const nodeDefId = "I3PaddleFlags";
-export class I3PaddleFlagsNode extends Base {
+class I3PaddleFlagsNode extends Base {
     commands = {
         GV0: this.updateMode,
         GV1: this.updateProgramLock,
@@ -17,17 +17,17 @@ export class I3PaddleFlagsNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "I3PaddleFlags";
-    static implements = ["I3PaddleFlags"];
+    static implements = ['I3PaddleFlags'];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Boolean, label: "Mode", name: "mode" });
-        this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.property, { uom: UnitOfMeasure.Boolean, label: "Program Lock", name: "programLock" });
-        this.drivers.GV2 = Driver.create("GV2", this, nodeInfo.property, { uom: UnitOfMeasure.Boolean, label: "Resume Dim", name: "resumeDim" });
-        this.drivers.GV4 = Driver.create("GV4", this, nodeInfo.property, { uom: UnitOfMeasure.Boolean, label: "Key Beep", name: "keyBeep" });
-        this.drivers.GV5 = Driver.create("GV5", this, nodeInfo.property, { uom: UnitOfMeasure.Boolean, label: "Disable RF", name: "disableRf" });
-        this.drivers.GV6 = Driver.create("GV6", this, nodeInfo.property, { uom: UnitOfMeasure.Boolean, label: "Button Lock", name: "buttonLock" });
-        this.drivers.GV7 = Driver.create("GV7", this, nodeInfo.property, { uom: UnitOfMeasure.Boolean, label: "Error Blink", name: "errorBlink" });
-        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Boolean, label: "Mode", name: "mode" });
+        this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.state['GV1'], { uom: UnitOfMeasure.Boolean, label: "Program Lock", name: "programLock" });
+        this.drivers.GV2 = Driver.create("GV2", this, nodeInfo.state['GV2'], { uom: UnitOfMeasure.Boolean, label: "Resume Dim", name: "resumeDim" });
+        this.drivers.GV4 = Driver.create("GV4", this, nodeInfo.state['GV4'], { uom: UnitOfMeasure.Boolean, label: "Key Beep", name: "keyBeep" });
+        this.drivers.GV5 = Driver.create("GV5", this, nodeInfo.state['GV5'], { uom: UnitOfMeasure.Boolean, label: "Disable RF", name: "disableRf" });
+        this.drivers.GV6 = Driver.create("GV6", this, nodeInfo.state['GV6'], { uom: UnitOfMeasure.Boolean, label: "Button Lock", name: "buttonLock" });
+        this.drivers.GV7 = Driver.create("GV7", this, nodeInfo.state['GV7'], { uom: UnitOfMeasure.Boolean, label: "Error Blink", name: "errorBlink" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async updateMode(value) { return this.sendCommand("GV0", value); }
     async updateProgramLock(value) { return this.sendCommand("GV1", value); }
@@ -67,11 +67,11 @@ NodeFactory.register(I3PaddleFlagsNode);
 export var I3PaddleFlags;
 (function (I3PaddleFlags) {
     function is(node) {
-        return ["I3PaddleFlags"].includes(node.nodeDefId);
+        return ['I3PaddleFlags'].includes(node.nodeDefId);
     }
     I3PaddleFlags.is = is;
     function isImplementedBy(node) {
-        return ["I3PaddleFlags", "I3KeypadFlags"].includes(node.nodeDefId);
+        return ['I3PaddleFlags', "I3KeypadFlags"].includes(node.nodeDefId);
     }
     I3PaddleFlags.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

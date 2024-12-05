@@ -4,6 +4,18 @@ import { Category } from './Definitions/Global/Categories.js';
 import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
 import path from 'path';
+export function isFactory(obj) {
+    return obj.Node !== undefined || obj.Device !== undefined;
+}
+export function getConstructor(obj) {
+    if (isFactory(obj)) {
+        if ('Node' in obj) {
+            return obj.Node;
+        }
+        return obj.Device;
+    }
+    return obj;
+}
 export function getEnumValueByEnumKey(enumType, enumKey) {
     return enumType[enumKey];
 }

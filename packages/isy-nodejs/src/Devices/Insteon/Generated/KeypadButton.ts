@@ -17,19 +17,19 @@ const nodeDefId = "KeypadButton";
 type Commands = KeypadButton.Commands;
 type Drivers = KeypadButton.Drivers;
 
-export class KeypadButtonNode extends Base<Drivers, Commands> implements KeypadButton.Interface {
+class KeypadButtonNode extends Base<Drivers, Commands> implements KeypadButton.Interface {
 	public override readonly commands = {
 		QUERY: this.query,
 		BL: this.backlight,
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "KeypadButton";
-	static override implements = ["KeypadButton", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "SirenAlert", "SirenArm"];
-	declare readonly nodeDefId: "KeypadButton" | "KeypadButton_ADV";
+	static override implements = ['KeypadButton', "EZIO2x4_Input", "EZIO2x4_Input_ADV", "SirenAlert", "SirenArm"];
+	declare readonly nodeDefId: 'KeypadButton' | "KeypadButton_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async query() { return this.sendCommand("QUERY"); }
 	async backlight(value: Insteon.Backlight) { return this.sendCommand("BL", value); }
@@ -47,13 +47,12 @@ NodeFactory.register(KeypadButtonNode, "KeypadButton_ADV");
 
 export namespace KeypadButton {
 	export interface Interface extends Omit<InstanceType<typeof KeypadButtonNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "KeypadButton" | "KeypadButton_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is KeypadButtonNode {
-		return ["KeypadButton", "KeypadButton_ADV"].includes(node.nodeDefId);
+		return ['KeypadButton', "KeypadButton_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is KeypadButtonNode {
-		return ["KeypadButton", "KeypadRelay", "KeypadRelay_ADV", "KeypadButton_ADV"].includes(node.nodeDefId);
+		return ['KeypadButton', "KeypadRelay", "KeypadRelay_ADV", "KeypadButton_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new KeypadButtonNode(isy, nodeInfo);

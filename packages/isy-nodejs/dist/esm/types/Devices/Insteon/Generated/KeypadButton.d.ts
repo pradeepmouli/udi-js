@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = KeypadButton.Commands;
 type Drivers = KeypadButton.Drivers;
-export declare class KeypadButtonNode extends Base<Drivers, Commands> implements KeypadButton.Interface {
+declare class KeypadButtonNode extends Base<Drivers, Commands> implements KeypadButton.Interface {
     readonly commands: {
         QUERY: () => Promise<any>;
         BL: (value: Insteon.Backlight) => Promise<any>;
@@ -15,7 +15,7 @@ export declare class KeypadButtonNode extends Base<Drivers, Commands> implements
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "KeypadButton" | "KeypadButton_ADV";
+    readonly nodeDefId: 'KeypadButton' | "KeypadButton_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     query(): Promise<any>;
     backlight(value: Insteon.Backlight): Promise<any>;
@@ -25,7 +25,6 @@ export declare class KeypadButtonNode extends Base<Drivers, Commands> implements
 }
 export declare namespace KeypadButton {
     interface Interface extends Omit<InstanceType<typeof KeypadButtonNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "KeypadButton" | "KeypadButton_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is KeypadButtonNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is KeypadButtonNode;

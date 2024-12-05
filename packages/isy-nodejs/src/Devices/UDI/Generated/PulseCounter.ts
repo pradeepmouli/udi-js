@@ -17,17 +17,17 @@ const nodeDefId = "EM3PulseCounter";
 type Commands = PulseCounter.Commands;
 type Drivers = PulseCounter.Drivers;
 
-export class PulseCounterNode extends Base<Drivers, Commands> implements PulseCounter.Interface {
+class PulseCounterNode extends Base<Drivers, Commands> implements PulseCounter.Interface {
 	public override readonly commands = {};
 	static override nodeDefId = "EM3PulseCounter";
-	static override implements = ["EM3PulseCounter"];
-	declare readonly nodeDefId: "EM3PulseCounter";
+	static override implements = ['EM3PulseCounter'];
+	declare readonly nodeDefId: 'EM3PulseCounter';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.PulseCount, label: "Status", name: "status" });
-		this.drivers.CPW = Driver.create("CPW", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Watt, label: "Current Power", name: "currentPower" });
-		this.drivers.TPW = Driver.create("TPW", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.KilowattsPerHour, label: "Total Energy", name: "totalEnergy" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.PulseCount, label: "Status", name: "status" });
+		this.drivers.CPW = Driver.create("CPW", this, nodeInfo.state['CPW'], { uom: UnitOfMeasure.Watt, label: "Current Power", name: "currentPower" });
+		this.drivers.TPW = Driver.create("TPW", this, nodeInfo.state['TPW'], { uom: UnitOfMeasure.KilowattsPerHour, label: "Total Energy", name: "totalEnergy" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	public get status(): number {
 		return this.drivers.ST?.value;
@@ -47,13 +47,12 @@ NodeFactory.register(PulseCounterNode);
 
 export namespace PulseCounter {
 	export interface Interface extends Omit<InstanceType<typeof PulseCounterNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "EM3PulseCounter";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is PulseCounterNode {
-		return ["EM3PulseCounter"].includes(node.nodeDefId);
+		return ['EM3PulseCounter'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is PulseCounterNode {
-		return ["EM3PulseCounter"].includes(node.nodeDefId);
+		return ['EM3PulseCounter'].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new PulseCounterNode(isy, nodeInfo);

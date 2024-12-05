@@ -13,7 +13,7 @@ export declare namespace NodeFactory {
     };
     function register<F extends keyof typeof Family>(nodeClass: NodeClass<F>, id?: string): void;
     function sortImplementsRegistry(): void;
-    function getImplements<F extends keyof typeof Family, T extends ISYNode<typeof Family[F], any, any, any>>(node: T): string[];
+    function getImplements<F extends keyof typeof Family, T extends ISYNode<typeof Family[F], any, any, any>>(node: T | typeof ISYNode): string[];
     function getForNode<F extends keyof typeof Family>(family: F, node: NodeInfo<typeof Family[F]>): NodeClass<F>;
     function getForNodeDefId<F extends keyof typeof Family | Family>(family: F, nodeDefId: string): NodeClass<F>;
     function get<F extends keyof typeof Family>(node: NodeInfo<typeof Family[F]>, isy?: ISY): Promise<typeof ISYNode<typeof Family[F], any, any, any>>;

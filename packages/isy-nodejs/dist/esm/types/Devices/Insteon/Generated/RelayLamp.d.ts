@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = RelayLamp.Commands;
 type Drivers = RelayLamp.Drivers;
-export declare class RelayLampNode extends Base<Drivers, Commands> implements RelayLamp.Interface {
+declare class RelayLampNode extends Base<Drivers, Commands> implements RelayLamp.Interface {
     readonly commands: {
         DON: (value?: (0 | 100)) => Promise<any>;
         DOF: () => Promise<any>;
@@ -19,7 +19,7 @@ export declare class RelayLampNode extends Base<Drivers, Commands> implements Re
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "RelayLampOnly" | "RelayLampOnly_ADV";
+    readonly nodeDefId: 'RelayLampOnly' | "RelayLampOnly_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: (0 | 100)): Promise<any>;
     off(): Promise<any>;
@@ -33,7 +33,6 @@ export declare class RelayLampNode extends Base<Drivers, Commands> implements Re
 }
 export declare namespace RelayLamp {
     interface Interface extends Omit<InstanceType<typeof RelayLampNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "RelayLampOnly" | "RelayLampOnly_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is RelayLampNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayLampNode;

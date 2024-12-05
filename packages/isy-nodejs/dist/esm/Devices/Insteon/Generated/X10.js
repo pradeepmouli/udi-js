@@ -4,7 +4,7 @@ import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
 const nodeDefId = "X10";
-export class X10Node extends Base {
+class X10Node extends Base {
     commands = {
         DON: this.on,
         DOF: this.off,
@@ -13,11 +13,11 @@ export class X10Node extends Base {
         QUERY: this.query
     };
     static nodeDefId = "X10";
-    static implements = ["X10"];
+    static implements = ['X10'];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async on() { return this.sendCommand("DON"); }
     async off() { return this.sendCommand("DOF"); }
@@ -35,11 +35,11 @@ NodeFactory.register(X10Node);
 export var X10;
 (function (X10) {
     function is(node) {
-        return ["X10"].includes(node.nodeDefId);
+        return ['X10'].includes(node.nodeDefId);
     }
     X10.is = is;
     function isImplementedBy(node) {
-        return ["X10"].includes(node.nodeDefId);
+        return ['X10'].includes(node.nodeDefId);
     }
     X10.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

@@ -1,11 +1,14 @@
 import '@project-chip/matter.js/device';
 import { Converter } from '../../Converters.js';
 import { ISYBridgedDeviceBehavior } from './ISYBridgedDeviceBehavior.js';
+import { getConstructor } from '../../Utils.js';
+;
 // #endregion Type aliases (6)
 // #region Functions (1)
 export function ISYClusterBehavior(base, p) {
-    return class ISYClusterBehavior extends base {
+    let s = class ISYClusterBehavior extends base {
         _device;
+        static nodeClass = getConstructor(p);
         handlers = {};
         bridgedDeviceBehavior;
         ///public map: ClusterMapping<ToClusterTypeByName<ClusterForBehavior<ConstructedType<typeof base>>["name"]>,ISYDeviceNode<any, any, any>>;
@@ -74,6 +77,8 @@ export function ISYClusterBehavior(base, p) {
             // }
         }
     };
+    s.nodeClass = getConstructor(p);
+    return s;
 }
 // #endregion Functions (1)
 //# sourceMappingURL=ISYClusterBehavior.js.map

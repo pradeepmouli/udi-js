@@ -17,15 +17,15 @@ const nodeDefId = "EM3TempSensor";
 type Commands = TemperatureSensor.Commands;
 type Drivers = TemperatureSensor.Drivers;
 
-export class TemperatureSensorNode extends Base<Drivers, Commands> implements TemperatureSensor.Interface {
+class TemperatureSensorNode extends Base<Drivers, Commands> implements TemperatureSensor.Interface {
 	public override readonly commands = {};
 	static override nodeDefId = "EM3TempSensor";
-	static override implements = ["EM3TempSensor"];
-	declare readonly nodeDefId: "EM3TempSensor";
+	static override implements = ['EM3TempSensor'];
+	declare readonly nodeDefId: 'EM3TempSensor';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Degree, label: "Temperature", name: "temperature" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Degree, label: "Temperature", name: "temperature" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	public get temperature(): number {
 		return this.drivers.ST?.value;
@@ -39,13 +39,12 @@ NodeFactory.register(TemperatureSensorNode);
 
 export namespace TemperatureSensor {
 	export interface Interface extends Omit<InstanceType<typeof TemperatureSensorNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "EM3TempSensor";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is TemperatureSensorNode {
-		return ["EM3TempSensor"].includes(node.nodeDefId);
+		return ['EM3TempSensor'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is TemperatureSensorNode {
-		return ["EM3TempSensor"].includes(node.nodeDefId);
+		return ['EM3TempSensor'].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new TemperatureSensorNode(isy, nodeInfo);

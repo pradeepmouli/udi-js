@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = I3PaddleFlags.Commands;
 type Drivers = I3PaddleFlags.Drivers;
-export declare class I3PaddleFlagsNode extends Base<Drivers, Commands> implements I3PaddleFlags.Interface {
+declare class I3PaddleFlagsNode extends Base<Drivers, Commands> implements I3PaddleFlags.Interface {
     readonly commands: {
         GV0: (value: Insteon.I3RelayDim) => Promise<any>;
         GV1: (value: Insteon.I3OnOff) => Promise<any>;
@@ -21,7 +21,7 @@ export declare class I3PaddleFlagsNode extends Base<Drivers, Commands> implement
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "I3PaddleFlags";
+    readonly nodeDefId: 'I3PaddleFlags';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     updateMode(value: Insteon.I3RelayDim): Promise<any>;
     updateProgramLock(value: Insteon.I3OnOff): Promise<any>;
@@ -43,7 +43,6 @@ export declare class I3PaddleFlagsNode extends Base<Drivers, Commands> implement
 }
 export declare namespace I3PaddleFlags {
     interface Interface extends Omit<InstanceType<typeof I3PaddleFlagsNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "I3PaddleFlags";
     }
     function is(node: ISYNode<any, any, any, any>): node is I3PaddleFlagsNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is I3PaddleFlagsNode;

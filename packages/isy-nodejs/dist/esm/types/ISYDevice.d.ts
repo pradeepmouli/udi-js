@@ -1,14 +1,12 @@
-import type { Command } from './Definitions/Global/Commands.js';
-import type { Driver } from './Definitions/Global/Drivers.js';
 import type { Category, Family } from './Definitions/index.js';
 import type { ISYNode } from './ISYNode.js';
 import type { ISYScene } from './ISYScene.js';
-export interface ISYDevice<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures> extends ISYDeviceInfo {
+export interface ISYDevice<T extends Family, D, C, E> extends ISYDeviceInfo {
     address: string;
     category: Category;
-    commands: Command.ForAll<C>;
+    commands: C;
     deviceClass: any;
-    drivers: Driver.ForAll<D>;
+    drivers: D;
     events: E;
     enabled: boolean;
     family: T;

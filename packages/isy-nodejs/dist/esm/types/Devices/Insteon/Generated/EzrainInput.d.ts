@@ -7,13 +7,13 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = EzrainInput.Commands;
 type Drivers = EzrainInput.Drivers;
-export declare class EzrainInputNode extends Base<Drivers, Commands> implements EzrainInput.Interface {
+declare class EzrainInputNode extends Base<Drivers, Commands> implements EzrainInput.Interface {
     readonly commands: {
         WDU: () => Promise<any>;
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "EZRAIN_Input" | "EZRAIN_Input_ADV";
+    readonly nodeDefId: 'EZRAIN_Input' | "EZRAIN_Input_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     writeChanges(): Promise<any>;
     get status(): Insteon.OnLevelRelay;
@@ -21,7 +21,6 @@ export declare class EzrainInputNode extends Base<Drivers, Commands> implements 
 }
 export declare namespace EzrainInput {
     interface Interface extends Omit<InstanceType<typeof EzrainInputNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "EZRAIN_Input" | "EZRAIN_Input_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is EzrainInputNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is EzrainInputNode;

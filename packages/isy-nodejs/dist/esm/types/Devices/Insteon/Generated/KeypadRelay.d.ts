@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = KeypadRelay.Commands;
 type Drivers = KeypadRelay.Drivers;
-export declare class KeypadRelayNode extends Base<Drivers, Commands> implements KeypadRelay.Interface {
+declare class KeypadRelayNode extends Base<Drivers, Commands> implements KeypadRelay.Interface {
     readonly commands: {
         DON: (value?: (0 | 100)) => Promise<any>;
         DOF: () => Promise<any>;
@@ -20,7 +20,7 @@ export declare class KeypadRelayNode extends Base<Drivers, Commands> implements 
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "KeypadRelay" | "KeypadRelay_ADV";
+    readonly nodeDefId: 'KeypadRelay' | "KeypadRelay_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: (0 | 100)): Promise<any>;
     off(): Promise<any>;
@@ -35,7 +35,6 @@ export declare class KeypadRelayNode extends Base<Drivers, Commands> implements 
 }
 export declare namespace KeypadRelay {
     interface Interface extends Omit<InstanceType<typeof KeypadRelayNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "KeypadRelay" | "KeypadRelay_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is KeypadRelayNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is KeypadRelayNode;

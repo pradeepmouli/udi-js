@@ -1,31 +1,27 @@
-
 //import Base from "./InsteonBaseDevice.js"
 
+export { InsteonBaseDevice as Base } from './InsteonBaseDevice.js';
 
-
-export {InsteonBaseDevice as Base} from  "./InsteonBaseDevice.js";
-
-export {InsteonOnOffOutletDevice as OnOffOutlet} from "./InsteonOnOffOutletDevice.js";
+export { OnOffOutlet as OnOffOutlet } from './InsteonOnOffOutletDevice.js';
 
 export * from './Generated/index.js';
 
-export {InsteonDimmableDevice as Dimmable} from "./InsteonDimmableDevice.js";
+export { InsteonDimmableDevice as Dimmable } from './InsteonDimmableDevice.js';
 
-export {InsteonFanDevice as Fan} from "./InsteonFanDevice.js";
+export { Fan as Fan } from './InsteonFanDevice.js';
 
-export {InsteonLockDevice as Lock} from "./InsteonLockDevice.js";
 
-export {InsteonRelayDevice as Relay} from "./InsteonRelayDevice.js";
+export { InsteonRelayDevice as Relay } from './InsteonRelayDevice.js';
 
-export {InsteonLeakSensorDevice as LeakSensor} from "./InsteonLeakSensorDevice.js";
+export { InsteonLeakSensorDevice as LeakSensor } from './InsteonLeakSensorDevice.js';
 
-export {InsteonMotionSensorDevice as MotionSensor} from "./InsteonMotionSensorDevice.js";
+export { InsteonMotionSensorDevice as MotionSensor } from './InsteonMotionSensorDevice.js';
 
-export {InsteonSmokeSensorDevice as SmokeSensor} from "./InsteonSmokeSensorDevice.js";
+export { InsteonSmokeSensorDevice as SmokeSensor } from './InsteonSmokeSensorDevice.js';
 
-export {InsteonDoorWindowSensorDevice as DoorWindowSensor} from "./InsteonDoorWindowSensorDevice.js";
+export { DoorWindowSensor } from './InsteonDoorWindowSensorDevice.js';
 
-export {InsteonDimmerOutletDevice as DimmerOutlet} from "./InsteonDimmerOutletDevice.js";
+export { InsteonDimmerOutletDevice as DimmerOutlet } from './InsteonDimmerOutletDevice.js';
 
 /*export const Insteon = {
   LeakSensor: InsteonLeakSensorDevice,

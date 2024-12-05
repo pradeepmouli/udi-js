@@ -47,7 +47,7 @@ export class NodeClassFactory extends CodeFactory {
     }
     createNodeClass(nodeClassDef) {
         let path = `${NodeClassFactory.basePath}/${Family[nodeClassDef.family]}/Generated/${nodeClassDef.name}.ts`;
-        let sf = ts.createSourceFile(path, '', ts.ScriptTarget.ES2023, true, ts.ScriptKind.TS);
+        let sf = ts.createSourceFile(path, '', ts.ScriptTarget.ES2024, true, ts.ScriptKind.TS);
         //@ts-expect-error
         sf.statements = [
             factory.createImportDeclaration(undefined, factory.createImportClause(false, undefined, factory.createNamedImports([factory.createImportSpecifier(false, undefined, factory.createIdentifier('UnitOfMeasure'))])), factory.createStringLiteral('../../../Definitions/Global/UOM.js'), undefined),
@@ -64,7 +64,7 @@ export class NodeClassFactory extends CodeFactory {
             factory.createVariableStatement(undefined, factory.createVariableDeclarationList([factory.createVariableDeclaration(factory.createIdentifier('nodeDefId'), undefined, undefined, factory.createStringLiteral(nodeClassDef.id))], ts.NodeFlags.Const)),
             factory.createTypeAliasDeclaration(undefined, factory.createIdentifier('Commands'), undefined, factory.createTypeReferenceNode(factory.createQualifiedName(factory.createIdentifier(nodeClassDef.name), factory.createIdentifier('Commands')), undefined)),
             factory.createTypeAliasDeclaration(undefined, factory.createIdentifier('Drivers'), undefined, factory.createTypeReferenceNode(factory.createQualifiedName(factory.createIdentifier(nodeClassDef.name), factory.createIdentifier('Drivers')), undefined)),
-            factory.createClassDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], factory.createIdentifier(`${nodeClassDef.name}Node`), undefined, [
+            factory.createClassDeclaration([], factory.createIdentifier(`${nodeClassDef.name}Node`), undefined, [
                 factory.createHeritageClause(ts.SyntaxKind.ExtendsKeyword, [
                     factory.createExpressionWithTypeArguments(factory.createIdentifier('Base'), [
                         factory.createTypeReferenceNode(factory.createIdentifier('Drivers'), undefined),
@@ -125,9 +125,18 @@ export class NodeClassFactory extends CodeFactory {
                         ])
                     ])
                 ], [
-                    factory.createPropertySignature(undefined, factory.createIdentifier('nodeDefId'), undefined, nodeClassDef.equivalents ?
-                        NodeClassFactory.instance.createUnionTypeNode(...[NodeClassFactory.instance.createLiteralTypeNode(nodeClassDef.id)].concat(!nodeClassDef.equivalents || nodeClassDef.equivalents.length == 0 ? [] : nodeClassDef.equivalents?.map((p) => factory.createLiteralTypeNode(factory.createStringLiteral(p)))))
-                        : NodeClassFactory.instance.createLiteralTypeNode(nodeClassDef.id))
+                /*factory.createPropertySignature(
+                    undefined,
+                    factory.createIdentifier('nodeDefId'),
+                    undefined,
+                    nodeClassDef.equivalents ?
+                        NodeClassFactory.instance.createUnionTypeNode(
+                            ...[NodeClassFactory.instance.createLiteralTypeNode(nodeClassDef.id)].concat(
+                                !nodeClassDef.equivalents || nodeClassDef.equivalents.length == 0 ? [] : nodeClassDef.equivalents?.map((p) => factory.createLiteralTypeNode(factory.createStringLiteral(p)))
+                            )
+                        )
+                    :	NodeClassFactory.instance.createLiteralTypeNode(nodeClassDef.id)
+                )*/
                 ]),
                 factory.createFunctionDeclaration([factory.createToken(ts.SyntaxKind.ExportKeyword)], undefined, factory.createIdentifier('is'), undefined, [
                     factory.createParameterDeclaration(undefined, undefined, factory.createIdentifier('node'), undefined, factory.createTypeReferenceNode(factory.createIdentifier('ISYNode'), [
@@ -169,7 +178,7 @@ export class NodeClassFactory extends CodeFactory {
             newLineCharacter: '\n',
             trimTrailingWhitespace: true,
             ensureNewLineAtEndOfFile: true,
-            indentStyle: ts.IndentStyle.Smart
+            indentStyle: ts.IndentStyle.Smart,
         });
         let currentKind = ts.SyntaxKind.Unknown;
         for (const s of f.getStatements()) {
@@ -278,7 +287,7 @@ export class NodeClassFactory extends CodeFactory {
         return factory.createExpressionStatement(factory.createBinaryExpression(factory.createPropertyAccessExpression(factory.createPropertyAccessExpression(factory.createThis(), factory.createIdentifier('drivers')), factory.createIdentifier(def.id)), factory.createToken(ts.SyntaxKind.EqualsToken), factory.createCallExpression(factory.createPropertyAccessExpression(factory.createIdentifier('Driver'), factory.createIdentifier('create')), undefined, [
             factory.createStringLiteral(def.id),
             factory.createThis(),
-            factory.createAsExpression(factory.createPropertyAccessExpression(factory.createIdentifier('nodeInfo'), factory.createIdentifier('property')), factory.createTypeReferenceNode(factory.createIdentifier('DriverState'), undefined)),
+            factory.createElementAccessExpression(factory.createPropertyAccessExpression(factory.createIdentifier('nodeInfo'), factory.createIdentifier('state')), this.createStringLiteral(def.id)),
             factory.createObjectLiteralExpression([
                 factory.createPropertyAssignment(factory.createIdentifier('uom'), factory.createPropertyAccessExpression(factory.createIdentifier('UnitOfMeasure'), factory.createIdentifier(UnitOfMeasure[def.dataType[0]?.uom] ?? 'Unknown'))),
                 factory.createPropertyAssignment(factory.createIdentifier('label'), factory.createStringLiteral(def.label)),

@@ -17,7 +17,7 @@ const nodeDefId = "PIR2844";
 type Commands = Pir2844.Commands;
 type Drivers = Pir2844.Drivers;
 
-export class Pir2844Node extends Base<Drivers, Commands> implements Pir2844.Interface {
+class Pir2844Node extends Base<Drivers, Commands> implements Pir2844.Interface {
 	public override readonly commands = {
 		CLITEMP: this.calibrateTemperature,
 		QUERY: this.query,
@@ -25,16 +25,16 @@ export class Pir2844Node extends Base<Drivers, Commands> implements Pir2844.Inte
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "PIR2844";
-	static override implements = ["PIR2844", "PIR2844C", "PIR2844C_ADV"];
-	declare readonly nodeDefId: "PIR2844" | "PIR2844_ADV";
+	static override implements = ['PIR2844', "PIR2844C", "PIR2844C_ADV"];
+	declare readonly nodeDefId: 'PIR2844' | "PIR2844_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.CLITEMP = Driver.create("CLITEMP", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Fahrenheit, label: "Temperature", name: "temperature" });
-		this.drivers.LUMIN = Driver.create("LUMIN", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Luminance", name: "luminance" });
-		this.drivers.BATLVL = Driver.create("BATLVL", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Battery Level", name: "batteryLevel" });
-		this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Boolean, label: "Battery Powered", name: "batteryPowered" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.CLITEMP = Driver.create("CLITEMP", this, nodeInfo.state['CLITEMP'], { uom: UnitOfMeasure.Fahrenheit, label: "Temperature", name: "temperature" });
+		this.drivers.LUMIN = Driver.create("LUMIN", this, nodeInfo.state['LUMIN'], { uom: UnitOfMeasure.Percent, label: "Luminance", name: "luminance" });
+		this.drivers.BATLVL = Driver.create("BATLVL", this, nodeInfo.state['BATLVL'], { uom: UnitOfMeasure.Percent, label: "Battery Level", name: "batteryLevel" });
+		this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.state['GV1'], { uom: UnitOfMeasure.Boolean, label: "Battery Powered", name: "batteryPowered" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async calibrateTemperature(value: number) { return this.sendCommand("CLITEMP", value); }
 	async query() { return this.sendCommand("QUERY"); }
@@ -65,13 +65,12 @@ NodeFactory.register(Pir2844Node, "PIR2844_ADV");
 
 export namespace Pir2844 {
 	export interface Interface extends Omit<InstanceType<typeof Pir2844Node>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "PIR2844" | "PIR2844_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is Pir2844Node {
-		return ["PIR2844", "PIR2844_ADV"].includes(node.nodeDefId);
+		return ['PIR2844', "PIR2844_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is Pir2844Node {
-		return ["PIR2844", "PIR2844_ADV"].includes(node.nodeDefId);
+		return ['PIR2844', "PIR2844_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new Pir2844Node(isy, nodeInfo);

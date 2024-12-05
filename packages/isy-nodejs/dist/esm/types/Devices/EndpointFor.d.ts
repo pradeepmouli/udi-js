@@ -33,13 +33,14 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         model: string;
         modelNumber: string;
         version: string;
+        vendorName: string;
         manufacturer: string;
         productId: string | number;
         modelName: string;
         _parentDevice: import("../ISYDevice.js").ISYDevice<any, any, any, any>;
         children: import("../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#298813@#parentNode": import("../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#4676205@#parentNode": import("../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -50,7 +51,7 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         drivers: import("../Definitions/index.js").Driver.ForAll<any, false>;
         enabled: boolean;
         events: import("@matter/general").Merge<import("../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
-            on(eventName: `${any}Changed` & `${any}Triggered`, listener: (driver: string, newValue: any, oldValue: any, formatted: string, uom: any) => void): import("../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+            on(eventName: (`${any}Changed` | `${any}Initialized`) & `${any}Triggered`, listener: (driver: string, newValue: any, oldValue: any, formatted: string, uom: any) => void): import("../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         }>;
         folder: string;
         hidden: boolean;

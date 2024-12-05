@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = BinaryControl.Commands;
 type Drivers = BinaryControl.Drivers;
-export declare class BinaryControlNode extends Base<Drivers, Commands> implements BinaryControl.Interface {
+declare class BinaryControlNode extends Base<Drivers, Commands> implements BinaryControl.Interface {
     readonly commands: {
         QUERY: () => Promise<any>;
         BEEP: (value?: number) => Promise<any>;
@@ -15,7 +15,7 @@ export declare class BinaryControlNode extends Base<Drivers, Commands> implement
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "BinaryControl" | "BinaryControl_ADV";
+    readonly nodeDefId: 'BinaryControl' | "BinaryControl_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     query(): Promise<any>;
     beep(value?: number): Promise<any>;
@@ -25,7 +25,6 @@ export declare class BinaryControlNode extends Base<Drivers, Commands> implement
 }
 export declare namespace BinaryControl {
     interface Interface extends Omit<InstanceType<typeof BinaryControlNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "BinaryControl" | "BinaryControl_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is BinaryControlNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is BinaryControlNode;

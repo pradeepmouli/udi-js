@@ -18,6 +18,7 @@ import { NodeFactory } from './Devices/NodeFactory.js';
 import { ISYError } from './ISYError.js';
 import { findPackageJson } from './Utils.js';
 import { GenericNode } from './Devices/GenericNode.js';
+import { CompositeDevice } from './Devices/CompositeDevice.js';
 class ISYInitializationError extends ISYError {
     step;
     constructor(messageOrError, step) {
@@ -666,7 +667,7 @@ export class ISY extends EventEmitter {
                     const enabled = nodeInfo.enabled ?? true;
                     const d = await NodeFactory.get(nodeInfo);
                     const m = DeviceFactory.getDeviceDetails(nodeInfo);
-                    const cls = m?.class ?? d;
+                    const cls = m.class ?? d;
                     nodeInfo.property = Array.isArray(nodeInfo.property) ? nodeInfo.property : [nodeInfo.property];
                     nodeInfo.state = nodeInfo.property.reduce((acc, p) => {
                         if (p && p?.id) {
@@ -712,7 +713,11 @@ export class ISY extends EventEmitter {
                         }
                         else {
                         }
-                        this.nodeMap.set(newDevice.address, newDevice);
+                        this.nodeMap.set(newDevice.address, CompositeDevice.isComposite(newDevice) ? newDevice.root : newDevice);
+                        if (CompositeDevice.isComposite(newDevice)) {
+                            if (this.deviceList.set)
+                                this.deviceList.set(newDevice.address, newDevice);
+                        }
                     }
                     else {
                         this.logger.info(`Ignoring disabled device: ${nodeInfo.name}`);
@@ -722,7 +727,18 @@ export class ISY extends EventEmitter {
                     this.logger.error(`Error loading device node: ${e.message}`);
                 }
             }
-            this.logger.info(`${this.nodeMap.size} devices added.`);
+            this.logger.info(`${this.nodeMap.size} nodes added.`);
+            for (const node of this.nodeMap.values()) {
+                if (node.parentAddress !== node.address) {
+                    let parent = this.deviceList.get(node.parentAddress);
+                    if (parent && CompositeDevice.isComposite(parent))
+                        parent.addNode(node);
+                }
+                else {
+                    this.deviceList.set(node.address, node);
+                }
+            }
+            this.logger.info(`${this.deviceList.size} unique devices added.`);
         }
         catch (e) {
             throw new ISYInitializationError(e, 'readDevices');

@@ -17,16 +17,16 @@ const nodeDefId = "EM3Channel";
 type Commands = Channel.Commands;
 type Drivers = Channel.Drivers;
 
-export class ChannelNode extends Base<Drivers, Commands> implements Channel.Interface {
+class ChannelNode extends Base<Drivers, Commands> implements Channel.Interface {
 	public override readonly commands = {};
 	static override nodeDefId = "EM3Channel";
-	static override implements = ["EM3Channel"];
-	declare readonly nodeDefId: "EM3Channel";
+	static override implements = ['EM3Channel'];
+	declare readonly nodeDefId: 'EM3Channel';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Watt, label: "Status", name: "status" });
-		this.drivers.TPW = Driver.create("TPW", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.KilowattsPerHour, label: "Total Energy", name: "totalEnergy" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Watt, label: "Status", name: "status" });
+		this.drivers.TPW = Driver.create("TPW", this, nodeInfo.state['TPW'], { uom: UnitOfMeasure.KilowattsPerHour, label: "Total Energy", name: "totalEnergy" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	public get status(): number {
 		return this.drivers.ST?.value;
@@ -43,13 +43,12 @@ NodeFactory.register(ChannelNode);
 
 export namespace Channel {
 	export interface Interface extends Omit<InstanceType<typeof ChannelNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "EM3Channel";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is ChannelNode {
-		return ["EM3Channel"].includes(node.nodeDefId);
+		return ['EM3Channel'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ChannelNode {
-		return ["EM3Channel", "EM3Main", "EM3MainChannel"].includes(node.nodeDefId);
+		return ['EM3Channel', "EM3Main", "EM3MainChannel"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new ChannelNode(isy, nodeInfo);

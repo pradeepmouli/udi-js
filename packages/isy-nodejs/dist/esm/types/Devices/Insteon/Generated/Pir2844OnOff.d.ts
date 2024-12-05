@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = Pir2844OnOff.Commands;
 type Drivers = Pir2844OnOff.Drivers;
-export declare class Pir2844OnOffNode extends Base<Drivers, Commands> implements Pir2844OnOff.Interface {
+declare class Pir2844OnOffNode extends Base<Drivers, Commands> implements Pir2844OnOff.Interface {
     readonly commands: {
         DON: (value?: (0 | 100)) => Promise<any>;
         DOF: () => Promise<any>;
@@ -17,7 +17,7 @@ export declare class Pir2844OnOffNode extends Base<Drivers, Commands> implements
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "PIR2844OnOff" | "PIR2844OnOff_ADV";
+    readonly nodeDefId: 'PIR2844OnOff' | "PIR2844OnOff_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: (0 | 100)): Promise<any>;
     off(): Promise<any>;
@@ -29,7 +29,6 @@ export declare class Pir2844OnOffNode extends Base<Drivers, Commands> implements
 }
 export declare namespace Pir2844OnOff {
     interface Interface extends Omit<InstanceType<typeof Pir2844OnOffNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "PIR2844OnOff" | "PIR2844OnOff_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is Pir2844OnOffNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is Pir2844OnOffNode;

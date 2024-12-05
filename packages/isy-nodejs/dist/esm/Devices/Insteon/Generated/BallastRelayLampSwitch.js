@@ -4,7 +4,7 @@ import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
 const nodeDefId = "BallastRelayLampSwitch";
-export class BallastRelayLampSwitchNode extends Base {
+class BallastRelayLampSwitchNode extends Base {
     commands = {
         DON: this.on,
         DOF: this.off,
@@ -15,11 +15,11 @@ export class BallastRelayLampSwitchNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "BallastRelayLampSwitch";
-    static implements = ["BallastRelayLampSwitch", "RelayLampOnly", "RelayLampOnly_ADV", "IRLincTx", "EZRAIN_Output", "EZIO2x4_Output", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl", "BinaryControl_ADV", "AlertModuleArmed", "SirenAlert", "SirenArm"];
+    static implements = ['BallastRelayLampSwitch', "RelayLampOnly", "RelayLampOnly_ADV", "IRLincTx", "EZRAIN_Output", "EZIO2x4_Output", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl", "BinaryControl_ADV", "AlertModuleArmed", "SirenAlert", "SirenArm"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async on(value) { return this.sendCommand("DON", value); }
     async off() { return this.sendCommand("DOF"); }
@@ -40,11 +40,11 @@ NodeFactory.register(BallastRelayLampSwitchNode, "BallastRelayLampSwitch_ADV");
 export var BallastRelayLampSwitch;
 (function (BallastRelayLampSwitch) {
     function is(node) {
-        return ["BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId);
+        return ['BallastRelayLampSwitch', "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId);
     }
     BallastRelayLampSwitch.is = is;
     function isImplementedBy(node) {
-        return ["BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId);
+        return ['BallastRelayLampSwitch', "BallastRelayLampSwitch_ADV"].includes(node.nodeDefId);
     }
     BallastRelayLampSwitch.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

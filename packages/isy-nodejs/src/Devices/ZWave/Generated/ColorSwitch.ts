@@ -17,7 +17,7 @@ const nodeDefId = "186";
 type Commands = ColorSwitch.Commands;
 type Drivers = ColorSwitch.Drivers;
 
-export class ColorSwitchNode extends Base<Drivers, Commands> implements ColorSwitch.Interface {
+class ColorSwitchNode extends Base<Drivers, Commands> implements ColorSwitch.Interface {
 	public override readonly commands = {
 		DON: this.set,
 		FDUP: this.fadeUp,
@@ -26,15 +26,15 @@ export class ColorSwitchNode extends Base<Drivers, Commands> implements ColorSwi
 		QUERY: this.query
 	};
 	static override nodeDefId = "186";
-	static override implements = ["186"];
-	declare readonly nodeDefId: "186";
+	static override implements = ['186'];
+	declare readonly nodeDefId: '186';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.GV0 = Driver.create("GV0", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Warm White", name: "warmWhite" });
-		this.drivers.GV2 = Driver.create("GV2", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Red", name: "red" });
-		this.drivers.GV3 = Driver.create("GV3", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Green", name: "green" });
-		this.drivers.GV4 = Driver.create("GV4", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Blue", name: "blue" });
-		this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Cold White", name: "coldWhite" });
+		this.drivers.GV0 = Driver.create("GV0", this, nodeInfo.state['GV0'], { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Warm White", name: "warmWhite" });
+		this.drivers.GV2 = Driver.create("GV2", this, nodeInfo.state['GV2'], { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Red", name: "red" });
+		this.drivers.GV3 = Driver.create("GV3", this, nodeInfo.state['GV3'], { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Green", name: "green" });
+		this.drivers.GV4 = Driver.create("GV4", this, nodeInfo.state['GV4'], { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Blue", name: "blue" });
+		this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.state['GV1'], { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Cold White", name: "coldWhite" });
 	}
 	async set(warmWhite?: number, red?: number, green?: number, blue?: number, duration?: number, coldWhite?: number) { return this.sendCommand("DON", { GV0: warmWhite, GV2: red, GV3: green, GV4: blue, RR: duration, GV1: coldWhite }); }
 	async fadeUp(component: ZWave.ColorComponent, startLevel?: number, duration?: number) { return this.sendCommand("FDUP", { ID: component, STARTLEVEL: startLevel, RR: duration }); }
@@ -62,13 +62,12 @@ NodeFactory.register(ColorSwitchNode);
 
 export namespace ColorSwitch {
 	export interface Interface extends Omit<InstanceType<typeof ColorSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "186";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is ColorSwitchNode {
-		return ["186"].includes(node.nodeDefId);
+		return ['186'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ColorSwitchNode {
-		return ["186"].includes(node.nodeDefId);
+		return ['186'].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new ColorSwitchNode(isy, nodeInfo);

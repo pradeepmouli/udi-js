@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = AlertModuleArmed.Commands;
 type Drivers = AlertModuleArmed.Drivers;
-export declare class AlertModuleArmedNode extends Base<Drivers, Commands> implements AlertModuleArmed.Interface {
+declare class AlertModuleArmedNode extends Base<Drivers, Commands> implements AlertModuleArmed.Interface {
     readonly commands: {
         DON: () => Promise<any>;
         DOF: () => Promise<any>;
@@ -17,7 +17,7 @@ export declare class AlertModuleArmedNode extends Base<Drivers, Commands> implem
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "AlertModuleArmed";
+    readonly nodeDefId: 'AlertModuleArmed';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(): Promise<any>;
     off(): Promise<any>;
@@ -29,7 +29,6 @@ export declare class AlertModuleArmedNode extends Base<Drivers, Commands> implem
 }
 export declare namespace AlertModuleArmed {
     interface Interface extends Omit<InstanceType<typeof AlertModuleArmedNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "AlertModuleArmed";
     }
     function is(node: ISYNode<any, any, any, any>): node is AlertModuleArmedNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is AlertModuleArmedNode;

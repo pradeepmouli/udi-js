@@ -8,6 +8,8 @@ import type { DriversOf, ISYNode } from '../../ISYNode.js';
 import type { ClusterMapping } from '../Mappings/MappingRegistry.js';
 import { ISYBridgedDeviceBehavior } from './ISYBridgedDeviceBehavior.js';
 import { isYieldExpression } from 'typescript';
+import { getConstructor, type ConstructorOf, type Factory } from '../../Utils.js';
+import { CompositeDevice } from '../../Devices/CompositeDevice.js';
 
 // #region Type aliases (6)
 
@@ -15,8 +17,9 @@ export type ClusterForBehavior<B> = B extends ClusterBehavior.Type<infer C, infe
 export type ConstructedType<B extends Constructor<any>> = B extends Constructor<infer C> ? C : never;
 // <reference path="MatterDevice.js" />
 // @ts-ignore
-export type DeviceBehavior<P extends ISYNode<any, any, any, any>, T extends { cluster? }> = {
+export interface DeviceBehavior<P extends ISYNode<any, any, any, any>, T extends { cluster? }> {
 	device: P;
+
 
 	bridgedDeviceBehavior: ISYBridgedDeviceBehavior<P>;
 
@@ -26,7 +29,7 @@ export type DeviceBehavior<P extends ISYNode<any, any, any, any>, T extends { cl
 	handlePropertyChange(chg: PropertyChange<P>): void;
 };
 type NotUnknown<T extends ClusterBehavior> = T extends { cluster: { name: 'Unknown' } } ? never : T;
-export type PropertyChange<P extends ISYNode<any, any, any, any>> = {
+export type PropertyChange<P extends ISYNode> = {
 	driver: keyof DriversOf<P>;
 	newValue: any;
 	oldValue: any;
@@ -38,12 +41,14 @@ type t = ClusterForBehavior<LevelControlBehavior>;
 
 // #region Functions (1)
 
-export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cluster }, P extends ISYNode<any, any, any, any>>(
+export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cluster }, P extends ISYNode<any, any, any, any>> (
 	base: T,
-	p: Constructor<P>
-): typeof base & { new (...args: any[]): DeviceBehavior<P, T> } {
-	return class ISYClusterBehavior extends base implements DeviceBehavior<P, T> {
+	p: Constructor<P> | Factory<P>
+): typeof base & { new (...args: any[]): DeviceBehavior<P, T> } & {nodeClass: Constructor<P>} {
+	let s = class ISYClusterBehavior extends base implements DeviceBehavior<P, T> {
 		_device: P;
+
+		static nodeClass = getConstructor(p);
 
 		handlers: { [x in keyof DriversOf<P>]: (newValue, oldValue, formattedValue) => void } = {} as any;
 
@@ -101,6 +106,8 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 			return (this._device = this._device ?? (this.agent.get(ISYBridgedDeviceBehavior).device as P));
 		}
 
+
+
 		async handlePropertyChange({ driver, newValue, oldValue, formattedValue }: PropertyChange<P>) {
 			// for (const key2 in this.map.attributes) {
 			//await this.initialize();
@@ -123,6 +130,8 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 			// }
 		}
 	};
+	s.nodeClass = getConstructor(p);
+	return s;
 }
 
 // #endregion Functions (1)

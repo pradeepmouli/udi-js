@@ -17,7 +17,7 @@ const nodeDefId = "Siren";
 type Commands = Siren.Commands;
 type Drivers = Siren.Drivers;
 
-export class SirenNode extends Base<Drivers, Commands> implements Siren.Interface {
+class SirenNode extends Base<Drivers, Commands> implements Siren.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -28,15 +28,15 @@ export class SirenNode extends Base<Drivers, Commands> implements Siren.Interfac
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "Siren";
-	static override implements = ["Siren", "SirenAlert", "SirenArm"];
-	declare readonly nodeDefId: "Siren" | "Siren_ADV";
+	static override implements = ['Siren', "SirenAlert", "SirenArm"];
+	declare readonly nodeDefId: 'Siren' | "Siren_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Siren", name: "siren" });
-		this.drivers.MODE = Driver.create("MODE", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Mode", name: "mode" });
-		this.drivers.DELAY = Driver.create("DELAY", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.DurationInSeconds, label: "Arm Countdown", name: "armCountdown" });
-		this.drivers.DUR = Driver.create("DUR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.DurationInSeconds, label: "Siren Duration", name: "sirenDuration" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Siren", name: "siren" });
+		this.drivers.MODE = Driver.create("MODE", this, nodeInfo.state['MODE'], { uom: UnitOfMeasure.Index, label: "Mode", name: "mode" });
+		this.drivers.DELAY = Driver.create("DELAY", this, nodeInfo.state['DELAY'], { uom: UnitOfMeasure.DurationInSeconds, label: "Arm Countdown", name: "armCountdown" });
+		this.drivers.DUR = Driver.create("DUR", this, nodeInfo.state['DUR'], { uom: UnitOfMeasure.DurationInSeconds, label: "Siren Duration", name: "sirenDuration" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(duration?: number) { return this.sendCommand("DON", { DUR: duration }); }
 	async off() { return this.sendCommand("DOF"); }
@@ -67,13 +67,12 @@ NodeFactory.register(SirenNode, "Siren_ADV");
 
 export namespace Siren {
 	export interface Interface extends Omit<InstanceType<typeof SirenNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "Siren" | "Siren_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is SirenNode {
-		return ["Siren", "Siren_ADV"].includes(node.nodeDefId);
+		return ['Siren', "Siren_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is SirenNode {
-		return ["Siren", "Siren_ADV"].includes(node.nodeDefId);
+		return ['Siren', "Siren_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new SirenNode(isy, nodeInfo);

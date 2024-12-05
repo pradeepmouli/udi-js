@@ -12,6 +12,35 @@ import { readFile } from 'fs/promises';
 import path from 'path';
 import { Family } from './Definitions/index.js';
 import { EventType } from './Events/EventType.js';
+import type { Constructor } from 'type-fest';
+
+
+export type Factory<T extends object> =
+	{
+		create?: (...args: any[]) => T;
+		is?<K extends T>(obj: object): obj is T;
+		isImplementedBy?(obj: object): obj is T;
+
+
+	} & {Node: Constructor<T>} | {Device: Constructor<T>};
+
+export function isFactory(obj: any): obj is Factory<any> {
+	return obj.Node !== undefined || obj.Device !== undefined;
+}
+
+export function getConstructor<T extends object>(obj: Factory<T> | Constructor<T>): Constructor<T> {
+	if(isFactory(obj)) {
+		if('Node' in obj) {
+			return obj.Node;
+		}
+		return obj.Device;
+	}
+	return obj;
+}
+
+
+export type ConstructorOf<T> = T extends Factory<infer U>  ? Constructor<U> : T extends Constructor<infer U> ? U : Constructor<T> ;
+
 
 export type StringKeys<T> = Extract<keyof T, string>;
 

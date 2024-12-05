@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = DoorLock.Commands;
 type Drivers = DoorLock.Drivers;
-export declare class DoorLockNode extends Base<Drivers, Commands> implements DoorLock.Interface {
+declare class DoorLockNode extends Base<Drivers, Commands> implements DoorLock.Interface {
     readonly commands: {
         DON: () => Promise<any>;
         DOF: () => Promise<any>;
@@ -15,7 +15,7 @@ export declare class DoorLockNode extends Base<Drivers, Commands> implements Doo
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "DoorLock";
+    readonly nodeDefId: 'DoorLock';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     lock(): Promise<any>;
     unlock(): Promise<any>;
@@ -25,7 +25,6 @@ export declare class DoorLockNode extends Base<Drivers, Commands> implements Doo
 }
 export declare namespace DoorLock {
     interface Interface extends Omit<InstanceType<typeof DoorLockNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "DoorLock";
     }
     function is(node: ISYNode<any, any, any, any>): node is DoorLockNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is DoorLockNode;

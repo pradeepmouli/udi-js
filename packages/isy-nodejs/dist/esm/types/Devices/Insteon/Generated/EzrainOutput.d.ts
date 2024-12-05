@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = EzrainOutput.Commands;
 type Drivers = EzrainOutput.Drivers;
-export declare class EzrainOutputNode extends Base<Drivers, Commands> implements EzrainOutput.Interface {
+declare class EzrainOutputNode extends Base<Drivers, Commands> implements EzrainOutput.Interface {
     readonly commands: {
         DON: (value?: (0 | 100)) => Promise<any>;
         DOF: () => Promise<any>;
@@ -17,7 +17,7 @@ export declare class EzrainOutputNode extends Base<Drivers, Commands> implements
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "EZRAIN_Output";
+    readonly nodeDefId: 'EZRAIN_Output';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: (0 | 100)): Promise<any>;
     off(): Promise<any>;
@@ -29,7 +29,6 @@ export declare class EzrainOutputNode extends Base<Drivers, Commands> implements
 }
 export declare namespace EzrainOutput {
     interface Interface extends Omit<InstanceType<typeof EzrainOutputNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "EZRAIN_Output";
     }
     function is(node: ISYNode<any, any, any, any>): node is EzrainOutputNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is EzrainOutputNode;

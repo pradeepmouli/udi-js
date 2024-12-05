@@ -17,7 +17,7 @@ const nodeDefId = "TempLinc";
 type Commands = TempLinc.Commands;
 type Drivers = TempLinc.Drivers;
 
-export class TempLincNode extends Base<Drivers, Commands> implements TempLinc.Interface {
+class TempLincNode extends Base<Drivers, Commands> implements TempLinc.Interface {
 	public override readonly commands = {
 		CLISPH: this.updateHeatSetpoint,
 		CLISPC: this.updateCoolSetpoint,
@@ -31,18 +31,18 @@ export class TempLincNode extends Base<Drivers, Commands> implements TempLinc.In
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "TempLinc";
-	static override implements = ["TempLinc", "IRLincTx", "SirenAlert", "SirenArm"];
-	declare readonly nodeDefId: "TempLinc";
+	static override implements = ['TempLinc', "IRLincTx", "SirenAlert", "SirenArm"];
+	declare readonly nodeDefId: 'TempLinc';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Degree, label: "Temperature", name: "temperature" });
-		this.drivers.CLISPH = Driver.create("CLISPH", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Degree, label: "Heat Setpoint", name: "heatSetpoint" });
-		this.drivers.CLISPC = Driver.create("CLISPC", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Degree, label: "Cool Setpoint", name: "coolSetpoint" });
-		this.drivers.CLIMD = Driver.create("CLIMD", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.InsteonThermostatMode, label: "Mode", name: "mode" });
-		this.drivers.CLIFS = Driver.create("CLIFS", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.InsteonThermostatFanMode, label: "Fan Mode", name: "fanMode" });
-		this.drivers.CLIHUM = Driver.create("CLIHUM", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Humidity", name: "humidity" });
-		this.drivers.CLIHCS = Driver.create("CLIHCS", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.ThermostatHeatCoolState, label: "Heat/Cool State", name: "heatCoolState" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Degree, label: "Temperature", name: "temperature" });
+		this.drivers.CLISPH = Driver.create("CLISPH", this, nodeInfo.state['CLISPH'], { uom: UnitOfMeasure.Degree, label: "Heat Setpoint", name: "heatSetpoint" });
+		this.drivers.CLISPC = Driver.create("CLISPC", this, nodeInfo.state['CLISPC'], { uom: UnitOfMeasure.Degree, label: "Cool Setpoint", name: "coolSetpoint" });
+		this.drivers.CLIMD = Driver.create("CLIMD", this, nodeInfo.state['CLIMD'], { uom: UnitOfMeasure.InsteonThermostatMode, label: "Mode", name: "mode" });
+		this.drivers.CLIFS = Driver.create("CLIFS", this, nodeInfo.state['CLIFS'], { uom: UnitOfMeasure.InsteonThermostatFanMode, label: "Fan Mode", name: "fanMode" });
+		this.drivers.CLIHUM = Driver.create("CLIHUM", this, nodeInfo.state['CLIHUM'], { uom: UnitOfMeasure.Percent, label: "Humidity", name: "humidity" });
+		this.drivers.CLIHCS = Driver.create("CLIHCS", this, nodeInfo.state['CLIHCS'], { uom: UnitOfMeasure.ThermostatHeatCoolState, label: "Heat/Cool State", name: "heatCoolState" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async updateHeatSetpoint(value: number) { return this.sendCommand("CLISPH", value); }
 	async updateCoolSetpoint(value: number) { return this.sendCommand("CLISPC", value); }
@@ -84,13 +84,12 @@ NodeFactory.register(TempLincNode);
 
 export namespace TempLinc {
 	export interface Interface extends Omit<InstanceType<typeof TempLincNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "TempLinc";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is TempLincNode {
-		return ["TempLinc"].includes(node.nodeDefId);
+		return ['TempLinc'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is TempLincNode {
-		return ["TempLinc", "Thermostat"].includes(node.nodeDefId);
+		return ['TempLinc', "Thermostat"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new TempLincNode(isy, nodeInfo);

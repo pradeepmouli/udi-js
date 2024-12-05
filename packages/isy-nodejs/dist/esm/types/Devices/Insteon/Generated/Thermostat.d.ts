@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = Thermostat.Commands;
 type Drivers = Thermostat.Drivers;
-export declare class ThermostatNode extends Base<Drivers, Commands> implements Thermostat.Interface {
+declare class ThermostatNode extends Base<Drivers, Commands> implements Thermostat.Interface {
     readonly commands: {
         CLISPH: (value: number) => Promise<any>;
         CLISPC: (value: number) => Promise<any>;
@@ -22,7 +22,7 @@ export declare class ThermostatNode extends Base<Drivers, Commands> implements T
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "Thermostat";
+    readonly nodeDefId: 'Thermostat';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     updateHeatSetpoint(value: number): Promise<any>;
     updateCoolSetpoint(value: number): Promise<any>;
@@ -45,7 +45,6 @@ export declare class ThermostatNode extends Base<Drivers, Commands> implements T
 }
 export declare namespace Thermostat {
     interface Interface extends Omit<InstanceType<typeof ThermostatNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "Thermostat";
     }
     function is(node: ISYNode<any, any, any, any>): node is ThermostatNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is ThermostatNode;

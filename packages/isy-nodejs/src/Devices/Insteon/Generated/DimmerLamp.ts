@@ -17,7 +17,7 @@ const nodeDefId = "DimmerLampOnly";
 type Commands = DimmerLamp.Commands;
 type Drivers = DimmerLamp.Drivers;
 
-export class DimmerLampNode extends Base<Drivers, Commands> implements DimmerLamp.Interface {
+class DimmerLampNode extends Base<Drivers, Commands> implements DimmerLamp.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -35,14 +35,14 @@ export class DimmerLampNode extends Base<Drivers, Commands> implements DimmerLam
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "DimmerLampOnly";
-	static override implements = ["DimmerLampOnly", "IRLincTx", "SirenAlert", "SirenArm"];
-	declare readonly nodeDefId: "DimmerLampOnly";
+	static override implements = ['DimmerLampOnly', "IRLincTx", "SirenAlert", "SirenArm"];
+	declare readonly nodeDefId: 'DimmerLampOnly';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.OL = Driver.create("OL", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "On Level", name: "onLevel" });
-		this.drivers.RR = Driver.create("RR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Ramp Rate", name: "rampRate" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.OL = Driver.create("OL", this, nodeInfo.state['OL'], { uom: UnitOfMeasure.Percent, label: "On Level", name: "onLevel" });
+		this.drivers.RR = Driver.create("RR", this, nodeInfo.state['RR'], { uom: UnitOfMeasure.Index, label: "Ramp Rate", name: "rampRate" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(value?: number) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
@@ -76,13 +76,12 @@ NodeFactory.register(DimmerLampNode);
 
 export namespace DimmerLamp {
 	export interface Interface extends Omit<InstanceType<typeof DimmerLampNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "DimmerLampOnly";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is DimmerLampNode {
-		return ["DimmerLampOnly"].includes(node.nodeDefId);
+		return ['DimmerLampOnly'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerLampNode {
-		return ["DimmerLampOnly", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV"].includes(node.nodeDefId);
+		return ['DimmerLampOnly', "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new DimmerLampNode(isy, nodeInfo);

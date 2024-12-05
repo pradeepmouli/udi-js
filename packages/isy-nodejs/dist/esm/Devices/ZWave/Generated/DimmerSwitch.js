@@ -4,7 +4,7 @@ import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
 const nodeDefId = "119";
-export class DimmerSwitchNode extends Base {
+class DimmerSwitchNode extends Base {
     commands = {
         DON: this.on,
         DOF: this.off,
@@ -21,11 +21,11 @@ export class DimmerSwitchNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "119";
-    static implements = ["119"];
+    static implements = ['119'];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async on(value, rampRate) { return this.sendCommand("DON", value, { RR: rampRate }); }
     async off() { return this.sendCommand("DOF"); }
@@ -51,11 +51,11 @@ NodeFactory.register(DimmerSwitchNode);
 export var DimmerSwitch;
 (function (DimmerSwitch) {
     function is(node) {
-        return ["119"].includes(node.nodeDefId);
+        return ['119'].includes(node.nodeDefId);
     }
     DimmerSwitch.is = is;
     function isImplementedBy(node) {
-        return ["119"].includes(node.nodeDefId);
+        return ['119'].includes(node.nodeDefId);
     }
     DimmerSwitch.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

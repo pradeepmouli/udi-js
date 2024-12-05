@@ -7,11 +7,11 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { UDI } from "../../../Definitions/index.js";
 type Commands = PulseCounter.Commands;
 type Drivers = PulseCounter.Drivers;
-export declare class PulseCounterNode extends Base<Drivers, Commands> implements PulseCounter.Interface {
+declare class PulseCounterNode extends Base<Drivers, Commands> implements PulseCounter.Interface {
     readonly commands: {};
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "EM3PulseCounter";
+    readonly nodeDefId: 'EM3PulseCounter';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     get status(): number;
     get currentPower(): number;
@@ -20,7 +20,6 @@ export declare class PulseCounterNode extends Base<Drivers, Commands> implements
 }
 export declare namespace PulseCounter {
     interface Interface extends Omit<InstanceType<typeof PulseCounterNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "EM3PulseCounter";
     }
     function is(node: ISYNode<any, any, any, any>): node is PulseCounterNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is PulseCounterNode;

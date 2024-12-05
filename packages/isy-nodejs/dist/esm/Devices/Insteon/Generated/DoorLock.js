@@ -4,18 +4,18 @@ import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
 const nodeDefId = "DoorLock";
-export class DoorLockNode extends Base {
+class DoorLockNode extends Base {
     commands = {
         DON: this.lock,
         DOF: this.unlock,
         WDU: this.writeChanges
     };
     static nodeDefId = "DoorLock";
-    static implements = ["DoorLock", "SirenAlert", "SirenArm"];
+    static implements = ['DoorLock', "SirenAlert", "SirenArm"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async lock() { return this.sendCommand("DON"); }
     async unlock() { return this.sendCommand("DOF"); }
@@ -31,11 +31,11 @@ NodeFactory.register(DoorLockNode);
 export var DoorLock;
 (function (DoorLock) {
     function is(node) {
-        return ["DoorLock"].includes(node.nodeDefId);
+        return ['DoorLock'].includes(node.nodeDefId);
     }
     DoorLock.is = is;
     function isImplementedBy(node) {
-        return ["DoorLock", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor"].includes(node.nodeDefId);
+        return ['DoorLock', "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor"].includes(node.nodeDefId);
     }
     DoorLock.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {

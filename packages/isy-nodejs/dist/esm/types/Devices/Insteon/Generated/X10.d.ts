@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = X10.Commands;
 type Drivers = X10.Drivers;
-export declare class X10Node extends Base<Drivers, Commands> implements X10.Interface {
+declare class X10Node extends Base<Drivers, Commands> implements X10.Interface {
     readonly commands: {
         DON: () => Promise<any>;
         DOF: () => Promise<any>;
@@ -17,7 +17,7 @@ export declare class X10Node extends Base<Drivers, Commands> implements X10.Inte
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "X10";
+    readonly nodeDefId: 'X10';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(): Promise<any>;
     off(): Promise<any>;
@@ -29,7 +29,6 @@ export declare class X10Node extends Base<Drivers, Commands> implements X10.Inte
 }
 export declare namespace X10 {
     interface Interface extends Omit<InstanceType<typeof X10Node>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "X10";
     }
     function is(node: ISYNode<any, any, any, any>): node is X10Node;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is X10Node;

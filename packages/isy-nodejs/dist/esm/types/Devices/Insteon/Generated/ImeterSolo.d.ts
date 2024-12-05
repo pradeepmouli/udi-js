@@ -7,7 +7,7 @@ import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = ImeterSolo.Commands;
 type Drivers = ImeterSolo.Drivers;
-export declare class ImeterSoloNode extends Base<Drivers, Commands> implements ImeterSolo.Interface {
+declare class ImeterSoloNode extends Base<Drivers, Commands> implements ImeterSolo.Interface {
     readonly commands: {
         RESET: () => Promise<any>;
         QUERY: () => Promise<any>;
@@ -15,7 +15,7 @@ export declare class ImeterSoloNode extends Base<Drivers, Commands> implements I
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "IMETER_SOLO";
+    readonly nodeDefId: 'IMETER_SOLO';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     resetTotalEnergy(): Promise<any>;
     query(): Promise<any>;
@@ -26,7 +26,6 @@ export declare class ImeterSoloNode extends Base<Drivers, Commands> implements I
 }
 export declare namespace ImeterSolo {
     interface Interface extends Omit<InstanceType<typeof ImeterSoloNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "IMETER_SOLO";
     }
     function is(node: ISYNode<any, any, any, any>): node is ImeterSoloNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is ImeterSoloNode;

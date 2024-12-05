@@ -204,11 +204,17 @@ export class CodeFactory {
         }
         return ts.factory.createLiteralTypeNode(this.createStringLiteral(literal));
     }
-    createNumericLiteral(value) {
-        return ts.factory.createNumericLiteral(value.toString());
+    createLiteral(value) {
+        if (typeof value === 'number') {
+            return this.createNumericLiteral(value);
+        }
+        return this.createStringLiteral(value);
+    }
+    createNumericLiteral(value, flags) {
+        return ts.factory.createNumericLiteral(value.toString(), flags);
     }
     createStringLiteral(text) {
-        return ts.factory.createStringLiteral(text);
+        return ts.factory.createStringLiteral(text, true);
     }
     createKeywordTypeNode(kind) {
         return ts.factory.createKeywordTypeNode(kind);
@@ -220,12 +226,12 @@ export class CodeFactory {
         return ts.factory.createBinaryExpression(left, operator, right);
     }
     createPropertyAccessExpression(expression, name) {
-        return ts.factory.createPropertyAccessExpression(expression, this.createIdentifier(name));
+        return ts.factory.createPropertyAccessExpression(expression, name);
     }
-    createHeritageClause(token, types) {
+    createHeritageClause(token, ...types) {
         return ts.factory.createHeritageClause(token, types);
     }
-    createExpressionWithTypeArguments(expression, typeArguments) {
+    createExpressionWithTypeArguments(expression, ...typeArguments) {
         return ts.factory.createExpressionWithTypeArguments(expression, typeArguments);
     }
     createBlock(multiLine, ...statements) {

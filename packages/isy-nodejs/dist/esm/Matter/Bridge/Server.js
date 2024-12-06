@@ -9,6 +9,7 @@ import { format, loggers } from 'winston';
 import { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 import { ISY } from '../../ISY.js';
 import '../Mappings/index.js';
+import '../Behaviors/Insteon/index.js';
 import { MappingRegistry } from '../Mappings/MappingRegistry.js';
 import { BehaviorRegistry } from '../Behaviors/BehaviorRegistry.js';
 // #region Interfaces (1)
@@ -164,7 +165,7 @@ export async function createMatterServer(isy, config) {
                     if (behavior.cluster && behavior.cluster.name !== 'Unknown') {
                         let b = BehaviorRegistry.get(device, behavior.cluster.name);
                         if (b) {
-                            baseBehavior = deviceType.with(b);
+                            baseBehavior = baseBehavior.with(b);
                         }
                     }
                 }

@@ -34,9 +34,7 @@ export class FanDevice extends CompositeDevice.of({ light: DimmerLamp.Node, moto
 }
 export var Fan;
 (function (Fan) {
-    class Device extends FanDevice {
-    }
-    Fan.Device = Device;
+    Fan.Device = FanDevice;
     Fan.Motor = FanLincMotor;
     Fan.Light = DimmerLamp;
 })(Fan || (Fan = {}));

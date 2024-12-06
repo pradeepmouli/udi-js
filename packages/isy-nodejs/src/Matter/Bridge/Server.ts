@@ -12,6 +12,7 @@ import { ISY } from '../../ISY.js';
 import type { ISYNode } from '../../ISYNode.js';
 
 import '../Mappings/index.js';
+import '../Behaviors/Insteon/index.js';
 import { MappingRegistry } from '../Mappings/MappingRegistry.js';
 import { DimmerLevelControlBehavior } from '../Behaviors/Insteon/DimmerLevelControlBehavior.js';
 import { RelayOnOffBehavior } from '../Behaviors/Insteon/index.js';
@@ -237,7 +238,7 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 						let b = BehaviorRegistry.get(device,behavior.cluster.name);
 						if(b)
 						{
-							baseBehavior = deviceType.with(b);
+							baseBehavior = baseBehavior.with(b);
 						}
 					}
 				}

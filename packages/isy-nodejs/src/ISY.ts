@@ -831,7 +831,7 @@ export class ISY extends EventEmitter implements Disposable {
 						parent.addNode(node);
 
 				}
-				else
+				else if(!this.deviceList.has(node.address))
 				{
 					this.deviceList.set(node.address, node as unknown as ISYDevice<any, any, any, any>);
 				}

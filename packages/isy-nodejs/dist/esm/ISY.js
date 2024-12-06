@@ -734,7 +734,7 @@ export class ISY extends EventEmitter {
                     if (parent && CompositeDevice.isComposite(parent))
                         parent.addNode(node);
                 }
-                else {
+                else if (!this.deviceList.has(node.address)) {
                     this.deviceList.set(node.address, node);
                 }
             }

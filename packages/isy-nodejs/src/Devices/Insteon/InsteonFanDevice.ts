@@ -49,7 +49,7 @@ export class FanDevice extends CompositeDevice.of({ light: DimmerLamp.Node, moto
 
 
 export namespace Fan {
-	export class Device extends FanDevice { }
+	export const Device = FanDevice;
 
 	export const Motor = FanLincMotor;
 

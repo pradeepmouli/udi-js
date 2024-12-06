@@ -19,8 +19,7 @@ export declare class FanDevice extends FanDevice_base {
     constructor(isy: ISY, deviceNode: NodeInfo);
 }
 export declare namespace Fan {
-    class Device extends FanDevice {
-    }
+    const Device: typeof FanDevice;
     const Motor: typeof FanLincMotor;
     const Light: typeof DimmerLamp;
 }

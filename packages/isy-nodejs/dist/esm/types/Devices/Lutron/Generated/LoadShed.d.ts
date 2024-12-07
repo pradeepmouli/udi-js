@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Lutron } from "../../../Definitions/index.js";
-type Commands = LoadShed.Commands;
-type Drivers = LoadShed.Drivers;
+type Commands = LoadShed.Commands.Type;
+type Drivers = LoadShed.Drivers.Type;
 declare class LoadShedNode extends Base<Drivers, Commands> implements LoadShed.Interface {
     readonly commands: {
         DON: (value?: (0 | 100)) => Promise<any>;
@@ -30,34 +30,48 @@ export declare namespace LoadShed {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is LoadShedNode;
     function create(isy: ISY, nodeInfo: NodeInfo): LoadShedNode;
     const Node: typeof LoadShedNode;
-    type Commands = {
-        DON: ((value?: (0 | 100)) => Promise<boolean>) & {
-            label: "On";
-            name: "on";
+    const Class: typeof LoadShedNode;
+    namespace Commands {
+        type Type = {
+            DON: ((value?: (0 | 100)) => Promise<boolean>) & {
+                label: "On";
+                name: "on";
+            };
+            DOF: (() => Promise<boolean>) & {
+                label: "Off";
+                name: "off";
+            };
+            QUERY: (() => Promise<boolean>) & {
+                label: "Query";
+                name: "query";
+            };
         };
-        DOF: (() => Promise<boolean>) & {
-            label: "Off";
-            name: "off";
+    }
+    enum Commands {
+        on = "DON",
+        off = "DOF",
+        query = "QUERY"
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Percent;
+                value: (0 | 100);
+                label: "Status";
+                name: "status";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Lutron.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        QUERY: (() => Promise<boolean>) & {
-            label: "Query";
-            name: "query";
-        };
-    };
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Percent;
-            value: (0 | 100);
-            label: "Status";
-            name: "status";
-        };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Lutron.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        status = "ST",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=LoadShed.d.ts.map

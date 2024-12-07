@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "BinaryControl";
 class BinaryControlNode extends Base {
     commands = {
         QUERY: this.query,
@@ -44,5 +43,17 @@ export var BinaryControl;
     }
     BinaryControl.create = create;
     BinaryControl.Node = BinaryControlNode;
+    BinaryControl.Class = BinaryControlNode;
+    let Commands;
+    (function (Commands) {
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = BinaryControl.Commands || (BinaryControl.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = BinaryControl.Drivers || (BinaryControl.Drivers = {}));
 })(BinaryControl || (BinaryControl = {}));
 //# sourceMappingURL=BinaryControl.js.map

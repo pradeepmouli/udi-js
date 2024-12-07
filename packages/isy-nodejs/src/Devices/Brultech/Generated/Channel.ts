@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Brultech } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "BTChannel";
-
-type Commands = Channel.Commands;
-type Drivers = Channel.Drivers;
+type Commands = Channel.Commands.Type;
+type Drivers = Channel.Drivers.Type;
 
 class ChannelNode extends Base<Drivers, Commands> implements Channel.Interface {
 	public override readonly commands = {};
@@ -54,25 +50,37 @@ export namespace Channel {
 		return new ChannelNode(isy, nodeInfo);
 	}
 	export const Node = ChannelNode;
-	export type Commands = {};
-	export type Drivers = {
-		ST: {
-			uom: UnitOfMeasure.Watt;
-			value: number;
-			label: "Status";
-			name: "status";
+	export const Class = ChannelNode;
+	export namespace Commands {
+		export type Type = {};
+	}
+	export enum Commands {
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: UnitOfMeasure.Watt;
+				value: number;
+				label: "Status";
+				name: "status";
+			};
+			TPW: {
+				uom: UnitOfMeasure.KilowattsPerHour;
+				value: number;
+				label: "Total Energy";
+				name: "totalEnergy";
+			};
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Brultech.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		TPW: {
-			uom: UnitOfMeasure.KilowattsPerHour;
-			value: number;
-			label: "Total Energy";
-			name: "totalEnergy";
-		};
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Brultech.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST',
+		totalEnergy = 'TPW',
+		responding = 'ERR'
+	}
 }

@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "RelaySwitchOnlyPlusQuery";
 class RelaySwitchOnlyPlusQueryNode extends Base {
     commands = {
         QUERY: this.query,
@@ -42,5 +41,17 @@ export var RelaySwitchOnlyPlusQuery;
     }
     RelaySwitchOnlyPlusQuery.create = create;
     RelaySwitchOnlyPlusQuery.Node = RelaySwitchOnlyPlusQueryNode;
+    RelaySwitchOnlyPlusQuery.Class = RelaySwitchOnlyPlusQueryNode;
+    let Commands;
+    (function (Commands) {
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["backlight"] = "BL";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = RelaySwitchOnlyPlusQuery.Commands || (RelaySwitchOnlyPlusQuery.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["responding"] = "ERR";
+    })(Drivers = RelaySwitchOnlyPlusQuery.Drivers || (RelaySwitchOnlyPlusQuery.Drivers = {}));
 })(RelaySwitchOnlyPlusQuery || (RelaySwitchOnlyPlusQuery = {}));
 //# sourceMappingURL=RelaySwitchOnlyPlusQuery.js.map

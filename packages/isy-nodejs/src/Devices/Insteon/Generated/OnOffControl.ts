@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "OnOffControl";
-
-type Commands = OnOffControl.Commands;
-type Drivers = OnOffControl.Drivers;
+type Commands = OnOffControl.Commands.Type;
+type Drivers = OnOffControl.Drivers.Type;
 
 class OnOffControlNode extends Base<Drivers, Commands> implements OnOffControl.Interface {
 	public override readonly commands = {};
@@ -51,19 +47,30 @@ export namespace OnOffControl {
 		return new OnOffControlNode(isy, nodeInfo);
 	}
 	export const Node = OnOffControlNode;
-	export type Commands = {};
-	export type Drivers = {
-		ST: {
-			uom: UnitOfMeasure.Percent;
-			value: Insteon.OnLevelRelay;
-			label: "Status";
-			name: "status";
+	export const Class = OnOffControlNode;
+	export namespace Commands {
+		export type Type = {};
+	}
+	export enum Commands {
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: UnitOfMeasure.Percent;
+				value: Insteon.OnLevelRelay;
+				label: "Status";
+				name: "status";
+			};
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST',
+		responding = 'ERR'
+	}
 }

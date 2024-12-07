@@ -6,6 +6,7 @@ import type { Constructor } from '../../Devices/Constructor.js';
 import { Devices, Insteon } from '../../Devices/index.js';
 import { CommandsOf, DriversOf, ISYNode } from '../../ISYNode.js';
 import type { PathsWithLimit } from '../../Utils.js';
+import { ISYDevice } from '../../ISYDevice.js';
 export type AttributeMapping<B, D> = B extends {
     cluster: {
         attributes: infer E extends {
@@ -16,19 +17,19 @@ export type AttributeMapping<B, D> = B extends {
     driver: keyof DriversOf<D>;
     converter?: Converter.KnownConverters;
 }>> : never;
-export type ClusterMapping<B, T extends ISYNode<any, any, any, any>> = {
+export type ClusterMapping<B, T extends ISYDevice.Any> = {
     attributes?: ClusterAttributeMapping<B, T>;
     commands?: ClusterCommandMapping<B, T>;
 };
-export type ClusterAttributeMapping<A, K> = {
+export type ClusterAttributeMapping<A, K extends ISYDevice.Any> = {
     [key in keyof Cluster.ClusterType.AttributesOf<A>]: {
-        driver: Extract<keyof DriversOf<K>, string>;
+        driver: ISYDevice.DriverNamesOf<K>;
         converter?: Converter.KnownConverters;
     } | Extract<keyof DriversOf<K>, string>;
 };
-export type ClusterCommandMapping<A, K> = {
+export type ClusterCommandMapping<A, K extends ISYDevice.Any> = {
     [key in keyof Cluster.ClusterType.CommandsOf<A>]: {
-        command: keyof CommandsOf<K>;
+        command: ISYDevice.CommandNamesOf<K>;
         parameters?: parameterMapping;
     } | keyof CommandsOf<K>;
 };
@@ -42,7 +43,7 @@ export type CommandMapping<B, D> = B extends ({
     command: keyof CommandsOf<D>;
     parameters?: parameterMapping;
 }>> : never;
-export interface DeviceToClusterMap<T extends ISYNode<Family, any, any, any>, D extends MutableEndpoint> {
+export interface DeviceToClusterMap<T extends ISYDevice<any, any, any, any>, D extends MutableEndpoint> {
     deviceType: D;
     mapping: EndpointMapping<D, T>;
 }
@@ -66,7 +67,7 @@ export interface Mapping<T extends ISYNode, D extends MutableEndpoint> {
         };
     };
 }
-export type EndpointMapping<A extends MutableEndpoint, D extends ISYNode<Family, any, any, any>> = {
+export type EndpointMapping<A extends MutableEndpoint, D extends ISYDevice<Family, any, any, any>> = {
     [K in StringKeys<A['behaviors']>]?: ClusterMapping<A['behaviors'][K], D>;
 };
 export type EndpointMapping1<A extends MutableEndpoint, K> = {
@@ -77,22 +78,20 @@ type SupportedFamily = Family.Insteon | Family.ZWave | Family.ZigBee;
 export type FamilyToClusterMap<T extends SupportedFamily> = {
     Family: T;
 } & {
-    [Type in keyof Devices.Insteon]?: Devices.Insteon[Type] extends {
-        Node: Constructor<ISYNode<any, any, any, any>>;
-    } ? DeviceToClusterMap<InstanceType<Devices.Insteon[Type]["Node"]>, MutableEndpoint> : undefined;
+    [Type in keyof Devices.Insteon]?: DeviceToClusterMap<ISYDevice.InstanceTypeOf<Devices.Insteon[Type]>, MutableEndpoint>;
 };
-export declare function add<const F extends SupportedFamily, const T extends ISYNode<F>, const D extends MutableEndpoint>(familyToClusterMap: FamilyToClusterMap<F>, deviceClass: Constructor<T>, mapping: DeviceToClusterMap<T, D>): {
+export declare function add<const F extends SupportedFamily, const T extends ISYDevice<Family, any, any, any>, const D extends MutableEndpoint>(familyToClusterMap: FamilyToClusterMap<F>, deviceClass: Constructor<T>, mapping: DeviceToClusterMap<T, D>): {
     Family: F;
-    Base?: undefined;
-    OnOffOutlet?: undefined;
-    Dimmable?: undefined;
-    Fan?: undefined;
-    Relay?: undefined;
-    LeakSensor?: undefined;
-    MotionSensor?: undefined;
-    SmokeSensor?: undefined;
-    DoorWindowSensor?: undefined;
-    DimmerOutlet?: undefined;
+    Base?: DeviceToClusterMap<never, MutableEndpoint>;
+    OnOffOutlet?: DeviceToClusterMap<Insteon.OnOffOutlet, MutableEndpoint>;
+    Dimmable?: DeviceToClusterMap<never, MutableEndpoint>;
+    Fan?: DeviceToClusterMap<import("../../Devices/Insteon/InsteonFanDevice.js").FanDevice, MutableEndpoint>;
+    Relay?: DeviceToClusterMap<never, MutableEndpoint>;
+    LeakSensor?: DeviceToClusterMap<never, MutableEndpoint>;
+    MotionSensor?: DeviceToClusterMap<never, MutableEndpoint>;
+    SmokeSensor?: DeviceToClusterMap<never, MutableEndpoint>;
+    DoorWindowSensor?: DeviceToClusterMap<Insteon.DoorWindowSensor.Device, MutableEndpoint>;
+    DimmerOutlet?: DeviceToClusterMap<never, MutableEndpoint>;
     AlertModuleArmed?: DeviceToClusterMap<{
         readonly commands: {
             DON: () => Promise<any>;
@@ -110,8 +109,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.AlertModuleArmed.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.AlertModuleArmed.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.AlertModuleArmed.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.AlertModuleArmed.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -123,19 +122,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.AlertModuleArmed.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.AlertModuleArmed.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -164,7 +162,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -184,7 +182,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.AlertModuleArmed.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.AlertModuleArmed.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -192,10 +190,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.AlertModuleArmed.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.AlertModuleArmed.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.AlertModuleArmed.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.AlertModuleArmed.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.AlertModuleArmed.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.AlertModuleArmed.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.AlertModuleArmed.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.AlertModuleArmed.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     AlertModuleSiren?: DeviceToClusterMap<{
@@ -219,8 +217,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.AlertModuleSiren.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.AlertModuleSiren.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.AlertModuleSiren.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.AlertModuleSiren.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -232,19 +230,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.AlertModuleSiren.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.AlertModuleSiren.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -277,7 +274,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -297,7 +294,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.AlertModuleSiren.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.AlertModuleSiren.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -305,10 +302,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.AlertModuleSiren.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.AlertModuleSiren.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.AlertModuleSiren.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.AlertModuleSiren.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.AlertModuleSiren.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.AlertModuleSiren.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.AlertModuleSiren.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.AlertModuleSiren.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     BallastRelayLampSwitch?: DeviceToClusterMap<{
@@ -332,8 +329,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").Sml;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.BallastRelayLampSwitch.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.BallastRelayLampSwitch.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.BallastRelayLampSwitch.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.BallastRelayLampSwitch.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -345,19 +342,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.BallastRelayLampSwitch.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.BallastRelayLampSwitch.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").Sml, oldValue: import("../../Definitions/Insteon/index.js").Sml, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -390,7 +386,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -410,7 +406,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.BallastRelayLampSwitch.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.BallastRelayLampSwitch.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -418,10 +414,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.BallastRelayLampSwitch.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.BallastRelayLampSwitch.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.BallastRelayLampSwitch.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.BallastRelayLampSwitch.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.BallastRelayLampSwitch.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.BallastRelayLampSwitch.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.BallastRelayLampSwitch.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.BallastRelayLampSwitch.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     BinaryAlarm?: DeviceToClusterMap<{
@@ -437,8 +433,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.BinaryAlarm.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.BinaryAlarm.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.BinaryAlarm.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.BinaryAlarm.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -450,19 +446,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.BinaryAlarm.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.BinaryAlarm.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -487,7 +482,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -507,7 +502,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.BinaryAlarm.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.BinaryAlarm.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -515,10 +510,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.BinaryAlarm.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.BinaryAlarm.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.BinaryAlarm.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.BinaryAlarm.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.BinaryAlarm.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.BinaryAlarm.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.BinaryAlarm.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.BinaryAlarm.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     BinaryControl?: DeviceToClusterMap<{
@@ -534,8 +529,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.BinaryControl.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.BinaryControl.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.BinaryControl.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.BinaryControl.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -547,19 +542,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.BinaryControl.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.BinaryControl.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -584,7 +578,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -604,7 +598,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.BinaryControl.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.BinaryControl.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -612,10 +606,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.BinaryControl.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.BinaryControl.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.BinaryControl.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.BinaryControl.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.BinaryControl.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.BinaryControl.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.BinaryControl.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.BinaryControl.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     DimmerLamp?: DeviceToClusterMap<{
@@ -655,8 +649,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly rampRate: import("../../Definitions/Insteon/index.js").RampRate;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.DimmerLamp.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.DimmerLamp.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.DimmerLamp.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.DimmerLamp.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -668,19 +662,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.DimmerLamp.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.DimmerLamp.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -723,7 +716,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -743,7 +736,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.DimmerLamp.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.DimmerLamp.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -751,10 +744,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR" | "OL" | "RR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.DimmerLamp.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.DimmerLamp.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.DimmerLamp.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.DimmerLamp.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerLamp.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerLamp.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.DimmerLamp.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerLamp.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     DimmerLampSwitch?: DeviceToClusterMap<{
@@ -796,8 +789,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly rampRate: import("../../Definitions/Insteon/index.js").RampRate;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.DimmerLampSwitch.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.DimmerLampSwitch.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.DimmerLampSwitch.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.DimmerLampSwitch.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -809,19 +802,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.DimmerLampSwitch.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.DimmerLampSwitch.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -866,7 +858,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -886,7 +878,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.DimmerLampSwitch.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.DimmerLampSwitch.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -894,10 +886,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR" | "OL" | "RR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.DimmerLampSwitch.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.DimmerLampSwitch.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.DimmerLampSwitch.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.DimmerLampSwitch.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerLampSwitch.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerLampSwitch.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.DimmerLampSwitch.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerLampSwitch.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     DimmerLampSwitchLed?: DeviceToClusterMap<{
@@ -941,8 +933,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly rampRate: import("../../Definitions/Insteon/index.js").RampRate;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.DimmerLampSwitchLed.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.DimmerLampSwitchLed.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.DimmerLampSwitchLed.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.DimmerLampSwitchLed.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -954,19 +946,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.DimmerLampSwitchLed.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.DimmerLampSwitchLed.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -1013,7 +1004,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -1033,7 +1024,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.DimmerLampSwitchLed.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.DimmerLampSwitchLed.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -1041,10 +1032,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR" | "OL" | "RR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.DimmerLampSwitchLed.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.DimmerLampSwitchLed.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.DimmerLampSwitchLed.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.DimmerLampSwitchLed.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerLampSwitchLed.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerLampSwitchLed.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.DimmerLampSwitchLed.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerLampSwitchLed.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     DimmerMotorSwitch?: DeviceToClusterMap<{
@@ -1082,8 +1073,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly maxDuration: number;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.DimmerMotorSwitch.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.DimmerMotorSwitch.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.DimmerMotorSwitch.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.DimmerMotorSwitch.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -1095,19 +1086,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.DimmerMotorSwitch.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.DimmerMotorSwitch.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -1148,7 +1138,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -1168,7 +1158,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.DimmerMotorSwitch.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.DimmerMotorSwitch.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -1176,10 +1166,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR" | "DUR" | "OL"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.DimmerMotorSwitch.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.DimmerMotorSwitch.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.DimmerMotorSwitch.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.DimmerMotorSwitch.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerMotorSwitch.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerMotorSwitch.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.DimmerMotorSwitch.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerMotorSwitch.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     DimmerSwitch?: DeviceToClusterMap<{
@@ -1205,19 +1195,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.DimmerSwitch.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.DimmerSwitch.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -1238,7 +1227,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -1266,10 +1255,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.DimmerSwitch.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.DimmerSwitch.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.DimmerSwitch.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.DimmerSwitch.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerSwitch.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerSwitch.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.DimmerSwitch.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerSwitch.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     DoorLock?: DeviceToClusterMap<{
@@ -1285,8 +1274,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").Lock;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.DoorLock.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.DoorLock.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.DoorLock.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.DoorLock.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -1298,19 +1287,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.DoorLock.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.DoorLock.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").Lock, oldValue: import("../../Definitions/Insteon/index.js").Lock, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -1335,7 +1323,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -1355,7 +1343,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.DoorLock.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.DoorLock.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -1363,10 +1351,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.DoorLock.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.DoorLock.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.DoorLock.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.DoorLock.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.DoorLock.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.DoorLock.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.DoorLock.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.DoorLock.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     Ezio2x4Input?: DeviceToClusterMap<{
@@ -1378,8 +1366,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.Ezio2x4Input.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.Ezio2x4Input.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.Ezio2x4Input.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.Ezio2x4Input.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -1391,19 +1379,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.Ezio2x4Input.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.Ezio2x4Input.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -1424,7 +1411,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -1444,7 +1431,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.Ezio2x4Input.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.Ezio2x4Input.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -1473,8 +1460,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.Ezio2x4Output.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.Ezio2x4Output.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.Ezio2x4Output.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.Ezio2x4Output.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -1486,19 +1473,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.Ezio2x4Output.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.Ezio2x4Output.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -1525,7 +1511,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -1545,7 +1531,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.Ezio2x4Output.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.Ezio2x4Output.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -1553,10 +1539,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.Ezio2x4Output.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.Ezio2x4Output.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.Ezio2x4Output.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.Ezio2x4Output.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.Ezio2x4Output.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.Ezio2x4Output.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.Ezio2x4Output.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.Ezio2x4Output.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     EzrainInput?: DeviceToClusterMap<{
@@ -1568,8 +1554,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.EzrainInput.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.EzrainInput.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.EzrainInput.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.EzrainInput.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -1581,19 +1567,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.EzrainInput.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.EzrainInput.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -1614,7 +1599,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -1634,7 +1619,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.EzrainInput.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.EzrainInput.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -1665,8 +1650,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.EzrainOutput.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.EzrainOutput.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.EzrainOutput.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.EzrainOutput.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -1678,19 +1663,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.EzrainOutput.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.EzrainOutput.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -1719,7 +1703,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -1739,7 +1723,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.EzrainOutput.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.EzrainOutput.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -1747,10 +1731,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.EzrainOutput.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.EzrainOutput.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.EzrainOutput.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.EzrainOutput.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.EzrainOutput.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.EzrainOutput.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.EzrainOutput.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.EzrainOutput.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     FanLincMotor?: DeviceToClusterMap<{
@@ -1774,8 +1758,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").FanLevel;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.FanLincMotor.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.FanLincMotor.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.FanLincMotor.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.FanLincMotor.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -1787,19 +1771,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.FanLincMotor.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.FanLincMotor.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").FanLevel, oldValue: import("../../Definitions/Insteon/index.js").FanLevel, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -1832,7 +1815,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -1852,7 +1835,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.FanLincMotor.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.FanLincMotor.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -1860,10 +1843,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.FanLincMotor.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.FanLincMotor.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.FanLincMotor.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.FanLincMotor.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.FanLincMotor.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.FanLincMotor.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.FanLincMotor.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.FanLincMotor.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     I3KeypadFlags?: DeviceToClusterMap<{
@@ -1903,8 +1886,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly cleanupReports: import("../../Definitions/Insteon/index.js").I3OnOff;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.I3KeypadFlags.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.I3KeypadFlags.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.I3KeypadFlags.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.I3KeypadFlags.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -1916,19 +1899,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.I3KeypadFlags.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.I3KeypadFlags.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "modeChanged" | "modeInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").I3RelayDim, oldValue: import("../../Definitions/Insteon/index.js").I3RelayDim, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Boolean) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -1953,7 +1935,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -1973,7 +1955,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.I3KeypadFlags.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.I3KeypadFlags.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -1981,10 +1963,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR" | "GV1" | "GV2" | "GV3" | "GV4" | "GV5" | "GV6" | "GV7" | "GV8"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.I3KeypadFlags.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.I3KeypadFlags.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.I3KeypadFlags.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.I3KeypadFlags.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.I3KeypadFlags.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.I3KeypadFlags.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.I3KeypadFlags.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.I3KeypadFlags.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     I3PaddleFlags?: DeviceToClusterMap<{
@@ -2018,8 +2000,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly errorBlink: import("../../Definitions/Insteon/index.js").I3OnOff;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.I3PaddleFlags.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.I3PaddleFlags.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.I3PaddleFlags.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.I3PaddleFlags.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -2031,19 +2013,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.I3PaddleFlags.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.I3PaddleFlags.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "modeChanged" | "modeInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").I3RelayDim, oldValue: import("../../Definitions/Insteon/index.js").I3RelayDim, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Boolean) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -2068,7 +2049,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -2088,7 +2069,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.I3PaddleFlags.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.I3PaddleFlags.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -2096,10 +2077,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR" | "GV1" | "GV2" | "GV4" | "GV5" | "GV6" | "GV7"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.I3PaddleFlags.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.I3PaddleFlags.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.I3PaddleFlags.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.I3PaddleFlags.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.I3PaddleFlags.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.I3PaddleFlags.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.I3PaddleFlags.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.I3PaddleFlags.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     ImeterSolo?: DeviceToClusterMap<{
@@ -2116,8 +2097,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly totalEnergy: number;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.ImeterSolo.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.ImeterSolo.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.ImeterSolo.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.ImeterSolo.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -2129,19 +2110,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.ImeterSolo.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.ImeterSolo.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "currentPowerChanged" | "currentPowerInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Watt) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -2168,7 +2148,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -2188,7 +2168,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.ImeterSolo.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.ImeterSolo.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -2196,10 +2176,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR" | "TPW"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.ImeterSolo.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.ImeterSolo.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.ImeterSolo.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.ImeterSolo.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.ImeterSolo.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.ImeterSolo.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.ImeterSolo.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.ImeterSolo.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     IrLincTx?: DeviceToClusterMap<{
@@ -2225,19 +2205,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.IrLincTx.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.IrLincTx.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -2258,7 +2237,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -2286,10 +2265,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.IrLincTx.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.IrLincTx.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.IrLincTx.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.IrLincTx.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.IrLincTx.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.IrLincTx.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.IrLincTx.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.IrLincTx.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     KeypadButton?: DeviceToClusterMap<{
@@ -2305,8 +2284,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.KeypadButton.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.KeypadButton.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.KeypadButton.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.KeypadButton.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -2318,19 +2297,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.KeypadButton.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.KeypadButton.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -2355,7 +2333,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -2375,7 +2353,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.KeypadButton.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.KeypadButton.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -2383,10 +2361,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.KeypadButton.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.KeypadButton.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.KeypadButton.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.KeypadButton.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.KeypadButton.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.KeypadButton.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.KeypadButton.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.KeypadButton.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     KeypadDimmer?: DeviceToClusterMap<{
@@ -2428,8 +2406,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly rampRate: import("../../Definitions/Insteon/index.js").RampRate;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.KeypadDimmer.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.KeypadDimmer.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.KeypadDimmer.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.KeypadDimmer.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -2441,19 +2419,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.KeypadDimmer.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.KeypadDimmer.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -2498,7 +2475,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -2518,7 +2495,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.KeypadDimmer.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.KeypadDimmer.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -2526,10 +2503,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR" | "OL" | "RR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.KeypadDimmer.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.KeypadDimmer.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.KeypadDimmer.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.KeypadDimmer.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.KeypadDimmer.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.KeypadDimmer.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.KeypadDimmer.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.KeypadDimmer.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     KeypadRelay?: DeviceToClusterMap<{
@@ -2555,8 +2532,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.KeypadRelay.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.KeypadRelay.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.KeypadRelay.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.KeypadRelay.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -2568,19 +2545,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.KeypadRelay.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.KeypadRelay.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -2615,7 +2591,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -2635,7 +2611,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.KeypadRelay.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.KeypadRelay.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -2643,10 +2619,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.KeypadRelay.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.KeypadRelay.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.KeypadRelay.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.KeypadRelay.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.KeypadRelay.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.KeypadRelay.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.KeypadRelay.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.KeypadRelay.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     OnOffControl?: DeviceToClusterMap<{
@@ -2655,8 +2631,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.OnOffControl.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.OnOffControl.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.OnOffControl.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.OnOffControl.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -2668,19 +2644,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.OnOffControl.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.OnOffControl.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -2699,7 +2674,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -2719,7 +2694,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.OnOffControl.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.OnOffControl.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -2752,8 +2727,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly batteryPowered: import("../../Definitions/Insteon/index.js").Boolean;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.Pir2844.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.Pir2844.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.Pir2844.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.Pir2844.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -2765,19 +2740,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.Pir2844.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.Pir2844.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -2808,7 +2782,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -2828,7 +2802,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.Pir2844.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.Pir2844.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -2836,10 +2810,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR" | "BATLVL" | "CLITEMP" | "GV1" | "LUMIN"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.Pir2844.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.Pir2844.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.Pir2844.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.Pir2844.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.Pir2844.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.Pir2844.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.Pir2844.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.Pir2844.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     Pir2844c?: DeviceToClusterMap<{
@@ -2861,8 +2835,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly batteryPowered: import("../../Definitions/Insteon/index.js").Boolean;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.Pir2844c.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.Pir2844c.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.Pir2844c.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.Pir2844c.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -2874,19 +2848,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.Pir2844c.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.Pir2844c.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -2917,7 +2890,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -2937,7 +2910,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.Pir2844c.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.Pir2844c.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -2945,10 +2918,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR" | "BATLVL" | "CLITEMP" | "GV1" | "LUMIN"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.Pir2844c.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.Pir2844c.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.Pir2844c.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.Pir2844c.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.Pir2844c.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.Pir2844c.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.Pir2844c.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.Pir2844c.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     Pir2844OnOff?: DeviceToClusterMap<{
@@ -2968,8 +2941,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.Pir2844OnOff.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.Pir2844OnOff.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.Pir2844OnOff.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.Pir2844OnOff.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -2981,19 +2954,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.Pir2844OnOff.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.Pir2844OnOff.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -3022,7 +2994,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -3042,7 +3014,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.Pir2844OnOff.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.Pir2844OnOff.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -3050,10 +3022,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.Pir2844OnOff.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.Pir2844OnOff.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.Pir2844OnOff.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.Pir2844OnOff.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.Pir2844OnOff.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.Pir2844OnOff.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.Pir2844OnOff.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.Pir2844OnOff.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     RelayLamp?: DeviceToClusterMap<{
@@ -3077,8 +3049,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.RelayLamp.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.RelayLamp.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.RelayLamp.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.RelayLamp.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -3090,19 +3062,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.RelayLamp.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.RelayLamp.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -3135,7 +3106,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -3155,7 +3126,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.RelayLamp.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.RelayLamp.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -3163,10 +3134,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.RelayLamp.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.RelayLamp.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.RelayLamp.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.RelayLamp.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.RelayLamp.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.RelayLamp.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.RelayLamp.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.RelayLamp.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     RelayLampSwitch?: DeviceToClusterMap<{
@@ -3192,8 +3163,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.RelayLampSwitch.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.RelayLampSwitch.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.RelayLampSwitch.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.RelayLampSwitch.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -3205,19 +3176,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.RelayLampSwitch.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.RelayLampSwitch.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -3252,7 +3222,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -3272,7 +3242,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.RelayLampSwitch.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.RelayLampSwitch.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -3280,10 +3250,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.RelayLampSwitch.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.RelayLampSwitch.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.RelayLampSwitch.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.RelayLampSwitch.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.RelayLampSwitch.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.RelayLampSwitch.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.RelayLampSwitch.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.RelayLampSwitch.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     RelayLampSwitchLed?: DeviceToClusterMap<{
@@ -3311,8 +3281,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.RelayLampSwitchLed.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.RelayLampSwitchLed.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.RelayLampSwitchLed.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.RelayLampSwitchLed.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -3324,19 +3294,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.RelayLampSwitchLed.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.RelayLampSwitchLed.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -3373,7 +3342,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -3393,7 +3362,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.RelayLampSwitchLed.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.RelayLampSwitchLed.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -3401,10 +3370,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.RelayLampSwitchLed.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.RelayLampSwitchLed.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.RelayLampSwitchLed.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.RelayLampSwitchLed.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.RelayLampSwitchLed.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.RelayLampSwitchLed.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.RelayLampSwitchLed.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.RelayLampSwitchLed.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     RelaySwitch?: DeviceToClusterMap<{
@@ -3432,19 +3401,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.RelaySwitch.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.RelaySwitch.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -3467,7 +3435,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -3495,10 +3463,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.RelaySwitch.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.RelaySwitch.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.RelaySwitch.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.RelaySwitch.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.RelaySwitch.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.RelaySwitch.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.RelaySwitch.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.RelaySwitch.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     RelaySwitchOnlyPlusQuery?: DeviceToClusterMap<{
@@ -3528,19 +3496,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.RelaySwitchOnlyPlusQuery.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.RelaySwitchOnlyPlusQuery.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -3565,7 +3532,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -3593,10 +3560,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.RelaySwitchOnlyPlusQuery.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.RelaySwitchOnlyPlusQuery.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.RelaySwitchOnlyPlusQuery.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.RelaySwitchOnlyPlusQuery.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.RelaySwitchOnlyPlusQuery.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.RelaySwitchOnlyPlusQuery.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.RelaySwitchOnlyPlusQuery.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.RelaySwitchOnlyPlusQuery.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     RemoteLinc2?: DeviceToClusterMap<{
@@ -3608,8 +3575,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: number;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.RemoteLinc2.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.RemoteLinc2.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.RemoteLinc2.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.RemoteLinc2.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -3621,19 +3588,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.RemoteLinc2.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.RemoteLinc2.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -3654,7 +3620,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -3674,7 +3640,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.RemoteLinc2.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.RemoteLinc2.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -3712,8 +3678,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly sirenDuration: number;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.Siren.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.Siren.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.Siren.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.Siren.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -3725,19 +3691,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.Siren.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.Siren.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "sirenChanged" | "sirenInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -3776,7 +3741,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -3796,7 +3761,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.Siren.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.Siren.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -3804,10 +3769,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR" | "DELAY" | "DUR" | "MODE"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.Siren.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.Siren.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.Siren.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.Siren.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.Siren.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.Siren.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.Siren.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.Siren.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     SirenAlert?: DeviceToClusterMap<{
@@ -3828,19 +3793,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.SirenAlert.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.SirenAlert.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../Definitions/Insteon/index.js").Error, oldValue: import("../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -3857,7 +3821,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -3924,8 +3888,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly heatCoolState: number;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.TempLinc.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.TempLinc.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.TempLinc.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.TempLinc.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -3937,19 +3901,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.TempLinc.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.TempLinc.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "temperatureChanged" | "temperatureInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Degree) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -3984,7 +3947,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -4004,7 +3967,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.TempLinc.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.TempLinc.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -4012,10 +3975,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR" | "CLISPC" | "CLIFS" | "CLIHCS" | "CLISPH" | "CLIHUM" | "CLIMD"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.TempLinc.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.TempLinc.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.TempLinc.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.TempLinc.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.TempLinc.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.TempLinc.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.TempLinc.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.TempLinc.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     Thermostat?: DeviceToClusterMap<{
@@ -4051,8 +4014,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly heatCoolState: number;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.Thermostat.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.Thermostat.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.Thermostat.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.Thermostat.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -4064,19 +4027,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.Thermostat.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.Thermostat.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "temperatureChanged" | "temperatureInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Degree) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -4111,7 +4073,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -4131,7 +4093,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.Thermostat.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.Thermostat.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -4139,10 +4101,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR" | "CLISPC" | "CLIFS" | "CLIHCS" | "CLISPH" | "CLIHUM" | "CLIMD"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.Thermostat.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.Thermostat.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.Thermostat.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.Thermostat.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.Thermostat.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.Thermostat.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.Thermostat.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.Thermostat.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
     X10?: DeviceToClusterMap<{
@@ -4162,8 +4124,8 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readonly status: import("../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.X10.Drivers): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.X10.Drivers): any;
+        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.X10.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.X10.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: Family.Insteon;
         readonly typeCode: string;
@@ -4175,19 +4137,18 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<Family.Insteon, any, any, any>;
+        _parentDevice: ISYDevice<Family.Insteon, any, any, any>;
         children: ISYNode<any, any, any, any>[];
         addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.X10.Drivers, false>;
+        drivers: import("../../Definitions/index.js").Driver.ForAll<Insteon.X10.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/main").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -4216,7 +4177,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -4236,7 +4197,7 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.X10.Drivers, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.X10.Drivers.Type, value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
         }): void;
@@ -4244,10 +4205,10 @@ export declare function add<const F extends SupportedFamily, const T extends ISY
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.X10.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.X10.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.X10.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.X10.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.X10.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.X10.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.X10.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.X10.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }, MutableEndpoint>;
 };
@@ -4275,12 +4236,12 @@ export type parameterMapping = {
     };
 };
 export declare class MappingRegistry {
-    static map: Map<Family, Map<string, DeviceToClusterMap<ISYNode, MutableEndpoint>>>;
+    static map: Map<Family, Map<string, DeviceToClusterMap<ISYDevice.Any, MutableEndpoint>>>;
     static cache: {
-        [x: string]: DeviceToClusterMap<ISYNode, MutableEndpoint>;
+        [x: string]: DeviceToClusterMap<ISYDevice.Any, MutableEndpoint>;
     };
-    static getMapping<const T extends ISYNode>(device: T): DeviceToClusterMap<T, MutableEndpoint>;
-    static getMappingForBehavior<T extends ISYNode<any, any, any, any>, const B extends ClusterBehavior>(device: T, behavior: B): ClusterMapping<B, T>;
+    static getMapping<const T extends ISYDevice.Any>(device: T): DeviceToClusterMap<T, MutableEndpoint>;
+    static getMappingForBehavior<T extends ISYDevice.Any, const B extends ClusterBehavior>(device: T, behavior: B): ClusterMapping<B, T>;
     static register<const T extends Family.Insteon | Family.ZWave | Family.ZigBee>(map: Partial<FamilyToClusterMap<T>> | {
         [x in PathsWithLimit<typeof Devices, 1>]: DeviceToClusterMap<any, any>;
     }): void;

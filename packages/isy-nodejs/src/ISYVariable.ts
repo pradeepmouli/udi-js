@@ -1,8 +1,8 @@
 import { EventEmitter } from 'events';
 import { ISY } from './ISY.js';
-import { VariableType } from './ISYConstants.js';
+import { VariableType } from './VariableType.js';
 
-const varT = (t: typeof VariableType) => VariableType.Integer ? typeof Number : typeof String;
+const varT = (t: typeof VariableType) => (VariableType.Integer ? typeof Number : typeof String);
 
 type Variable<T extends VariableType> = T extends VariableType.Integer ? Number : String;
 
@@ -25,8 +25,7 @@ export class ISYVariable<P extends VariableType> extends EventEmitter {
 		this.lastChanged = new Date();
 	}
 
-	public handleEvent(event: { eventInfo: { var: any }; })
-	{
+	public handleEvent(event: { eventInfo: { var: any } }) {
 		const varNode = event.eventInfo.var;
 		if (varNode !== null) {
 			const id = varNode.id;
@@ -39,8 +38,8 @@ export class ISYVariable<P extends VariableType> extends EventEmitter {
 			const hour = parseInt(varNode.ts.substr(9, 2));
 			const min = parseInt(varNode.ts.substr(12, 2));
 			const sec = parseInt(varNode.ts.substr(15, 2));
-			 this.lastChanged = new Date(year, month, day, hour, min, sec);
-			this.emit('ValueChanged',this.value, priorVal);
+			this.lastChanged = new Date(year, month, day, hour, min, sec);
+			this.emit('ValueChanged', this.value, priorVal);
 		}
 	}
 
@@ -49,5 +48,4 @@ export class ISYVariable<P extends VariableType> extends EventEmitter {
 		this.value = value;
 		return p;
 	}
-
 }

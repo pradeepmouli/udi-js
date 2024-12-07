@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "KeypadButton";
 class KeypadButtonNode extends Base {
     commands = {
         QUERY: this.query,
@@ -44,5 +43,17 @@ export var KeypadButton;
     }
     KeypadButton.create = create;
     KeypadButton.Node = KeypadButtonNode;
+    KeypadButton.Class = KeypadButtonNode;
+    let Commands;
+    (function (Commands) {
+        Commands["query"] = "QUERY";
+        Commands["backlight"] = "BL";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = KeypadButton.Commands || (KeypadButton.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = KeypadButton.Drivers || (KeypadButton.Drivers = {}));
 })(KeypadButton || (KeypadButton = {}));
 //# sourceMappingURL=KeypadButton.js.map

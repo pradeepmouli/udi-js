@@ -39,7 +39,7 @@ export function ISYClusterBehavior(base, p) {
                     if (!convFunc)
                         throw new Error(`Converter ${converter} not found`);
                     this.state[key2] = convFunc(this._device.drivers[driver].value);
-                    this.handlers[driver] = (newValue, oldValue, formattedValue) => {
+                    this.handlers[val.driver] = (newValue, oldValue, formattedValue) => {
                         //this.device.logger(`Handling property change for ${driver} (${key2}) with value ${newValue}`);
                         //if (convFunc) this.state[key2 as string] = convFunc(newValue);
                         this.state[key2] = convFunc(newValue);

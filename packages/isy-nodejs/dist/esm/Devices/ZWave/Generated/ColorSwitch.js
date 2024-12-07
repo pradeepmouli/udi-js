@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "186";
 class ColorSwitchNode extends Base {
     commands = {
         DON: this.set,
@@ -59,5 +58,22 @@ export var ColorSwitch;
     }
     ColorSwitch.create = create;
     ColorSwitch.Node = ColorSwitchNode;
+    ColorSwitch.Class = ColorSwitchNode;
+    let Commands;
+    (function (Commands) {
+        Commands["set"] = "DON";
+        Commands["fadeUp"] = "FDUP";
+        Commands["fadeDown"] = "FDDOWN";
+        Commands["fadeStop"] = "FDSTOP";
+        Commands["query"] = "QUERY";
+    })(Commands = ColorSwitch.Commands || (ColorSwitch.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["warmWhite"] = "GV0";
+        Drivers["red"] = "GV2";
+        Drivers["green"] = "GV3";
+        Drivers["blue"] = "GV4";
+        Drivers["coldWhite"] = "GV1";
+    })(Drivers = ColorSwitch.Drivers || (ColorSwitch.Drivers = {}));
 })(ColorSwitch || (ColorSwitch = {}));
 //# sourceMappingURL=ColorSwitch.js.map

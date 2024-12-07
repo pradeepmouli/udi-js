@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "RemoteLinc2";
 class RemoteLinc2Node extends Base {
     commands = {
         WDU: this.writeChanges
@@ -40,5 +39,15 @@ export var RemoteLinc2;
     }
     RemoteLinc2.create = create;
     RemoteLinc2.Node = RemoteLinc2Node;
+    RemoteLinc2.Class = RemoteLinc2Node;
+    let Commands;
+    (function (Commands) {
+        Commands["writeChanges"] = "WDU";
+    })(Commands = RemoteLinc2.Commands || (RemoteLinc2.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = RemoteLinc2.Drivers || (RemoteLinc2.Drivers = {}));
 })(RemoteLinc2 || (RemoteLinc2 = {}));
 //# sourceMappingURL=RemoteLinc2.js.map

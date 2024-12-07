@@ -8,17 +8,17 @@ import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
 import { DeviceFactory } from './Devices/DeviceFactory.js';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
 import { EventType } from './Events/EventType.js';
-import { VariableType } from './ISYConstants.js';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
+import { VariableType } from './VariableType.js';
 import * as Utils from './Utils.js';
 import { XMLParser } from 'fast-xml-parser';
 import path from 'path';
+import { CompositeDevice } from './Devices/CompositeDevice.js';
+import { GenericNode } from './Devices/GenericNode.js';
 import { NodeFactory } from './Devices/NodeFactory.js';
 import { ISYError } from './ISYError.js';
 import { findPackageJson } from './Utils.js';
-import { GenericNode } from './Devices/GenericNode.js';
-import { CompositeDevice } from './Devices/CompositeDevice.js';
 class ISYInitializationError extends ISYError {
     step;
     constructor(messageOrError, step) {

@@ -1,11 +1,11 @@
-import type { ISYDevice } from '../ISYDevice.js';
-import { ISYNode } from '../ISYNode.js';
+import type { Constructor } from 'type-fest';
 import type { Family } from '../Definitions/index.js';
 import { ISY } from '../ISY.js';
+import type { ISYDevice } from '../ISYDevice.js';
+import { ISYNode } from '../ISYNode.js';
 import type { NodeInfo } from '../Model/NodeInfo.js';
-import type { Constructor } from 'type-fest';
-import type { ISYDeviceNode } from './ISYDeviceNode.js';
 import type { ObjectToUnion, StringKeys } from '../Utils.js';
+import type { ISYDeviceNode } from './ISYDeviceNode.js';
 export type CompositeDevice<F extends Family, N extends {
     [x: string]: ISYDeviceNode<F, any, any, any>;
 }, R = N[keyof N]> = {
@@ -22,7 +22,7 @@ export type CompositeDevice<F extends Family, N extends {
         [x in keyof N]: N[x]['commands'];
     };
     addNode: (node: NodeInfo | ISYNode, isy?: ISY) => void;
-} & ISYDevice<Family, any, unknown, any>;
+} & Omit<ISYDevice<Family, unknown, unknown, unknown>, 'drivers' | 'commands' | 'events'>;
 export declare namespace CompositeDevice {
     type DriversOf<N extends CompositeDevice<any, any>> = N['drivers'];
     type CommandsOf<N extends CompositeDevice<any, any>> = N['commands'];
@@ -53,7 +53,7 @@ export declare namespace CompositeDevice {
         [x in keyof N]: Constructor<N[x]>;
     }, keyMap: {
         [x in keyof N]: number | string;
-    }): Constructor<CompositeDevice<F, N>>;
+    }): Constructor<CompositeDevice<F, N, N[0]>>;
     function isComposite(device: ISYDevice<any, any, any, any>): device is CompositeDevice<any, any>;
 }
 export declare function CompositeOf<F extends Family, N extends {

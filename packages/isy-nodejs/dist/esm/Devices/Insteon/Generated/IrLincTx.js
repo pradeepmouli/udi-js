@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "IRLincTx";
 class IrLincTxNode extends Base {
     commands = {
         BEEP: this.beep,
@@ -37,5 +36,15 @@ export var IrLincTx;
     }
     IrLincTx.create = create;
     IrLincTx.Node = IrLincTxNode;
+    IrLincTx.Class = IrLincTxNode;
+    let Commands;
+    (function (Commands) {
+        Commands["beep"] = "BEEP";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = IrLincTx.Commands || (IrLincTx.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["responding"] = "ERR";
+    })(Drivers = IrLincTx.Drivers || (IrLincTx.Drivers = {}));
 })(IrLincTx || (IrLincTx = {}));
 //# sourceMappingURL=IrLincTx.js.map

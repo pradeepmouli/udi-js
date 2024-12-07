@@ -9,11 +9,11 @@ import type { Command } from './Definitions/Global/Commands.js';
 import { Event } from './Definitions/Global/Events.js';
 import type { CompositeDevice } from './Devices/CompositeDevice.js';
 import type { Constructor } from './Devices/Constructor.js';
-import { NodeType } from './ISYConstants.js';
 import type { ISYScene } from './ISYScene.js';
 import type { DriverState } from './Model/DriverState.js';
 import { NodeInfo } from './Model/NodeInfo.js';
 import type { NodeNotes } from './Model/NodeNotes.js';
+import { NodeType } from './NodeType.js';
 import { type ObjectToUnion, type StringKeys } from './Utils.js';
 export declare class ISYNode<T extends Family = Family, D extends ISYNode.DriverSignatures = {}, C extends ISYNode.CommandSignatures = {}, E extends ISYNode.EventSignatures = {
     [x in keyof D]: Event.DriverToEvent<D[x]> & {
@@ -143,7 +143,7 @@ export declare namespace ISYNode {
         new (...args: any[]): {
             drivers: Driver.ForAll<D, false>;
             commands: Command.ForAll<C>;
-            "__#4676205@#parentNode": ISYNode<any, any, any, any>;
+            "__#6426063@#parentNode": ISYNode<any, any, any, any>;
             readonly address: string;
             readonly baseLabel: string;
             readonly flag: any;

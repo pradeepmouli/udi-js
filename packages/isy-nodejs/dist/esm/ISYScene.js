@@ -1,6 +1,6 @@
 import { Insteon } from './Devices/index.js';
-import { LinkType } from './ISYConstants.js';
 import { ISYNode } from './ISYNode.js';
+import { LinkType } from './LinkType.js';
 export class ISYScene extends ISYNode {
     connectionType;
     batteryOperated;

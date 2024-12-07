@@ -5,6 +5,7 @@ import { NodeFactory } from '../../Devices/NodeFactory.js';
 import { Devices, Insteon } from '../../Devices/index.js';
 import { ClusterType } from '../../Model/ClusterType.js';
 import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
+import { ISYDevice } from '../../ISYDevice.js';
 function addA(mapping1, mapping2) {
     return { deviceType: mapping1.deviceType, nodeType: mapping1.nodeType, mapping: { ...mapping1.mapping, ...mapping2.mapping } };
 }
@@ -24,30 +25,32 @@ export class MappingRegistry {
     static getMapping(device) {
         let m = this.cache[device.address];
         if (!m) {
-            if (MappingRegistry.map.has(device.family)) {
-                let g = MappingRegistry.map.get(device.family);
-                //let m: DeviceToClusterMap<T,MutableEndpoint>;
-                if (g.has(device.constructor.name)) {
-                    m = g.get(device.constructor.name);
-                }
-                else if (g.has(device.nodeDefId)) {
-                    m = g.get(device.nodeDefId);
-                }
-                else if (g.has(device.type)) {
-                    m = g.get(device.type);
-                }
-                if (!m) {
-                    for (var nodeDefId of NodeFactory.getImplements(device)) {
-                        if (g.has(nodeDefId)) {
-                            device.logger(`Mapping found to ${Family[device.family]}.${nodeDefId}`, 'info');
-                            m = g.get(nodeDefId);
-                            g.set(device.nodeDefId, m);
-                            break;
+            if (ISYDevice.isNode(device)) {
+                if (MappingRegistry.map.has(device.family)) {
+                    let g = MappingRegistry.map.get(device.family);
+                    //let m: DeviceToClusterMap<T,MutableEndpoint>;
+                    if (g.has(device.constructor.name)) {
+                        m = g.get(device.constructor.name);
+                    }
+                    else if (g.has(device.nodeDefId)) {
+                        m = g.get(device.nodeDefId);
+                    }
+                    else if (g.has(device.type)) {
+                        m = g.get(device.type);
+                    }
+                    if (!m) {
+                        for (var nodeDefId of NodeFactory.getImplements(device)) {
+                            if (g.has(nodeDefId)) {
+                                device.logger(`Mapping found to ${Family[device.family]}.${nodeDefId}`, 'info');
+                                m = g.get(nodeDefId);
+                                g.set(device.nodeDefId, m);
+                                break;
+                            }
                         }
                     }
+                    if (m !== null)
+                        this.cache[device.address] = m;
                 }
-                if (m !== null)
-                    this.cache[device.address] = m;
             }
         }
         return m;
@@ -72,6 +75,18 @@ export class MappingRegistry {
                 if (key !== 'Family') {
                     let m = map[key];
                     m = { deviceType: m.deviceType.with(BridgedDeviceBasicInformationBehavior, ISYBridgedDeviceBehavior), mapping: m.mapping };
+                    for (var key2 in m.mapping.attributes) {
+                        let attribute = m.mapping.attributes[key2];
+                        for (var key3 in attribute[key3]) {
+                            let d = attribute[key3];
+                            if (typeof d === 'string') {
+                                m.mapping.attributes[key2][key3] = Insteon[key].Drivers[d];
+                            }
+                            else if (d.driver) {
+                                m.mapping.attributes[key2][key3].driver = Insteon[key].Drivers[d.driver];
+                            }
+                        }
+                    }
                     regMap.set(key, m);
                     regMap.set(Insteon[key]?.name, m);
                     regMap.set(Insteon[key].nodeDefId, m);
@@ -109,6 +124,7 @@ var clusterMap = {
         moveToColor: { command: DriverType.CustomControl1, parameters: { colorX: { parameter: 'colorX' }, colorY: { parameter: 'colorY' }, colorTemperature: { parameter: 'colorTemperature' } } }
     }
 };
+/*interface SimplyEndpointMapping<T extends ISYNode<Family, any, any, any>, K extends MutableEndpoint> extends SimplifyDeep<ISYtoMatterMapping<T, K>> {}*/
 /*
 const map = {
     deviceType: DimmableLightDevice,

@@ -1,7 +1,7 @@
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
 import { Converter } from './Converters.js';
 import { Event } from './Definitions/Global/Events.js';
-import { NodeType } from './ISYConstants.js';
+import { NodeType } from './NodeType.js';
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 export class ISYNode {
     // #region Properties (32)

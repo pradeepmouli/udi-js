@@ -14,9 +14,10 @@ import { ISY } from '../../ISY.js';
 import type { ISYDevice } from '../../ISYDevice.js';
 import type { ISYNode } from '../../ISYNode.js';
 import { MappingRegistry, type ClusterMapping, type DeviceToClusterMap } from '../Mappings/MappingRegistry.js';
+import type { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 
 type ClusterForBehavior<B extends ClusterBehavior> = B extends ClusterBehavior.Type<infer C> ? C : never;
-export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D extends ISYNode.DriverSignatures = ISYNode.DriverSignatures> extends Behavior {
+export class ISYBridgedDeviceBehavior<N extends ISYDeviceNode<any, D, any, any>, D extends ISYNode.DriverSignatures = ISYNode.DriverSignatures> extends Behavior {
 	static override readonly id = 'isyNode';
 
 	static override readonly early = true;
@@ -29,9 +30,9 @@ export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D ext
 	override async initialize(_options?: {}) {
 		await super.initialize(_options);
 		var address = this.state.address;
-		const d = ISY.instance.nodeMap.get(this.state.address);
+		const d = ISY.instance.nodeMap.get(this.state.address) as ISYDeviceNode<any, any, any, any>;
 		this.internal.device = d;
-		this.internal.map = MappingRegistry.getMapping(this.internal.device as ISYNode<Family, any, any, any>);
+		this.internal.map = MappingRegistry.getMapping(this.internal.device as ISYDeviceNode<any, any, any, any>);
 
 		ISY.instance.logger.debug(`Initializing ${this.constructor.name} for ${this.internal.device.constructor.name} ${this.internal.device.name} with address ${address}`);
 		if (d) {
@@ -59,7 +60,7 @@ export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D ext
 	}
 
 	mapForBehavior<B extends ClusterBehavior>(behavior: B): ClusterMapping<B, typeof this.internal.device> {
-		return this.map.mapping[behavior.cluster.name] ?? {attributes: {}, commands: {}};
+		return this.map.mapping[behavior.cluster.name];
 	}
 
 	handlePropertyChange(driver: string, newValue: any, oldValue: any, formattedValue: string) {
@@ -76,7 +77,7 @@ export class ISYBridgedDeviceBehavior<N extends ISYNode<any, D, any, any>, D ext
 
 export namespace ISYBridgedDeviceBehavior {
 	export class Internal {
-		device?: ISYNode<any, any, any, any>;
+		device?: ISYDeviceNode<any, any, any, any>;
 		map?: DeviceToClusterMap<typeof this.device, any>;
 	}
 

@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "PIR2844OnOff";
 class Pir2844OnOffNode extends Base {
     commands = {
         DON: this.on,
@@ -48,5 +47,19 @@ export var Pir2844OnOff;
     }
     Pir2844OnOff.create = create;
     Pir2844OnOff.Node = Pir2844OnOffNode;
+    Pir2844OnOff.Class = Pir2844OnOffNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = Pir2844OnOff.Commands || (Pir2844OnOff.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = Pir2844OnOff.Drivers || (Pir2844OnOff.Drivers = {}));
 })(Pir2844OnOff || (Pir2844OnOff = {}));
 //# sourceMappingURL=Pir2844OnOff.js.map

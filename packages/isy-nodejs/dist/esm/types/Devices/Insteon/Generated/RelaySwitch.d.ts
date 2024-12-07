@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
-type Commands = RelaySwitch.Commands;
-type Drivers = RelaySwitch.Drivers;
+type Commands = RelaySwitch.Commands.Type;
+type Drivers = RelaySwitch.Drivers.Type;
 declare class RelaySwitchNode extends Base<Drivers, Commands> implements RelaySwitch.Interface {
     readonly commands: {
         BEEP: (value?: number) => Promise<any>;
@@ -29,28 +29,41 @@ export declare namespace RelaySwitch {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelaySwitchNode;
     function create(isy: ISY, nodeInfo: NodeInfo): RelaySwitchNode;
     const Node: typeof RelaySwitchNode;
-    type Commands = {
-        BEEP: ((value?: number) => Promise<boolean>) & {
-            label: "Beep";
-            name: "beep";
+    const Class: typeof RelaySwitchNode;
+    namespace Commands {
+        type Type = {
+            BEEP: ((value?: number) => Promise<boolean>) & {
+                label: "Beep";
+                name: "beep";
+            };
+            BL: ((value: number) => Promise<boolean>) & {
+                label: "Backlight";
+                name: "backlight";
+            };
+            WDU: (() => Promise<boolean>) & {
+                label: "Write Changes";
+                name: "writeChanges";
+            };
         };
-        BL: ((value: number) => Promise<boolean>) & {
-            label: "Backlight";
-            name: "backlight";
+    }
+    enum Commands {
+        beep = "BEEP",
+        backlight = "BL",
+        writeChanges = "WDU"
+    }
+    namespace Drivers {
+        type Type = {
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Insteon.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        WDU: (() => Promise<boolean>) & {
-            label: "Write Changes";
-            name: "writeChanges";
-        };
-    };
-    type Drivers = {
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=RelaySwitch.d.ts.map

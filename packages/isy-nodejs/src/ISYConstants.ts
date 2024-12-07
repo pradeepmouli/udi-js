@@ -1,6 +1,4 @@
-
 const ISYConstants = {
-
 	States: {
 		Off: 0,
 		On: 100,
@@ -14,14 +12,10 @@ const ISYConstants = {
 		},
 		DoorWindow: {
 			Closed: 0,
-			Open: 100// 255
+			Open: 100 // 255
 		},
-		Siren:
-		{
-
-		},
-		Sensor:
-		{
+		Siren: {},
+		Sensor: {
 			Triggered: 100,
 			NotTriggered: 0
 		},
@@ -37,7 +31,7 @@ const ISYConstants = {
 		Fan: {
 			Low: 25, // 63,
 			Medium: 75, // 191,
-			High: 100// 255
+			High: 100 // 255
 		},
 		Climate: {
 			FanMode: {
@@ -68,7 +62,6 @@ const ISYConstants = {
 				Celcius: 1,
 				Fahrenheit: 2
 			}
-
 		}
 	},
 	Cmds: {
@@ -87,8 +80,7 @@ const ISYConstants = {
 			Lock: 'DON',
 			Unlock: 'DOF'
 		},
-		Thermostat:
-		{
+		Thermostat: {
 			SetpointUp: 'BRT',
 			SetpointDown: 'DIM'
 		},
@@ -123,8 +115,7 @@ const ISYConstants = {
 			CoolSetPoint: 'CLISPC',
 			HeatSetPoint: 'CLISPH',
 			ScheduleMode: 'CLISMD',
-			EnergyMode: 'CLIEMD',
-
+			EnergyMode: 'CLIEMD'
 		},
 		Error: 'ERR',
 		UnitOfMeasure: 'UOM'
@@ -147,26 +138,5 @@ const ISYConstants = {
 		scene: 'Scene',
 		thermostat: 'Thermostat',
 		polyNode: 'PolyNode'
-	},
-
-
-
-
+	}
 };
-
-
-export enum VariableType {
-	Integer = 1,
-	State = 2
-}
-export enum NodeType {
-	Device = 1,
-	Scene = 2,
-	Folder = 3,
-	X10A10 = 4
-}
-export enum LinkType
-{
-	Controller = 16,
-	Responder = 0
-}

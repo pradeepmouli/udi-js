@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
-type Commands = EzrainInput.Commands;
-type Drivers = EzrainInput.Drivers;
+type Commands = EzrainInput.Commands.Type;
+type Drivers = EzrainInput.Drivers.Type;
 declare class EzrainInputNode extends Base<Drivers, Commands> implements EzrainInput.Interface {
     readonly commands: {
         WDU: () => Promise<any>;
@@ -26,26 +26,38 @@ export declare namespace EzrainInput {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is EzrainInputNode;
     function create(isy: ISY, nodeInfo: NodeInfo): EzrainInputNode;
     const Node: typeof EzrainInputNode;
-    type Commands = {
-        WDU: (() => Promise<boolean>) & {
-            label: "Write Changes";
-            name: "writeChanges";
+    const Class: typeof EzrainInputNode;
+    namespace Commands {
+        type Type = {
+            WDU: (() => Promise<boolean>) & {
+                label: "Write Changes";
+                name: "writeChanges";
+            };
         };
-    };
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Percent;
-            value: Insteon.OnLevelRelay;
-            label: "Status";
-            name: "status";
+    }
+    enum Commands {
+        writeChanges = "WDU"
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Percent;
+                value: Insteon.OnLevelRelay;
+                label: "Status";
+                name: "status";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Insteon.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        status = "ST",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=EzrainInput.d.ts.map

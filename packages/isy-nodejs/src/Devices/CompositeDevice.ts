@@ -1,47 +1,40 @@
-
 import type { Driver } from '../Definitions/Global/Drivers.js';
 import type { UnitOfMeasure } from '../Definitions/Global/UOM.js';
 
+import type { Constructor } from 'type-fest';
+import type { Category, Family } from '../Definitions/index.js';
+import { ISY } from '../ISY.js';
 import type { ISYDevice } from '../ISYDevice.js';
 import { DriverMap, ISYNode, NodeList } from '../ISYNode.js';
 import type { ISYScene } from '../ISYScene.js';
 import type { DriverState } from '../Model/DriverState.js';
-import type { Category, Family } from '../Definitions/index.js';
-import { ISY } from '../ISY.js';
 import type { NodeInfo } from '../Model/NodeInfo.js';
-import { NodeFactory } from './NodeFactory.js';
-import type { Constructor } from 'type-fest';
-import type { ISYDeviceNode } from './ISYDeviceNode.js';
 import type { ObjectToUnion, StringKeys } from '../Utils.js';
+import type { ISYDeviceNode } from './ISYDeviceNode.js';
+import { NodeFactory } from './NodeFactory.js';
 
 import type { Fan } from './Insteon/InsteonFanDevice.js';
 
-
- export type CompositeDevice<F extends Family, N extends {[x: string]: ISYDeviceNode<F,any,any,any>},R = N[keyof N]> =
-{[x in keyof N]: N[x]} & {
-
+export type CompositeDevice<F extends Family, N extends { [x: string]: ISYDeviceNode<F, any, any, any> }, R = N[keyof N]> = { [x in keyof N]: N[x] } & {
 	root: R;
 
 	events: { [x in keyof N]: N[x]['events'] };
 
-	drivers: { [x in keyof N]:  N[x]['drivers'] };
+	drivers: { [x in keyof N]: N[x]['drivers'] };
 
 	commands: { [x in keyof N]: N[x]['commands'] };
 
 	addNode: (node: NodeInfo | ISYNode, isy?: ISY) => void;
-
-
-
-} & ISYDevice<Family, any,unknown,any>;
+} & Omit<ISYDevice<Family, unknown, unknown, unknown>, 'drivers' | 'commands' | 'events'>;
 
 export namespace CompositeDevice {
-	export type DriversOf<N extends CompositeDevice<any,any>> = N['drivers'];
+	export type DriversOf<N extends CompositeDevice<any, any>> = N['drivers'];
 
-	export type CommandsOf<N extends CompositeDevice<any,any>> = N['commands'];
+	export type CommandsOf<N extends CompositeDevice<any, any>> = N['commands'];
 
-	export type EventsOf<N extends CompositeDevice<any,any>> = N['events'];
+	export type EventsOf<N extends CompositeDevice<any, any>> = N['events'];
 
-	export type DriverNamesOf<N extends CompositeDevice<any,any>> = ObjectToUnion<{[x in StringKeys<DriversOf<N>>] : `${x}.${ISYNode.DriverNamesOf<N[x]> & string}`}>;
+	export type DriverNamesOf<N extends CompositeDevice<any, any>> = ObjectToUnion<{ [x in StringKeys<DriversOf<N>>]: `${x}.${ISYNode.DriverNamesOf<N[x]> & string}` }>;
 
 	export type CommandNamesOf<N extends CompositeDevice<any, any>> = ObjectToUnion<{ [x in StringKeys<DriversOf<N>>]: `${x}.${ISYNode.CommandNamesOf<N[x]> & string}` }>;
 
@@ -51,142 +44,143 @@ export namespace CompositeDevice {
 
 	export type CommandKeysOf<N extends CompositeDevice<any, any>> = ObjectToUnion<{ [x in StringKeys<CommandsOf<N>>]: `${x}.${ISYNode.CommandKeysOf<N[x]> & string}` }>;
 
-	export function of<F extends Family, N extends { [x: string]: ISYDeviceNode<any, any, any, any> }>(nodes: { [x in keyof N]: Constructor<N[x]> }, keyFunction: (node: NodeInfo) => [keyof N, boolean]): Constructor<CompositeDevice<F, N>>;
-	export function of<F extends Family, N extends { [x: string]: ISYDeviceNode<any, any, any, any> }>(nodes: { [x in keyof N]: Constructor<N[x]> }, keyMap: {[x in keyof N]: number | string}): Constructor<CompositeDevice<F, N>>;
-	export function of<F extends Family, N extends { [x: string]: ISYDeviceNode<any, any, any, any> }>(nodes: { [x in keyof N]: Constructor<N[x]> }, keyFunction: {[x in keyof N]: number | string} |((node: NodeInfo) => [keyof N, boolean])): Constructor<CompositeDevice<F, N>> {
-		if(keyFunction === undefined) {
+	export function of<F extends Family, N extends { [x: string]: ISYDeviceNode<any, any, any, any> }>(
+		nodes: { [x in keyof N]: Constructor<N[x]> },
+		keyFunction: (node: NodeInfo) => [keyof N, boolean]
+	): Constructor<CompositeDevice<F, N>>;
+	export function of<F extends Family, N extends { [x: string]: ISYDeviceNode<any, any, any, any> }>(
+		nodes: { [x in keyof N]: Constructor<N[x]> },
+		keyMap: { [x in keyof N]: number | string }
+	): Constructor<CompositeDevice<F, N,N[0]>>;
+	 export function of<F extends Family, N extends { [x: string]: ISYDeviceNode<any, any, any, any> }>(
+		nodes: { [x in keyof N]: Constructor<N[x]> },
+		keyFunction: { [x in keyof N]: number | string } | ((node: NodeInfo) => [keyof N, boolean])
+	): Constructor<CompositeDevice<F, N>> {
+		if (keyFunction === undefined) {
 			keyFunction = (node: NodeInfo) => [node.name, true];
 		}
-		if(typeof keyFunction === 'function') {
+		if (typeof keyFunction === 'function') {
 			return CompositeOf(nodes, keyFunction as any);
-		}
-		else if(typeof keyFunction === 'object') {
-			return CompositeOf(nodes, (node: NodeInfo | ISYNode) => {for (const key in keyFunction)
-			{
-				if(node.address.endsWith(keyFunction[key].toString())) {
-					return [key, keyFunction[key] == 1 || keyFunction[key] == '1'];
+		} else if (typeof keyFunction === 'object') {
+			return CompositeOf(nodes, (node: NodeInfo | ISYNode) => {
+				for (const key in keyFunction) {
+					if (node.address.endsWith(keyFunction[key].toString())) {
+						return [key, keyFunction[key] == 1 || keyFunction[key] == '1'];
+					}
 				}
-			}});
-
-
-
+			});
 		}
-
 	}
 
 	export function isComposite(device: ISYDevice<any, any, any, any>): device is CompositeDevice<any, any> {
 		return 'addNode' in device;
 	}
-
 }
 
+export function CompositeOf<F extends Family, N extends { [x: string]: ISYDeviceNode<any, any, any, any> }>(
+	nodes: { [x in keyof N]: Constructor<N[x]> },
+	keyFunction: (node: NodeInfo | ISYNode) => [keyof N, boolean]
+): Constructor<CompositeDevice<F, N>> {
+	return class implements ISYDevice<Family, any, unknown, any> {
+		readonly isy: ISY;
 
-export function CompositeOf <F extends Family, N extends {[x: string]: ISYDeviceNode<any,any,any,any>}>(nodes: {[x in keyof N]: Constructor<N[x]>}, keyFunction: (node: NodeInfo | ISYNode) => [keyof N,boolean]) : Constructor<CompositeDevice<F,N>>
-{
-return class implements ISYDevice<Family, any, unknown, any> {
-	readonly isy: ISY;
-
-	constructor(...args: any[]) {
-
-		if(args[0] instanceof ISY) {
-			this.isy = args.shift();
-			for (const nodeInfo of args as NodeInfo[]) {
-
-				this.addNode(nodeInfo, this.isy);
+		constructor(...args: any[]) {
+			if (args[0] instanceof ISY) {
+				this.isy = args.shift();
+				for (const nodeInfo of args as NodeInfo[]) {
+					this.addNode(nodeInfo, this.isy);
+				}
 			}
 		}
+		category: Category;
+		deviceClass: any;
+		enabled: boolean;
+		family: Family;
+		hidden: boolean;
+		isDimmable: boolean;
+		label: string;
+		model: string;
+		modelNumber: string;
+		name: any;
+		parentAddress: any;
+		productName: string;
+		scenes: ISYScene[];
+		subCategory: number;
+		type: any;
+		typeCode: string;
+		version: string;
+		manufacturer: string;
+		productId: string | number;
+		modelName: string;
 
-	}
-	category: Category;
-	deviceClass: any;
-	enabled: boolean;
-	family: Family;
-	hidden: boolean;
-	isDimmable: boolean;
-	label: string;
-	model: string;
-	modelNumber: string;
-	name: any;
-	parentAddress: any;
-	productName: string;
-	scenes: ISYScene[];
-	subCategory: number;
-	type: any;
-	typeCode: string;
-	version: string;
-	vendorName: string;
-	productId: string | number;
-	modelName: string;
-	manufacturer: string;
+		public address: string;
 
-	public address: string;
+		public events: { [x in keyof N]: N[x]['events'] } = {} as any;
 
+		public drivers: { [x in keyof N]: N[x]['drivers'] } = {} as any;
 
-	public events: { [x in keyof N]: N[x]['events'] } = {} as any;
+		public commands: { [x in keyof N]: N[x]['commands'] } = {} as any;
 
-	public drivers: { [x in keyof N]:  N[x]['drivers'] } = {} as any;
+		public root = null;
 
-	public commands: { [x in keyof N]:  N[x]['commands'] } = {} as any;
+		public addNode(node: ISYNode): void;
+		public addNode(node: NodeInfo, isy: ISY): void;
+		public addNode(node: NodeInfo | ISYNode, isy = this.isy) {
+			let n: ISYDeviceNode<any, any, any, any> = null;
+			if (node instanceof ISYNode) {
+				n = node as ISYDeviceNode<any, any, any, any>;
+			} else {
+				n = new nodes[keyFunction(node)[0]](isy, node);
+			}
+			const keyL = keyFunction(node);
+			const key = keyL[0];
+			const isRoot = keyL[1];
 
-	public root = null;
+			Object.defineProperty(this, key, n);
 
-	public addNode(node: ISYNode): void;
-	public addNode(node: NodeInfo, isy: ISY): void;
-	public addNode(node: NodeInfo | ISYNode, isy = this.isy) {
-
-		let n : ISYDeviceNode<any, any, any, any> = null;
-		if(node instanceof ISYNode) {
-			n = node as ISYDeviceNode<any, any, any, any>;
+			Object.defineProperty(this.events, key, {
+				get(): () => any {
+					return this[key].events;
+				}
+			});
+			Object.defineProperty(this.drivers, key, {
+				get(): () => any {
+					return this[key].drivers;
+				}
+			});
+			Object.defineProperty(this.commands, key, {
+				get(): () => any {
+					return this[key].commands;
+				}
+			});
+			if (isRoot) {
+				this.address = node.address;
+				this.family = n.family;
+				this.category = n.category;
+				this.deviceClass = n.deviceClass;
+				this.enabled = n.enabled;
+				this.hidden = n.hidden;
+				this.isDimmable = n.isDimmable;
+				this.label = n.label;
+				this.model = n.model;
+				this.modelNumber = n.modelNumber;
+				this.name = n.name;
+				this.parentAddress = n.parentAddress;
+				this.productName = n.productName;
+				this.scenes = n.scenes;
+				this.subCategory = n.subCategory;
+				this.type = n.type;
+				this.typeCode = n.typeCode;
+				this.version = n.version;
+				this.manufacturer = n.manufacturer;
+				this.productId = n.productId;
+				this.modelName = n.modelName;
+				this.manufacturer = n.manufacturer;
+				this.root = n;
+			}
 		}
-		else
-		{
-			n = new nodes[keyFunction(node)[0]](isy, node);
-		}
-		const keyL = keyFunction(node);
-		const key = keyL[0];
-		const isRoot = keyL[1];
-
-		Object.defineProperty(this, key, n);
-
-		Object.defineProperty(this.events, key, { get(): () => any { return this[key].events; } });
-		Object.defineProperty(this.drivers, key, { get(): () => any { return this[key].drivers; } });
-		Object.defineProperty(this.commands, key, { get(): () => any { return this[key].commands; } });
-		if(isRoot) {
-			this.address = node.address;
-			this.family = n.family;
-			this.category = n.category;
-			this.deviceClass = n.deviceClass;
-			this.enabled = n.enabled;
-			this.hidden = n.hidden;
-			this.isDimmable = n.isDimmable;
-			this.label = n.label;
-			this.model = n.model;
-			this.modelNumber = n.modelNumber;
-			this.name = n.name;
-			this.parentAddress = n.parentAddress;
-			this.productName = n.productName;
-			this.scenes = n.scenes;
-			this.subCategory = n.subCategory;
-			this.type = n.type;
-			this.typeCode = n.typeCode;
-			this.version = n.version;
-			this.vendorName = n.vendorName;
-			this.productId = n.productId;
-			this.modelName = n.modelName;
-			this.manufacturer = n.manufacturer;
-			this.root = n;
-
-		}
-
-	}
-
-  } as unknown as Constructor<CompositeDevice<F,N>>;
-
-
+	} as unknown as Constructor<CompositeDevice<F, N>>;
 }
-
-
-
 
 /*
 

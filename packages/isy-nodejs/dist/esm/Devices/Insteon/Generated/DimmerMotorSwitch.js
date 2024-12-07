@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "DimmerMotorSwitch";
 class DimmerMotorSwitchNode extends Base {
     commands = {
         DON: this.on,
@@ -72,5 +71,29 @@ export var DimmerMotorSwitch;
     }
     DimmerMotorSwitch.create = create;
     DimmerMotorSwitch.Node = DimmerMotorSwitchNode;
+    DimmerMotorSwitch.Class = DimmerMotorSwitchNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["fastOff"] = "DFOF";
+        Commands["fastOn"] = "DFON";
+        Commands["fadeUp"] = "FDUP";
+        Commands["fadeDown"] = "FDDOWN";
+        Commands["fadeStop"] = "FDSTOP";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["updateOnLevel"] = "OL";
+        Commands["updateMaxDuration"] = "DUR";
+        Commands["backlight"] = "BL";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = DimmerMotorSwitch.Commands || (DimmerMotorSwitch.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["onLevel"] = "OL";
+        Drivers["maxDuration"] = "DUR";
+        Drivers["responding"] = "ERR";
+    })(Drivers = DimmerMotorSwitch.Drivers || (DimmerMotorSwitch.Drivers = {}));
 })(DimmerMotorSwitch || (DimmerMotorSwitch = {}));
 //# sourceMappingURL=DimmerMotorSwitch.js.map

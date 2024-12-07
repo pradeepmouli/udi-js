@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "DoorLock";
-
-type Commands = DoorLock.Commands;
-type Drivers = DoorLock.Drivers;
+type Commands = DoorLock.Commands.Type;
+type Drivers = DoorLock.Drivers.Type;
 
 class DoorLockNode extends Base<Drivers, Commands> implements DoorLock.Interface {
 	public override readonly commands = {
@@ -57,32 +53,46 @@ export namespace DoorLock {
 		return new DoorLockNode(isy, nodeInfo);
 	}
 	export const Node = DoorLockNode;
-	export type Commands = {
-		DON: (() => Promise<boolean>) & {
-			label: "Lock";
-			name: "lock";
+	export const Class = DoorLockNode;
+	export namespace Commands {
+		export type Type = {
+			DON: (() => Promise<boolean>) & {
+				label: "Lock";
+				name: "lock";
+			};
+			DOF: (() => Promise<boolean>) & {
+				label: "Unlock";
+				name: "unlock";
+			};
+			WDU: (() => Promise<boolean>) & {
+				label: "Write Changes";
+				name: "writeChanges";
+			};
 		};
-		DOF: (() => Promise<boolean>) & {
-			label: "Unlock";
-			name: "unlock";
+	}
+	export enum Commands {
+		lock = 'DON',
+		unlock = 'DOF',
+		writeChanges = 'WDU'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: UnitOfMeasure.Percent;
+				value: Insteon.Lock;
+				label: "Status";
+				name: "status";
+			};
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		WDU: (() => Promise<boolean>) & {
-			label: "Write Changes";
-			name: "writeChanges";
-		};
-	};
-	export type Drivers = {
-		ST: {
-			uom: UnitOfMeasure.Percent;
-			value: Insteon.Lock;
-			label: "Status";
-			name: "status";
-		};
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST',
+		responding = 'ERR'
+	}
 }

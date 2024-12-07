@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
-type Commands = IrLincTx.Commands;
-type Drivers = IrLincTx.Drivers;
+type Commands = IrLincTx.Commands.Type;
+type Drivers = IrLincTx.Drivers.Type;
 declare class IrLincTxNode extends Base<Drivers, Commands> implements IrLincTx.Interface {
     readonly commands: {
         BEEP: (value?: number) => Promise<any>;
@@ -27,24 +27,36 @@ export declare namespace IrLincTx {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is IrLincTxNode;
     function create(isy: ISY, nodeInfo: NodeInfo): IrLincTxNode;
     const Node: typeof IrLincTxNode;
-    type Commands = {
-        BEEP: ((value?: number) => Promise<boolean>) & {
-            label: "Beep";
-            name: "beep";
+    const Class: typeof IrLincTxNode;
+    namespace Commands {
+        type Type = {
+            BEEP: ((value?: number) => Promise<boolean>) & {
+                label: "Beep";
+                name: "beep";
+            };
+            WDU: (() => Promise<boolean>) & {
+                label: "Write Changes";
+                name: "writeChanges";
+            };
         };
-        WDU: (() => Promise<boolean>) & {
-            label: "Write Changes";
-            name: "writeChanges";
+    }
+    enum Commands {
+        beep = "BEEP",
+        writeChanges = "WDU"
+    }
+    namespace Drivers {
+        type Type = {
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Insteon.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-    };
-    type Drivers = {
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=IrLincTx.d.ts.map

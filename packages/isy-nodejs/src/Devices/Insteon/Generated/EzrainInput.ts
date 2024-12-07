@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "EZRAIN_Input";
-
-type Commands = EzrainInput.Commands;
-type Drivers = EzrainInput.Drivers;
+type Commands = EzrainInput.Commands.Type;
+type Drivers = EzrainInput.Drivers.Type;
 
 class EzrainInputNode extends Base<Drivers, Commands> implements EzrainInput.Interface {
 	public override readonly commands = {
@@ -54,24 +50,36 @@ export namespace EzrainInput {
 		return new EzrainInputNode(isy, nodeInfo);
 	}
 	export const Node = EzrainInputNode;
-	export type Commands = {
-		WDU: (() => Promise<boolean>) & {
-			label: "Write Changes";
-			name: "writeChanges";
+	export const Class = EzrainInputNode;
+	export namespace Commands {
+		export type Type = {
+			WDU: (() => Promise<boolean>) & {
+				label: "Write Changes";
+				name: "writeChanges";
+			};
 		};
-	};
-	export type Drivers = {
-		ST: {
-			uom: UnitOfMeasure.Percent;
-			value: Insteon.OnLevelRelay;
-			label: "Status";
-			name: "status";
+	}
+	export enum Commands {
+		writeChanges = 'WDU'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: UnitOfMeasure.Percent;
+				value: Insteon.OnLevelRelay;
+				label: "Status";
+				name: "status";
+			};
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST',
+		responding = 'ERR'
+	}
 }

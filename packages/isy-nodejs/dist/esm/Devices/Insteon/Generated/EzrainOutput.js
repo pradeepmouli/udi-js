@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "EZRAIN_Output";
 class EzrainOutputNode extends Base {
     commands = {
         DON: this.on,
@@ -47,5 +46,19 @@ export var EzrainOutput;
     }
     EzrainOutput.create = create;
     EzrainOutput.Node = EzrainOutputNode;
+    EzrainOutput.Class = EzrainOutputNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["query"] = "QUERY";
+        Commands["writeChanges"] = "WDU";
+        Commands["beep"] = "BEEP";
+    })(Commands = EzrainOutput.Commands || (EzrainOutput.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = EzrainOutput.Drivers || (EzrainOutput.Drivers = {}));
 })(EzrainOutput || (EzrainOutput = {}));
 //# sourceMappingURL=EzrainOutput.js.map

@@ -12,14 +12,13 @@ import { Event } from './Definitions/Global/Events.js';
 import type { CompositeDevice } from './Devices/CompositeDevice.js';
 import type { Constructor } from './Devices/Constructor.js';
 
-
-import { NodeType } from './ISYConstants.js';
+import type { ISYDevice } from './ISYDevice.js';
 import type { ISYScene } from './ISYScene.js';
 import type { DriverState } from './Model/DriverState.js';
 import { NodeInfo } from './Model/NodeInfo.js';
 import type { NodeNotes } from './Model/NodeNotes.js';
+import { NodeType } from './NodeType.js';
 import { type ObjectToUnion, type StringKeys } from './Utils.js';
-import type { ISYDevice } from './ISYDevice.js';
 
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 
@@ -28,7 +27,7 @@ export class ISYNode<
 	D extends ISYNode.DriverSignatures = {},
 	C extends ISYNode.CommandSignatures = {},
 	E extends ISYNode.EventSignatures = { [x in keyof D]: Event.DriverToEvent<D[x]> & { driver: x } } & { [x in keyof C]: Event.CommandToEvent<C[x]> & { command: x } }
->  {
+> {
 	// #region Properties (32)
 
 	static #displayNameFunction: Function;

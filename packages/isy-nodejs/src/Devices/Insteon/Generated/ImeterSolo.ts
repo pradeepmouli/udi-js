@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "IMETER_SOLO";
-
-type Commands = ImeterSolo.Commands;
-type Drivers = ImeterSolo.Drivers;
+type Commands = ImeterSolo.Commands.Type;
+type Drivers = ImeterSolo.Drivers.Type;
 
 class ImeterSoloNode extends Base<Drivers, Commands> implements ImeterSolo.Interface {
 	public override readonly commands = {
@@ -61,38 +57,53 @@ export namespace ImeterSolo {
 		return new ImeterSoloNode(isy, nodeInfo);
 	}
 	export const Node = ImeterSoloNode;
-	export type Commands = {
-		RESET: (() => Promise<boolean>) & {
-			label: "Reset Total Energy";
-			name: "resetTotalEnergy";
+	export const Class = ImeterSoloNode;
+	export namespace Commands {
+		export type Type = {
+			RESET: (() => Promise<boolean>) & {
+				label: "Reset Total Energy";
+				name: "resetTotalEnergy";
+			};
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
+			WDU: (() => Promise<boolean>) & {
+				label: "Write Changes";
+				name: "writeChanges";
+			};
 		};
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
+	}
+	export enum Commands {
+		resetTotalEnergy = 'RESET',
+		query = 'QUERY',
+		writeChanges = 'WDU'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: UnitOfMeasure.Watt;
+				value: number;
+				label: "Current Power";
+				name: "currentPower";
+			};
+			TPW: {
+				uom: UnitOfMeasure.KilowattsPerHour;
+				value: number;
+				label: "Total Energy";
+				name: "totalEnergy";
+			};
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		WDU: (() => Promise<boolean>) & {
-			label: "Write Changes";
-			name: "writeChanges";
-		};
-	};
-	export type Drivers = {
-		ST: {
-			uom: UnitOfMeasure.Watt;
-			value: number;
-			label: "Current Power";
-			name: "currentPower";
-		};
-		TPW: {
-			uom: UnitOfMeasure.KilowattsPerHour;
-			value: number;
-			label: "Total Energy";
-			name: "totalEnergy";
-		};
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		currentPower = 'ST',
+		totalEnergy = 'TPW',
+		responding = 'ERR'
+	}
 }

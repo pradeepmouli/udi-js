@@ -1,21 +1,16 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
-import { ZigBeeLegacy } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "Thermostat";
-
-type Commands = Thermostat.Commands;
-type Drivers = Thermostat.Drivers;
+type Commands = Thermostat.Commands.Type;
+type Drivers = Thermostat.Drivers.Type;
 
 class ThermostatNode extends Base<Drivers, Commands> implements Thermostat.Interface {
 	public override readonly commands = {
@@ -114,98 +109,125 @@ export namespace Thermostat {
 		return new ThermostatNode(isy, nodeInfo);
 	}
 	export const Node = ThermostatNode;
-	export type Commands = {
-		CLISPH: ((value: ) => Promise<boolean>) & {
-			label: "Heat Setpoint";
-			name: "updateHeatSetpoint";
+	export const Class = ThermostatNode;
+	export namespace Commands {
+		export type Type = {
+			CLISPH: ((value: ) => Promise<boolean>) & {
+				label: "Heat Setpoint";
+				name: "updateHeatSetpoint";
+			};
+			CLISPC: ((value: ) => Promise<boolean>) & {
+				label: "Cool Setpoint";
+				name: "updateCoolSetpoint";
+			};
+			CLIMD: ((value: ) => Promise<boolean>) & {
+				label: "Mode";
+				name: "updateMode";
+			};
+			CLIFS: ((value: ) => Promise<boolean>) & {
+				label: "Fan Mode";
+				name: "updateFanMode";
+			};
+			CLISMD: ((value: ) => Promise<boolean>) & {
+				label: "Schedule Mode";
+				name: "updateScheduleMode";
+			};
+			CLISPHD: ((value: ) => Promise<boolean>) & {
+				label: "Heat Setpoint Shift";
+				name: "heatSetpointShift";
+			};
+			CLISPCD: ((value: ) => Promise<boolean>) & {
+				label: "Cool Setpoint Shift";
+				name: "coolSetpointShift";
+			};
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
+			ADRPST: ((value: ) => Promise<boolean>) & {
+				label: "ADR";
+				name: "adr";
+			};
 		};
-		CLISPC: ((value: ) => Promise<boolean>) & {
-			label: "Cool Setpoint";
-			name: "updateCoolSetpoint";
+	}
+	export enum Commands {
+		updateHeatSetpoint = 'CLISPH',
+		updateCoolSetpoint = 'CLISPC',
+		updateMode = 'CLIMD',
+		updateFanMode = 'CLIFS',
+		updateScheduleMode = 'CLISMD',
+		heatSetpointShift = 'CLISPHD',
+		coolSetpointShift = 'CLISPCD',
+		query = 'QUERY',
+		adr = 'ADRPST'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: ;
+				value: ;
+				label: "Temperature";
+				name: "temperature";
+			};
+			CLISPH: {
+				uom: ;
+				value: ;
+				label: "Heat Setpoint";
+				name: "heatSetpoint";
+			};
+			CLISPC: {
+				uom: ;
+				value: ;
+				label: "Cool Setpoint";
+				name: "coolSetpoint";
+			};
+			CLIMD: {
+				uom: ;
+				value: ;
+				label: "Mode";
+				name: "mode";
+			};
+			CLIFS: {
+				uom: ;
+				value: ;
+				label: "Fan Mode";
+				name: "fanMode";
+			};
+			CLIHCS: {
+				uom: ;
+				value: ;
+				label: "Heat/Cool State";
+				name: "heatCoolState";
+			};
+			CLIFRS: {
+				uom: ;
+				value: ;
+				label: "Fan State";
+				name: "fanState";
+			};
+			CLISMD: {
+				uom: ;
+				value: ;
+				label: "Schedule Mode";
+				name: "scheduleMode";
+			};
+			ERR: {
+				uom: ;
+				value: ;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		CLIMD: ((value: ) => Promise<boolean>) & {
-			label: "Mode";
-			name: "updateMode";
-		};
-		CLIFS: ((value: ) => Promise<boolean>) & {
-			label: "Fan Mode";
-			name: "updateFanMode";
-		};
-		CLISMD: ((value: ) => Promise<boolean>) & {
-			label: "Schedule Mode";
-			name: "updateScheduleMode";
-		};
-		CLISPHD: ((value: ) => Promise<boolean>) & {
-			label: "Heat Setpoint Shift";
-			name: "heatSetpointShift";
-		};
-		CLISPCD: ((value: ) => Promise<boolean>) & {
-			label: "Cool Setpoint Shift";
-			name: "coolSetpointShift";
-		};
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
-		};
-		ADRPST: ((value: ) => Promise<boolean>) & {
-			label: "ADR";
-			name: "adr";
-		};
-	};
-	export type Drivers = {
-		ST: {
-			uom: ;
-			value: ;
-			label: "Temperature";
-			name: "temperature";
-		};
-		CLISPH: {
-			uom: ;
-			value: ;
-			label: "Heat Setpoint";
-			name: "heatSetpoint";
-		};
-		CLISPC: {
-			uom: ;
-			value: ;
-			label: "Cool Setpoint";
-			name: "coolSetpoint";
-		};
-		CLIMD: {
-			uom: ;
-			value: ;
-			label: "Mode";
-			name: "mode";
-		};
-		CLIFS: {
-			uom: ;
-			value: ;
-			label: "Fan Mode";
-			name: "fanMode";
-		};
-		CLIHCS: {
-			uom: ;
-			value: ;
-			label: "Heat/Cool State";
-			name: "heatCoolState";
-		};
-		CLIFRS: {
-			uom: ;
-			value: ;
-			label: "Fan State";
-			name: "fanState";
-		};
-		CLISMD: {
-			uom: ;
-			value: ;
-			label: "Schedule Mode";
-			name: "scheduleMode";
-		};
-		ERR: {
-			uom: ;
-			value: ;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		temperature = 'ST',
+		heatSetpoint = 'CLISPH',
+		coolSetpoint = 'CLISPC',
+		mode = 'CLIMD',
+		fanMode = 'CLIFS',
+		heatCoolState = 'CLIHCS',
+		fanState = 'CLIFRS',
+		scheduleMode = 'CLISMD',
+		responding = 'ERR'
+	}
 }

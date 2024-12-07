@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { UDI } from "../../../Definitions/index.js";
-type Commands = PulseCounter.Commands;
-type Drivers = PulseCounter.Drivers;
+type Commands = PulseCounter.Commands.Type;
+type Drivers = PulseCounter.Drivers.Type;
 declare class PulseCounterNode extends Base<Drivers, Commands> implements PulseCounter.Interface {
     readonly commands: {};
     static nodeDefId: string;
@@ -25,33 +25,46 @@ export declare namespace PulseCounter {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is PulseCounterNode;
     function create(isy: ISY, nodeInfo: NodeInfo): PulseCounterNode;
     const Node: typeof PulseCounterNode;
-    type Commands = {};
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.PulseCount;
-            value: number;
-            label: "Status";
-            name: "status";
+    const Class: typeof PulseCounterNode;
+    namespace Commands {
+        type Type = {};
+    }
+    enum Commands {
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.PulseCount;
+                value: number;
+                label: "Status";
+                name: "status";
+            };
+            CPW: {
+                uom: UnitOfMeasure.Watt;
+                value: number;
+                label: "Current Power";
+                name: "currentPower";
+            };
+            TPW: {
+                uom: UnitOfMeasure.KilowattsPerHour;
+                value: number;
+                label: "Total Energy";
+                name: "totalEnergy";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: UDI.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        CPW: {
-            uom: UnitOfMeasure.Watt;
-            value: number;
-            label: "Current Power";
-            name: "currentPower";
-        };
-        TPW: {
-            uom: UnitOfMeasure.KilowattsPerHour;
-            value: number;
-            label: "Total Energy";
-            name: "totalEnergy";
-        };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: UDI.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        status = "ST",
+        currentPower = "CPW",
+        totalEnergy = "TPW",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=PulseCounter.d.ts.map

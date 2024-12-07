@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "X10";
-
-type Commands = X10.Commands;
-type Drivers = X10.Drivers;
+type Commands = X10.Commands.Type;
+type Drivers = X10.Drivers.Type;
 
 class X10Node extends Base<Drivers, Commands> implements X10.Interface {
 	public override readonly commands = {
@@ -61,40 +57,56 @@ export namespace X10 {
 		return new X10Node(isy, nodeInfo);
 	}
 	export const Node = X10Node;
-	export type Commands = {
-		DON: (() => Promise<boolean>) & {
-			label: "On";
-			name: "on";
+	export const Class = X10Node;
+	export namespace Commands {
+		export type Type = {
+			DON: (() => Promise<boolean>) & {
+				label: "On";
+				name: "on";
+			};
+			DOF: (() => Promise<boolean>) & {
+				label: "Off";
+				name: "off";
+			};
+			BRT: (() => Promise<boolean>) & {
+				label: "Brighten";
+				name: "brighten";
+			};
+			DIM: (() => Promise<boolean>) & {
+				label: "Dim";
+				name: "dim";
+			};
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
 		};
-		DOF: (() => Promise<boolean>) & {
-			label: "Off";
-			name: "off";
+	}
+	export enum Commands {
+		on = 'DON',
+		off = 'DOF',
+		brighten = 'BRT',
+		dim = 'DIM',
+		query = 'QUERY'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: UnitOfMeasure.Percent;
+				value: Insteon.OnLevelRelay;
+				label: "Status";
+				name: "status";
+			};
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		BRT: (() => Promise<boolean>) & {
-			label: "Brighten";
-			name: "brighten";
-		};
-		DIM: (() => Promise<boolean>) & {
-			label: "Dim";
-			name: "dim";
-		};
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
-		};
-	};
-	export type Drivers = {
-		ST: {
-			uom: UnitOfMeasure.Percent;
-			value: Insteon.OnLevelRelay;
-			label: "Status";
-			name: "status";
-		};
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST',
+		responding = 'ERR'
+	}
 }

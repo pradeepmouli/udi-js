@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "RelayLampSwitchLED";
 class RelayLampSwitchLedNode extends Base {
     commands = {
         DON: this.on,
@@ -56,5 +55,23 @@ export var RelayLampSwitchLed;
     }
     RelayLampSwitchLed.create = create;
     RelayLampSwitchLed.Node = RelayLampSwitchLedNode;
+    RelayLampSwitchLed.Class = RelayLampSwitchLedNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["fastOff"] = "DFOF";
+        Commands["fastOn"] = "DFON";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["led"] = "LED";
+        Commands["backlight"] = "BL";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = RelayLampSwitchLed.Commands || (RelayLampSwitchLed.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = RelayLampSwitchLed.Drivers || (RelayLampSwitchLed.Drivers = {}));
 })(RelayLampSwitchLed || (RelayLampSwitchLed = {}));
 //# sourceMappingURL=RelayLampSwitchLed.js.map

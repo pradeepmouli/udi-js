@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "BinaryAlarm";
 class BinaryAlarmNode extends Base {
     commands = {
         QUERY: this.query,
@@ -44,5 +43,17 @@ export var BinaryAlarm;
     }
     BinaryAlarm.create = create;
     BinaryAlarm.Node = BinaryAlarmNode;
+    BinaryAlarm.Class = BinaryAlarmNode;
+    let Commands;
+    (function (Commands) {
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = BinaryAlarm.Commands || (BinaryAlarm.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = BinaryAlarm.Drivers || (BinaryAlarm.Drivers = {}));
 })(BinaryAlarm || (BinaryAlarm = {}));
 //# sourceMappingURL=BinaryAlarm.js.map

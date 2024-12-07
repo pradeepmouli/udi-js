@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
-type Commands = OnOffControl.Commands;
-type Drivers = OnOffControl.Drivers;
+type Commands = OnOffControl.Commands.Type;
+type Drivers = OnOffControl.Drivers.Type;
 declare class OnOffControlNode extends Base<Drivers, Commands> implements OnOffControl.Interface {
     readonly commands: {};
     static nodeDefId: string;
@@ -23,21 +23,32 @@ export declare namespace OnOffControl {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is OnOffControlNode;
     function create(isy: ISY, nodeInfo: NodeInfo): OnOffControlNode;
     const Node: typeof OnOffControlNode;
-    type Commands = {};
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Percent;
-            value: Insteon.OnLevelRelay;
-            label: "Status";
-            name: "status";
+    const Class: typeof OnOffControlNode;
+    namespace Commands {
+        type Type = {};
+    }
+    enum Commands {
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Percent;
+                value: Insteon.OnLevelRelay;
+                label: "Status";
+                name: "status";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Insteon.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        status = "ST",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=OnOffControl.d.ts.map

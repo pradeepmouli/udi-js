@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
-type Commands = Ezio2x4Output.Commands;
-type Drivers = Ezio2x4Output.Drivers;
+type Commands = Ezio2x4Output.Commands.Type;
+type Drivers = Ezio2x4Output.Drivers.Type;
 declare class Ezio2x4OutputNode extends Base<Drivers, Commands> implements Ezio2x4Output.Interface {
     readonly commands: {
         DON: (value?: (0 | 100)) => Promise<any>;
@@ -32,38 +32,53 @@ export declare namespace Ezio2x4Output {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is Ezio2x4OutputNode;
     function create(isy: ISY, nodeInfo: NodeInfo): Ezio2x4OutputNode;
     const Node: typeof Ezio2x4OutputNode;
-    type Commands = {
-        DON: ((value?: (0 | 100)) => Promise<boolean>) & {
-            label: "On";
-            name: "on";
+    const Class: typeof Ezio2x4OutputNode;
+    namespace Commands {
+        type Type = {
+            DON: ((value?: (0 | 100)) => Promise<boolean>) & {
+                label: "On";
+                name: "on";
+            };
+            DOF: (() => Promise<boolean>) & {
+                label: "Off";
+                name: "off";
+            };
+            QUERY: (() => Promise<boolean>) & {
+                label: "Query";
+                name: "query";
+            };
+            WDU: (() => Promise<boolean>) & {
+                label: "Write Changes";
+                name: "writeChanges";
+            };
         };
-        DOF: (() => Promise<boolean>) & {
-            label: "Off";
-            name: "off";
+    }
+    enum Commands {
+        on = "DON",
+        off = "DOF",
+        query = "QUERY",
+        writeChanges = "WDU"
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Percent;
+                value: Insteon.OnLevelRelay;
+                label: "Status";
+                name: "status";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Insteon.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        QUERY: (() => Promise<boolean>) & {
-            label: "Query";
-            name: "query";
-        };
-        WDU: (() => Promise<boolean>) & {
-            label: "Write Changes";
-            name: "writeChanges";
-        };
-    };
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Percent;
-            value: Insteon.OnLevelRelay;
-            label: "Status";
-            name: "status";
-        };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        status = "ST",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=Ezio2x4Output.d.ts.map

@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "Siren";
 class SirenNode extends Base {
     commands = {
         DON: this.on,
@@ -64,5 +63,24 @@ export var Siren;
     }
     Siren.create = create;
     Siren.Node = SirenNode;
+    Siren.Class = SirenNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["arm"] = "ARM";
+        Commands["disarm"] = "DISARM";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = Siren.Commands || (Siren.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["siren"] = "ST";
+        Drivers["mode"] = "MODE";
+        Drivers["armCountdown"] = "DELAY";
+        Drivers["sirenDuration"] = "DUR";
+        Drivers["responding"] = "ERR";
+    })(Drivers = Siren.Drivers || (Siren.Drivers = {}));
 })(Siren || (Siren = {}));
 //# sourceMappingURL=Siren.js.map

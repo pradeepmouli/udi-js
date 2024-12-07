@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "DimmerSwitchOnly";
 class DimmerSwitchNode extends Base {
     commands = {
         BL: this.backlight,
@@ -38,5 +37,15 @@ export var DimmerSwitch;
     }
     DimmerSwitch.create = create;
     DimmerSwitch.Node = DimmerSwitchNode;
+    DimmerSwitch.Class = DimmerSwitchNode;
+    let Commands;
+    (function (Commands) {
+        Commands["backlight"] = "BL";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = DimmerSwitch.Commands || (DimmerSwitch.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["responding"] = "ERR";
+    })(Drivers = DimmerSwitch.Drivers || (DimmerSwitch.Drivers = {}));
 })(DimmerSwitch || (DimmerSwitch = {}));
 //# sourceMappingURL=DimmerSwitch.js.map

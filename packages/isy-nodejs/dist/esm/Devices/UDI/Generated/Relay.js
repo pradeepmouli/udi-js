@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "EM3Relay";
 class RelayNode extends Base {
     commands = {
         DON: this.on,
@@ -43,5 +42,17 @@ export var Relay;
     }
     Relay.create = create;
     Relay.Node = RelayNode;
+    Relay.Class = RelayNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["query"] = "QUERY";
+    })(Commands = Relay.Commands || (Relay.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = Relay.Drivers || (Relay.Drivers = {}));
 })(Relay || (Relay = {}));
 //# sourceMappingURL=Relay.js.map

@@ -1,21 +1,16 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
-import { ZigBeeLegacy } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "RelayLoadControl";
-
-type Commands = Relay.Commands;
-type Drivers = Relay.Drivers;
+type Commands = Relay.Commands.Type;
+type Drivers = Relay.Drivers.Type;
 
 class RelayNode extends Base<Drivers, Commands> implements Relay.Interface {
 	public override readonly commands = {
@@ -62,36 +57,51 @@ export namespace Relay {
 		return new RelayNode(isy, nodeInfo);
 	}
 	export const Node = RelayNode;
-	export type Commands = {
-		DON: (() => Promise<boolean>) & {
-			label: "On";
-			name: "on";
+	export const Class = RelayNode;
+	export namespace Commands {
+		export type Type = {
+			DON: (() => Promise<boolean>) & {
+				label: "On";
+				name: "on";
+			};
+			DOF: (() => Promise<boolean>) & {
+				label: "Off";
+				name: "off";
+			};
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
+			ADRPST: ((value: ) => Promise<boolean>) & {
+				label: "ADR";
+				name: "adr";
+			};
 		};
-		DOF: (() => Promise<boolean>) & {
-			label: "Off";
-			name: "off";
+	}
+	export enum Commands {
+		on = 'DON',
+		off = 'DOF',
+		query = 'QUERY',
+		adr = 'ADRPST'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: ;
+				value: ;
+				label: "Status";
+				name: "status";
+			};
+			ERR: {
+				uom: ;
+				value: ;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
-		};
-		ADRPST: ((value: ) => Promise<boolean>) & {
-			label: "ADR";
-			name: "adr";
-		};
-	};
-	export type Drivers = {
-		ST: {
-			uom: ;
-			value: ;
-			label: "Status";
-			name: "status";
-		};
-		ERR: {
-			uom: ;
-			value: ;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST',
+		responding = 'ERR'
+	}
 }

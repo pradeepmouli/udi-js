@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { UDI } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "EM3MainChannel";
-
-type Commands = Em3MainChannel.Commands;
-type Drivers = Em3MainChannel.Drivers;
+type Commands = Em3MainChannel.Commands.Type;
+type Drivers = Em3MainChannel.Drivers.Type;
 
 class Em3MainChannelNode extends Base<Drivers, Commands> implements Em3MainChannel.Interface {
 	public override readonly commands = {};
@@ -66,43 +62,58 @@ export namespace Em3MainChannel {
 		return new Em3MainChannelNode(isy, nodeInfo);
 	}
 	export const Node = Em3MainChannelNode;
-	export type Commands = {};
-	export type Drivers = {
-		ST: {
-			uom: UnitOfMeasure.Watt;
-			value: number;
-			label: "Status";
-			name: "status";
+	export const Class = Em3MainChannelNode;
+	export namespace Commands {
+		export type Type = {};
+	}
+	export enum Commands {
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: UnitOfMeasure.Watt;
+				value: number;
+				label: "Status";
+				name: "status";
+			};
+			TPW: {
+				uom: UnitOfMeasure.KilowattsPerHour;
+				value: number;
+				label: "Total Energy";
+				name: "totalEnergy";
+			};
+			CV: {
+				uom: UnitOfMeasure.Volt;
+				value: number;
+				label: "Current Voltage";
+				name: "currentVoltage";
+			};
+			CC: {
+				uom: UnitOfMeasure.Ampere;
+				value: number;
+				label: "Current Current";
+				name: "currentCurrent";
+			};
+			PF: {
+				uom: UnitOfMeasure.PowerFactor;
+				value: number;
+				label: "Power Factor";
+				name: "powerFactor";
+			};
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: UDI.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		TPW: {
-			uom: UnitOfMeasure.KilowattsPerHour;
-			value: number;
-			label: "Total Energy";
-			name: "totalEnergy";
-		};
-		CV: {
-			uom: UnitOfMeasure.Volt;
-			value: number;
-			label: "Current Voltage";
-			name: "currentVoltage";
-		};
-		CC: {
-			uom: UnitOfMeasure.Ampere;
-			value: number;
-			label: "Current Current";
-			name: "currentCurrent";
-		};
-		PF: {
-			uom: UnitOfMeasure.PowerFactor;
-			value: number;
-			label: "Power Factor";
-			name: "powerFactor";
-		};
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: UDI.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST',
+		totalEnergy = 'TPW',
+		currentVoltage = 'CV',
+		currentCurrent = 'CC',
+		powerFactor = 'PF',
+		responding = 'ERR'
+	}
 }

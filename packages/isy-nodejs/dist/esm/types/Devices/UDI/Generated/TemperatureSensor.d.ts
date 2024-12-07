@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { UDI } from "../../../Definitions/index.js";
-type Commands = TemperatureSensor.Commands;
-type Drivers = TemperatureSensor.Drivers;
+type Commands = TemperatureSensor.Commands.Type;
+type Drivers = TemperatureSensor.Drivers.Type;
 declare class TemperatureSensorNode extends Base<Drivers, Commands> implements TemperatureSensor.Interface {
     readonly commands: {};
     static nodeDefId: string;
@@ -23,21 +23,32 @@ export declare namespace TemperatureSensor {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is TemperatureSensorNode;
     function create(isy: ISY, nodeInfo: NodeInfo): TemperatureSensorNode;
     const Node: typeof TemperatureSensorNode;
-    type Commands = {};
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Degree;
-            value: number;
-            label: "Temperature";
-            name: "temperature";
+    const Class: typeof TemperatureSensorNode;
+    namespace Commands {
+        type Type = {};
+    }
+    enum Commands {
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Degree;
+                value: number;
+                label: "Temperature";
+                name: "temperature";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: UDI.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: UDI.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        temperature = "ST",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=TemperatureSensor.d.ts.map

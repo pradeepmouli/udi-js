@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "DoorLock";
 class DoorLockNode extends Base {
     commands = {
         DON: this.lock,
@@ -43,5 +42,17 @@ export var DoorLock;
     }
     DoorLock.create = create;
     DoorLock.Node = DoorLockNode;
+    DoorLock.Class = DoorLockNode;
+    let Commands;
+    (function (Commands) {
+        Commands["lock"] = "DON";
+        Commands["unlock"] = "DOF";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = DoorLock.Commands || (DoorLock.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = DoorLock.Drivers || (DoorLock.Drivers = {}));
 })(DoorLock || (DoorLock = {}));
 //# sourceMappingURL=DoorLock.js.map

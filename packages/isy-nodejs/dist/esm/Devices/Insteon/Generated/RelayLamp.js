@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "RelayLampOnly";
 class RelayLampNode extends Base {
     commands = {
         DON: this.on,
@@ -52,5 +51,21 @@ export var RelayLamp;
     }
     RelayLamp.create = create;
     RelayLamp.Node = RelayLampNode;
+    RelayLamp.Class = RelayLampNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["fastOff"] = "DFOF";
+        Commands["fastOn"] = "DFON";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = RelayLamp.Commands || (RelayLamp.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = RelayLamp.Drivers || (RelayLamp.Drivers = {}));
 })(RelayLamp || (RelayLamp = {}));
 //# sourceMappingURL=RelayLamp.js.map

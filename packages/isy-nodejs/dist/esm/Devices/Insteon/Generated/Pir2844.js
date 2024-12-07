@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "PIR2844";
 class Pir2844Node extends Base {
     commands = {
         CLITEMP: this.calibrateTemperature,
@@ -62,5 +61,22 @@ export var Pir2844;
     }
     Pir2844.create = create;
     Pir2844.Node = Pir2844Node;
+    Pir2844.Class = Pir2844Node;
+    let Commands;
+    (function (Commands) {
+        Commands["calibrateTemperature"] = "CLITEMP";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = Pir2844.Commands || (Pir2844.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["temperature"] = "CLITEMP";
+        Drivers["luminance"] = "LUMIN";
+        Drivers["batteryLevel"] = "BATLVL";
+        Drivers["batteryPowered"] = "GV1";
+        Drivers["responding"] = "ERR";
+    })(Drivers = Pir2844.Drivers || (Pir2844.Drivers = {}));
 })(Pir2844 || (Pir2844 = {}));
 //# sourceMappingURL=Pir2844.js.map

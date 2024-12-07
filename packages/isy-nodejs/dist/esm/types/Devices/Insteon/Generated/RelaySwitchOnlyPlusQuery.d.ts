@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
-type Commands = RelaySwitchOnlyPlusQuery.Commands;
-type Drivers = RelaySwitchOnlyPlusQuery.Drivers;
+type Commands = RelaySwitchOnlyPlusQuery.Commands.Type;
+type Drivers = RelaySwitchOnlyPlusQuery.Drivers.Type;
 declare class RelaySwitchOnlyPlusQueryNode extends Base<Drivers, Commands> implements RelaySwitchOnlyPlusQuery.Interface {
     readonly commands: {
         QUERY: () => Promise<any>;
@@ -31,32 +31,46 @@ export declare namespace RelaySwitchOnlyPlusQuery {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelaySwitchOnlyPlusQueryNode;
     function create(isy: ISY, nodeInfo: NodeInfo): RelaySwitchOnlyPlusQueryNode;
     const Node: typeof RelaySwitchOnlyPlusQueryNode;
-    type Commands = {
-        QUERY: (() => Promise<boolean>) & {
-            label: "Query";
-            name: "query";
+    const Class: typeof RelaySwitchOnlyPlusQueryNode;
+    namespace Commands {
+        type Type = {
+            QUERY: (() => Promise<boolean>) & {
+                label: "Query";
+                name: "query";
+            };
+            BEEP: ((value?: number) => Promise<boolean>) & {
+                label: "Beep";
+                name: "beep";
+            };
+            BL: ((value: number) => Promise<boolean>) & {
+                label: "Backlight";
+                name: "backlight";
+            };
+            WDU: (() => Promise<boolean>) & {
+                label: "Write Changes";
+                name: "writeChanges";
+            };
         };
-        BEEP: ((value?: number) => Promise<boolean>) & {
-            label: "Beep";
-            name: "beep";
+    }
+    enum Commands {
+        query = "QUERY",
+        beep = "BEEP",
+        backlight = "BL",
+        writeChanges = "WDU"
+    }
+    namespace Drivers {
+        type Type = {
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Insteon.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        BL: ((value: number) => Promise<boolean>) & {
-            label: "Backlight";
-            name: "backlight";
-        };
-        WDU: (() => Promise<boolean>) & {
-            label: "Write Changes";
-            name: "writeChanges";
-        };
-    };
-    type Drivers = {
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=RelaySwitchOnlyPlusQuery.d.ts.map

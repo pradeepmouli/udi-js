@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { ZWave } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "186";
-
-type Commands = ColorSwitch.Commands;
-type Drivers = ColorSwitch.Drivers;
+type Commands = ColorSwitch.Commands.Type;
+type Drivers = ColorSwitch.Drivers.Type;
 
 class ColorSwitchNode extends Base<Drivers, Commands> implements ColorSwitch.Interface {
 	public override readonly commands = {
@@ -73,58 +69,77 @@ export namespace ColorSwitch {
 		return new ColorSwitchNode(isy, nodeInfo);
 	}
 	export const Node = ColorSwitchNode;
-	export type Commands = {
-		DON: ((GV0?: number, GV2?: number, GV3?: number, GV4?: number, RR?: number, GV1?: number) => Promise<boolean>) & {
-			label: "Set";
-			name: "set";
+	export const Class = ColorSwitchNode;
+	export namespace Commands {
+		export type Type = {
+			DON: ((GV0?: number, GV2?: number, GV3?: number, GV4?: number, RR?: number, GV1?: number) => Promise<boolean>) & {
+				label: "Set";
+				name: "set";
+			};
+			FDUP: ((ID: ZWave.ColorComponent, STARTLEVEL?: number, RR?: number) => Promise<boolean>) & {
+				label: "Fade Up";
+				name: "fadeUp";
+			};
+			FDDOWN: ((ID: ZWave.ColorComponent, STARTLEVEL?: number, RR?: number) => Promise<boolean>) & {
+				label: "Fade Down";
+				name: "fadeDown";
+			};
+			FDSTOP: ((ID: ZWave.ColorComponent) => Promise<boolean>) & {
+				label: "Fade Stop";
+				name: "fadeStop";
+			};
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
 		};
-		FDUP: ((ID: ZWave.ColorComponent, STARTLEVEL?: number, RR?: number) => Promise<boolean>) & {
-			label: "Fade Up";
-			name: "fadeUp";
+	}
+	export enum Commands {
+		set = 'DON',
+		fadeUp = 'FDUP',
+		fadeDown = 'FDDOWN',
+		fadeStop = 'FDSTOP',
+		query = 'QUERY'
+	}
+	export namespace Drivers {
+		export type Type = {
+			GV0: {
+				uom: UnitOfMeasure.Raw1ByteUnsignedValue;
+				value: number;
+				label: "Warm White";
+				name: "warmWhite";
+			};
+			GV2: {
+				uom: UnitOfMeasure.Raw1ByteUnsignedValue;
+				value: number;
+				label: "Red";
+				name: "red";
+			};
+			GV3: {
+				uom: UnitOfMeasure.Raw1ByteUnsignedValue;
+				value: number;
+				label: "Green";
+				name: "green";
+			};
+			GV4: {
+				uom: UnitOfMeasure.Raw1ByteUnsignedValue;
+				value: number;
+				label: "Blue";
+				name: "blue";
+			};
+			GV1: {
+				uom: UnitOfMeasure.Raw1ByteUnsignedValue;
+				value: number;
+				label: "Cold White";
+				name: "coldWhite";
+			};
 		};
-		FDDOWN: ((ID: ZWave.ColorComponent, STARTLEVEL?: number, RR?: number) => Promise<boolean>) & {
-			label: "Fade Down";
-			name: "fadeDown";
-		};
-		FDSTOP: ((ID: ZWave.ColorComponent) => Promise<boolean>) & {
-			label: "Fade Stop";
-			name: "fadeStop";
-		};
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
-		};
-	};
-	export type Drivers = {
-		GV0: {
-			uom: UnitOfMeasure.Raw1ByteUnsignedValue;
-			value: number;
-			label: "Warm White";
-			name: "warmWhite";
-		};
-		GV2: {
-			uom: UnitOfMeasure.Raw1ByteUnsignedValue;
-			value: number;
-			label: "Red";
-			name: "red";
-		};
-		GV3: {
-			uom: UnitOfMeasure.Raw1ByteUnsignedValue;
-			value: number;
-			label: "Green";
-			name: "green";
-		};
-		GV4: {
-			uom: UnitOfMeasure.Raw1ByteUnsignedValue;
-			value: number;
-			label: "Blue";
-			name: "blue";
-		};
-		GV1: {
-			uom: UnitOfMeasure.Raw1ByteUnsignedValue;
-			value: number;
-			label: "Cold White";
-			name: "coldWhite";
-		};
-	};
+	}
+	export enum Drivers {
+		warmWhite = 'GV0',
+		red = 'GV2',
+		green = 'GV3',
+		blue = 'GV4',
+		coldWhite = 'GV1'
+	}
 }

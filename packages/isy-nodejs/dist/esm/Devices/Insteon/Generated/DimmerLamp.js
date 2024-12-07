@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "DimmerLampOnly";
 class DimmerLampNode extends Base {
     commands = {
         DON: this.on,
@@ -73,5 +72,30 @@ export var DimmerLamp;
     }
     DimmerLamp.create = create;
     DimmerLamp.Node = DimmerLampNode;
+    DimmerLamp.Class = DimmerLampNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["fastOff"] = "DFOF";
+        Commands["fastOn"] = "DFON";
+        Commands["brighten"] = "BRT";
+        Commands["dim"] = "DIM";
+        Commands["fadeUp"] = "FDUP";
+        Commands["fadeDown"] = "FDDOWN";
+        Commands["fadeStop"] = "FDSTOP";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["updateOnLevel"] = "OL";
+        Commands["updateRampRate"] = "RR";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = DimmerLamp.Commands || (DimmerLamp.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["onLevel"] = "OL";
+        Drivers["rampRate"] = "RR";
+        Drivers["responding"] = "ERR";
+    })(Drivers = DimmerLamp.Drivers || (DimmerLamp.Drivers = {}));
 })(DimmerLamp || (DimmerLamp = {}));
 //# sourceMappingURL=DimmerLamp.js.map

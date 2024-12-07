@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Brultech } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "BTMain";
-
-type Commands = Main.Commands;
-type Drivers = Main.Drivers;
+type Commands = Main.Commands.Type;
+type Drivers = Main.Drivers.Type;
 
 class MainNode extends Base<Drivers, Commands> implements Main.Interface {
 	public override readonly commands = {
@@ -69,48 +65,64 @@ export namespace Main {
 		return new MainNode(isy, nodeInfo);
 	}
 	export const Node = MainNode;
-	export type Commands = {
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
+	export const Class = MainNode;
+	export namespace Commands {
+		export type Type = {
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
 		};
-	};
-	export type Drivers = {
-		ST: {
-			uom: UnitOfMeasure.Watt;
-			value: number;
-			label: "Status";
-			name: "status";
+	}
+	export enum Commands {
+		query = 'QUERY'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: UnitOfMeasure.Watt;
+				value: number;
+				label: "Status";
+				name: "status";
+			};
+			TPW: {
+				uom: UnitOfMeasure.KilowattsPerHour;
+				value: number;
+				label: "Total Energy";
+				name: "totalEnergy";
+			};
+			CV: {
+				uom: UnitOfMeasure.Volt;
+				value: number;
+				label: "Current Voltage";
+				name: "currentVoltage";
+			};
+			CC: {
+				uom: UnitOfMeasure.Ampere;
+				value: number;
+				label: "Current Current";
+				name: "currentCurrent";
+			};
+			PPW: {
+				uom: UnitOfMeasure.Watt;
+				value: number;
+				label: "Polarized Power";
+				name: "polarizedPower";
+			};
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Brultech.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		TPW: {
-			uom: UnitOfMeasure.KilowattsPerHour;
-			value: number;
-			label: "Total Energy";
-			name: "totalEnergy";
-		};
-		CV: {
-			uom: UnitOfMeasure.Volt;
-			value: number;
-			label: "Current Voltage";
-			name: "currentVoltage";
-		};
-		CC: {
-			uom: UnitOfMeasure.Ampere;
-			value: number;
-			label: "Current Current";
-			name: "currentCurrent";
-		};
-		PPW: {
-			uom: UnitOfMeasure.Watt;
-			value: number;
-			label: "Polarized Power";
-			name: "polarizedPower";
-		};
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Brultech.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST',
+		totalEnergy = 'TPW',
+		currentVoltage = 'CV',
+		currentCurrent = 'CC',
+		polarizedPower = 'PPW',
+		responding = 'ERR'
+	}
 }

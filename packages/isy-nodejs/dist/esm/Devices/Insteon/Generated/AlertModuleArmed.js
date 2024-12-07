@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "AlertModuleArmed";
 class AlertModuleArmedNode extends Base {
     commands = {
         DON: this.on,
@@ -47,5 +46,19 @@ export var AlertModuleArmed;
     }
     AlertModuleArmed.create = create;
     AlertModuleArmed.Node = AlertModuleArmedNode;
+    AlertModuleArmed.Class = AlertModuleArmedNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = AlertModuleArmed.Commands || (AlertModuleArmed.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = AlertModuleArmed.Drivers || (AlertModuleArmed.Drivers = {}));
 })(AlertModuleArmed || (AlertModuleArmed = {}));
 //# sourceMappingURL=AlertModuleArmed.js.map

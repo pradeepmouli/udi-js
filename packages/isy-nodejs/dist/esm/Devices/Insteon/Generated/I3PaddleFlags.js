@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "I3PaddleFlags";
 class I3PaddleFlagsNode extends Base {
     commands = {
         GV0: this.updateMode,
@@ -79,5 +78,29 @@ export var I3PaddleFlags;
     }
     I3PaddleFlags.create = create;
     I3PaddleFlags.Node = I3PaddleFlagsNode;
+    I3PaddleFlags.Class = I3PaddleFlagsNode;
+    let Commands;
+    (function (Commands) {
+        Commands["updateMode"] = "GV0";
+        Commands["updateProgramLock"] = "GV1";
+        Commands["updateResumeDim"] = "GV2";
+        Commands["updateKeyBeep"] = "GV4";
+        Commands["updateDisableRf"] = "GV5";
+        Commands["updateButtonLock"] = "GV6";
+        Commands["updateErrorBlink"] = "GV7";
+        Commands["query"] = "QUERY";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = I3PaddleFlags.Commands || (I3PaddleFlags.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["mode"] = "ST";
+        Drivers["programLock"] = "GV1";
+        Drivers["resumeDim"] = "GV2";
+        Drivers["keyBeep"] = "GV4";
+        Drivers["disableRf"] = "GV5";
+        Drivers["buttonLock"] = "GV6";
+        Drivers["errorBlink"] = "GV7";
+        Drivers["responding"] = "ERR";
+    })(Drivers = I3PaddleFlags.Drivers || (I3PaddleFlags.Drivers = {}));
 })(I3PaddleFlags || (I3PaddleFlags = {}));
 //# sourceMappingURL=I3PaddleFlags.js.map

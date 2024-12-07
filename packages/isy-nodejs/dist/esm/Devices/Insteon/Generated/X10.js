@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "X10";
 class X10Node extends Base {
     commands = {
         DON: this.on,
@@ -47,5 +46,19 @@ export var X10;
     }
     X10.create = create;
     X10.Node = X10Node;
+    X10.Class = X10Node;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["brighten"] = "BRT";
+        Commands["dim"] = "DIM";
+        Commands["query"] = "QUERY";
+    })(Commands = X10.Commands || (X10.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = X10.Drivers || (X10.Drivers = {}));
 })(X10 || (X10 = {}));
 //# sourceMappingURL=X10.js.map

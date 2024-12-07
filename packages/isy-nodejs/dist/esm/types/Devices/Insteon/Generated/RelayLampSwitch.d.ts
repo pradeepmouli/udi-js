@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
-type Commands = RelayLampSwitch.Commands;
-type Drivers = RelayLampSwitch.Drivers;
+type Commands = RelayLampSwitch.Commands.Type;
+type Drivers = RelayLampSwitch.Drivers.Type;
 declare class RelayLampSwitchNode extends Base<Drivers, Commands> implements RelayLampSwitch.Interface {
     readonly commands: {
         DON: (value?: (0 | 100)) => Promise<any>;
@@ -40,54 +40,73 @@ export declare namespace RelayLampSwitch {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayLampSwitchNode;
     function create(isy: ISY, nodeInfo: NodeInfo): RelayLampSwitchNode;
     const Node: typeof RelayLampSwitchNode;
-    type Commands = {
-        DON: ((value?: (0 | 100)) => Promise<boolean>) & {
-            label: "On";
-            name: "on";
+    const Class: typeof RelayLampSwitchNode;
+    namespace Commands {
+        type Type = {
+            DON: ((value?: (0 | 100)) => Promise<boolean>) & {
+                label: "On";
+                name: "on";
+            };
+            DOF: (() => Promise<boolean>) & {
+                label: "Off";
+                name: "off";
+            };
+            DFOF: (() => Promise<boolean>) & {
+                label: "Fast Off";
+                name: "fastOff";
+            };
+            DFON: (() => Promise<boolean>) & {
+                label: "Fast On";
+                name: "fastOn";
+            };
+            QUERY: (() => Promise<boolean>) & {
+                label: "Query";
+                name: "query";
+            };
+            BEEP: ((value?: number) => Promise<boolean>) & {
+                label: "Beep";
+                name: "beep";
+            };
+            BL: ((value: number) => Promise<boolean>) & {
+                label: "Backlight";
+                name: "backlight";
+            };
+            WDU: (() => Promise<boolean>) & {
+                label: "Write Changes";
+                name: "writeChanges";
+            };
         };
-        DOF: (() => Promise<boolean>) & {
-            label: "Off";
-            name: "off";
+    }
+    enum Commands {
+        on = "DON",
+        off = "DOF",
+        fastOff = "DFOF",
+        fastOn = "DFON",
+        query = "QUERY",
+        beep = "BEEP",
+        backlight = "BL",
+        writeChanges = "WDU"
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Percent;
+                value: Insteon.OnLevelRelay;
+                label: "Status";
+                name: "status";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Insteon.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        DFOF: (() => Promise<boolean>) & {
-            label: "Fast Off";
-            name: "fastOff";
-        };
-        DFON: (() => Promise<boolean>) & {
-            label: "Fast On";
-            name: "fastOn";
-        };
-        QUERY: (() => Promise<boolean>) & {
-            label: "Query";
-            name: "query";
-        };
-        BEEP: ((value?: number) => Promise<boolean>) & {
-            label: "Beep";
-            name: "beep";
-        };
-        BL: ((value: number) => Promise<boolean>) & {
-            label: "Backlight";
-            name: "backlight";
-        };
-        WDU: (() => Promise<boolean>) & {
-            label: "Write Changes";
-            name: "writeChanges";
-        };
-    };
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Percent;
-            value: Insteon.OnLevelRelay;
-            label: "Status";
-            name: "status";
-        };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        status = "ST",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=RelayLampSwitch.d.ts.map

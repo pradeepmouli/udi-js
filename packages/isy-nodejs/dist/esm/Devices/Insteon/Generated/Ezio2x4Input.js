@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "EZIO2x4_Input";
 class Ezio2x4InputNode extends Base {
     commands = {
         WDU: this.writeChanges
@@ -40,5 +39,15 @@ export var Ezio2x4Input;
     }
     Ezio2x4Input.create = create;
     Ezio2x4Input.Node = Ezio2x4InputNode;
+    Ezio2x4Input.Class = Ezio2x4InputNode;
+    let Commands;
+    (function (Commands) {
+        Commands["writeChanges"] = "WDU";
+    })(Commands = Ezio2x4Input.Commands || (Ezio2x4Input.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = Ezio2x4Input.Drivers || (Ezio2x4Input.Drivers = {}));
 })(Ezio2x4Input || (Ezio2x4Input = {}));
 //# sourceMappingURL=Ezio2x4Input.js.map

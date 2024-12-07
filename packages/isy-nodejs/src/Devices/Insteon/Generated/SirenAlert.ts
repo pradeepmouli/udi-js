@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "SirenAlert";
-
-type Commands = SirenAlert.Commands;
-type Drivers = SirenAlert.Drivers;
+type Commands = SirenAlert.Commands.Type;
+type Drivers = SirenAlert.Drivers.Type;
 
 class SirenAlertNode extends Base<Drivers, Commands> implements SirenAlert.Interface {
 	public override readonly commands = {};
@@ -47,13 +43,23 @@ export namespace SirenAlert {
 		return new SirenAlertNode(isy, nodeInfo);
 	}
 	export const Node = SirenAlertNode;
-	export type Commands = {};
-	export type Drivers = {
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.Error;
-			label: "Responding";
-			name: "responding";
+	export const Class = SirenAlertNode;
+	export namespace Commands {
+		export type Type = {};
+	}
+	export enum Commands {
+	}
+	export namespace Drivers {
+		export type Type = {
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-	};
+	}
+	export enum Drivers {
+		responding = 'ERR'
+	}
 }

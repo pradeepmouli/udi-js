@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "DimmerSwitchOnly";
-
-type Commands = DimmerSwitch.Commands;
-type Drivers = DimmerSwitch.Drivers;
+type Commands = DimmerSwitch.Commands.Type;
+type Drivers = DimmerSwitch.Drivers.Type;
 
 class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerSwitch.Interface {
 	public override readonly commands = {
@@ -52,22 +48,34 @@ export namespace DimmerSwitch {
 		return new DimmerSwitchNode(isy, nodeInfo);
 	}
 	export const Node = DimmerSwitchNode;
-	export type Commands = {
-		BL: ((value: number) => Promise<boolean>) & {
-			label: "Backlight";
-			name: "backlight";
+	export const Class = DimmerSwitchNode;
+	export namespace Commands {
+		export type Type = {
+			BL: ((value: number) => Promise<boolean>) & {
+				label: "Backlight";
+				name: "backlight";
+			};
+			WDU: (() => Promise<boolean>) & {
+				label: "Write Changes";
+				name: "writeChanges";
+			};
 		};
-		WDU: (() => Promise<boolean>) & {
-			label: "Write Changes";
-			name: "writeChanges";
+	}
+	export enum Commands {
+		backlight = 'BL',
+		writeChanges = 'WDU'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-	};
-	export type Drivers = {
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		responding = 'ERR'
+	}
 }

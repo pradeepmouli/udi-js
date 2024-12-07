@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
-type Commands = BinaryAlarm.Commands;
-type Drivers = BinaryAlarm.Drivers;
+type Commands = BinaryAlarm.Commands.Type;
+type Drivers = BinaryAlarm.Drivers.Type;
 declare class BinaryAlarmNode extends Base<Drivers, Commands> implements BinaryAlarm.Interface {
     readonly commands: {
         QUERY: () => Promise<any>;
@@ -30,34 +30,48 @@ export declare namespace BinaryAlarm {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is BinaryAlarmNode;
     function create(isy: ISY, nodeInfo: NodeInfo): BinaryAlarmNode;
     const Node: typeof BinaryAlarmNode;
-    type Commands = {
-        QUERY: (() => Promise<boolean>) & {
-            label: "Query";
-            name: "query";
+    const Class: typeof BinaryAlarmNode;
+    namespace Commands {
+        type Type = {
+            QUERY: (() => Promise<boolean>) & {
+                label: "Query";
+                name: "query";
+            };
+            BEEP: ((value?: number) => Promise<boolean>) & {
+                label: "Beep";
+                name: "beep";
+            };
+            WDU: (() => Promise<boolean>) & {
+                label: "Write Changes";
+                name: "writeChanges";
+            };
         };
-        BEEP: ((value?: number) => Promise<boolean>) & {
-            label: "Beep";
-            name: "beep";
+    }
+    enum Commands {
+        query = "QUERY",
+        beep = "BEEP",
+        writeChanges = "WDU"
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Percent;
+                value: Insteon.OnLevelRelay;
+                label: "Status";
+                name: "status";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Insteon.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        WDU: (() => Promise<boolean>) & {
-            label: "Write Changes";
-            name: "writeChanges";
-        };
-    };
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Percent;
-            value: Insteon.OnLevelRelay;
-            label: "Status";
-            name: "status";
-        };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        status = "ST",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=BinaryAlarm.d.ts.map

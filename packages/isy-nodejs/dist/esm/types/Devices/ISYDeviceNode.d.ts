@@ -27,7 +27,6 @@ export declare class ISYDeviceNode<T extends Family, D extends ISYNode.DriverSig
     modelNumber: string;
     version: string;
     constructor(isy: ISY, node: NodeInfo);
-    vendorName: string;
     manufacturer: string;
     productId: string | number;
     modelName: string;

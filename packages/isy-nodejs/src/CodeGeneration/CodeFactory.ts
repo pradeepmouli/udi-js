@@ -278,8 +278,17 @@ export class CodeFactory {
 		return ts.factory.createPropertyAssignment(this.createIdentifier(name)!, initializer);
 	}
 
-	createQualifiedName(left: ts.EntityName, right: string): ts.QualifiedName {
-		return ts.factory.createQualifiedName(left, this.createIdentifier(right)!);
+	createQualifiedName(...names: (ts.EntityName | string)[]): ts.EntityName {
+		let n = names.pop();
+		if (!n) throw new Error('No names provided');
+		let name = typeof n === 'string' ? this.createIdentifier(n) : n;
+		if(names.length === 0)
+		{
+			return name;
+		}
+		else {
+			return ts.factory.createQualifiedName(this.createQualifiedName(...names), name as ts.Identifier);
+		}
 	}
 
 	createLiteralTypeNode(literal: string | number): ts.LiteralTypeNode {
@@ -339,7 +348,7 @@ export class CodeFactory {
 
 	}
 
-	createModuleBlock(statements: ts.Statement[]): ts.ModuleBlock {
+	createModuleBlock(...statements: ts.Statement[]): ts.ModuleBlock {
 		return ts.factory.createModuleBlock(statements);
 	}
 

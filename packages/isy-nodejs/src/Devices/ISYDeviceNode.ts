@@ -11,7 +11,7 @@ import { ISYNode } from '../ISYNode.js';
 import type { ISYScene } from '../ISYScene.js';
 import type { DriverState } from '../Model/DriverState.js';
 import type { NodeInfo } from '../Model/NodeInfo.js';
-import type {StringKeys } from '../Utils.js';
+import type { StringKeys } from '../Utils.js';
 
 export class ISYDeviceNode<
 		T extends Family,
@@ -20,8 +20,7 @@ export class ISYDeviceNode<
 		E extends ISYNode.EventSignatures = { [x in keyof D]: Event.DriverToEvent<D[x]> & { driver: x } } & { [x in keyof C]: Event.CommandToEvent<C[x]> & { command: x } }
 	>
 	extends ISYNode<T, D, C, E>
-	implements ISYDeviceInfo,
-	ISYDevice<T, Driver.ForAll<D>, Command.ForAll<C>, any>
+	implements ISYDeviceInfo, ISYDevice<T, Driver.ForAll<D>, Command.ForAll<C>, any>
 {
 	public declare family: T;
 
@@ -29,8 +28,6 @@ export class ISYDeviceNode<
 	public readonly deviceClass: any;
 	public readonly category: Category;
 	public readonly subCategory: number;
-
-
 
 	//public readonly isDimmable: boolean;
 
@@ -85,7 +82,6 @@ export class ISYDeviceNode<
 		//   );
 		// }
 	}
-	vendorName: string;
 	manufacturer: string;
 	productId: string | number;
 	modelName: string;

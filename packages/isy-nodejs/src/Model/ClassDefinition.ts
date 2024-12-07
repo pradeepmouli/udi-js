@@ -218,7 +218,7 @@ export class NodeClassDefinition<T extends Family> {
 				let d = EditorDef.get(this.family, cmd.editorId);
 				if (d) cmd.applyEditorDef(d);
 			}
-			for (const p of Object.values(cmd.parameters ?? {})) {
+			for (const p of cmd.parameters) {
 				if (p.editorId) {
 					let d = EditorDef.get(this.family, p.editorId);
 					if (d) p.applyEditorDef(d);
@@ -277,12 +277,12 @@ export class NodeClassDefinition<T extends Family> {
 			className: this.name ?? this.label,
 			id: this.id,
 			nlsId: this.nlsId,
+			name: this.name,
+			label: this.label ?? this.id,
 			drivers: this.drivers,
 			commands: this.commands,
 			events: this.events,
 			family: this.family,
-			label: this.label ?? this.id,
-			name: this.name,
 			dynamic: this.family in [Family.ZWave, Family.ZigBee],
 			implements: this.implements.length > 0 ? this.implements : undefined,
 			equivalentTo: this.equivalentTo.length > 0 ? this.equivalentTo : undefined,
@@ -538,13 +538,13 @@ export abstract class NodeMemberDefinition<TId extends string> {
 
 	public toJSON() {
 		return {
+			id: this.id,
+			name: this.name,
 			label: this.label,
 			hidden: this.hidden,
 			optional: this.optional,
-			id: this.id,
 			editorId: this.editorId,
 			dataType: this.dataType,
-			name: this.name
 		};
 	}
 
@@ -618,14 +618,14 @@ export class DriverDefinition extends NodeMemberDefinition<Driver.Type> {
 
 	public override toJSON() {
 		return {
+			id: this.id,
+			name: this.name,
 			label: this.label,
 			hidden: this.hidden,
 			optional: this.optional,
 			readonly: this.readonly,
-			id: this.id,
 			editorId: this.editorId,
-			dataType: this.dataType,
-			name: this.name
+			dataType: this.dataType
 		};
 	}
 
@@ -636,7 +636,7 @@ export class CommandDefinition extends NodeMemberDefinition<string> {
 	// #region Properties (2)
 
 	public initialValue?: Driver.Type;
-	public parameters?: { [x: string]: ParameterDefinition };
+	public parameters?: ParameterDefinition[];
 
 	// #endregion Properties (2)
 
@@ -646,7 +646,7 @@ export class CommandDefinition extends NodeMemberDefinition<string> {
 		super(classDef);
 		this.id = def.id;
 		if (def.p) {
-			this.parameters = {};
+			this.parameters = [];
 
 			for (const p of toArray(def.p)) {
 				if (p.id === '') {
@@ -656,7 +656,7 @@ export class CommandDefinition extends NodeMemberDefinition<string> {
 					this.optional = p.optional === 'T';
 					p.id = 'value';
 				}
-				this.parameters[p.id] = new ParameterDefinition(p, classDef);
+				this.parameters.push(new ParameterDefinition(p, classDef));
 			}
 		}
 	}
@@ -678,15 +678,15 @@ export class CommandDefinition extends NodeMemberDefinition<string> {
 
 	public override applyEditorDef(e: EditorDef): void {
 		super.applyEditorDef(e);
-		for (const p in this.parameters) {
-			this.parameters[p].applyEditorDef(e);
+		for (const p of this.parameters) {
+			p.applyEditorDef(e);
 		}
 	}
 
 	public override applyIndexDef(e: { [x: string]: { [y: number]: string } }): void {
 		super.applyIndexDef(e);
-		for (const p in this.parameters) {
-			this.parameters[p].applyIndexDef(e);
+		for (const p of this.parameters) {
+			p.applyIndexDef(e);
 		}
 	}
 
@@ -703,12 +703,14 @@ export class CommandDefinition extends NodeMemberDefinition<string> {
 					this.label = this.selectValue(this.label, nls.value, nls.nlsId);
 				}
 			}
-			if (this.parameters && this.parameters[nls.control]) {
-				this.parameters[nls.control].applyNLSRecord(nls);
+			if (this.parameters && this.parameters.find(p => p.id == nls.control)) {
+				let p = this.parameters.find(p => p.id == nls.control);
+				p.applyNLSRecord(nls);
 			}
 		} else if (nls.type === NLSRecordType.CommandParameter || nls.type === NLSRecordType.CommandParameterNLS) {
-			if (this.parameters && this.parameters[nls.control]) {
-				this.parameters[nls.control].applyNLSRecord(nls);
+			if (this.parameters && this.parameters.find((p) => p.id == nls.control)) {
+				let p = this.parameters.find((p) => p.id == nls.control);
+				p.applyNLSRecord(nls);
 			}
 		}
 	}
@@ -728,12 +730,12 @@ export class CommandDefinition extends NodeMemberDefinition<string> {
 	//
 	public override toJSON() {
 		return {
+			id: this.id,
+			name: this.name,
 			label: this.label,
 			hidden: this.hidden,
-			id: this.id,
 			editorId: this.editorId,
 			dataType: this.dataType,
-			name: this.name,
 			optional: this.optional,
 			parameters: this.parameters,
 			initialValue: this.initialValue
@@ -773,12 +775,12 @@ export class ParameterDefinition extends NodeMemberDefinition<string> {
 
 	public override toJSON() {
 		return {
+			id: this.id,
+			name: this.name,
 			label: this.label,
 			hidden: this.hidden,
-			id: this.id,
 			editorId: this.editorId,
 			dataType: this.dataType,
-			name: this.name,
 			optional: this.optional,
 			initialValue: this.initialValue
 		};
@@ -877,7 +879,7 @@ export namespace NodeClassDefinition {
 				for (var command of Object.values(entry.commands)) {
 					command.classDef = entry;
 					if (command.parameters)
-						for (var param of Object.values(command.parameters)) {
+						for (var param of command.parameters) {
 							param.classDef = entry;
 						}
 				}

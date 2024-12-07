@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
-type Commands = RemoteLinc2.Commands;
-type Drivers = RemoteLinc2.Drivers;
+type Commands = RemoteLinc2.Commands.Type;
+type Drivers = RemoteLinc2.Drivers.Type;
 declare class RemoteLinc2Node extends Base<Drivers, Commands> implements RemoteLinc2.Interface {
     readonly commands: {
         WDU: () => Promise<any>;
@@ -26,26 +26,38 @@ export declare namespace RemoteLinc2 {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is RemoteLinc2Node;
     function create(isy: ISY, nodeInfo: NodeInfo): RemoteLinc2Node;
     const Node: typeof RemoteLinc2Node;
-    type Commands = {
-        WDU: (() => Promise<boolean>) & {
-            label: "Write Changes";
-            name: "writeChanges";
+    const Class: typeof RemoteLinc2Node;
+    namespace Commands {
+        type Type = {
+            WDU: (() => Promise<boolean>) & {
+                label: "Write Changes";
+                name: "writeChanges";
+            };
         };
-    };
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Percent;
-            value: number;
-            label: "Status";
-            name: "status";
+    }
+    enum Commands {
+        writeChanges = "WDU"
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Percent;
+                value: number;
+                label: "Status";
+                name: "status";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Insteon.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        status = "ST",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=RemoteLinc2.d.ts.map

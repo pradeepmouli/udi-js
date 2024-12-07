@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "119";
 class DimmerSwitchNode extends Base {
     commands = {
         DON: this.on,
@@ -63,5 +62,27 @@ export var DimmerSwitch;
     }
     DimmerSwitch.create = create;
     DimmerSwitch.Node = DimmerSwitchNode;
+    DimmerSwitch.Class = DimmerSwitchNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["fastOn"] = "DFON";
+        Commands["fastOff"] = "DFOF";
+        Commands["brighten"] = "BRT";
+        Commands["dim"] = "DIM";
+        Commands["fadeUp"] = "FDUP";
+        Commands["fadeDown"] = "FDDOWN";
+        Commands["fade"] = "FADE";
+        Commands["fadeStop"] = "FDSTOP";
+        Commands["query"] = "QUERY";
+        Commands["setConfiguration"] = "CONFIG";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = DimmerSwitch.Commands || (DimmerSwitch.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = DimmerSwitch.Drivers || (DimmerSwitch.Drivers = {}));
 })(DimmerSwitch || (DimmerSwitch = {}));
 //# sourceMappingURL=DimmerSwitch.js.map

@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "KeypadButton";
-
-type Commands = KeypadButton.Commands;
-type Drivers = KeypadButton.Drivers;
+type Commands = KeypadButton.Commands.Type;
+type Drivers = KeypadButton.Drivers.Type;
 
 class KeypadButtonNode extends Base<Drivers, Commands> implements KeypadButton.Interface {
 	public override readonly commands = {
@@ -58,32 +54,46 @@ export namespace KeypadButton {
 		return new KeypadButtonNode(isy, nodeInfo);
 	}
 	export const Node = KeypadButtonNode;
-	export type Commands = {
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
+	export const Class = KeypadButtonNode;
+	export namespace Commands {
+		export type Type = {
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
+			BL: ((value: Insteon.Backlight) => Promise<boolean>) & {
+				label: "Backlight";
+				name: "backlight";
+			};
+			WDU: (() => Promise<boolean>) & {
+				label: "Write Changes";
+				name: "writeChanges";
+			};
 		};
-		BL: ((value: Insteon.Backlight) => Promise<boolean>) & {
-			label: "Backlight";
-			name: "backlight";
+	}
+	export enum Commands {
+		query = 'QUERY',
+		backlight = 'BL',
+		writeChanges = 'WDU'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: UnitOfMeasure.Percent;
+				value: Insteon.OnLevelRelay;
+				label: "Status";
+				name: "status";
+			};
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		WDU: (() => Promise<boolean>) & {
-			label: "Write Changes";
-			name: "writeChanges";
-		};
-	};
-	export type Drivers = {
-		ST: {
-			uom: UnitOfMeasure.Percent;
-			value: Insteon.OnLevelRelay;
-			label: "Status";
-			name: "status";
-		};
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST',
+		responding = 'ERR'
+	}
 }

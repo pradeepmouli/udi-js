@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "RelaySwitchOnly";
-
-type Commands = RelaySwitch.Commands;
-type Drivers = RelaySwitch.Drivers;
+type Commands = RelaySwitch.Commands.Type;
+type Drivers = RelaySwitch.Drivers.Type;
 
 class RelaySwitchNode extends Base<Drivers, Commands> implements RelaySwitch.Interface {
 	public override readonly commands = {
@@ -54,26 +50,39 @@ export namespace RelaySwitch {
 		return new RelaySwitchNode(isy, nodeInfo);
 	}
 	export const Node = RelaySwitchNode;
-	export type Commands = {
-		BEEP: ((value?: number) => Promise<boolean>) & {
-			label: "Beep";
-			name: "beep";
+	export const Class = RelaySwitchNode;
+	export namespace Commands {
+		export type Type = {
+			BEEP: ((value?: number) => Promise<boolean>) & {
+				label: "Beep";
+				name: "beep";
+			};
+			BL: ((value: number) => Promise<boolean>) & {
+				label: "Backlight";
+				name: "backlight";
+			};
+			WDU: (() => Promise<boolean>) & {
+				label: "Write Changes";
+				name: "writeChanges";
+			};
 		};
-		BL: ((value: number) => Promise<boolean>) & {
-			label: "Backlight";
-			name: "backlight";
+	}
+	export enum Commands {
+		beep = 'BEEP',
+		backlight = 'BL',
+		writeChanges = 'WDU'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		WDU: (() => Promise<boolean>) & {
-			label: "Write Changes";
-			name: "writeChanges";
-		};
-	};
-	export type Drivers = {
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		responding = 'ERR'
+	}
 }

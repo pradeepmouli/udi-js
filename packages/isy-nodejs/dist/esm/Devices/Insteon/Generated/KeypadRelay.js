@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "KeypadRelay";
 class KeypadRelayNode extends Base {
     commands = {
         DON: this.on,
@@ -54,5 +53,22 @@ export var KeypadRelay;
     }
     KeypadRelay.create = create;
     KeypadRelay.Node = KeypadRelayNode;
+    KeypadRelay.Class = KeypadRelayNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["fastOff"] = "DFOF";
+        Commands["fastOn"] = "DFON";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["backlight"] = "BL";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = KeypadRelay.Commands || (KeypadRelay.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = KeypadRelay.Drivers || (KeypadRelay.Drivers = {}));
 })(KeypadRelay || (KeypadRelay = {}));
 //# sourceMappingURL=KeypadRelay.js.map

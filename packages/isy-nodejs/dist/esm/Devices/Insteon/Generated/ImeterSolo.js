@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "IMETER_SOLO";
 class ImeterSoloNode extends Base {
     commands = {
         RESET: this.resetTotalEnergy,
@@ -47,5 +46,18 @@ export var ImeterSolo;
     }
     ImeterSolo.create = create;
     ImeterSolo.Node = ImeterSoloNode;
+    ImeterSolo.Class = ImeterSoloNode;
+    let Commands;
+    (function (Commands) {
+        Commands["resetTotalEnergy"] = "RESET";
+        Commands["query"] = "QUERY";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = ImeterSolo.Commands || (ImeterSolo.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["currentPower"] = "ST";
+        Drivers["totalEnergy"] = "TPW";
+        Drivers["responding"] = "ERR";
+    })(Drivers = ImeterSolo.Drivers || (ImeterSolo.Drivers = {}));
 })(ImeterSolo || (ImeterSolo = {}));
 //# sourceMappingURL=ImeterSolo.js.map

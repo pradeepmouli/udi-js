@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "EZIO2x4_Output";
 class Ezio2x4OutputNode extends Base {
     commands = {
         DON: this.on,
@@ -45,5 +44,18 @@ export var Ezio2x4Output;
     }
     Ezio2x4Output.create = create;
     Ezio2x4Output.Node = Ezio2x4OutputNode;
+    Ezio2x4Output.Class = Ezio2x4OutputNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["query"] = "QUERY";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = Ezio2x4Output.Commands || (Ezio2x4Output.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = Ezio2x4Output.Drivers || (Ezio2x4Output.Drivers = {}));
 })(Ezio2x4Output || (Ezio2x4Output = {}));
 //# sourceMappingURL=Ezio2x4Output.js.map

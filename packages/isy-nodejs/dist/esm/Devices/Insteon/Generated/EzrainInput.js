@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "EZRAIN_Input";
 class EzrainInputNode extends Base {
     commands = {
         WDU: this.writeChanges
@@ -40,5 +39,15 @@ export var EzrainInput;
     }
     EzrainInput.create = create;
     EzrainInput.Node = EzrainInputNode;
+    EzrainInput.Class = EzrainInputNode;
+    let Commands;
+    (function (Commands) {
+        Commands["writeChanges"] = "WDU";
+    })(Commands = EzrainInput.Commands || (EzrainInput.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = EzrainInput.Drivers || (EzrainInput.Drivers = {}));
 })(EzrainInput || (EzrainInput = {}));
 //# sourceMappingURL=EzrainInput.js.map

@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "PIR2844";
-
-type Commands = Pir2844.Commands;
-type Drivers = Pir2844.Drivers;
+type Commands = Pir2844.Commands.Type;
+type Drivers = Pir2844.Drivers.Type;
 
 class Pir2844Node extends Base<Drivers, Commands> implements Pir2844.Interface {
 	public override readonly commands = {
@@ -76,60 +72,79 @@ export namespace Pir2844 {
 		return new Pir2844Node(isy, nodeInfo);
 	}
 	export const Node = Pir2844Node;
-	export type Commands = {
-		CLITEMP: ((value: number) => Promise<boolean>) & {
-			label: "Calibrate Temperature";
-			name: "calibrateTemperature";
+	export const Class = Pir2844Node;
+	export namespace Commands {
+		export type Type = {
+			CLITEMP: ((value: number) => Promise<boolean>) & {
+				label: "Calibrate Temperature";
+				name: "calibrateTemperature";
+			};
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
+			BEEP: ((value?: number) => Promise<boolean>) & {
+				label: "Beep";
+				name: "beep";
+			};
+			WDU: (() => Promise<boolean>) & {
+				label: "Write Changes";
+				name: "writeChanges";
+			};
 		};
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
+	}
+	export enum Commands {
+		calibrateTemperature = 'CLITEMP',
+		query = 'QUERY',
+		beep = 'BEEP',
+		writeChanges = 'WDU'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: UnitOfMeasure.Percent;
+				value: Insteon.OnLevelRelay;
+				label: "Status";
+				name: "status";
+			};
+			CLITEMP: {
+				uom: UnitOfMeasure.Fahrenheit;
+				value: number;
+				label: "Temperature";
+				name: "temperature";
+			};
+			LUMIN: {
+				uom: UnitOfMeasure.Percent;
+				value: number;
+				label: "Luminance";
+				name: "luminance";
+			};
+			BATLVL: {
+				uom: UnitOfMeasure.Percent;
+				value: number;
+				label: "Battery Level";
+				name: "batteryLevel";
+			};
+			GV1: {
+				uom: UnitOfMeasure.Boolean;
+				value: Insteon.Boolean;
+				label: "Battery Powered";
+				name: "batteryPowered";
+			};
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		BEEP: ((value?: number) => Promise<boolean>) & {
-			label: "Beep";
-			name: "beep";
-		};
-		WDU: (() => Promise<boolean>) & {
-			label: "Write Changes";
-			name: "writeChanges";
-		};
-	};
-	export type Drivers = {
-		ST: {
-			uom: UnitOfMeasure.Percent;
-			value: Insteon.OnLevelRelay;
-			label: "Status";
-			name: "status";
-		};
-		CLITEMP: {
-			uom: UnitOfMeasure.Fahrenheit;
-			value: number;
-			label: "Temperature";
-			name: "temperature";
-		};
-		LUMIN: {
-			uom: UnitOfMeasure.Percent;
-			value: number;
-			label: "Luminance";
-			name: "luminance";
-		};
-		BATLVL: {
-			uom: UnitOfMeasure.Percent;
-			value: number;
-			label: "Battery Level";
-			name: "batteryLevel";
-		};
-		GV1: {
-			uom: UnitOfMeasure.Boolean;
-			value: Insteon.Boolean;
-			label: "Battery Powered";
-			name: "batteryPowered";
-		};
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST',
+		temperature = 'CLITEMP',
+		luminance = 'LUMIN',
+		batteryLevel = 'BATLVL',
+		batteryPowered = 'GV1',
+		responding = 'ERR'
+	}
 }

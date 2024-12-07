@@ -1,21 +1,15 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
-import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Scene } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "InsteonDimmer";
-
-type Commands = Scene.Commands;
-type Drivers = Scene.Drivers;
+type Commands = Scene.Commands.Type;
+type Drivers = Scene.Drivers.Type;
 
 class SceneNode extends Base<Drivers, Commands> implements Scene.Interface {
 	public override readonly commands = {
@@ -77,75 +71,101 @@ export namespace Scene {
 		return new SceneNode(isy, nodeInfo);
 	}
 	export const Node = SceneNode;
-	export type Commands = {
-		DON: ((value?: number) => Promise<boolean>) & {
-			label: "On";
-			name: "on";
+	export const Class = SceneNode;
+	export namespace Commands {
+		export type Type = {
+			DON: ((value?: number) => Promise<boolean>) & {
+				label: "On";
+				name: "on";
+			};
+			DOF: (() => Promise<boolean>) & {
+				label: "Off";
+				name: "off";
+			};
+			DFOF: (() => Promise<boolean>) & {
+				label: "Fast Off";
+				name: "fastOff";
+			};
+			DFON: (() => Promise<boolean>) & {
+				label: "Fast On";
+				name: "fastOn";
+			};
+			BRT: (() => Promise<boolean>) & {
+				label: "Brighten";
+				name: "brighten";
+			};
+			DIM: (() => Promise<boolean>) & {
+				label: "Dim";
+				name: "dim";
+			};
+			FDUP: (() => Promise<boolean>) & {
+				label: "Fade Up";
+				name: "fadeUp";
+			};
+			FDDOWN: (() => Promise<boolean>) & {
+				label: "Fade Down";
+				name: "fadeDown";
+			};
+			FDSTOP: (() => Promise<boolean>) & {
+				label: "Fade Stop";
+				name: "fadeStop";
+			};
+			BEEP: (() => Promise<boolean>) & {
+				label: "Beep";
+				name: "beep";
+			};
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
+			CLIMD: ((value: number) => Promise<boolean>) & {
+				label: "Mode";
+				name: "mode";
+			};
+			CLIFS: ((value: (0 | 1)) => Promise<boolean>) & {
+				label: "Fan Mode";
+				name: "fanMode";
+			};
+			CLISPH: ((value: number) => Promise<boolean>) & {
+				label: "Heat Setpoint";
+				name: "heatSetpoint";
+			};
+			CLISPC: ((value: number) => Promise<boolean>) & {
+				label: "Cool Setpoint";
+				name: "coolSetpoint";
+			};
+			CLISPHD: ((value: number) => Promise<boolean>) & {
+				label: "Heat Setpoint Shift";
+				name: "heatSetpointShift";
+			};
+			CLISPCD: ((value: number) => Promise<boolean>) & {
+				label: "Cool Setpoint Shift";
+				name: "coolSetpointShift";
+			};
 		};
-		DOF: (() => Promise<boolean>) & {
-			label: "Off";
-			name: "off";
-		};
-		DFOF: (() => Promise<boolean>) & {
-			label: "Fast Off";
-			name: "fastOff";
-		};
-		DFON: (() => Promise<boolean>) & {
-			label: "Fast On";
-			name: "fastOn";
-		};
-		BRT: (() => Promise<boolean>) & {
-			label: "Brighten";
-			name: "brighten";
-		};
-		DIM: (() => Promise<boolean>) & {
-			label: "Dim";
-			name: "dim";
-		};
-		FDUP: (() => Promise<boolean>) & {
-			label: "Fade Up";
-			name: "fadeUp";
-		};
-		FDDOWN: (() => Promise<boolean>) & {
-			label: "Fade Down";
-			name: "fadeDown";
-		};
-		FDSTOP: (() => Promise<boolean>) & {
-			label: "Fade Stop";
-			name: "fadeStop";
-		};
-		BEEP: (() => Promise<boolean>) & {
-			label: "Beep";
-			name: "beep";
-		};
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
-		};
-		CLIMD: ((value: number) => Promise<boolean>) & {
-			label: "Mode";
-			name: "mode";
-		};
-		CLIFS: ((value: (0 | 1)) => Promise<boolean>) & {
-			label: "Fan Mode";
-			name: "fanMode";
-		};
-		CLISPH: ((value: number) => Promise<boolean>) & {
-			label: "Heat Setpoint";
-			name: "heatSetpoint";
-		};
-		CLISPC: ((value: number) => Promise<boolean>) & {
-			label: "Cool Setpoint";
-			name: "coolSetpoint";
-		};
-		CLISPHD: ((value: number) => Promise<boolean>) & {
-			label: "Heat Setpoint Shift";
-			name: "heatSetpointShift";
-		};
-		CLISPCD: ((value: number) => Promise<boolean>) & {
-			label: "Cool Setpoint Shift";
-			name: "coolSetpointShift";
-		};
-	};
-	export type Drivers = {};
+	}
+	export enum Commands {
+		on = 'DON',
+		off = 'DOF',
+		fastOff = 'DFOF',
+		fastOn = 'DFON',
+		brighten = 'BRT',
+		dim = 'DIM',
+		fadeUp = 'FDUP',
+		fadeDown = 'FDDOWN',
+		fadeStop = 'FDSTOP',
+		beep = 'BEEP',
+		query = 'QUERY',
+		mode = 'CLIMD',
+		fanMode = 'CLIFS',
+		heatSetpoint = 'CLISPH',
+		coolSetpoint = 'CLISPC',
+		heatSetpointShift = 'CLISPHD',
+		coolSetpointShift = 'CLISPCD'
+	}
+	export namespace Drivers {
+		export type Type = {};
+	}
+	export enum Drivers {
+	}
 }

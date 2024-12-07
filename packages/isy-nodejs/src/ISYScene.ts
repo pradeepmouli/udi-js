@@ -1,11 +1,11 @@
 import type { Command } from './Definitions/Global/Commands.js';
 import type { Driver } from './Definitions/Global/Drivers.js';
 import { Family } from './Definitions/Global/Families.js';
-import {Insteon} from './Devices/index.js';
+import { Insteon } from './Devices/index.js';
 import type { ISY } from './ISY.js';
-import {  LinkType } from './ISYConstants.js';
 import { ISYDevice } from './ISYDevice.js';
 import { ISYNode } from './ISYNode.js';
+import { LinkType } from './LinkType.js';
 import type { NodeInfo, StaticNodeInfo } from './Model/NodeInfo.js';
 
 interface SceneInfo extends StaticNodeInfo {
@@ -27,7 +27,7 @@ export class ISYScene extends ISYNode<Family.Scene, Driver.Signatures<'ST'>, Com
 	public batteryOperated: boolean;
 	public deviceType: any;
 	public deviceFriendlyName: string;
-	public members: ISYNode<any, any, any,any>[];
+	public members: ISYNode<any, any, any, any>[];
 	public typeCode: string;
 	constructor(isy: ISY, scene: SceneInfo) {
 		super(isy, scene as NodeInfo);

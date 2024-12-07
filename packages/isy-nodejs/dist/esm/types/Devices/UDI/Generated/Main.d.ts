@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { UDI } from "../../../Definitions/index.js";
-type Commands = Main.Commands;
-type Drivers = Main.Drivers;
+type Commands = Main.Commands.Type;
+type Drivers = Main.Drivers.Type;
 declare class MainNode extends Base<Drivers, Commands> implements Main.Interface {
     readonly commands: {
         QUERY: () => Promise<any>;
@@ -27,32 +27,45 @@ export declare namespace Main {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is MainNode;
     function create(isy: ISY, nodeInfo: NodeInfo): MainNode;
     const Node: typeof MainNode;
-    type Commands = {
-        QUERY: (() => Promise<boolean>) & {
-            label: "Query";
-            name: "query";
+    const Class: typeof MainNode;
+    namespace Commands {
+        type Type = {
+            QUERY: (() => Promise<boolean>) & {
+                label: "Query";
+                name: "query";
+            };
         };
-    };
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Watt;
-            value: number;
-            label: "Status";
-            name: "status";
+    }
+    enum Commands {
+        query = "QUERY"
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Watt;
+                value: number;
+                label: "Status";
+                name: "status";
+            };
+            TPW: {
+                uom: UnitOfMeasure.KilowattsPerHour;
+                value: number;
+                label: "Total Energy";
+                name: "totalEnergy";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: UDI.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        TPW: {
-            uom: UnitOfMeasure.KilowattsPerHour;
-            value: number;
-            label: "Total Energy";
-            name: "totalEnergy";
-        };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: UDI.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        status = "ST",
+        totalEnergy = "TPW",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=Main.d.ts.map

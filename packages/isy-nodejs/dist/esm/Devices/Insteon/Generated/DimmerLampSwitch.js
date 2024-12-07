@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "DimmerLampSwitch";
 class DimmerLampSwitchNode extends Base {
     commands = {
         DON: this.on,
@@ -76,5 +75,31 @@ export var DimmerLampSwitch;
     }
     DimmerLampSwitch.create = create;
     DimmerLampSwitch.Node = DimmerLampSwitchNode;
+    DimmerLampSwitch.Class = DimmerLampSwitchNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["fastOff"] = "DFOF";
+        Commands["fastOn"] = "DFON";
+        Commands["brighten"] = "BRT";
+        Commands["dim"] = "DIM";
+        Commands["fadeUp"] = "FDUP";
+        Commands["fadeDown"] = "FDDOWN";
+        Commands["fadeStop"] = "FDSTOP";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["updateOnLevel"] = "OL";
+        Commands["updateRampRate"] = "RR";
+        Commands["backlight"] = "BL";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = DimmerLampSwitch.Commands || (DimmerLampSwitch.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["onLevel"] = "OL";
+        Drivers["rampRate"] = "RR";
+        Drivers["responding"] = "ERR";
+    })(Drivers = DimmerLampSwitch.Drivers || (DimmerLampSwitch.Drivers = {}));
 })(DimmerLampSwitch || (DimmerLampSwitch = {}));
 //# sourceMappingURL=DimmerLampSwitch.js.map

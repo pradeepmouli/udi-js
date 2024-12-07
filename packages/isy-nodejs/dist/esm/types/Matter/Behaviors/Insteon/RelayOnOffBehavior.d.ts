@@ -20,8 +20,8 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
     readonly status: import("../../../Definitions/Insteon/index.js").OnLevelRelay;
     readonly responding: import("../../../Definitions/Insteon/index.js").Error;
     readonly manufacturer: string;
-    convertFrom(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.RelayLamp.Drivers): any;
-    convertTo(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.RelayLamp.Drivers): any;
+    convertFrom(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.RelayLamp.Drivers.Type): any;
+    convertTo(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.RelayLamp.Drivers.Type): any;
     sendBeep(level?: number): Promise<any>;
     family: import("../../../Definitions/index.js").Family.Insteon;
     readonly typeCode: string;
@@ -33,19 +33,18 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
     model: string;
     modelNumber: string;
     version: string;
-    vendorName: string;
     productId: string | number;
     modelName: string;
     _parentDevice: import("../../../ISYDevice.js").ISYDevice<import("../../../Definitions/index.js").Family.Insteon, any, any, any>;
     children: import("../../../ISYNode.js").ISYNode<any, any, any, any>[];
     addChild<K extends import("../../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-    "__#4676205@#parentNode": import("../../../ISYNode.js").ISYNode<any, any, any, any>;
+    "__#6426063@#parentNode": import("../../../ISYNode.js").ISYNode<any, any, any, any>;
     readonly address: string;
     readonly baseLabel: string;
     readonly flag: any;
     readonly isy: import("../../../ISY.js").ISY;
     baseName: any;
-    drivers: import("../../../Definitions/index.js").Driver.ForAll<Insteon.RelayLamp.Drivers, false>;
+    drivers: import("../../../Definitions/index.js").Driver.ForAll<Insteon.RelayLamp.Drivers.Type, false>;
     enabled: boolean;
     events: import("@matter/general").Merge<import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
         on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -78,7 +77,7 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
     nodeType: number;
     parent: any;
     parentAddress: any;
-    parentType: import("../../../ISYConstants.js").NodeType;
+    parentType: import("../../../NodeType.js").NodeType;
     propsInitialized: boolean;
     scenes: import("../../../ISYScene.js").ISYScene[];
     spokenName: string;
@@ -98,7 +97,7 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
         action?: any;
         fmtAct?: any;
     }): boolean;
-    handlePropertyChange(propertyName: keyof Insteon.RelayLamp.Drivers, value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+    handlePropertyChange(propertyName: keyof Insteon.RelayLamp.Drivers.Type, value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
     parseResult(node: {
         property: import("../../../Model/DriverState.js").DriverState | import("../../../Model/DriverState.js").DriverState[];
     }): void;
@@ -106,10 +105,10 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
     readProperty(propertyName: "ST" | "ERR"): Promise<import("../../../Model/DriverState.js").DriverState>;
     refresh(): Promise<any>;
     refreshNotes(): Promise<void>;
-    sendCommand(command: keyof Insteon.RelayLamp.Commands): Promise<any>;
-    sendCommand(command: keyof Insteon.RelayLamp.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-    sendCommand(command: keyof Insteon.RelayLamp.Commands, value: string | number): Promise<any>;
-    sendCommand(command: keyof Insteon.RelayLamp.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+    sendCommand(command: keyof Insteon.RelayLamp.Commands.Type): Promise<any>;
+    sendCommand(command: keyof Insteon.RelayLamp.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+    sendCommand(command: keyof Insteon.RelayLamp.Commands.Type, value: string | number): Promise<any>;
+    sendCommand(command: keyof Insteon.RelayLamp.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
     updateProperty(propertyName: string, value: any): Promise<any>;
 }, import("@matter/node").ClusterBehavior.Type<import("@matter/types").ClusterComposer.WithFeatures<import("@matter/types").ClusterComposer.WithFeatures<import("@project-chip/matter.js/cluster").OnOff.Cluster, readonly [import("@project-chip/matter.js/cluster").OnOff.Feature.Lighting]>, readonly ["Lighting"]>, typeof import("@matter/node/behaviors").OnOffServer, import("@matter/node/behaviors").OnOffInterface>>) & {
     nodeClass: import("../../../Devices/Constructor.js").Constructor<{
@@ -133,8 +132,8 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
         readonly status: import("../../../Definitions/Insteon/index.js").OnLevelRelay;
         readonly responding: import("../../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.RelayLamp.Drivers): any;
-        convertTo(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.RelayLamp.Drivers): any;
+        convertFrom(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.RelayLamp.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.RelayLamp.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: import("../../../Definitions/index.js").Family.Insteon;
         readonly typeCode: string;
@@ -146,19 +145,18 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
         _parentDevice: import("../../../ISYDevice.js").ISYDevice<import("../../../Definitions/index.js").Family.Insteon, any, any, any>;
         children: import("../../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": import("../../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": import("../../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../../Definitions/index.js").Driver.ForAll<Insteon.RelayLamp.Drivers, false>;
+        drivers: import("../../../Definitions/index.js").Driver.ForAll<Insteon.RelayLamp.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/general").Merge<import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -191,7 +189,7 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../../ISYConstants.js").NodeType;
+        parentType: import("../../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -211,7 +209,7 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.RelayLamp.Drivers, value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.RelayLamp.Drivers.Type, value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../../Model/DriverState.js").DriverState | import("../../../Model/DriverState.js").DriverState[];
         }): void;
@@ -219,10 +217,10 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
         readProperty(propertyName: "ST" | "ERR"): Promise<import("../../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.RelayLamp.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.RelayLamp.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.RelayLamp.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.RelayLamp.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.RelayLamp.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.RelayLamp.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.RelayLamp.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.RelayLamp.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }>;
 };

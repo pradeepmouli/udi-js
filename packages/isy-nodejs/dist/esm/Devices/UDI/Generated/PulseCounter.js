@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "EM3PulseCounter";
 class PulseCounterNode extends Base {
     commands = {};
     static nodeDefId = "EM3PulseCounter";
@@ -44,5 +43,16 @@ export var PulseCounter;
     }
     PulseCounter.create = create;
     PulseCounter.Node = PulseCounterNode;
+    PulseCounter.Class = PulseCounterNode;
+    let Commands;
+    (function (Commands) {
+    })(Commands = PulseCounter.Commands || (PulseCounter.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["currentPower"] = "CPW";
+        Drivers["totalEnergy"] = "TPW";
+        Drivers["responding"] = "ERR";
+    })(Drivers = PulseCounter.Drivers || (PulseCounter.Drivers = {}));
 })(PulseCounter || (PulseCounter = {}));
 //# sourceMappingURL=PulseCounter.js.map

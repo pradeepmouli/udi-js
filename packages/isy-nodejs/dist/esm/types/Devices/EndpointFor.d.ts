@@ -33,14 +33,13 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         manufacturer: string;
         productId: string | number;
         modelName: string;
         _parentDevice: import("../ISYDevice.js").ISYDevice<any, any, any, any>;
         children: import("../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": import("../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": import("../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -65,7 +64,7 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../ISYConstants.js").NodeType;
+        parentType: import("../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../ISYScene.js").ISYScene[];
         spokenName: string;

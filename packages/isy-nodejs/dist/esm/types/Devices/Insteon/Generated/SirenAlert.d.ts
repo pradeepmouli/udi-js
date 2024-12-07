@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
-type Commands = SirenAlert.Commands;
-type Drivers = SirenAlert.Drivers;
+type Commands = SirenAlert.Commands.Type;
+type Drivers = SirenAlert.Drivers.Type;
 declare class SirenAlertNode extends Base<Drivers, Commands> implements SirenAlert.Interface {
     readonly commands: {};
     static nodeDefId: string;
@@ -22,15 +22,25 @@ export declare namespace SirenAlert {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is SirenAlertNode;
     function create(isy: ISY, nodeInfo: NodeInfo): SirenAlertNode;
     const Node: typeof SirenAlertNode;
-    type Commands = {};
-    type Drivers = {
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
+    const Class: typeof SirenAlertNode;
+    namespace Commands {
+        type Type = {};
+    }
+    enum Commands {
+    }
+    namespace Drivers {
+        type Type = {
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Insteon.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-    };
+    }
+    enum Drivers {
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=SirenAlert.d.ts.map

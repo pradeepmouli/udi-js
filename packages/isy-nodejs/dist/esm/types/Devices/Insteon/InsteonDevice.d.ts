@@ -20,13 +20,12 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
         _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/index.js").Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -52,7 +51,7 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -103,13 +102,12 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
         _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/index.js").Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -136,7 +134,7 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../ISYConstants.js").NodeType;
+        parentType: import("../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../ISYScene.js").ISYScene[];
         spokenName: string;

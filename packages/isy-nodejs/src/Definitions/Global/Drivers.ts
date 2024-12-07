@@ -295,6 +295,8 @@ export interface Driver<
 	apply(state: DriverState, notify?: boolean): boolean;
 	patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number, notify?: boolean): boolean;
 
+
+
 	// #endregion Public Methods (2)
 	//override on('change', listener: (value: any) => void): this;
 }
@@ -488,7 +490,7 @@ export namespace Driver {
 				}
 				if (notify) node.events.emit(`${this.name}Changed`, driver as D, this.state.value, previousValue, formattedValue);
 				if (!this.initialized) {
-					
+
 					this.initialized = true;
 				}
 				return true;

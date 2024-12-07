@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "LUTLoadShed";
 class LoadShedNode extends Base {
     commands = {
         DON: this.on,
@@ -43,5 +42,17 @@ export var LoadShed;
     }
     LoadShed.create = create;
     LoadShed.Node = LoadShedNode;
+    LoadShed.Class = LoadShedNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["query"] = "QUERY";
+    })(Commands = LoadShed.Commands || (LoadShed.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = LoadShed.Drivers || (LoadShed.Drivers = {}));
 })(LoadShed || (LoadShed = {}));
 //# sourceMappingURL=LoadShed.js.map

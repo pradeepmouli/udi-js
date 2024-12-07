@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "I3KeypadFlags";
 class I3KeypadFlagsNode extends Base {
     commands = {
         GV0: this.updateMode,
@@ -91,5 +90,33 @@ export var I3KeypadFlags;
     }
     I3KeypadFlags.create = create;
     I3KeypadFlags.Node = I3KeypadFlagsNode;
+    I3KeypadFlags.Class = I3KeypadFlagsNode;
+    let Commands;
+    (function (Commands) {
+        Commands["updateMode"] = "GV0";
+        Commands["updateProgramLock"] = "GV1";
+        Commands["updateResumeDim"] = "GV2";
+        Commands["updateRelayAtFullOn"] = "GV3";
+        Commands["updateKeyBeep"] = "GV4";
+        Commands["updateDisableRf"] = "GV5";
+        Commands["updateButtonLock"] = "GV6";
+        Commands["updateErrorBlink"] = "GV7";
+        Commands["updateCleanupReports"] = "GV8";
+        Commands["query"] = "QUERY";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = I3KeypadFlags.Commands || (I3KeypadFlags.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["mode"] = "ST";
+        Drivers["programLock"] = "GV1";
+        Drivers["resumeDim"] = "GV2";
+        Drivers["relayAtFullOn"] = "GV3";
+        Drivers["keyBeep"] = "GV4";
+        Drivers["disableRf"] = "GV5";
+        Drivers["buttonLock"] = "GV6";
+        Drivers["errorBlink"] = "GV7";
+        Drivers["cleanupReports"] = "GV8";
+        Drivers["responding"] = "ERR";
+    })(Drivers = I3KeypadFlags.Drivers || (I3KeypadFlags.Drivers = {}));
 })(I3KeypadFlags || (I3KeypadFlags = {}));
 //# sourceMappingURL=I3KeypadFlags.js.map

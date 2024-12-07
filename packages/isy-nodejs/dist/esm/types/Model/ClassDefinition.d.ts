@@ -42,6 +42,8 @@ export declare class NodeClassDefinition<T extends Family> {
         className: string;
         id: string;
         nlsId: string;
+        name: string;
+        label: string;
         drivers: {
             ACCX?: DriverDefinition;
             ACCY?: DriverDefinition;
@@ -205,8 +207,6 @@ export declare class NodeClassDefinition<T extends Family> {
             [x: string]: EventDefinition;
         };
         family: T;
-        label: string;
-        name: string;
         dynamic: boolean;
         implements: string[];
         equivalentTo: string[];
@@ -270,13 +270,13 @@ export declare abstract class NodeMemberDefinition<TId extends string> {
     };
     selectValue(currentValue: any, newValue: any, nlsId: any): any;
     toJSON(): {
+        id: TId;
+        name: string;
         label: string;
         hidden: boolean;
         optional: boolean;
-        id: TId;
         editorId: string;
         dataType: DataTypeDefinition[];
-        name: string;
     };
 }
 export declare class DriverDefinition extends NodeMemberDefinition<Driver.Type> {
@@ -284,21 +284,19 @@ export declare class DriverDefinition extends NodeMemberDefinition<Driver.Type> 
     constructor(def: DriverDef, classDef: NodeClassDefinition<any>);
     applyNLSRecord(nls: NLSGenericRecord | NLSDriverRecord): void;
     toJSON(): {
+        id: import("../Definitions/Global/Drivers.js").DriverType;
+        name: string;
         label: string;
         hidden: boolean;
         optional: boolean;
         readonly: boolean;
-        id: import("../Definitions/Global/Drivers.js").DriverType;
         editorId: string;
         dataType: DataTypeDefinition[];
-        name: string;
     };
 }
 export declare class CommandDefinition extends NodeMemberDefinition<string> {
     initialValue?: Driver.Type;
-    parameters?: {
-        [x: string]: ParameterDefinition;
-    };
+    parameters?: ParameterDefinition[];
     constructor(def: AcceptCommandDef, classDef: NodeClassDefinition<any>);
     get name(): string;
     applyEditorDef(e: EditorDef): void;
@@ -309,16 +307,14 @@ export declare class CommandDefinition extends NodeMemberDefinition<string> {
     }): void;
     applyNLSRecord(nls: NLSGenericRecord | NLSCommandRecord | NLSCommandParameterRecord): void;
     toJSON(): {
+        id: string;
+        name: string;
         label: string;
         hidden: boolean;
-        id: string;
         editorId: string;
         dataType: DataTypeDefinition[];
-        name: string;
         optional: boolean;
-        parameters: {
-            [x: string]: ParameterDefinition;
-        };
+        parameters: ParameterDefinition[];
         initialValue: import("../Definitions/Global/Drivers.js").DriverType;
     };
 }
@@ -327,12 +323,12 @@ export declare class ParameterDefinition extends NodeMemberDefinition<string> {
     constructor(def: ParamDef, classDef: NodeClassDefinition<any>);
     applyNLSRecord(nls: NLSCommandParameterRecord | NLSGenericRecord): void;
     toJSON(): {
+        id: string;
+        name: string;
         label: string;
         hidden: boolean;
-        id: string;
         editorId: string;
         dataType: DataTypeDefinition[];
-        name: string;
         optional: boolean;
         initialValue: import("../Definitions/Global/Drivers.js").DriverType;
     };

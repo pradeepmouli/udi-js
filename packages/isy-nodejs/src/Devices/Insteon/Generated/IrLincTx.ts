@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "IRLincTx";
-
-type Commands = IrLincTx.Commands;
-type Drivers = IrLincTx.Drivers;
+type Commands = IrLincTx.Commands.Type;
+type Drivers = IrLincTx.Drivers.Type;
 
 class IrLincTxNode extends Base<Drivers, Commands> implements IrLincTx.Interface {
 	public override readonly commands = {
@@ -51,22 +47,34 @@ export namespace IrLincTx {
 		return new IrLincTxNode(isy, nodeInfo);
 	}
 	export const Node = IrLincTxNode;
-	export type Commands = {
-		BEEP: ((value?: number) => Promise<boolean>) & {
-			label: "Beep";
-			name: "beep";
+	export const Class = IrLincTxNode;
+	export namespace Commands {
+		export type Type = {
+			BEEP: ((value?: number) => Promise<boolean>) & {
+				label: "Beep";
+				name: "beep";
+			};
+			WDU: (() => Promise<boolean>) & {
+				label: "Write Changes";
+				name: "writeChanges";
+			};
 		};
-		WDU: (() => Promise<boolean>) & {
-			label: "Write Changes";
-			name: "writeChanges";
+	}
+	export enum Commands {
+		beep = 'BEEP',
+		writeChanges = 'WDU'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-	};
-	export type Drivers = {
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		responding = 'ERR'
+	}
 }

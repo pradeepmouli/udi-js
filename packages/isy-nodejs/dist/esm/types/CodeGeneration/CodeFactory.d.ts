@@ -53,7 +53,7 @@ export declare class CodeFactory {
     createNewExpression(expression: ts.Expression, typeArguments: ts.TypeNode[] | undefined, argumentsArray: ts.Expression[]): ts.NewExpression;
     createObjectLiteral(properties: ts.ObjectLiteralElementLike[], multiLine?: boolean): ts.ObjectLiteralExpression;
     createPropertyAssignment(name: string, initializer: ts.Expression): ts.PropertyAssignment;
-    createQualifiedName(left: ts.EntityName, right: string): ts.QualifiedName;
+    createQualifiedName(...names: (ts.EntityName | string)[]): ts.EntityName;
     createLiteralTypeNode(literal: string | number): ts.LiteralTypeNode;
     createLiteral(value: string | number): ts.LiteralExpression;
     createNumericLiteral(value: number, flags?: ts.TokenFlags): ts.NumericLiteral;
@@ -66,7 +66,7 @@ export declare class CodeFactory {
     createExpressionWithTypeArguments(expression: ts.Expression, ...typeArguments: ts.TypeNode[]): ts.ExpressionWithTypeArguments;
     createBlock(multiLine: boolean, ...statements: ts.Statement[]): ts.Block;
     createBlock(...statements: ts.Statement[]): any;
-    createModuleBlock(statements: ts.Statement[]): ts.ModuleBlock;
+    createModuleBlock(...statements: ts.Statement[]): ts.ModuleBlock;
     createInterfaceDeclaration(name: string, members: ts.TypeElement[], heritageClauses?: ts.HeritageClause[]): ts.InterfaceDeclaration;
     createTypeOperatorNode(operator: ts.SyntaxKind.KeyOfKeyword | ts.SyntaxKind.ReadonlyKeyword | ts.SyntaxKind.UniqueKeyword, type: ts.TypeNode): ts.TypeOperatorNode;
     createTypeQueryNode(exprName: ts.EntityName): ts.TypeQueryNode;

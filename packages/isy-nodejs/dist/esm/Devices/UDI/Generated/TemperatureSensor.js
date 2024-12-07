@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "EM3TempSensor";
 class TemperatureSensorNode extends Base {
     commands = {};
     static nodeDefId = "EM3TempSensor";
@@ -36,5 +35,14 @@ export var TemperatureSensor;
     }
     TemperatureSensor.create = create;
     TemperatureSensor.Node = TemperatureSensorNode;
+    TemperatureSensor.Class = TemperatureSensorNode;
+    let Commands;
+    (function (Commands) {
+    })(Commands = TemperatureSensor.Commands || (TemperatureSensor.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["temperature"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = TemperatureSensor.Drivers || (TemperatureSensor.Drivers = {}));
 })(TemperatureSensor || (TemperatureSensor = {}));
 //# sourceMappingURL=TemperatureSensor.js.map

@@ -54,8 +54,8 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
     readonly rampRate: import("../../../Definitions/Insteon/index.js").RampRate;
     readonly responding: import("../../../Definitions/Insteon/index.js").Error;
     readonly manufacturer: string;
-    convertFrom(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.DimmerLamp.Drivers): any;
-    convertTo(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.DimmerLamp.Drivers): any;
+    convertFrom(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.DimmerLamp.Drivers.Type): any;
+    convertTo(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.DimmerLamp.Drivers.Type): any;
     sendBeep(level?: number): Promise<any>;
     family: import("../../../Definitions/index.js").Family.Insteon;
     readonly typeCode: string;
@@ -67,19 +67,18 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
     model: string;
     modelNumber: string;
     version: string;
-    vendorName: string;
     productId: string | number;
     modelName: string;
     _parentDevice: import("../../../ISYDevice.js").ISYDevice<import("../../../Definitions/index.js").Family.Insteon, any, any, any>;
     children: import("../../../ISYNode.js").ISYNode<any, any, any, any>[];
     addChild<K extends import("../../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-    "__#4676205@#parentNode": import("../../../ISYNode.js").ISYNode<any, any, any, any>;
+    "__#6426063@#parentNode": import("../../../ISYNode.js").ISYNode<any, any, any, any>;
     readonly address: string;
     readonly baseLabel: string;
     readonly flag: any;
     readonly isy: import("../../../ISY.js").ISY;
     baseName: any;
-    drivers: import("../../../Definitions/index.js").Driver.ForAll<Insteon.DimmerLamp.Drivers, false>;
+    drivers: import("../../../Definitions/index.js").Driver.ForAll<Insteon.DimmerLamp.Drivers.Type, false>;
     enabled: boolean;
     events: import("@matter/general").Merge<import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
         on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -122,7 +121,7 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
     nodeType: number;
     parent: any;
     parentAddress: any;
-    parentType: import("../../../ISYConstants.js").NodeType;
+    parentType: import("../../../NodeType.js").NodeType;
     propsInitialized: boolean;
     scenes: import("../../../ISYScene.js").ISYScene[];
     spokenName: string;
@@ -142,7 +141,7 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
         action?: any;
         fmtAct?: any;
     }): boolean;
-    handlePropertyChange(propertyName: keyof Insteon.DimmerLamp.Drivers, value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+    handlePropertyChange(propertyName: keyof Insteon.DimmerLamp.Drivers.Type, value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
     parseResult(node: {
         property: import("../../../Model/DriverState.js").DriverState | import("../../../Model/DriverState.js").DriverState[];
     }): void;
@@ -150,10 +149,10 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
     readProperty(propertyName: "ST" | "ERR" | "OL" | "RR"): Promise<import("../../../Model/DriverState.js").DriverState>;
     refresh(): Promise<any>;
     refreshNotes(): Promise<void>;
-    sendCommand(command: keyof Insteon.DimmerLamp.Commands): Promise<any>;
-    sendCommand(command: keyof Insteon.DimmerLamp.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-    sendCommand(command: keyof Insteon.DimmerLamp.Commands, value: string | number): Promise<any>;
-    sendCommand(command: keyof Insteon.DimmerLamp.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+    sendCommand(command: keyof Insteon.DimmerLamp.Commands.Type): Promise<any>;
+    sendCommand(command: keyof Insteon.DimmerLamp.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+    sendCommand(command: keyof Insteon.DimmerLamp.Commands.Type, value: string | number): Promise<any>;
+    sendCommand(command: keyof Insteon.DimmerLamp.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
     updateProperty(propertyName: string, value: any): Promise<any>;
 }, import("@matter/node").ClusterBehavior.Type<import("@matter/types").ElementModifier.WithAlterations<import("@matter/types").ClusterComposer.WithFeatures<import("@matter/types").ClusterComposer.WithFeatures<import("@matter/types").ClusterComposer.WithFeatures<import("@project-chip/matter.js/cluster").LevelControl.Cluster, readonly [import("@project-chip/matter.js/cluster").LevelControl.Feature.OnOff, import("@project-chip/matter.js/cluster").LevelControl.Feature.Lighting]>, readonly [import("@project-chip/matter.js/cluster").LevelControl.Feature.OnOff]>, readonly ["Lighting", "OnOff"]>, {
     readonly attributes: {
@@ -210,8 +209,8 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
         readonly rampRate: import("../../../Definitions/Insteon/index.js").RampRate;
         readonly responding: import("../../../Definitions/Insteon/index.js").Error;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.DimmerLamp.Drivers): any;
-        convertTo(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.DimmerLamp.Drivers): any;
+        convertFrom(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, driver?: keyof Insteon.DimmerLamp.Drivers.Type): any;
+        convertTo(value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, propertyName?: keyof Insteon.DimmerLamp.Drivers.Type): any;
         sendBeep(level?: number): Promise<any>;
         family: import("../../../Definitions/index.js").Family.Insteon;
         readonly typeCode: string;
@@ -223,19 +222,18 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
         model: string;
         modelNumber: string;
         version: string;
-        vendorName: string;
         productId: string | number;
         modelName: string;
         _parentDevice: import("../../../ISYDevice.js").ISYDevice<import("../../../Definitions/index.js").Family.Insteon, any, any, any>;
         children: import("../../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#4676205@#parentNode": import("../../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#6426063@#parentNode": import("../../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../../../ISY.js").ISY;
         baseName: any;
-        drivers: import("../../../Definitions/index.js").Driver.ForAll<Insteon.DimmerLamp.Drivers, false>;
+        drivers: import("../../../Definitions/index.js").Driver.ForAll<Insteon.DimmerLamp.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/general").Merge<import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: number, oldValue: number, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -278,7 +276,7 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
         nodeType: number;
         parent: any;
         parentAddress: any;
-        parentType: import("../../../ISYConstants.js").NodeType;
+        parentType: import("../../../NodeType.js").NodeType;
         propsInitialized: boolean;
         scenes: import("../../../ISYScene.js").ISYScene[];
         spokenName: string;
@@ -298,7 +296,7 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: keyof Insteon.DimmerLamp.Drivers, value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: keyof Insteon.DimmerLamp.Drivers.Type, value: any, uom: import("../../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
             property: import("../../../Model/DriverState.js").DriverState | import("../../../Model/DriverState.js").DriverState[];
         }): void;
@@ -306,10 +304,10 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
         readProperty(propertyName: "ST" | "ERR" | "OL" | "RR"): Promise<import("../../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
-        sendCommand(command: keyof Insteon.DimmerLamp.Commands): Promise<any>;
-        sendCommand(command: keyof Insteon.DimmerLamp.Commands, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
-        sendCommand(command: keyof Insteon.DimmerLamp.Commands, value: string | number): Promise<any>;
-        sendCommand(command: keyof Insteon.DimmerLamp.Commands, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerLamp.Commands.Type): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerLamp.Commands.Type, value: string | number, parameters: Record<string | symbol, string | number | undefined>): any;
+        sendCommand(command: keyof Insteon.DimmerLamp.Commands.Type, value: string | number): Promise<any>;
+        sendCommand(command: keyof Insteon.DimmerLamp.Commands.Type, parameters: Record<string | symbol, string | number | undefined>): Promise<any>;
         updateProperty(propertyName: string, value: any): Promise<any>;
     }>;
 };

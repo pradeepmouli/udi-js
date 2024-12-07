@@ -10,6 +10,8 @@ import { ISYBridgedDeviceBehavior } from './ISYBridgedDeviceBehavior.js';
 import { isYieldExpression } from 'typescript';
 import { getConstructor, type ConstructorOf, type Factory } from '../../Utils.js';
 import { CompositeDevice } from '../../Devices/CompositeDevice.js';
+import type { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
+import type { Driver } from '../../Definitions/Global/Drivers.js';
 
 // #region Type aliases (6)
 
@@ -17,7 +19,7 @@ export type ClusterForBehavior<B> = B extends ClusterBehavior.Type<infer C, infe
 export type ConstructedType<B extends Constructor<any>> = B extends Constructor<infer C> ? C : never;
 // <reference path="MatterDevice.js" />
 // @ts-ignore
-export interface DeviceBehavior<P extends ISYNode<any, any, any, any>, T extends { cluster? }> {
+export interface DeviceBehavior<P extends ISYDeviceNode<any, any, any, any>, T extends { cluster? }> {
 	device: P;
 
 
@@ -41,7 +43,7 @@ type t = ClusterForBehavior<LevelControlBehavior>;
 
 // #region Functions (1)
 
-export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cluster }, P extends ISYNode<any, any, any, any>> (
+export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cluster }, P extends ISYDeviceNode<any, any, any, any>> (
 	base: T,
 	p: Constructor<P> | Factory<P>
 ): typeof base & { new (...args: any[]): DeviceBehavior<P, T> } & {nodeClass: Constructor<P>} {
@@ -50,7 +52,7 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 
 		static nodeClass = getConstructor(p);
 
-		handlers: { [x in keyof DriversOf<P>]: (newValue, oldValue, formattedValue) => void } = {} as any;
+		handlers: { [x in keyof ISYNode.DriversOf<P>]: (newValue, oldValue, formattedValue) => void } = {} as any;
 
 		bridgedDeviceBehavior: ISYBridgedDeviceBehavior<P>;
 		///public map: ClusterMapping<ToClusterTypeByName<ClusterForBehavior<ConstructedType<typeof base>>["name"]>,ISYDeviceNode<any, any, any>>;
@@ -72,19 +74,19 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 				let val = this.map.attributes[key2];
 				let driverObj = null;
 				if (typeof val === 'string' || typeof val === 'symbol' || typeof val === 'number') {
-					driverObj = this._device.drivers[val];
+					driverObj = this._device.drivers[val] as Driver<any,any>;
 					this.state[key2 as string] = this._device.drivers[val].value;
 					this.handlers[val] = (newValue, oldValue, formattedValue) => {
 						this.state[key2 as string] = newValue;
 					};
-				} else if (val.driver as keyof DriversOf<P>) {
-					driverObj = this._device.drivers[val.driver as string];
+				} else if (val.driver as ISYNode.DriverKeysOf<P>) {
+					driverObj = this._device.drivers[val.driver as string] as Driver<any,any>;
 
 					let { driver, converter } = val;
 					const convFunc = Converter.get(converter)?.to;
 					if (!convFunc) throw new Error(`Converter ${converter} not found`);
 					this.state[key2 as string] = convFunc(this._device.drivers[driver as string].value);
-					this.handlers[driver] = (newValue, oldValue, formattedValue) => {
+					this.handlers[val.driver as ISYNode.DriverKeysOf<P>] = (newValue, oldValue, formattedValue) => {
 						//this.device.logger(`Handling property change for ${driver} (${key2}) with value ${newValue}`);
 												//if (convFunc) this.state[key2 as string] = convFunc(newValue);
 						this.state[key2 as string] = convFunc(newValue);

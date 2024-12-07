@@ -1,21 +1,16 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
-import { Poly } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "CONTROLLER";
-
-type Commands = MatterBridge.Commands;
-type Drivers = MatterBridge.Drivers;
+type Commands = MatterBridge.Commands.Type;
+type Drivers = MatterBridge.Drivers.Type;
 
 class MatterBridgeNode extends Base<Drivers, Commands> implements MatterBridge.Interface {
 	public override readonly commands = {
@@ -56,30 +51,44 @@ export namespace MatterBridge {
 		return new MatterBridgeNode(isy, nodeInfo);
 	}
 	export const Node = MatterBridgeNode;
-	export type Commands = {
-		DISCOVER: (() => Promise<boolean>) & {
-			label: "Discover";
-			name: "discover";
+	export const Class = MatterBridgeNode;
+	export namespace Commands {
+		export type Type = {
+			DISCOVER: (() => Promise<boolean>) & {
+				label: "Discover";
+				name: "discover";
+			};
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
+			START_BRIDGE: (() => Promise<boolean>) & {
+				label: "Start Bridge";
+				name: "startBridge";
+			};
+			STOP_BRIDGE: (() => Promise<boolean>) & {
+				label: "Stop Bridge";
+				name: "stopBridge";
+			};
 		};
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
+	}
+	export enum Commands {
+		discover = 'DISCOVER',
+		query = 'QUERY',
+		startBridge = 'START_BRIDGE',
+		stopBridge = 'STOP_BRIDGE'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: ;
+				value: ;
+				label: "Status";
+				name: "status";
+			};
 		};
-		START_BRIDGE: (() => Promise<boolean>) & {
-			label: "Start Bridge";
-			name: "startBridge";
-		};
-		STOP_BRIDGE: (() => Promise<boolean>) & {
-			label: "Stop Bridge";
-			name: "stopBridge";
-		};
-	};
-	export type Drivers = {
-		ST: {
-			uom: ;
-			value: ;
-			label: "Status";
-			name: "status";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST'
+	}
 }

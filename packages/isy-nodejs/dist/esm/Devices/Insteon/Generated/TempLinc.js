@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "TempLinc";
 class TempLincNode extends Base {
     commands = {
         CLISPH: this.updateHeatSetpoint,
@@ -81,5 +80,30 @@ export var TempLinc;
     }
     TempLinc.create = create;
     TempLinc.Node = TempLincNode;
+    TempLinc.Class = TempLincNode;
+    let Commands;
+    (function (Commands) {
+        Commands["updateHeatSetpoint"] = "CLISPH";
+        Commands["updateCoolSetpoint"] = "CLISPC";
+        Commands["updateMode"] = "CLIMD";
+        Commands["updateFanMode"] = "CLIFS";
+        Commands["setpointUp"] = "BRT";
+        Commands["setpointDown"] = "DIM";
+        Commands["beep"] = "BEEP";
+        Commands["query"] = "QUERY";
+        Commands["setTime"] = "SETTIME";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = TempLinc.Commands || (TempLinc.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["temperature"] = "ST";
+        Drivers["heatSetpoint"] = "CLISPH";
+        Drivers["coolSetpoint"] = "CLISPC";
+        Drivers["mode"] = "CLIMD";
+        Drivers["fanMode"] = "CLIFS";
+        Drivers["humidity"] = "CLIHUM";
+        Drivers["heatCoolState"] = "CLIHCS";
+        Drivers["responding"] = "ERR";
+    })(Drivers = TempLinc.Drivers || (TempLinc.Drivers = {}));
 })(TempLinc || (TempLinc = {}));
 //# sourceMappingURL=TempLinc.js.map

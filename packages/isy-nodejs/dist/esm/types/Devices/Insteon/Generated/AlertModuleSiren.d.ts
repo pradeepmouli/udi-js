@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
-type Commands = AlertModuleSiren.Commands;
-type Drivers = AlertModuleSiren.Drivers;
+type Commands = AlertModuleSiren.Commands.Type;
+type Drivers = AlertModuleSiren.Drivers.Type;
 declare class AlertModuleSirenNode extends Base<Drivers, Commands> implements AlertModuleSiren.Interface {
     readonly commands: {
         DON: (onLevel?: number) => Promise<any>;
@@ -38,50 +38,68 @@ export declare namespace AlertModuleSiren {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is AlertModuleSirenNode;
     function create(isy: ISY, nodeInfo: NodeInfo): AlertModuleSirenNode;
     const Node: typeof AlertModuleSirenNode;
-    type Commands = {
-        DON: ((OL?: number) => Promise<boolean>) & {
-            label: "On";
-            name: "on";
+    const Class: typeof AlertModuleSirenNode;
+    namespace Commands {
+        type Type = {
+            DON: ((OL?: number) => Promise<boolean>) & {
+                label: "On";
+                name: "on";
+            };
+            DOF: (() => Promise<boolean>) & {
+                label: "Off";
+                name: "off";
+            };
+            DFOF: (() => Promise<boolean>) & {
+                label: "Fast Off";
+                name: "fastOff";
+            };
+            DFON: (() => Promise<boolean>) & {
+                label: "Fast On";
+                name: "fastOn";
+            };
+            QUERY: (() => Promise<boolean>) & {
+                label: "Query";
+                name: "query";
+            };
+            BEEP: ((value?: number) => Promise<boolean>) & {
+                label: "Beep";
+                name: "beep";
+            };
+            WDU: (() => Promise<boolean>) & {
+                label: "Write Changes";
+                name: "writeChanges";
+            };
         };
-        DOF: (() => Promise<boolean>) & {
-            label: "Off";
-            name: "off";
+    }
+    enum Commands {
+        on = "DON",
+        off = "DOF",
+        fastOff = "DFOF",
+        fastOn = "DFON",
+        query = "QUERY",
+        beep = "BEEP",
+        writeChanges = "WDU"
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Percent;
+                value: Insteon.OnLevelRelay;
+                label: "Status";
+                name: "status";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Insteon.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        DFOF: (() => Promise<boolean>) & {
-            label: "Fast Off";
-            name: "fastOff";
-        };
-        DFON: (() => Promise<boolean>) & {
-            label: "Fast On";
-            name: "fastOn";
-        };
-        QUERY: (() => Promise<boolean>) & {
-            label: "Query";
-            name: "query";
-        };
-        BEEP: ((value?: number) => Promise<boolean>) & {
-            label: "Beep";
-            name: "beep";
-        };
-        WDU: (() => Promise<boolean>) & {
-            label: "Write Changes";
-            name: "writeChanges";
-        };
-    };
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Percent;
-            value: Insteon.OnLevelRelay;
-            label: "Status";
-            name: "status";
-        };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        status = "ST",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=AlertModuleSiren.d.ts.map

@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "BinaryControl";
-
-type Commands = BinaryControl.Commands;
-type Drivers = BinaryControl.Drivers;
+type Commands = BinaryControl.Commands.Type;
+type Drivers = BinaryControl.Drivers.Type;
 
 class BinaryControlNode extends Base<Drivers, Commands> implements BinaryControl.Interface {
 	public override readonly commands = {
@@ -40,6 +36,7 @@ class BinaryControlNode extends Base<Drivers, Commands> implements BinaryControl
 	public get responding(): Insteon.Error {
 		return this.drivers.ERR?.value;
 	}
+	
 }
 
 NodeFactory.register(BinaryControlNode);
@@ -58,32 +55,46 @@ export namespace BinaryControl {
 		return new BinaryControlNode(isy, nodeInfo);
 	}
 	export const Node = BinaryControlNode;
-	export type Commands = {
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
+	export const Class = BinaryControlNode;
+	export namespace Commands {
+		export type Type = {
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
+			BEEP: ((value?: number) => Promise<boolean>) & {
+				label: "Beep";
+				name: "beep";
+			};
+			WDU: (() => Promise<boolean>) & {
+				label: "Write Changes";
+				name: "writeChanges";
+			};
 		};
-		BEEP: ((value?: number) => Promise<boolean>) & {
-			label: "Beep";
-			name: "beep";
+	}
+	export enum Commands {
+		query = 'QUERY',
+		beep = 'BEEP',
+		writeChanges = 'WDU'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: UnitOfMeasure.Percent;
+				value: Insteon.OnLevelRelay;
+				label: "Status";
+				name: "status";
+			};
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		WDU: (() => Promise<boolean>) & {
-			label: "Write Changes";
-			name: "writeChanges";
-		};
-	};
-	export type Drivers = {
-		ST: {
-			uom: UnitOfMeasure.Percent;
-			value: Insteon.OnLevelRelay;
-			label: "Status";
-			name: "status";
-		};
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST',
+		responding = 'ERR'
+	}
 }

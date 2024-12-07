@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "RelaySwitchOnly";
 class RelaySwitchNode extends Base {
     commands = {
         BEEP: this.beep,
@@ -40,5 +39,16 @@ export var RelaySwitch;
     }
     RelaySwitch.create = create;
     RelaySwitch.Node = RelaySwitchNode;
+    RelaySwitch.Class = RelaySwitchNode;
+    let Commands;
+    (function (Commands) {
+        Commands["beep"] = "BEEP";
+        Commands["backlight"] = "BL";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = RelaySwitch.Commands || (RelaySwitch.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["responding"] = "ERR";
+    })(Drivers = RelaySwitch.Drivers || (RelaySwitch.Drivers = {}));
 })(RelaySwitch || (RelaySwitch = {}));
 //# sourceMappingURL=RelaySwitch.js.map

@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "FanLincMotor";
 class FanLincMotorNode extends Base {
     commands = {
         DON: this.on,
@@ -51,5 +50,21 @@ export var FanLincMotor;
     }
     FanLincMotor.create = create;
     FanLincMotor.Node = FanLincMotorNode;
+    FanLincMotor.Class = FanLincMotorNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["fastOff"] = "DFOF";
+        Commands["fastOn"] = "DFON";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = FanLincMotor.Commands || (FanLincMotor.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = FanLincMotor.Drivers || (FanLincMotor.Drivers = {}));
 })(FanLincMotor || (FanLincMotor = {}));
 //# sourceMappingURL=FanLincMotor.js.map

@@ -1,5 +1,5 @@
-import { ISYNode } from '../ISYNode.js';
 import { ISY } from '../ISY.js';
+import { ISYNode } from '../ISYNode.js';
 export var CompositeDevice;
 (function (CompositeDevice) {
     function of(nodes, keyFunction) {
@@ -53,10 +53,9 @@ export function CompositeOf(nodes, keyFunction) {
         type;
         typeCode;
         version;
-        vendorName;
+        manufacturer;
         productId;
         modelName;
-        manufacturer;
         address;
         events = {};
         drivers = {};
@@ -74,9 +73,21 @@ export function CompositeOf(nodes, keyFunction) {
             const key = keyL[0];
             const isRoot = keyL[1];
             Object.defineProperty(this, key, n);
-            Object.defineProperty(this.events, key, { get() { return this[key].events; } });
-            Object.defineProperty(this.drivers, key, { get() { return this[key].drivers; } });
-            Object.defineProperty(this.commands, key, { get() { return this[key].commands; } });
+            Object.defineProperty(this.events, key, {
+                get() {
+                    return this[key].events;
+                }
+            });
+            Object.defineProperty(this.drivers, key, {
+                get() {
+                    return this[key].drivers;
+                }
+            });
+            Object.defineProperty(this.commands, key, {
+                get() {
+                    return this[key].commands;
+                }
+            });
             if (isRoot) {
                 this.address = node.address;
                 this.family = n.family;
@@ -96,7 +107,7 @@ export function CompositeOf(nodes, keyFunction) {
                 this.type = n.type;
                 this.typeCode = n.typeCode;
                 this.version = n.version;
-                this.vendorName = n.vendorName;
+                this.manufacturer = n.manufacturer;
                 this.productId = n.productId;
                 this.modelName = n.modelName;
                 this.manufacturer = n.manufacturer;

@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "RelaySwitchOnlyPlusQuery";
-
-type Commands = RelaySwitchOnlyPlusQuery.Commands;
-type Drivers = RelaySwitchOnlyPlusQuery.Drivers;
+type Commands = RelaySwitchOnlyPlusQuery.Commands.Type;
+type Drivers = RelaySwitchOnlyPlusQuery.Drivers.Type;
 
 class RelaySwitchOnlyPlusQueryNode extends Base<Drivers, Commands> implements RelaySwitchOnlyPlusQuery.Interface {
 	public override readonly commands = {
@@ -56,30 +52,44 @@ export namespace RelaySwitchOnlyPlusQuery {
 		return new RelaySwitchOnlyPlusQueryNode(isy, nodeInfo);
 	}
 	export const Node = RelaySwitchOnlyPlusQueryNode;
-	export type Commands = {
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
+	export const Class = RelaySwitchOnlyPlusQueryNode;
+	export namespace Commands {
+		export type Type = {
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
+			BEEP: ((value?: number) => Promise<boolean>) & {
+				label: "Beep";
+				name: "beep";
+			};
+			BL: ((value: number) => Promise<boolean>) & {
+				label: "Backlight";
+				name: "backlight";
+			};
+			WDU: (() => Promise<boolean>) & {
+				label: "Write Changes";
+				name: "writeChanges";
+			};
 		};
-		BEEP: ((value?: number) => Promise<boolean>) & {
-			label: "Beep";
-			name: "beep";
+	}
+	export enum Commands {
+		query = 'QUERY',
+		beep = 'BEEP',
+		backlight = 'BL',
+		writeChanges = 'WDU'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		BL: ((value: number) => Promise<boolean>) & {
-			label: "Backlight";
-			name: "backlight";
-		};
-		WDU: (() => Promise<boolean>) & {
-			label: "Write Changes";
-			name: "writeChanges";
-		};
-	};
-	export type Drivers = {
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		responding = 'ERR'
+	}
 }

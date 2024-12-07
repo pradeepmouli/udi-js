@@ -5,21 +5,23 @@ import * as Insteon from '../../Devices/Insteon/index.js';
 
 //import InsteonMap from "./Insteon.json";
 
-import { OnOffLightDevice, DimmableLightDevice } from '@matter/node/devices';
-import {  MappingRegistry, type EndpointMapping, type FamilyToClusterMap } from './MappingRegistry.js';
+import { OnOffLightDevice, DimmableLightDevice, ContactSensorDevice } from '@matter/node/devices';
+import {  MappingRegistry, type ClusterMapping, type EndpointMapping, type FamilyToClusterMap } from './MappingRegistry.js';
+import  { ISYDevice } from '../../ISYDevice.js';
+import type { CompositeDevice } from '../../Devices/CompositeDevice.js';
+import type { BooleanState, BooleanStateCluster, Cluster } from '@project-chip/matter.js/cluster';
 
 export const map: FamilyToClusterMap<Family.Insteon> = {
 	Family: Family.Insteon,
 
-	RelayLamp: {
-		deviceType: OnOffLightDevice,
+	DoorWindowSensor: {
+		deviceType: ContactSensorDevice,
 		mapping: {
-			OnOff: {
+			BooleanState: {
 				attributes: {
-					onOff: { driver: 'ST', converter: 'LightingLevel.Boolean' }
-				},
-				commands: { on: 'DON' }
-			}
+					stateValue: { driver: 'contactSensor.status', converter: 'Percent.Boolean' }
+				}
+			} as ClusterMapping<BooleanStateCluster, InstanceType<typeof Insteon.DoorWindowSensor.Device>>
 		}
 	},
 	RelayLampSwitch: {
@@ -27,7 +29,7 @@ export const map: FamilyToClusterMap<Family.Insteon> = {
 		mapping: {
 			OnOff: {
 				attributes: {
-					onOff: { driver: 'ST', converter: 'Percent.Boolean' }
+					onOff: { driver: 'status', converter: 'Percent.Boolean' }
 				},
 				commands: { on: 'DON' }
 			}
@@ -84,6 +86,8 @@ export const map: FamilyToClusterMap<Family.Insteon> = {
 
 map.KeypadDimmer = {...map.DimmerLamp};
 map.KeypadRelay = {...map.RelayLamp};
+
+type test = CompositeDevice.DriverNamesOf<Insteon.DoorWindowSensor.Device>
 
 
 

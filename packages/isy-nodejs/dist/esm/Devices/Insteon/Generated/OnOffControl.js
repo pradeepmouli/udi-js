@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "OnOffControl";
 class OnOffControlNode extends Base {
     commands = {};
     static nodeDefId = "OnOffControl";
@@ -37,5 +36,14 @@ export var OnOffControl;
     }
     OnOffControl.create = create;
     OnOffControl.Node = OnOffControlNode;
+    OnOffControl.Class = OnOffControlNode;
+    let Commands;
+    (function (Commands) {
+    })(Commands = OnOffControl.Commands || (OnOffControl.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = OnOffControl.Drivers || (OnOffControl.Drivers = {}));
 })(OnOffControl || (OnOffControl = {}));
 //# sourceMappingURL=OnOffControl.js.map

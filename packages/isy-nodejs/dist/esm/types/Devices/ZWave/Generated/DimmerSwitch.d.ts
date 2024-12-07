@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { ZWave } from "../../../Definitions/index.js";
-type Commands = DimmerSwitch.Commands;
-type Drivers = DimmerSwitch.Drivers;
+type Commands = DimmerSwitch.Commands.Type;
+type Drivers = DimmerSwitch.Drivers.Type;
 declare class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerSwitch.Interface {
     readonly commands: {
         DON: (value?: number | ZWave.PercentOpt, rampRate?: number) => Promise<any>;
@@ -50,74 +50,98 @@ export declare namespace DimmerSwitch {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode;
     function create(isy: ISY, nodeInfo: NodeInfo): DimmerSwitchNode;
     const Node: typeof DimmerSwitchNode;
-    type Commands = {
-        DON: ((value?: number | ZWave.PercentOpt, RR?: number) => Promise<boolean>) & {
-            label: "On";
-            name: "on";
+    const Class: typeof DimmerSwitchNode;
+    namespace Commands {
+        type Type = {
+            DON: ((value?: number | ZWave.PercentOpt, RR?: number) => Promise<boolean>) & {
+                label: "On";
+                name: "on";
+            };
+            DOF: (() => Promise<boolean>) & {
+                label: "Off";
+                name: "off";
+            };
+            DFON: (() => Promise<boolean>) & {
+                label: "Fast On";
+                name: "fastOn";
+            };
+            DFOF: (() => Promise<boolean>) & {
+                label: "Fast Off";
+                name: "fastOff";
+            };
+            BRT: (() => Promise<boolean>) & {
+                label: "Brighten";
+                name: "brighten";
+            };
+            DIM: (() => Promise<boolean>) & {
+                label: "Dim";
+                name: "dim";
+            };
+            FDUP: ((STARTLEVEL?: number | ZWave.PercentOpt, RR?: number) => Promise<boolean>) & {
+                label: "Fade Up";
+                name: "fadeUp";
+            };
+            FDDOWN: ((STARTLEVEL?: number | ZWave.PercentOpt, RR?: number) => Promise<boolean>) & {
+                label: "Fade Down";
+                name: "fadeDown";
+            };
+            FADE: ((DIR: ZWave.FadeDirection, STARTLEVEL?: number | ZWave.PercentOpt, RR?: number, DIR2?: ZWave.FadeDirection, STEP2?: number) => Promise<boolean>) & {
+                label: "Fade";
+                name: "fade";
+            };
+            FDSTOP: (() => Promise<boolean>) & {
+                label: "Fade Stop";
+                name: "fadeStop";
+            };
+            QUERY: (() => Promise<boolean>) & {
+                label: "Query";
+                name: "query";
+            };
+            CONFIG: ((NUM: number, VAL: number) => Promise<boolean>) & {
+                label: "Set Configuration";
+                name: "setConfiguration";
+            };
+            WDU: (() => Promise<boolean>) & {
+                label: "Write Changes";
+                name: "writeChanges";
+            };
         };
-        DOF: (() => Promise<boolean>) & {
-            label: "Off";
-            name: "off";
+    }
+    enum Commands {
+        on = "DON",
+        off = "DOF",
+        fastOn = "DFON",
+        fastOff = "DFOF",
+        brighten = "BRT",
+        dim = "DIM",
+        fadeUp = "FDUP",
+        fadeDown = "FDDOWN",
+        fade = "FADE",
+        fadeStop = "FDSTOP",
+        query = "QUERY",
+        setConfiguration = "CONFIG",
+        writeChanges = "WDU"
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Percent;
+                value: number;
+                label: "Status";
+                name: "status";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: ZWave.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        DFON: (() => Promise<boolean>) & {
-            label: "Fast On";
-            name: "fastOn";
-        };
-        DFOF: (() => Promise<boolean>) & {
-            label: "Fast Off";
-            name: "fastOff";
-        };
-        BRT: (() => Promise<boolean>) & {
-            label: "Brighten";
-            name: "brighten";
-        };
-        DIM: (() => Promise<boolean>) & {
-            label: "Dim";
-            name: "dim";
-        };
-        FDUP: ((STARTLEVEL?: number | ZWave.PercentOpt, RR?: number) => Promise<boolean>) & {
-            label: "Fade Up";
-            name: "fadeUp";
-        };
-        FDDOWN: ((STARTLEVEL?: number | ZWave.PercentOpt, RR?: number) => Promise<boolean>) & {
-            label: "Fade Down";
-            name: "fadeDown";
-        };
-        FADE: ((DIR: ZWave.FadeDirection, STARTLEVEL?: number | ZWave.PercentOpt, RR?: number, DIR2?: ZWave.FadeDirection, STEP2?: number) => Promise<boolean>) & {
-            label: "Fade";
-            name: "fade";
-        };
-        FDSTOP: (() => Promise<boolean>) & {
-            label: "Fade Stop";
-            name: "fadeStop";
-        };
-        QUERY: (() => Promise<boolean>) & {
-            label: "Query";
-            name: "query";
-        };
-        CONFIG: ((NUM: number, VAL: number) => Promise<boolean>) & {
-            label: "Set Configuration";
-            name: "setConfiguration";
-        };
-        WDU: (() => Promise<boolean>) & {
-            label: "Write Changes";
-            name: "writeChanges";
-        };
-    };
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Percent;
-            value: number;
-            label: "Status";
-            name: "status";
-        };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: ZWave.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        status = "ST",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=DimmerSwitch.d.ts.map

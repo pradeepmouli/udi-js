@@ -1,7 +1,6 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
 import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import type { ISYNode } from "../../../ISYNode.js";
@@ -9,13 +8,10 @@ import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "DimmerLampSwitchLED";
-
-type Commands = DimmerLampSwitchLed.Commands;
-type Drivers = DimmerLampSwitchLed.Drivers;
+type Commands = DimmerLampSwitchLed.Commands.Type;
+type Drivers = DimmerLampSwitchLed.Drivers.Type;
 
 class DimmerLampSwitchLedNode extends Base<Drivers, Commands> implements DimmerLampSwitchLed.Interface {
 	public override readonly commands = {
@@ -92,96 +88,125 @@ export namespace DimmerLampSwitchLed {
 		return new DimmerLampSwitchLedNode(isy, nodeInfo);
 	}
 	export const Node = DimmerLampSwitchLedNode;
-	export type Commands = {
-		DON: ((value?: number) => Promise<boolean>) & {
-			label: "On";
-			name: "on";
+	export const Class = DimmerLampSwitchLedNode;
+	export namespace Commands {
+		export type Type = {
+			DON: ((value?: number) => Promise<boolean>) & {
+				label: "On";
+				name: "on";
+			};
+			DOF: (() => Promise<boolean>) & {
+				label: "Off";
+				name: "off";
+			};
+			DFOF: (() => Promise<boolean>) & {
+				label: "Fast Off";
+				name: "fastOff";
+			};
+			DFON: (() => Promise<boolean>) & {
+				label: "Fast On";
+				name: "fastOn";
+			};
+			BRT: (() => Promise<boolean>) & {
+				label: "Brighten";
+				name: "brighten";
+			};
+			DIM: (() => Promise<boolean>) & {
+				label: "Dim";
+				name: "dim";
+			};
+			FDUP: (() => Promise<boolean>) & {
+				label: "Fade Up";
+				name: "fadeUp";
+			};
+			FDDOWN: (() => Promise<boolean>) & {
+				label: "Fade Down";
+				name: "fadeDown";
+			};
+			FDSTOP: (() => Promise<boolean>) & {
+				label: "Fade Stop";
+				name: "fadeStop";
+			};
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
+			BEEP: ((value?: number) => Promise<boolean>) & {
+				label: "Beep";
+				name: "beep";
+			};
+			OL: ((value: number) => Promise<boolean>) & {
+				label: "On Level";
+				name: "updateOnLevel";
+			};
+			RR: ((value: Insteon.RampRate) => Promise<boolean>) & {
+				label: "Ramp Rate";
+				name: "updateRampRate";
+			};
+			LED: ((value: Insteon.I3RgbLed) => Promise<boolean>) & {
+				label: "LED";
+				name: "led";
+			};
+			BL: ((value: number) => Promise<boolean>) & {
+				label: "Backlight";
+				name: "backlight";
+			};
+			WDU: (() => Promise<boolean>) & {
+				label: "Write Changes";
+				name: "writeChanges";
+			};
 		};
-		DOF: (() => Promise<boolean>) & {
-			label: "Off";
-			name: "off";
+	}
+	export enum Commands {
+		on = 'DON',
+		off = 'DOF',
+		fastOff = 'DFOF',
+		fastOn = 'DFON',
+		brighten = 'BRT',
+		dim = 'DIM',
+		fadeUp = 'FDUP',
+		fadeDown = 'FDDOWN',
+		fadeStop = 'FDSTOP',
+		query = 'QUERY',
+		beep = 'BEEP',
+		updateOnLevel = 'OL',
+		updateRampRate = 'RR',
+		led = 'LED',
+		backlight = 'BL',
+		writeChanges = 'WDU'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: UnitOfMeasure.Percent;
+				value: number;
+				label: "Status";
+				name: "status";
+			};
+			OL: {
+				uom: UnitOfMeasure.Percent;
+				value: number;
+				label: "On Level";
+				name: "onLevel";
+			};
+			RR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.RampRate;
+				label: "Ramp Rate";
+				name: "rampRate";
+			};
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		DFOF: (() => Promise<boolean>) & {
-			label: "Fast Off";
-			name: "fastOff";
-		};
-		DFON: (() => Promise<boolean>) & {
-			label: "Fast On";
-			name: "fastOn";
-		};
-		BRT: (() => Promise<boolean>) & {
-			label: "Brighten";
-			name: "brighten";
-		};
-		DIM: (() => Promise<boolean>) & {
-			label: "Dim";
-			name: "dim";
-		};
-		FDUP: (() => Promise<boolean>) & {
-			label: "Fade Up";
-			name: "fadeUp";
-		};
-		FDDOWN: (() => Promise<boolean>) & {
-			label: "Fade Down";
-			name: "fadeDown";
-		};
-		FDSTOP: (() => Promise<boolean>) & {
-			label: "Fade Stop";
-			name: "fadeStop";
-		};
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
-		};
-		BEEP: ((value?: number) => Promise<boolean>) & {
-			label: "Beep";
-			name: "beep";
-		};
-		OL: ((value: number) => Promise<boolean>) & {
-			label: "On Level";
-			name: "updateOnLevel";
-		};
-		RR: ((value: Insteon.RampRate) => Promise<boolean>) & {
-			label: "Ramp Rate";
-			name: "updateRampRate";
-		};
-		LED: ((value: Insteon.I3RgbLed) => Promise<boolean>) & {
-			label: "LED";
-			name: "led";
-		};
-		BL: ((value: number) => Promise<boolean>) & {
-			label: "Backlight";
-			name: "backlight";
-		};
-		WDU: (() => Promise<boolean>) & {
-			label: "Write Changes";
-			name: "writeChanges";
-		};
-	};
-	export type Drivers = {
-		ST: {
-			uom: UnitOfMeasure.Percent;
-			value: number;
-			label: "Status";
-			name: "status";
-		};
-		OL: {
-			uom: UnitOfMeasure.Percent;
-			value: number;
-			label: "On Level";
-			name: "onLevel";
-		};
-		RR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.RampRate;
-			label: "Ramp Rate";
-			name: "rampRate";
-		};
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST',
+		onLevel = 'OL',
+		rampRate = 'RR',
+		responding = 'ERR'
+	}
 }

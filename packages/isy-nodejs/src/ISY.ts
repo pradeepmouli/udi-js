@@ -11,24 +11,24 @@ import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
 import { ElkAlarmSensorDevice } from './Devices/Elk/ElkAlarmSensorDevice.js';
 import { ISYDeviceNode } from './Devices/ISYDeviceNode.js';
 import { EventType } from './Events/EventType.js';
-import { VariableType } from './ISYConstants.js';
 import { type ISYDevice } from './ISYDevice.js';
 import { ISYNode } from './ISYNode.js';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
 import type { NodeInfo } from './Model/NodeInfo.js';
+import { VariableType } from './VariableType.js';
 
 import * as Utils from './Utils.js';
 
 import { X2jOptions, XMLParser } from 'fast-xml-parser';
 import type { ClientRequestArgs } from 'http';
 import path from 'path';
+import { CompositeDevice } from './Devices/CompositeDevice.js';
+import { GenericNode } from './Devices/GenericNode.js';
 import { NodeFactory } from './Devices/NodeFactory.js';
 import { ISYError } from './ISYError.js';
 import type { Config } from './Model/Config.js';
 import { findPackageJson } from './Utils.js';
-import { GenericNode } from './Devices/GenericNode.js';
-import { CompositeDevice } from './Devices/CompositeDevice.js';
 
 type InitStep = 'config' | 'loadNodes' | 'readFolders' | 'readDevices' | 'readScenes' | 'variables' | 'websocket' | 'refreshStatuses' | 'initialize';
 
@@ -775,7 +775,6 @@ export class ISY extends EventEmitter implements Disposable {
 					if (cls) {
 						try {
 							newDevice = new cls(this, nodeInfo);
-
 						} catch (e) {
 							this.logger.error(`Error creating device ${nodeInfo.name} with type ${nodeInfo.type} and nodedef ${nodeInfo.nodeDefId}: ${e.message}`);
 							continue;
@@ -811,10 +810,8 @@ export class ISY extends EventEmitter implements Disposable {
 						} else {
 						}
 						this.nodeMap.set(newDevice.address, CompositeDevice.isComposite(newDevice) ? newDevice.root : newDevice);
-						if(CompositeDevice.isComposite(newDevice))
-						{
-							if(this.deviceList.set)
-								this.deviceList.set(newDevice.address, newDevice);
+						if (CompositeDevice.isComposite(newDevice)) {
+							if (this.deviceList.set) this.deviceList.set(newDevice.address, newDevice);
 						}
 					} else {
 						this.logger.info(`Ignoring disabled device: ${nodeInfo.name}`);
@@ -824,19 +821,13 @@ export class ISY extends EventEmitter implements Disposable {
 				}
 			}
 			this.logger.info(`${this.nodeMap.size} nodes added.`);
-			for(const node of this.nodeMap.values()) {
-				if(node.parentAddress !== node.address) {
-					let parent = this.deviceList.get(node.parentAddress) as unknown as CompositeDevice<any,any>;
-					if(parent && CompositeDevice.isComposite(parent))
-						parent.addNode(node);
-
-				}
-				else if(!this.deviceList.has(node.address))
-				{
+			for (const node of this.nodeMap.values()) {
+				if (node.parentAddress !== node.address) {
+					let parent = this.deviceList.get(node.parentAddress) as unknown as CompositeDevice<any, any>;
+					if (parent && CompositeDevice.isComposite(parent)) parent.addNode(node);
+				} else if (!this.deviceList.has(node.address)) {
 					this.deviceList.set(node.address, node as unknown as ISYDevice<any, any, any, any>);
 				}
-
-
 			}
 			this.logger.info(`${this.deviceList.size} unique devices added.`);
 		} catch (e) {

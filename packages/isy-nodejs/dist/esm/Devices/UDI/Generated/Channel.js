@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "EM3Channel";
 class ChannelNode extends Base {
     commands = {};
     static nodeDefId = "EM3Channel";
@@ -40,5 +39,15 @@ export var Channel;
     }
     Channel.create = create;
     Channel.Node = ChannelNode;
+    Channel.Class = ChannelNode;
+    let Commands;
+    (function (Commands) {
+    })(Commands = Channel.Commands || (Channel.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["totalEnergy"] = "TPW";
+        Drivers["responding"] = "ERR";
+    })(Drivers = Channel.Drivers || (Channel.Drivers = {}));
 })(Channel || (Channel = {}));
 //# sourceMappingURL=Channel.js.map

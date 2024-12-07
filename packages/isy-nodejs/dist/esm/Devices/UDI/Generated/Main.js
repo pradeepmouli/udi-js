@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "EM3Main";
 class MainNode extends Base {
     commands = {
         QUERY: this.query
@@ -43,5 +42,16 @@ export var Main;
     }
     Main.create = create;
     Main.Node = MainNode;
+    Main.Class = MainNode;
+    let Commands;
+    (function (Commands) {
+        Commands["query"] = "QUERY";
+    })(Commands = Main.Commands || (Main.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["totalEnergy"] = "TPW";
+        Drivers["responding"] = "ERR";
+    })(Drivers = Main.Drivers || (Main.Drivers = {}));
 })(Main || (Main = {}));
 //# sourceMappingURL=Main.js.map

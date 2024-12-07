@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "RelayLampSwitch";
 class RelayLampSwitchNode extends Base {
     commands = {
         DON: this.on,
@@ -54,5 +53,22 @@ export var RelayLampSwitch;
     }
     RelayLampSwitch.create = create;
     RelayLampSwitch.Node = RelayLampSwitchNode;
+    RelayLampSwitch.Class = RelayLampSwitchNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["fastOff"] = "DFOF";
+        Commands["fastOn"] = "DFON";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["backlight"] = "BL";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = RelayLampSwitch.Commands || (RelayLampSwitch.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = RelayLampSwitch.Drivers || (RelayLampSwitch.Drivers = {}));
 })(RelayLampSwitch || (RelayLampSwitch = {}));
 //# sourceMappingURL=RelayLampSwitch.js.map

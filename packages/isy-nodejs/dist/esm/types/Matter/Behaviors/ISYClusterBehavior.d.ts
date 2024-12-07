@@ -5,9 +5,10 @@ import type { DriversOf, ISYNode } from '../../ISYNode.js';
 import type { ClusterMapping } from '../Mappings/MappingRegistry.js';
 import { ISYBridgedDeviceBehavior } from './ISYBridgedDeviceBehavior.js';
 import { type Factory } from '../../Utils.js';
+import type { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 export type ClusterForBehavior<B> = B extends ClusterBehavior.Type<infer C, infer D, infer E> ? C : never;
 export type ConstructedType<B extends Constructor<any>> = B extends Constructor<infer C> ? C : never;
-export interface DeviceBehavior<P extends ISYNode<any, any, any, any>, T extends {
+export interface DeviceBehavior<P extends ISYDeviceNode<any, any, any, any>, T extends {
     cluster?: any;
 }> {
     device: P;
@@ -23,7 +24,7 @@ export type PropertyChange<P extends ISYNode> = {
 };
 export declare function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & {
     cluster: any;
-}, P extends ISYNode<any, any, any, any>>(base: T, p: Constructor<P> | Factory<P>): typeof base & {
+}, P extends ISYDeviceNode<any, any, any, any>>(base: T, p: Constructor<P> | Factory<P>): typeof base & {
     new (...args: any[]): DeviceBehavior<P, T>;
 } & {
     nodeClass: Constructor<P>;

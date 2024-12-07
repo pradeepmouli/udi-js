@@ -3,7 +3,6 @@ import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "SirenAlert";
 class SirenAlertNode extends Base {
     commands = {};
     static nodeDefId = "SirenAlert";
@@ -33,5 +32,13 @@ export var SirenAlert;
     }
     SirenAlert.create = create;
     SirenAlert.Node = SirenAlertNode;
+    SirenAlert.Class = SirenAlertNode;
+    let Commands;
+    (function (Commands) {
+    })(Commands = SirenAlert.Commands || (SirenAlert.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["responding"] = "ERR";
+    })(Drivers = SirenAlert.Drivers || (SirenAlert.Drivers = {}));
 })(SirenAlert || (SirenAlert = {}));
 //# sourceMappingURL=SirenAlert.js.map

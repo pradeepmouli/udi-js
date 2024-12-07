@@ -5,8 +5,8 @@ import type { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
-type Commands = Thermostat.Commands;
-type Drivers = Thermostat.Drivers;
+type Commands = Thermostat.Commands.Type;
+type Drivers = Thermostat.Drivers.Type;
 declare class ThermostatNode extends Base<Drivers, Commands> implements Thermostat.Interface {
     readonly commands: {
         CLISPH: (value: number) => Promise<any>;
@@ -50,98 +50,125 @@ export declare namespace Thermostat {
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is ThermostatNode;
     function create(isy: ISY, nodeInfo: NodeInfo): ThermostatNode;
     const Node: typeof ThermostatNode;
-    type Commands = {
-        CLISPH: ((value: number) => Promise<boolean>) & {
-            label: "Heat Setpoint";
-            name: "updateHeatSetpoint";
+    const Class: typeof ThermostatNode;
+    namespace Commands {
+        type Type = {
+            CLISPH: ((value: number) => Promise<boolean>) & {
+                label: "Heat Setpoint";
+                name: "updateHeatSetpoint";
+            };
+            CLISPC: ((value: number) => Promise<boolean>) & {
+                label: "Cool Setpoint";
+                name: "updateCoolSetpoint";
+            };
+            CLIMD: ((value: (0 | 1 | 2 | 3 | 5 | 6 | 7)) => Promise<boolean>) & {
+                label: "Mode";
+                name: "updateMode";
+            };
+            CLIFS: ((value: (7 | 8)) => Promise<boolean>) & {
+                label: "Fan Mode";
+                name: "updateFanMode";
+            };
+            BRT: (() => Promise<boolean>) & {
+                label: "Setpoint Up";
+                name: "setpointUp";
+            };
+            DIM: (() => Promise<boolean>) & {
+                label: "Setpoint Down";
+                name: "setpointDown";
+            };
+            BEEP: ((value?: number) => Promise<boolean>) & {
+                label: "Beep";
+                name: "beep";
+            };
+            QUERY: (() => Promise<boolean>) & {
+                label: "Query";
+                name: "query";
+            };
+            SETTIME: (() => Promise<boolean>) & {
+                label: "Set Time";
+                name: "setTime";
+            };
+            WDU: (() => Promise<boolean>) & {
+                label: "Write Changes";
+                name: "writeChanges";
+            };
         };
-        CLISPC: ((value: number) => Promise<boolean>) & {
-            label: "Cool Setpoint";
-            name: "updateCoolSetpoint";
+    }
+    enum Commands {
+        updateHeatSetpoint = "CLISPH",
+        updateCoolSetpoint = "CLISPC",
+        updateMode = "CLIMD",
+        updateFanMode = "CLIFS",
+        setpointUp = "BRT",
+        setpointDown = "DIM",
+        beep = "BEEP",
+        query = "QUERY",
+        setTime = "SETTIME",
+        writeChanges = "WDU"
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Degree;
+                value: number;
+                label: "Temperature";
+                name: "temperature";
+            };
+            CLISPH: {
+                uom: UnitOfMeasure.Degree;
+                value: number;
+                label: "Heat Setpoint";
+                name: "heatSetpoint";
+            };
+            CLISPC: {
+                uom: UnitOfMeasure.Degree;
+                value: number;
+                label: "Cool Setpoint";
+                name: "coolSetpoint";
+            };
+            CLIMD: {
+                uom: UnitOfMeasure.InsteonThermostatMode;
+                value: (0 | 1 | 2 | 3 | 5 | 6 | 7);
+                label: "Mode";
+                name: "mode";
+            };
+            CLIFS: {
+                uom: UnitOfMeasure.InsteonThermostatFanMode;
+                value: (7 | 8);
+                label: "Fan Mode";
+                name: "fanMode";
+            };
+            CLIHUM: {
+                uom: UnitOfMeasure.Percent;
+                value: number;
+                label: "Humidity";
+                name: "humidity";
+            };
+            CLIHCS: {
+                uom: UnitOfMeasure.ThermostatHeatCoolState;
+                value: number;
+                label: "Heat/Cool State";
+                name: "heatCoolState";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Insteon.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        CLIMD: ((value: (0 | 1 | 2 | 3 | 5 | 6 | 7)) => Promise<boolean>) & {
-            label: "Mode";
-            name: "updateMode";
-        };
-        CLIFS: ((value: (7 | 8)) => Promise<boolean>) & {
-            label: "Fan Mode";
-            name: "updateFanMode";
-        };
-        BRT: (() => Promise<boolean>) & {
-            label: "Setpoint Up";
-            name: "setpointUp";
-        };
-        DIM: (() => Promise<boolean>) & {
-            label: "Setpoint Down";
-            name: "setpointDown";
-        };
-        BEEP: ((value?: number) => Promise<boolean>) & {
-            label: "Beep";
-            name: "beep";
-        };
-        QUERY: (() => Promise<boolean>) & {
-            label: "Query";
-            name: "query";
-        };
-        SETTIME: (() => Promise<boolean>) & {
-            label: "Set Time";
-            name: "setTime";
-        };
-        WDU: (() => Promise<boolean>) & {
-            label: "Write Changes";
-            name: "writeChanges";
-        };
-    };
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Degree;
-            value: number;
-            label: "Temperature";
-            name: "temperature";
-        };
-        CLISPH: {
-            uom: UnitOfMeasure.Degree;
-            value: number;
-            label: "Heat Setpoint";
-            name: "heatSetpoint";
-        };
-        CLISPC: {
-            uom: UnitOfMeasure.Degree;
-            value: number;
-            label: "Cool Setpoint";
-            name: "coolSetpoint";
-        };
-        CLIMD: {
-            uom: UnitOfMeasure.InsteonThermostatMode;
-            value: (0 | 1 | 2 | 3 | 5 | 6 | 7);
-            label: "Mode";
-            name: "mode";
-        };
-        CLIFS: {
-            uom: UnitOfMeasure.InsteonThermostatFanMode;
-            value: (7 | 8);
-            label: "Fan Mode";
-            name: "fanMode";
-        };
-        CLIHUM: {
-            uom: UnitOfMeasure.Percent;
-            value: number;
-            label: "Humidity";
-            name: "humidity";
-        };
-        CLIHCS: {
-            uom: UnitOfMeasure.ThermostatHeatCoolState;
-            value: number;
-            label: "Heat/Cool State";
-            name: "heatCoolState";
-        };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        temperature = "ST",
+        heatSetpoint = "CLISPH",
+        coolSetpoint = "CLISPC",
+        mode = "CLIMD",
+        fanMode = "CLIFS",
+        humidity = "CLIHUM",
+        heatCoolState = "CLIHCS",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=Thermostat.d.ts.map

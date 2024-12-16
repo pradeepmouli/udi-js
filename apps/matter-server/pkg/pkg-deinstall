@@ -1,0 +1,26 @@
+#!/bin/sh
+
+
+if [ "$2" = "DEINSTALL" ]
+then
+	###
+	# This script is called before uninstallation
+	# you can use this to make sure all resources
+	# are released, etc.
+	###
+fi
+
+if [ "$2" = "POST-DEINSTALL" ]
+then
+	###
+	# This script is called after uninstall completes
+	# you can use this to make sure all untracked directories/packages
+	# are removed
+	###
+	rm -rf /var/matter/bin
+	rm -rf /var/matter/node_modules
+	rm -rf /var/matter/.env
+	rm -rf /var/matter/package*.json
+	rm -rf /var/matter/matter_svc.pid
+	rm -rf /var/matter/matter.lock
+fi

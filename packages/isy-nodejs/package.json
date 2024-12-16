@@ -54,7 +54,7 @@
         "@log4js-node/log4js-api": "^1.0.2",
         "@matter/general": "^0.11.6",
         "@matter/main": "^0.11.8",
-        "@matter/types": "^0.11.8",
+        "@matter/types": "^0.11.9",
         "@project-chip/matter-node.js": "^0.11.8",
         "@project-chip/matter.js": "^0.11.8",
         "@types/ws": "^8.5.13",

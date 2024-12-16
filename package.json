@@ -40,7 +40,7 @@
     "@matter/main": "^0.11.8",
     "@matter/node": "^0.11.5",
     "@matter/nodejs": "^0.11.6",
-    "@matter/types": "^0.11.8",
+    "@matter/types": "^0.11.9",
     "@npmcli/package-json": "^6.1.0",
     "@project-chip/matter-node.js": "^0.11.8",
     "@project-chip/matter.js": "^0.11.8",

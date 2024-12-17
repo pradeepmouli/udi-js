@@ -50,7 +50,7 @@ build-matter:
 
 	@echo "*** Installing dependencies ***"
 	@cd build && \
-	npm ci --omit=dev
+	npm ci --omit=dev --workspaces=false
 
 
 	@echo "*** Creating tar file ${TAR_FILE} ***"

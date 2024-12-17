@@ -1,4 +1,5 @@
 {
+
   "packages": [
     "packages/*",
     "apps/*"
@@ -15,10 +16,11 @@
       "registry": "https://registry.npmjs.org/",
       "npmClient": "npm",
       "distTag": "dev"
+
     },
     "version": {
       "gitRemote": "udi-js"
     }
   },
-  "$schema": "./node_modules/lerna/lib/config/schema.json"
+  "$schema": "./node_modules/lerna/schemas/lerna-schema.json"
 }

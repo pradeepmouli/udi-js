@@ -48,10 +48,14 @@ build-matter:
 	@cp files/.env build/.env
 	@cp ../package*.json build/
 
+
+	@echo "*** Updating package lock ***"
+	@cd build && \
+	npm i --package-lock-only --workspaces=false
+
 	@echo "*** Installing dependencies ***"
 	@cd build && \
 	npm ci --omit=dev --workspaces=false
-
 
 	@echo "*** Creating tar file ${TAR_FILE} ***"
   # We need the tar file in ./files for the do-install, but we also need it in . for makesum
@@ -63,4 +67,4 @@ do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/${PORTNAME}.d/files
 	${INSTALL_DATA} ${FILESDIR}/${TAR_FILE} ${STAGEDIR}${PREFIX}/etc/${PORTNAME}.d/files/${TAR_FILE}
 
-.include <bsd.port.mk>
+# .include <bsd.port.mk>

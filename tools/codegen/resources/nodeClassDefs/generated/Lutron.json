@@ -3,13 +3,16 @@
     "className": "LoadShed",
     "id": "LUTLoadShed",
     "nlsId": "RELAY",
+    "name": "LoadShed",
+    "label": "Load Shed",
     "drivers": {
       "ST": {
+        "id": "ST",
+        "name": "status",
         "label": "Status",
         "hidden": false,
         "optional": false,
         "readonly": false,
-        "id": "ST",
         "editorId": "LUT_OL_RELAY",
         "dataType": [
           {
@@ -21,15 +24,15 @@
               "100": ""
             }
           }
-        ],
-        "name": "status"
+        ]
       },
       "ERR": {
+        "id": "ERR",
+        "name": "responding",
         "label": "Responding",
         "hidden": true,
         "optional": false,
         "readonly": true,
-        "id": "ERR",
         "editorId": "LUT_ERR",
         "dataType": [
           {
@@ -41,14 +44,14 @@
               "1": "False"
             }
           }
-        ],
-        "name": "responding"
+        ]
       }
     },
     "commands": {
       "DON": {
-        "label": "On",
         "id": "DON",
+        "name": "on",
+        "label": "On",
         "editorId": "LUT_OL_RELAY",
         "dataType": [
           {
@@ -61,11 +64,11 @@
             }
           }
         ],
-        "name": "on",
         "optional": true,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "LUT_OL_RELAY",
             "dataType": [
               {
@@ -78,28 +81,25 @@
                 }
               }
             ],
-            "name": "value",
             "optional": true,
             "initialValue": "ST"
           }
-        },
+        ],
         "initialValue": "ST"
       },
       "DOF": {
-        "label": "Off",
         "id": "DOF",
-        "name": "off"
+        "name": "off",
+        "label": "Off"
       },
       "QUERY": {
-        "label": "Query",
         "id": "QUERY",
-        "name": "query"
+        "name": "query",
+        "label": "Query"
       }
     },
     "events": {},
     "family": 11,
-    "label": "Load Shed",
-    "name": "LoadShed",
     "dynamic": false
   }
 }

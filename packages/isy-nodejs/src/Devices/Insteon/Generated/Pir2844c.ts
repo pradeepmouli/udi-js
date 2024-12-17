@@ -1,12 +1,13 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
+import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
@@ -39,13 +40,13 @@ class Pir2844cNode extends Base<Drivers, Commands> implements Pir2844c.Interface
 	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
-	public get temperature(): number {
+	public get temperature(): IntRange<-31, 70> {
 		return this.drivers.CLITEMP?.value;
 	}
-	public get luminance(): number {
+	public get luminance(): IntRange<0, 100> {
 		return this.drivers.LUMIN?.value;
 	}
-	public get batteryLevel(): number {
+	public get batteryLevel(): IntRange<0, 100> {
 		return this.drivers.BATLVL?.value;
 	}
 	public get batteryPowered(): Insteon.Boolean {
@@ -109,19 +110,19 @@ export namespace Pir2844c {
 			};
 			CLITEMP: {
 				uom: UnitOfMeasure.Celsius;
-				value: number;
+				value: IntRange<-31, 70>;
 				label: "Temperature";
 				name: "temperature";
 			};
 			LUMIN: {
 				uom: UnitOfMeasure.Percent;
-				value: number;
+				value: IntRange<0, 100>;
 				label: "Luminance";
 				name: "luminance";
 			};
 			BATLVL: {
 				uom: UnitOfMeasure.Percent;
-				value: number;
+				value: IntRange<0, 100>;
 				label: "Battery Level";
 				name: "batteryLevel";
 			};

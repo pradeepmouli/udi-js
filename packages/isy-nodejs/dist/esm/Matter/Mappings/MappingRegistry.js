@@ -9,10 +9,8 @@ import { ISYDevice } from '../../ISYDevice.js';
 function addA(mapping1, mapping2) {
     return { deviceType: mapping1.deviceType, nodeType: mapping1.nodeType, mapping: { ...mapping1.mapping, ...mapping2.mapping } };
 }
-export function add(familyToClusterMap, deviceClass, mapping) {
-    const map = {};
-    map[deviceClass.name] = mapping;
-    return { ...map, ...familyToClusterMap };
+export function add(This, mapping) {
+    return { ...This, ...mapping };
 }
 // #endregion Type aliases (16)
 // #region Classes (1)

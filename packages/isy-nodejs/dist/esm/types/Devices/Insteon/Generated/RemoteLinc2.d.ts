@@ -1,9 +1,10 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = RemoteLinc2.Commands.Type;
 type Drivers = RemoteLinc2.Drivers.Type;
@@ -16,7 +17,7 @@ declare class RemoteLinc2Node extends Base<Drivers, Commands> implements RemoteL
     readonly nodeDefId: 'RemoteLinc2' | "RemoteLinc2_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     writeChanges(): Promise<any>;
-    get status(): number;
+    get status(): IntRange<0, 100>;
     get responding(): Insteon.Error;
 }
 export declare namespace RemoteLinc2 {
@@ -42,7 +43,7 @@ export declare namespace RemoteLinc2 {
         type Type = {
             ST: {
                 uom: UnitOfMeasure.Percent;
-                value: number;
+                value: IntRange<0, 100>;
                 label: "Status";
                 name: "status";
             };

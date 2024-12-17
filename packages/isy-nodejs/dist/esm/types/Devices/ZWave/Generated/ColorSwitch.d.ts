@@ -1,15 +1,16 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import type { IntRange } from "type-fest";
 import { ZWave } from "../../../Definitions/index.js";
 type Commands = ColorSwitch.Commands.Type;
 type Drivers = ColorSwitch.Drivers.Type;
 declare class ColorSwitchNode extends Base<Drivers, Commands> implements ColorSwitch.Interface {
     readonly commands: {
-        DON: (warmWhite?: number, red?: number, green?: number, blue?: number, duration?: number, coldWhite?: number) => Promise<any>;
+        DON: (warmWhite?: number, coldWhite?: number, red?: number, green?: number, blue?: number, duration?: number) => Promise<any>;
         FDUP: (component: ZWave.ColorComponent, startLevel?: number, duration?: number) => Promise<any>;
         FDDOWN: (component: ZWave.ColorComponent, startLevel?: number, duration?: number) => Promise<any>;
         FDSTOP: (component: ZWave.ColorComponent) => Promise<any>;
@@ -19,16 +20,16 @@ declare class ColorSwitchNode extends Base<Drivers, Commands> implements ColorSw
     static implements: string[];
     readonly nodeDefId: '186';
     constructor(isy: ISY, nodeInfo: NodeInfo);
-    set(warmWhite?: number, red?: number, green?: number, blue?: number, duration?: number, coldWhite?: number): Promise<any>;
+    set(warmWhite?: number, coldWhite?: number, red?: number, green?: number, blue?: number, duration?: number): Promise<any>;
     fadeUp(component: ZWave.ColorComponent, startLevel?: number, duration?: number): Promise<any>;
     fadeDown(component: ZWave.ColorComponent, startLevel?: number, duration?: number): Promise<any>;
     fadeStop(component: ZWave.ColorComponent): Promise<any>;
     query(): Promise<any>;
-    get warmWhite(): number;
-    get red(): number;
-    get green(): number;
-    get blue(): number;
-    get coldWhite(): number;
+    get warmWhite(): IntRange<0, 255>;
+    get red(): IntRange<0, 255>;
+    get green(): IntRange<0, 255>;
+    get blue(): IntRange<0, 255>;
+    get coldWhite(): IntRange<0, 255>;
 }
 export declare namespace ColorSwitch {
     interface Interface extends Omit<InstanceType<typeof ColorSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
@@ -40,7 +41,7 @@ export declare namespace ColorSwitch {
     const Class: typeof ColorSwitchNode;
     namespace Commands {
         type Type = {
-            DON: ((GV0?: number, GV2?: number, GV3?: number, GV4?: number, RR?: number, GV1?: number) => Promise<boolean>) & {
+            DON: ((GV0?: number, GV1?: number, GV2?: number, GV3?: number, GV4?: number, RR?: number) => Promise<boolean>) & {
                 label: "Set";
                 name: "set";
             };
@@ -73,31 +74,31 @@ export declare namespace ColorSwitch {
         type Type = {
             GV0: {
                 uom: UnitOfMeasure.Raw1ByteUnsignedValue;
-                value: number;
+                value: IntRange<0, 255>;
                 label: "Warm White";
                 name: "warmWhite";
             };
             GV2: {
                 uom: UnitOfMeasure.Raw1ByteUnsignedValue;
-                value: number;
+                value: IntRange<0, 255>;
                 label: "Red";
                 name: "red";
             };
             GV3: {
                 uom: UnitOfMeasure.Raw1ByteUnsignedValue;
-                value: number;
+                value: IntRange<0, 255>;
                 label: "Green";
                 name: "green";
             };
             GV4: {
                 uom: UnitOfMeasure.Raw1ByteUnsignedValue;
-                value: number;
+                value: IntRange<0, 255>;
                 label: "Blue";
                 name: "blue";
             };
             GV1: {
                 uom: UnitOfMeasure.Raw1ByteUnsignedValue;
-                value: number;
+                value: IntRange<0, 255>;
                 label: "Cold White";
                 name: "coldWhite";
             };

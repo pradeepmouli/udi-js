@@ -1,9 +1,10 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = Siren.Commands.Type;
 type Drivers = Siren.Drivers.Type;
@@ -30,8 +31,8 @@ declare class SirenNode extends Base<Drivers, Commands> implements Siren.Interfa
     writeChanges(): Promise<any>;
     get siren(): Insteon.OnLevelRelay;
     get mode(): Insteon.SirenModeQuery;
-    get armCountdown(): number;
-    get sirenDuration(): number;
+    get armCountdown(): IntRange<0, 127>;
+    get sirenDuration(): IntRange<0, 255>;
     get responding(): Insteon.Error;
 }
 export declare namespace Siren {
@@ -99,13 +100,13 @@ export declare namespace Siren {
             };
             DELAY: {
                 uom: UnitOfMeasure.DurationInSeconds;
-                value: number;
+                value: IntRange<0, 127>;
                 label: "Arm Countdown";
                 name: "armCountdown";
             };
             DUR: {
                 uom: UnitOfMeasure.DurationInSeconds;
-                value: number;
+                value: IntRange<0, 255>;
                 label: "Siren Duration";
                 name: "sirenDuration";
             };

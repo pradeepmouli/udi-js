@@ -5,42 +5,45 @@ import * as Insteon from '../../Devices/Insteon/index.js';
 
 //import InsteonMap from "./Insteon.json";
 
-import { OnOffLightDevice, DimmableLightDevice, ContactSensorDevice } from '@matter/node/devices';
-import {  MappingRegistry, type ClusterMapping, type EndpointMapping, type FamilyToClusterMap } from './MappingRegistry.js';
+import { OnOffLightDevice, DimmableLightDevice, ContactSensorDevice, OnOffPlugInUnitDevice } from '@matter/node/devices';
+import {  add, MappingRegistry, type ClusterMapping, type EndpointMapping, type FamilyToClusterMap } from './MappingRegistry.js';
 import  { ISYDevice } from '../../ISYDevice.js';
 import type { CompositeDevice } from '../../Devices/CompositeDevice.js';
 import type { BooleanState, BooleanStateCluster, Cluster } from '@project-chip/matter.js/cluster';
 
-export const map: FamilyToClusterMap<Family.Insteon> = {
-	Family: Family.Insteon,
-
+export let map;
+	//Family: Family.Insteon,
+//@ts-ignore
+MappingRegistry.add({
 	DoorWindowSensor: {
 		deviceType: ContactSensorDevice,
 		mapping: {
-			BooleanState: {
+			booleanState: {
 				attributes: {
 					stateValue: { driver: 'contactSensor.status', converter: 'Percent.Boolean' }
 				}
-			} as ClusterMapping<BooleanStateCluster, InstanceType<typeof Insteon.DoorWindowSensor.Device>>
+			}
 		}
-	},
+	}}).add({DimmerLampSwitch: {deviceType: OnOffPlugInUnitDevice, mapping: {}}}).add({
 	RelayLampSwitch: {
 		deviceType: OnOffLightDevice,
 		mapping: {
-			OnOff: {
+			onOff: {
 				attributes: {
-					onOff: { driver: 'status', converter: 'Percent.Boolean' }
+					onOff: { driver: 'status', converter: 'Percent.Boolean' },
+
 				},
-				commands: { on: 'DON' }
+				commands: { on: 'DON' },
+
 			}
 		}
-	},
+	}}).add({
 	DimmerLamp: {
 		deviceType: DimmableLightDevice,
-		// @ts-ignore
+
 		mapping: {
-			// @ts-ignore
-			OnOff: {
+
+			onOff: {
 				attributes: {
 					onOff: { driver: 'ST', converter: 'Percent.Boolean' }
 				},
@@ -48,18 +51,18 @@ export const map: FamilyToClusterMap<Family.Insteon> = {
 			},
 
 
-			LevelControl: {
+			levelControl: {
 				// @ts-ignore
 				attributes: {
 					currentLevel: { driver: 'ST', converter: 'Percent.LightingLevel' },
 					//startUpCurrentLevel: { driver: 'OL', converter: 'Percent.LightingLevel' },
 					onLevel: { driver: 'OL', converter: 'Percent.LightingLevel' }
 				},
-				commands: { setLevel: { command: 'DON' } }
+				commands: { moveToLevel: 'DON' }
 			}
-		} as EndpointMapping<DimmableLightDevice, InstanceType<typeof Insteon.DimmerLamp.Node>>
-	},
-	DimmerLampSwitch: {
+		}
+	}}).add
+	({DimmerLampSwitch: {
 		deviceType: DimmableLightDevice,
 		// @ts-ignore
 		mapping: {
@@ -82,10 +85,7 @@ export const map: FamilyToClusterMap<Family.Insteon> = {
 			}
 		} as EndpointMapping<DimmableLightDevice, InstanceType<typeof Insteon.DimmerLamp.Node>>
 	}
-};
-
-map.KeypadDimmer = {...map.DimmerLamp};
-map.KeypadRelay = {...map.RelayLamp};
+});
 
 type test = CompositeDevice.DriverNamesOf<Insteon.DoorWindowSensor.Device>
 

@@ -1,12 +1,13 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
+import type { IntRange } from "type-fest";
 import { ZWave } from "../../../Definitions/index.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
@@ -50,7 +51,7 @@ class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerSwitch.I
 	async query() { return this.sendCommand("QUERY"); }
 	async setConfiguration(parameterNumber: number, parameterValue: number) { return this.sendCommand("CONFIG", { NUM: parameterNumber, VAL: parameterValue }); }
 	async writeChanges() { return this.sendCommand("WDU"); }
-	public get status(): number {
+	public get status(): IntRange<0, 101> {
 		return this.drivers.ST?.value;
 	}
 	public get responding(): ZWave.Error {
@@ -149,7 +150,7 @@ export namespace DimmerSwitch {
 		export type Type = {
 			ST: {
 				uom: UnitOfMeasure.Percent;
-				value: number;
+				value: IntRange<0, 101>;
 				label: "Status";
 				name: "status";
 			};

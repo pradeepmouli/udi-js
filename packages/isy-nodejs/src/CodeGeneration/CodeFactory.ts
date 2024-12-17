@@ -299,7 +299,7 @@ export class CodeFactory {
 		return ts.factory.createLiteralTypeNode(this.createStringLiteral(literal));
 	}
 
-	createLiteral(value: string | number): ts.LiteralExpression {
+	createLiteral(value: string | number): ts.LiteralExpression  | ts.PrefixUnaryExpression {
 		if (typeof value === 'number') {
 			return this.createNumericLiteral(value as number);
 		}
@@ -307,7 +307,11 @@ export class CodeFactory {
 		return this.createStringLiteral(value);
 	}
 
-	createNumericLiteral(value: number, flags?: ts.TokenFlags): ts.NumericLiteral {
+	createNumericLiteral(value: number, flags?: ts.TokenFlags): ts.NumericLiteral | ts.PrefixUnaryExpression{
+		if(value < 0)
+		{
+			return ts.factory.createPrefixUnaryExpression(SyntaxKind.MinusToken, ts.factory.createNumericLiteral((-value).toString(), flags));
+		}
 		return ts.factory.createNumericLiteral(value.toString(), flags);
 	}
 

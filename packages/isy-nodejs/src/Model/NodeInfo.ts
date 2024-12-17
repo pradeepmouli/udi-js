@@ -40,7 +40,7 @@ export interface DynamicNodeInfo {
 	devtype: Devtype;
 	enabled?: boolean;
 	endDelay: number;
-	family?: Family.ZWave;
+	family?: Family.ZWave | Family.ZigBee;
 	flag?: any;
 	hint: string;
 	name: string;

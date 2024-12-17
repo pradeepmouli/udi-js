@@ -143,7 +143,7 @@ export declare namespace ISYNode {
         new (...args: any[]): {
             drivers: Driver.ForAll<D, false>;
             commands: Command.ForAll<C>;
-            "__#6426063@#parentNode": ISYNode<any, any, any, any>;
+            "__#173@#parentNode": ISYNode<any, any, any, any>;
             readonly address: string;
             readonly baseLabel: string;
             readonly flag: any;

@@ -20,18 +20,19 @@ export type Factory<T extends object> =
 		create?: (...args: any[]) => T;
 		is?<K extends T>(obj: object): obj is T;
 		isImplementedBy?(obj: object): obj is T;
+		Class: Constructor<T>;
 
 
 	} & {Node: Constructor<T>} | {Device: Constructor<T>};
 
 export function isFactory(obj: any): obj is Factory<any> {
-	return obj.Node !== undefined || obj.Device !== undefined;
+	return obj.Node !== undefined || obj.Device !== undefined || obj.class !== undefined;
 }
 
 export function getConstructor<T extends object>(obj: Factory<T> | Constructor<T>): Constructor<T> {
 	if(isFactory(obj)) {
 		if('Node' in obj) {
-			return obj.Node;
+			return obj.Class;
 		}
 		return obj.Device;
 	}

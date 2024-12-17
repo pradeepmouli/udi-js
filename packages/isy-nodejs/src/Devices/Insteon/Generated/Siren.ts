@@ -1,12 +1,13 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
+import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
@@ -47,10 +48,10 @@ class SirenNode extends Base<Drivers, Commands> implements Siren.Interface {
 	public get mode(): Insteon.SirenModeQuery {
 		return this.drivers.MODE?.value;
 	}
-	public get armCountdown(): number {
+	public get armCountdown(): IntRange<0, 127> {
 		return this.drivers.DELAY?.value;
 	}
-	public get sirenDuration(): number {
+	public get sirenDuration(): IntRange<0, 255> {
 		return this.drivers.DUR?.value;
 	}
 	public get responding(): Insteon.Error {
@@ -132,13 +133,13 @@ export namespace Siren {
 			};
 			DELAY: {
 				uom: UnitOfMeasure.DurationInSeconds;
-				value: number;
+				value: IntRange<0, 127>;
 				label: "Arm Countdown";
 				name: "armCountdown";
 			};
 			DUR: {
 				uom: UnitOfMeasure.DurationInSeconds;
-				value: number;
+				value: IntRange<0, 255>;
 				label: "Siren Duration";
 				name: "sirenDuration";
 			};

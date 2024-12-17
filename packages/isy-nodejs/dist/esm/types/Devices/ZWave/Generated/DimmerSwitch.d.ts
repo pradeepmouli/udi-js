@@ -1,9 +1,10 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import type { IntRange } from "type-fest";
 import { ZWave } from "../../../Definitions/index.js";
 type Commands = DimmerSwitch.Commands.Type;
 type Drivers = DimmerSwitch.Drivers.Type;
@@ -40,7 +41,7 @@ declare class DimmerSwitchNode extends Base<Drivers, Commands> implements Dimmer
     query(): Promise<any>;
     setConfiguration(parameterNumber: number, parameterValue: number): Promise<any>;
     writeChanges(): Promise<any>;
-    get status(): number;
+    get status(): IntRange<0, 101>;
     get responding(): ZWave.Error;
 }
 export declare namespace DimmerSwitch {
@@ -126,7 +127,7 @@ export declare namespace DimmerSwitch {
         type Type = {
             ST: {
                 uom: UnitOfMeasure.Percent;
-                value: number;
+                value: IntRange<0, 101>;
                 label: "Status";
                 name: "status";
             };

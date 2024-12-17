@@ -1,12 +1,13 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
+import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
@@ -52,13 +53,13 @@ class DimmerMotorSwitchNode extends Base<Drivers, Commands> implements DimmerMot
 	async updateMaxDuration(value: number) { return this.sendCommand("DUR", value); }
 	async backlight(value: number) { return this.sendCommand("BL", value); }
 	async writeChanges() { return this.sendCommand("WDU"); }
-	public get status(): number {
+	public get status(): IntRange<0, 100> {
 		return this.drivers.ST?.value;
 	}
-	public get onLevel(): number {
+	public get onLevel(): IntRange<0, 100> {
 		return this.drivers.OL?.value;
 	}
-	public get maxDuration(): number {
+	public get maxDuration(): IntRange<0, 546.2> {
 		return this.drivers.DUR?.value;
 	}
 	public get responding(): Insteon.Error {
@@ -158,19 +159,19 @@ export namespace DimmerMotorSwitch {
 		export type Type = {
 			ST: {
 				uom: UnitOfMeasure.Percent;
-				value: number;
+				value: IntRange<0, 100>;
 				label: "Status";
 				name: "status";
 			};
 			OL: {
 				uom: UnitOfMeasure.Percent;
-				value: number;
+				value: IntRange<0, 100>;
 				label: "On Level";
 				name: "onLevel";
 			};
 			DUR: {
 				uom: UnitOfMeasure.DurationInSeconds;
-				value: number;
+				value: IntRange<0, 546.2>;
 				label: "Max Duration";
 				name: "maxDuration";
 			};

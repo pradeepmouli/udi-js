@@ -1,13 +1,12 @@
-import { Family } from '../../Definitions/Global/Families.js';
 //import InsteonMap from "./Insteon.json";
 import { OnOffLightDevice, DimmableLightDevice, ContactSensorDevice } from '@matter/node/devices';
-import { MappingRegistry } from './MappingRegistry.js';
-export const map = {
-    Family: Family.Insteon,
+import { add, MappingRegistry } from './MappingRegistry.js';
+export let map = {
+    //Family: Family.Insteon,
     DoorWindowSensor: {
         deviceType: ContactSensorDevice,
         mapping: {
-            BooleanState: {
+            booleanState: {
                 attributes: {
                     stateValue: { driver: 'contactSensor.status', converter: 'Percent.Boolean' }
                 }
@@ -68,7 +67,7 @@ export const map = {
         }
     }
 };
-map.KeypadDimmer = { ...map.DimmerLamp };
+map = add(map, { KeypadRelay: map.DimmerLampSwitch });
 map.KeypadRelay = { ...map.RelayLamp };
 /*let newMap = add(map, Insteon.DimmerLamp.Node, {
     deviceType: DimmableLightDevice,

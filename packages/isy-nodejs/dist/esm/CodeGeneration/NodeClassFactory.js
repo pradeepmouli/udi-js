@@ -1,6 +1,5 @@
 import { IndentationText, Project, QuoteKind, ScriptTarget } from 'ts-morph';
-import { factory } from 'typescript';
-import ts from 'typescript';
+import ts, { factory } from 'typescript';
 import { UnitOfMeasure } from '../Definitions/Global/UOM.js';
 import { Family } from '../Definitions/index.js';
 import { NodeClassDefinition } from '../Model/ClassDefinition.js';
@@ -19,7 +18,7 @@ export class NodeClassFactory extends CodeFactory {
             useTrailingCommas: false,
             indentationText: IndentationText.Tab,
             newLineKind: ts.NewLineKind.CarriageReturnLineFeed,
-            insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces: true,
+            insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces: true
         }
     });
     static instance = new NodeClassFactory(ts.factory);
@@ -50,17 +49,17 @@ export class NodeClassFactory extends CodeFactory {
         let sf = ts.createSourceFile(path, '', ts.ScriptTarget.ES2024, true, ts.ScriptKind.TS);
         //@ts-expect-error
         sf.statements = [
-            factory.createImportDeclaration(undefined, factory.createImportClause(false, undefined, factory.createNamedImports([factory.createImportSpecifier(false, undefined, factory.createIdentifier('UnitOfMeasure'))])), factory.createStringLiteral('../../../Definitions/Global/UOM.js'), undefined),
-            factory.createImportDeclaration(undefined, factory.createImportClause(false, undefined, factory.createNamedImports([factory.createImportSpecifier(false, undefined, factory.createIdentifier('Family'))])), factory.createStringLiteral('../../../Definitions/Global/Families.js'), undefined),
-            factory.createImportDeclaration(undefined, factory.createImportClause(true, undefined, factory.createNamedImports([factory.createImportSpecifier(false, undefined, factory.createIdentifier('NodeInfo'))])), factory.createStringLiteral('../../../Model/NodeInfo.js'), undefined),
-            NodeClassFactory.instance.createImportDeclaration('../../../ISY.js', ['ISY']),
-            factory.createImportDeclaration(undefined, factory.createImportClause(true, undefined, factory.createNamedImports([factory.createImportSpecifier(false, undefined, factory.createIdentifier('ISYNode'))])), factory.createStringLiteral('../../../ISYNode.js'), undefined),
-            factory.createImportDeclaration(undefined, factory.createImportClause(false, undefined, factory.createNamedImports([factory.createImportSpecifier(false, undefined, factory.createIdentifier('Base'))])), factory.createStringLiteral('../index.js'), undefined),
-            factory.createImportDeclaration(undefined, factory.createImportClause(false, undefined, factory.createNamedImports([factory.createImportSpecifier(false, undefined, factory.createIdentifier('ISYDeviceNode'))])), factory.createStringLiteral('../../ISYDeviceNode.js'), undefined),
-            factory.createImportDeclaration(undefined, factory.createImportClause(false, undefined, factory.createNamedImports([factory.createImportSpecifier(false, undefined, factory.createIdentifier('Driver'))])), factory.createStringLiteral('../../../Definitions/Global/Drivers.js'), undefined),
+            this.createImportDeclaration('../../../Definitions/Global/index.js', ['Family', ' UnitOfMeasure']),
+            this.createImportDeclaration('../../../Model/NodeInfo.js', ['NodeInfo'], true),
+            this.createImportDeclaration('../../../ISY.js', ['ISY']),
+            this.createImportDeclaration('../../../ISYNode.js', ['ISYNode']),
+            this.createImportDeclaration('../index.js', ['Base']),
+            this.createImportDeclaration('../../ISYDeviceNode.js', ['ISYDeviceNode']),
+            this.createImportDeclaration('../../../Definitions/Global/Drivers.js', ['Driver']),
+            this.createImportDeclaration('type-fest', ['IntRange'], true),
+            this.createImportDeclaration('../../../Model/DriverState,js', ['DriverState'], true),
             factory.createImportDeclaration(undefined, factory.createImportClause(false, undefined, factory.createNamedImports([factory.createImportSpecifier(false, undefined, factory.createIdentifier(Family[nodeClassDef.family]))])), factory.createStringLiteral('../../../Definitions/index.js'), undefined),
-            factory.createImportDeclaration(undefined, factory.createImportClause(true, undefined, factory.createNamedImports([factory.createImportSpecifier(false, undefined, factory.createIdentifier('DriverState'))])), factory.createStringLiteral('../../../Model/DriverState.js'), undefined),
-            factory.createImportDeclaration(undefined, factory.createImportClause(false, undefined, factory.createNamedImports([factory.createImportSpecifier(false, undefined, factory.createIdentifier('NodeFactory'))])), factory.createStringLiteral('../../NodeFactory.js'), undefined),
+            this.createImportDeclaration('../../NodeFactory.js', ['NodeFactory']),
             factory.createVariableStatement(undefined, factory.createVariableDeclarationList([factory.createVariableDeclaration(factory.createIdentifier('nodeDefId'), undefined, undefined, factory.createStringLiteral(nodeClassDef.id))], ts.NodeFlags.Const)),
             factory.createTypeAliasDeclaration(undefined, factory.createIdentifier('Commands'), undefined, factory.createTypeReferenceNode(this.createQualifiedName(nodeClassDef.name, 'Commands', 'Type'))),
             factory.createTypeAliasDeclaration(undefined, factory.createIdentifier('Drivers'), undefined, factory.createTypeReferenceNode(this.createQualifiedName(nodeClassDef.name, 'Drivers', 'Type'), undefined)),
@@ -185,7 +184,7 @@ export class NodeClassFactory extends CodeFactory {
             newLineCharacter: '\n',
             trimTrailingWhitespace: true,
             ensureNewLineAtEndOfFile: true,
-            indentStyle: ts.IndentStyle.Smart,
+            indentStyle: ts.IndentStyle.Smart
         });
         f.fixUnusedIdentifiers();
         let currentKind = ts.SyntaxKind.Unknown;
@@ -231,8 +230,8 @@ export class NodeClassFactory extends CodeFactory {
         let n = [];
         let r = [];
         if (def.parameters) {
-            for (let p in def.parameters) {
-                let p2 = def.parameters[p];
+            for (let p of def.parameters) {
+                let p2 = p;
                 if (!p2?.id || p2.id == 'value') {
                     n.push(factory.createIdentifier(p2.name ?? 'value'));
                 }
@@ -293,7 +292,7 @@ export class NodeClassFactory extends CodeFactory {
         ]));
     }
     createDriverGetDeclaration(def) {
-        return factory.createGetAccessorDeclaration([factory.createToken(ts.SyntaxKind.PublicKeyword)], factory.createIdentifier(def.name), [], NodeClassFactory.instance.createUnionTypeNode(...def.dataType?.map((p) => NodeClassFactory.instance.createDriverPropertyReturnType(p, def))), factory.createBlock([
+        return factory.createGetAccessorDeclaration([factory.createToken(ts.SyntaxKind.PublicKeyword)], factory.createIdentifier(def.name), [], NodeClassFactory.instance.createUnionTypeNode(...def.dataType?.map((p) => NodeClassFactory.instance.createDriverReturnType(p, def))), factory.createBlock([
             factory.createReturnStatement(factory.createPropertyAccessChain(factory.createPropertyAccessExpression(factory.createPropertyAccessExpression(factory.createThis(), factory.createIdentifier('drivers')), factory.createIdentifier(def.id)), factory.createToken(ts.SyntaxKind.QuestionDotToken), factory.createIdentifier('value')))
         ], true));
     }
@@ -332,6 +331,12 @@ export class NodeClassFactory extends CodeFactory {
                 // )))
             }
         }
+        if ('min' in def && 'max' in def) {
+            return factory.createTypeReferenceNode(factory.createIdentifier('IntRange'), [
+                factory.createLiteralTypeNode(this.createLiteral(def.min)),
+                factory.createLiteralTypeNode(this.createLiteral(def.max))
+            ]);
+        }
         return factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
     }
     createDriverSignature(def) {
@@ -340,24 +345,40 @@ export class NodeClassFactory extends CodeFactory {
                 NodeClassFactory.instance.createUnionTypeNode(...def.dataType?.map((p) => NodeClassFactory.instance.createTypeNodeForUOM(p.uom)))
                 : factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword)),
             factory.createPropertySignature(undefined, factory.createIdentifier('value'), undefined, def.dataType ?
-                NodeClassFactory.instance.createUnionTypeNode(...def.dataType.map((p) => NodeClassFactory.instance.createDriverSignatureReturnType(p, def)))
+                NodeClassFactory.instance.createUnionTypeNode(...def.dataType.map((p) => NodeClassFactory.instance.createDriverReturnType(p, def)))
                 : factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword)),
             factory.createPropertySignature(undefined, factory.createIdentifier('label'), undefined, factory.createLiteralTypeNode(factory.createStringLiteral(def.label))),
             factory.createPropertySignature(undefined, factory.createIdentifier('name'), undefined, factory.createLiteralTypeNode(factory.createStringLiteral(def.name)))
         ]));
     }
-    createDriverSignatureReturnType(def, parent) {
+    createDriverReturnType(def, parent) {
         if (def.enum) {
-            if (EnumDefinitionMap.has(parent.classDef.family)) {
-                var enumDef = EnumDefinitionMap.get(parent.classDef.family)[def.indexId];
-                // ?? EnumDefinitionMap[Family.Global]?[def.indexId]
-                if (enumDef) {
-                    return factory.createTypeReferenceNode(factory.createQualifiedName(factory.createIdentifier(Family[parent.classDef.family]), factory.createIdentifier(enumDef.name)), undefined);
+            {
+                if (EnumDefinitionMap.has(parent.classDef.family)) {
+                    var enumDef = EnumDefinitionMap.get(parent.classDef.family)[def.indexId];
+                    // ?? EnumDefinitionMap[Family.Global]?[def.indexId]
+                    if (enumDef) {
+                        return factory.createTypeReferenceNode(factory.createQualifiedName(factory.createIdentifier(Family[parent.classDef.family]), factory.createIdentifier(enumDef.name)), undefined);
+                    }
                 }
+                if (def.values) {
+                    return NodeClassFactory.instance.createUnionTypeNode(...Object.keys(def.values).map((p) => factory.createLiteralTypeNode(factory.createNumericLiteral(p))));
+                }
+                //   return NodeClassFactory.instance.createUnionTypeNode(...
+                //     Object.values(def.values).map((p) => factory.createTypeReferenceNode(
+                //   factory.createQualifiedName(
+                //     factory.createIdentifier("UnitOfMeasure"),
+                //     factory.createIdentifier(UnitOfMeasure)
+                //   ),
+                //   undefined
+                // )))
             }
-            if (def.values) {
-                return NodeClassFactory.instance.createUnionTypeNode(...Object.keys(def.values).map((p) => factory.createLiteralTypeNode(factory.createNumericLiteral(p))));
-            }
+        }
+        if ('min' in def && 'max' in def && def.max < 1000 && def.min > -1000) {
+            return factory.createTypeReferenceNode(factory.createIdentifier('IntRange'), [
+                factory.createLiteralTypeNode(this.createLiteral(def.min)),
+                factory.createLiteralTypeNode(this.createLiteral(def.max))
+            ]);
         }
         return factory.createKeywordTypeNode(ts.SyntaxKind.NumberKeyword);
     }

@@ -1,9 +1,10 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = DimmerLampSwitch.Commands.Type;
 type Drivers = DimmerLampSwitch.Drivers.Type;
@@ -44,8 +45,8 @@ declare class DimmerLampSwitchNode extends Base<Drivers, Commands> implements Di
     updateRampRate(value: Insteon.RampRate): Promise<any>;
     backlight(value: number): Promise<any>;
     writeChanges(): Promise<any>;
-    get status(): number;
-    get onLevel(): number;
+    get status(): IntRange<0, 100>;
+    get onLevel(): IntRange<0, 100>;
     get rampRate(): Insteon.RampRate;
     get responding(): Insteon.Error;
 }
@@ -142,13 +143,13 @@ export declare namespace DimmerLampSwitch {
         type Type = {
             ST: {
                 uom: UnitOfMeasure.Percent;
-                value: number;
+                value: IntRange<0, 100>;
                 label: "Status";
                 name: "status";
             };
             OL: {
                 uom: UnitOfMeasure.Percent;
-                value: number;
+                value: IntRange<0, 100>;
                 label: "On Level";
                 name: "onLevel";
             };

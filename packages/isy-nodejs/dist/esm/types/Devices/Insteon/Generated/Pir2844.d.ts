@@ -1,9 +1,10 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = Pir2844.Commands.Type;
 type Drivers = Pir2844.Drivers.Type;
@@ -23,9 +24,9 @@ declare class Pir2844Node extends Base<Drivers, Commands> implements Pir2844.Int
     beep(value?: number): Promise<any>;
     writeChanges(): Promise<any>;
     get status(): Insteon.OnLevelRelay;
-    get temperature(): number;
-    get luminance(): number;
-    get batteryLevel(): number;
+    get temperature(): IntRange<-25, 170>;
+    get luminance(): IntRange<0, 100>;
+    get batteryLevel(): IntRange<0, 100>;
     get batteryPowered(): Insteon.Boolean;
     get responding(): Insteon.Error;
 }
@@ -73,19 +74,19 @@ export declare namespace Pir2844 {
             };
             CLITEMP: {
                 uom: UnitOfMeasure.Fahrenheit;
-                value: number;
+                value: IntRange<-25, 170>;
                 label: "Temperature";
                 name: "temperature";
             };
             LUMIN: {
                 uom: UnitOfMeasure.Percent;
-                value: number;
+                value: IntRange<0, 100>;
                 label: "Luminance";
                 name: "luminance";
             };
             BATLVL: {
                 uom: UnitOfMeasure.Percent;
-                value: number;
+                value: IntRange<0, 100>;
                 label: "Battery Level";
                 name: "batteryLevel";
             };

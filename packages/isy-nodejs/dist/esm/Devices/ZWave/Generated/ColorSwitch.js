@@ -1,5 +1,5 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
@@ -21,7 +21,7 @@ class ColorSwitchNode extends Base {
         this.drivers.GV4 = Driver.create("GV4", this, nodeInfo.state['GV4'], { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Blue", name: "blue" });
         this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.state['GV1'], { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Cold White", name: "coldWhite" });
     }
-    async set(warmWhite, red, green, blue, duration, coldWhite) { return this.sendCommand("DON", { GV0: warmWhite, GV2: red, GV3: green, GV4: blue, RR: duration, GV1: coldWhite }); }
+    async set(warmWhite, coldWhite, red, green, blue, duration) { return this.sendCommand("DON", { GV0: warmWhite, GV1: coldWhite, GV2: red, GV3: green, GV4: blue, RR: duration }); }
     async fadeUp(component, startLevel, duration) { return this.sendCommand("FDUP", { ID: component, STARTLEVEL: startLevel, RR: duration }); }
     async fadeDown(component, startLevel, duration) { return this.sendCommand("FDDOWN", { ID: component, STARTLEVEL: startLevel, RR: duration }); }
     async fadeStop(component) { return this.sendCommand("FDSTOP", { ID: component }); }

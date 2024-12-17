@@ -1,0 +1,611 @@
+{
+  "LEVEL_CONTROL": {
+    "className": "LevelControl",
+    "id": "LEVEL_CONTROL",
+    "nlsId": "103",
+    "name": "LevelControl",
+    "label": "LEVEL_CONTROL",
+    "drivers": {
+      "ST": {
+        "id": "ST",
+        "name": "status",
+        "label": "Status",
+        "hidden": false,
+        "optional": false,
+        "readonly": false,
+        "editorId": "ZB_OFF_ON_UNKNOWN",
+        "dataType": [
+          {
+            "uom": 78,
+            "enum": true,
+            "values": {
+              "0": "",
+              "100": "",
+              "101": ""
+            }
+          }
+        ]
+      },
+      "OL": {
+        "id": "OL",
+        "name": "onLevel",
+        "label": "On Level",
+        "hidden": false,
+        "optional": false,
+        "readonly": false,
+        "editorId": "ZB_OL",
+        "dataType": [
+          {
+            "uom": 51,
+            "indexId": "IX_OL"
+          },
+          {
+            "uom": 100,
+            "enum": false,
+            "min": 0,
+            "max": 255,
+            "precision": 0
+          }
+        ]
+      },
+      "RR": {
+        "id": "RR",
+        "name": "rampRate",
+        "label": "Ramp Rate",
+        "hidden": false,
+        "optional": false,
+        "readonly": false,
+        "editorId": "ZB_RR",
+        "dataType": [
+          {
+            "uom": 58,
+            "enum": false,
+            "min": 0,
+            "max": 6553,
+            "precision": 1
+          }
+        ]
+      },
+      "ERR": {
+        "id": "ERR",
+        "name": "responding",
+        "label": "Responding",
+        "hidden": true,
+        "optional": false,
+        "readonly": true,
+        "editorId": "ZB_ERR",
+        "dataType": [
+          {
+            "uom": 25,
+            "indexId": "IX_ERR",
+            "enum": true,
+            "values": {
+              "0": "True",
+              "1": "False"
+            }
+          }
+        ]
+      }
+    },
+    "commands": {
+      "DON": {
+        "id": "DON",
+        "name": "on",
+        "label": "On",
+        "editorId": "ZB_OL",
+        "dataType": [
+          {
+            "uom": 51,
+            "indexId": "IX_OL"
+          },
+          {
+            "uom": 100,
+            "enum": false,
+            "min": 0,
+            "max": 255,
+            "precision": 0
+          }
+        ],
+        "optional": true,
+        "parameters": [
+          {
+            "id": "value",
+            "name": "value",
+            "editorId": "ZB_OL",
+            "dataType": [
+              {
+                "uom": 51,
+                "indexId": "IX_OL"
+              },
+              {
+                "uom": 100,
+                "enum": false,
+                "min": 0,
+                "max": 255,
+                "precision": 0
+              }
+            ],
+            "optional": true,
+            "initialValue": "ST"
+          },
+          {
+            "id": "RR",
+            "name": "rampRate",
+            "label": "Ramp Rate",
+            "editorId": "ZB_RR",
+            "dataType": [
+              {
+                "uom": 58,
+                "enum": false,
+                "min": 0,
+                "max": 6553,
+                "precision": 1
+              }
+            ],
+            "optional": true
+          }
+        ],
+        "initialValue": "ST"
+      },
+      "DOF": {
+        "id": "DOF",
+        "name": "off",
+        "label": "Off"
+      },
+      "DFON": {
+        "id": "DFON",
+        "name": "fastOn",
+        "label": "Fast On"
+      },
+      "DFOF": {
+        "id": "DFOF",
+        "name": "fastOff",
+        "label": "Fast Off"
+      },
+      "TOGGLE": {
+        "id": "TOGGLE",
+        "name": "toggle",
+        "label": "Toggle"
+      },
+      "BRT": {
+        "id": "BRT",
+        "name": "brighten",
+        "label": "Brighten"
+      },
+      "DIM": {
+        "id": "DIM",
+        "name": "dim",
+        "label": "Dim"
+      },
+      "OL": {
+        "id": "OL",
+        "name": "updateOnLevel",
+        "label": "On Level",
+        "editorId": "ZB_OL",
+        "dataType": [
+          {
+            "uom": 51,
+            "indexId": "IX_OL"
+          },
+          {
+            "uom": 100,
+            "enum": false,
+            "min": 0,
+            "max": 255,
+            "precision": 0
+          }
+        ],
+        "optional": false,
+        "parameters": [
+          {
+            "id": "value",
+            "name": "value",
+            "editorId": "ZB_OL",
+            "dataType": [
+              {
+                "uom": 51,
+                "indexId": "IX_OL"
+              },
+              {
+                "uom": 100,
+                "enum": false,
+                "min": 0,
+                "max": 255,
+                "precision": 0
+              }
+            ],
+            "optional": false,
+            "initialValue": "OL"
+          }
+        ],
+        "initialValue": "OL"
+      },
+      "RR": {
+        "id": "RR",
+        "name": "updateRampRate",
+        "label": "Ramp Rate",
+        "editorId": "ZB_RR",
+        "dataType": [
+          {
+            "uom": 58,
+            "enum": false,
+            "min": 0,
+            "max": 6553,
+            "precision": 1
+          }
+        ],
+        "optional": false,
+        "parameters": [
+          {
+            "id": "value",
+            "name": "value",
+            "editorId": "ZB_RR",
+            "dataType": [
+              {
+                "uom": 58,
+                "enum": false,
+                "min": 0,
+                "max": 6553,
+                "precision": 1
+              }
+            ],
+            "optional": false,
+            "initialValue": "RR"
+          }
+        ],
+        "initialValue": "RR"
+      },
+      "IDENTIFY": {
+        "id": "IDENTIFY",
+        "name": "identify",
+        "label": "Identify",
+        "editorId": "ZB_IDENTIFY",
+        "dataType": [
+          {
+            "uom": 58,
+            "enum": false,
+            "min": 0,
+            "max": 65535,
+            "precision": 0
+          }
+        ],
+        "optional": true,
+        "parameters": [
+          {
+            "id": "value",
+            "name": "value",
+            "editorId": "ZB_IDENTIFY",
+            "dataType": [
+              {
+                "uom": 58,
+                "enum": false,
+                "min": 0,
+                "max": 65535,
+                "precision": 0
+              }
+            ],
+            "optional": true
+          }
+        ]
+      },
+      "QUERY": {
+        "id": "QUERY",
+        "name": "query",
+        "label": "Query"
+      }
+    },
+    "events": {},
+    "family": 14,
+    "dynamic": false
+  },
+  "COLOR_CONTROL": {
+    "className": "ColorControl",
+    "id": "COLOR_CONTROL",
+    "nlsId": "108",
+    "name": "ColorControl",
+    "label": "COLOR_CONTROL",
+    "drivers": {
+      "GV2": {
+        "id": "GV2",
+        "name": "colorTemperatureK",
+        "label": "Color Temperature K",
+        "hidden": false,
+        "optional": false,
+        "readonly": true,
+        "editorId": "_26_0_R_0_1",
+        "dataType": [
+          {
+            "uom": 26,
+            "enum": false,
+            "min": 0,
+            "max": 1,
+            "precision": 0
+          }
+        ]
+      },
+      "GV3": {
+        "id": "GV3",
+        "name": "colorTemperatureMired",
+        "label": "Color Temperature Mired",
+        "hidden": false,
+        "optional": false,
+        "readonly": true,
+        "editorId": "_152_0_R_0_1",
+        "dataType": [
+          {
+            "uom": 152,
+            "enum": false,
+            "min": 0,
+            "max": 1,
+            "precision": 0
+          }
+        ]
+      },
+      "GV4": {
+        "id": "GV4",
+        "name": "preferredUnits",
+        "label": "Preferred Units",
+        "hidden": false,
+        "optional": false,
+        "readonly": false,
+        "editorId": "ZB_CT_UNITS",
+        "dataType": [
+          {
+            "uom": 25,
+            "indexId": "IX_CTUNIT",
+            "enum": true,
+            "values": {
+              "0": "Kelvin",
+              "1": "Mired"
+            }
+          }
+        ]
+      }
+    },
+    "commands": {
+      "MOVETOCT": {
+        "id": "MOVETOCT",
+        "name": "moveToTemperature",
+        "label": "Move To Temperature",
+        "parameters": [
+          {
+            "id": "COLOR",
+            "name": "color",
+            "editorId": "_26_0_R_2000_6329",
+            "dataType": [
+              {
+                "uom": 26,
+                "enum": false,
+                "min": 2000,
+                "max": 6329,
+                "precision": 0
+              }
+            ],
+            "optional": false
+          },
+          {
+            "id": "DUR",
+            "name": "dur",
+            "editorId": "_58_1_R_0_6553",
+            "dataType": [
+              {
+                "uom": 58,
+                "enum": false,
+                "min": 0,
+                "max": 6553,
+                "precision": 1
+              }
+            ],
+            "optional": true
+          }
+        ]
+      },
+      "MOVECT": {
+        "id": "MOVECT",
+        "name": "moveTemperature",
+        "label": "Move Temperature",
+        "parameters": [
+          {
+            "id": "MIN",
+            "name": "min",
+            "editorId": "_26_0_R_2000_6329",
+            "dataType": [
+              {
+                "uom": 26,
+                "enum": false,
+                "min": 2000,
+                "max": 6329,
+                "precision": 0
+              }
+            ],
+            "optional": true
+          },
+          {
+            "id": "MAX",
+            "name": "max",
+            "editorId": "_26_0_R_2000_6329",
+            "dataType": [
+              {
+                "uom": 26,
+                "enum": false,
+                "min": 2000,
+                "max": 6329,
+                "precision": 0
+              }
+            ],
+            "optional": true
+          },
+          {
+            "id": "MODE",
+            "name": "mode",
+            "editorId": "ZB_COLOR_MOVE_MODE",
+            "dataType": [
+              {
+                "uom": 25,
+                "indexId": "IX_CMM",
+                "enum": true,
+                "values": {
+                  "0": "Stop",
+                  "1": "Up",
+                  "3": "Down"
+                }
+              }
+            ],
+            "optional": false
+          },
+          {
+            "id": "RATE",
+            "name": "rate",
+            "editorId": "_154_0_R_0_65535",
+            "dataType": [
+              {
+                "uom": 154,
+                "enum": false,
+                "min": 0,
+                "max": 65535,
+                "precision": 0
+              }
+            ],
+            "optional": true
+          }
+        ]
+      },
+      "STEPCT": {
+        "id": "STEPCT",
+        "name": "stepTemperature",
+        "label": "Step Temperature",
+        "parameters": [
+          {
+            "id": "MIN",
+            "name": "min",
+            "editorId": "_26_0_R_2000_6329",
+            "dataType": [
+              {
+                "uom": 26,
+                "enum": false,
+                "min": 2000,
+                "max": 6329,
+                "precision": 0
+              }
+            ],
+            "optional": true
+          },
+          {
+            "id": "MAX",
+            "name": "max",
+            "editorId": "_26_0_R_2000_6329",
+            "dataType": [
+              {
+                "uom": 26,
+                "enum": false,
+                "min": 2000,
+                "max": 6329,
+                "precision": 0
+              }
+            ],
+            "optional": true
+          },
+          {
+            "id": "SIZE",
+            "name": "size",
+            "editorId": "_26_0_R_0_1000000",
+            "dataType": [
+              {
+                "uom": 26,
+                "enum": false,
+                "min": 0,
+                "max": 1000000,
+                "precision": 0
+              }
+            ],
+            "optional": true
+          },
+          {
+            "id": "MODE",
+            "name": "mode",
+            "editorId": "ZB_COLOR_STEP_MODE",
+            "dataType": [
+              {
+                "uom": 25,
+                "indexId": "IX_CSM",
+                "enum": true,
+                "values": {
+                  "1": "Up",
+                  "3": "Down"
+                }
+              }
+            ],
+            "optional": true
+          },
+          {
+            "id": "DUR",
+            "name": "dur",
+            "editorId": "_58_1_R_0_6553",
+            "dataType": [
+              {
+                "uom": 58,
+                "enum": false,
+                "min": 0,
+                "max": 6553,
+                "precision": 1
+              }
+            ],
+            "optional": true
+          }
+        ]
+      },
+      "UNITS": {
+        "id": "UNITS",
+        "name": "updatePreferredUnits",
+        "label": "Preferred Units",
+        "editorId": "ZB_CT_UNITS",
+        "dataType": [
+          {
+            "uom": 25,
+            "indexId": "IX_CTUNIT",
+            "enum": true,
+            "values": {
+              "0": "Kelvin",
+              "1": "Mired"
+            }
+          }
+        ],
+        "optional": false,
+        "parameters": [
+          {
+            "id": "value",
+            "name": "value",
+            "editorId": "ZB_CT_UNITS",
+            "dataType": [
+              {
+                "uom": 25,
+                "indexId": "IX_CTUNIT",
+                "enum": true,
+                "values": {
+                  "0": "Kelvin",
+                  "1": "Mired"
+                }
+              }
+            ],
+            "optional": false,
+            "initialValue": "GV4"
+          }
+        ],
+        "initialValue": "GV4"
+      },
+      "STOP": {
+        "id": "STOP",
+        "name": "stop",
+        "label": "Stop"
+      },
+      "QUERY": {
+        "id": "QUERY",
+        "name": "query",
+        "label": "Query"
+      }
+    },
+    "events": {},
+    "family": 14,
+    "dynamic": false
+  }
+}

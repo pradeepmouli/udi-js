@@ -44,7 +44,7 @@ function buildNodeClassDefinitions<T extends Family>(nodeDefs: NodeDef[], family
 					break;
 				}
 				if (cmd.parameters)
-					for (const cmdp of Object.values(cmd.parameters)) {
+					for (const cmdp of cmd.parameters) {
 						if (cmdp.initialValue === driver.id) {
 							driver.readonly = false;
 							break;
@@ -218,12 +218,16 @@ export class NodeClassDefinition<T extends Family> {
 				let d = EditorDef.get(this.family, cmd.editorId);
 				if (d) cmd.applyEditorDef(d);
 			}
-			for (const p of cmd.parameters) {
-				if (p.editorId) {
-					let d = EditorDef.get(this.family, p.editorId);
-					if (d) p.applyEditorDef(d);
+			if(cmd.parameters)
+			{
+				for (const p of cmd.parameters) {
+					if (p.editorId) {
+						let d = EditorDef.get(this.family, p.editorId);
+						if (d) p.applyEditorDef(d);
+					}
 				}
 			}
+
 		}
 	}
 
@@ -678,16 +682,18 @@ export class CommandDefinition extends NodeMemberDefinition<string> {
 
 	public override applyEditorDef(e: EditorDef): void {
 		super.applyEditorDef(e);
-		for (const p of this.parameters) {
-			p.applyEditorDef(e);
-		}
+
+			for (const p of this.parameters ?? []) {
+				p.applyEditorDef(e);
+			}
 	}
 
 	public override applyIndexDef(e: { [x: string]: { [y: number]: string } }): void {
 		super.applyIndexDef(e);
-		for (const p of this.parameters) {
-			p.applyIndexDef(e);
-		}
+
+			for (const p of this.parameters ?? []) {
+				p.applyIndexDef(e);
+			}
 	}
 
 	public applyNLSRecord(nls: NLSGenericRecord | NLSCommandRecord | NLSCommandParameterRecord) {

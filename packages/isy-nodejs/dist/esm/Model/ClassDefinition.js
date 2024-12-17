@@ -22,7 +22,7 @@ function buildNodeClassDefinitions(nodeDefs, family) {
                     break;
                 }
                 if (cmd.parameters)
-                    for (const cmdp of Object.values(cmd.parameters)) {
+                    for (const cmdp of cmd.parameters) {
                         if (cmdp.initialValue === driver.id) {
                             driver.readonly = false;
                             break;
@@ -176,11 +176,13 @@ export class NodeClassDefinition {
                 if (d)
                     cmd.applyEditorDef(d);
             }
-            for (const p of cmd.parameters) {
-                if (p.editorId) {
-                    let d = EditorDef.get(this.family, p.editorId);
-                    if (d)
-                        p.applyEditorDef(d);
+            if (cmd.parameters) {
+                for (const p of cmd.parameters) {
+                    if (p.editorId) {
+                        let d = EditorDef.get(this.family, p.editorId);
+                        if (d)
+                            p.applyEditorDef(d);
+                    }
                 }
             }
         }
@@ -562,13 +564,13 @@ export class CommandDefinition extends NodeMemberDefinition {
     // #region Public Methods (4)
     applyEditorDef(e) {
         super.applyEditorDef(e);
-        for (const p of this.parameters) {
+        for (const p of this.parameters ?? []) {
             p.applyEditorDef(e);
         }
     }
     applyIndexDef(e) {
         super.applyIndexDef(e);
-        for (const p of this.parameters) {
+        for (const p of this.parameters ?? []) {
             p.applyIndexDef(e);
         }
     }

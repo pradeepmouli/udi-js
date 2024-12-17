@@ -220,6 +220,9 @@ export class CodeFactory {
         return this.createStringLiteral(value);
     }
     createNumericLiteral(value, flags) {
+        if (value < 0) {
+            return ts.factory.createPrefixUnaryExpression(SyntaxKind.MinusToken, ts.factory.createNumericLiteral((-value).toString(), flags));
+        }
         return ts.factory.createNumericLiteral(value.toString(), flags);
     }
     createStringLiteral(text) {

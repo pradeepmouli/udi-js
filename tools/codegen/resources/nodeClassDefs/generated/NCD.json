@@ -3,13 +3,16 @@
     "className": "Relay",
     "id": "NCDRelay",
     "nlsId": "RELAY",
+    "name": "Relay",
+    "label": "Relay",
     "drivers": {
       "ST": {
+        "id": "ST",
+        "name": "status",
         "label": "Status",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "ST",
         "editorId": "NCD_OL_RELAY",
         "dataType": [
           {
@@ -21,15 +24,15 @@
               "100": ""
             }
           }
-        ],
-        "name": "status"
+        ]
       },
       "ERR": {
+        "id": "ERR",
+        "name": "responding",
         "label": "Responding",
         "hidden": true,
         "optional": false,
         "readonly": true,
-        "id": "ERR",
         "editorId": "NCD_ERR",
         "dataType": [
           {
@@ -41,29 +44,29 @@
               "1": "False"
             }
           }
-        ],
-        "name": "responding"
+        ]
       }
     },
     "commands": {
       "DON": {
-        "label": "On",
         "id": "DON",
-        "name": "on"
+        "name": "on",
+        "label": "On"
       },
       "DOF": {
-        "label": "Off",
         "id": "DOF",
-        "name": "off"
+        "name": "off",
+        "label": "Off"
       },
       "QUERY": {
-        "label": "Query",
         "id": "QUERY",
-        "name": "query"
+        "name": "query",
+        "label": "Query"
       },
       "ADRPST": {
-        "label": "ADR",
         "id": "ADRPST",
+        "name": "adr",
+        "label": "ADR",
         "editorId": "NCD_ADRPST",
         "dataType": [
           {
@@ -76,11 +79,11 @@
             }
           }
         ],
-        "name": "adr",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "NCD_ADRPST",
             "dataType": [
               {
@@ -93,10 +96,9 @@
                 }
               }
             ],
-            "name": "value",
             "optional": false
           }
-        }
+        ]
       }
     },
     "events": {
@@ -110,8 +112,6 @@
       }
     },
     "family": 9,
-    "label": "Relay",
-    "name": "Relay",
     "dynamic": false
   }
 }

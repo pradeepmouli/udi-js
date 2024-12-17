@@ -1,0 +1,208 @@
+{
+	"nodeDefs": {
+		"nodedef": [
+			{
+				"nls": "103",
+				"id": "LEVEL_CONTROL",
+				"sts": {
+					"st": [
+						{
+							"editor": "ZB_OFF_ON_UNKNOWN",
+							"id": "ST"
+						},
+						{
+							"editor": "ZB_OL",
+							"id": "OL"
+						},
+						{
+							"editor": "ZB_RR",
+							"id": "RR"
+						},
+						{
+							"hide": "T",
+							"editor": "ZB_ERR",
+							"id": "ERR"
+						}
+					]
+				},
+				"cmds": {
+					"sends": "",
+					"accepts": {
+						"cmd": [
+							{
+								"id": "DON",
+								"p": [
+									{
+										"optional": "T",
+										"editor": "ZB_OL",
+										"init": "ST",
+										"id": ""
+									},
+									{
+										"optional": "T",
+										"editor": "ZB_RR",
+										"id": "RR"
+									}
+								]
+							},
+							{
+								"id": "DOF"
+							},
+							{
+								"id": "DFON"
+							},
+							{
+								"id": "DFOF"
+							},
+							{
+								"id": "TOGGLE"
+							},
+							{
+								"id": "BRT"
+							},
+							{
+								"id": "DIM"
+							},
+							{
+								"id": "OL",
+								"p": {
+									"editor": "ZB_OL",
+									"init": "OL",
+									"id": ""
+								}
+							},
+							{
+								"id": "RR",
+								"p": {
+									"editor": "ZB_RR",
+									"init": "RR",
+									"id": ""
+								}
+							},
+							{
+								"id": "IDENTIFY",
+								"p": {
+									"optional": "T",
+									"editor": "ZB_IDENTIFY",
+									"id": ""
+								}
+							},
+							{
+								"id": "QUERY"
+							}
+						]
+					}
+				}
+			},
+			{
+				"nls": "108",
+				"id": "COLOR_CONTROL",
+				"sts": {
+					"st": [
+						{
+							"editor": "_26_0_R_0_1",
+							"id": "GV2"
+						},
+						{
+							"editor": "_152_0_R_0_1",
+							"id": "GV3"
+						},
+						{
+							"editor": "ZB_CT_UNITS",
+							"id": "GV4"
+						}
+					]
+				},
+				"cmds": {
+					"sends": "",
+					"accepts": {
+						"cmd": [
+							{
+								"id": "MOVETOCT",
+								"p": [
+									{
+										"editor": "_26_0_R_2000_6329",
+										"id": "COLOR"
+									},
+									{
+										"optional": "T",
+										"editor": "_58_1_R_0_6553",
+										"id": "DUR"
+									}
+								]
+							},
+							{
+								"id": "MOVECT",
+								"p": [
+									{
+										"optional": "T",
+										"editor": "_26_0_R_2000_6329",
+										"id": "MIN"
+									},
+									{
+										"optional": "T",
+										"editor": "_26_0_R_2000_6329",
+										"id": "MAX"
+									},
+									{
+										"editor": "ZB_COLOR_MOVE_MODE",
+										"id": "MODE"
+									},
+									{
+										"optional": "T",
+										"editor": "_154_0_R_0_65535",
+										"id": "RATE"
+									}
+								]
+							},
+							{
+								"id": "STEPCT",
+								"p": [
+									{
+										"optional": "T",
+										"editor": "_26_0_R_2000_6329",
+										"id": "MIN"
+									},
+									{
+										"optional": "T",
+										"editor": "_26_0_R_2000_6329",
+										"id": "MAX"
+									},
+									{
+										"optional": "T",
+										"editor": "_26_0_R_0_1000000",
+										"id": "SIZE"
+									},
+									{
+										"optional": "T",
+										"editor": "ZB_COLOR_STEP_MODE",
+										"id": "MODE"
+									},
+									{
+										"optional": "T",
+										"editor": "_58_1_R_0_6553",
+										"id": "DUR"
+									}
+								]
+							},
+							{
+								"id": "UNITS",
+								"p": {
+									"editor": "ZB_CT_UNITS",
+									"init": "GV4",
+									"id": ""
+								}
+							},
+							{
+								"id": "STOP"
+							},
+							{
+								"id": "QUERY"
+							}
+						]
+					}
+				}
+			}
+		]
+	}
+}

@@ -1,9 +1,10 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = Thermostat.Commands.Type;
 type Drivers = Thermostat.Drivers.Type;
@@ -34,13 +35,13 @@ declare class ThermostatNode extends Base<Drivers, Commands> implements Thermost
     query(): Promise<any>;
     setTime(): Promise<any>;
     writeChanges(): Promise<any>;
-    get temperature(): number;
-    get heatSetpoint(): number;
-    get coolSetpoint(): number;
+    get temperature(): IntRange<-50, 150>;
+    get heatSetpoint(): IntRange<0, 120>;
+    get coolSetpoint(): IntRange<10, 120>;
     get mode(): (0 | 1 | 2 | 3 | 5 | 6 | 7);
     get fanMode(): (7 | 8);
-    get humidity(): number;
-    get heatCoolState(): number;
+    get humidity(): IntRange<0, 100>;
+    get heatCoolState(): IntRange<0, 2>;
     get responding(): Insteon.Error;
 }
 export declare namespace Thermostat {
@@ -111,19 +112,19 @@ export declare namespace Thermostat {
         type Type = {
             ST: {
                 uom: UnitOfMeasure.Degree;
-                value: number;
+                value: IntRange<-50, 150>;
                 label: "Temperature";
                 name: "temperature";
             };
             CLISPH: {
                 uom: UnitOfMeasure.Degree;
-                value: number;
+                value: IntRange<0, 120>;
                 label: "Heat Setpoint";
                 name: "heatSetpoint";
             };
             CLISPC: {
                 uom: UnitOfMeasure.Degree;
-                value: number;
+                value: IntRange<10, 120>;
                 label: "Cool Setpoint";
                 name: "coolSetpoint";
             };
@@ -141,13 +142,13 @@ export declare namespace Thermostat {
             };
             CLIHUM: {
                 uom: UnitOfMeasure.Percent;
-                value: number;
+                value: IntRange<0, 100>;
                 label: "Humidity";
                 name: "humidity";
             };
             CLIHCS: {
                 uom: UnitOfMeasure.ThermostatHeatCoolState;
-                value: number;
+                value: IntRange<0, 2>;
                 label: "Heat/Cool State";
                 name: "heatCoolState";
             };

@@ -1,12 +1,13 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
+import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
@@ -50,13 +51,13 @@ class ThermostatNode extends Base<Drivers, Commands> implements Thermostat.Inter
 	async query() { return this.sendCommand("QUERY"); }
 	async setTime() { return this.sendCommand("SETTIME"); }
 	async writeChanges() { return this.sendCommand("WDU"); }
-	public get temperature(): number {
+	public get temperature(): IntRange<-50, 150> {
 		return this.drivers.ST?.value;
 	}
-	public get heatSetpoint(): number {
+	public get heatSetpoint(): IntRange<0, 120> {
 		return this.drivers.CLISPH?.value;
 	}
-	public get coolSetpoint(): number {
+	public get coolSetpoint(): IntRange<10, 120> {
 		return this.drivers.CLISPC?.value;
 	}
 	public get mode(): (0 | 1 | 2 | 3 | 5 | 6 | 7) {
@@ -65,10 +66,10 @@ class ThermostatNode extends Base<Drivers, Commands> implements Thermostat.Inter
 	public get fanMode(): (7 | 8) {
 		return this.drivers.CLIFS?.value;
 	}
-	public get humidity(): number {
+	public get humidity(): IntRange<0, 100> {
 		return this.drivers.CLIHUM?.value;
 	}
-	public get heatCoolState(): number {
+	public get heatCoolState(): IntRange<0, 2> {
 		return this.drivers.CLIHCS?.value;
 	}
 	public get responding(): Insteon.Error {
@@ -152,19 +153,19 @@ export namespace Thermostat {
 		export type Type = {
 			ST: {
 				uom: UnitOfMeasure.Degree;
-				value: number;
+				value: IntRange<-50, 150>;
 				label: "Temperature";
 				name: "temperature";
 			};
 			CLISPH: {
 				uom: UnitOfMeasure.Degree;
-				value: number;
+				value: IntRange<0, 120>;
 				label: "Heat Setpoint";
 				name: "heatSetpoint";
 			};
 			CLISPC: {
 				uom: UnitOfMeasure.Degree;
-				value: number;
+				value: IntRange<10, 120>;
 				label: "Cool Setpoint";
 				name: "coolSetpoint";
 			};
@@ -182,13 +183,13 @@ export namespace Thermostat {
 			};
 			CLIHUM: {
 				uom: UnitOfMeasure.Percent;
-				value: number;
+				value: IntRange<0, 100>;
 				label: "Humidity";
 				name: "humidity";
 			};
 			CLIHCS: {
 				uom: UnitOfMeasure.ThermostatHeatCoolState;
-				value: number;
+				value: IntRange<0, 2>;
 				label: "Heat/Cool State";
 				name: "heatCoolState";
 			};

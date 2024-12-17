@@ -55,8 +55,8 @@ export declare class CodeFactory {
     createPropertyAssignment(name: string, initializer: ts.Expression): ts.PropertyAssignment;
     createQualifiedName(...names: (ts.EntityName | string)[]): ts.EntityName;
     createLiteralTypeNode(literal: string | number): ts.LiteralTypeNode;
-    createLiteral(value: string | number): ts.LiteralExpression;
-    createNumericLiteral(value: number, flags?: ts.TokenFlags): ts.NumericLiteral;
+    createLiteral(value: string | number): ts.LiteralExpression | ts.PrefixUnaryExpression;
+    createNumericLiteral(value: number, flags?: ts.TokenFlags): ts.NumericLiteral | ts.PrefixUnaryExpression;
     createStringLiteral(text: string): ts.StringLiteral;
     createKeywordTypeNode(kind: ts.KeywordTypeSyntaxKind): ts.KeywordTypeNode;
     createTypePredicateNode(parameterName: ts.Identifier | string, type: ts.TypeNode): ts.TypePredicateNode;

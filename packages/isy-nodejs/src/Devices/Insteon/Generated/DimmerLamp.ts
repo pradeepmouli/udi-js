@@ -1,12 +1,13 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
+import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
@@ -54,10 +55,10 @@ class DimmerLampNode extends Base<Drivers, Commands> implements DimmerLamp.Inter
 	async updateOnLevel(value: number) { return this.sendCommand("OL", value); }
 	async updateRampRate(value: Insteon.RampRate) { return this.sendCommand("RR", value); }
 	async writeChanges() { return this.sendCommand("WDU"); }
-	public get status(): number {
+	public get status(): IntRange<0, 100> {
 		return this.drivers.ST?.value;
 	}
-	public get onLevel(): number {
+	public get onLevel(): IntRange<0, 100> {
 		return this.drivers.OL?.value;
 	}
 	public get rampRate(): Insteon.RampRate {
@@ -164,13 +165,13 @@ export namespace DimmerLamp {
 		export type Type = {
 			ST: {
 				uom: UnitOfMeasure.Percent;
-				value: number;
+				value: IntRange<0, 100>;
 				label: "Status";
 				name: "status";
 			};
 			OL: {
 				uom: UnitOfMeasure.Percent;
-				value: number;
+				value: IntRange<0, 100>;
 				label: "On Level";
 				name: "onLevel";
 			};

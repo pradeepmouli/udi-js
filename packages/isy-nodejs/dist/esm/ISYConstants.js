@@ -114,7 +114,7 @@ const ISYConstants = {
             CoolSetPoint: 'CLISPC',
             HeatSetPoint: 'CLISPH',
             ScheduleMode: 'CLISMD',
-            EnergyMode: 'CLIEMD',
+            EnergyMode: 'CLIEMD'
         },
         Error: 'ERR',
         UnitOfMeasure: 'UOM'
@@ -137,23 +137,7 @@ const ISYConstants = {
         scene: 'Scene',
         thermostat: 'Thermostat',
         polyNode: 'PolyNode'
-    },
+    }
 };
-export var VariableType;
-(function (VariableType) {
-    VariableType[VariableType["Integer"] = 1] = "Integer";
-    VariableType[VariableType["State"] = 2] = "State";
-})(VariableType || (VariableType = {}));
-export var NodeType;
-(function (NodeType) {
-    NodeType[NodeType["Device"] = 1] = "Device";
-    NodeType[NodeType["Scene"] = 2] = "Scene";
-    NodeType[NodeType["Folder"] = 3] = "Folder";
-    NodeType[NodeType["X10A10"] = 4] = "X10A10";
-})(NodeType || (NodeType = {}));
-export var LinkType;
-(function (LinkType) {
-    LinkType[LinkType["Controller"] = 16] = "Controller";
-    LinkType[LinkType["Responder"] = 0] = "Responder";
-})(LinkType || (LinkType = {}));
+export {};
 //# sourceMappingURL=ISYConstants.js.map

@@ -1,10 +1,9 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "EZRAIN_Output";
-export class EzrainOutputNode extends Base {
+class EzrainOutputNode extends Base {
     commands = {
         DON: this.on,
         DOF: this.off,
@@ -13,11 +12,11 @@ export class EzrainOutputNode extends Base {
         BEEP: this.beep
     };
     static nodeDefId = "EZRAIN_Output";
-    static implements = ["EZRAIN_Output", "EZIO2x4_Output", "AlertModuleArmed", "SirenAlert", "SirenArm"];
+    static implements = ['EZRAIN_Output', "EZIO2x4_Output", "AlertModuleArmed", "SirenAlert", "SirenArm"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async on(value) { return this.sendCommand("DON", value); }
     async off() { return this.sendCommand("DOF"); }
@@ -35,11 +34,11 @@ NodeFactory.register(EzrainOutputNode);
 export var EzrainOutput;
 (function (EzrainOutput) {
     function is(node) {
-        return ["EZRAIN_Output"].includes(node.nodeDefId);
+        return ['EZRAIN_Output'].includes(node.nodeDefId);
     }
     EzrainOutput.is = is;
     function isImplementedBy(node) {
-        return ["EZRAIN_Output", "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor"].includes(node.nodeDefId);
+        return ['EZRAIN_Output', "BallastRelayLampSwitch", "BallastRelayLampSwitch_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "KeypadRelay", "KeypadRelay_ADV", "FanLincMotor"].includes(node.nodeDefId);
     }
     EzrainOutput.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {
@@ -47,5 +46,19 @@ export var EzrainOutput;
     }
     EzrainOutput.create = create;
     EzrainOutput.Node = EzrainOutputNode;
+    EzrainOutput.Class = EzrainOutputNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["query"] = "QUERY";
+        Commands["writeChanges"] = "WDU";
+        Commands["beep"] = "BEEP";
+    })(Commands = EzrainOutput.Commands || (EzrainOutput.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = EzrainOutput.Drivers || (EzrainOutput.Drivers = {}));
 })(EzrainOutput || (EzrainOutput = {}));
 //# sourceMappingURL=EzrainOutput.js.map

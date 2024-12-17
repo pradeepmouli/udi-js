@@ -3,19 +3,24 @@ import * as Insteon from './index.js';
 import { ISYNode } from '../../ISYNode.js';
 import type { Constructor } from '../Constructor.js';
 import { Family } from '../../Definitions/index.js';
+import type { ISYDevice } from '../../ISYDevice.js';
 export declare class InsteonDeviceFactory {
     static getDeviceDetails(node: NodeInfo): {
         name: string;
         modelNumber?: string;
         version?: string;
-        class?: Constructor<ISYNode<Family.Insteon, any, any>>;
+        class?: Constructor<ISYNode<Family.Insteon, any, any>> | Constructor<ISYDevice<Family.Insteon, any, any, any>>;
         unsupported?: true;
     };
     static getInsteonDeviceDetails(node: NodeInfo): {
         name: string;
         modelNumber?: string;
         version?: string;
-        class: Constructor<ISYNode<Family.Insteon, any, any>>;
+        class: {
+            Node: Constructor<ISYNode<Family.Insteon, any, any>>;
+        } | {
+            Device: Constructor<ISYDevice<Family.Insteon, any, any, any>>;
+        } | Constructor<ISYNode<Family.Insteon, any, any>>;
         unsupported?: true;
     };
     static getNetworkBridgeInfo(deviceCode: number): {

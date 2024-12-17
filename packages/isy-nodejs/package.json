@@ -2,7 +2,7 @@
     "name": "isy-nodejs",
     "description": "Node.js wrapper for ISY interface including websockets for change notifications. Fork of isy-js by Rod Toll. Designed to be used in a node.js application.",
     "license": "MIT",
-    "version": "1.0.6-alpha.1",
+    "version": "1.0.9-alpha.1",
     "author": {
         "name": "Pradeep Mouli"
     },
@@ -52,15 +52,14 @@
     },
     "dependencies": {
         "@log4js-node/log4js-api": "^1.0.2",
-        "@matter/general": "^0.11.6",
-        "@matter/main": "^0.11.8",
-        "@matter/types": "^0.11.8",
-        "@project-chip/matter-node.js": "^0.11.8",
-        "@project-chip/matter.js": "^0.11.8",
+        "@matter/general": "^0.11.9",
+        "@matter/main": "^0.11.9",
+        "@matter/types": "^0.11.9",
+        "@project-chip/matter-node.js": "^0.11.9",
+        "@project-chip/matter.js": "^0.11.9",
         "@types/ws": "^8.5.13",
         "axios": "^1.7.9",
         "fast-xml-parser": "^4.5.0",
-        "faye-websocket": "^0.11.4",
         "mocha": "^11.0.1",
         "p-queue": "^8.0.1",
         "type-fest": "4.30.0",
@@ -74,5 +73,5 @@
     "publishConfig": {
         "access": "public"
     },
-    "gitHead": "85ca897f2d6c192552e100e17a7bd11ea8bb04cf"
+    "gitHead": "f80638d852ef427b9beb52c814ec6ecf3f618ef1"
 }

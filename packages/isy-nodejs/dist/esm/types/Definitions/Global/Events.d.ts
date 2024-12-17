@@ -22,7 +22,7 @@ export declare namespace Event {
         [x: string]: Signature;
     };
     type DriverToEvent<D extends Driver.Signature> = {
-        name: `${D['name']}Changed`;
+        name: `${D['name']}Changed` | `${D['name']}Initialized`;
         value: D['value'];
         uom: D['uom'];
     };
@@ -44,8 +44,8 @@ export declare namespace Event {
     } : {
         on(eventName: S['name'], listener: (...args: any[]) => void): N;
     };
-    type ForAll<E extends string, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures> = {
-        [x in E]: x extends keyof D ? {
+    type ForAll<E extends ISYNode.EventSignatures, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures> = {
+        [x in keyof E | keyof D]: x extends keyof D ? {
             name: `${D[x]['name']}Changed`;
             driver: x;
             value: D[x]['value'];

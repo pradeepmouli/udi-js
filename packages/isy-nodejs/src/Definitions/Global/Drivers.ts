@@ -264,9 +264,9 @@ export interface Driver<
 	U extends UnitOfMeasure,
 	T = number,
 	SU extends UnitOfMeasure = U,
-	ST = number,
-	N = string,
-	L = string
+	ST = T,
+	N = D,
+	L = N
 > {
 	// #region Properties (8)
 
@@ -282,8 +282,11 @@ export interface Driver<
 		value: T;
 		formattedValue?: any;
 		pendingValue: T;
+		rawValue?: ST;
 	};
-	uom: U;
+
+	initialized: boolean;
+		uom: U;
 
 	// #endregion Properties (8)
 
@@ -291,6 +294,8 @@ export interface Driver<
 
 	apply(state: DriverState, notify?: boolean): boolean;
 	patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number, notify?: boolean): boolean;
+
+
 
 	// #endregion Public Methods (2)
 	//override on('change', listener: (value: any) => void): this;
@@ -301,8 +306,9 @@ export interface StatelessDriver<
 	U extends UnitOfMeasure,
 	T = number,
 	SU extends UnitOfMeasure = U,
-	N = string,
-	L = string
+	ST = T,
+	N = D,
+	L = N
 > {
 	// #region Properties (9)
 
@@ -318,6 +324,7 @@ export interface StatelessDriver<
 		value: T;
 		formattedValue?: any;
 		pendingValue: T;
+		rawValue?: ST;
 	};
 	stateless: true;
 	uom: U;
@@ -338,10 +345,10 @@ export type DriverTypeLiteral = EnumLiteral<DriverType>;
 
 export type EnumWithLiteral<D extends string | bigint | number | boolean> = D | EnumLiteral<D>;
 export namespace Driver {
-	export type Signature<U extends UnitOfMeasure = UnitOfMeasure, V = any, SU = U, N = string, L = N> = { uom: U; value: V; name: N; label: L; serverUom?: SU };
+	export type Signature<U extends UnitOfMeasure = UnitOfMeasure, V = any, SU extends UnitOfMeasure = U, N = string, L = N> = { uom: U; value: V; name: N; label: L };
 
 	export type Signatures<D> = UnionToIntersection<
-		D extends string ? { [K in D]: Signature<UnitOfMeasure, any, UnitOfMeasure, string, string> }
+		D extends string ? { [K in D]: Signature<UnitOfMeasure, any, UnitOfMeasure, K, K> }
 		: D extends { [K in keyof D]: Signature } ? D
 		: never
 	>;
@@ -365,21 +372,22 @@ export namespace Driver {
 		};
 	};
 
-
-	export type For<D extends string, T, S extends boolean = false> = T extends Signature<infer U, infer V, infer SU, infer N, infer L> ? StatelessOrStateful<D, U, V, N, L, S> : never;
+	export type For<D extends string, T, S extends boolean = false> = T extends Signature<infer U, infer V, infer SU, infer N, infer L> ? StatelessOrStateful<D, U, V, SU, V, N, L, S> : never;
 
 	export type ForAll<T, S extends boolean = false> = {
 		[K in StringKeys<T>]: T[K] extends Signature<UnitOfMeasure, any, UnitOfMeasure, string, string> ? For<K, T[K], S> : never;
 	};
 
-	type test2 = ForAll<Drivers>;
+	export type SignaturesOf<D> = D extends ForAll<infer R> ? R : never;
+
+	type test2 = SignaturesOf<ForAll<Drivers>>;
 
 	export type Type = DriverType;
 	export type Literal = EnumLiteral<DriverType>;
 	export type LiteralWithExtensions = Literal | `${string}.${Literal}`;
 	export type LiteralWithType = EnumWithLiteral<DriverType>;
-	type StatelessOrStateful<D extends string, U extends UnitOfMeasure, T = number, N = string, L = string, S extends boolean = false> =
-		S extends true ? StatelessDriver<D, U, T, U, N, L> : Driver<D, U, T, U, N, L>;
+	type StatelessOrStateful<D extends string, U extends UnitOfMeasure, T = number, SU extends UnitOfMeasure = U, ST = T, N = D, L = N, S extends boolean = false> =
+		S extends true ? StatelessDriver<D, U, T, SU, ST, N, L> : Driver<D, U, T, SU, ST, N, L>;
 
 	export function create<D extends Literal, U extends UnitOfMeasure, T = number, N extends string = string, L extends string = string, S extends boolean = false>(
 		driver: EnumWithLiteral<D>,
@@ -389,7 +397,7 @@ export namespace Driver {
 		driverSignature?: { uom: U; label: L; name: N },
 		stateless?: S,
 		converter?: Converter<any, T>
-	): StatelessOrStateful<D, U, T, N, L, S> {
+	): StatelessOrStateful<D, U, T, UnitOfMeasure, any, N, L, S> {
 		const query = async () => {
 			return await node.readProperty(driver as D);
 		};
@@ -403,19 +411,20 @@ export namespace Driver {
 				state: {
 					initial: true,
 					value: initState?.value, //TODO include converter
-					formattedValue: initState.formatted,
+					formattedValue: initState?.formatted,
 					pendingValue: null
 				},
 				query,
 				get value() {
 					return query().then((p) => p.value) as Promise<T>;
 				},
-				name: initState.name ?? driverSignature.name ?? driverSignature.label ?? driver,
+				name: initState?.name ?? driverSignature.name ?? driverSignature.label ?? driver,
 				label: driverSignature.label ?? driver
-			} as unknown as StatelessOrStateful<D, U, T, N, L, typeof stateless>;
+			} as StatelessOrStateful<D, U, T, UnitOfMeasure, any, N, L, typeof stateless>;
 		}
 		var c = {
 			id: driver as D,
+			initialized: initState ? true : false,
 			uom: driverSignature?.uom as U,
 			serverUom: initState?.uom != driverSignature?.uom ? initState?.uom : undefined,
 			state: {
@@ -424,35 +433,45 @@ export namespace Driver {
 					initState ?
 						converter ? converter.from(initState.value)
 						: driverSignature?.uom && initState?.uom != driverSignature?.uom ? Converter.convert(initState.uom, driverSignature.uom, initState.value)
-					:	initState.value : null,
+						: initState.value
+					:	null,
 				rawValue: initState ? initState.value : null,
 				formattedValue: initState ? initState.formatted : null,
 				pendingValue: null
 			},
 			async query() {
 				let s = await query();
-				this.state.value = converter ? converter.from(s.value) : this.uom !== s.uom ? Converter.convert(s.value, s.uom, this.uom) : s.value;
+				this.state.value =
+					converter ? converter.from(s.value)
+					: this.uom !== s.uom ? Converter.convert(s.value, s.uom, this.uom)
+					: s.value;
 				this.state.formattedValue = s.formatted;
 				this.state.rawValue = s.value;
 				return s;
 			},
-			apply(state: DriverState, notify = false) {
-				let previousValue = this.state.rawValue;
-				this.state.rawValue = state.value;
-				if (previousValue === this.state.rawValue) {
-					return false;
+			apply(state: DriverState, notify = true) {
+				if (state.id == this.id) {
+
+					let previousValue = this.state.rawValue;
+					this.state.rawValue = state.value;
+					if (previousValue === this.state.rawValue) {
+						return false;
+					}
+					if (state.uom != this.uom) {
+						this.serverUom == state.uom;
+						this.state.value = converter ? converter.from(this.state.rawValue) : Converter.convert(state.uom, this.uom, this.state.rawValue);
+					} else if (converter) {
+						this.state.value = converter.from(state.value);
+					} else {
+						this.state.value = state.value;
+					}
+					this.state.formattedValue = state.formatted;
+					if (notify) node.events.emit(`${this.name}Changed`, driver as D, this.state.value, previousValue, this.state.formattedValue);
+					if (!this.initialized) {
+						this.initialized = true;
+					}
+					return true;
 				}
-				if (state.uom != this.uom) {
-					this.serverUom == state.uom;
-					this.state.value = converter ? converter.from(this.state.rawValue) : Converter.convert(state.uom, this.uom, this.state.rawValue);
-				} else if (converter) {
-					this.state.value = converter.from(state.value);
-				} else {
-					this.state.value = state.value;
-				}
-				this.state.formattedValue = state.formatted;
-				if (notify) node.events.emit(`${this.name}Changed`, driver as D, this.state.value, previousValue, this.state.formattedValue);
-				return true;
 			},
 			patch(value: T, formattedValue: string, uom: UnitOfMeasure, prec: number, notify = true) {
 				let previousValue = this.state.rawValue;
@@ -470,6 +489,10 @@ export namespace Driver {
 					return false;
 				}
 				if (notify) node.events.emit(`${this.name}Changed`, driver as D, this.state.value, previousValue, formattedValue);
+				if (!this.initialized) {
+
+					this.initialized = true;
+				}
 				return true;
 			},
 			get value() {
@@ -486,7 +509,7 @@ export namespace Driver {
 		//     }
 
 		//});
-		return c as unknown as StatelessOrStateful<D, U, T, N, L, typeof stateless>;
+		return c as StatelessOrStateful<D, U, T, UnitOfMeasure, any, N, L, typeof stateless>;
 	}
 }
 

@@ -1,10 +1,9 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "KeypadRelay";
-export class KeypadRelayNode extends Base {
+class KeypadRelayNode extends Base {
     commands = {
         DON: this.on,
         DOF: this.off,
@@ -16,11 +15,11 @@ export class KeypadRelayNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "KeypadRelay";
-    static implements = ["KeypadRelay", "IRLincTx", "KeypadButton", "KeypadButton_ADV", "EZRAIN_Output", "EZIO2x4_Output", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "DoorLock", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl", "BinaryControl_ADV", "AlertModuleArmed", "SirenAlert", "SirenArm", "PIR2844OnOff", "PIR2844OnOff_ADV"];
+    static implements = ['KeypadRelay', "IRLincTx", "KeypadButton", "KeypadButton_ADV", "EZRAIN_Output", "EZIO2x4_Output", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "DoorLock", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl", "BinaryControl_ADV", "AlertModuleArmed", "SirenAlert", "SirenArm", "PIR2844OnOff", "PIR2844OnOff_ADV"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async on(value) { return this.sendCommand("DON", value); }
     async off() { return this.sendCommand("DOF"); }
@@ -42,11 +41,11 @@ NodeFactory.register(KeypadRelayNode, "KeypadRelay_ADV");
 export var KeypadRelay;
 (function (KeypadRelay) {
     function is(node) {
-        return ["KeypadRelay", "KeypadRelay_ADV"].includes(node.nodeDefId);
+        return ['KeypadRelay', "KeypadRelay_ADV"].includes(node.nodeDefId);
     }
     KeypadRelay.is = is;
     function isImplementedBy(node) {
-        return ["KeypadRelay", "KeypadRelay_ADV"].includes(node.nodeDefId);
+        return ['KeypadRelay', "KeypadRelay_ADV"].includes(node.nodeDefId);
     }
     KeypadRelay.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {
@@ -54,5 +53,22 @@ export var KeypadRelay;
     }
     KeypadRelay.create = create;
     KeypadRelay.Node = KeypadRelayNode;
+    KeypadRelay.Class = KeypadRelayNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["fastOff"] = "DFOF";
+        Commands["fastOn"] = "DFON";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["backlight"] = "BL";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = KeypadRelay.Commands || (KeypadRelay.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = KeypadRelay.Drivers || (KeypadRelay.Drivers = {}));
 })(KeypadRelay || (KeypadRelay = {}));
 //# sourceMappingURL=KeypadRelay.js.map

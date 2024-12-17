@@ -14,6 +14,7 @@ import { DeviceDef, type CategoryDef, type FamilyDef } from '../DeviceMap.js';
 import { writeFileSync } from 'fs';
 import type { Constructor } from '../Constructor.js';
 import { Family } from '../../Definitions/index.js';
+import type { ISYDevice } from '../../ISYDevice.js';
 
 
 
@@ -63,17 +64,30 @@ export class InsteonDeviceFactory {
 	// 	writeFileSync("DeviceMapClean.json", JSON.stringify(fams));
 	// }
 
-	static getDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class?: Constructor<ISYNode<Family.Insteon,any,any>>; unsupported?: true; } {
+	static getDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class?: Constructor<ISYNode<Family.Insteon,any,any>> | Constructor<ISYDevice<Family.Insteon,any,any,any>>; unsupported?: true; } {
 		const family = Number(node.family ?? '1');
 		//let insteonFamilyDef = s[0] as FamilyDef<Family.Insteon>;
 		if ((family ?? Family.Insteon) === Family.Insteon) {
-			//insteonFamilyDef.categories.forEach(callbackfn)
-			return this.getInsteonDeviceDetails(node);
+			//insteonFamilyDef.categories.forEach(callbackfn))
+			let n = this.getInsteonDeviceDetails(node);
+			if(n.class)
+			{
+				if('Node' in n.class)
+				{
+					return {...n, class: n.class.Node};
+				}
+				if ('Device' in n.class) {
+					return { ...n, class: n.class.Device };
+				}
+				if (n.class instanceof Function) {
+					return n as any;
+				}
+			}
 
-		} else { return { name: "Unsupported Device", class: Insteon.Base, unsupported: true }; }
+		} return { name: "Unsupported Device", class: Insteon.Base, unsupported: true };
 	}
 
-	public static getInsteonDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class: Constructor<ISYNode<Family.Insteon,any,any>>; unsupported?: true; } {
+	public static getInsteonDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class: {Node: Constructor<ISYNode<Family.Insteon,any,any>>} | {Device: Constructor<ISYDevice<Family.Insteon,any,any,any>>} | Constructor<ISYNode<Family.Insteon,any,any>>, unsupported?: true; } {
 		const type = parseTypeCode(node.type as any);
 		const subAddress = node.address.split(' ').pop();
 
@@ -173,7 +187,7 @@ export class InsteonDeviceFactory {
 
 	public static getSwitchLightInfo(deviceCode: number, subAddress: string): { name: string; modelNumber?: string; version?: string; class?: typeof Insteon.RelayLampSwitch.Node | typeof Insteon.KeypadRelay.Node | typeof Insteon.KeypadButton.Node | typeof Insteon.OnOffOutlet; } {
 		const c = String.fromCharCode(deviceCode);
-		let retVal = { name: 'Generic Insteon Relay', class: Insteon.RelayLampSwitch.Node } as { name: string; modelNumber?: string; version?: string; class?: typeof Insteon.RelayLampSwitch.Node | typeof Insteon.KeypadRelay.Node | typeof Insteon.KeypadButton.Node | typeof Insteon.OnOffOutlet; };
+		let retVal = { name: 'Generic Insteon Relay'} as { name: string; modelNumber?: string; version?: string; class?: typeof Insteon.RelayLampSwitch.Node | typeof Insteon.KeypadRelay.Node | typeof Insteon.KeypadButton.Node | typeof Insteon.OnOffOutlet; };
 		switch (c) {
 			case String.fromCharCode(6):
 				retVal = { name: 'ApplianceLinc - Outdoor Plugin Module', modelNumber: '2456S3E' };
@@ -330,7 +344,7 @@ export class InsteonDeviceFactory {
 
 	private static getDimLightInfo(deviceCode: number, subAddress: string, node: NodeInfo): { name: string; modelNumber?: string; version?: string; class?: Constructor<ISYNode<Family.Insteon,any,any>>; } {
 		const c = String.fromCharCode(deviceCode);
-		let retVal = { name: "Generic Insteon Dimmer", class: Insteon.DimmerLamp.Node } as {
+		let retVal = { name: "Generic Insteon Dimmer" } as {
       name: string;
       modelNumber?: string;
       version?: string;
@@ -447,7 +461,7 @@ export class InsteonDeviceFactory {
 				break;
 			case '.':
 
-				retVal = { name: 'FanLinc', modelNumber: '2475F', class: Insteon.Fan };
+				retVal = { name: 'FanLinc', modelNumber: '2475F', class: Insteon.Fan as any};
 				break;
 			case '!':
 				retVal = { name: 'Dual Band OutletLinc Dimmer', modelNumber: '2472D', class: Insteon.DimmerOutlet };
@@ -697,15 +711,15 @@ export class InsteonDeviceFactory {
 				retVal = { name: 'TriggerLinc', modelNumber: '2421', class: Insteon.DoorWindowSensor };
 				break;
 			case '\t':
-				retVal = { name: 'Open/Close Sensor', modelNumber: '2843-222', class: Insteon.DoorWindowSensor };
+				retVal = { name: 'Open/Close Sensor', modelNumber: '2843-222', class: Insteon.DoorWindowSensor.Device };
 				break;
 			case String.fromCharCode(6):
-				retVal = { name: 'Open/Close Sensor', modelNumber: '2843-422', class: Insteon.DoorWindowSensor };
+				retVal = { name: 'Open/Close Sensor', modelNumber: '2843-422', class: Insteon.DoorWindowSensor.Device };
 				break;
 			case String.fromCharCode(7):
 				break;
 			case String.fromCharCode(25):
-				retVal = { name: 'Open/Close Sensor', modelNumber: '2843-522', class: Insteon.DoorWindowSensor };
+				retVal = { name: 'Open/Close Sensor', modelNumber: '2843-522', class: Insteon.DoorWindowSensor.Device };
 				break;
 			case '\b':
 				retVal = { name: 'Leak Sensor', modelNumber: '2852-222', class: Insteon.LeakSensor };
@@ -827,7 +841,7 @@ export class InsteonDeviceFactory {
 
 	private static getAccessControlInfo(deviceCode: number): { name: string; modelNumber?: string; version?: string; class?: Constructor<ISYNode<any,any,any,any>>; } {
 		const c = String.fromCharCode(deviceCode);
-		const retVal = { name: '', modelNumber: '', class: Insteon.Lock };
+		const retVal = { name: '', modelNumber: '', class: Insteon.DoorLock.Node };
 		switch (c) {
 			case String.fromCharCode(6):
 				retVal.name = 'MorningLinc';

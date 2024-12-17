@@ -1,3 +1,4 @@
+import type { IntRange } from 'type-fest';
 export declare enum UnitOfMeasure {
     Unknown = 0,
     Ampere = 1,
@@ -154,8 +155,21 @@ export declare enum UnitOfMeasure {
 }
 export declare function toString(this: UnitOfMeasure): keyof typeof UnitOfMeasure;
 export declare namespace UnitOfMeasure {
-    type ToType<X extends UnitOfMeasure> = X extends UnitOfMeasure.Boolean ? boolean : number;
-    type Standard = keyof typeof UnitOfMeasure;
-    type Matter = 'LightingLevel' | 'RampRate';
+    export type ToType<X extends UnitOfMeasure> = TypeMap[X];
+    export type Standard = keyof typeof UnitOfMeasure;
+    export type Matter = 'LightingLevel' | 'RampRate';
+    type TypeMap = {
+        [UnitOfMeasure.Percent]: IntRange<0, 100>;
+        [UnitOfMeasure.Boolean]: boolean;
+        [UnitOfMeasure.Degree]: IntRange<0, 360>;
+        [UnitOfMeasure.DegreeX2]: IntRange<0, 720>;
+        [UnitOfMeasure.LevelFrom0To255]: IntRange<0, 255>;
+        [UnitOfMeasure.Text]: string;
+        [UnitOfMeasure.URLForStreaming]: string;
+        [UnitOfMeasure.UnixTimestamp]: number;
+        [UnitOfMeasure.NTPDateTime]: Date;
+        [x: number]: any;
+    };
+    export {};
 }
 //# sourceMappingURL=UOM.d.ts.map

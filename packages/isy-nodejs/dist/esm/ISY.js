@@ -8,16 +8,17 @@ import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
 import { DeviceFactory } from './Devices/DeviceFactory.js';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
 import { EventType } from './Events/EventType.js';
-import { VariableType } from './ISYConstants.js';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
+import { VariableType } from './VariableType.js';
 import * as Utils from './Utils.js';
 import { XMLParser } from 'fast-xml-parser';
 import path from 'path';
+import { CompositeDevice } from './Devices/CompositeDevice.js';
+import { GenericNode } from './Devices/GenericNode.js';
 import { NodeFactory } from './Devices/NodeFactory.js';
 import { ISYError } from './ISYError.js';
 import { findPackageJson } from './Utils.js';
-import { GenericNode } from './Devices/GenericNode.js';
 class ISYInitializationError extends ISYError {
     step;
     constructor(messageOrError, step) {
@@ -666,7 +667,7 @@ export class ISY extends EventEmitter {
                     const enabled = nodeInfo.enabled ?? true;
                     const d = await NodeFactory.get(nodeInfo);
                     const m = DeviceFactory.getDeviceDetails(nodeInfo);
-                    const cls = m?.class ?? d;
+                    const cls = m.class ?? d;
                     nodeInfo.property = Array.isArray(nodeInfo.property) ? nodeInfo.property : [nodeInfo.property];
                     nodeInfo.state = nodeInfo.property.reduce((acc, p) => {
                         if (p && p?.id) {
@@ -712,7 +713,11 @@ export class ISY extends EventEmitter {
                         }
                         else {
                         }
-                        this.nodeMap.set(newDevice.address, newDevice);
+                        this.nodeMap.set(newDevice.address, CompositeDevice.isComposite(newDevice) ? newDevice.root : newDevice);
+                        if (CompositeDevice.isComposite(newDevice)) {
+                            if (this.deviceList.set)
+                                this.deviceList.set(newDevice.address, newDevice);
+                        }
                     }
                     else {
                         this.logger.info(`Ignoring disabled device: ${nodeInfo.name}`);
@@ -722,7 +727,18 @@ export class ISY extends EventEmitter {
                     this.logger.error(`Error loading device node: ${e.message}`);
                 }
             }
-            this.logger.info(`${this.nodeMap.size} devices added.`);
+            this.logger.info(`${this.nodeMap.size} nodes added.`);
+            for (const node of this.nodeMap.values()) {
+                if (node.parentAddress !== node.address) {
+                    let parent = this.deviceList.get(node.parentAddress);
+                    if (parent && CompositeDevice.isComposite(parent))
+                        parent.addNode(node);
+                }
+                else if (!this.deviceList.has(node.address)) {
+                    this.deviceList.set(node.address, node);
+                }
+            }
+            this.logger.info(`${this.deviceList.size} unique devices added.`);
         }
         catch (e) {
             throw new ISYInitializationError(e, 'readDevices');

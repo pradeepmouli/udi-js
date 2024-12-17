@@ -1,10 +1,9 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "DimmerMotorSwitch";
-export class DimmerMotorSwitchNode extends Base {
+class DimmerMotorSwitchNode extends Base {
     commands = {
         DON: this.on,
         DOF: this.off,
@@ -21,13 +20,13 @@ export class DimmerMotorSwitchNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "DimmerMotorSwitch";
-    static implements = ["DimmerMotorSwitch", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
+    static implements = ['DimmerMotorSwitch', "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-        this.drivers.OL = Driver.create("OL", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "On Level", name: "onLevel" });
-        this.drivers.DUR = Driver.create("DUR", this, nodeInfo.property, { uom: UnitOfMeasure.DurationInSeconds, label: "Max Duration", name: "maxDuration" });
-        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+        this.drivers.OL = Driver.create("OL", this, nodeInfo.state['OL'], { uom: UnitOfMeasure.Percent, label: "On Level", name: "onLevel" });
+        this.drivers.DUR = Driver.create("DUR", this, nodeInfo.state['DUR'], { uom: UnitOfMeasure.DurationInSeconds, label: "Max Duration", name: "maxDuration" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async on(value) { return this.sendCommand("DON", value); }
     async off() { return this.sendCommand("DOF"); }
@@ -60,11 +59,11 @@ NodeFactory.register(DimmerMotorSwitchNode, "DimmerMotorSwitch_ADV");
 export var DimmerMotorSwitch;
 (function (DimmerMotorSwitch) {
     function is(node) {
-        return ["DimmerMotorSwitch", "DimmerMotorSwitch_ADV"].includes(node.nodeDefId);
+        return ['DimmerMotorSwitch', "DimmerMotorSwitch_ADV"].includes(node.nodeDefId);
     }
     DimmerMotorSwitch.is = is;
     function isImplementedBy(node) {
-        return ["DimmerMotorSwitch", "DimmerMotorSwitch_ADV"].includes(node.nodeDefId);
+        return ['DimmerMotorSwitch', "DimmerMotorSwitch_ADV"].includes(node.nodeDefId);
     }
     DimmerMotorSwitch.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {
@@ -72,5 +71,29 @@ export var DimmerMotorSwitch;
     }
     DimmerMotorSwitch.create = create;
     DimmerMotorSwitch.Node = DimmerMotorSwitchNode;
+    DimmerMotorSwitch.Class = DimmerMotorSwitchNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["fastOff"] = "DFOF";
+        Commands["fastOn"] = "DFON";
+        Commands["fadeUp"] = "FDUP";
+        Commands["fadeDown"] = "FDDOWN";
+        Commands["fadeStop"] = "FDSTOP";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["updateOnLevel"] = "OL";
+        Commands["updateMaxDuration"] = "DUR";
+        Commands["backlight"] = "BL";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = DimmerMotorSwitch.Commands || (DimmerMotorSwitch.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["onLevel"] = "OL";
+        Drivers["maxDuration"] = "DUR";
+        Drivers["responding"] = "ERR";
+    })(Drivers = DimmerMotorSwitch.Drivers || (DimmerMotorSwitch.Drivers = {}));
 })(DimmerMotorSwitch || (DimmerMotorSwitch = {}));
 //# sourceMappingURL=DimmerMotorSwitch.js.map

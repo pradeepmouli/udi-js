@@ -65,8 +65,7 @@
         ],
         "name": "on",
         "optional": true,
-        "parameters": {
-          "value": {
+        "parameters": [{
             "id": "value",
             "editorId": "ZY_DIM_PERCENT",
             "dataType": [
@@ -85,8 +84,7 @@
             "name": "value",
             "optional": true,
             "initialValue": "ST"
-          },
-          "RR": {
+          },{
             "label": "Ramp Rate",
             "id": "RR",
             "editorId": "ZY_RR",
@@ -107,7 +105,7 @@
             "name": "rampRate",
             "optional": true
           }
-        },
+		],
         "initialValue": "ST"
       },
       "DOF": {
@@ -139,8 +137,8 @@
         "label": "Fade Up",
         "id": "FDUP",
         "name": "fadeUp",
-        "parameters": {
-          "STARTLEVEL": {
+        "parameters": [
+          {
             "label": "Start Level",
             "id": "STARTLEVEL",
             "editorId": "ZY_DIM_PERCENT",
@@ -161,7 +159,7 @@
             "optional": true,
             "initialValue": "ST"
           },
-          "RR": {
+          {
             "label": "Ramp Rate",
             "id": "RR",
             "editorId": "ZY_RR",
@@ -182,14 +180,13 @@
             "name": "rampRate",
             "optional": true
           }
-        }
+		]
       },
       "FDDOWN": {
         "label": "Fade Down",
         "id": "FDDOWN",
         "name": "fadeDown",
-        "parameters": {
-          "STARTLEVEL": {
+        "parameters": [{
             "label": "Start Level",
             "id": "STARTLEVEL",
             "editorId": "ZY_DIM_PERCENT",
@@ -210,7 +207,7 @@
             "optional": true,
             "initialValue": "ST"
           },
-          "RR": {
+          {
             "label": "Ramp Rate",
             "id": "RR",
             "editorId": "ZY_RR",
@@ -231,14 +228,14 @@
             "name": "rampRate",
             "optional": true
           }
-        }
+		]
       },
       "FADE": {
         "label": "Fade",
         "id": "FADE",
         "name": "fade",
-        "parameters": {
-          "DIR": {
+        "parameters": [
+         {
             "label": "Direction",
             "id": "DIR",
             "editorId": "ZY_MLS_DIR",
@@ -257,7 +254,7 @@
             "name": "direction",
             "optional": false
           },
-          "STARTLEVEL": {
+          {
             "label": "Start Level",
             "id": "STARTLEVEL",
             "editorId": "ZY_DIM_PERCENT",
@@ -278,7 +275,7 @@
             "optional": true,
             "initialValue": "ST"
           },
-          "RR": {
+          {
             "label": "Ramp Rate",
             "id": "RR",
             "editorId": "ZY_RR",
@@ -299,7 +296,7 @@
             "name": "rampRate",
             "optional": true
           },
-          "DIR2": {
+          {
             "label": "Direction 2",
             "id": "DIR2",
             "editorId": "ZY_MLS_DIR",
@@ -318,7 +315,7 @@
             "name": "direction2",
             "optional": true
           },
-          "STEP2": {
+          {
             "label": "2nd Fade Rate",
             "id": "STEP2",
             "editorId": "ZY_RR",
@@ -339,7 +336,7 @@
             "name": "fadeRate2",
             "optional": true
           }
-        }
+		]
       },
       "FDSTOP": {
         "label": "Fade Stop",
@@ -355,8 +352,8 @@
         "label": "Set Configuration",
         "id": "CONFIG",
         "name": "setConfiguration",
-        "parameters": {
-          "NUM": {
+        "parameters": [
+          {
             "label": "Parameter Number",
             "id": "NUM",
             "editorId": "_107_0_R_0_255",
@@ -372,7 +369,7 @@
             "name": "parameterNumber",
             "optional": false
           },
-          "VAL": {
+          {
             "label": "Parameter Value",
             "id": "VAL",
             "editorId": "ZY_CONFIG",
@@ -417,7 +414,7 @@
             "name": "parameterValue",
             "optional": false
           }
-        }
+        ]
       },
       "WDU": {
         "label": "Write Changes",
@@ -450,7 +447,7 @@
     "family": 12,
     "label": "Dimmer Switch",
     "name": "DimmerSwitch",
-    "dynamic": false
+    "dynamic": true
   },
   "186": {
     "className": "ColorSwitch",
@@ -553,8 +550,8 @@
         "label": "Set",
         "id": "DON",
         "name": "set",
-        "parameters": {
-          "GV0": {
+        "parameters": [
+          {
             "label": "Warm White",
             "id": "GV0",
             "editorId": "_107_0_R_0_255",
@@ -570,7 +567,7 @@
             "name": "warmWhite",
             "optional": true
           },
-		  "GV1": {
+		  {
             "label": "Cold White",
             "id": "GV1",
             "editorId": "_107_0_R_0_255",
@@ -586,7 +583,7 @@
             "name": "coldWhite",
             "optional": true
           },
-          "GV2": {
+          {
             "label": "Red",
             "id": "GV2",
             "editorId": "_107_0_R_0_255",
@@ -602,7 +599,7 @@
             "name": "red",
             "optional": true
           },
-          "GV3": {
+          {
             "label": "Green",
             "id": "GV3",
             "editorId": "_107_0_R_0_255",
@@ -618,7 +615,7 @@
             "name": "green",
             "optional": true
           },
-          "GV4": {
+          {
             "label": "Blue",
             "id": "GV4",
             "editorId": "_107_0_R_0_255",
@@ -634,7 +631,7 @@
             "name": "blue",
             "optional": true
           },
-          "RR": {
+          {
             "label": "Duration",
             "id": "RR",
             "editorId": "ZY_RR",
@@ -655,14 +652,14 @@
             "name": "duration",
             "optional": true
           }
-        }
+		]
       },
       "FDUP": {
         "label": "Fade Up",
         "id": "FDUP",
         "name": "fadeUp",
-        "parameters": {
-          "ID": {
+        "parameters": [
+         {
             "label": "Component",
             "id": "ID",
             "editorId": "_25_0_S_001D_N_IX_CCI",
@@ -676,7 +673,7 @@
             "name": "component",
             "optional": false
           },
-          "STARTLEVEL": {
+          {
             "label": "Start Level",
             "id": "STARTLEVEL",
             "editorId": "_107_0_R_0_255",
@@ -692,7 +689,7 @@
             "name": "startLevel",
             "optional": true
           },
-          "RR": {
+         {
             "label": "Duration",
             "id": "RR",
             "editorId": "ZY_RR",
@@ -713,14 +710,14 @@
             "name": "duration",
             "optional": true
           }
-        }
+		]
       },
       "FDDOWN": {
         "label": "Fade Down",
         "id": "FDDOWN",
         "name": "fadeDown",
-        "parameters": {
-          "ID": {
+        "parameters": [
+         {
             "label": "Component",
             "id": "ID",
             "editorId": "_25_0_S_001D_N_IX_CCI",
@@ -734,7 +731,7 @@
             "name": "component",
             "optional": false
           },
-          "STARTLEVEL": {
+         {
             "label": "Start Level",
             "id": "STARTLEVEL",
             "editorId": "_107_0_R_0_255",
@@ -750,7 +747,7 @@
             "name": "startLevel",
             "optional": true
           },
-          "RR": {
+          {
             "label": "Duration",
             "id": "RR",
             "editorId": "ZY_RR",
@@ -771,14 +768,14 @@
             "name": "duration",
             "optional": true
           }
-        }
+		]
       },
       "FDSTOP": {
         "label": "Fade Stop",
         "id": "FDSTOP",
         "name": "fadeStop",
-        "parameters": {
-          "ID": {
+        "parameters": [
+          {
             "label": "Component",
             "id": "ID",
             "editorId": "_25_0_S_001D_N_IX_CCI",
@@ -792,7 +789,7 @@
             "name": "component",
             "optional": false
           }
-        }
+		]
       },
       "QUERY": {
         "label": "Query",
@@ -804,6 +801,6 @@
     "family": 12,
     "label": "Color Switch",
     "name": "ColorSwitch",
-    "dynamic": false
+    "dynamic": true
   }
 }

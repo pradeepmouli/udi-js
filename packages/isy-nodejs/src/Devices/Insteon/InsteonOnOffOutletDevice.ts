@@ -1,24 +1,25 @@
-import type { NodeInfo } from '../../Model/NodeInfo.js';
-import { ISY } from '../../ISY.js';
-import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import 'winston';
+import { ISY } from '../../ISY.js';
+import type { NodeInfo } from '../../Model/NodeInfo.js';
+import { RelayLamp } from './Generated/RelayLamp.js';
+import { InsteonRelayDevice } from './InsteonRelayDevice.js';
+import { CompositeDevice, CompositeOf } from '../CompositeDevice.js';
+import type { ISYDevice } from '../../ISYDevice.js';
 
-export class InsteonOnOffOutletDevice extends InsteonRelayDevice {
-
-	public outlet1: InsteonRelayDevice;
-	public outlet2: InsteonRelayDevice;
-
+export class OnOffOutlet extends CompositeDevice.of({ top: RelayLamp.Node, bottom: RelayLamp.Node }, {top: 1, bottom: 2}) {
 	constructor(isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
-		this.outlet1 = new InsteonRelayDevice(isy, deviceNode);
-		//this.outlet1.on('PropertyChanged',(p,v,f) => this.handlePropertyChange("outlet1."+ p, v, f));
-		super.addChild(this.outlet1);
+	}
+}
 
+export namespace OnOffOutlet {
+		export function is(node: ISYDevice<any, any, any, any>): node is OnOffOutlet {
+		return node instanceof OnOffOutlet;
 	}
-	public override addChild(childDevice) {
-		super.addChild(childDevice);
-		this.outlet2 = childDevice as InsteonRelayDevice;
-		//this.outlet2.on('PropertyChanged', (p, v, f) => this.//handlePropertyChange("outlet2." + p, v, f));
-		// if(childDevice)
+	export function create(isy: ISY, node: NodeInfo) {
+		return new OnOffOutlet(isy, node);
 	}
+
+	export const Device = OnOffOutlet;
+
 }

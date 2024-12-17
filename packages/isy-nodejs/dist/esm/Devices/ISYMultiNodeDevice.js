@@ -1,4 +1,28 @@
-export {};
+import { ISY } from '../ISY.js';
+export function CompositeOf(nodes, keyFunction) {
+    let s = new class {
+        isy;
+        constructor(...args) {
+            if (args[0] instanceof ISY) {
+                this.isy = args.shift();
+                for (const nodeInfo of args) {
+                    this.addNode(nodeInfo);
+                }
+            }
+        }
+        events = {};
+        drivers = {};
+        commands = {};
+        addNode(node, isy = this.isy) {
+            const key = keyFunction(node);
+            Object.defineProperty(this, key, { value: new nodes[key](isy, node) });
+            Object.defineProperty(this.events, key, { get() { return this[key].events; } });
+            Object.defineProperty(this.drivers, key, { get() { return this[key].drivers; } });
+            Object.defineProperty(this.commands, key, { get() { return this[key].commands; } });
+        }
+    };
+    return s;
+}
 /*
 
 export class ISYMultiNodeDevice<T extends Family, N extends NodeList>

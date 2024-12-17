@@ -3,59 +3,102 @@
     "className": "Relay",
     "id": "NCDRelay",
     "nlsId": "RELAY",
+    "name": "Relay",
+    "label": "Relay",
     "drivers": {
       "ST": {
+        "id": "ST",
+        "name": "status",
         "label": "Status",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "ST",
         "editorId": "NCD_OL_RELAY",
-        "dataType": [],
-        "name": "status"
+        "dataType": [
+          {
+            "uom": 51,
+            "indexId": "R_OL",
+            "enum": true,
+            "values": {
+              "0": "",
+              "100": ""
+            }
+          }
+        ]
       },
       "ERR": {
+        "id": "ERR",
+        "name": "responding",
         "label": "Responding",
         "hidden": true,
         "optional": false,
         "readonly": true,
-        "id": "ERR",
         "editorId": "NCD_ERR",
-        "dataType": [],
-        "name": "responding"
+        "dataType": [
+          {
+            "uom": 25,
+            "indexId": "IX_ERR",
+            "enum": true,
+            "values": {
+              "0": "True",
+              "1": "False"
+            }
+          }
+        ]
       }
     },
     "commands": {
       "DON": {
-        "label": "On",
         "id": "DON",
-        "name": "on"
+        "name": "on",
+        "label": "On"
       },
       "DOF": {
-        "label": "Off",
         "id": "DOF",
-        "name": "off"
+        "name": "off",
+        "label": "Off"
       },
       "QUERY": {
-        "label": "Query",
         "id": "QUERY",
-        "name": "query"
+        "name": "query",
+        "label": "Query"
       },
       "ADRPST": {
-        "label": "ADR",
         "id": "ADRPST",
-        "editorId": "NCD_ADRPST",
         "name": "adr",
+        "label": "ADR",
+        "editorId": "NCD_ADRPST",
+        "dataType": [
+          {
+            "uom": 25,
+            "indexId": "R_ADRPST",
+            "enum": true,
+            "values": {
+              "0": "",
+              "1": ""
+            }
+          }
+        ],
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
-            "editorId": "NCD_ADRPST",
-            "dataType": [],
             "name": "value",
+            "editorId": "NCD_ADRPST",
+            "dataType": [
+              {
+                "uom": 25,
+                "indexId": "R_ADRPST",
+                "enum": true,
+                "values": {
+                  "0": "",
+                  "1": ""
+                }
+              }
+            ],
             "optional": false
           }
-        }
+        ]
       }
     },
     "events": {
@@ -69,8 +112,6 @@
       }
     },
     "family": 9,
-    "label": "Relay",
-    "name": "Relay",
     "dynamic": false
   }
 }

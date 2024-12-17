@@ -24,5 +24,6 @@ export declare function createNodeClass<T extends Family>(nodeClassDef: NodeClas
     id: string;
     statements: (ts.ImportDeclaration | ts.VariableStatement | ts.TypeAliasDeclaration | ts.ClassDeclaration)[];
 };
+export declare function createMemberName(name: string, mapNullishTo?: string): any;
 export {};
 //# sourceMappingURL=EnumFactory.d.ts.map

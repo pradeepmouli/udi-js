@@ -1,1 +1,1 @@
-{"version":3,"file":"Error.d.ts","sourceRoot":"","sources":["../../../../../../src/Definitions/Insteon/generated/Error.ts"],"names":[],"mappings":"AAAA,oBAAY,KAAK;IACb,IAAI,IAAI;IACR,KAAK,IAAI;CACZ"}
+{"version":3,"file":"Error.d.ts","sourceRoot":"","sources":["../../../../../../src/Definitions/Insteon/generated/Error.ts"],"names":[],"mappings":"AAAA,oBAAY,KAAK;IACb,IAAI,IAAI;IACR,KAAK,IAAI;CACZ;AAED,yBAAiB,KAAK,CAAC;IACtB,SAAgB,SAAS,CAAC,KAAK,EAAE,KAAK,GAAG,OAAO,CAE/C;IACD,SAAgB,WAAW,CAAC,KAAK,EAAE,OAAO,GAAG,KAAK,CAEjD;CACD"}

@@ -1,11 +1,12 @@
 import * as Cluster from '@matter/types/cluster';
-import type { Converter } from '../../Converters.js';
-import { Devices, Insteon } from '../../Devices/index.js';
 import { ClusterBehavior, MutableEndpoint, SupportedBehaviors } from '@matter/main';
+import type { Converter } from '../../Converters.js';
 import { Family } from '../../Definitions/index.js';
 import type { Constructor } from '../../Devices/Constructor.js';
+import { Devices } from '../../Devices/index.js';
 import { CommandsOf, DriversOf, ISYNode } from '../../ISYNode.js';
-import type { PathsWithLimit, Remove } from '../../Utils.js';
+import type { PathsWithLimit, StringKeys } from '../../Utils.js';
+import { ISYDevice } from '../../ISYDevice.js';
 export type AttributeMapping<B, D> = B extends {
     cluster: {
         attributes: infer E extends {
@@ -16,19 +17,24 @@ export type AttributeMapping<B, D> = B extends {
     driver: keyof DriversOf<D>;
     converter?: Converter.KnownConverters;
 }>> : never;
-export type ClusterMapping<B, T extends ISYNode<any, any, any, any>> = {
+export type ClusterMapping<B extends {
+    attributes: any;
+    commands: any;
+}, T extends ISYDevice.Any> = {
     attributes?: ClusterAttributeMapping<B, T>;
     commands?: ClusterCommandMapping<B, T>;
 };
-export type ClusterAttributeMapping<A, K> = {
-    [key in keyof Cluster.ClusterType.AttributesOf<A>]: {
-        driver: Extract<keyof DriversOf<K>, string>;
+export type ClusterAttributeMapping<A extends {
+    attributes: any;
+}, K extends ISYDevice.Any> = {
+    [key in keyof Extract<A["attributes"], Cluster.ClusterType.Attribute>]: {
+        driver: ISYDevice.DriverNamesOf<K>;
         converter?: Converter.KnownConverters;
     } | Extract<keyof DriversOf<K>, string>;
 };
-export type ClusterCommandMapping<A, K> = {
+export type ClusterCommandMapping<A, K extends ISYDevice.Any> = {
     [key in keyof Cluster.ClusterType.CommandsOf<A>]: {
-        command: keyof CommandsOf<K>;
+        command: ISYDevice.CommandNamesOf<K>;
         parameters?: parameterMapping;
     } | keyof CommandsOf<K>;
 };
@@ -42,7 +48,7 @@ export type CommandMapping<B, D> = B extends ({
     command: keyof CommandsOf<D>;
     parameters?: parameterMapping;
 }>> : never;
-export interface DeviceToClusterMap<T extends ISYNode<Family, any, any, any>, D extends MutableEndpoint> {
+export interface DeviceToClusterMap<T extends ISYDevice<any, any, any, any>, D extends MutableEndpoint> {
     deviceType: D;
     mapping: EndpointMapping<D, T>;
 }
@@ -66,7 +72,7 @@ export interface Mapping<T extends ISYNode, D extends MutableEndpoint> {
         };
     };
 }
-export type EndpointMapping<A extends MutableEndpoint, D extends ISYNode<Family, any, any, any>> = {
+export type EndpointMapping<A extends MutableEndpoint, D extends ISYDevice<Family, any, any, any>> = {
     [K in StringKeys<A['behaviors']>]?: ClusterMapping<A['behaviors'][K], D>;
 };
 export type EndpointMapping1<A extends MutableEndpoint, K> = {
@@ -77,49 +83,11 @@ type SupportedFamily = Family.Insteon | Family.ZWave | Family.ZigBee;
 export type FamilyToClusterMap<T extends SupportedFamily> = {
     Family: T;
 } & {
-    [Type in Extract<keyof Devices.Insteon, `${string}Node`> as Remove<Type, 'Node'>]?: DeviceToClusterMap<InstanceType<Devices.Insteon[Type]>, MutableEndpoint>;
+    [Type in keyof Devices.Insteon]?: DeviceToClusterMap<ISYDevice.InstanceTypeOf<Devices.Insteon[Type]>, MutableEndpoint>;
 };
-export declare function add<const F extends SupportedFamily, const T extends ISYNode<F>, const D extends MutableEndpoint>(familyToClusterMap: FamilyToClusterMap<F>, deviceClass: Constructor<T>, mapping: DeviceToClusterMap<T, D>): {
-    Family: F;
-    AlertModuleArmed?: DeviceToClusterMap<Insteon.AlertModuleArmedNode, MutableEndpoint>;
-    AlertModuleSiren?: DeviceToClusterMap<Insteon.AlertModuleSirenNode, MutableEndpoint>;
-    BallastRelayLampSwitch?: DeviceToClusterMap<Insteon.BallastRelayLampSwitchNode, MutableEndpoint>;
-    BinaryAlarm?: DeviceToClusterMap<Insteon.BinaryAlarmNode, MutableEndpoint>;
-    BinaryControl?: DeviceToClusterMap<Insteon.BinaryControlNode, MutableEndpoint>;
-    DimmerLamp?: DeviceToClusterMap<Insteon.DimmerLampNode, MutableEndpoint>;
-    DimmerLampSwitch?: DeviceToClusterMap<Insteon.DimmerLampSwitchNode, MutableEndpoint>;
-    DimmerLampSwitchLed?: DeviceToClusterMap<Insteon.DimmerLampSwitchLedNode, MutableEndpoint>;
-    DimmerMotorSwitch?: DeviceToClusterMap<Insteon.DimmerMotorSwitchNode, MutableEndpoint>;
-    DimmerSwitch?: DeviceToClusterMap<Insteon.DimmerSwitchNode, MutableEndpoint>;
-    DoorLock?: DeviceToClusterMap<Insteon.DoorLockNode, MutableEndpoint>;
-    Ezio2x4Input?: DeviceToClusterMap<Insteon.Ezio2x4InputNode, MutableEndpoint>;
-    Ezio2x4Output?: DeviceToClusterMap<Insteon.Ezio2x4OutputNode, MutableEndpoint>;
-    EzrainInput?: DeviceToClusterMap<Insteon.EzrainInputNode, MutableEndpoint>;
-    EzrainOutput?: DeviceToClusterMap<Insteon.EzrainOutputNode, MutableEndpoint>;
-    FanLincMotor?: DeviceToClusterMap<Insteon.FanLincMotorNode, MutableEndpoint>;
-    I3KeypadFlags?: DeviceToClusterMap<Insteon.I3KeypadFlagsNode, MutableEndpoint>;
-    I3PaddleFlags?: DeviceToClusterMap<Insteon.I3PaddleFlagsNode, MutableEndpoint>;
-    ImeterSolo?: DeviceToClusterMap<Insteon.ImeterSoloNode, MutableEndpoint>;
-    IrLincTx?: DeviceToClusterMap<Insteon.IrLincTxNode, MutableEndpoint>;
-    KeypadButton?: DeviceToClusterMap<Insteon.KeypadButtonNode, MutableEndpoint>;
-    KeypadDimmer?: DeviceToClusterMap<Insteon.KeypadDimmerNode, MutableEndpoint>;
-    KeypadRelay?: DeviceToClusterMap<Insteon.KeypadRelayNode, MutableEndpoint>;
-    OnOffControl?: DeviceToClusterMap<Insteon.OnOffControlNode, MutableEndpoint>;
-    Pir2844?: DeviceToClusterMap<Insteon.Pir2844Node, MutableEndpoint>;
-    Pir2844c?: DeviceToClusterMap<Insteon.Pir2844cNode, MutableEndpoint>;
-    Pir2844OnOff?: DeviceToClusterMap<Insteon.Pir2844OnOffNode, MutableEndpoint>;
-    RelayLamp?: DeviceToClusterMap<Insteon.RelayLampNode, MutableEndpoint>;
-    RelayLampSwitch?: DeviceToClusterMap<Insteon.RelayLampSwitchNode, MutableEndpoint>;
-    RelayLampSwitchLed?: DeviceToClusterMap<Insteon.RelayLampSwitchLedNode, MutableEndpoint>;
-    RelaySwitch?: DeviceToClusterMap<Insteon.RelaySwitchNode, MutableEndpoint>;
-    RelaySwitchOnlyPlusQuery?: DeviceToClusterMap<Insteon.RelaySwitchOnlyPlusQueryNode, MutableEndpoint>;
-    RemoteLinc2?: DeviceToClusterMap<Insteon.RemoteLinc2Node, MutableEndpoint>;
-    Siren?: DeviceToClusterMap<Insteon.SirenNode, MutableEndpoint>;
-    SirenAlert?: DeviceToClusterMap<Insteon.SirenAlertNode, MutableEndpoint>;
-    TempLinc?: DeviceToClusterMap<Insteon.TempLincNode, MutableEndpoint>;
-    Thermostat?: DeviceToClusterMap<Insteon.ThermostatNode, MutableEndpoint>;
-    X10?: DeviceToClusterMap<Insteon.X10Node, MutableEndpoint>;
-};
+export declare function add<const F extends SupportedFamily, X, const T extends ISYDevice<F, any, any, any>, const D extends MutableEndpoint>(This: X, mapping: {
+    [x: Constructor<T>["name"]]: DeviceToClusterMap<T, D>;
+}): X & typeof mapping;
 export type SBAttributeMapping<SB extends SupportedBehaviors, D> = {
     [K in keyof SB]: Partial<Record<any, DriversOf<D> | {
         driver: DriversOf<D>;
@@ -136,7 +104,6 @@ export type SBCommandMapping<SB extends SupportedBehaviors, D> = {
         converter?: string;
     }>> : never;
 };
-type StringKeys<T> = Extract<keyof T, string>;
 export type parameterMapping = {
     [key: string]: {
         parameter: string;
@@ -144,12 +111,12 @@ export type parameterMapping = {
     };
 };
 export declare class MappingRegistry {
-    static map: Map<Family, Map<string, DeviceToClusterMap<ISYNode, MutableEndpoint>>>;
+    static map: Map<Family, Map<string, DeviceToClusterMap<ISYDevice.Any, MutableEndpoint>>>;
     static cache: {
-        [x: string]: DeviceToClusterMap<ISYNode, MutableEndpoint>;
+        [x: string]: DeviceToClusterMap<ISYDevice.Any, MutableEndpoint>;
     };
-    static getMapping<const T extends ISYNode>(device: T): DeviceToClusterMap<T, MutableEndpoint>;
-    static getMappingForBehavior<T extends ISYNode<any, any, any, any>, const B extends ClusterBehavior>(device: T, behavior: B): ClusterMapping<B, T>;
+    static getMapping<const T extends ISYDevice.Any>(device: T): DeviceToClusterMap<T, MutableEndpoint>;
+    static getMappingForBehavior<T extends ISYDevice.Any, const B extends ClusterBehavior>(device: T, behavior: B): ClusterMapping<B, T>;
     static register<const T extends Family.Insteon | Family.ZWave | Family.ZigBee>(map: Partial<FamilyToClusterMap<T>> | {
         [x in PathsWithLimit<typeof Devices, 1>]: DeviceToClusterMap<any, any>;
     }): void;

@@ -1,9 +1,9 @@
 import type { ISYNode } from '../../ISYNode.js';
-import type { UnitOfMeasure } from './UOM.js';
+import { UnitOfMeasure } from './UOM.js';
 export interface Parameter<P, T> {
-    id: P;
-    name: string;
-    label: string;
+    id?: P;
+    name?: string;
+    label?: string;
     value?: T;
     uom: UnitOfMeasure;
     serverUom?: UnitOfMeasure;

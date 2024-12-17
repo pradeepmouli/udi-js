@@ -1,13 +1,13 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
-type Commands = DoorLock.Commands;
-type Drivers = DoorLock.Drivers;
-export declare class DoorLockNode extends Base<Drivers, Commands> implements DoorLock.Interface {
+type Commands = DoorLock.Commands.Type;
+type Drivers = DoorLock.Drivers.Type;
+declare class DoorLockNode extends Base<Drivers, Commands> implements DoorLock.Interface {
     readonly commands: {
         DON: () => Promise<any>;
         DOF: () => Promise<any>;
@@ -15,7 +15,7 @@ export declare class DoorLockNode extends Base<Drivers, Commands> implements Doo
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "DoorLock";
+    readonly nodeDefId: 'DoorLock';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     lock(): Promise<any>;
     unlock(): Promise<any>;
@@ -25,40 +25,53 @@ export declare class DoorLockNode extends Base<Drivers, Commands> implements Doo
 }
 export declare namespace DoorLock {
     interface Interface extends Omit<InstanceType<typeof DoorLockNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "DoorLock";
     }
     function is(node: ISYNode<any, any, any, any>): node is DoorLockNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is DoorLockNode;
     function create(isy: ISY, nodeInfo: NodeInfo): DoorLockNode;
     const Node: typeof DoorLockNode;
-    type Commands = {
-        DON: (() => Promise<boolean>) & {
-            label: "Lock";
-            name: "lock";
+    const Class: typeof DoorLockNode;
+    namespace Commands {
+        type Type = {
+            DON: (() => Promise<boolean>) & {
+                label: "Lock";
+                name: "lock";
+            };
+            DOF: (() => Promise<boolean>) & {
+                label: "Unlock";
+                name: "unlock";
+            };
+            WDU: (() => Promise<boolean>) & {
+                label: "Write Changes";
+                name: "writeChanges";
+            };
         };
-        DOF: (() => Promise<boolean>) & {
-            label: "Unlock";
-            name: "unlock";
+    }
+    enum Commands {
+        lock = "DON",
+        unlock = "DOF",
+        writeChanges = "WDU"
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Percent;
+                value: Insteon.Lock;
+                label: "Status";
+                name: "status";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Insteon.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        WDU: (() => Promise<boolean>) & {
-            label: "Write Changes";
-            name: "writeChanges";
-        };
-    };
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Percent;
-            value: Insteon.Lock;
-            label: "Status";
-            name: "status";
-        };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        status = "ST",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=DoorLock.d.ts.map

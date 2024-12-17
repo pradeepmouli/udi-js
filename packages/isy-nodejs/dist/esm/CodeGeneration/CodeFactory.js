@@ -195,8 +195,17 @@ export class CodeFactory {
     createPropertyAssignment(name, initializer) {
         return ts.factory.createPropertyAssignment(this.createIdentifier(name), initializer);
     }
-    createQualifiedName(left, right) {
-        return ts.factory.createQualifiedName(left, this.createIdentifier(right));
+    createQualifiedName(...names) {
+        let n = names.pop();
+        if (!n)
+            throw new Error('No names provided');
+        let name = typeof n === 'string' ? this.createIdentifier(n) : n;
+        if (names.length === 0) {
+            return name;
+        }
+        else {
+            return ts.factory.createQualifiedName(this.createQualifiedName(...names), name);
+        }
     }
     createLiteralTypeNode(literal) {
         if (typeof literal === 'number') {
@@ -204,11 +213,20 @@ export class CodeFactory {
         }
         return ts.factory.createLiteralTypeNode(this.createStringLiteral(literal));
     }
-    createNumericLiteral(value) {
-        return ts.factory.createNumericLiteral(value.toString());
+    createLiteral(value) {
+        if (typeof value === 'number') {
+            return this.createNumericLiteral(value);
+        }
+        return this.createStringLiteral(value);
+    }
+    createNumericLiteral(value, flags) {
+        if (value < 0) {
+            return ts.factory.createPrefixUnaryExpression(SyntaxKind.MinusToken, ts.factory.createNumericLiteral((-value).toString(), flags));
+        }
+        return ts.factory.createNumericLiteral(value.toString(), flags);
     }
     createStringLiteral(text) {
-        return ts.factory.createStringLiteral(text);
+        return ts.factory.createStringLiteral(text, true);
     }
     createKeywordTypeNode(kind) {
         return ts.factory.createKeywordTypeNode(kind);
@@ -220,12 +238,12 @@ export class CodeFactory {
         return ts.factory.createBinaryExpression(left, operator, right);
     }
     createPropertyAccessExpression(expression, name) {
-        return ts.factory.createPropertyAccessExpression(expression, this.createIdentifier(name));
+        return ts.factory.createPropertyAccessExpression(expression, name);
     }
-    createHeritageClause(token, types) {
+    createHeritageClause(token, ...types) {
         return ts.factory.createHeritageClause(token, types);
     }
-    createExpressionWithTypeArguments(expression, typeArguments) {
+    createExpressionWithTypeArguments(expression, ...typeArguments) {
         return ts.factory.createExpressionWithTypeArguments(expression, typeArguments);
     }
     createBlock(multiLine, ...statements) {
@@ -234,7 +252,7 @@ export class CodeFactory {
         }
         return ts.factory.createBlock([multiLine, ...statements], true);
     }
-    createModuleBlock(statements) {
+    createModuleBlock(...statements) {
         return ts.factory.createModuleBlock(statements);
     }
     createInterfaceDeclaration(name, members, heritageClauses) {

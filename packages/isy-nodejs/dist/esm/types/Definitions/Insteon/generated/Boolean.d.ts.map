@@ -1,1 +1,1 @@
-{"version":3,"file":"Boolean.d.ts","sourceRoot":"","sources":["../../../../../../src/Definitions/Insteon/generated/Boolean.ts"],"names":[],"mappings":"AAAA,oBAAY,OAAO;IACf,KAAK,IAAI;IACT,IAAI,MAAM;CACb"}
+{"version":3,"file":"Boolean.d.ts","sourceRoot":"","sources":["../../../../../../src/Definitions/Insteon/generated/Boolean.ts"],"names":[],"mappings":"AAAA,oBAAY,OAAO;IACf,KAAK,IAAI;IACT,IAAI,MAAM;CACb;AAED,yBAAiB,OAAO,CAAC;IACxB,SAAgB,SAAS,CAAC,KAAK,EAAE,OAAO,GAAG,OAAO,CAEjD;IACD,SAAgB,WAAW,CAAC,KAAK,EAAE,OAAO,GAAG,OAAO,CAEnD;CACD"}

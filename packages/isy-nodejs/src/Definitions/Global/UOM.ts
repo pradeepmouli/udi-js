@@ -1,3 +1,6 @@
+import { Type } from 'ts-morph';
+import type { Integer, IntRange } from 'type-fest';
+import type { NumberLiteralType } from 'typescript';
 
 
 export enum UnitOfMeasure {
@@ -160,13 +163,36 @@ export function toString(this: UnitOfMeasure): keyof typeof UnitOfMeasure {
 }
 
 
+
 //import { Converters } from "../../Converters.js";
 export namespace UnitOfMeasure {
-	export type ToType<X extends UnitOfMeasure> = X extends UnitOfMeasure.Boolean ? boolean : number;
+	export type ToType<X extends UnitOfMeasure> = TypeMap[X];
+
+
+
 
 	export type Standard = keyof typeof UnitOfMeasure;
 
 	export type Matter = 'LightingLevel' | 'RampRate';
+
+	type TypeMap = {
+		[UnitOfMeasure.Percent]: IntRange<0, 100>;
+		[UnitOfMeasure.Boolean]: boolean;
+		[UnitOfMeasure.Degree]: IntRange<0, 360>;
+		[UnitOfMeasure.DegreeX2]: IntRange<0, 720>;
+		[UnitOfMeasure.LevelFrom0To255]: IntRange<0, 255>;
+		[UnitOfMeasure.Text]: string;
+		[UnitOfMeasure.URLForStreaming]: string;
+		[UnitOfMeasure.UnixTimestamp]: number;
+		[UnitOfMeasure.NTPDateTime]: Date;
+
+		[x: number]: any
+
+
+
+	};
+
+
 
 	/*export function convertTo<X extends UnitOfMeasure, Y extends UnitOfMeasure>(
 		this: X,

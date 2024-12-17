@@ -1,23 +1,18 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
-import { Poly } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "CONTROLLER";
+type Commands = MatterBridge.Commands.Type;
+type Drivers = MatterBridge.Drivers.Type;
 
-type Commands = MatterBridge.Commands;
-type Drivers = MatterBridge.Drivers;
-
-export class MatterBridgeNode extends Base<Drivers, Commands> implements MatterBridge.Interface {
+class MatterBridgeNode extends Base<Drivers, Commands> implements MatterBridge.Interface {
 	public override readonly commands = {
 		DISCOVER: this.discover,
 		QUERY: this.query,
@@ -25,11 +20,11 @@ export class MatterBridgeNode extends Base<Drivers, Commands> implements MatterB
 		STOP_BRIDGE: this.stopBridge
 	};
 	static override nodeDefId = "CONTROLLER";
-	static override implements = ["CONTROLLER"];
-	declare readonly nodeDefId: "CONTROLLER";
+	static override implements = ['CONTROLLER'];
+	declare readonly nodeDefId: 'CONTROLLER';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Unknown, label: "Status", name: "status" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Unknown, label: "Status", name: "status" });
 	}
 	async discover() { return this.sendCommand("DISCOVER"); }
 	async query() { return this.sendCommand("QUERY"); }
@@ -45,42 +40,55 @@ NodeFactory.register(MatterBridgeNode);
 
 export namespace MatterBridge {
 	export interface Interface extends Omit<InstanceType<typeof MatterBridgeNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "CONTROLLER";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is MatterBridgeNode {
-		return ["CONTROLLER"].includes(node.nodeDefId);
+		return ['CONTROLLER'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is MatterBridgeNode {
-		return ["CONTROLLER"].includes(node.nodeDefId);
+		return ['CONTROLLER'].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new MatterBridgeNode(isy, nodeInfo);
 	}
 	export const Node = MatterBridgeNode;
-	export type Commands = {
-		DISCOVER: (() => Promise<boolean>) & {
-			label: "Discover";
-			name: "discover";
+	export const Class = MatterBridgeNode;
+	export namespace Commands {
+		export type Type = {
+			DISCOVER: (() => Promise<boolean>) & {
+				label: "Discover";
+				name: "discover";
+			};
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
+			START_BRIDGE: (() => Promise<boolean>) & {
+				label: "Start Bridge";
+				name: "startBridge";
+			};
+			STOP_BRIDGE: (() => Promise<boolean>) & {
+				label: "Stop Bridge";
+				name: "stopBridge";
+			};
 		};
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
+	}
+	export enum Commands {
+		discover = 'DISCOVER',
+		query = 'QUERY',
+		startBridge = 'START_BRIDGE',
+		stopBridge = 'STOP_BRIDGE'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: ;
+				value: ;
+				label: "Status";
+				name: "status";
+			};
 		};
-		START_BRIDGE: (() => Promise<boolean>) & {
-			label: "Start Bridge";
-			name: "startBridge";
-		};
-		STOP_BRIDGE: (() => Promise<boolean>) & {
-			label: "Stop Bridge";
-			name: "stopBridge";
-		};
-	};
-	export type Drivers = {
-		ST: {
-			uom: ;
-			value: ;
-			label: "Status";
-			name: "status";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST'
+	}
 }

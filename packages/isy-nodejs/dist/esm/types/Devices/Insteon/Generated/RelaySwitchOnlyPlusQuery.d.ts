@@ -1,13 +1,13 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Insteon } from "../../../Definitions/index.js";
-type Commands = RelaySwitchOnlyPlusQuery.Commands;
-type Drivers = RelaySwitchOnlyPlusQuery.Drivers;
-export declare class RelaySwitchOnlyPlusQueryNode extends Base<Drivers, Commands> implements RelaySwitchOnlyPlusQuery.Interface {
+type Commands = RelaySwitchOnlyPlusQuery.Commands.Type;
+type Drivers = RelaySwitchOnlyPlusQuery.Drivers.Type;
+declare class RelaySwitchOnlyPlusQueryNode extends Base<Drivers, Commands> implements RelaySwitchOnlyPlusQuery.Interface {
     readonly commands: {
         QUERY: () => Promise<any>;
         BEEP: (value?: number) => Promise<any>;
@@ -16,7 +16,7 @@ export declare class RelaySwitchOnlyPlusQueryNode extends Base<Drivers, Commands
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "RelaySwitchOnlyPlusQuery" | "RelaySwitchOnlyPlusQuery_ADV";
+    readonly nodeDefId: 'RelaySwitchOnlyPlusQuery' | "RelaySwitchOnlyPlusQuery_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     query(): Promise<any>;
     beep(value?: number): Promise<any>;
@@ -26,38 +26,51 @@ export declare class RelaySwitchOnlyPlusQueryNode extends Base<Drivers, Commands
 }
 export declare namespace RelaySwitchOnlyPlusQuery {
     interface Interface extends Omit<InstanceType<typeof RelaySwitchOnlyPlusQueryNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "RelaySwitchOnlyPlusQuery" | "RelaySwitchOnlyPlusQuery_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is RelaySwitchOnlyPlusQueryNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelaySwitchOnlyPlusQueryNode;
     function create(isy: ISY, nodeInfo: NodeInfo): RelaySwitchOnlyPlusQueryNode;
     const Node: typeof RelaySwitchOnlyPlusQueryNode;
-    type Commands = {
-        QUERY: (() => Promise<boolean>) & {
-            label: "Query";
-            name: "query";
+    const Class: typeof RelaySwitchOnlyPlusQueryNode;
+    namespace Commands {
+        type Type = {
+            QUERY: (() => Promise<boolean>) & {
+                label: "Query";
+                name: "query";
+            };
+            BEEP: ((value?: number) => Promise<boolean>) & {
+                label: "Beep";
+                name: "beep";
+            };
+            BL: ((value: number) => Promise<boolean>) & {
+                label: "Backlight";
+                name: "backlight";
+            };
+            WDU: (() => Promise<boolean>) & {
+                label: "Write Changes";
+                name: "writeChanges";
+            };
         };
-        BEEP: ((value?: number) => Promise<boolean>) & {
-            label: "Beep";
-            name: "beep";
+    }
+    enum Commands {
+        query = "QUERY",
+        beep = "BEEP",
+        backlight = "BL",
+        writeChanges = "WDU"
+    }
+    namespace Drivers {
+        type Type = {
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Insteon.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        BL: ((value: number) => Promise<boolean>) & {
-            label: "Backlight";
-            name: "backlight";
-        };
-        WDU: (() => Promise<boolean>) & {
-            label: "Write Changes";
-            name: "writeChanges";
-        };
-    };
-    type Drivers = {
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=RelaySwitchOnlyPlusQuery.d.ts.map

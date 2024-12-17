@@ -3,44 +3,44 @@
     "className": "MatterBridge",
     "id": "CONTROLLER",
     "nlsId": "CONTROLLER",
+    "name": "MatterBridge",
+    "label": "Matter Bridge",
     "drivers": {
       "ST": {
+        "id": "ST",
+        "name": "status",
         "label": "Status",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "ST",
         "editorId": "CONTROLLER",
-        "dataType": [],
-        "name": "status"
+        "dataType": []
       }
     },
     "commands": {
       "DISCOVER": {
-        "label": "Discover",
         "id": "DISCOVER",
-        "name": "discover"
+        "name": "discover",
+        "label": "Discover"
       },
       "QUERY": {
-        "label": "Query",
         "id": "QUERY",
-        "name": "query"
+        "name": "query",
+        "label": "Query"
       },
       "START_BRIDGE": {
-        "label": "Start Bridge",
         "id": "START_BRIDGE",
-        "name": "startBridge"
+        "name": "startBridge",
+        "label": "Start Bridge"
       },
       "STOP_BRIDGE": {
-        "label": "Stop Bridge",
         "id": "STOP_BRIDGE",
-        "name": "stopBridge"
+        "name": "stopBridge",
+        "label": "Stop Bridge"
       }
     },
     "events": {},
     "family": 10,
-    "label": "Matter Bridge",
-    "name": "MatterBridge",
     "dynamic": false
   }
 }

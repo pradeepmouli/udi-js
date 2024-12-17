@@ -1,13 +1,13 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Lutron } from "../../../Definitions/index.js";
-type Commands = LoadShed.Commands;
-type Drivers = LoadShed.Drivers;
-export declare class LoadShedNode extends Base<Drivers, Commands> implements LoadShed.Interface {
+type Commands = LoadShed.Commands.Type;
+type Drivers = LoadShed.Drivers.Type;
+declare class LoadShedNode extends Base<Drivers, Commands> implements LoadShed.Interface {
     readonly commands: {
         DON: (value?: (0 | 100)) => Promise<any>;
         DOF: () => Promise<any>;
@@ -15,7 +15,7 @@ export declare class LoadShedNode extends Base<Drivers, Commands> implements Loa
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "LUTLoadShed";
+    readonly nodeDefId: 'LUTLoadShed';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: (0 | 100)): Promise<any>;
     off(): Promise<any>;
@@ -25,40 +25,53 @@ export declare class LoadShedNode extends Base<Drivers, Commands> implements Loa
 }
 export declare namespace LoadShed {
     interface Interface extends Omit<InstanceType<typeof LoadShedNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "LUTLoadShed";
     }
     function is(node: ISYNode<any, any, any, any>): node is LoadShedNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is LoadShedNode;
     function create(isy: ISY, nodeInfo: NodeInfo): LoadShedNode;
     const Node: typeof LoadShedNode;
-    type Commands = {
-        DON: ((value?: (0 | 100)) => Promise<boolean>) & {
-            label: "On";
-            name: "on";
+    const Class: typeof LoadShedNode;
+    namespace Commands {
+        type Type = {
+            DON: ((value?: (0 | 100)) => Promise<boolean>) & {
+                label: "On";
+                name: "on";
+            };
+            DOF: (() => Promise<boolean>) & {
+                label: "Off";
+                name: "off";
+            };
+            QUERY: (() => Promise<boolean>) & {
+                label: "Query";
+                name: "query";
+            };
         };
-        DOF: (() => Promise<boolean>) & {
-            label: "Off";
-            name: "off";
+    }
+    enum Commands {
+        on = "DON",
+        off = "DOF",
+        query = "QUERY"
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Percent;
+                value: (0 | 100);
+                label: "Status";
+                name: "status";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Lutron.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        QUERY: (() => Promise<boolean>) & {
-            label: "Query";
-            name: "query";
-        };
-    };
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Percent;
-            value: (0 | 100);
-            label: "Status";
-            name: "status";
-        };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Lutron.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        status = "ST",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=LoadShed.d.ts.map

@@ -20,7 +20,7 @@ export namespace Event {
 
 	export type Signatures = { [x: string]: Signature };
 
-	export type DriverToEvent<D extends Driver.Signature> = { name: `${D['name']}Changed`; value: D['value']; uom: D['uom'] };
+	export type DriverToEvent<D extends Driver.Signature> = { name: `${D['name']}Changed` | `${D['name']}Initialized`, value: D['value']; uom: D['uom'] };
 
 	export type CommandToEvent<C extends Command.Signature> = { name: `${C['name']}Triggered` };
 
@@ -30,8 +30,8 @@ export namespace Event {
 		: S extends { name: string; command: string } ? { on(eventName: S['name'], listener: (command: S['command']) => void): N }
 		: { on(eventName: S['name'], listener: (...args: any[]) => void): N };
 
-	export type ForAll<E extends string, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures> = {
-		[x in E]: x extends keyof D ? { name: `${D[x]['name']}Changed`; driver: x; value: D[x]['value']; uom: UnitOfMeasure }
+	export type ForAll<E extends ISYNode.EventSignatures, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures> = {
+		[x in keyof E | keyof D]: x extends keyof D ? { name: `${D[x]['name']}Changed`; driver: x; value: D[x]['value']; uom: UnitOfMeasure }
 		: x extends keyof C ? { name: `${C[x]['name']}Triggered`; command: x }
 		: { name: x };
 	};
@@ -44,7 +44,7 @@ export namespace Event {
 
 	export type FunctionSigFor<E extends Signatures, N> = UnionToIntersection<HandlerSignature<ObjectToUnion<E>, N>>;
 
-	type test1 = ForAll<'ST', Driver.Signatures<{ ST: { name: 'Status'; label: 'Status'; uom: UnitOfMeasure; value: boolean; formatted: string } } | 'RR'>, any>;
+	type test1 = ForAll<{'ST'}, Driver.Signatures<{ ST: { name: 'Status'; label: 'Status'; uom: UnitOfMeasure; value: boolean; formatted: string } } | 'RR'>, any>;
 	type test = FunctionSigFor<test1, test1> & Omit<EventEmitter, 'on'>;
 
 	export class NodeEventEmitter<N extends ISYNode<any, any, any, any>> extends EventEmitter {

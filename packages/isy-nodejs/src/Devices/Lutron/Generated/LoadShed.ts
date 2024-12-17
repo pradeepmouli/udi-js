@@ -1,35 +1,31 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Lutron } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "LUTLoadShed";
+type Commands = LoadShed.Commands.Type;
+type Drivers = LoadShed.Drivers.Type;
 
-type Commands = LoadShed.Commands;
-type Drivers = LoadShed.Drivers;
-
-export class LoadShedNode extends Base<Drivers, Commands> implements LoadShed.Interface {
+class LoadShedNode extends Base<Drivers, Commands> implements LoadShed.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
 		QUERY: this.query
 	};
 	static override nodeDefId = "LUTLoadShed";
-	static override implements = ["LUTLoadShed"];
-	declare readonly nodeDefId: "LUTLoadShed";
+	static override implements = ['LUTLoadShed'];
+	declare readonly nodeDefId: 'LUTLoadShed';
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(value?: (0 | 100)) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
@@ -46,44 +42,57 @@ NodeFactory.register(LoadShedNode);
 
 export namespace LoadShed {
 	export interface Interface extends Omit<InstanceType<typeof LoadShedNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "LUTLoadShed";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is LoadShedNode {
-		return ["LUTLoadShed"].includes(node.nodeDefId);
+		return ['LUTLoadShed'].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is LoadShedNode {
-		return ["LUTLoadShed"].includes(node.nodeDefId);
+		return ['LUTLoadShed'].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new LoadShedNode(isy, nodeInfo);
 	}
 	export const Node = LoadShedNode;
-	export type Commands = {
-		DON: ((value?: (0 | 100)) => Promise<boolean>) & {
-			label: "On";
-			name: "on";
+	export const Class = LoadShedNode;
+	export namespace Commands {
+		export type Type = {
+			DON: ((value?: (0 | 100)) => Promise<boolean>) & {
+				label: "On";
+				name: "on";
+			};
+			DOF: (() => Promise<boolean>) & {
+				label: "Off";
+				name: "off";
+			};
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
 		};
-		DOF: (() => Promise<boolean>) & {
-			label: "Off";
-			name: "off";
+	}
+	export enum Commands {
+		on = 'DON',
+		off = 'DOF',
+		query = 'QUERY'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: UnitOfMeasure.Percent;
+				value: (0 | 100);
+				label: "Status";
+				name: "status";
+			};
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Lutron.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
-		};
-	};
-	export type Drivers = {
-		ST: {
-			uom: UnitOfMeasure.Percent;
-			value: (0 | 100);
-			label: "Status";
-			name: "status";
-		};
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Lutron.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST',
+		responding = 'ERR'
+	}
 }

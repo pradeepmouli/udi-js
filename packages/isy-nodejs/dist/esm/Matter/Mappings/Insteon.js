@@ -1,17 +1,15 @@
-import { Family } from '../../Definitions/Global/Families.js';
 //import InsteonMap from "./Insteon.json";
-import { OnOffLightDevice, DimmableLightDevice } from '@matter/node/devices';
-import { MappingRegistry } from './MappingRegistry.js';
-export const map = {
-    Family: Family.Insteon,
-    RelayLamp: {
-        deviceType: OnOffLightDevice,
+import { OnOffLightDevice, DimmableLightDevice, ContactSensorDevice } from '@matter/node/devices';
+import { add, MappingRegistry } from './MappingRegistry.js';
+export let map = {
+    //Family: Family.Insteon,
+    DoorWindowSensor: {
+        deviceType: ContactSensorDevice,
         mapping: {
-            OnOff: {
+            booleanState: {
                 attributes: {
-                    onOff: { driver: 'ST', converter: 'LightingLevel.Boolean' }
-                },
-                commands: { on: 'DON' }
+                    stateValue: { driver: 'contactSensor.status', converter: 'Percent.Boolean' }
+                }
             }
         }
     },
@@ -20,7 +18,7 @@ export const map = {
         mapping: {
             OnOff: {
                 attributes: {
-                    onOff: { driver: 'ST', converter: 'Percent.Boolean' }
+                    onOff: { driver: 'status', converter: 'Percent.Boolean' }
                 },
                 commands: { on: 'DON' }
             }
@@ -69,7 +67,7 @@ export const map = {
         }
     }
 };
-map.KeypadDimmer = { ...map.DimmerLamp };
+map = add(map, { KeypadRelay: map.DimmerLampSwitch });
 map.KeypadRelay = { ...map.RelayLamp };
 /*let newMap = add(map, Insteon.DimmerLamp.Node, {
     deviceType: DimmableLightDevice,

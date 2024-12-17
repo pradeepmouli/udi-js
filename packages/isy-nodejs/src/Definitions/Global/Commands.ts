@@ -1,7 +1,7 @@
 import { Converter } from '../../Converters.js';
 import type { ISYNode } from '../../ISYNode.js';
 import type { Driver } from './Drivers.js';
-import type { UnitOfMeasure } from './UOM.js';
+import { UnitOfMeasure } from './UOM.js';
 
 /*export class Command<T extends string> extends Function {
 
@@ -15,10 +15,10 @@ import type { UnitOfMeasure } from './UOM.js';
 }*/
 
 export interface Parameter<P, T> {
-	id: P;
-	name: string;
+	id?: P;
+	name?: string;
 
-	label: string;
+	label?: string;
 	value?: T;
 	uom: UnitOfMeasure;
 	serverUom?: UnitOfMeasure;
@@ -82,14 +82,14 @@ export namespace Command {
 
 
 	function getCommandFunctionSignature<P extends { [x: string]: Parameter<string, any> } | Parameter<string, any> | null> (command: string, node: ISYNode<any,any,any,any>,parameters?: P): Function {
-		if (parameters === null) {
-			return function (): Promise<boolean> {
+		if (!parameters) {
+			return  () => {
 				return node.sendCommand(command);
 			};
 		}
 
 		else if (isParameterCollection(parameters)) {
-			let cmd = function (params: { [x in keyof P]: typeof parameters[x]['value'] }): Promise<boolean> {
+			let cmd : any = (params: { [x in keyof P]: typeof parameters[x]['value'] }) => {
 				for (let key in params) {
 					let p = parameters[key];
 					if (p.converter) {
@@ -97,23 +97,25 @@ export namespace Command {
 					}
 				}
 				return node.sendCommand(command, params);
-			} as any;
+			};
+			Object.defineProperty(cmd, 'parameters', {});
 			for (let key in parameters) {
 				let p = parameters[key];
-				cmd.parameters[key] = p;
+
 				let srvUom = node.drivers[p.driver]?.serverUom;
-				if (node.drivers[parameters[key].driver]?.serverUom) {
-					cmd.parameters[key].serverUom = node.drivers[parameters[key].driver].serverUom;
-					if (srvUom) {
+				if (srvUom)
+				{
+					if(srvUom !== p.uom) {
 						cmd.parameters[key].converter = Converter.get(p.uom, srvUom).to;
 						cmd.parameters[key].serverUom = srvUom;
 					}
 				}
+
 			}
 			return cmd;
 		}
 		else if(parameters.name) {
-			let cmd = function (value: P['value']): Promise<boolean> {
+			let cmd = function (value): Promise<boolean> {
 				if(parameters.converter) {
 					value = parameters.converter(value);
 				}
@@ -144,6 +146,7 @@ export namespace Command {
 		cmd.id = command;
 		return cmd;
 	}
+
 
 	type Commands = {
 		BEEP: ((value: number) => Promise<boolean>) & { label: 'Beep'; name: 'beep' };

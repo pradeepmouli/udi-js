@@ -54,7 +54,7 @@ export namespace NodeFactory {
 		}
 	}
 
-	export function getImplements<F extends keyof typeof Family, T extends ISYNode<typeof Family[F],any,any,any>>(node: T) {
+	export function getImplements<F extends keyof typeof Family, T extends ISYNode<typeof Family[F],any,any,any>>(node: T | typeof ISYNode) : string[] {
 		return implementsRegistry[Family[node.family] as F][node.nodeDefId];
 	}
 

@@ -1,23 +1,20 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
-import { Family } from "../../../Definitions/Global/Families.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
+import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
-import type { DriverState } from "../../../Model/DriverState.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
-const nodeDefId = "KeypadDimmer";
+type Commands = KeypadDimmer.Commands.Type;
+type Drivers = KeypadDimmer.Drivers.Type;
 
-type Commands = KeypadDimmer.Commands;
-type Drivers = KeypadDimmer.Drivers;
-
-export class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadDimmer.Interface {
+class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadDimmer.Interface {
 	public override readonly commands = {
 		DON: this.on,
 		DOF: this.off,
@@ -36,14 +33,14 @@ export class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadD
 		WDU: this.writeChanges
 	};
 	static override nodeDefId = "KeypadDimmer";
-	static override implements = ["KeypadDimmer", "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
-	declare readonly nodeDefId: "KeypadDimmer" | "KeypadDimmer_ADV";
+	static override implements = ['KeypadDimmer', "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
+	declare readonly nodeDefId: 'KeypadDimmer' | "KeypadDimmer_ADV";
 	constructor (isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.OL = Driver.create("OL", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Percent, label: "On Level", name: "onLevel" });
-		this.drivers.RR = Driver.create("RR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Ramp Rate", name: "rampRate" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property as DriverState, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+		this.drivers.OL = Driver.create("OL", this, nodeInfo.state['OL'], { uom: UnitOfMeasure.Percent, label: "On Level", name: "onLevel" });
+		this.drivers.RR = Driver.create("RR", this, nodeInfo.state['RR'], { uom: UnitOfMeasure.Index, label: "Ramp Rate", name: "rampRate" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
 	}
 	async on(value?: number) { return this.sendCommand("DON", value); }
 	async off() { return this.sendCommand("DOF"); }
@@ -60,10 +57,10 @@ export class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadD
 	async updateRampRate(value: Insteon.RampRate) { return this.sendCommand("RR", value); }
 	async backlight(value: Insteon.Backlight) { return this.sendCommand("BL", value); }
 	async writeChanges() { return this.sendCommand("WDU"); }
-	public get status(): number {
+	public get status(): IntRange<0, 100> {
 		return this.drivers.ST?.value;
 	}
-	public get onLevel(): number {
+	public get onLevel(): IntRange<0, 100> {
 		return this.drivers.OL?.value;
 	}
 	public get rampRate(): Insteon.RampRate {
@@ -79,104 +76,131 @@ NodeFactory.register(KeypadDimmerNode, "KeypadDimmer_ADV");
 
 export namespace KeypadDimmer {
 	export interface Interface extends Omit<InstanceType<typeof KeypadDimmerNode>, keyof ISYDeviceNode<any, any, any, any>> {
-		nodeDefId: "KeypadDimmer" | "KeypadDimmer_ADV";
 	}
 	export function is(node: ISYNode<any, any, any, any>): node is KeypadDimmerNode {
-		return ["KeypadDimmer", "KeypadDimmer_ADV"].includes(node.nodeDefId);
+		return ['KeypadDimmer', "KeypadDimmer_ADV"].includes(node.nodeDefId);
 	}
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is KeypadDimmerNode {
-		return ["KeypadDimmer", "KeypadDimmer_ADV"].includes(node.nodeDefId);
+		return ['KeypadDimmer', "KeypadDimmer_ADV"].includes(node.nodeDefId);
 	}
 	export function create(isy: ISY, nodeInfo: NodeInfo) {
 		return new KeypadDimmerNode(isy, nodeInfo);
 	}
 	export const Node = KeypadDimmerNode;
-	export type Commands = {
-		DON: ((value?: number) => Promise<boolean>) & {
-			label: "On";
-			name: "on";
+	export const Class = KeypadDimmerNode;
+	export namespace Commands {
+		export type Type = {
+			DON: ((value?: number) => Promise<boolean>) & {
+				label: "On";
+				name: "on";
+			};
+			DOF: (() => Promise<boolean>) & {
+				label: "Off";
+				name: "off";
+			};
+			DFOF: (() => Promise<boolean>) & {
+				label: "Fast Off";
+				name: "fastOff";
+			};
+			DFON: (() => Promise<boolean>) & {
+				label: "Fast On";
+				name: "fastOn";
+			};
+			BRT: (() => Promise<boolean>) & {
+				label: "Brighten";
+				name: "brighten";
+			};
+			DIM: (() => Promise<boolean>) & {
+				label: "Dim";
+				name: "dim";
+			};
+			FDUP: (() => Promise<boolean>) & {
+				label: "Fade Up";
+				name: "fadeUp";
+			};
+			FDDOWN: (() => Promise<boolean>) & {
+				label: "Fade Down";
+				name: "fadeDown";
+			};
+			FDSTOP: (() => Promise<boolean>) & {
+				label: "Fade Stop";
+				name: "fadeStop";
+			};
+			QUERY: (() => Promise<boolean>) & {
+				label: "Query";
+				name: "query";
+			};
+			BEEP: ((value?: number) => Promise<boolean>) & {
+				label: "Beep";
+				name: "beep";
+			};
+			OL: ((value: number) => Promise<boolean>) & {
+				label: "On Level";
+				name: "updateOnLevel";
+			};
+			RR: ((value: Insteon.RampRate) => Promise<boolean>) & {
+				label: "Ramp Rate";
+				name: "updateRampRate";
+			};
+			BL: ((value: Insteon.Backlight) => Promise<boolean>) & {
+				label: "Backlight";
+				name: "backlight";
+			};
+			WDU: (() => Promise<boolean>) & {
+				label: "Write Changes";
+				name: "writeChanges";
+			};
 		};
-		DOF: (() => Promise<boolean>) & {
-			label: "Off";
-			name: "off";
+	}
+	export enum Commands {
+		on = 'DON',
+		off = 'DOF',
+		fastOff = 'DFOF',
+		fastOn = 'DFON',
+		brighten = 'BRT',
+		dim = 'DIM',
+		fadeUp = 'FDUP',
+		fadeDown = 'FDDOWN',
+		fadeStop = 'FDSTOP',
+		query = 'QUERY',
+		beep = 'BEEP',
+		updateOnLevel = 'OL',
+		updateRampRate = 'RR',
+		backlight = 'BL',
+		writeChanges = 'WDU'
+	}
+	export namespace Drivers {
+		export type Type = {
+			ST: {
+				uom: UnitOfMeasure.Percent;
+				value: IntRange<0, 100>;
+				label: "Status";
+				name: "status";
+			};
+			OL: {
+				uom: UnitOfMeasure.Percent;
+				value: IntRange<0, 100>;
+				label: "On Level";
+				name: "onLevel";
+			};
+			RR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.RampRate;
+				label: "Ramp Rate";
+				name: "rampRate";
+			};
+			ERR: {
+				uom: UnitOfMeasure.Index;
+				value: Insteon.Error;
+				label: "Responding";
+				name: "responding";
+			};
 		};
-		DFOF: (() => Promise<boolean>) & {
-			label: "Fast Off";
-			name: "fastOff";
-		};
-		DFON: (() => Promise<boolean>) & {
-			label: "Fast On";
-			name: "fastOn";
-		};
-		BRT: (() => Promise<boolean>) & {
-			label: "Brighten";
-			name: "brighten";
-		};
-		DIM: (() => Promise<boolean>) & {
-			label: "Dim";
-			name: "dim";
-		};
-		FDUP: (() => Promise<boolean>) & {
-			label: "Fade Up";
-			name: "fadeUp";
-		};
-		FDDOWN: (() => Promise<boolean>) & {
-			label: "Fade Down";
-			name: "fadeDown";
-		};
-		FDSTOP: (() => Promise<boolean>) & {
-			label: "Fade Stop";
-			name: "fadeStop";
-		};
-		QUERY: (() => Promise<boolean>) & {
-			label: "Query";
-			name: "query";
-		};
-		BEEP: ((value?: number) => Promise<boolean>) & {
-			label: "Beep";
-			name: "beep";
-		};
-		OL: ((value: number) => Promise<boolean>) & {
-			label: "On Level";
-			name: "updateOnLevel";
-		};
-		RR: ((value: Insteon.RampRate) => Promise<boolean>) & {
-			label: "Ramp Rate";
-			name: "updateRampRate";
-		};
-		BL: ((value: Insteon.Backlight) => Promise<boolean>) & {
-			label: "Backlight";
-			name: "backlight";
-		};
-		WDU: (() => Promise<boolean>) & {
-			label: "Write Changes";
-			name: "writeChanges";
-		};
-	};
-	export type Drivers = {
-		ST: {
-			uom: UnitOfMeasure.Percent;
-			value: number;
-			label: "Status";
-			name: "status";
-		};
-		OL: {
-			uom: UnitOfMeasure.Percent;
-			value: number;
-			label: "On Level";
-			name: "onLevel";
-		};
-		RR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.RampRate;
-			label: "Ramp Rate";
-			name: "rampRate";
-		};
-		ERR: {
-			uom: UnitOfMeasure.Index;
-			value: Insteon.Error;
-			label: "Responding";
-			name: "responding";
-		};
-	};
+	}
+	export enum Drivers {
+		status = 'ST',
+		onLevel = 'OL',
+		rampRate = 'RR',
+		responding = 'ERR'
+	}
 }

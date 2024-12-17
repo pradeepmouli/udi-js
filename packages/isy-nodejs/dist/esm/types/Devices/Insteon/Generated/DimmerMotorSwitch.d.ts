@@ -1,13 +1,14 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
-type Commands = DimmerMotorSwitch.Commands;
-type Drivers = DimmerMotorSwitch.Drivers;
-export declare class DimmerMotorSwitchNode extends Base<Drivers, Commands> implements DimmerMotorSwitch.Interface {
+type Commands = DimmerMotorSwitch.Commands.Type;
+type Drivers = DimmerMotorSwitch.Drivers.Type;
+declare class DimmerMotorSwitchNode extends Base<Drivers, Commands> implements DimmerMotorSwitch.Interface {
     readonly commands: {
         DON: (value?: number) => Promise<any>;
         DOF: () => Promise<any>;
@@ -25,7 +26,7 @@ export declare class DimmerMotorSwitchNode extends Base<Drivers, Commands> imple
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "DimmerMotorSwitch" | "DimmerMotorSwitch_ADV";
+    readonly nodeDefId: 'DimmerMotorSwitch' | "DimmerMotorSwitch_ADV";
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(value?: number): Promise<any>;
     off(): Promise<any>;
@@ -40,99 +41,124 @@ export declare class DimmerMotorSwitchNode extends Base<Drivers, Commands> imple
     updateMaxDuration(value: number): Promise<any>;
     backlight(value: number): Promise<any>;
     writeChanges(): Promise<any>;
-    get status(): number;
-    get onLevel(): number;
-    get maxDuration(): number;
+    get status(): IntRange<0, 100>;
+    get onLevel(): IntRange<0, 100>;
+    get maxDuration(): IntRange<0, 546.2>;
     get responding(): Insteon.Error;
 }
 export declare namespace DimmerMotorSwitch {
     interface Interface extends Omit<InstanceType<typeof DimmerMotorSwitchNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "DimmerMotorSwitch" | "DimmerMotorSwitch_ADV";
     }
     function is(node: ISYNode<any, any, any, any>): node is DimmerMotorSwitchNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerMotorSwitchNode;
     function create(isy: ISY, nodeInfo: NodeInfo): DimmerMotorSwitchNode;
     const Node: typeof DimmerMotorSwitchNode;
-    type Commands = {
-        DON: ((value?: number) => Promise<boolean>) & {
-            label: "On";
-            name: "on";
+    const Class: typeof DimmerMotorSwitchNode;
+    namespace Commands {
+        type Type = {
+            DON: ((value?: number) => Promise<boolean>) & {
+                label: "On";
+                name: "on";
+            };
+            DOF: (() => Promise<boolean>) & {
+                label: "Off";
+                name: "off";
+            };
+            DFOF: (() => Promise<boolean>) & {
+                label: "Fast Off";
+                name: "fastOff";
+            };
+            DFON: (() => Promise<boolean>) & {
+                label: "Fast On";
+                name: "fastOn";
+            };
+            FDUP: (() => Promise<boolean>) & {
+                label: "Fade Up";
+                name: "fadeUp";
+            };
+            FDDOWN: (() => Promise<boolean>) & {
+                label: "Fade Down";
+                name: "fadeDown";
+            };
+            FDSTOP: (() => Promise<boolean>) & {
+                label: "Fade Stop";
+                name: "fadeStop";
+            };
+            QUERY: (() => Promise<boolean>) & {
+                label: "Query";
+                name: "query";
+            };
+            BEEP: ((value?: number) => Promise<boolean>) & {
+                label: "Beep";
+                name: "beep";
+            };
+            OL: ((value: number) => Promise<boolean>) & {
+                label: "On Level";
+                name: "updateOnLevel";
+            };
+            DUR: ((value: number) => Promise<boolean>) & {
+                label: "Max Duration";
+                name: "updateMaxDuration";
+            };
+            BL: ((value: number) => Promise<boolean>) & {
+                label: "Backlight";
+                name: "backlight";
+            };
+            WDU: (() => Promise<boolean>) & {
+                label: "Write Changes";
+                name: "writeChanges";
+            };
         };
-        DOF: (() => Promise<boolean>) & {
-            label: "Off";
-            name: "off";
+    }
+    enum Commands {
+        on = "DON",
+        off = "DOF",
+        fastOff = "DFOF",
+        fastOn = "DFON",
+        fadeUp = "FDUP",
+        fadeDown = "FDDOWN",
+        fadeStop = "FDSTOP",
+        query = "QUERY",
+        beep = "BEEP",
+        updateOnLevel = "OL",
+        updateMaxDuration = "DUR",
+        backlight = "BL",
+        writeChanges = "WDU"
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Percent;
+                value: IntRange<0, 100>;
+                label: "Status";
+                name: "status";
+            };
+            OL: {
+                uom: UnitOfMeasure.Percent;
+                value: IntRange<0, 100>;
+                label: "On Level";
+                name: "onLevel";
+            };
+            DUR: {
+                uom: UnitOfMeasure.DurationInSeconds;
+                value: IntRange<0, 546.2>;
+                label: "Max Duration";
+                name: "maxDuration";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: Insteon.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        DFOF: (() => Promise<boolean>) & {
-            label: "Fast Off";
-            name: "fastOff";
-        };
-        DFON: (() => Promise<boolean>) & {
-            label: "Fast On";
-            name: "fastOn";
-        };
-        FDUP: (() => Promise<boolean>) & {
-            label: "Fade Up";
-            name: "fadeUp";
-        };
-        FDDOWN: (() => Promise<boolean>) & {
-            label: "Fade Down";
-            name: "fadeDown";
-        };
-        FDSTOP: (() => Promise<boolean>) & {
-            label: "Fade Stop";
-            name: "fadeStop";
-        };
-        QUERY: (() => Promise<boolean>) & {
-            label: "Query";
-            name: "query";
-        };
-        BEEP: ((value?: number) => Promise<boolean>) & {
-            label: "Beep";
-            name: "beep";
-        };
-        OL: ((value: number) => Promise<boolean>) & {
-            label: "On Level";
-            name: "updateOnLevel";
-        };
-        DUR: ((value: number) => Promise<boolean>) & {
-            label: "Max Duration";
-            name: "updateMaxDuration";
-        };
-        BL: ((value: number) => Promise<boolean>) & {
-            label: "Backlight";
-            name: "backlight";
-        };
-        WDU: (() => Promise<boolean>) & {
-            label: "Write Changes";
-            name: "writeChanges";
-        };
-    };
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Percent;
-            value: number;
-            label: "Status";
-            name: "status";
-        };
-        OL: {
-            uom: UnitOfMeasure.Percent;
-            value: number;
-            label: "On Level";
-            name: "onLevel";
-        };
-        DUR: {
-            uom: UnitOfMeasure.DurationInSeconds;
-            value: number;
-            label: "Max Duration";
-            name: "maxDuration";
-        };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: Insteon.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        status = "ST",
+        onLevel = "OL",
+        maxDuration = "DUR",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=DimmerMotorSwitch.d.ts.map

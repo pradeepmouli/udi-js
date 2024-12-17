@@ -1,13 +1,13 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
-import type { ISYNode } from "../../../ISYNode.js";
+import { ISYNode } from "../../../ISYNode.js";
 import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
 import { UDI } from "../../../Definitions/index.js";
-type Commands = Relay.Commands;
-type Drivers = Relay.Drivers;
-export declare class RelayNode extends Base<Drivers, Commands> implements Relay.Interface {
+type Commands = Relay.Commands.Type;
+type Drivers = Relay.Drivers.Type;
+declare class RelayNode extends Base<Drivers, Commands> implements Relay.Interface {
     readonly commands: {
         DON: () => Promise<any>;
         DOF: () => Promise<any>;
@@ -15,7 +15,7 @@ export declare class RelayNode extends Base<Drivers, Commands> implements Relay.
     };
     static nodeDefId: string;
     static implements: string[];
-    readonly nodeDefId: "EM3Relay";
+    readonly nodeDefId: 'EM3Relay';
     constructor(isy: ISY, nodeInfo: NodeInfo);
     on(): Promise<any>;
     off(): Promise<any>;
@@ -25,40 +25,53 @@ export declare class RelayNode extends Base<Drivers, Commands> implements Relay.
 }
 export declare namespace Relay {
     interface Interface extends Omit<InstanceType<typeof RelayNode>, keyof ISYDeviceNode<any, any, any, any>> {
-        nodeDefId: "EM3Relay";
     }
     function is(node: ISYNode<any, any, any, any>): node is RelayNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayNode;
     function create(isy: ISY, nodeInfo: NodeInfo): RelayNode;
     const Node: typeof RelayNode;
-    type Commands = {
-        DON: (() => Promise<boolean>) & {
-            label: "On";
-            name: "on";
+    const Class: typeof RelayNode;
+    namespace Commands {
+        type Type = {
+            DON: (() => Promise<boolean>) & {
+                label: "On";
+                name: "on";
+            };
+            DOF: (() => Promise<boolean>) & {
+                label: "Off";
+                name: "off";
+            };
+            QUERY: (() => Promise<boolean>) & {
+                label: "Query";
+                name: "query";
+            };
         };
-        DOF: (() => Promise<boolean>) & {
-            label: "Off";
-            name: "off";
+    }
+    enum Commands {
+        on = "DON",
+        off = "DOF",
+        query = "QUERY"
+    }
+    namespace Drivers {
+        type Type = {
+            ST: {
+                uom: UnitOfMeasure.Percent;
+                value: (0 | 100);
+                label: "Status";
+                name: "status";
+            };
+            ERR: {
+                uom: UnitOfMeasure.Index;
+                value: UDI.Error;
+                label: "Responding";
+                name: "responding";
+            };
         };
-        QUERY: (() => Promise<boolean>) & {
-            label: "Query";
-            name: "query";
-        };
-    };
-    type Drivers = {
-        ST: {
-            uom: UnitOfMeasure.Percent;
-            value: (0 | 100);
-            label: "Status";
-            name: "status";
-        };
-        ERR: {
-            uom: UnitOfMeasure.Index;
-            value: UDI.Error;
-            label: "Responding";
-            name: "responding";
-        };
-    };
+    }
+    enum Drivers {
+        status = "ST",
+        responding = "ERR"
+    }
 }
 export {};
 //# sourceMappingURL=Relay.d.ts.map

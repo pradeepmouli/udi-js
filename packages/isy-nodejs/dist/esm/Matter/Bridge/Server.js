@@ -2,16 +2,16 @@ import { LogLevel, logLevelFromString, Logger as MatterLogger } from '@matter/ge
 import { Endpoint, EndpointServer, Environment, ServerNode, StorageService, VendorId } from '@matter/main';
 import { AggregatorEndpoint } from '@matter/main/endpoints/aggregator';
 import { logEndpoint } from '@matter/main/protocol';
+import { QrCode } from '@matter/main/types';
 import PackageJson from '@project-chip/matter.js/package.json' with { type: 'json' };
 import path from 'path';
 import { format, loggers } from 'winston';
 import { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 import { ISY } from '../../ISY.js';
-import { ISYDimmableBehavior, ISYOnOffBehavior } from '../Behaviors/Insteon/ISYOnOffBehavior.js';
 import '../Mappings/index.js';
-import { RelayLamp, DimmerLamp } from '../../Devices/Insteon/index.js';
+import '../Behaviors/Insteon/index.js';
 import { MappingRegistry } from '../Mappings/MappingRegistry.js';
-import { QrCode } from '@matter/main/types';
+import { BehaviorRegistry } from '../Behaviors/BehaviorRegistry.js';
 // #region Interfaces (1)
 export let instance;
 //@ts-ignore
@@ -141,6 +141,9 @@ export async function createMatterServer(isy, config) {
     let endpoints = 0;
     for (const node of isy.nodeMap.values()) {
         let device = node;
+        if (device.parentAddress !== device.address) {
+            continue;
+        }
         try {
             let deviceOptions = getDeviceOptions(node, config.DeviceOptions);
             if (deviceOptions?.label) {
@@ -156,19 +159,28 @@ export async function createMatterServer(isy, config) {
                 //of (DimmableLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior, ISYDimmableBehavior)) | typeof (OnOffLightDevice.with(BridgedDeviceBasicInformationServer, ISYBridgedDeviceBehavior, ISYOnOffBehavior));*/
                 let deviceType = MappingRegistry.getMapping(device)?.deviceType;
                 let baseBehavior = deviceType;
-                if (DimmerLamp.isImplementedBy(device)) {
-                    baseBehavior = deviceType?.with(ISYOnOffBehavior, ISYDimmableBehavior);
+                let b = deviceType?.behaviors;
+                for (let s in b) {
+                    let behavior = deviceType.behaviors[s];
+                    if (behavior.cluster && behavior.cluster.name !== 'Unknown') {
+                        let b = BehaviorRegistry.get(device, behavior.cluster.name);
+                        if (b) {
+                            baseBehavior = baseBehavior.with(b);
+                        }
+                    }
+                }
+                /*if (DimmerLamp.isImplementedBy(device)) {
+                    baseBehavior = deviceType?.with(RelayOnOffBehavior, DimmerLevelControlBehavior);
                     // if(device instanceof InsteonSwitchDevice)
                     // {
                     //     baseBehavior = DimmerSwitchDevice.with(BridgedDeviceBasicInformationServer);
-                }
-                else if (RelayLamp.isImplementedBy(device)) {
-                    baseBehavior = deviceType?.with(ISYOnOffBehavior);
+                } else if (RelayLamp.isImplementedBy(device)) {
+                    baseBehavior = deviceType?.with(RelayOnOffBehavior);
                     // if(device instanceof InsteonSwitchDevice)
                     // {
                     //     baseBehavior = OnOffLightSwitchDevice.with(BridgedDeviceBasicInformationServer);
                     // }
-                }
+                }*/
                 if (baseBehavior !== undefined) {
                     logger.info(`Device ${device.label} (${device.address}) with NodeDefId = ${device.nodeDefId} mapped to ${deviceType.name}`);
                     //@ts-ignore
@@ -190,7 +202,7 @@ export async function createMatterServer(isy, config) {
                             serialNumber: uniqueId,
                             reachable: true,
                             uniqueId: device.address
-                        },
+                        }
                     });
                     await aggregator.add(endpoint);
                     logger.info(`Endpoint added ${JSON.stringify(endpoint.id)} for ${device.label} (${device.address})`);
@@ -279,7 +291,7 @@ async function initializeConfiguration(isy, config) {
     const productId = environment.vars.number('productid') ?? (await deviceStorage.get('productid', isy.productId));
     const productName = environment.vars.string('productname') ?? (await deviceStorage.get('productname', isy.productName));
     const port = environment.vars.number('port') ?? 5540;
-    const uniqueId = environment.vars.string("uniqueid") ?? (await deviceStorage.get("uniqueid", isy.id.replaceAll(':', '_')));
+    const uniqueId = environment.vars.string('uniqueid') ?? (await deviceStorage.get('uniqueid', isy.id.replaceAll(':', '_')));
     // Persist basic data to keep them also on restart
     await deviceStorage.set({
         passcode,

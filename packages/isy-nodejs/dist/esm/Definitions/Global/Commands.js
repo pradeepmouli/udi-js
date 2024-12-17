@@ -5,13 +5,13 @@ function isParameterCollection(value) {
 export var Command;
 (function (Command) {
     function getCommandFunctionSignature(command, node, parameters) {
-        if (parameters === null) {
-            return function () {
+        if (!parameters) {
+            return () => {
                 return node.sendCommand(command);
             };
         }
         else if (isParameterCollection(parameters)) {
-            let cmd = function (params) {
+            let cmd = (params) => {
                 for (let key in params) {
                     let p = parameters[key];
                     if (p.converter) {
@@ -20,13 +20,12 @@ export var Command;
                 }
                 return node.sendCommand(command, params);
             };
+            Object.defineProperty(cmd, 'parameters', {});
             for (let key in parameters) {
                 let p = parameters[key];
-                cmd.parameters[key] = p;
                 let srvUom = node.drivers[p.driver]?.serverUom;
-                if (node.drivers[parameters[key].driver]?.serverUom) {
-                    cmd.parameters[key].serverUom = node.drivers[parameters[key].driver].serverUom;
-                    if (srvUom) {
+                if (srvUom) {
+                    if (srvUom !== p.uom) {
                         cmd.parameters[key].converter = Converter.get(p.uom, srvUom).to;
                         cmd.parameters[key].serverUom = srvUom;
                     }

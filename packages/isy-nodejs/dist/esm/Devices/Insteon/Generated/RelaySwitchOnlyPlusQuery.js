@@ -1,10 +1,9 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "RelaySwitchOnlyPlusQuery";
-export class RelaySwitchOnlyPlusQueryNode extends Base {
+class RelaySwitchOnlyPlusQueryNode extends Base {
     commands = {
         QUERY: this.query,
         BEEP: this.beep,
@@ -12,10 +11,10 @@ export class RelaySwitchOnlyPlusQueryNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "RelaySwitchOnlyPlusQuery";
-    static implements = ["RelaySwitchOnlyPlusQuery", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
+    static implements = ['RelaySwitchOnlyPlusQuery', "RelaySwitchOnly", "RelaySwitchOnly_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async query() { return this.sendCommand("QUERY"); }
     async beep(value) { return this.sendCommand("BEEP", value); }
@@ -30,11 +29,11 @@ NodeFactory.register(RelaySwitchOnlyPlusQueryNode, "RelaySwitchOnlyPlusQuery_ADV
 export var RelaySwitchOnlyPlusQuery;
 (function (RelaySwitchOnlyPlusQuery) {
     function is(node) {
-        return ["RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV"].includes(node.nodeDefId);
+        return ['RelaySwitchOnlyPlusQuery', "RelaySwitchOnlyPlusQuery_ADV"].includes(node.nodeDefId);
     }
     RelaySwitchOnlyPlusQuery.is = is;
     function isImplementedBy(node) {
-        return ["RelaySwitchOnlyPlusQuery", "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery_ADV"].includes(node.nodeDefId);
+        return ['RelaySwitchOnlyPlusQuery', "DimmerMotorSwitch", "DimmerMotorSwitch_ADV", "DimmerLampSwitch", "DimmerLampSwitch_ADV", "DimmerLampSwitchLED", "DimmerLampSwitchLED_ADV", "KeypadDimmer", "KeypadDimmer_ADV", "RelayLampSwitch", "RelayLampSwitch_ADV", "RelayLampSwitchLED", "RelayLampSwitchLED_ADV", "RelaySwitchOnlyPlusQuery_ADV"].includes(node.nodeDefId);
     }
     RelaySwitchOnlyPlusQuery.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {
@@ -42,5 +41,17 @@ export var RelaySwitchOnlyPlusQuery;
     }
     RelaySwitchOnlyPlusQuery.create = create;
     RelaySwitchOnlyPlusQuery.Node = RelaySwitchOnlyPlusQueryNode;
+    RelaySwitchOnlyPlusQuery.Class = RelaySwitchOnlyPlusQueryNode;
+    let Commands;
+    (function (Commands) {
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["backlight"] = "BL";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = RelaySwitchOnlyPlusQuery.Commands || (RelaySwitchOnlyPlusQuery.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["responding"] = "ERR";
+    })(Drivers = RelaySwitchOnlyPlusQuery.Drivers || (RelaySwitchOnlyPlusQuery.Drivers = {}));
 })(RelaySwitchOnlyPlusQuery || (RelaySwitchOnlyPlusQuery = {}));
 //# sourceMappingURL=RelaySwitchOnlyPlusQuery.js.map

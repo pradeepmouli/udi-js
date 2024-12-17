@@ -1,5 +1,4 @@
 import { Project, SourceFile } from 'ts-morph';
-import { Statement } from 'typescript';
 import ts from 'typescript';
 import { Family } from '../Definitions/index.js';
 import { CommandDefinition, DataTypeDefinition, DriverDefinition, NodeClassDefinition, ParameterDefinition } from '../Model/ClassDefinition.js';
@@ -26,7 +25,7 @@ export declare class NodeClassFactory extends CodeFactory {
         name: string;
         id: string;
         path: string;
-        statements: ts.NodeArray<Statement>;
+        statements: ts.NodeArray<ts.Statement>;
         sourceFile: SourceFile;
     };
     static generateAll(): {
@@ -48,7 +47,7 @@ export declare class NodeClassFactory extends CodeFactory {
     createDriverInitializationStatement(def: DriverDefinition): ts.Statement;
     createDriverPropertyReturnType(def: DataTypeDefinition, parent: DriverDefinition): ts.TypeNode;
     createDriverSignature(def: DriverDefinition): ts.PropertySignature;
-    createDriverSignatureReturnType(def: DataTypeDefinition, parent: DriverDefinition): ts.TypeNode;
+    createDriverReturnType(def: DataTypeDefinition, parent: DriverDefinition): ts.TypeNode;
     createParameterDeclarationSignature(def: ParameterDefinition): ts.ParameterDeclaration;
     createParameterSignature(def: ParameterDefinition): ts.ParameterDeclaration;
     createTypeNodeForUOM(uom: number): ts.TypeNode;

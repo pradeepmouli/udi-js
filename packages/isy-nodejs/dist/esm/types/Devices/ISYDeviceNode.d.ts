@@ -1,4 +1,6 @@
 import type { Category } from '../Definitions/Global/Categories.js';
+import type { Command } from '../Definitions/Global/Commands.js';
+import type { Driver } from '../Definitions/Global/Drivers.js';
 import type { Event } from '../Definitions/Global/Events.js';
 import type { Family } from '../Definitions/index.js';
 import { type ISY } from '../ISY.js';
@@ -13,7 +15,7 @@ export declare class ISYDeviceNode<T extends Family, D extends ISYNode.DriverSig
     [x in keyof C]: Event.CommandToEvent<C[x]> & {
         command: x;
     };
-}> extends ISYNode<T, D, C, E> implements ISYDeviceInfo {
+}> extends ISYNode<T, D, C, E> implements ISYDeviceInfo, ISYDevice<T, Driver.ForAll<D>, Command.ForAll<C>, any> {
     family: T;
     readonly typeCode: string;
     readonly deviceClass: any;

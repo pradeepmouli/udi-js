@@ -4,6 +4,5 @@ import 'winston';
 import { RelayLampSwitch } from './Generated/RelayLampSwitch.js';
 export declare class InsteonRelayDevice extends RelayLampSwitch.Node {
     constructor(isy: ISY, nodeInfo: NodeInfo);
-    sendBeep(level?: number): Promise<any>;
 }
 //# sourceMappingURL=InsteonRelayDevice.d.ts.map

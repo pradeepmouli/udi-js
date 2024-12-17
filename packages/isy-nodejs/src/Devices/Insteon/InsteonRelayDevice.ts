@@ -15,6 +15,7 @@ export class InsteonRelayDevice extends RelayLampSwitch.Node /*InsteonBaseDevice
 	constructor(isy: ISY, nodeInfo: NodeInfo) {
 		super(isy, nodeInfo);
 
+
 	}
 
 	// #endregion Constructors (1)
@@ -34,9 +35,7 @@ export class InsteonRelayDevice extends RelayLampSwitch.Node /*InsteonBaseDevice
 		}
 
 	} */
-	public override async sendBeep(level: number = 100): Promise<any> {
-		return super.beep(level);
-	}
+
 
 	// #endregion Public Methods (2)
 }

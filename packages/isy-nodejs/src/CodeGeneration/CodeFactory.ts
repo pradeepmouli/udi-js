@@ -278,8 +278,17 @@ export class CodeFactory {
 		return ts.factory.createPropertyAssignment(this.createIdentifier(name)!, initializer);
 	}
 
-	createQualifiedName(left: ts.EntityName, right: string): ts.QualifiedName {
-		return ts.factory.createQualifiedName(left, this.createIdentifier(right)!);
+	createQualifiedName(...names: (ts.EntityName | string)[]): ts.EntityName {
+		let n = names.pop();
+		if (!n) throw new Error('No names provided');
+		let name = typeof n === 'string' ? this.createIdentifier(n) : n;
+		if(names.length === 0)
+		{
+			return name;
+		}
+		else {
+			return ts.factory.createQualifiedName(this.createQualifiedName(...names), name as ts.Identifier);
+		}
 	}
 
 	createLiteralTypeNode(literal: string | number): ts.LiteralTypeNode {
@@ -290,19 +299,31 @@ export class CodeFactory {
 		return ts.factory.createLiteralTypeNode(this.createStringLiteral(literal));
 	}
 
-	createNumericLiteral(value: number): ts.NumericLiteral {
-		return ts.factory.createNumericLiteral(value.toString());
+	createLiteral(value: string | number): ts.LiteralExpression  | ts.PrefixUnaryExpression {
+		if (typeof value === 'number') {
+			return this.createNumericLiteral(value as number);
+		}
+
+		return this.createStringLiteral(value);
+	}
+
+	createNumericLiteral(value: number, flags?: ts.TokenFlags): ts.NumericLiteral | ts.PrefixUnaryExpression{
+		if(value < 0)
+		{
+			return ts.factory.createPrefixUnaryExpression(SyntaxKind.MinusToken, ts.factory.createNumericLiteral((-value).toString(), flags));
+		}
+		return ts.factory.createNumericLiteral(value.toString(), flags);
 	}
 
 	createStringLiteral(text: string): ts.StringLiteral {
-		return ts.factory.createStringLiteral(text);
+		return ts.factory.createStringLiteral(text, true);
 	}
 
 	createKeywordTypeNode(kind: ts.KeywordTypeSyntaxKind): ts.KeywordTypeNode {
 		return ts.factory.createKeywordTypeNode(kind);
 	}
 
-	createTypePredicateNode(parameterName: ts.Identifier, type: ts.TypeNode): ts.TypePredicateNode {
+	createTypePredicateNode(parameterName: ts.Identifier | string, type: ts.TypeNode): ts.TypePredicateNode {
 		return ts.factory.createTypePredicateNode(undefined, parameterName, type);
 	}
 
@@ -310,15 +331,15 @@ export class CodeFactory {
 		return ts.factory.createBinaryExpression(left, operator, right);
 	}
 
-	createPropertyAccessExpression(expression: ts.Expression, name: string): ts.PropertyAccessExpression {
-		return ts.factory.createPropertyAccessExpression(expression, this.createIdentifier(name)!);
+	createPropertyAccessExpression(expression: ts.Expression, name: string | ts.MemberName): ts.PropertyAccessExpression {
+		return ts.factory.createPropertyAccessExpression(expression, name);
 	}
 
-	createHeritageClause(token: ts.SyntaxKind.ExtendsKeyword | ts.SyntaxKind.ImplementsKeyword, types: ts.ExpressionWithTypeArguments[]): ts.HeritageClause {
+	createHeritageClause(token: ts.SyntaxKind.ExtendsKeyword | ts.SyntaxKind.ImplementsKeyword, ...types: ts.ExpressionWithTypeArguments[]): ts.HeritageClause {
 		return ts.factory.createHeritageClause(token, types);
 	}
 
-	createExpressionWithTypeArguments(expression: ts.Expression, typeArguments?: ts.TypeNode[]): ts.ExpressionWithTypeArguments {
+	createExpressionWithTypeArguments(expression: ts.Expression, ...typeArguments: ts.TypeNode[]): ts.ExpressionWithTypeArguments {
 		return ts.factory.createExpressionWithTypeArguments(expression, typeArguments);
 	}
 	createBlock(multiLine: boolean, ...statements: ts.Statement[]): ts.Block;
@@ -331,7 +352,7 @@ export class CodeFactory {
 
 	}
 
-	createModuleBlock(statements: ts.Statement[]): ts.ModuleBlock {
+	createModuleBlock(...statements: ts.Statement[]): ts.ModuleBlock {
 		return ts.factory.createModuleBlock(statements);
 	}
 

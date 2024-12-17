@@ -46,12 +46,21 @@ export class InsteonDeviceFactory {
         const family = Number(node.family ?? '1');
         //let insteonFamilyDef = s[0] as FamilyDef<Family.Insteon>;
         if ((family ?? Family.Insteon) === Family.Insteon) {
-            //insteonFamilyDef.categories.forEach(callbackfn)
-            return this.getInsteonDeviceDetails(node);
+            //insteonFamilyDef.categories.forEach(callbackfn))
+            let n = this.getInsteonDeviceDetails(node);
+            if (n.class) {
+                if ('Node' in n.class) {
+                    return { ...n, class: n.class.Node };
+                }
+                if ('Device' in n.class) {
+                    return { ...n, class: n.class.Device };
+                }
+                if (n.class instanceof Function) {
+                    return n;
+                }
+            }
         }
-        else {
-            return { name: "Unsupported Device", class: Insteon.Base, unsupported: true };
-        }
+        return { name: "Unsupported Device", class: Insteon.Base, unsupported: true };
     }
     static getInsteonDeviceDetails(node) {
         const type = parseTypeCode(node.type);
@@ -157,7 +166,7 @@ export class InsteonDeviceFactory {
     }
     static getSwitchLightInfo(deviceCode, subAddress) {
         const c = String.fromCharCode(deviceCode);
-        let retVal = { name: 'Generic Insteon Relay', class: Insteon.RelayLampSwitch.Node };
+        let retVal = { name: 'Generic Insteon Relay' };
         switch (c) {
             case String.fromCharCode(6):
                 retVal = { name: 'ApplianceLinc - Outdoor Plugin Module', modelNumber: '2456S3E' };
@@ -315,7 +324,7 @@ export class InsteonDeviceFactory {
     }
     static getDimLightInfo(deviceCode, subAddress, node) {
         const c = String.fromCharCode(deviceCode);
-        let retVal = { name: "Generic Insteon Dimmer", class: Insteon.DimmerLamp.Node };
+        let retVal = { name: "Generic Insteon Dimmer" };
         switch (c) {
             case String.fromCharCode(0):
                 retVal = { name: 'LampLinc', modelNumber: '2456D3' };
@@ -674,15 +683,15 @@ export class InsteonDeviceFactory {
                 retVal = { name: 'TriggerLinc', modelNumber: '2421', class: Insteon.DoorWindowSensor };
                 break;
             case '\t':
-                retVal = { name: 'Open/Close Sensor', modelNumber: '2843-222', class: Insteon.DoorWindowSensor };
+                retVal = { name: 'Open/Close Sensor', modelNumber: '2843-222', class: Insteon.DoorWindowSensor.Device };
                 break;
             case String.fromCharCode(6):
-                retVal = { name: 'Open/Close Sensor', modelNumber: '2843-422', class: Insteon.DoorWindowSensor };
+                retVal = { name: 'Open/Close Sensor', modelNumber: '2843-422', class: Insteon.DoorWindowSensor.Device };
                 break;
             case String.fromCharCode(7):
                 break;
             case String.fromCharCode(25):
-                retVal = { name: 'Open/Close Sensor', modelNumber: '2843-522', class: Insteon.DoorWindowSensor };
+                retVal = { name: 'Open/Close Sensor', modelNumber: '2843-522', class: Insteon.DoorWindowSensor.Device };
                 break;
             case '\b':
                 retVal = { name: 'Leak Sensor', modelNumber: '2852-222', class: Insteon.LeakSensor };
@@ -804,7 +813,7 @@ export class InsteonDeviceFactory {
     }
     static getAccessControlInfo(deviceCode) {
         const c = String.fromCharCode(deviceCode);
-        const retVal = { name: '', modelNumber: '', class: Insteon.Lock };
+        const retVal = { name: '', modelNumber: '', class: Insteon.DoorLock.Node };
         switch (c) {
             case String.fromCharCode(6):
                 retVal.name = 'MorningLinc';

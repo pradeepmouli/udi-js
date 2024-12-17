@@ -1,11 +1,14 @@
 import '@project-chip/matter.js/device';
 import { Converter } from '../../Converters.js';
 import { ISYBridgedDeviceBehavior } from './ISYBridgedDeviceBehavior.js';
+import { getConstructor } from '../../Utils.js';
+;
 // #endregion Type aliases (6)
 // #region Functions (1)
 export function ISYClusterBehavior(base, p) {
-    return class ISYClusterBehavior extends base {
+    let s = class ISYClusterBehavior extends base {
         _device;
+        static nodeClass = getConstructor(p);
         handlers = {};
         bridgedDeviceBehavior;
         ///public map: ClusterMapping<ToClusterTypeByName<ClusterForBehavior<ConstructedType<typeof base>>["name"]>,ISYDeviceNode<any, any, any>>;
@@ -16,7 +19,7 @@ export function ISYClusterBehavior(base, p) {
             this.bridgedDeviceBehavior = behavior;
             //var behavior = this.agent.get(ISYBridgedDeviceBehavior);
             this._device = behavior.device;
-            this._device.logger('Initializing cluster behavior');
+            this._device.logger(`Initializing cluster behavior: ${this.constructor.name}`);
             //@ts-ignore
             this.map = behavior.mapForBehavior(this);
             for (const key2 in this.map.attributes) {
@@ -36,7 +39,8 @@ export function ISYClusterBehavior(base, p) {
                     if (!convFunc)
                         throw new Error(`Converter ${converter} not found`);
                     this.state[key2] = convFunc(this._device.drivers[driver].value);
-                    this.handlers[driver] = (newValue, oldValue, formattedValue) => {
+                    this.handlers[val.driver] = (newValue, oldValue, formattedValue) => {
+                        //this.device.logger(`Handling property change for ${driver} (${key2}) with value ${newValue}`);
                         //if (convFunc) this.state[key2 as string] = convFunc(newValue);
                         this.state[key2] = convFunc(newValue);
                     };
@@ -55,7 +59,8 @@ export function ISYClusterBehavior(base, p) {
         }
         async handlePropertyChange({ driver, newValue, oldValue, formattedValue }) {
             // for (const key2 in this.map.attributes) {
-            await this.initialize();
+            //await this.initialize();
+            this.device.logger(`${this.constructor.name}: handling property change for ${String(driver)} with value ${newValue}`);
             if (this.handlers[driver]) {
                 this.handlers[driver](newValue, oldValue, formattedValue);
             }
@@ -72,6 +77,8 @@ export function ISYClusterBehavior(base, p) {
             // }
         }
     };
+    s.nodeClass = getConstructor(p);
+    return s;
 }
 // #endregion Functions (1)
 //# sourceMappingURL=ISYClusterBehavior.js.map

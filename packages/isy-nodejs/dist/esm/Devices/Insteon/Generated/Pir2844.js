@@ -1,10 +1,9 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "PIR2844";
-export class Pir2844Node extends Base {
+class Pir2844Node extends Base {
     commands = {
         CLITEMP: this.calibrateTemperature,
         QUERY: this.query,
@@ -12,15 +11,15 @@ export class Pir2844Node extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "PIR2844";
-    static implements = ["PIR2844", "PIR2844C", "PIR2844C_ADV"];
+    static implements = ['PIR2844', "PIR2844C", "PIR2844C_ADV"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-        this.drivers.CLITEMP = Driver.create("CLITEMP", this, nodeInfo.property, { uom: UnitOfMeasure.Fahrenheit, label: "Temperature", name: "temperature" });
-        this.drivers.LUMIN = Driver.create("LUMIN", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Luminance", name: "luminance" });
-        this.drivers.BATLVL = Driver.create("BATLVL", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Battery Level", name: "batteryLevel" });
-        this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.property, { uom: UnitOfMeasure.Boolean, label: "Battery Powered", name: "batteryPowered" });
-        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+        this.drivers.CLITEMP = Driver.create("CLITEMP", this, nodeInfo.state['CLITEMP'], { uom: UnitOfMeasure.Fahrenheit, label: "Temperature", name: "temperature" });
+        this.drivers.LUMIN = Driver.create("LUMIN", this, nodeInfo.state['LUMIN'], { uom: UnitOfMeasure.Percent, label: "Luminance", name: "luminance" });
+        this.drivers.BATLVL = Driver.create("BATLVL", this, nodeInfo.state['BATLVL'], { uom: UnitOfMeasure.Percent, label: "Battery Level", name: "batteryLevel" });
+        this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.state['GV1'], { uom: UnitOfMeasure.Boolean, label: "Battery Powered", name: "batteryPowered" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async calibrateTemperature(value) { return this.sendCommand("CLITEMP", value); }
     async query() { return this.sendCommand("QUERY"); }
@@ -50,11 +49,11 @@ NodeFactory.register(Pir2844Node, "PIR2844_ADV");
 export var Pir2844;
 (function (Pir2844) {
     function is(node) {
-        return ["PIR2844", "PIR2844_ADV"].includes(node.nodeDefId);
+        return ['PIR2844', "PIR2844_ADV"].includes(node.nodeDefId);
     }
     Pir2844.is = is;
     function isImplementedBy(node) {
-        return ["PIR2844", "PIR2844_ADV"].includes(node.nodeDefId);
+        return ['PIR2844', "PIR2844_ADV"].includes(node.nodeDefId);
     }
     Pir2844.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {
@@ -62,5 +61,22 @@ export var Pir2844;
     }
     Pir2844.create = create;
     Pir2844.Node = Pir2844Node;
+    Pir2844.Class = Pir2844Node;
+    let Commands;
+    (function (Commands) {
+        Commands["calibrateTemperature"] = "CLITEMP";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = Pir2844.Commands || (Pir2844.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["temperature"] = "CLITEMP";
+        Drivers["luminance"] = "LUMIN";
+        Drivers["batteryLevel"] = "BATLVL";
+        Drivers["batteryPowered"] = "GV1";
+        Drivers["responding"] = "ERR";
+    })(Drivers = Pir2844.Drivers || (Pir2844.Drivers = {}));
 })(Pir2844 || (Pir2844 = {}));
 //# sourceMappingURL=Pir2844.js.map

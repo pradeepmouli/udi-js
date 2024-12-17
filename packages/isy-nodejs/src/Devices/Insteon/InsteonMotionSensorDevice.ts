@@ -14,7 +14,7 @@ export class InsteonMotionSensorDevice extends Pir2844OnOff.Node {
 		this._isMotionDetected = false;
 	}
 
-	public override handleControlTrigger(controlName: keyof Pir2844OnOff.Commands) {
+	public override handleControlTrigger(controlName: keyof Pir2844OnOff.Commands.Type) {
 
 			if (controlName === 'DON') {
 				this.logger('Motion detected.');

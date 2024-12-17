@@ -1,8 +1,10 @@
+import type EventEmitter from 'events';
 import type { Category } from '../Definitions/Global/Categories.js';
 import type { Command } from '../Definitions/Global/Commands.js';
 import type { Driver } from '../Definitions/Global/Drivers.js';
 import type { Event } from '../Definitions/Global/Events.js';
 import type { Family } from '../Definitions/index.js';
+import type { NodeEvent } from '../Events/NodeEvent.js';
 import { type ISY } from '../ISY.js';
 import type { ISYDevice, ISYDeviceInfo } from '../ISYDevice.js';
 import { ISYNode } from '../ISYNode.js';
@@ -18,7 +20,7 @@ export class ISYDeviceNode<
 		E extends ISYNode.EventSignatures = { [x in keyof D]: Event.DriverToEvent<D[x]> & { driver: x } } & { [x in keyof C]: Event.CommandToEvent<C[x]> & { command: x } }
 	>
 	extends ISYNode<T, D, C, E>
-	implements ISYDeviceInfo
+	implements ISYDeviceInfo, ISYDevice<T, Driver.ForAll<D>, Command.ForAll<C>, any>
 {
 	public declare family: T;
 

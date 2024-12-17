@@ -209,7 +209,7 @@ export function createNodeClass(nodeClassDef) {
         ],
     };
 }
-function createMemberName(name, mapNullishTo = 'Unknown') {
+export function createMemberName(name, mapNullishTo = 'Unknown') {
     let label = pascalCase(name) ?? 'Unknown';
     if (!label.substring(0, 1).match(/[a-zA-Z]/)) {
         if (!isNaN(Number.parseInt(label))) {

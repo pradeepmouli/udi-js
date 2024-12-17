@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { ISY } from './ISY.js';
-import { VariableType } from './ISYConstants.js';
+import { VariableType } from './VariableType.js';
 type Variable<T extends VariableType> = T extends VariableType.Integer ? Number : String;
 export declare class ISYVariable<P extends VariableType> extends EventEmitter {
     isy: ISY;

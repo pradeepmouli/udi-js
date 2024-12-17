@@ -3,17 +3,18 @@ import { Driver } from './Definitions/Global/Drivers.js';
 import { Family } from './Definitions/Global/Families.js';
 import { UnitOfMeasure } from './Definitions/Global/UOM.js';
 import { ISY } from './ISY.js';
+import type { Merge, UnionToIntersection } from '@matter/general';
 import { CliConfigSetLevels } from 'winston/lib/winston/config/index.js';
 import type { Command } from './Definitions/Global/Commands.js';
 import { Event } from './Definitions/Global/Events.js';
+import type { CompositeDevice } from './Devices/CompositeDevice.js';
 import type { Constructor } from './Devices/Constructor.js';
+import type { ISYScene } from './ISYScene.js';
 import type { DriverState } from './Model/DriverState.js';
 import { NodeInfo } from './Model/NodeInfo.js';
 import type { NodeNotes } from './Model/NodeNotes.js';
+import { NodeType } from './NodeType.js';
 import { type ObjectToUnion, type StringKeys } from './Utils.js';
-import { NodeType } from './ISYConstants.js';
-import type { ISYScene } from './ISYScene.js';
-import type { Merge, UnionToIntersection } from '@matter/general';
 export declare class ISYNode<T extends Family = Family, D extends ISYNode.DriverSignatures = {}, C extends ISYNode.CommandSignatures = {}, E extends ISYNode.EventSignatures = {
     [x in keyof D]: Event.DriverToEvent<D[x]> & {
         driver: x;
@@ -101,43 +102,48 @@ export type DriversOf<T> = T extends ISYNode<any, infer D, infer C, infer E> ? D
 export type CommandsOf<T> = T extends ISYNode<any, any, infer C, any> ? C : never;
 export type EventsOf<T> = T extends ISYNode<any, any, any, infer E> ? E : never;
 export declare namespace ISYNode {
-    type FromSignatures<T> = T extends DriverSignatures ? Driver.ForAll<T> : never;
-    type DriversOf<T> = T extends ISYNode<any, infer D, any, any> ? D : never;
-    type CommandsOf<T> = T extends ISYNode<any, any, infer C, any> ? C : never;
-    type EventsOf<T> = T extends ISYNode<any, any, any, infer E> ? E : never;
-    type FamilyOf<T> = T extends ISYNode<infer F, any, any, any> ? F : never;
-    type DriverTypesOf<T extends ISYNode> = ObjectToUnion<DriversOf<T>>;
-    type CommandTypesOf<T extends ISYNode> = ObjectToUnion<CommandsOf<T>>;
-    type EventTypesOf<T extends ISYNode> = ObjectToUnion<EventsOf<T>>;
-    type EventNamesOf<T extends ISYNode> = EventTypesOf<T> extends {
+    export type FromSignatures<T> = T extends DriverSignatures ? Driver.ForAll<T> : never;
+    type InternalDriversOf<T> = T extends ISYNode<any, infer D, any, any> ? D : never;
+    export type DriversOf<T> = T extends ISYNode<any, any, any, any> ? InternalDriversOf<T> : T extends CompositeDevice<any, any> ? T['drivers'] : never;
+    export type CommandsOf<T> = T extends ISYNode<any, any, infer C, any> ? C : never;
+    export type EventsOf<T> = T extends ISYNode<any, any, any, infer E> ? E : never;
+    export type FamilyOf<T> = T extends ISYNode<infer F, any, any, any> ? F : never;
+    export type DriverTypesOf<T> = ObjectToUnion<DriversOf<T>>;
+    export type CommandTypesOf<T extends ISYNode> = ObjectToUnion<CommandsOf<T>>;
+    export type EventTypesOf<T extends ISYNode> = ObjectToUnion<EventsOf<T>>;
+    export type EventNamesOf<T extends ISYNode> = EventTypesOf<T> extends {
         name: infer U;
     } ? U : never;
-    type DriverNamesOf<T extends ISYNode> = DriverTypesOf<T> extends {
+    export type DriverNamesOf<T> = DriverTypesOf<T> extends {
+        name: infer U;
+    } ? U : DriversOf<T> extends {
         name: infer U;
     } ? U : never;
-    type CommandNamesOf<T extends ISYNode> = CommandTypesOf<T> extends {
+    export type DriverKeysOf<T> = keyof DriversOf<T>;
+    export type CommandKeysOf<T> = keyof CommandsOf<T>;
+    export type CommandNamesOf<T extends ISYNode> = CommandsOf<T> extends {
         name: infer U;
     } ? U : never;
-    type List = NodeList;
-    type DriverMap<T extends NodeList> = Flatten<{
+    export type List = NodeList;
+    export type DriverMap<T extends NodeList> = Flatten<{
         [x in keyof T]: DriversOf<T[x]>;
     }>;
-    type CommandMap<T extends NodeList> = Flatten<{
+    export type CommandMap<T extends NodeList> = Flatten<{
         [x in keyof T]: CommandsOf<T[x]>;
     }>;
-    type EventMap<T extends NodeList> = Flatten<{
+    export type EventMap<T extends NodeList> = Flatten<{
         [x in keyof T]: EventsOf<T[x]>;
     }>;
-    type DriverSignatures = Record<string, Driver.Signature<UnitOfMeasure, any, UnitOfMeasure, string, string>>;
-    type CommandSignatures = Partial<{
+    export type DriverSignatures = Record<string, Driver.Signature<UnitOfMeasure, any, UnitOfMeasure, string, string>>;
+    export type CommandSignatures = Partial<{
         [x: string]: Command.Signature<any, any, any>;
     }>;
-    type EventSignatures = Record<string, Event.Signature>;
-    const With: <K extends Family, D extends DriverSignatures, C extends CommandSignatures, T extends Constructor<ISYNode<K, any, any, any>>>(Base: T) => {
+    export type EventSignatures = Record<string, Event.Signature>;
+    export const With: <K extends Family, D extends DriverSignatures, C extends CommandSignatures, T extends Constructor<ISYNode<K, any, any, any>>>(Base: T) => {
         new (...args: any[]): {
-            drivers: Driver.ForAll<any, false>;
+            drivers: Driver.ForAll<D, false>;
             commands: Command.ForAll<C>;
-            "__#149988@#parentNode": ISYNode<any, any, any, any>;
+            "__#173@#parentNode": ISYNode<any, any, any, any>;
             readonly address: string;
             readonly baseLabel: string;
             readonly flag: any;
@@ -202,11 +208,10 @@ export declare namespace ISYNode {
             updateProperty(propertyName: string, value: any): Promise<any>;
         };
     } & T;
-    type WithDrivers<D extends DriverSignatures> = D extends Driver.Signatures<infer U extends keyof D> ? {
-        [K in D[U]['name']]: D[U] extends {
-            name: K;
-        } ? D[U]['value'] : unknown;
+    export type WithDrivers<D extends DriverSignatures> = D extends Driver.Signatures<infer U extends keyof D> ? {
+        [K in D[U] as K['name']]: K['value'];
     } : never;
+    export {};
 }
 export {};
 //# sourceMappingURL=ISYNode.d.ts.map

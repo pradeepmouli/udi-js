@@ -2,13 +2,16 @@
   "EM3Main": {
     "className": "Main",
     "id": "EM3Main",
+    "name": "Main",
+    "label": "Main",
     "drivers": {
       "ST": {
+        "id": "ST",
+        "name": "status",
         "label": "Status",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "ST",
         "editorId": "EM3_WATTS",
         "dataType": [
           {
@@ -19,15 +22,15 @@
             "step": 0.01,
             "precision": 2
           }
-        ],
-        "name": "status"
+        ]
       },
       "TPW": {
+        "id": "TPW",
+        "name": "totalEnergy",
         "label": "Total Energy",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "TPW",
         "editorId": "EM3_KWH",
         "dataType": [
           {
@@ -38,15 +41,15 @@
             "step": 0.01,
             "precision": 2
           }
-        ],
-        "name": "totalEnergy"
+        ]
       },
       "ERR": {
+        "id": "ERR",
+        "name": "responding",
         "label": "Responding",
         "hidden": true,
         "optional": false,
         "readonly": true,
-        "id": "ERR",
         "editorId": "EM3_ERR",
         "dataType": [
           {
@@ -58,21 +61,18 @@
               "1": "False"
             }
           }
-        ],
-        "name": "responding"
+        ]
       }
     },
     "commands": {
       "QUERY": {
-        "label": "Query",
         "id": "QUERY",
-        "name": "query"
+        "name": "query",
+        "label": "Query"
       }
     },
     "events": {},
     "family": 7,
-    "label": "Main",
-    "name": "Main",
     "dynamic": false,
     "implements": [
       "EM3Channel"
@@ -81,13 +81,16 @@
   "EM3Relay": {
     "className": "Relay",
     "id": "EM3Relay",
+    "name": "Relay",
+    "label": "Relay",
     "drivers": {
       "ST": {
+        "id": "ST",
+        "name": "status",
         "label": "Status",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "ST",
         "editorId": "EM3_RELAY",
         "dataType": [
           {
@@ -99,15 +102,15 @@
               "100": ""
             }
           }
-        ],
-        "name": "status"
+        ]
       },
       "ERR": {
+        "id": "ERR",
+        "name": "responding",
         "label": "Responding",
         "hidden": true,
         "optional": false,
         "readonly": true,
-        "id": "ERR",
         "editorId": "EM3_ERR",
         "dataType": [
           {
@@ -119,43 +122,43 @@
               "1": "False"
             }
           }
-        ],
-        "name": "responding"
+        ]
       }
     },
     "commands": {
       "DON": {
-        "label": "On",
         "id": "DON",
-        "name": "on"
+        "name": "on",
+        "label": "On"
       },
       "DOF": {
-        "label": "Off",
         "id": "DOF",
-        "name": "off"
+        "name": "off",
+        "label": "Off"
       },
       "QUERY": {
-        "label": "Query",
         "id": "QUERY",
-        "name": "query"
+        "name": "query",
+        "label": "Query"
       }
     },
     "events": {},
     "family": 7,
-    "label": "Relay",
-    "name": "Relay",
     "dynamic": false
   },
   "EM3MainChannel": {
     "className": "Em3MainChannel",
     "id": "EM3MainChannel",
+    "name": "Em3MainChannel",
+    "label": "EM3MainChannel",
     "drivers": {
       "ST": {
+        "id": "ST",
+        "name": "status",
         "label": "Status",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "ST",
         "editorId": "EM3_WATTS",
         "dataType": [
           {
@@ -166,15 +169,15 @@
             "step": 0.01,
             "precision": 2
           }
-        ],
-        "name": "status"
+        ]
       },
       "TPW": {
+        "id": "TPW",
+        "name": "totalEnergy",
         "label": "Total Energy",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "TPW",
         "editorId": "EM3_KWH",
         "dataType": [
           {
@@ -185,15 +188,15 @@
             "step": 0.01,
             "precision": 2
           }
-        ],
-        "name": "totalEnergy"
+        ]
       },
       "CV": {
+        "id": "CV",
+        "name": "currentVoltage",
         "label": "Current Voltage",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "CV",
         "editorId": "EM3_VOLTS",
         "dataType": [
           {
@@ -204,15 +207,15 @@
             "step": 0.01,
             "precision": 2
           }
-        ],
-        "name": "currentVoltage"
+        ]
       },
       "CC": {
+        "id": "CC",
+        "name": "currentCurrent",
         "label": "Current Current",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "CC",
         "editorId": "EM3_AMPS",
         "dataType": [
           {
@@ -223,15 +226,15 @@
             "step": 0.01,
             "precision": 2
           }
-        ],
-        "name": "currentCurrent"
+        ]
       },
       "PF": {
+        "id": "PF",
+        "name": "powerFactor",
         "label": "Power Factor",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "PF",
         "editorId": "EM3_PF",
         "dataType": [
           {
@@ -242,15 +245,15 @@
             "step": 0.01,
             "precision": 2
           }
-        ],
-        "name": "powerFactor"
+        ]
       },
       "ERR": {
+        "id": "ERR",
+        "name": "responding",
         "label": "Responding",
         "hidden": true,
         "optional": false,
         "readonly": true,
-        "id": "ERR",
         "editorId": "EM3_ERR",
         "dataType": [
           {
@@ -262,15 +265,12 @@
               "1": "False"
             }
           }
-        ],
-        "name": "responding"
+        ]
       }
     },
     "commands": {},
     "events": {},
     "family": 7,
-    "label": "EM3MainChannel",
-    "name": "Em3MainChannel",
     "dynamic": false,
     "implements": [
       "EM3Channel"
@@ -279,13 +279,16 @@
   "EM3Channel": {
     "className": "Channel",
     "id": "EM3Channel",
+    "name": "Channel",
+    "label": "Channel",
     "drivers": {
       "ST": {
+        "id": "ST",
+        "name": "status",
         "label": "Status",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "ST",
         "editorId": "EM3_WATTS",
         "dataType": [
           {
@@ -296,15 +299,15 @@
             "step": 0.01,
             "precision": 2
           }
-        ],
-        "name": "status"
+        ]
       },
       "TPW": {
+        "id": "TPW",
+        "name": "totalEnergy",
         "label": "Total Energy",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "TPW",
         "editorId": "EM3_KWH",
         "dataType": [
           {
@@ -315,15 +318,15 @@
             "step": 0.01,
             "precision": 2
           }
-        ],
-        "name": "totalEnergy"
+        ]
       },
       "ERR": {
+        "id": "ERR",
+        "name": "responding",
         "label": "Responding",
         "hidden": true,
         "optional": false,
         "readonly": true,
-        "id": "ERR",
         "editorId": "EM3_ERR",
         "dataType": [
           {
@@ -335,15 +338,12 @@
               "1": "False"
             }
           }
-        ],
-        "name": "responding"
+        ]
       }
     },
     "commands": {},
     "events": {},
     "family": 7,
-    "label": "Channel",
-    "name": "Channel",
     "dynamic": false,
     "implementedBy": [
       "EM3Main",
@@ -354,13 +354,16 @@
     "className": "TemperatureSensor",
     "id": "EM3TempSensor",
     "nlsId": "TEMP",
+    "name": "TemperatureSensor",
+    "label": "Temperature Sensor",
     "drivers": {
       "ST": {
+        "id": "ST",
+        "name": "temperature",
         "label": "Temperature",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "ST",
         "editorId": "EM3_TEMP_DEG",
         "dataType": [
           {
@@ -371,15 +374,15 @@
             "step": 0.01,
             "precision": 2
           }
-        ],
-        "name": "temperature"
+        ]
       },
       "ERR": {
+        "id": "ERR",
+        "name": "responding",
         "label": "Responding",
         "hidden": true,
         "optional": false,
         "readonly": true,
-        "id": "ERR",
         "editorId": "EM3_ERR",
         "dataType": [
           {
@@ -391,27 +394,27 @@
               "1": "False"
             }
           }
-        ],
-        "name": "responding"
+        ]
       }
     },
     "commands": {},
     "events": {},
     "family": 7,
-    "label": "Temperature Sensor",
-    "name": "TemperatureSensor",
     "dynamic": false
   },
   "EM3PulseCounter": {
     "className": "PulseCounter",
     "id": "EM3PulseCounter",
+    "name": "PulseCounter",
+    "label": "Pulse Counter",
     "drivers": {
       "ST": {
+        "id": "ST",
+        "name": "status",
         "label": "Status",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "ST",
         "editorId": "EM3_PULSE_COUNT",
         "dataType": [
           {
@@ -420,15 +423,15 @@
             "min": 0,
             "max": 1000000
           }
-        ],
-        "name": "status"
+        ]
       },
       "CPW": {
+        "id": "CPW",
+        "name": "currentPower",
         "label": "Current Power",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "CPW",
         "editorId": "EM3_WATTS",
         "dataType": [
           {
@@ -439,15 +442,15 @@
             "step": 0.01,
             "precision": 2
           }
-        ],
-        "name": "currentPower"
+        ]
       },
       "TPW": {
+        "id": "TPW",
+        "name": "totalEnergy",
         "label": "Total Energy",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "TPW",
         "editorId": "EM3_KWH",
         "dataType": [
           {
@@ -458,15 +461,15 @@
             "step": 0.01,
             "precision": 2
           }
-        ],
-        "name": "totalEnergy"
+        ]
       },
       "ERR": {
+        "id": "ERR",
+        "name": "responding",
         "label": "Responding",
         "hidden": true,
         "optional": false,
         "readonly": true,
-        "id": "ERR",
         "editorId": "EM3_ERR",
         "dataType": [
           {
@@ -478,15 +481,12 @@
               "1": "False"
             }
           }
-        ],
-        "name": "responding"
+        ]
       }
     },
     "commands": {},
     "events": {},
     "family": 7,
-    "label": "Pulse Counter",
-    "name": "PulseCounter",
     "dynamic": false
   }
 }

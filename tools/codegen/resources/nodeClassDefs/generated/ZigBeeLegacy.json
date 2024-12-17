@@ -3,13 +3,16 @@
     "className": "Thermostat",
     "id": "Thermostat",
     "nlsId": "TSTAT",
+    "name": "Thermostat",
+    "label": "Thermostat",
     "drivers": {
       "ST": {
+        "id": "ST",
+        "name": "temperature",
         "label": "Temperature",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "ST",
         "editorId": "RCS_TEMP_DEG",
         "dataType": [
           {
@@ -18,15 +21,15 @@
             "min": -64,
             "max": 191
           }
-        ],
-        "name": "temperature"
+        ]
       },
       "CLISPH": {
+        "id": "CLISPH",
+        "name": "heatSetpoint",
         "label": "Heat Setpoint",
         "hidden": false,
         "optional": false,
         "readonly": false,
-        "id": "CLISPH",
         "editorId": "RCS_CLISPH_DEG",
         "dataType": [
           {
@@ -35,15 +38,15 @@
             "min": 0,
             "max": 120
           }
-        ],
-        "name": "heatSetpoint"
+        ]
       },
       "CLISPC": {
+        "id": "CLISPC",
+        "name": "coolSetpoint",
         "label": "Cool Setpoint",
         "hidden": false,
         "optional": false,
         "readonly": false,
-        "id": "CLISPC",
         "editorId": "RCS_CLISPC_DEG",
         "dataType": [
           {
@@ -52,15 +55,15 @@
             "min": 0,
             "max": 120
           }
-        ],
-        "name": "coolSetpoint"
+        ]
       },
       "CLIMD": {
+        "id": "CLIMD",
+        "name": "mode",
         "label": "Mode",
         "hidden": false,
         "optional": false,
         "readonly": false,
-        "id": "CLIMD",
         "editorId": "RCS_TSTAT_MODE",
         "dataType": [
           {
@@ -69,15 +72,15 @@
             "min": 0,
             "max": 3
           }
-        ],
-        "name": "mode"
+        ]
       },
       "CLIFS": {
+        "id": "CLIFS",
+        "name": "fanMode",
         "label": "Fan Mode",
         "hidden": false,
         "optional": false,
         "readonly": false,
-        "id": "CLIFS",
         "editorId": "RCS_TSTAT_FAN_MODE",
         "dataType": [
           {
@@ -88,15 +91,15 @@
               "1": ""
             }
           }
-        ],
-        "name": "fanMode"
+        ]
       },
       "CLIHCS": {
+        "id": "CLIHCS",
+        "name": "heatCoolState",
         "label": "Heat/Cool State",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "CLIHCS",
         "editorId": "RCS_TSTAT_HCS",
         "dataType": [
           {
@@ -105,15 +108,15 @@
             "min": 0,
             "max": 2
           }
-        ],
-        "name": "heatCoolState"
+        ]
       },
       "CLIFRS": {
+        "id": "CLIFRS",
+        "name": "fanState",
         "label": "Fan State",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "CLIFRS",
         "editorId": "RCS_CLIFRS",
         "dataType": [
           {
@@ -124,15 +127,15 @@
               "1": ""
             }
           }
-        ],
-        "name": "fanState"
+        ]
       },
       "CLISMD": {
+        "id": "CLISMD",
+        "name": "scheduleMode",
         "label": "Schedule Mode",
         "hidden": false,
         "optional": false,
         "readonly": false,
-        "id": "CLISMD",
         "editorId": "RCS_SMD",
         "dataType": [
           {
@@ -142,15 +145,15 @@
             "max": 2,
             "indexId": "R_SMD"
           }
-        ],
-        "name": "scheduleMode"
+        ]
       },
       "ERR": {
+        "id": "ERR",
+        "name": "responding",
         "label": "Responding",
         "hidden": true,
         "optional": false,
         "readonly": true,
-        "id": "ERR",
         "editorId": "RCS_ERR",
         "dataType": [
           {
@@ -162,14 +165,14 @@
               "1": "False"
             }
           }
-        ],
-        "name": "responding"
+        ]
       }
     },
     "commands": {
       "CLISPH": {
-        "label": "Heat Setpoint",
         "id": "CLISPH",
+        "name": "updateHeatSetpoint",
+        "label": "Heat Setpoint",
         "editorId": "RCS_CLISPH_DEG",
         "dataType": [
           {
@@ -179,11 +182,11 @@
             "max": 120
           }
         ],
-        "name": "updateHeatSetpoint",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "RCS_CLISPH_DEG",
             "dataType": [
               {
@@ -193,16 +196,16 @@
                 "max": 120
               }
             ],
-            "name": "value",
             "optional": false,
             "initialValue": "CLISPH"
           }
-        },
+        ],
         "initialValue": "CLISPH"
       },
       "CLISPC": {
-        "label": "Cool Setpoint",
         "id": "CLISPC",
+        "name": "updateCoolSetpoint",
+        "label": "Cool Setpoint",
         "editorId": "RCS_CLISPC_DEG",
         "dataType": [
           {
@@ -212,11 +215,11 @@
             "max": 120
           }
         ],
-        "name": "updateCoolSetpoint",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "RCS_CLISPC_DEG",
             "dataType": [
               {
@@ -226,16 +229,16 @@
                 "max": 120
               }
             ],
-            "name": "value",
             "optional": false,
             "initialValue": "CLISPC"
           }
-        },
+        ],
         "initialValue": "CLISPC"
       },
       "CLIMD": {
-        "label": "Mode",
         "id": "CLIMD",
+        "name": "updateMode",
+        "label": "Mode",
         "editorId": "RCS_TSTAT_MODE",
         "dataType": [
           {
@@ -245,11 +248,11 @@
             "max": 3
           }
         ],
-        "name": "updateMode",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "RCS_TSTAT_MODE",
             "dataType": [
               {
@@ -259,16 +262,16 @@
                 "max": 3
               }
             ],
-            "name": "value",
             "optional": false,
             "initialValue": "CLIMD"
           }
-        },
+        ],
         "initialValue": "CLIMD"
       },
       "CLIFS": {
-        "label": "Fan Mode",
         "id": "CLIFS",
+        "name": "updateFanMode",
+        "label": "Fan Mode",
         "editorId": "RCS_TSTAT_FAN_MODE",
         "dataType": [
           {
@@ -280,11 +283,11 @@
             }
           }
         ],
-        "name": "updateFanMode",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "RCS_TSTAT_FAN_MODE",
             "dataType": [
               {
@@ -296,16 +299,16 @@
                 }
               }
             ],
-            "name": "value",
             "optional": false,
             "initialValue": "CLIFS"
           }
-        },
+        ],
         "initialValue": "CLIFS"
       },
       "CLISMD": {
-        "label": "Schedule Mode",
         "id": "CLISMD",
+        "name": "updateScheduleMode",
+        "label": "Schedule Mode",
         "editorId": "RCS_SMD",
         "dataType": [
           {
@@ -316,11 +319,11 @@
             "indexId": "R_SMD"
           }
         ],
-        "name": "updateScheduleMode",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "RCS_SMD",
             "dataType": [
               {
@@ -331,16 +334,16 @@
                 "indexId": "R_SMD"
               }
             ],
-            "name": "value",
             "optional": false,
             "initialValue": "CLISMD"
           }
-        },
+        ],
         "initialValue": "CLISMD"
       },
       "CLISPHD": {
-        "label": "Heat Setpoint Shift",
         "id": "CLISPHD",
+        "name": "heatSetpointShift",
+        "label": "Heat Setpoint Shift",
         "editorId": "RCS_DELTA_DEG",
         "dataType": [
           {
@@ -350,11 +353,11 @@
             "max": 25
           }
         ],
-        "name": "heatSetpointShift",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "RCS_DELTA_DEG",
             "dataType": [
               {
@@ -364,14 +367,14 @@
                 "max": 25
               }
             ],
-            "name": "value",
             "optional": false
           }
-        }
+        ]
       },
       "CLISPCD": {
-        "label": "Cool Setpoint Shift",
         "id": "CLISPCD",
+        "name": "coolSetpointShift",
+        "label": "Cool Setpoint Shift",
         "editorId": "RCS_DELTA_DEG",
         "dataType": [
           {
@@ -381,11 +384,11 @@
             "max": 25
           }
         ],
-        "name": "coolSetpointShift",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "RCS_DELTA_DEG",
             "dataType": [
               {
@@ -395,19 +398,19 @@
                 "max": 25
               }
             ],
-            "name": "value",
             "optional": false
           }
-        }
+        ]
       },
       "QUERY": {
-        "label": "Query",
         "id": "QUERY",
-        "name": "query"
+        "name": "query",
+        "label": "Query"
       },
       "ADRPST": {
-        "label": "ADR",
         "id": "ADRPST",
+        "name": "adr",
+        "label": "ADR",
         "editorId": "RCS_ADRPST",
         "dataType": [
           {
@@ -420,11 +423,11 @@
             }
           }
         ],
-        "name": "adr",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "RCS_ADRPST",
             "dataType": [
               {
@@ -437,29 +440,29 @@
                 }
               }
             ],
-            "name": "value",
             "optional": false
           }
-        }
+        ]
       }
     },
     "events": {},
     "family": 3,
-    "label": "Thermostat",
-    "name": "Thermostat",
     "dynamic": false
   },
   "RelayLoadControl": {
     "className": "Relay",
     "id": "RelayLoadControl",
     "nlsId": "RELAY",
+    "name": "Relay",
+    "label": "Relay",
     "drivers": {
       "ST": {
+        "id": "ST",
+        "name": "status",
         "label": "Status",
         "hidden": false,
         "optional": false,
         "readonly": true,
-        "id": "ST",
         "editorId": "RCS_OL_RELAY",
         "dataType": [
           {
@@ -471,15 +474,15 @@
               "100": ""
             }
           }
-        ],
-        "name": "status"
+        ]
       },
       "ERR": {
+        "id": "ERR",
+        "name": "responding",
         "label": "Responding",
         "hidden": true,
         "optional": false,
         "readonly": true,
-        "id": "ERR",
         "editorId": "RCS_ERR",
         "dataType": [
           {
@@ -491,29 +494,29 @@
               "1": "False"
             }
           }
-        ],
-        "name": "responding"
+        ]
       }
     },
     "commands": {
       "DON": {
-        "label": "On",
         "id": "DON",
-        "name": "on"
+        "name": "on",
+        "label": "On"
       },
       "DOF": {
-        "label": "Off",
         "id": "DOF",
-        "name": "off"
+        "name": "off",
+        "label": "Off"
       },
       "QUERY": {
-        "label": "Query",
         "id": "QUERY",
-        "name": "query"
+        "name": "query",
+        "label": "Query"
       },
       "ADRPST": {
-        "label": "ADR",
         "id": "ADRPST",
+        "name": "adr",
+        "label": "ADR",
         "editorId": "RCS_ADRPST",
         "dataType": [
           {
@@ -526,11 +529,11 @@
             }
           }
         ],
-        "name": "adr",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "RCS_ADRPST",
             "dataType": [
               {
@@ -543,10 +546,9 @@
                 }
               }
             ],
-            "name": "value",
             "optional": false
           }
-        }
+        ]
       }
     },
     "events": {
@@ -560,8 +562,6 @@
       }
     },
     "family": 3,
-    "label": "Relay",
-    "name": "Relay",
     "dynamic": false
   }
 }

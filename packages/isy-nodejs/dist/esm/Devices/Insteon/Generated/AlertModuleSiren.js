@@ -1,10 +1,9 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
-import { UnitOfMeasure } from "../../../Definitions/Global/UOM.js";
+import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
-const nodeDefId = "AlertModuleSiren";
-export class AlertModuleSirenNode extends Base {
+class AlertModuleSirenNode extends Base {
     commands = {
         DON: this.on,
         DOF: this.off,
@@ -15,11 +14,11 @@ export class AlertModuleSirenNode extends Base {
         WDU: this.writeChanges
     };
     static nodeDefId = "AlertModuleSiren";
-    static implements = ["AlertModuleSiren", "AlertModuleArmed", "SirenAlert", "SirenArm"];
+    static implements = ['AlertModuleSiren', "AlertModuleArmed", "SirenAlert", "SirenArm"];
     constructor(isy, nodeInfo) {
         super(isy, nodeInfo);
-        this.drivers.ST = Driver.create("ST", this, nodeInfo.property, { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.property, { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+        this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
+        this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
     }
     async on(onLevel) { return this.sendCommand("DON", { OL: onLevel }); }
     async off() { return this.sendCommand("DOF"); }
@@ -40,11 +39,11 @@ NodeFactory.register(AlertModuleSirenNode, "AlertModuleSiren_ADV");
 export var AlertModuleSiren;
 (function (AlertModuleSiren) {
     function is(node) {
-        return ["AlertModuleSiren", "AlertModuleSiren_ADV"].includes(node.nodeDefId);
+        return ['AlertModuleSiren', "AlertModuleSiren_ADV"].includes(node.nodeDefId);
     }
     AlertModuleSiren.is = is;
     function isImplementedBy(node) {
-        return ["AlertModuleSiren", "AlertModuleSiren_ADV"].includes(node.nodeDefId);
+        return ['AlertModuleSiren', "AlertModuleSiren_ADV"].includes(node.nodeDefId);
     }
     AlertModuleSiren.isImplementedBy = isImplementedBy;
     function create(isy, nodeInfo) {
@@ -52,5 +51,21 @@ export var AlertModuleSiren;
     }
     AlertModuleSiren.create = create;
     AlertModuleSiren.Node = AlertModuleSirenNode;
+    AlertModuleSiren.Class = AlertModuleSirenNode;
+    let Commands;
+    (function (Commands) {
+        Commands["on"] = "DON";
+        Commands["off"] = "DOF";
+        Commands["fastOff"] = "DFOF";
+        Commands["fastOn"] = "DFON";
+        Commands["query"] = "QUERY";
+        Commands["beep"] = "BEEP";
+        Commands["writeChanges"] = "WDU";
+    })(Commands = AlertModuleSiren.Commands || (AlertModuleSiren.Commands = {}));
+    let Drivers;
+    (function (Drivers) {
+        Drivers["status"] = "ST";
+        Drivers["responding"] = "ERR";
+    })(Drivers = AlertModuleSiren.Drivers || (AlertModuleSiren.Drivers = {}));
 })(AlertModuleSiren || (AlertModuleSiren = {}));
 //# sourceMappingURL=AlertModuleSiren.js.map

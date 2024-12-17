@@ -2,11 +2,14 @@
   "InsteonDimmer": {
     "className": "InsteonDimmer",
     "id": "InsteonDimmer",
+    "name": "InsteonDimmer",
+    "label": "InsteonDimmer",
     "drivers": {},
     "commands": {
       "DON": {
-        "label": "On",
         "id": "DON",
+        "name": "on",
+        "label": "On",
         "editorId": "I_OL_PARAM",
         "dataType": [
           {
@@ -16,11 +19,11 @@
             "max": 100
           }
         ],
-        "name": "on",
         "optional": true,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "I_OL_PARAM",
             "dataType": [
               {
@@ -30,64 +33,64 @@
                 "max": 100
               }
             ],
-            "name": "value",
             "optional": true
           }
-        }
+        ]
       },
       "DOF": {
-        "label": "Off",
         "id": "DOF",
-        "name": "off"
+        "name": "off",
+        "label": "Off"
       },
       "DFOF": {
-        "label": "Fast Off",
         "id": "DFOF",
-        "name": "fastOff"
+        "name": "fastOff",
+        "label": "Fast Off"
       },
       "DFON": {
-        "label": "Fast On",
         "id": "DFON",
-        "name": "fastOn"
+        "name": "fastOn",
+        "label": "Fast On"
       },
       "BRT": {
-        "label": "Brighten",
         "id": "BRT",
-        "name": "brighten"
+        "name": "brighten",
+        "label": "Brighten"
       },
       "DIM": {
-        "label": "Dim",
         "id": "DIM",
-        "name": "dim"
+        "name": "dim",
+        "label": "Dim"
       },
       "FDUP": {
-        "label": "Fade Up",
         "id": "FDUP",
-        "name": "fadeUp"
+        "name": "fadeUp",
+        "label": "Fade Up"
       },
       "FDDOWN": {
-        "label": "Fade Down",
         "id": "FDDOWN",
-        "name": "fadeDown"
+        "name": "fadeDown",
+        "label": "Fade Down"
       },
       "FDSTOP": {
-        "label": "Fade Stop",
         "id": "FDSTOP",
-        "name": "fadeStop"
+        "name": "fadeStop",
+        "label": "Fade Stop"
       },
       "BEEP": {
-        "label": "Beep",
         "id": "BEEP",
-        "name": "beep"
+        "name": "beep",
+        "label": "Beep"
       },
       "QUERY": {
-        "label": "Query",
         "id": "QUERY",
-        "name": "query"
+        "name": "query",
+        "label": "Query"
       },
       "CLIMD": {
-        "label": "Mode",
         "id": "CLIMD",
+        "name": "mode",
+        "label": "Mode",
         "editorId": "GNC_TSTAT_MODE",
         "dataType": [
           {
@@ -97,11 +100,11 @@
             "max": 3
           }
         ],
-        "name": "mode",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "GNC_TSTAT_MODE",
             "dataType": [
               {
@@ -111,14 +114,14 @@
                 "max": 3
               }
             ],
-            "name": "value",
             "optional": false
           }
-        }
+        ]
       },
       "CLIFS": {
-        "label": "Fan Mode",
         "id": "CLIFS",
+        "name": "fanMode",
+        "label": "Fan Mode",
         "editorId": "GNC_TSTAT_FAN_MODE",
         "dataType": [
           {
@@ -130,11 +133,11 @@
             }
           }
         ],
-        "name": "fanMode",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "GNC_TSTAT_FAN_MODE",
             "dataType": [
               {
@@ -146,14 +149,14 @@
                 }
               }
             ],
-            "name": "value",
             "optional": false
           }
-        }
+        ]
       },
       "CLISPH": {
-        "label": "Heat Setpoint",
         "id": "CLISPH",
+        "name": "heatSetpoint",
+        "label": "Heat Setpoint",
         "editorId": "GNC_CLISPH_DEG",
         "dataType": [
           {
@@ -163,11 +166,11 @@
             "max": 120
           }
         ],
-        "name": "heatSetpoint",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "GNC_CLISPH_DEG",
             "dataType": [
               {
@@ -177,14 +180,14 @@
                 "max": 120
               }
             ],
-            "name": "value",
             "optional": false
           }
-        }
+        ]
       },
       "CLISPC": {
-        "label": "Cool Setpoint",
         "id": "CLISPC",
+        "name": "coolSetpoint",
+        "label": "Cool Setpoint",
         "editorId": "GNC_CLISPC_DEG",
         "dataType": [
           {
@@ -194,11 +197,11 @@
             "max": 120
           }
         ],
-        "name": "coolSetpoint",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "GNC_CLISPC_DEG",
             "dataType": [
               {
@@ -208,14 +211,14 @@
                 "max": 120
               }
             ],
-            "name": "value",
             "optional": false
           }
-        }
+        ]
       },
       "CLISPHD": {
-        "label": "Heat Setpoint Shift",
         "id": "CLISPHD",
+        "name": "heatSetpointShift",
+        "label": "Heat Setpoint Shift",
         "editorId": "GNC_DELTA_DEG",
         "dataType": [
           {
@@ -225,11 +228,11 @@
             "max": 25
           }
         ],
-        "name": "heatSetpointShift",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "GNC_DELTA_DEG",
             "dataType": [
               {
@@ -239,14 +242,14 @@
                 "max": 25
               }
             ],
-            "name": "value",
             "optional": false
           }
-        }
+        ]
       },
       "CLISPCD": {
-        "label": "Cool Setpoint Shift",
         "id": "CLISPCD",
+        "name": "coolSetpointShift",
+        "label": "Cool Setpoint Shift",
         "editorId": "GNC_DELTA_DEG",
         "dataType": [
           {
@@ -256,11 +259,11 @@
             "max": 25
           }
         ],
-        "name": "coolSetpointShift",
         "optional": false,
-        "parameters": {
-          "value": {
+        "parameters": [
+          {
             "id": "value",
+            "name": "value",
             "editorId": "GNC_DELTA_DEG",
             "dataType": [
               {
@@ -270,16 +273,13 @@
                 "max": 25
               }
             ],
-            "name": "value",
             "optional": false
           }
-        }
+        ]
       }
     },
     "events": {},
     "family": 6,
-    "label": "InsteonDimmer",
-    "name": "InsteonDimmer",
     "dynamic": false
   }
 }

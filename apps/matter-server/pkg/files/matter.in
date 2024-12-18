@@ -1,0 +1,53 @@
+#!/bin/sh
+# $FreeBSD$
+# PROVIDE: matter
+# REQUIRE: NETWORK ldconfig mosquitto pg3x
+# BEFORE:
+# KEYWORD: shutdown
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+# matter_enable (bool):  Set to "YES" by default.
+#                        Set it to "NO" to disable
+
+. /etc/rc.subr
+
+name=matter
+desc="matter service"
+rcvar=matter_enable
+
+load_rc_config $name
+
+: ${matter_enable:=YES}
+: ${matter_homedir=/var/matter}
+: ${polyglot_workdir=/var/polyglot}
+: ${matter_user=polyglot}
+: ${matter_group=polyglot}
+
+
+matter_chdir=${matter_homedir}
+pidfile=${matter_homedir}/matter_svc.pid
+
+udx_command="/usr/local/bin/node bin/server.js -a"
+
+#MUST BE BEFORE udx.rc
+#start_precmd=matter_start_precmd
+
+#restart_timeout=20 #IF YOU WANT AUTO RESTART in case of failure, this has to be there
+. /usr/local/etc/udx.d/static/udx.rc
+
+procname=$(echo $udx_command | awk '{print $1;}')
+command_interpreter=
+
+pkg info daemonize 2>&1 > /dev/null
+if [ $? -ne 0 ]
+then
+	pkg install -yf daemonize 2>&1 > /dev/null
+fi
+
+
+#matter_start_precmd()
+#{
+#}
+
+run_rc_command "$1"

@@ -1,0 +1,28 @@
+#!/bin/sh
+
+if [ "$2" = "PRE-INSTALL" ]
+then
+	####
+	# This script is called before installation
+	# let's say you can prepare directories /permissions here
+	####
+
+fi
+
+if [ "$2" = "POST-INSTALL" ]
+then
+  echo 'Installing matter server'
+  matter_user=polyglot
+  matter_group=polyglot
+  matter_homedir=/var/matter
+
+  mkdir -p ${matter_homedir}
+  cd ${matter_homedir}
+
+  tar -xzf /usr/local/etc/matter.d/files/matter.tar.gz -C .
+
+  #make sure all user directories exist + right permissions
+  chown -R ${matter_user}:${matter_group} .
+
+  echo 'Installation completed'
+fi

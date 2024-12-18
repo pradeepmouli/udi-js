@@ -14,11 +14,11 @@
 
 name=matter-server
 desc="matter-server service"
-rcvar=matter_enable
+rcvar=matter_server_enable
 
 load_rc_config $name
 
-: ${matter_enable:=YES}
+: ${matter_server_enable:=YES}
 : ${matter_homedir=/var/matter}
 : ${polyglot_workdir=/var/polyglot}
 : ${matter_user=polyglot}
@@ -28,7 +28,7 @@ load_rc_config $name
 matter_chdir=${matter_homedir}
 pidfile=${matter_homedir}/matter_svc.pid
 
-udx_command="/usr/local/bin/node dist/index.js"
+udx_command="/usr/local/bin/node bin/server.js -a"
 
 #MUST BE BEFORE udx.rc
 #start_precmd=matter_start_precmd

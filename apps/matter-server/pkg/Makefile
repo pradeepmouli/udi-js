@@ -2,7 +2,7 @@
 # $FreeBSD: $
 
 PORTNAME=		matter-server
-PORTVERSION=	0.0.1
+PORTVERSION=	1.0.6
 PORTREVISION=	0
 CATEGORIES=		misc
 MASTER_SITES=	https://udx.s3.amazonaws.com/pkg/${PORTVERSION}/
@@ -39,8 +39,7 @@ build-matter:
 	@rm -f "files/${TAR_FILE}"
 
 	@echo "*** Compiling ***"
-	cd .. && \
-	npm run build
+	cd .. && npm run build
 
 	@echo "*** Copying required files to build ***"
 	@mkdir -p build/bin
@@ -50,21 +49,17 @@ build-matter:
 
 
 	@echo "*** Updating package lock ***"
-	@cd build && \
-	npm i --package-lock-only --workspaces=false
+	@cd build && npm i --package-lock-only --workspaces=false
 
 	@echo "*** Installing dependencies ***"
-	@cd build && \
-	npm ci --omit=dev --workspaces=false
+	@cd build && npm ci --omit=dev --workspaces=false
 
 	@echo "*** Creating tar file ${TAR_FILE} ***"
   # We need the tar file in ./files for the do-install, but we also need it in . for makesum
-	cd build && \
-	tar -czf ../files/${TAR_FILE} . && \
-	cp ../files/${TAR_FILE} ..
+	cd build && tar -czf ../files/${TAR_FILE} . && cp ../files/${TAR_FILE} ..
 
 do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/${PORTNAME}.d/files
 	${INSTALL_DATA} ${FILESDIR}/${TAR_FILE} ${STAGEDIR}${PREFIX}/etc/${PORTNAME}.d/files/${TAR_FILE}
 
-# .include <bsd.port.mk>
+.include <bsd.port.mk>

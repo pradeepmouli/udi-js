@@ -22,5 +22,7 @@ apps/matter-server/matter_server*.log*
 apps/matter-server/matter/**/*
 apps/matter-server/bin/*
 apps/matter-server/pkg/build/*
+apps/matter-server/pkg/work/*
+apps/matter-server/pkg/distinfo
 matter-server.tar.gz
 .idea

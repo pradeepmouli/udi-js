@@ -9,9 +9,8 @@ fi
 
 echo "matter-server version: $VERSION"
 
-# Step 2: Copy the pkg to bsdev14
+# Install the pkg locally
 PKG_FILE="work/pkg/matter-server-${VERSION}.pkg"
-
 pkg add -f "${PKG_FILE}"
 
 service matter-server restart

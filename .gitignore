@@ -22,4 +22,6 @@ apps/matter-server/matter_server*.log*
 apps/matter-server/.env
 apps/matter-server/matter/**/*
 apps/matter-server/bin/*
+apps/matter-server/pkg/build/*
+matter-server.tar.gz
 .idea

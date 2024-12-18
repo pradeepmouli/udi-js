@@ -11,7 +11,7 @@ fi
 
 if [ "$2" = "POST-INSTALL" ]
 then
-  echo 'Installing matter-server'
+  echo 'Installing matter server'
   matter_user=polyglot
   matter_group=polyglot
   matter_homedir=/var/matter
@@ -19,7 +19,7 @@ then
   mkdir -p ${matter_homedir}
   cd ${matter_homedir}
 
-  tar -xzf /usr/local/etc/matter-server.d/files/matter-server.tar.gz -C .
+  tar -xzf /usr/local/etc/matter.d/files/matter.tar.gz -C .
 
   #make sure all user directories exist + right permissions
   chown -R ${matter_user}:${matter_group} .

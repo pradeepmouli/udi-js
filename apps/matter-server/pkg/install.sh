@@ -10,7 +10,7 @@ fi
 echo "matter-server version: $VERSION"
 
 # Install the pkg locally
-PKG_FILE="work/pkg/matter-server-${VERSION}.pkg"
+PKG_FILE="work/pkg/matter-${VERSION}.pkg"
 pkg add -f "${PKG_FILE}"
 
-service matter-server restart
+service matter restart

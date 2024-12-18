@@ -11,7 +11,7 @@ fi
 echo "matter-server version: $VERSION"
 
 # Step 2: Copy the pkg to bsdev14
-PKG_FILE="work/pkg/matter-server-${VERSION}.pkg"
+PKG_FILE="work/pkg/matter-${VERSION}.pkg"
 
 if [ ! -f "$PKG_FILE" ]; then
     echo "Error: Package file $PKG_FILE not found"
@@ -19,7 +19,7 @@ if [ ! -f "$PKG_FILE" ]; then
 fi
 
 echo "Copying $PKG_FILE to bsdev14..."
-scp "$PKG_FILE" bsdev14:matter-server-"${VERSION}".pkg
+scp "$PKG_FILE" bsdev14:matter-"${VERSION}".pkg
 
 if [ $? -ne 0 ]; then
     echo "Error: Failed to copy package to bsdev14"
@@ -33,11 +33,11 @@ bash
 # Need to have PATH updated
 source /home/ec2-user/.bashrc
 
-echo "Move to staging: /home/ec2-user/matter-server-${VERSION}.pkg"
-os.ops move.package.to.staging /home/ec2-user/matter-server-${VERSION}.pkg
+echo "Move to staging: /home/ec2-user/matter-${VERSION}.pkg"
+os.ops move.package.to.staging /home/ec2-user/matter-${VERSION}.pkg
 
-echo "Move to production: /home/ec2-user/matter-server-${VERSION}.pkg"
-os.ops move.ud.packages.to.production /home/ec2-user/matter-server.pkg.list
+echo "Move to production: /home/ec2-user/matter-${VERSION}.pkg"
+os.ops move.ud.packages.to.production /home/ec2-user/matter.pkg.list
 EOF
 
 if [ $? -ne 0 ]; then

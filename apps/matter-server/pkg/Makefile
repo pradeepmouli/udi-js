@@ -1,15 +1,15 @@
 # Created by: Michel Kohanim <michel@universal-devices.com>
 # $FreeBSD: $
 
-PORTNAME=		matter-server
-PORTVERSION=	1.0.6
+PORTNAME=		matter
+PORTVERSION=	1.0.9
 PORTREVISION=	0
 CATEGORIES=		misc
 MASTER_SITES=	https://udx.s3.amazonaws.com/pkg/${PORTVERSION}/
-DISTNAME=		matter-server
+DISTNAME=		matter
 
 MAINTAINER=	benoit@universal-devices.com
-COMMENT= matter-server
+COMMENT= matter server
 
 #LICENSE=        EULA
 #CANNOT USR RUN DEPENDS ... if they remove any of the dependencies, this is removed as well. We cannot have this.
@@ -22,13 +22,13 @@ NO_BUILD=	yes
 
 USE_RC_SUBR=	${PORTNAME}
 
-# matter-server has to run as polyglot
+# matter server has to run as polyglot
 USERS=      polyglot
 GROUPS=     polyglot
 
 NO_WRKSUBDIR=	yes
 
-TAR_FILE := matter-server.tar.gz
+TAR_FILE := matter.tar.gz
 
 all: distclean build-matter makesum package
 
@@ -46,7 +46,6 @@ build-matter:
 	@cp -r ../bin/* build/bin/
 	@cp files/.env build/.env
 	@cp ../package*.json build/
-
 
 	@echo "*** Updating package lock ***"
 	@cd build && npm i --package-lock-only --workspaces=false

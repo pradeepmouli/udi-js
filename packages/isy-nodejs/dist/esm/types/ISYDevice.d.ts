@@ -7,7 +7,7 @@ import type { Factory } from './Utils.js';
 import type { Constructor } from 'type-fest';
 export interface ISYDevice<T extends Family, D, C, E> extends ISYDeviceInfo {
     address: string;
-    category: Category;
+    category: T extends Family.Insteon ? Category.Insteon : Category.Home.Category;
     commands: C;
     deviceClass: any;
     drivers: D;
@@ -51,7 +51,7 @@ export interface ISYDeviceInfo {
     modelName: string;
     modelNumber: string;
     version: string;
-    category: Category;
+    category: Category.Insteon | Category.Home.Category;
     subCategory: number;
     manufacturer: string;
 }

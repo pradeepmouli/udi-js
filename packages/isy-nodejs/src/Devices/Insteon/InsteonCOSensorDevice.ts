@@ -1,17 +1,13 @@
-import { ISY } from '../../ISY.js';
-import { ISYBinaryStateDevice } from '../ISYDevice.js';
+import { CompositeDevice, ISY } from '../../ISY.js';
+
 import { NodeInfo } from '../../Model/NodeInfo.js';
+import { BinaryAlarm } from './Generated/BinaryAlarm.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
 
-export class InsteonCOSensorDevice extends InsteonBaseDevice<{},{}>implements ISYBinaryStateDevice {
+export class InsteonCOSensorDevice extends CompositeDevice.of({alarm: BinaryAlarm}, (p) => p.address.endsWith('01'))  {
 	constructor (isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
 	}
-	get state(): Promise<boolean> {
-		throw new Error('Method not implemented.');
-	}
-	get monoxideDetected() {
-		return this.state;
-	}
+
 }

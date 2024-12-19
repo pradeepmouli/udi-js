@@ -26,7 +26,7 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         family: any;
         readonly typeCode: string;
         readonly deviceClass: any;
-        readonly category: import("../Definitions/index.js").Category;
+        readonly category: import("../ISY.js").Category.Insteon | import("../ISY.js").Category.Home.Category;
         readonly subCategory: number;
         _enabled: any;
         productName: string;
@@ -39,15 +39,15 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         _parentDevice: import("../ISYDevice.js").ISYDevice<any, any, any, any>;
         children: import("../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#174@#parentNode": import("../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#168@#parentNode": import("../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: import("../ISY.js").ISY;
         readonly nodeDefId: string;
         baseName: any;
-        commands: import("../Definitions/index.js").Command.ForAll<any>;
-        drivers: import("../Definitions/index.js").Driver.ForAll<any, false>;
+        commands: import("../ISY.js").Command.ForAll<any>;
+        drivers: import("../ISY.js").Driver.ForAll<any, false>;
         enabled: boolean;
         events: import("@matter/general").Merge<import("../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: (`${any}Changed` | `${any}Initialized`) & `${any}Triggered`, listener: (driver: string, newValue: any, oldValue: any, formatted: string, uom: any) => void): import("../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
@@ -71,10 +71,10 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         type: any;
         readonly parentNode: import("../ISYNode.js").ISYNode<any, any, any, any>;
         addLink(isyScene: import("../ISYScene.js").ISYScene): void;
-        applyStatus(prop: import("../Model/DriverState.js").DriverState): void;
-        convert(value: any, from: import("../Definitions/index.js").UnitOfMeasure, to: import("../Definitions/index.js").UnitOfMeasure): any;
-        convertFrom(value: any, uom: import("../Definitions/index.js").UnitOfMeasure, propertyName?: string): any;
-        convertTo(value: any, uom: import("../Definitions/index.js").UnitOfMeasure, propertyName?: string): any;
+        applyStatus(prop: import("../ISY.js").DriverState): void;
+        convert(value: any, from: import("../ISY.js").UnitOfMeasure, to: import("../ISY.js").UnitOfMeasure): any;
+        convertFrom(value: any, uom: import("../ISY.js").UnitOfMeasure, propertyName?: string): any;
+        convertTo(value: any, uom: import("../ISY.js").UnitOfMeasure, propertyName?: string): any;
         emit(event: "propertyChanged" | "controlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
         generateLabel(template: string): string;
         getNotes(): Promise<import("../Model/NodeNotes.js").NodeNotes>;
@@ -86,12 +86,12 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: string, value: any, uom: import("../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: string, value: any, uom: import("../ISY.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
-            property: import("../Model/DriverState.js").DriverState | import("../Model/DriverState.js").DriverState[];
+            property: import("../ISY.js").DriverState | import("../ISY.js").DriverState[];
         }): void;
-        readProperties(): Promise<import("../Model/DriverState.js").DriverState[]>;
-        readProperty(propertyName: string): Promise<import("../Model/DriverState.js").DriverState>;
+        readProperties(): Promise<import("../ISY.js").DriverState[]>;
+        readProperty(propertyName: string): Promise<import("../ISY.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
         sendCommand(command: string): Promise<any>;

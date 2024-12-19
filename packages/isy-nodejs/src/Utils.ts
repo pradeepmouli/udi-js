@@ -13,6 +13,7 @@ import path from 'path';
 import { Family } from './Definitions/index.js';
 import { EventType } from './Events/EventType.js';
 import type { Constructor } from 'type-fest';
+import type { NodeInfo } from './ISY.js';
 
 
 export interface Factory<T extends object>
@@ -309,7 +310,7 @@ export function removeAll(this: string, searchValue: string | RegExp) {
 	return this.replaceAll(searchValue, '');
 }
 
-export function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}`): { category: Category; deviceCode: number; firmwareVersion: number; minorVersion: number } {
+/*export function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}`): { category: Category; deviceCode: number; firmwareVersion: number; minorVersion: number } {
 	try {
 		const s = typeCode.split('.');
 
@@ -319,24 +320,7 @@ export function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}
 	} catch (err) {
 		return null;
 	}
-}
-
-export function getCategory(device: { type: string }) {
-	try {
-		const s = device.type.split('.');
-		return Number(s[0]);
-	} catch (err) {
-		return Category.Unknown;
-	}
-}
-export function getSubcategory(device: { type: string }) {
-	try {
-		const s = device.type.split('.');
-		return Number(s[1]);
-	} catch (err) {
-		return Category.Unknown;
-	}
-}
+}*/
 
 function getImportMeta() {
 	try {

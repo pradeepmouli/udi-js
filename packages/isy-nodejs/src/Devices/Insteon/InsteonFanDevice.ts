@@ -16,6 +16,8 @@ import { InsteonDimmableDevice } from './InsteonDimmableDevice.js';
 export class FanDevice extends CompositeDevice.of({ light: DimmerLamp, motor: FanLincMotor }, {light: 1, motor: 2}) {
 	constructor(isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
+		
+
 
 
 		/*this.light.events.on('PropertyChanged', ((a: any, b: any, c: any, d: string) => { this.emit('PropertyChanged', `light.${a}`, b, c, d); }).bind(this));*/

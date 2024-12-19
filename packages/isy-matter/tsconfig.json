@@ -1,15 +1,39 @@
 {
-    "compilerOptions": {
-        "strict": true,
-        "target": "es2022",
-        "module": "node16",
-        "moduleResolution": "node16",
-        "noImplicitAny": true,
-        "noImplicitOverride": true,
-        "outDir": "./dist",
-        "skipLibCheck": true
-    },
-    "include": [
-        "./src/**/*.ts"
-    ]
+	"compileOnSave": true,
+	"extends": "../../tsconfig.base.json",
+	"compilerOptions": {
+		"target": "es2022",
+		"module": "NodeNext",
+		"rootDir": "./src",
+		//"declarationDir": "./dist/types",
+		"allowArbitraryExtensions": true,
+		"disableSizeLimit": true,
+		"allowSyntheticDefaultImports": true,
+		"allowJs": false,
+		"skipLibCheck": true,
+		"noImplicitOverride": true,
+		"noImplicitThis": true,
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		
+		//"suppressImplicitAnyIndexErrors": true,
+		"typeRoots": [
+			"../../node_modules/@types",
+			"types"
+		],
+	},
+	"include": [
+		"src/**/*",
+		"types/**/*",
+		"src/Definitions/Global/*.ts",
+	],
+	"exclude": [
+
+		"src/Devices/ZigBeeLegacy/Generated/*",
+		"src/Devices/Poly/Generated/*",
+		"src/Devices/Brultech/Generated/*",
+
+		"src/Devices/NCD/Generated/*",
+		"src/Devices/Scene/Generated/*",
+	]
 }

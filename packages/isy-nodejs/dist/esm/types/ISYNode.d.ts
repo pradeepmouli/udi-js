@@ -104,7 +104,7 @@ export type CommandsOf<T> = T extends ISYNode<any, any, infer C, any> ? C : neve
 export type EventsOf<T> = T extends ISYNode<any, any, any, infer E> ? E : never;
 export declare namespace ISYNode {
     export type FromSignatures<T> = T extends DriverSignatures ? Driver.ForAll<T> : never;
-    export interface Factory<T extends ISYNode<any, any, any, any>> extends BaseFactory<T> {
+    export interface Factory<F extends Family, T extends ISYNode<F, any, any, any>> extends BaseFactory<T> {
         Commands: any;
         Drivers: any;
         nodeDefId: string;
@@ -147,11 +147,12 @@ export declare namespace ISYNode {
         [x: string]: Command.Signature<any, any, any>;
     }>;
     export type EventSignatures = Record<string, Event.Signature>;
+    export function getImplements(node: ISYNode<any, any, any, any> | typeof ISYNode): string[];
     export const With: <K extends Family, D extends DriverSignatures, C extends CommandSignatures, T extends Constructor<ISYNode<K, any, any, any>>>(Base: T) => {
         new (...args: any[]): {
             drivers: Driver.ForAll<D, false>;
             commands: Command.ForAll<C>;
-            "__#174@#parentNode": ISYNode<any, any, any, any>;
+            "__#168@#parentNode": ISYNode<any, any, any, any>;
             readonly address: string;
             readonly baseLabel: string;
             readonly flag: any;

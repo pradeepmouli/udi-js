@@ -1,7 +1,6 @@
 import * as log4js from '@log4js-node/log4js-api';
 import winston, { Logger, type LeveledLogMethod } from 'winston';
 import { EventEmitter as BaseEventEmitter } from 'events';
-import { Category } from './Definitions/Global/Categories.js';
 import type { PackageJson } from '@npmcli/package-json';
 import type { AxiosRequestConfig } from 'axios';
 import { EventType } from './Events/EventType.js';
@@ -91,18 +90,6 @@ export declare function rightWithToken(this: string, maxNumChars: number, token?
 export declare function leftWithToken(this: string, maxNumChars: number, token?: string): void;
 export declare function remove(this: string, searchValue: string | RegExp): string;
 export declare function removeAll(this: string, searchValue: string | RegExp): string;
-export declare function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}`): {
-    category: Category;
-    deviceCode: number;
-    firmwareVersion: number;
-    minorVersion: number;
-};
-export declare function getCategory(device: {
-    type: string;
-}): number;
-export declare function getSubcategory(device: {
-    type: string;
-}): number;
 export declare function findPackageJson(currentPath?: string): Promise<PackageJson>;
 export declare function logStringify(obj: any, indent?: number): string;
 export type RelaxTypes<V> = V extends number ? number : V extends bigint ? bigint : V extends object ? V extends (...args: any[]) => any ? V : {

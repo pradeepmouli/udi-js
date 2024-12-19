@@ -5,7 +5,7 @@ import WebSocket from 'ws';
 import { type ParserOptions } from 'xml2js';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
 import { ElkAlarmSensorDevice } from './Devices/Elk/ElkAlarmSensorDevice.js';
-import { type ISYDevice } from './ISYDevice.js';
+import { ISYDevice } from './ISYDevice.js';
 import { ISYNode } from './ISYNode.js';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
@@ -13,6 +13,7 @@ import { VariableType } from './VariableType.js';
 import * as Utils from './Utils.js';
 import type { ClientRequestArgs } from 'http';
 import type { Config } from './Model/Config.js';
+import type { Family } from './Definitions/index.js';
 export declare let Controls: {};
 interface ISYConfig {
     displayNameFormat?: string;
@@ -108,9 +109,22 @@ export declare class ISY extends EventEmitter implements Disposable {
     }): Promise<any>;
     close(): void;
 }
+export { ISYNode as Node } from './ISYNode.js';
+export { ISYDeviceNode as DeviceNode } from './Devices/ISYDeviceNode.js';
+export { CompositeDevice } from './Devices/CompositeDevice.js';
+export { ISYScene as Scene } from './ISYScene.js';
+export { ISYVariable as Variable } from './ISYVariable.js';
+export { VariableType } from './VariableType.js';
+export { ISYError } from './ISYError.js';
+export * from './Converters.js';
+export * from './Definitions/index.js';
+export * as Devices from './Devices/index.js';
+export * from './Model/index.js';
+export * from './Utils.js';
+export * from './ISYError.js';
 export declare namespace ISY {
     interface Config extends ISYConfig {
     }
+    type Device<F extends Family, D, C, E> = ISYDevice<F, D, C, E>;
 }
-export {};
 //# sourceMappingURL=ISY.d.ts.map

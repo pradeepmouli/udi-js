@@ -1,6 +1,5 @@
 import winston, { format } from 'winston';
 import { EventEmitter as BaseEventEmitter } from 'events';
-import { Category } from './Definitions/Global/Categories.js';
 import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
 import path from 'path';
@@ -129,34 +128,17 @@ export function remove(searchValue) {
 export function removeAll(searchValue) {
     return this.replaceAll(searchValue, '');
 }
-export function parseTypeCode(typeCode) {
+/*export function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}`): { category: Category; deviceCode: number; firmwareVersion: number; minorVersion: number } {
     try {
         const s = typeCode.split('.');
+
         let output = { category: Number(s[0]), deviceCode: Number(s[1]), firmwareVersion: Number(Number(s[2]).toString(16)), minorVersion: Number(Number(s[3]).toString(16)) };
+
         return output;
-    }
-    catch (err) {
+    } catch (err) {
         return null;
     }
-}
-export function getCategory(device) {
-    try {
-        const s = device.type.split('.');
-        return Number(s[0]);
-    }
-    catch (err) {
-        return Category.Unknown;
-    }
-}
-export function getSubcategory(device) {
-    try {
-        const s = device.type.split('.');
-        return Number(s[1]);
-    }
-    catch (err) {
-        return Category.Unknown;
-    }
-}
+}*/
 function getImportMeta() {
     try {
         //@ts-ignore

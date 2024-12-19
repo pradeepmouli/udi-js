@@ -1,22 +1,24 @@
 import type { Driver } from '../Definitions/Global/Drivers.js';
 import type { UnitOfMeasure } from '../Definitions/Global/UOM.js';
 
-import type { Constructor } from 'type-fest';
-import type { Category, Family } from '../Definitions/index.js';
+import type { Constructor, SimplifyDeep } from 'type-fest';
+import type { Category, Family, Insteon } from '../Definitions/index.js';
 import { ISY } from '../ISY.js';
 import type { ISYDevice } from '../ISYDevice.js';
 import { DriverMap, ISYNode, NodeList } from '../ISYNode.js';
 import type { ISYScene } from '../ISYScene.js';
 import type { DriverState } from '../Model/DriverState.js';
 import type { NodeInfo } from '../Model/NodeInfo.js';
-import type { Factory, ObjectToUnion, StringKeys } from '../Utils.js';
+import type { Factory, InstanceOf, ObjectToUnion, StringKeys } from '../Utils.js';
 import type { ISYDeviceNode } from './ISYDeviceNode.js';
 import type { NodeFactory } from './NodeFactory.js';
-import type { DoorWindowSensor } from './Insteon/InsteonDoorWindowSensorDevice.js';
+import type { DoorWindowSensor, DoorWindowSensorDevice } from './Insteon/InsteonDoorWindowSensorDevice.js';
 import { ts } from 'ts-morph';
+import type { BinaryAlarm } from './Insteon/index.js';
+import type { FanDevice, Fan } from './Insteon/InsteonFanDevice.js';
 
 
-export type CompositeDevice<F extends Family, N extends { [x: string]: ISYNode.Factory<any>}, R = N[keyof N]> = { [x in keyof N]: N[x] } & {
+export type CompositeDevice<F extends Family, N extends { [x: string]: ISYNode.Factory<F,any>}, R = N[keyof N]> = SimplifyDeep<{ [x in keyof N]: InstanceOf<N[x]> }> & {
 	root: R;
 
 	events: { [x in keyof N]: InstanceType<N[x]['Class']>['events'] };
@@ -48,15 +50,15 @@ export namespace CompositeDevice {
 	//@ts-ignore
 	type test = CommandNamesOf<typeof DoorWindowSensor>
 
-	export function of<F extends Family, N extends { [x: string]: ISYNode.Factory<any> }>(
+	export function of<F extends Family, N extends { [x: string]: ISYNode.Factory<F,any> }>(
 		nodes: { [x in keyof N]: InstanceType<N[x]['Class']> },
 		keyFunction: (node: NodeInfo) => [keyof N, boolean]
 	): Constructor<CompositeDevice<F, N>>;
-	export function of<F extends Family, N extends { [x: string]: ISYNode.Factory<any> }>(
+	export function of<F extends Family, N extends { [x: string]: ISYNode.Factory<F,any> }>(
 		nodes: { [x in keyof N]: InstanceType<N[x]['Class']> },
 		keyMap: { [x in keyof N]: number | string }
 	): Constructor<CompositeDevice<F, N, N[0]>>;
-	 export function of<F extends Family, N extends { [x: string]: ISYNode.Factory<any> }>(
+	 export function of<F extends Family, N extends { [x: string]: ISYNode.Factory<F,any> }>(
 			nodes: { [x in keyof N]: InstanceType<N[x]['Class']> },
 			keyFunction: { [x in keyof N]: number | string } | ((node: NodeInfo) => [keyof N, boolean])
 		): Constructor<CompositeDevice<F, N>> {
@@ -79,13 +81,15 @@ export namespace CompositeDevice {
 	export function isComposite(device: ISYDevice<any, any, any, any>): device is CompositeDevice<any, any> {
 		return 'addNode' in device;
 	}
+	//@ts-ignore
+	type test = CommandNamesOf<typeof DoorWindowSensor>;
 }
 
-export function CompositeOf<F extends Family, N extends { [x: string]: ISYNode.Factory<any> }>(
+export function CompositeOf<F extends Family, N extends { [x: string]: ISYNode.Factory<F,any> }>(
 	nodes: { [x in keyof N]: N[x] },
 	keyFunction: (node: NodeInfo | ISYNode) => [keyof N, boolean]
 ): Constructor<CompositeDevice<F, N>> {
-	return class implements ISYDevice<Family, any, unknown, any> {
+	return class implements ISYDevice<F, any, unknown, any> {
 		readonly isy: ISY;
 
 		constructor(...args: any[]) {
@@ -96,10 +100,10 @@ export function CompositeOf<F extends Family, N extends { [x: string]: ISYNode.F
 				}
 			}
 		}
-		category: Category;
+		category: F extends Family.Insteon ? Category.Insteon : Category.Home.Category;
 		deviceClass: any;
 		enabled: boolean;
-		family: Family;
+		family: F;
 		hidden: boolean;
 		isDimmable: boolean;
 		label: string;
@@ -130,7 +134,7 @@ export function CompositeOf<F extends Family, N extends { [x: string]: ISYNode.F
 		public addNode(node: ISYNode): void;
 		public addNode(node: NodeInfo, isy: ISY): void;
 		public addNode(node: NodeInfo | ISYNode, isy = this.isy) {
-			let n: ISYDeviceNode<any, any, any, any> = null;
+			let n: ISYDeviceNode<F, any, any, any> = null;
 			if (node instanceof ISYNode) {
 				n = node as ISYDeviceNode<any, any, any, any>;
 			} else {

@@ -1,5 +1,5 @@
 import { ISY } from '../../ISY.js';
-import { ISYBinaryStateDevice } from '../ISYDevice.js';
+
 import { NodeInfo } from '../../Model/NodeInfo.js';
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';

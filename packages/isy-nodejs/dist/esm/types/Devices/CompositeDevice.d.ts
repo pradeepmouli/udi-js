@@ -1,15 +1,15 @@
-import type { Constructor } from 'type-fest';
+import type { Constructor, SimplifyDeep } from 'type-fest';
 import type { Family } from '../Definitions/index.js';
 import { ISY } from '../ISY.js';
 import type { ISYDevice } from '../ISYDevice.js';
 import { ISYNode } from '../ISYNode.js';
 import type { NodeInfo } from '../Model/NodeInfo.js';
-import type { Factory, ObjectToUnion, StringKeys } from '../Utils.js';
+import type { Factory, InstanceOf, ObjectToUnion, StringKeys } from '../Utils.js';
 export type CompositeDevice<F extends Family, N extends {
-    [x: string]: ISYNode.Factory<any>;
-}, R = N[keyof N]> = {
-    [x in keyof N]: N[x];
-} & {
+    [x: string]: ISYNode.Factory<F, any>;
+}, R = N[keyof N]> = SimplifyDeep<{
+    [x in keyof N]: InstanceOf<N[x]>;
+}> & {
     root: R;
     events: {
         [x in keyof N]: InstanceType<N[x]['Class']>['events'];
@@ -40,12 +40,12 @@ export declare namespace CompositeDevice {
         [x in StringKeys<CommandsOf<N>>]: `${x}.${ISYNode.CommandKeysOf<N[x]> & string}`;
     }>;
     function of<F extends Family, N extends {
-        [x: string]: ISYNode.Factory<any>;
+        [x: string]: ISYNode.Factory<F, any>;
     }>(nodes: {
         [x in keyof N]: InstanceType<N[x]['Class']>;
     }, keyFunction: (node: NodeInfo) => [keyof N, boolean]): Constructor<CompositeDevice<F, N>>;
     function of<F extends Family, N extends {
-        [x: string]: ISYNode.Factory<any>;
+        [x: string]: ISYNode.Factory<F, any>;
     }>(nodes: {
         [x in keyof N]: InstanceType<N[x]['Class']>;
     }, keyMap: {
@@ -54,7 +54,7 @@ export declare namespace CompositeDevice {
     function isComposite(device: ISYDevice<any, any, any, any>): device is CompositeDevice<any, any>;
 }
 export declare function CompositeOf<F extends Family, N extends {
-    [x: string]: ISYNode.Factory<any>;
+    [x: string]: ISYNode.Factory<F, any>;
 }>(nodes: {
     [x in keyof N]: N[x];
 }, keyFunction: (node: NodeInfo | ISYNode) => [keyof N, boolean]): Constructor<CompositeDevice<F, N>>;

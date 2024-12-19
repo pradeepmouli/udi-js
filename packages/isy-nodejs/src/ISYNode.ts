@@ -19,6 +19,7 @@ import { NodeInfo } from './Model/NodeInfo.js';
 import type { NodeNotes } from './Model/NodeNotes.js';
 import { NodeType } from './NodeType.js';
 import { type ObjectToUnion, type StringKeys } from './Utils.js';
+import { NodeFactory } from './Devices/NodeFactory.js';
 
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 
@@ -543,7 +544,7 @@ export type EventsOf<T> = T extends ISYNode<any, any, any, infer E> ? E : never;
 export namespace ISYNode {
 	export type FromSignatures<T> = T extends DriverSignatures ? Driver.ForAll<T> : never;
 
-	export interface Factory<T extends ISYNode<any,any,any,any>> extends BaseFactory<T>
+	export interface Factory<F extends Family, T extends ISYNode<F,any,any,any>> extends BaseFactory<T>
 	{
 		Commands;
 		Drivers;
@@ -600,6 +601,10 @@ export namespace ISYNode {
 	}>;
 
 	export type EventSignatures = Record<string, Event.Signature>;
+
+	export function getImplements(node: ISYNode<any, any, any, any> | typeof ISYNode): string[] {
+		return NodeFactory.getImplements(node);
+	}
 
 	//TODO: fix return types
 	/*export type WithCommands<C extends Command.Signatures<any>> = C extends Command.Signatures<infer U> ? {

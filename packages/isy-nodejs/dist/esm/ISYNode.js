@@ -2,6 +2,7 @@ import { UnitOfMeasure } from './Definitions/Global/UOM.js';
 import { Converter } from './Converters.js';
 import { Event } from './Definitions/Global/Events.js';
 import { NodeType } from './NodeType.js';
+import { NodeFactory } from './Devices/NodeFactory.js';
 //type DriverValues<DK extends string | number | symbol,V = any> = {[x in DK]?:V};
 export class ISYNode {
     // #region Properties (32)
@@ -335,6 +336,10 @@ export class ISYNode {
     }
 }
 (function (ISYNode) {
+    function getImplements(node) {
+        return NodeFactory.getImplements(node);
+    }
+    ISYNode.getImplements = getImplements;
     //TODO: fix return types
     /*export type WithCommands<C extends Command.Signatures<any>> = C extends Command.Signatures<infer U> ? {
       [K in C[U]["name"]]: C[K];

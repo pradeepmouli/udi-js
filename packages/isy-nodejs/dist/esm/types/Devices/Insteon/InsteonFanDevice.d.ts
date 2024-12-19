@@ -6,8 +6,8 @@ import { CompositeDevice } from '../CompositeDevice.js';
 import { DimmerLamp } from './Generated/DimmerLamp.js';
 import { FanLincMotor } from './Generated/FanLincMotor.js';
 declare const FanDevice_base: import("type-fest").Constructor<CompositeDevice<Family, {
-    [x: string]: import("../../ISYNode.js").ISYNode.Factory<any>;
-}, import("../../ISYNode.js").ISYNode.Factory<any>>>;
+    [x: string]: import("../../ISYNode.js").ISYNode.Factory<Family, any>;
+}, import("../../ISYNode.js").ISYNode.Factory<Family, any>>>;
 export declare class FanDevice extends FanDevice_base {
     constructor(isy: ISY, deviceNode: NodeInfo);
 }

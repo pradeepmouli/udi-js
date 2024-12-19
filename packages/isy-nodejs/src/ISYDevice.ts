@@ -13,7 +13,7 @@ import type { RelayLampSwitch } from './Devices/Insteon/Generated/RelayLampSwitc
 export interface ISYDevice<T extends Family, D, C, E> extends ISYDeviceInfo {
 	// #region Properties (22)
 	address: string;
-	category: Category;
+	category: T extends Family.Insteon ? Category.Insteon : Category.Home.Category;
 	commands: C;
 	deviceClass: any;
 	drivers: D;
@@ -103,7 +103,7 @@ export interface ISYDeviceInfo {
 
 	version: string;
 
-	category: Category;
+	category: Category.Insteon | Category.Home.Category;
 
 	subCategory: number;
 

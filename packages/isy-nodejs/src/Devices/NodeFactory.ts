@@ -6,9 +6,7 @@ import { isDynamic, type NodeInfo } from '../Model/NodeInfo.js';
 import type { Constructor } from './Constructor.js';
 import type { Factory, IdentityOf, StringKeys } from '../Utils.js';
 import { Family, type EnumLiteral } from '../Definitions/index.js';
-import type { Identity } from '@matter/general';
 import { ISYDeviceNode } from './ISYDeviceNode.js';
-import { GenericNode } from './GenericNode.js';
 
 
 
@@ -102,7 +100,7 @@ export namespace NodeFactory {
 			let n = (await isy.sendRequest(
 				`zmatter/${node.family == Family.ZWave ? "zwave" : "zb"}/node/${node.address}/def/get?full=true`
 			)) as NodeDef;
-			let cls = GenericNode;
+			let cls = (await import ('../Devices/GenericNode.js')).GenericNode;
 		    NodeFactory.register(cls,n.nls);
 			return cls;
 

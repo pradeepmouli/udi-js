@@ -9,7 +9,7 @@ import { config } from 'dotenv';
 import { expand } from 'dotenv-expand';
 import { chmod } from 'fs/promises';
 import type { ISY } from 'isy-nodejs/ISY';
-import type * as MatterServer from 'isy-nodejs/types/Matter/Bridge/Server';
+import type * as MatterServer from 'isy-matter/Bridge/Server';
 import { logStringify } from 'isy-nodejs/Utils';
 import { createServer, type Server, type Socket } from 'net';
 import { exit } from 'process';
@@ -44,8 +44,7 @@ function loadConfigs() {
 		password: process.env.ISY_PASSWORD,
 		port: process.env.ISY_HOST_PORT ?? 8080,
 		protocol: process.env.ISY_HOST_PROTOCOL ?? 'http',
-		username: process.env.ISY_USERNAME ?? 'admin',
-
+		username: process.env.ISY_USERNAME ?? 'admin'
 	};
 	let matterConfig: Partial<MatterServer.Config> = {
 		passcode: Number(process.env.MATTER_PASSCODE),
@@ -256,8 +255,8 @@ async function startBridgeServer() {
 		logger.error('Already started');
 		return;
 	}
-	try
-	{	isy = await loadISYInterface();
+	try {
+		isy = await loadISYInterface();
 		await isy.initialize();
 		logger.info('Connected to ISY');
 		serverNode = await loadBridgeServer();
@@ -269,21 +268,14 @@ async function startBridgeServer() {
 		logger.info(`ISY api version: ${isy.apiVersion}`);
 		logger.info(`Matter api version: ${matterServer.version}`);
 		logger.info('*'.repeat(80));
-
-	}
-	catch(e)
-	{
-		if(e instanceof Error)
-		{
+	} catch (e) {
+		if (e instanceof Error) {
 			logger.error(`Error starting bridge server: ${e.message}`, e);
-		}
-		else
-			logger.error(`Error starting bridge server: ${e}`);
+		} else logger.error(`Error starting bridge server: ${e}`);
 		isy = null;
 		serverNode = null;
 	}
 }
-
 
 async function loadISYInterface(): Promise<ISY> {
 	let modulePath = 'isy-nodejs/ISY';
@@ -304,7 +296,7 @@ async function loadISYInterface(): Promise<ISY> {
 
 async function loadBridgeServer() {
 	logger.info('Loading Matter Bridge api');
-	matterServer = await import('isy-nodejs/Matter/Bridge/Server');
+	matterServer = await import('isy-matter/Bridge/Server');
 	logger.info('Matter Bridge api loaded');
 	logger.info('Starting matter bridge server');
 	let s = await matterServer.create(isy, matterConfig as MatterServer.Config);
@@ -382,10 +374,7 @@ console.log(`Options: ${logStringify(options)}`);
 
 ({ isyConfig, matterConfig, serverConfig } = loadConfigs());
 
-
-
 logger = createLogger();
-
 
 if (options.autoStart && !isyConfig.password && process.env.LOGNAME !== 'polyglot') {
 	logger.error('Auto start requires ISY password');

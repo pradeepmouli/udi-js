@@ -19,7 +19,7 @@ export declare class ISYDeviceNode<T extends Family, D extends ISYNode.DriverSig
     family: T;
     readonly typeCode: string;
     readonly deviceClass: any;
-    readonly category: Category;
+    readonly category: T extends Family.Insteon ? Category.Insteon : Category.Home.Category;
     readonly subCategory: number;
     _enabled: any;
     productName: string;
@@ -33,5 +33,8 @@ export declare class ISYDeviceNode<T extends Family, D extends ISYNode.DriverSig
     _parentDevice: ISYDevice<T, any, any, any>;
     children: ISYNode<any, any, any, any>[];
     addChild<K extends ISYNode<any, any, any, any>>(childDevice: K): void;
+}
+export declare namespace ISYDeviceNode {
+    type Any = ISYDeviceNode<any, any, any, any>;
 }
 //# sourceMappingURL=ISYDeviceNode.d.ts.map

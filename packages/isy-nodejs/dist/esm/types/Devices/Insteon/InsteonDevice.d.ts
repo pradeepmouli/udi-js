@@ -7,13 +7,13 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
     new (...args: any[]): {
         isDimmable: boolean;
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: "ST"): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: "ST"): any;
+        convertFrom(value: any, uom: import("../../ISY.js").UnitOfMeasure, driver?: "ST"): any;
+        convertTo(value: any, uom: import("../../ISY.js").UnitOfMeasure, propertyName?: "ST"): any;
         sendBeep(level?: number): Promise<any>;
-        family: import("../../Definitions/index.js").Family.Insteon;
+        family: import("../../ISY.js").Family.Insteon;
         readonly typeCode: string;
         readonly deviceClass: any;
-        readonly category: import("../../Definitions/index.js").Category;
+        readonly category: import("../../ISY.js").Category.Insteon;
         readonly subCategory: number;
         _enabled: any;
         productName: string;
@@ -22,23 +22,23 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         version: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/index.js").Family.Insteon, any, any, any>;
+        _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../ISY.js").Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#174@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#168@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: ISY;
         readonly nodeDefId: string;
         baseName: any;
-        commands: import("../../Definitions/index.js").Command.ForAll<{}>;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<{
-            ST: import("../../Definitions/index.js").Driver.Signature<import("../../Definitions/index.js").UnitOfMeasure, any, import("../../Definitions/index.js").UnitOfMeasure, "ST", "ST">;
+        commands: import("../../ISY.js").Command.ForAll<{}>;
+        drivers: import("../../ISY.js").Driver.ForAll<{
+            ST: import("../../ISY.js").Driver.Signature<import("../../ISY.js").UnitOfMeasure, any, import("../../ISY.js").UnitOfMeasure, "ST", "ST">;
         }, false>;
         enabled: boolean;
         events: import("@matter/general").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
-            on(eventName: "STChanged" | "STInitialized", listener: (driver: "ST", newValue: any, oldValue: any, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+            on(eventName: "STChanged" | "STInitialized", listener: (driver: "ST", newValue: any, oldValue: any, formatted: string, uom: import("../../ISY.js").UnitOfMeasure) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         }>;
         folder: string;
         hidden: boolean;
@@ -58,8 +58,8 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         type: any;
         readonly parentNode: import("../../ISYNode.js").ISYNode<any, any, any, any>;
         addLink(isyScene: import("../../ISYScene.js").ISYScene): void;
-        applyStatus(prop: import("../../Model/DriverState.js").DriverState): void;
-        convert(value: any, from: import("../../Definitions/index.js").UnitOfMeasure, to: import("../../Definitions/index.js").UnitOfMeasure): any;
+        applyStatus(prop: import("../../ISY.js").DriverState): void;
+        convert(value: any, from: import("../../ISY.js").UnitOfMeasure, to: import("../../ISY.js").UnitOfMeasure): any;
         emit(event: "propertyChanged" | "controlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
         generateLabel(template: string): string;
         getNotes(): Promise<import("../../Model/NodeNotes.js").NodeNotes>;
@@ -71,12 +71,12 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: "ST", value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: "ST", value: any, uom: import("../../ISY.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
-            property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
+            property: import("../../ISY.js").DriverState | import("../../ISY.js").DriverState[];
         }): void;
-        readProperties(): Promise<import("../../Model/DriverState.js").DriverState[]>;
-        readProperty(propertyName: "ST"): Promise<import("../../Model/DriverState.js").DriverState>;
+        readProperties(): Promise<import("../../ISY.js").DriverState[]>;
+        readProperty(propertyName: "ST"): Promise<import("../../ISY.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
         sendCommand(command: never): Promise<any>;
@@ -89,13 +89,13 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
 export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB: T) => {
     new (...args: any[]): {
         readonly manufacturer: string;
-        convertFrom(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, driver?: "ST"): any;
-        convertTo(value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, propertyName?: "ST"): any;
+        convertFrom(value: any, uom: import("../../ISY.js").UnitOfMeasure, driver?: "ST"): any;
+        convertTo(value: any, uom: import("../../ISY.js").UnitOfMeasure, propertyName?: "ST"): any;
         sendBeep(level?: number): Promise<any>;
-        family: import("../../Definitions/index.js").Family.Insteon;
+        family: import("../../ISY.js").Family.Insteon;
         readonly typeCode: string;
         readonly deviceClass: any;
-        readonly category: import("../../Definitions/index.js").Category;
+        readonly category: import("../../ISY.js").Category.Insteon;
         readonly subCategory: number;
         _enabled: any;
         productName: string;
@@ -104,23 +104,23 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         version: string;
         productId: string | number;
         modelName: string;
-        _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../Definitions/index.js").Family.Insteon, any, any, any>;
+        _parentDevice: import("../../ISYDevice.js").ISYDevice<import("../../ISY.js").Family.Insteon, any, any, any>;
         children: import("../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#174@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#168@#parentNode": import("../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
         readonly isy: ISY;
         readonly nodeDefId: string;
         baseName: any;
-        commands: import("../../Definitions/index.js").Command.ForAll<{}>;
-        drivers: import("../../Definitions/index.js").Driver.ForAll<{
-            ST: import("../../Definitions/index.js").Driver.Signature<import("../../Definitions/index.js").UnitOfMeasure, any, import("../../Definitions/index.js").UnitOfMeasure, "ST", "ST">;
+        commands: import("../../ISY.js").Command.ForAll<{}>;
+        drivers: import("../../ISY.js").Driver.ForAll<{
+            ST: import("../../ISY.js").Driver.Signature<import("../../ISY.js").UnitOfMeasure, any, import("../../ISY.js").UnitOfMeasure, "ST", "ST">;
         }, false>;
         enabled: boolean;
         events: import("@matter/general").Merge<import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
-            on(eventName: "STChanged" | "STInitialized", listener: (driver: "ST", newValue: any, oldValue: any, formatted: string, uom: import("../../Definitions/index.js").UnitOfMeasure) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+            on(eventName: "STChanged" | "STInitialized", listener: (driver: "ST", newValue: any, oldValue: any, formatted: string, uom: import("../../ISY.js").UnitOfMeasure) => void): import("../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         }>;
         folder: string;
         hidden: boolean;
@@ -141,8 +141,8 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         type: any;
         readonly parentNode: import("../../ISYNode.js").ISYNode<any, any, any, any>;
         addLink(isyScene: import("../../ISYScene.js").ISYScene): void;
-        applyStatus(prop: import("../../Model/DriverState.js").DriverState): void;
-        convert(value: any, from: import("../../Definitions/index.js").UnitOfMeasure, to: import("../../Definitions/index.js").UnitOfMeasure): any;
+        applyStatus(prop: import("../../ISY.js").DriverState): void;
+        convert(value: any, from: import("../../ISY.js").UnitOfMeasure, to: import("../../ISY.js").UnitOfMeasure): any;
         emit(event: "propertyChanged" | "controlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
         generateLabel(template: string): string;
         getNotes(): Promise<import("../../Model/NodeNotes.js").NodeNotes>;
@@ -154,12 +154,12 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
             action?: any;
             fmtAct?: any;
         }): boolean;
-        handlePropertyChange(propertyName: "ST", value: any, uom: import("../../Definitions/index.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
+        handlePropertyChange(propertyName: "ST", value: any, uom: import("../../ISY.js").UnitOfMeasure, prec?: number, formattedValue?: string): boolean;
         parseResult(node: {
-            property: import("../../Model/DriverState.js").DriverState | import("../../Model/DriverState.js").DriverState[];
+            property: import("../../ISY.js").DriverState | import("../../ISY.js").DriverState[];
         }): void;
-        readProperties(): Promise<import("../../Model/DriverState.js").DriverState[]>;
-        readProperty(propertyName: "ST"): Promise<import("../../Model/DriverState.js").DriverState>;
+        readProperties(): Promise<import("../../ISY.js").DriverState[]>;
+        readProperty(propertyName: "ST"): Promise<import("../../ISY.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
         sendCommand(command: never): Promise<any>;

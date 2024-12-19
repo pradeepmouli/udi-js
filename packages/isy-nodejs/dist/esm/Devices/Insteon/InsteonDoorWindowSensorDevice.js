@@ -14,9 +14,6 @@ export class DoorWindowSensorDevice extends CompositeDevice.of({ contactSensor: 
 }
 export var DoorWindowSensor;
 (function (DoorWindowSensor) {
-    class Device extends DoorWindowSensorDevice {
-    }
-    DoorWindowSensor.Device = Device;
     class Class extends DoorWindowSensorDevice {
     }
     DoorWindowSensor.Class = Class;

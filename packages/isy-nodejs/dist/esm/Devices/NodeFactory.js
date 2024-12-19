@@ -1,7 +1,6 @@
 import { ISY } from '../ISY.js';
 import { isDynamic } from '../Model/NodeInfo.js';
 import { Family } from '../Definitions/index.js';
-import { GenericNode } from './GenericNode.js';
 export var NodeFactory;
 (function (NodeFactory) {
     NodeFactory.registry = {};
@@ -66,7 +65,7 @@ export var NodeFactory;
                 return Promise.resolve(nd);
             }
             let n = (await isy.sendRequest(`zmatter/${node.family == Family.ZWave ? "zwave" : "zb"}/node/${node.address}/def/get?full=true`));
-            let cls = GenericNode;
+            let cls = (await import('../Devices/GenericNode.js')).GenericNode;
             NodeFactory.register(cls, n.nls);
             return cls;
         }

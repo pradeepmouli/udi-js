@@ -4,12 +4,12 @@ export class DynamicNode extends ISYDeviceNode {
         super(isy, node);
         this.getNodeDef(node.nodeDefId).then((def) => {
             for (let st in this.drivers) {
-                if (!(def.sts.st).find((s) => s.id === st)) {
+                if (!(def?.sts.st).find((s) => s.id === st)) {
                     delete this.drivers[st];
                 }
             }
             for (let cmd in this.commands) {
-                if (!(def.cmds.accepts.cmd).find((c) => c.id === cmd)) {
+                if (!(def?.cmds.accepts.cmd).find((c) => c.id === cmd)) {
                     delete this.commands[cmd];
                 }
             }

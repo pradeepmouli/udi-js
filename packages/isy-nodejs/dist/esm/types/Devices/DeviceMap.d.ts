@@ -9,9 +9,9 @@ export interface DeviceDef<T extends Family> {
     modelNumber?: string;
     class?: DeviceNames<T>;
 }
-export interface CategoryDef<T extends Family, C extends Category> {
+export interface CategoryDef<T extends Family, C extends Category.Insteon> {
     id: C;
-    name: `${typeof Category[C]}`;
+    name: `${typeof Category.Insteon[C]}`;
     devices: {
         [x: number]: DeviceDef<T>;
     };
@@ -21,7 +21,7 @@ export interface FamilyDef<T extends Family> {
     name: keyof typeof Family;
     description: string;
     categories: {
-        [key in keyof typeof Category]?: CategoryDef<T, typeof Category[key]> & {
+        [key in keyof typeof Category.Insteon]?: CategoryDef<T, typeof Category.Insteon[key]> & {
             name: key;
         };
     };

@@ -1,6 +1,6 @@
 import type { NodeInfo } from '../../Model/NodeInfo.js';
 import type { ISY } from '../../ISY.js';
-import { ISYBinaryStateDevice } from '../ISYDevice.js';
+
 import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
 import { BinaryAlarm } from './Generated/BinaryAlarm.js';
@@ -9,6 +9,7 @@ import { nodeDefId } from './KeypadButton.js';
 import { OnLevelRelay } from '../../Definitions/Insteon/index.js';
 import { NodeFactory } from '../NodeFactory.js';
 import type { Family } from '../../Definitions/index.js';
+import type { Identity } from '@matter/general';
 
 
 const nodes = {
@@ -23,14 +24,14 @@ export class DoorWindowSensorDevice extends CompositeDevice.of({contactSensor: B
 	constructor (isy: ISY, ...node: NodeInfo[]) {
 		super(isy, ...node);
 
-	
+
+
 
 	}
 
 }
 
 export namespace DoorWindowSensor {
-	export class Device extends DoorWindowSensorDevice { }
 
 	export class Class extends DoorWindowSensorDevice { }
 

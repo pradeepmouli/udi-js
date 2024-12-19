@@ -81,33 +81,33 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
     drivers: import("../../../Definitions/index.js").Driver.ForAll<Insteon.DimmerLamp.Drivers.Type, false>;
     enabled: boolean;
     events: import("@matter/general").Merge<import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
-        on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71 | 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 82 | 83 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99, oldValue: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71 | 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 82 | 83 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        on(eventName: "onTriggered", listener: (command: "DON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
-        on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        on(eventName: "offTriggered", listener: (command: "DOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+    } & {
+        on(eventName: "fastOnTriggered", listener: (command: "DFON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+    } & {
+        on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
         on(eventName: "brightenTriggered", listener: (command: "BRT") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
         on(eventName: "dimTriggered", listener: (command: "DIM") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
-        on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../../Definitions/Insteon/index.js").Error, oldValue: import("../../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        on(eventName: "queryTriggered", listener: (command: "QUERY") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+    } & {
+        on(eventName: "fadeUpTriggered", listener: (command: "FDUP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
         on(eventName: "fadeDownTriggered", listener: (command: "FDDOWN") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
         on(eventName: "fadeStopTriggered", listener: (command: "FDSTOP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
-        on(eventName: "fadeUpTriggered", listener: (command: "FDUP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-    } & {
-        on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-    } & {
-        on(eventName: "fastOnTriggered", listener: (command: "DFON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-    } & {
-        on(eventName: "offTriggered", listener: (command: "DOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-    } & {
-        on(eventName: "onTriggered", listener: (command: "DON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-    } & {
-        on(eventName: "queryTriggered", listener: (command: "QUERY") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-    } & {
         on(eventName: "writeChangesTriggered", listener: (command: "WDU") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+    } & {
+        on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+    } & {
+        on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../../Definitions/Insteon/index.js").Error, oldValue: import("../../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+    } & {
+        on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: 0 | 1 | 2 | 3 | 5 | 6 | 7 | 8 | 4 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71 | 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 82 | 83 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99, oldValue: 0 | 1 | 2 | 3 | 5 | 6 | 7 | 8 | 4 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71 | 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 82 | 83 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     }>;
     folder: string;
     hidden: boolean;
@@ -133,7 +133,7 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
     emit(event: "propertyChanged" | "controlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
     generateLabel(template: string): string;
     getNotes(): Promise<import("../../../Model/NodeNotes.js").NodeNotes>;
-    handleControlTrigger(controlName: "BEEP" | "BRT" | "DIM" | "FDDOWN" | "FDSTOP" | "FDUP" | "DFOF" | "DFON" | "DOF" | "DON" | "OL" | "QUERY" | "RR" | "WDU"): boolean;
+    handleControlTrigger(controlName: "DON" | "DOF" | "DFON" | "DFOF" | "BRT" | "DIM" | "OL" | "RR" | "QUERY" | "FDUP" | "FDDOWN" | "FDSTOP" | "WDU" | "BEEP"): boolean;
     handleEvent(event: {
         control?: any;
         data?: any;
@@ -146,7 +146,7 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
         property: import("../../../Model/DriverState.js").DriverState | import("../../../Model/DriverState.js").DriverState[];
     }): void;
     readProperties(): Promise<import("../../../Model/DriverState.js").DriverState[]>;
-    readProperty(propertyName: "ST" | "ERR" | "OL" | "RR"): Promise<import("../../../Model/DriverState.js").DriverState>;
+    readProperty(propertyName: "OL" | "RR" | "ERR" | "ST"): Promise<import("../../../Model/DriverState.js").DriverState>;
     refresh(): Promise<any>;
     refreshNotes(): Promise<void>;
     sendCommand(command: keyof Insteon.DimmerLamp.Commands.Type): Promise<any>;
@@ -236,33 +236,33 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
         drivers: import("../../../Definitions/index.js").Driver.ForAll<Insteon.DimmerLamp.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/general").Merge<import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
-            on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71 | 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 82 | 83 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99, oldValue: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71 | 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 82 | 83 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+            on(eventName: "onTriggered", listener: (command: "DON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+            on(eventName: "offTriggered", listener: (command: "DOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "fastOnTriggered", listener: (command: "DFON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "brightenTriggered", listener: (command: "BRT") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "dimTriggered", listener: (command: "DIM") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../../Definitions/Insteon/index.js").Error, oldValue: import("../../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+            on(eventName: "queryTriggered", listener: (command: "QUERY") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "fadeUpTriggered", listener: (command: "FDUP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fadeDownTriggered", listener: (command: "FDDOWN") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fadeStopTriggered", listener: (command: "FDSTOP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "fadeUpTriggered", listener: (command: "FDUP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
-            on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
-            on(eventName: "fastOnTriggered", listener: (command: "DFON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
-            on(eventName: "offTriggered", listener: (command: "DOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
-            on(eventName: "onTriggered", listener: (command: "DON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
-            on(eventName: "queryTriggered", listener: (command: "QUERY") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "writeChangesTriggered", listener: (command: "WDU") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../../Definitions/Insteon/index.js").Error, oldValue: import("../../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: 0 | 1 | 2 | 3 | 5 | 6 | 7 | 8 | 4 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71 | 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 82 | 83 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99, oldValue: 0 | 1 | 2 | 3 | 5 | 6 | 7 | 8 | 4 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 | 51 | 52 | 53 | 54 | 55 | 56 | 57 | 58 | 59 | 60 | 61 | 62 | 63 | 64 | 65 | 66 | 67 | 68 | 69 | 70 | 71 | 72 | 73 | 74 | 75 | 76 | 77 | 78 | 79 | 80 | 81 | 82 | 83 | 84 | 85 | 86 | 87 | 88 | 89 | 90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         }>;
         folder: string;
         hidden: boolean;
@@ -288,7 +288,7 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
         emit(event: "propertyChanged" | "controlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
         generateLabel(template: string): string;
         getNotes(): Promise<import("../../../Model/NodeNotes.js").NodeNotes>;
-        handleControlTrigger(controlName: "BEEP" | "BRT" | "DIM" | "FDDOWN" | "FDSTOP" | "FDUP" | "DFOF" | "DFON" | "DOF" | "DON" | "OL" | "QUERY" | "RR" | "WDU"): boolean;
+        handleControlTrigger(controlName: "DON" | "DOF" | "DFON" | "DFOF" | "BRT" | "DIM" | "OL" | "RR" | "QUERY" | "FDUP" | "FDDOWN" | "FDSTOP" | "WDU" | "BEEP"): boolean;
         handleEvent(event: {
             control?: any;
             data?: any;
@@ -301,7 +301,7 @@ declare const DimmerLevelControlBehavior_base: import("@matter/node").ClusterBeh
             property: import("../../../Model/DriverState.js").DriverState | import("../../../Model/DriverState.js").DriverState[];
         }): void;
         readProperties(): Promise<import("../../../Model/DriverState.js").DriverState[]>;
-        readProperty(propertyName: "ST" | "ERR" | "OL" | "RR"): Promise<import("../../../Model/DriverState.js").DriverState>;
+        readProperty(propertyName: "OL" | "RR" | "ERR" | "ST"): Promise<import("../../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
         sendCommand(command: keyof Insteon.DimmerLamp.Commands.Type): Promise<any>;

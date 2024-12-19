@@ -47,23 +47,23 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
     drivers: import("../../../Definitions/index.js").Driver.ForAll<Insteon.RelayLamp.Drivers.Type, false>;
     enabled: boolean;
     events: import("@matter/general").Merge<import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
-        on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        on(eventName: "onTriggered", listener: (command: "DON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+    } & {
+        on(eventName: "offTriggered", listener: (command: "DOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+    } & {
+        on(eventName: "fastOnTriggered", listener: (command: "DFON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+    } & {
+        on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+    } & {
+        on(eventName: "queryTriggered", listener: (command: "QUERY") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+    } & {
+        on(eventName: "writeChangesTriggered", listener: (command: "WDU") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
         on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
         on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../../Definitions/Insteon/index.js").Error, oldValue: import("../../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
-        on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-    } & {
-        on(eventName: "fastOnTriggered", listener: (command: "DFON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-    } & {
-        on(eventName: "offTriggered", listener: (command: "DOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-    } & {
-        on(eventName: "onTriggered", listener: (command: "DON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-    } & {
-        on(eventName: "queryTriggered", listener: (command: "QUERY") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-    } & {
-        on(eventName: "writeChangesTriggered", listener: (command: "WDU") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     }>;
     folder: string;
     hidden: boolean;
@@ -89,7 +89,7 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
     emit(event: "propertyChanged" | "controlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
     generateLabel(template: string): string;
     getNotes(): Promise<import("../../../Model/NodeNotes.js").NodeNotes>;
-    handleControlTrigger(controlName: "BEEP" | "DFOF" | "DFON" | "DOF" | "DON" | "QUERY" | "WDU"): boolean;
+    handleControlTrigger(controlName: "DON" | "DOF" | "DFON" | "DFOF" | "QUERY" | "WDU" | "BEEP"): boolean;
     handleEvent(event: {
         control?: any;
         data?: any;
@@ -102,7 +102,7 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
         property: import("../../../Model/DriverState.js").DriverState | import("../../../Model/DriverState.js").DriverState[];
     }): void;
     readProperties(): Promise<import("../../../Model/DriverState.js").DriverState[]>;
-    readProperty(propertyName: "ST" | "ERR"): Promise<import("../../../Model/DriverState.js").DriverState>;
+    readProperty(propertyName: "ERR" | "ST"): Promise<import("../../../Model/DriverState.js").DriverState>;
     refresh(): Promise<any>;
     refreshNotes(): Promise<void>;
     sendCommand(command: keyof Insteon.RelayLamp.Commands.Type): Promise<any>;
@@ -159,23 +159,23 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
         drivers: import("../../../Definitions/index.js").Driver.ForAll<Insteon.RelayLamp.Drivers.Type, false>;
         enabled: boolean;
         events: import("@matter/general").Merge<import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
-            on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+            on(eventName: "onTriggered", listener: (command: "DON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "offTriggered", listener: (command: "DOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "fastOnTriggered", listener: (command: "DFON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "queryTriggered", listener: (command: "QUERY") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "writeChangesTriggered", listener: (command: "WDU") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../../Definitions/Insteon/index.js").Error, oldValue: import("../../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
-            on(eventName: "fastOnTriggered", listener: (command: "DFON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
-            on(eventName: "offTriggered", listener: (command: "DOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
-            on(eventName: "onTriggered", listener: (command: "DON") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
-            on(eventName: "queryTriggered", listener: (command: "QUERY") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
-            on(eventName: "writeChangesTriggered", listener: (command: "WDU") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+            on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         }>;
         folder: string;
         hidden: boolean;
@@ -201,7 +201,7 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
         emit(event: "propertyChanged" | "controlTriggered", propertyName?: string, newValue?: any, oldValue?: any, formattedValue?: string, controlName?: string): void;
         generateLabel(template: string): string;
         getNotes(): Promise<import("../../../Model/NodeNotes.js").NodeNotes>;
-        handleControlTrigger(controlName: "BEEP" | "DFOF" | "DFON" | "DOF" | "DON" | "QUERY" | "WDU"): boolean;
+        handleControlTrigger(controlName: "DON" | "DOF" | "DFON" | "DFOF" | "QUERY" | "WDU" | "BEEP"): boolean;
         handleEvent(event: {
             control?: any;
             data?: any;
@@ -214,7 +214,7 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
             property: import("../../../Model/DriverState.js").DriverState | import("../../../Model/DriverState.js").DriverState[];
         }): void;
         readProperties(): Promise<import("../../../Model/DriverState.js").DriverState[]>;
-        readProperty(propertyName: "ST" | "ERR"): Promise<import("../../../Model/DriverState.js").DriverState>;
+        readProperty(propertyName: "ERR" | "ST"): Promise<import("../../../Model/DriverState.js").DriverState>;
         refresh(): Promise<any>;
         refreshNotes(): Promise<void>;
         sendCommand(command: keyof Insteon.RelayLamp.Commands.Type): Promise<any>;

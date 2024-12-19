@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = FanLincMotor.Commands.Type;
 type Drivers = FanLincMotor.Drivers.Type;
@@ -20,7 +20,7 @@ declare class FanLincMotorNode extends Base<Drivers, Commands> implements FanLin
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'FanLincMotor';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     on(value: Insteon.FanLevel): Promise<any>;
     off(): Promise<any>;
     fastOff(): Promise<any>;
@@ -36,7 +36,7 @@ export declare namespace FanLincMotor {
     }
     function is(node: ISYNode<any, any, any, any>): node is FanLincMotorNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is FanLincMotorNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): FanLincMotorNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): FanLincMotorNode;
     const Node: typeof FanLincMotorNode;
     const Class: typeof FanLincMotorNode;
     namespace Commands {

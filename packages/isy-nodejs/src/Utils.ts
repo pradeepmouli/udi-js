@@ -13,9 +13,10 @@ import path from 'path';
 import { Family } from './Definitions/index.js';
 import { EventType } from './Events/EventType.js';
 import type { Constructor } from 'type-fest';
+import type { NodeInfo } from './ISY.js';
 
 
-export type Factory<T extends object> =
+export interface Factory<T extends object>
 	{
 		create?: (...args: any[]) => T;
 		is?<K extends T>(obj: object): obj is T;
@@ -23,7 +24,7 @@ export type Factory<T extends object> =
 		Class: Constructor<T>;
 
 
-	} & {Node: Constructor<T>} | {Device: Constructor<T>};
+	}
 
 export function isFactory(obj: any): obj is Factory<any> {
 	return obj.Node !== undefined || obj.Device !== undefined || obj.class !== undefined;
@@ -34,7 +35,7 @@ export function getConstructor<T extends object>(obj: Factory<T> | Constructor<T
 		if('Node' in obj) {
 			return obj.Class;
 		}
-		return obj.Device;
+		return obj.Class;
 	}
 	return obj;
 }
@@ -42,6 +43,10 @@ export function getConstructor<T extends object>(obj: Factory<T> | Constructor<T
 
 export type ConstructorOf<T> = T extends Factory<infer U>  ? Constructor<U> : T extends Constructor<infer U> ? U : Constructor<T> ;
 
+
+export type InstanceOf<T> = T extends Factory<infer U> ? U : T extends Constructor<infer U> ? U : T;
+
+export type ExtractKeys<T,U> = keyof {[K in keyof T]: T[K] extends U ? K : never };
 
 export type StringKeys<T> = Extract<keyof T, string>;
 
@@ -305,7 +310,7 @@ export function removeAll(this: string, searchValue: string | RegExp) {
 	return this.replaceAll(searchValue, '');
 }
 
-export function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}`): { category: Category; deviceCode: number; firmwareVersion: number; minorVersion: number } {
+/*export function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}`): { category: Category; deviceCode: number; firmwareVersion: number; minorVersion: number } {
 	try {
 		const s = typeCode.split('.');
 
@@ -315,24 +320,7 @@ export function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}
 	} catch (err) {
 		return null;
 	}
-}
-
-export function getCategory(device: { type: string }) {
-	try {
-		const s = device.type.split('.');
-		return Number(s[0]);
-	} catch (err) {
-		return Category.Unknown;
-	}
-}
-export function getSubcategory(device: { type: string }) {
-	try {
-		const s = device.type.split('.');
-		return Number(s[1]);
-	} catch (err) {
-		return Category.Unknown;
-	}
-}
+}*/
 
 function getImportMeta() {
 	try {

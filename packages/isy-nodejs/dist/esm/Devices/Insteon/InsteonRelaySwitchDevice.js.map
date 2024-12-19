@@ -1,1 +1,0 @@
-{"version":3,"file":"InsteonRelaySwitchDevice.js","sourceRoot":"","sources":["../../../../src/Devices/Insteon/InsteonRelaySwitchDevice.ts"],"names":[],"mappings":"AAGA,OAAO,EAAE,kBAAkB,EAAE,MAAM,yBAAyB,CAAC;AAC7D,OAAO,SAAS,CAAC;AAEjB,MAAM,OAAO,wBAAyB,SAAQ,kBAAkB;IAC/D,YAAa,GAAQ,EAAE,UAAoB;QAC1C,KAAK,CAAC,GAAG,EAAE,UAAU,CAAC,CAAC;IACxB,CAAC;CACD"}

@@ -40,6 +40,8 @@ export declare class NodeClassFactory extends CodeFactory {
         statements: ts.ExportDeclaration[];
     };
     createCommandArguments(def: CommandDefinition): any[];
+    createCommandMethodArguments(def: CommandDefinition): ts.ParameterDeclaration[];
+    createCommandSignatureArguments(def: CommandDefinition): ts.ParameterDeclaration[];
     createCommandMethodDeclaration(def: CommandDefinition): ts.MethodDeclaration;
     createCommandParameterType(def: DataTypeDefinition, parent: ParameterDefinition): ts.TypeNode;
     createCommandSignature(def: CommandDefinition): ts.PropertySignature;

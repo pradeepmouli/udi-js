@@ -1,11 +1,7 @@
-import { Family as FamilyEnum } from '../../Definitions/index.js';
-import type { ISY } from '../../ISY.js';
-import { ISYNode } from '../../ISYNode.js';
-import type { NodeInfo } from '../../Model/NodeInfo.js';
-import { NodeFactory } from '../NodeFactory.js';
 
-
-export class Base<Drivers extends ISYNode.DriverSignatures, Commands extends ISYNode.CommandSignatures> extends ISYNode<FamilyEnum.ZWave, Drivers, Commands> {
+export { ZWaveBase as Base } from './ZWaveBase.js';
+export * from './Generated/index.js';
+/*export class Base<Drivers extends ISYNode.DriverSignatures, Commands extends ISYNode.CommandSignatures> extends ISYNode<FamilyEnum.ZWave, Drivers, Commands> {
 	constructor(isy: ISY, nodeInfo: NodeInfo) {
 
 		super(isy, nodeInfo);
@@ -18,11 +14,9 @@ export class Base<Drivers extends ISYNode.DriverSignatures, Commands extends ISY
 	}
 
 		//// this.productName = InsteonNLS.getDeviceDescription(String.fromCharCode(category,device,version))
-}
+}*/
 
-
-
-export async function create(...nodeInfo: NodeInfo<FamilyEnum.ZWave>[])
+/*export async function create(...nodeInfo: NodeInfo<FamilyEnum.ZWave>[])
 {
 	let nodes = [] as Base<any, any>[];
 
@@ -31,6 +25,6 @@ export async function create(...nodeInfo: NodeInfo<FamilyEnum.ZWave>[])
 		nodes.push(await NodeFactory.create(node) as unknown as Base<any, any>);
 	}
 	return nodes;
-}
+}*/
 
 //export * from './Generated/index.js';

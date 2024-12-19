@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
@@ -35,7 +35,7 @@ class KeypadDimmerNode extends Base<Drivers, Commands> implements KeypadDimmer.I
 	static override nodeDefId = "KeypadDimmer";
 	static override implements = ['KeypadDimmer', "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RemoteLinc2", "RemoteLinc2_ADV", "IRLincTx", "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: 'KeypadDimmer' | "KeypadDimmer_ADV";
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.Insteon>) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.OL = Driver.create("OL", this, nodeInfo.state['OL'], { uom: UnitOfMeasure.Percent, label: "On Level", name: "onLevel" });
@@ -83,7 +83,7 @@ export namespace KeypadDimmer {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is KeypadDimmerNode {
 		return ['KeypadDimmer', "KeypadDimmer_ADV"].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>) {
 		return new KeypadDimmerNode(isy, nodeInfo);
 	}
 	export const Node = KeypadDimmerNode;

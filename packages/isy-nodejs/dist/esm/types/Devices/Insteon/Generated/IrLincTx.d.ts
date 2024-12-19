@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = IrLincTx.Commands.Type;
 type Drivers = IrLincTx.Drivers.Type;
@@ -15,7 +15,7 @@ declare class IrLincTxNode extends Base<Drivers, Commands> implements IrLincTx.I
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'IRLincTx';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     beep(value?: number): Promise<any>;
     writeChanges(): Promise<any>;
     get responding(): Insteon.Error;
@@ -25,7 +25,7 @@ export declare namespace IrLincTx {
     }
     function is(node: ISYNode<any, any, any, any>): node is IrLincTxNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is IrLincTxNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): IrLincTxNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): IrLincTxNode;
     const Node: typeof IrLincTxNode;
     const Class: typeof IrLincTxNode;
     namespace Commands {

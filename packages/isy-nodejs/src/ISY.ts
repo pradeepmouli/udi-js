@@ -9,10 +9,11 @@ import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
 import { DeviceFactory } from './Devices/DeviceFactory.js';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
 import { ElkAlarmSensorDevice } from './Devices/Elk/ElkAlarmSensorDevice.js';
-import { ISYDeviceNode } from './Devices/ISYDeviceNode.js';
+
 import { EventType } from './Events/EventType.js';
-import { type ISYDevice } from './ISYDevice.js';
+import { ISYDevice } from './ISYDevice.js';
 import { ISYNode } from './ISYNode.js';
+import { ISYDeviceNode } from './Devices/ISYDeviceNode.js';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
 import type { NodeInfo } from './Model/NodeInfo.js';
@@ -23,12 +24,15 @@ import * as Utils from './Utils.js';
 import { X2jOptions, XMLParser } from 'fast-xml-parser';
 import type { ClientRequestArgs } from 'http';
 import path from 'path';
+
 import { CompositeDevice } from './Devices/CompositeDevice.js';
 import { GenericNode } from './Devices/GenericNode.js';
 import { NodeFactory } from './Devices/NodeFactory.js';
 import { ISYError } from './ISYError.js';
 import type { Config } from './Model/Config.js';
 import { findPackageJson } from './Utils.js';
+import type { Family } from './Definitions/index.js';
+
 
 type InitStep = 'config' | 'loadNodes' | 'readFolders' | 'readDevices' | 'readScenes' | 'variables' | 'websocket' | 'refreshStatuses' | 'initialize';
 
@@ -78,6 +82,8 @@ const defaultXMLParserOptions: X2jOptions = {
 };
 
 axios.defaults.transitional.forcedJSONParsing = false;
+
+let s = ISYDeviceNode;
 
 const parser = new Parser(defaultParserOptions);
 
@@ -798,7 +804,7 @@ export class ISY extends EventEmitter implements Disposable {
 								this.logger.warn('Device not currently supported: ' + JSON.stringify(nodeInfo) + ' /n It has been mapped to: ' + d.name);
 							}
 							try {
-								await newDevice.refreshNotes();
+								//await newDevice.refreshNotes();
 							} catch (e) {
 								this.logger.debug('No notes found.');
 							}
@@ -859,7 +865,7 @@ export class ISY extends EventEmitter implements Disposable {
 
 				const newScene = new ISYScene(this, scene);
 				try {
-					await newScene.refreshNotes();
+					//await newScene.refreshNotes();
 				} catch (e) {
 					this.logger.debug('No notes found.');
 				}
@@ -886,7 +892,30 @@ export class ISY extends EventEmitter implements Disposable {
 
 	// #endregion Private Methods (11)
 }
+export { ISYNode as Node } from './ISYNode.js';
+export {ISYDeviceNode as DeviceNode} from './Devices/ISYDeviceNode.js';
+export { CompositeDevice } from './Devices/CompositeDevice.js';
+
+export {ISYScene as Scene} from './ISYScene.js';
+export {ISYVariable as Variable} from './ISYVariable.js';
+export {VariableType} from './VariableType.js';
+export {ISYError} from './ISYError.js';
+export * from './Converters.js';
+export * from './Definitions/index.js';
+export * as Devices from './Devices/index.js';
+export * from './Model/index.js';
+export * from './Utils.js';
+export * from './ISYError.js';
+
+
+
 
 export namespace ISY {
 	export interface Config extends ISYConfig {}
+
+	export type Device<F extends Family, D,C,E> = ISYDevice<F, D, C, E>;
+
+
+
+
 }

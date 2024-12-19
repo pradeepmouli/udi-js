@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = RemoteLinc2.Commands.Type;
@@ -15,7 +15,7 @@ declare class RemoteLinc2Node extends Base<Drivers, Commands> implements RemoteL
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'RemoteLinc2' | "RemoteLinc2_ADV";
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     writeChanges(): Promise<any>;
     get status(): IntRange<0, 100>;
     get responding(): Insteon.Error;
@@ -25,7 +25,7 @@ export declare namespace RemoteLinc2 {
     }
     function is(node: ISYNode<any, any, any, any>): node is RemoteLinc2Node;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is RemoteLinc2Node;
-    function create(isy: ISY, nodeInfo: NodeInfo): RemoteLinc2Node;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): RemoteLinc2Node;
     const Node: typeof RemoteLinc2Node;
     const Class: typeof RemoteLinc2Node;
     namespace Commands {

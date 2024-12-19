@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = KeypadButton.Commands.Type;
 type Drivers = KeypadButton.Drivers.Type;
@@ -16,7 +16,7 @@ declare class KeypadButtonNode extends Base<Drivers, Commands> implements Keypad
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'KeypadButton' | "KeypadButton_ADV";
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     query(): Promise<any>;
     backlight(value: Insteon.Backlight): Promise<any>;
     writeChanges(): Promise<any>;
@@ -28,7 +28,7 @@ export declare namespace KeypadButton {
     }
     function is(node: ISYNode<any, any, any, any>): node is KeypadButtonNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is KeypadButtonNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): KeypadButtonNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): KeypadButtonNode;
     const Node: typeof KeypadButtonNode;
     const Class: typeof KeypadButtonNode;
     namespace Commands {

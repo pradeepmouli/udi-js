@@ -83,8 +83,8 @@ export class NodeClassFactory extends CodeFactory {
 			this.createImportDeclaration('../../../Model/NodeInfo.js', ['NodeInfo'], true),
 			this.createImportDeclaration('../../../ISY.js', ['ISY']),
 			this.createImportDeclaration('../../../ISYNode.js', ['ISYNode']),
-			this.createImportDeclaration('../index.js', ['Base']),
 			this.createImportDeclaration('../../ISYDeviceNode.js', ['ISYDeviceNode']),
+			this.createImportDeclaration('../index.js', ['Base']),
 			this.createImportDeclaration('../../../Definitions/Global/Drivers.js', ['Driver']),
 			this.createImportDeclaration('type-fest', ['IntRange'], true),
 			this.createImportDeclaration('../../../Model/DriverState,js', ['DriverState'], true),
@@ -195,7 +195,7 @@ export class NodeClassFactory extends CodeFactory {
 								undefined,
 								factory.createIdentifier('nodeInfo'),
 								undefined,
-								factory.createTypeReferenceNode(factory.createIdentifier('NodeInfo'), undefined),
+								factory.createTypeReferenceNode(factory.createIdentifier('NodeInfo'), [this.createTypeReferenceNode(Family[nodeClassDef.family], 'Family')]),
 								undefined
 							)
 						],
@@ -370,7 +370,7 @@ export class NodeClassFactory extends CodeFactory {
 								undefined,
 								factory.createIdentifier('nodeInfo'),
 								undefined,
-								factory.createTypeReferenceNode(factory.createIdentifier('NodeInfo'), undefined),
+								factory.createTypeReferenceNode(factory.createIdentifier('NodeInfo'), [this.createTypeReferenceNode(Family[nodeClassDef.family], 'Family')]),
 								undefined
 							)
 						],
@@ -524,6 +524,35 @@ export class NodeClassFactory extends CodeFactory {
 		];
 		return fnl.length > 0 ? fnl : undefined;
 	}
+	createCommandMethodArguments(def: CommandDefinition): ts.ParameterDeclaration[] {
+		let p1: ts.ParameterDeclaration[] = [];
+		let p2: ts.ParameterDeclaration[] = [];
+
+		for (let p of def.parameters) {
+			if (p.optional) {
+				p2.push(this.createParameterDeclarationSignature(p));
+			} else {
+				p1.push(this.createParameterDeclarationSignature(p));
+			}
+		}
+
+		return [...p1, ...p2];
+	}
+
+	createCommandSignatureArguments(def: CommandDefinition): ts.ParameterDeclaration[] {
+		let p1: ts.ParameterDeclaration[] = [];
+		let p2: ts.ParameterDeclaration[] = [];
+
+		for (let p of def.parameters) {
+			if (p.optional) {
+				p2.push(this.createParameterSignature(p));
+			} else {
+				p1.push(this.createParameterSignature(p));
+			}
+		}
+
+		return [...p1, ...p2];
+	}
 
 	createCommandMethodDeclaration(def: CommandDefinition) {
 		return factory.createMethodDeclaration(
@@ -532,8 +561,7 @@ export class NodeClassFactory extends CodeFactory {
 			factory.createIdentifier(def.name),
 			undefined,
 			undefined,
-
-			def.parameters ? Object.values(def.parameters).map(NodeClassFactory.instance.createParameterDeclarationSignature.bind(this)) : undefined,
+			def.parameters ? this.createCommandMethodArguments(def) : [],
 			undefined,
 			factory.createBlock([
 				factory.createReturnStatement(
@@ -586,7 +614,7 @@ export class NodeClassFactory extends CodeFactory {
 				factory.createParenthesizedType(
 					factory.createFunctionTypeNode(
 						undefined,
-						def.parameters ? Object.values(def.parameters).map((p) => NodeClassFactory.instance.createParameterSignature(p)) : [],
+						def.parameters ? NodeClassFactory.instance.createCommandSignatureArguments(def) : [],
 
 						factory.createTypeReferenceNode(factory.createIdentifier('Promise'), [factory.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword)])
 					)
@@ -670,7 +698,7 @@ export class NodeClassFactory extends CodeFactory {
 				// )))
 			}
 		}
-		if ('min' in def && 'max' in def) {
+		if ('min' in def && 'max' in def && def.min >= 0 && def.max < 1000) {
 			return factory.createTypeReferenceNode(factory.createIdentifier('IntRange'), [
 				factory.createLiteralTypeNode(this.createLiteral(def.min as number)),
 				factory.createLiteralTypeNode(this.createLiteral(def.max as number))
@@ -732,7 +760,7 @@ export class NodeClassFactory extends CodeFactory {
 				// )))
 			}
 		}
-		if ('min' in def && 'max' in def && def.max < 1000 && def.min > -1000) {
+		if ('min' in def && 'max' in def && def.max < 1000 && def.min >= 0) {
 			return factory.createTypeReferenceNode(factory.createIdentifier('IntRange'), [
 				factory.createLiteralTypeNode(this.createLiteral(def.min)),
 				factory.createLiteralTypeNode(this.createLiteral(def.max))

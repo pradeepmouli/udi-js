@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = X10.Commands.Type;
 type Drivers = X10.Drivers.Type;
@@ -18,7 +18,7 @@ declare class X10Node extends Base<Drivers, Commands> implements X10.Interface {
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'X10';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     on(): Promise<any>;
     off(): Promise<any>;
     brighten(): Promise<any>;
@@ -32,7 +32,7 @@ export declare namespace X10 {
     }
     function is(node: ISYNode<any, any, any, any>): node is X10Node;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is X10Node;
-    function create(isy: ISY, nodeInfo: NodeInfo): X10Node;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): X10Node;
     const Node: typeof X10Node;
     const Class: typeof X10Node;
     namespace Commands {

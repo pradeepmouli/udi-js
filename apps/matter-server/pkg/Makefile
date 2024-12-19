@@ -46,9 +46,12 @@ build-matter:
 	@cp -r ../bin/* build/bin/
 	@cp files/.env build/.env
 	@cp ../package*.json build/
+# we can copy the package-lock.json since it will only be used to verify the checksums of the dependencies
+	@cp ../../../package-lock.json build/
 
-	@echo "*** Updating package lock ***"
-	@cd build && npm i --package-lock-only --workspaces=false
+
+#	@echo "*** Updating package lock ***"
+#	@cd build && npm i --package-lock-only --workspaces=false
 
 	@echo "*** Installing dependencies ***"
 	@cd build && npm ci --omit=dev --workspaces=false

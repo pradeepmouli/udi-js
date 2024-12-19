@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
@@ -22,7 +22,7 @@ class MatterBridgeNode extends Base<Drivers, Commands> implements MatterBridge.I
 	static override nodeDefId = "CONTROLLER";
 	static override implements = ['CONTROLLER'];
 	declare readonly nodeDefId: 'CONTROLLER';
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.Poly>) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Unknown, label: "Status", name: "status" });
 	}
@@ -47,7 +47,7 @@ export namespace MatterBridge {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is MatterBridgeNode {
 		return ['CONTROLLER'].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.Poly>) {
 		return new MatterBridgeNode(isy, nodeInfo);
 	}
 	export const Node = MatterBridgeNode;

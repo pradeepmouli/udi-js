@@ -1,13 +1,12 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
-import { ZigBeeLegacy } from "../../../Definitions/index.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
 type Commands = Relay.Commands.Type;
@@ -23,21 +22,24 @@ class RelayNode extends Base<Drivers, Commands> implements Relay.Interface {
 	static override nodeDefId = "RelayLoadControl";
 	static override implements = ['RelayLoadControl'];
 	declare readonly nodeDefId: 'RelayLoadControl';
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.ZigBeeLegacy>) {
 		super(isy, nodeInfo);
-		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
-		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
+		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Unknown, label: "Status", name: "status" });
+		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Unknown, label: "Responding", name: "responding" });
 	}
 	async on() { return this.sendCommand("DON"); }
 	async off() { return this.sendCommand("DOF"); }
 	async query() { return this.sendCommand("QUERY"); }
-	async adr(value: (0 | 1)) { return this.sendCommand("ADRPST", value); }
-	public get status(): (0 | 100) {
-		return this.drivers.ST?.value;
-	}
-	public get responding(): ZigBeeLegacy.Error {
-		return this.drivers.ERR?.value;
-	}
+	async adr(value: ) { return this.sendCommand("ADRPST", value); }
+	public get status(): {
+        
+return this.drivers.ST?.value;
+    }
+    public 
+get responding(): 
+{
+	return this.drivers.ERR?.value;
+}
 }
 
 NodeFactory.register(RelayNode);
@@ -51,7 +53,7 @@ export namespace Relay {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayNode {
 		return ['RelayLoadControl'].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.ZigBeeLegacy>) {
 		return new RelayNode(isy, nodeInfo);
 	}
 	export const Node = RelayNode;
@@ -70,7 +72,7 @@ export namespace Relay {
 				label: "Query";
 				name: "query";
 			};
-			ADRPST: ((value: (0 | 1)) => Promise<boolean>) & {
+			ADRPST: ((value: ) => Promise<boolean>) & {
 				label: "ADR";
 				name: "adr";
 			};
@@ -85,14 +87,14 @@ export namespace Relay {
 	export namespace Drivers {
 		export type Type = {
 			ST: {
-				uom: UnitOfMeasure.Percent;
-				value: (0 | 100);
+				uom: ;
+				value: ;
 				label: "Status";
 				name: "status";
 			};
 			ERR: {
-				uom: UnitOfMeasure.Index;
-				value: ZigBeeLegacy.Error;
+				uom: ;
+				value: ;
 				label: "Responding";
 				name: "responding";
 			};

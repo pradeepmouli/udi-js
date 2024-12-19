@@ -9,6 +9,7 @@ import type { Command } from './Definitions/Global/Commands.js';
 import { Event } from './Definitions/Global/Events.js';
 import type { CompositeDevice } from './Devices/CompositeDevice.js';
 import type { Constructor } from './Devices/Constructor.js';
+import type { Factory as BaseFactory } from './Utils.js';
 import type { ISYScene } from './ISYScene.js';
 import type { DriverState } from './Model/DriverState.js';
 import { NodeInfo } from './Model/NodeInfo.js';
@@ -103,9 +104,14 @@ export type CommandsOf<T> = T extends ISYNode<any, any, infer C, any> ? C : neve
 export type EventsOf<T> = T extends ISYNode<any, any, any, infer E> ? E : never;
 export declare namespace ISYNode {
     export type FromSignatures<T> = T extends DriverSignatures ? Driver.ForAll<T> : never;
+    export interface Factory<F extends Family, T extends ISYNode<F, any, any, any>> extends BaseFactory<T> {
+        Commands: any;
+        Drivers: any;
+        nodeDefId: string;
+    }
     type InternalDriversOf<T> = T extends ISYNode<any, infer D, any, any> ? D : never;
     export type DriversOf<T> = T extends ISYNode<any, any, any, any> ? InternalDriversOf<T> : T extends CompositeDevice<any, any> ? T['drivers'] : never;
-    export type CommandsOf<T> = T extends ISYNode<any, any, infer C, any> ? C : never;
+    export type CommandsOf<T> = T extends ISYNode<any, any, any, any> ? T['commands'] : never;
     export type EventsOf<T> = T extends ISYNode<any, any, any, infer E> ? E : never;
     export type FamilyOf<T> = T extends ISYNode<infer F, any, any, any> ? F : never;
     export type DriverTypesOf<T> = ObjectToUnion<DriversOf<T>>;
@@ -114,16 +120,18 @@ export declare namespace ISYNode {
     export type EventNamesOf<T extends ISYNode> = EventTypesOf<T> extends {
         name: infer U;
     } ? U : never;
-    export type DriverNamesOf<T> = DriverTypesOf<T> extends {
+    export type DriverNamesOf<T> = T extends {
+        'Drivers': any;
+    } ? keyof T['Drivers'] : DriverTypesOf<T> extends {
         name: infer U;
     } ? U : DriversOf<T> extends {
         name: infer U;
     } ? U : never;
     export type DriverKeysOf<T> = keyof DriversOf<T>;
     export type CommandKeysOf<T> = keyof CommandsOf<T>;
-    export type CommandNamesOf<T extends ISYNode> = CommandsOf<T> extends {
-        name: infer U;
-    } ? U : never;
+    export type CommandNamesOf<T> = T extends {
+        'Commands': any;
+    } ? keyof T['Commands'] : never;
     export type List = NodeList;
     export type DriverMap<T extends NodeList> = Flatten<{
         [x in keyof T]: DriversOf<T[x]>;
@@ -139,11 +147,12 @@ export declare namespace ISYNode {
         [x: string]: Command.Signature<any, any, any>;
     }>;
     export type EventSignatures = Record<string, Event.Signature>;
+    export function getImplements(node: ISYNode<any, any, any, any> | typeof ISYNode): string[];
     export const With: <K extends Family, D extends DriverSignatures, C extends CommandSignatures, T extends Constructor<ISYNode<K, any, any, any>>>(Base: T) => {
         new (...args: any[]): {
             drivers: Driver.ForAll<D, false>;
             commands: Command.ForAll<C>;
-            "__#173@#parentNode": ISYNode<any, any, any, any>;
+            "__#168@#parentNode": ISYNode<any, any, any, any>;
             readonly address: string;
             readonly baseLabel: string;
             readonly flag: any;

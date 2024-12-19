@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
@@ -24,7 +24,7 @@ class Pir2844cNode extends Base<Drivers, Commands> implements Pir2844c.Interface
 	static override nodeDefId = "PIR2844C";
 	static override implements = ['PIR2844C'];
 	declare readonly nodeDefId: 'PIR2844C' | "PIR2844C_ADV";
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.Insteon>) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.CLITEMP = Driver.create("CLITEMP", this, nodeInfo.state['CLITEMP'], { uom: UnitOfMeasure.Celsius, label: "Temperature", name: "temperature" });
@@ -40,7 +40,7 @@ class Pir2844cNode extends Base<Drivers, Commands> implements Pir2844c.Interface
 	public get status(): Insteon.OnLevelRelay {
 		return this.drivers.ST?.value;
 	}
-	public get temperature(): IntRange<-31, 70> {
+	public get temperature(): number {
 		return this.drivers.CLITEMP?.value;
 	}
 	public get luminance(): IntRange<0, 100> {
@@ -69,7 +69,7 @@ export namespace Pir2844c {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is Pir2844cNode {
 		return ['PIR2844C', "PIR2844", "PIR2844_ADV", "PIR2844C_ADV"].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>) {
 		return new Pir2844cNode(isy, nodeInfo);
 	}
 	export const Node = Pir2844cNode;
@@ -110,7 +110,7 @@ export namespace Pir2844c {
 			};
 			CLITEMP: {
 				uom: UnitOfMeasure.Celsius;
-				value: IntRange<-31, 70>;
+				value: number;
 				label: "Temperature";
 				name: "temperature";
 			};

@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = DimmerMotorSwitch.Commands.Type;
@@ -27,7 +27,7 @@ declare class DimmerMotorSwitchNode extends Base<Drivers, Commands> implements D
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'DimmerMotorSwitch' | "DimmerMotorSwitch_ADV";
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     on(value?: number): Promise<any>;
     off(): Promise<any>;
     fastOff(): Promise<any>;
@@ -43,7 +43,7 @@ declare class DimmerMotorSwitchNode extends Base<Drivers, Commands> implements D
     writeChanges(): Promise<any>;
     get status(): IntRange<0, 100>;
     get onLevel(): IntRange<0, 100>;
-    get maxDuration(): IntRange<0, 546.2>;
+    get maxDuration(): IntRange<0, 546>;
     get responding(): Insteon.Error;
 }
 export declare namespace DimmerMotorSwitch {
@@ -51,7 +51,7 @@ export declare namespace DimmerMotorSwitch {
     }
     function is(node: ISYNode<any, any, any, any>): node is DimmerMotorSwitchNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerMotorSwitchNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): DimmerMotorSwitchNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): DimmerMotorSwitchNode;
     const Node: typeof DimmerMotorSwitchNode;
     const Class: typeof DimmerMotorSwitchNode;
     namespace Commands {
@@ -141,7 +141,7 @@ export declare namespace DimmerMotorSwitch {
             };
             DUR: {
                 uom: UnitOfMeasure.DurationInSeconds;
-                value: IntRange<0, 546.2>;
+                value: IntRange<0, 546>;
                 label: "Max Duration";
                 name: "maxDuration";
             };

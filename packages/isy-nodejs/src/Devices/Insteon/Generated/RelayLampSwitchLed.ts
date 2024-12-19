@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
 import { NodeFactory } from "../../NodeFactory.js";
@@ -28,7 +28,7 @@ class RelayLampSwitchLedNode extends Base<Drivers, Commands> implements RelayLam
 	static override nodeDefId = "RelayLampSwitchLED";
 	static override implements = ['RelayLampSwitchLED', "RelaySwitchOnlyPlusQuery", "RelaySwitchOnlyPlusQuery_ADV", "RelaySwitchOnly", "RelaySwitchOnly_ADV", "RelayLampOnly", "RelayLampOnly_ADV", "IRLincTx", "EZRAIN_Output", "EZIO2x4_Output", "EZIO2x4_Input", "EZIO2x4_Input_ADV", "DoorLock", "BinaryAlarm", "BinaryAlarm_ADV", "BinaryControl", "BinaryControl_ADV", "AlertModuleArmed", "SirenAlert", "SirenArm", "PIR2844OnOff", "PIR2844OnOff_ADV"];
 	declare readonly nodeDefId: 'RelayLampSwitchLED' | "RelayLampSwitchLED_ADV";
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.Insteon>) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
@@ -62,7 +62,7 @@ export namespace RelayLampSwitchLed {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayLampSwitchLedNode {
 		return ['RelayLampSwitchLED', "RelayLampSwitchLED_ADV"].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>) {
 		return new RelayLampSwitchLedNode(isy, nodeInfo);
 	}
 	export const Node = RelayLampSwitchLedNode;

@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure, type Family } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import type { IntRange } from "type-fest";
 import { ZigBee } from "../../../Definitions/index.js";
@@ -74,7 +74,7 @@ export namespace LevelControl {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is LevelControlNode {
 		return ['LEVEL_CONTROL'].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.ZigBee>) {
 		return new LevelControlNode(isy, nodeInfo);
 	}
 	export const Node = LevelControlNode;

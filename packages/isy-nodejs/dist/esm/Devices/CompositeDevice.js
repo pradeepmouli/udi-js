@@ -67,7 +67,7 @@ export function CompositeOf(nodes, keyFunction) {
                 n = node;
             }
             else {
-                n = new nodes[keyFunction(node)[0]](isy, node);
+                n = new nodes[keyFunction(node)[0]].Class(isy, node);
             }
             const keyL = keyFunction(node);
             const key = keyL[0];

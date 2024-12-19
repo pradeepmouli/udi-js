@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
 import { NodeFactory } from "../../NodeFactory.js";
@@ -28,7 +28,7 @@ class I3PaddleFlagsNode extends Base<Drivers, Commands> implements I3PaddleFlags
 	static override nodeDefId = "I3PaddleFlags";
 	static override implements = ['I3PaddleFlags'];
 	declare readonly nodeDefId: 'I3PaddleFlags';
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.Insteon>) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Boolean, label: "Mode", name: "mode" });
 		this.drivers.GV1 = Driver.create("GV1", this, nodeInfo.state['GV1'], { uom: UnitOfMeasure.Boolean, label: "Program Lock", name: "programLock" });
@@ -85,7 +85,7 @@ export namespace I3PaddleFlags {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is I3PaddleFlagsNode {
 		return ['I3PaddleFlags', "I3KeypadFlags"].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>) {
 		return new I3PaddleFlagsNode(isy, nodeInfo);
 	}
 	export const Node = I3PaddleFlagsNode;

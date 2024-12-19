@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = RelaySwitchOnlyPlusQuery.Commands.Type;
 type Drivers = RelaySwitchOnlyPlusQuery.Drivers.Type;
@@ -17,7 +17,7 @@ declare class RelaySwitchOnlyPlusQueryNode extends Base<Drivers, Commands> imple
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'RelaySwitchOnlyPlusQuery' | "RelaySwitchOnlyPlusQuery_ADV";
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     query(): Promise<any>;
     beep(value?: number): Promise<any>;
     backlight(value: number): Promise<any>;
@@ -29,7 +29,7 @@ export declare namespace RelaySwitchOnlyPlusQuery {
     }
     function is(node: ISYNode<any, any, any, any>): node is RelaySwitchOnlyPlusQueryNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelaySwitchOnlyPlusQueryNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): RelaySwitchOnlyPlusQueryNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): RelaySwitchOnlyPlusQueryNode;
     const Node: typeof RelaySwitchOnlyPlusQueryNode;
     const Class: typeof RelaySwitchOnlyPlusQueryNode;
     namespace Commands {

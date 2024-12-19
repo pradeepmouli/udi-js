@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = EzrainInput.Commands.Type;
 type Drivers = EzrainInput.Drivers.Type;
@@ -14,7 +14,7 @@ declare class EzrainInputNode extends Base<Drivers, Commands> implements EzrainI
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'EZRAIN_Input' | "EZRAIN_Input_ADV";
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     writeChanges(): Promise<any>;
     get status(): Insteon.OnLevelRelay;
     get responding(): Insteon.Error;
@@ -24,7 +24,7 @@ export declare namespace EzrainInput {
     }
     function is(node: ISYNode<any, any, any, any>): node is EzrainInputNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is EzrainInputNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): EzrainInputNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): EzrainInputNode;
     const Node: typeof EzrainInputNode;
     const Class: typeof EzrainInputNode;
     namespace Commands {

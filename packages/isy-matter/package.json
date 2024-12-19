@@ -1,22 +1,53 @@
 {
-    "dependencies": {
-        "@matter/main": "0.11.9"
-    },
-    "devDependencies": {
-        "@types/node": "^22.8.7",
-        "typescript": "~5.7.2"
-    },
-    "name": "matter-app",
-    "version": "1.0.8-alpha.0",
-    "type": "module",
-    "scripts": {
-        "prepare": "tsc",
-        "build": "tsc",
-        "app": "node --enable-source-maps dist/BridgedDevicesNode.js",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "clean": "node -e 'fs.rmSync(\"dist\", { recursive: true, force: true })'"
-    },
-    "private": true,
-    "description": "Bridge for multiple OnOff light/sockets with a CLI command execution interface",
-    "author": "user.name=Pradeep Mouli <user.email=pmouli@mac.com>"
+	"dependencies": {
+		"@matter/main": "0.11.9",
+		"isy-nodejs": "^1.0.9-alpha.1"
+	},
+	"devDependencies": {
+		"@types/node": "^22.8.7",
+		"typescript": "^5.7.2"
+	},
+	"license": "MIT",
+	"version": "1.0.9-alpha.1",
+	"author": {
+		"name": "Pradeep Mouli"
+	},
+	"scripts": {
+		"test": "mocha",
+		"prepublishOnly": "npm run build",
+		"linter": "eslint --ignore-path .gitignore .",
+		"clean": "rimraf ./dist/*",
+		"build:esm": "tsc -p ./tsconfig.esm.json",
+		"build:cjs": "tsc -p ./tsconfig.cjs.json && cp ./package.cjs.json ./dist/cjs/package.json",
+		"build": "npm run build:esm",
+		"build:esm:watch": "tsc -p ./tsconfig.esm.json --watch"
+	},
+	"keywords": [
+		"isy",
+		"universal devices",
+		"insteon",
+		"elk",
+		"ZWave"
+	],
+	"directories": {
+		"test": "test",
+		"lib": "dist"
+	},
+	"main": "./dist/cjs/index.js",
+	"module": "./dist/esm/index.js",
+	"exports": {
+		"./*": {
+			"require": {
+				"types": "./dist/cjs/types/*.d.ts",
+				"default": "./dist/cjs/*.js"
+			},
+			"import": {
+				"types": "./dist/esm/types/*.d.ts",
+				"default": "./dist/esm/*.js"
+			}
+		}
+	},
+	"type": "module",
+	"private": false,
+	"description": "Bridge for multiple OnOff light/sockets with a CLI command execution interface"
 }

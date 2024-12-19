@@ -8,6 +8,7 @@ import { parseBooleans, parseNumbers } from 'xml2js/lib/processors.js';
 import { DeviceFactory } from './Devices/DeviceFactory.js';
 import { ELKAlarmPanelDevice } from './Devices/Elk/ElkAlarmPanelDevice.js';
 import { EventType } from './Events/EventType.js';
+import { ISYDeviceNode } from './Devices/ISYDeviceNode.js';
 import { ISYScene } from './ISYScene.js';
 import { ISYVariable } from './ISYVariable.js';
 import { VariableType } from './VariableType.js';
@@ -61,6 +62,7 @@ const defaultXMLParserOptions = {
     }
 };
 axios.defaults.transitional.forcedJSONParsing = false;
+let s = ISYDeviceNode;
 const parser = new Parser(defaultParserOptions);
 export let Controls = {};
 export class ISY extends EventEmitter {
@@ -702,7 +704,7 @@ export class ISY extends EventEmitter {
                                 this.logger.warn('Device not currently supported: ' + JSON.stringify(nodeInfo) + ' /n It has been mapped to: ' + d.name);
                             }
                             try {
-                                await newDevice.refreshNotes();
+                                //await newDevice.refreshNotes();
                             }
                             catch (e) {
                                 this.logger.debug('No notes found.');
@@ -767,7 +769,7 @@ export class ISY extends EventEmitter {
                 } // Skip ISY & Auto DR Scenes
                 const newScene = new ISYScene(this, scene);
                 try {
-                    await newScene.refreshNotes();
+                    //await newScene.refreshNotes();
                 }
                 catch (e) {
                     this.logger.debug('No notes found.');
@@ -793,4 +795,17 @@ export class ISY extends EventEmitter {
         }
     }
 }
+export { ISYNode as Node } from './ISYNode.js';
+export { ISYDeviceNode as DeviceNode } from './Devices/ISYDeviceNode.js';
+export { CompositeDevice } from './Devices/CompositeDevice.js';
+export { ISYScene as Scene } from './ISYScene.js';
+export { ISYVariable as Variable } from './ISYVariable.js';
+export { VariableType } from './VariableType.js';
+export { ISYError } from './ISYError.js';
+export * from './Converters.js';
+export * from './Definitions/index.js';
+export * as Devices from './Devices/index.js';
+export * from './Model/index.js';
+export * from './Utils.js';
+export * from './ISYError.js';
 //# sourceMappingURL=ISY.js.map

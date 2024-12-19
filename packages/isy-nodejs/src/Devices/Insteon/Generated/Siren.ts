@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
@@ -27,7 +27,7 @@ class SirenNode extends Base<Drivers, Commands> implements Siren.Interface {
 	static override nodeDefId = "Siren";
 	static override implements = ['Siren', "SirenAlert", "SirenArm"];
 	declare readonly nodeDefId: 'Siren' | "Siren_ADV";
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.Insteon>) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Siren", name: "siren" });
 		this.drivers.MODE = Driver.create("MODE", this, nodeInfo.state['MODE'], { uom: UnitOfMeasure.Index, label: "Mode", name: "mode" });
@@ -71,7 +71,7 @@ export namespace Siren {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is SirenNode {
 		return ['Siren', "Siren_ADV"].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>) {
 		return new SirenNode(isy, nodeInfo);
 	}
 	export const Node = SirenNode;

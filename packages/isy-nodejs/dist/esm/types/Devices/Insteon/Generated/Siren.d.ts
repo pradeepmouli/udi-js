@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = Siren.Commands.Type;
@@ -21,7 +21,7 @@ declare class SirenNode extends Base<Drivers, Commands> implements Siren.Interfa
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'Siren' | "Siren_ADV";
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     on(duration?: number): Promise<any>;
     off(): Promise<any>;
     arm(value: Insteon.SirenMode): Promise<any>;
@@ -40,7 +40,7 @@ export declare namespace Siren {
     }
     function is(node: ISYNode<any, any, any, any>): node is SirenNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is SirenNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): SirenNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): SirenNode;
     const Node: typeof SirenNode;
     const Class: typeof SirenNode;
     namespace Commands {

@@ -1,11 +1,11 @@
-import { ISY } from '../../ISY.js';
-import { ISYBinaryStateDevice } from '../ISYDevice.js';
+import { CompositeDevice, ISY } from '../../ISY.js';
 import { NodeInfo } from '../../Model/NodeInfo.js';
-import { InsteonBaseDevice } from './InsteonBaseDevice.js';
 import 'winston';
-export declare class InsteonCOSensorDevice extends InsteonBaseDevice<{}, {}> implements ISYBinaryStateDevice {
+declare const InsteonCOSensorDevice_base: import("type-fest").Constructor<CompositeDevice<import("../../ISY.js").Family, {
+    [x: string]: import("../../ISYNode.js").ISYNode.Factory<import("../../ISY.js").Family, any>;
+}, import("../../ISYNode.js").ISYNode.Factory<import("../../ISY.js").Family, any>>>;
+export declare class InsteonCOSensorDevice extends InsteonCOSensorDevice_base {
     constructor(isy: ISY, deviceNode: NodeInfo);
-    get state(): Promise<boolean>;
-    get monoxideDetected(): Promise<boolean>;
 }
+export {};
 //# sourceMappingURL=InsteonCOSensorDevice.d.ts.map

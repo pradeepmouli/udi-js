@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = Pir2844c.Commands.Type;
@@ -18,13 +18,13 @@ declare class Pir2844cNode extends Base<Drivers, Commands> implements Pir2844c.I
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'PIR2844C' | "PIR2844C_ADV";
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     calibrateTemperature(value: number): Promise<any>;
     query(): Promise<any>;
     beep(value?: number): Promise<any>;
     writeChanges(): Promise<any>;
     get status(): Insteon.OnLevelRelay;
-    get temperature(): IntRange<-31, 70>;
+    get temperature(): number;
     get luminance(): IntRange<0, 100>;
     get batteryLevel(): IntRange<0, 100>;
     get batteryPowered(): Insteon.Boolean;
@@ -35,7 +35,7 @@ export declare namespace Pir2844c {
     }
     function is(node: ISYNode<any, any, any, any>): node is Pir2844cNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is Pir2844cNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): Pir2844cNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): Pir2844cNode;
     const Node: typeof Pir2844cNode;
     const Class: typeof Pir2844cNode;
     namespace Commands {
@@ -74,7 +74,7 @@ export declare namespace Pir2844c {
             };
             CLITEMP: {
                 uom: UnitOfMeasure.Celsius;
-                value: IntRange<-31, 70>;
+                value: number;
                 label: "Temperature";
                 name: "temperature";
             };

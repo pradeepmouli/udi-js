@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { UDI } from "../../../Definitions/index.js";
 type Commands = Channel.Commands.Type;
 type Drivers = Channel.Drivers.Type;
@@ -12,7 +12,7 @@ declare class ChannelNode extends Base<Drivers, Commands> implements Channel.Int
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'EM3Channel';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.UDI>);
     get status(): number;
     get totalEnergy(): number;
     get responding(): UDI.Error;
@@ -22,7 +22,7 @@ export declare namespace Channel {
     }
     function is(node: ISYNode<any, any, any, any>): node is ChannelNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is ChannelNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): ChannelNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.UDI>): ChannelNode;
     const Node: typeof ChannelNode;
     const Class: typeof ChannelNode;
     namespace Commands {

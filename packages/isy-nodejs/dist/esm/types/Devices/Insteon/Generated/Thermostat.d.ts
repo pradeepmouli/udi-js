@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = Thermostat.Commands.Type;
@@ -24,7 +24,7 @@ declare class ThermostatNode extends Base<Drivers, Commands> implements Thermost
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'Thermostat';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     updateHeatSetpoint(value: number): Promise<any>;
     updateCoolSetpoint(value: number): Promise<any>;
     updateMode(value: (0 | 1 | 2 | 3 | 5 | 6 | 7)): Promise<any>;
@@ -35,7 +35,7 @@ declare class ThermostatNode extends Base<Drivers, Commands> implements Thermost
     query(): Promise<any>;
     setTime(): Promise<any>;
     writeChanges(): Promise<any>;
-    get temperature(): IntRange<-50, 150>;
+    get temperature(): number;
     get heatSetpoint(): IntRange<0, 120>;
     get coolSetpoint(): IntRange<10, 120>;
     get mode(): (0 | 1 | 2 | 3 | 5 | 6 | 7);
@@ -49,7 +49,7 @@ export declare namespace Thermostat {
     }
     function is(node: ISYNode<any, any, any, any>): node is ThermostatNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is ThermostatNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): ThermostatNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): ThermostatNode;
     const Node: typeof ThermostatNode;
     const Class: typeof ThermostatNode;
     namespace Commands {
@@ -112,7 +112,7 @@ export declare namespace Thermostat {
         type Type = {
             ST: {
                 uom: UnitOfMeasure.Degree;
-                value: IntRange<-50, 150>;
+                value: number;
                 label: "Temperature";
                 name: "temperature";
             };

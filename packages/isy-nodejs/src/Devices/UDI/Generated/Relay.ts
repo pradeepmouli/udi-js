@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { UDI } from "../../../Definitions/index.js";
 import { NodeFactory } from "../../NodeFactory.js";
@@ -22,7 +22,7 @@ class RelayNode extends Base<Drivers, Commands> implements Relay.Interface {
 	static override nodeDefId = "EM3Relay";
 	static override implements = ['EM3Relay'];
 	declare readonly nodeDefId: 'EM3Relay';
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.UDI>) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
@@ -49,7 +49,7 @@ export namespace Relay {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayNode {
 		return ['EM3Relay'].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.UDI>) {
 		return new RelayNode(isy, nodeInfo);
 	}
 	export const Node = RelayNode;

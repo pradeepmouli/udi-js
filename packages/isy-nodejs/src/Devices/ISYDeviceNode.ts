@@ -22,11 +22,11 @@ export class ISYDeviceNode<
 	extends ISYNode<T, D, C, E>
 	implements ISYDeviceInfo, ISYDevice<T, Driver.ForAll<D>, Command.ForAll<C>, any>
 {
-	public declare family: T;
+	declare public family: T;
 
 	public readonly typeCode: string;
 	public readonly deviceClass: any;
-	public readonly category: Category;
+	public readonly category: T extends Family.Insteon ? Category.Insteon : Category.Home.Category;
 	public readonly subCategory: number;
 
 	//public readonly isDimmable: boolean;
@@ -50,7 +50,7 @@ export class ISYDeviceNode<
 		this.deviceClass = node.deviceClass;
 		this.parentAddress = node.pnode;
 		const s = this.type.split('.');
-		this.category = Number(s[0]) as Category;
+		this.category = Number(s[0]) as T extends Family.Insteon ? Category.Insteon : Category.Home.Category;
 		this.subCategory = Number(s[1]);
 
 		// console.log(nodeDetail);
@@ -158,4 +158,8 @@ export class ISYDeviceNode<
 	//     return changed;
 	//   }
 	// }
+}
+
+export namespace ISYDeviceNode {
+	export type Any = ISYDeviceNode<any, any, any, any>;
 }

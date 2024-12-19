@@ -12,7 +12,7 @@ export declare class InsteonDeviceFactory {
         class?: Constructor<ISYNode<Family.Insteon, any, any>> | Constructor<ISYDevice<Family.Insteon, any, any, any>>;
         unsupported?: true;
     };
-    static getInsteonDeviceDetails(node: NodeInfo): {
+    static getInsteonDeviceDetails(node: NodeInfo<Family.Insteon>): {
         name: string;
         modelNumber?: string;
         version?: string;

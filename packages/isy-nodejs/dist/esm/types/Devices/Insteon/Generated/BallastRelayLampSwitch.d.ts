@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = BallastRelayLampSwitch.Commands.Type;
 type Drivers = BallastRelayLampSwitch.Drivers.Type;
@@ -20,7 +20,7 @@ declare class BallastRelayLampSwitchNode extends Base<Drivers, Commands> impleme
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'BallastRelayLampSwitch' | "BallastRelayLampSwitch_ADV";
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     on(value?: (0 | 100)): Promise<any>;
     off(): Promise<any>;
     fastOff(): Promise<any>;
@@ -36,7 +36,7 @@ export declare namespace BallastRelayLampSwitch {
     }
     function is(node: ISYNode<any, any, any, any>): node is BallastRelayLampSwitchNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is BallastRelayLampSwitchNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): BallastRelayLampSwitchNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): BallastRelayLampSwitchNode;
     const Node: typeof BallastRelayLampSwitchNode;
     const Class: typeof BallastRelayLampSwitchNode;
     namespace Commands {

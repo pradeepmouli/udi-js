@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = I3KeypadFlags.Commands.Type;
 type Drivers = I3KeypadFlags.Drivers.Type;
@@ -24,7 +24,7 @@ declare class I3KeypadFlagsNode extends Base<Drivers, Commands> implements I3Key
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'I3KeypadFlags';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     updateMode(value: Insteon.I3RelayDim): Promise<any>;
     updateProgramLock(value: Insteon.I3OnOff): Promise<any>;
     updateResumeDim(value: Insteon.I3OnOff): Promise<any>;
@@ -52,7 +52,7 @@ export declare namespace I3KeypadFlags {
     }
     function is(node: ISYNode<any, any, any, any>): node is I3KeypadFlagsNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is I3KeypadFlagsNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): I3KeypadFlagsNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): I3KeypadFlagsNode;
     const Node: typeof I3KeypadFlagsNode;
     const Class: typeof I3KeypadFlagsNode;
     namespace Commands {

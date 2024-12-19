@@ -1,7 +1,7 @@
-import { Category } from '../../Definitions/Global/Categories.js';
+import { Category as BaseCat } from '../../Definitions/Global/Categories.js';
 
-import { parseTypeCode } from '../../Utils.js';
-import { NodeInfo } from '../../Model/NodeInfo.js';
+
+import { isFamily, NodeInfo, parseDeviceInfo } from '../../Model/NodeInfo.js';
 import * as Insteon from './index.js';
 
 
@@ -16,7 +16,7 @@ import type { Constructor } from '../Constructor.js';
 import { Family } from '../../Definitions/index.js';
 import type { ISYDevice } from '../../ISYDevice.js';
 
-
+let Category = BaseCat.Insteon;
 
 export class InsteonDeviceFactory {
 
@@ -67,7 +67,7 @@ export class InsteonDeviceFactory {
 	static getDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class?: Constructor<ISYNode<Family.Insteon,any,any>> | Constructor<ISYDevice<Family.Insteon,any,any,any>>; unsupported?: true; } {
 		const family = Number(node.family ?? '1');
 		//let insteonFamilyDef = s[0] as FamilyDef<Family.Insteon>;
-		if ((family ?? Family.Insteon) === Family.Insteon) {
+		if (isFamily(node, Family.Insteon)) {
 			//insteonFamilyDef.categories.forEach(callbackfn))
 			let n = this.getInsteonDeviceDetails(node);
 			if(n.class)
@@ -87,13 +87,13 @@ export class InsteonDeviceFactory {
 		} return { name: "Unsupported Device", class: Insteon.Base, unsupported: true };
 	}
 
-	public static getInsteonDeviceDetails(node: NodeInfo): { name: string; modelNumber?: string; version?: string; class: {Node: Constructor<ISYNode<Family.Insteon,any,any>>} | {Device: Constructor<ISYDevice<Family.Insteon,any,any,any>>} | Constructor<ISYNode<Family.Insteon,any,any>>, unsupported?: true; } {
-		const type = parseTypeCode(node.type as any);
+	public static getInsteonDeviceDetails(node: NodeInfo<Family.Insteon>): { name: string; modelNumber?: string; version?: string; class: {Node: Constructor<ISYNode<Family.Insteon,any,any>>} | {Device: Constructor<ISYDevice<Family.Insteon,any,any,any>>} | Constructor<ISYNode<Family.Insteon,any,any>>, unsupported?: true; } {
+		const type = parseDeviceInfo(node);
 		const subAddress = node.address.split(' ').pop();
 
 		// const typeArray = typeCode.split('.');
 		const category = type.category;
-		const deviceCode = type.deviceCode;
+		const deviceCode = type.model;
 
 		let deviceDetails = null;
 		if (category === Category.Controller) {
@@ -708,18 +708,18 @@ export class InsteonDeviceFactory {
 				retVal = { name: 'INSTEON Motion Sensor', modelNumber: '2420M-SP', class: Insteon.MotionSensor };
 				break;
 			case String.fromCharCode(2):
-				retVal = { name: 'TriggerLinc', modelNumber: '2421', class: Insteon.DoorWindowSensor };
+				retVal = { name: 'TriggerLinc', modelNumber: '2421', class: Insteon.MotionSensor };
 				break;
 			case '\t':
-				retVal = { name: 'Open/Close Sensor', modelNumber: '2843-222', class: Insteon.DoorWindowSensor.Device };
+				retVal = { name: 'Open/Close Sensor', modelNumber: '2843-222', class: Insteon.DoorWindowSensor.Class };
 				break;
 			case String.fromCharCode(6):
-				retVal = { name: 'Open/Close Sensor', modelNumber: '2843-422', class: Insteon.DoorWindowSensor.Device };
+				retVal = { name: 'Open/Close Sensor', modelNumber: '2843-422', class: Insteon.DoorWindowSensor.Class };
 				break;
 			case String.fromCharCode(7):
 				break;
 			case String.fromCharCode(25):
-				retVal = { name: 'Open/Close Sensor', modelNumber: '2843-522', class: Insteon.DoorWindowSensor.Device };
+				retVal = { name: 'Open/Close Sensor', modelNumber: '2843-522', class: Insteon.DoorWindowSensor.Class };
 				break;
 			case '\b':
 				retVal = { name: 'Leak Sensor', modelNumber: '2852-222', class: Insteon.LeakSensor };

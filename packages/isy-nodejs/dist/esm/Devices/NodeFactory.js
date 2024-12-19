@@ -1,5 +1,4 @@
 import { ISY } from '../ISY.js';
-import { ISYNode } from '../ISYNode.js';
 import { isDynamic } from '../Model/NodeInfo.js';
 import { Family } from '../Definitions/index.js';
 export var NodeFactory;
@@ -61,12 +60,12 @@ export var NodeFactory;
             return Promise.resolve(getForNodeDefId(Family[node.family ?? Family.Insteon], node.nodeDefId));
         }
         else {
-            var nd = getForNodeDefId(Family[node.family], node.sgid);
+            var nd = getForNodeDefId(Family[node.family], String(node.sgid));
             if (nd) {
                 return Promise.resolve(nd);
             }
             let n = (await isy.sendRequest(`zmatter/${node.family == Family.ZWave ? "zwave" : "zb"}/node/${node.address}/def/get?full=true`));
-            let cls = ISYNode;
+            let cls = (await import('../Devices/GenericNode.js')).GenericNode;
             NodeFactory.register(cls, n.nls);
             return cls;
         }

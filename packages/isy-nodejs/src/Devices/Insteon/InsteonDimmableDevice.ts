@@ -1,4 +1,4 @@
-import type { ISY } from '../../ISY.js';
+import type { Factory, Family, ISY } from '../../ISY.js';
 
 
 
@@ -23,7 +23,7 @@ type OnOffBehavior = typeof OOB;
 export class InsteonDimmableDevice extends DimmerLampSwitch.Node {
 	// #region Constructors (1)
 
-	constructor(isy: ISY, node: NodeInfo) {
+	constructor(isy: ISY, node: NodeInfo<Family.Insteon>) {
 		super(isy, node);
 
 	}

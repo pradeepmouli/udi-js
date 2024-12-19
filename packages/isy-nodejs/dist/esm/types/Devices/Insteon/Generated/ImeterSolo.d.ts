@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = ImeterSolo.Commands.Type;
 type Drivers = ImeterSolo.Drivers.Type;
@@ -16,7 +16,7 @@ declare class ImeterSoloNode extends Base<Drivers, Commands> implements ImeterSo
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'IMETER_SOLO';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     resetTotalEnergy(): Promise<any>;
     query(): Promise<any>;
     writeChanges(): Promise<any>;
@@ -29,7 +29,7 @@ export declare namespace ImeterSolo {
     }
     function is(node: ISYNode<any, any, any, any>): node is ImeterSoloNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is ImeterSoloNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): ImeterSoloNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): ImeterSoloNode;
     const Node: typeof ImeterSoloNode;
     const Class: typeof ImeterSoloNode;
     namespace Commands {

@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = BinaryAlarm.Commands.Type;
 type Drivers = BinaryAlarm.Drivers.Type;
@@ -16,7 +16,7 @@ declare class BinaryAlarmNode extends Base<Drivers, Commands> implements BinaryA
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'BinaryAlarm' | "BinaryAlarm_ADV";
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     query(): Promise<any>;
     beep(value?: number): Promise<any>;
     writeChanges(): Promise<any>;
@@ -28,7 +28,7 @@ export declare namespace BinaryAlarm {
     }
     function is(node: ISYNode<any, any, any, any>): node is BinaryAlarmNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is BinaryAlarmNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): BinaryAlarmNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): BinaryAlarmNode;
     const Node: typeof BinaryAlarmNode;
     const Class: typeof BinaryAlarmNode;
     namespace Commands {

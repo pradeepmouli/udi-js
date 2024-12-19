@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { UDI } from "../../../Definitions/index.js";
 type Commands = TemperatureSensor.Commands.Type;
 type Drivers = TemperatureSensor.Drivers.Type;
@@ -12,7 +12,7 @@ declare class TemperatureSensorNode extends Base<Drivers, Commands> implements T
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'EM3TempSensor';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.UDI>);
     get temperature(): number;
     get responding(): UDI.Error;
 }
@@ -21,7 +21,7 @@ export declare namespace TemperatureSensor {
     }
     function is(node: ISYNode<any, any, any, any>): node is TemperatureSensorNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is TemperatureSensorNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): TemperatureSensorNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.UDI>): TemperatureSensorNode;
     const Node: typeof TemperatureSensorNode;
     const Class: typeof TemperatureSensorNode;
     namespace Commands {

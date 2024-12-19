@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = OnOffControl.Commands.Type;
 type Drivers = OnOffControl.Drivers.Type;
@@ -12,7 +12,7 @@ declare class OnOffControlNode extends Base<Drivers, Commands> implements OnOffC
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'OnOffControl' | "OnOffControl_ADV";
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     get status(): Insteon.OnLevelRelay;
     get responding(): Insteon.Error;
 }
@@ -21,7 +21,7 @@ export declare namespace OnOffControl {
     }
     function is(node: ISYNode<any, any, any, any>): node is OnOffControlNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is OnOffControlNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): OnOffControlNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): OnOffControlNode;
     const Node: typeof OnOffControlNode;
     const Class: typeof OnOffControlNode;
     namespace Commands {

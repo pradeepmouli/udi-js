@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import type { IntRange } from "type-fest";
 import { UDI } from "../../../Definitions/index.js";
 type Commands = Em3MainChannel.Commands.Type;
@@ -13,7 +13,7 @@ declare class Em3MainChannelNode extends Base<Drivers, Commands> implements Em3M
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'EM3MainChannel';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.UDI>);
     get status(): number;
     get totalEnergy(): number;
     get currentVoltage(): number;
@@ -26,7 +26,7 @@ export declare namespace Em3MainChannel {
     }
     function is(node: ISYNode<any, any, any, any>): node is Em3MainChannelNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is Em3MainChannelNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): Em3MainChannelNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.UDI>): Em3MainChannelNode;
     const Node: typeof Em3MainChannelNode;
     const Class: typeof Em3MainChannelNode;
     namespace Commands {

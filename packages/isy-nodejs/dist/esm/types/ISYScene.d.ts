@@ -4,7 +4,7 @@ import { Family } from './Definitions/Global/Families.js';
 import type { ISY } from './ISY.js';
 import { ISYNode } from './ISYNode.js';
 import type { StaticNodeInfo } from './Model/NodeInfo.js';
-interface SceneInfo extends StaticNodeInfo {
+interface SceneInfo extends StaticNodeInfo<Family.Scene> {
     members?: {
         link: any;
     };
@@ -12,7 +12,7 @@ interface SceneInfo extends StaticNodeInfo {
     nodeDefId?: 'InsteonDimmer';
     address: string;
     name: string;
-    family?: Family;
+    family?: Family.Scene;
     parent?: any;
     enabled: boolean;
     startDelay: number;

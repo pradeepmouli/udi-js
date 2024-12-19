@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Insteon } from "../../../Definitions/index.js";
 import { NodeFactory } from "../../NodeFactory.js";
@@ -22,7 +22,7 @@ class ImeterSoloNode extends Base<Drivers, Commands> implements ImeterSolo.Inter
 	static override nodeDefId = "IMETER_SOLO";
 	static override implements = ['IMETER_SOLO'];
 	declare readonly nodeDefId: 'IMETER_SOLO';
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.Insteon>) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Watt, label: "Current Power", name: "currentPower" });
 		this.drivers.TPW = Driver.create("TPW", this, nodeInfo.state['TPW'], { uom: UnitOfMeasure.KilowattsPerHour, label: "Total Energy", name: "totalEnergy" });
@@ -53,7 +53,7 @@ export namespace ImeterSolo {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ImeterSoloNode {
 		return ['IMETER_SOLO'].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>) {
 		return new ImeterSoloNode(isy, nodeInfo);
 	}
 	export const Node = ImeterSoloNode;

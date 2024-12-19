@@ -1,23 +1,23 @@
 import * as log4js from '@log4js-node/log4js-api';
 import winston, { Logger, type LeveledLogMethod } from 'winston';
 import { EventEmitter as BaseEventEmitter } from 'events';
-import { Category } from './Definitions/Global/Categories.js';
 import type { PackageJson } from '@npmcli/package-json';
 import type { AxiosRequestConfig } from 'axios';
 import { EventType } from './Events/EventType.js';
 import type { Constructor } from 'type-fest';
-export type Factory<T extends object> = ({
+export interface Factory<T extends object> {
     create?: (...args: any[]) => T;
     is?<K extends T>(obj: object): obj is T;
     isImplementedBy?(obj: object): obj is T;
-} & {
-    Node: Constructor<T>;
-}) | {
-    Device: Constructor<T>;
-};
+    Class: Constructor<T>;
+}
 export declare function isFactory(obj: any): obj is Factory<any>;
 export declare function getConstructor<T extends object>(obj: Factory<T> | Constructor<T>): Constructor<T>;
 export type ConstructorOf<T> = T extends Factory<infer U> ? Constructor<U> : T extends Constructor<infer U> ? U : Constructor<T>;
+export type InstanceOf<T> = T extends Factory<infer U> ? U : T extends Constructor<infer U> ? U : T;
+export type ExtractKeys<T, U> = keyof {
+    [K in keyof T]: T[K] extends U ? K : never;
+};
 export type StringKeys<T> = Extract<keyof T, string>;
 export type PickOfType<T, U> = {
     [K in keyof T]: T[K] extends U ? any extends T[K] ? never : K : undefined;
@@ -90,18 +90,6 @@ export declare function rightWithToken(this: string, maxNumChars: number, token?
 export declare function leftWithToken(this: string, maxNumChars: number, token?: string): void;
 export declare function remove(this: string, searchValue: string | RegExp): string;
 export declare function removeAll(this: string, searchValue: string | RegExp): string;
-export declare function parseTypeCode(typeCode: `${string}.${string}.${string}.${string}`): {
-    category: Category;
-    deviceCode: number;
-    firmwareVersion: number;
-    minorVersion: number;
-};
-export declare function getCategory(device: {
-    type: string;
-}): number;
-export declare function getSubcategory(device: {
-    type: string;
-}): number;
 export declare function findPackageJson(currentPath?: string): Promise<PackageJson>;
 export declare function logStringify(obj: any, indent?: number): string;
 export type RelaxTypes<V> = V extends number ? number : V extends bigint ? bigint : V extends object ? V extends (...args: any[]) => any ? V : {

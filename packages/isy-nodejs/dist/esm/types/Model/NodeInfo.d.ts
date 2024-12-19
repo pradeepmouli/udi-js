@@ -1,6 +1,7 @@
-import { Family } from '../Definitions/index.js';
+import { Family, type Category } from '../Definitions/index.js';
+import { DeviceInfo } from '../Definitions/Global/Categories.js';
 import type { DriverState } from './DriverState.js';
-export type NodeInfo<T extends Family = Family> = (T extends Family.ZWave | Family.ZigBee ? DynamicNodeInfo : StaticNodeInfo) & {
+export type NodeInfo<T extends Family = Family> = (T extends Family.ZWave | Family.ZigBee ? DynamicNodeInfo<T> : StaticNodeInfo<T>) & {
     state?: {
         [x: string]: DriverState;
     };
@@ -14,7 +15,7 @@ interface Devtype {
     gen: string;
     mfg: string;
 }
-export interface DynamicNodeInfo {
+export interface DynamicNodeInfo<F extends Family.ZWave | Family.ZigBee> {
     address: any;
     custom: Custom;
     dcPeriod: number;
@@ -22,7 +23,7 @@ export interface DynamicNodeInfo {
     devtype: Devtype;
     enabled?: boolean;
     endDelay: number;
-    family?: Family.ZWave | Family.ZigBee;
+    family?: F;
     flag?: any;
     hint: string;
     name: string;
@@ -40,13 +41,13 @@ interface Parent {
     _: string;
     type: string;
 }
-export interface StaticNodeInfo {
+export interface StaticNodeInfo<F extends Family> {
     address: any;
     dcPeriod: number;
     deviceClass?: any;
     enabled?: boolean;
     endDelay: number;
-    family?: Family;
+    family?: F;
     flag?: any;
     hint: string;
     name: string;
@@ -58,8 +59,14 @@ export interface StaticNodeInfo {
     type?: string;
     wattage: number;
 }
-export declare function family<F extends Family>(nodeInfo: NodeInfo<any>): nodeInfo is NodeInfo<F>;
-export declare function isDynamic(nodeInfo: NodeInfo<any>): nodeInfo is DynamicNodeInfo;
-export declare function isStatic(nodeInfo: NodeInfo<any>): nodeInfo is StaticNodeInfo;
+export declare function isFamily<T extends Family>(nodeInfo: NodeInfo<any>, family: T): nodeInfo is NodeInfo<T>;
+export declare function parseDeviceInfo<F extends Family>(nodeInfo: NodeInfo<F>): NodeInfo<F> extends StaticNodeInfo<Family.Insteon> ? {
+    category: Category.Insteon;
+    model: number;
+    firmwareVersion: string;
+    firmwareRevision: string;
+} : DeviceInfo<any, any, any>;
+export declare function isDynamic(nodeInfo: NodeInfo<any>): nodeInfo is DynamicNodeInfo<any>;
+export declare function isStatic(nodeInfo: NodeInfo<any>): nodeInfo is StaticNodeInfo<any>;
 export {};
 //# sourceMappingURL=NodeInfo.d.ts.map

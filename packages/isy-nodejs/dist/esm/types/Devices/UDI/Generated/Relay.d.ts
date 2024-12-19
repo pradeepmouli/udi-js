@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { UDI } from "../../../Definitions/index.js";
 type Commands = Relay.Commands.Type;
 type Drivers = Relay.Drivers.Type;
@@ -16,7 +16,7 @@ declare class RelayNode extends Base<Drivers, Commands> implements Relay.Interfa
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'EM3Relay';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.UDI>);
     on(): Promise<any>;
     off(): Promise<any>;
     query(): Promise<any>;
@@ -28,7 +28,7 @@ export declare namespace Relay {
     }
     function is(node: ISYNode<any, any, any, any>): node is RelayNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): RelayNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.UDI>): RelayNode;
     const Node: typeof RelayNode;
     const Class: typeof RelayNode;
     namespace Commands {

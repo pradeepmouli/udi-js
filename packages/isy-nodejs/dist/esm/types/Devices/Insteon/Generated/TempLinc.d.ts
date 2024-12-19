@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = TempLinc.Commands.Type;
@@ -24,7 +24,7 @@ declare class TempLincNode extends Base<Drivers, Commands> implements TempLinc.I
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'TempLinc';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     updateHeatSetpoint(value: number): Promise<any>;
     updateCoolSetpoint(value: number): Promise<any>;
     updateMode(value: (0 | 1 | 2 | 3 | 5)): Promise<any>;
@@ -35,7 +35,7 @@ declare class TempLincNode extends Base<Drivers, Commands> implements TempLinc.I
     query(): Promise<any>;
     setTime(): Promise<any>;
     writeChanges(): Promise<any>;
-    get temperature(): IntRange<-50, 150>;
+    get temperature(): number;
     get heatSetpoint(): IntRange<0, 120>;
     get coolSetpoint(): IntRange<10, 120>;
     get mode(): (0 | 1 | 2 | 3 | 5);
@@ -49,7 +49,7 @@ export declare namespace TempLinc {
     }
     function is(node: ISYNode<any, any, any, any>): node is TempLincNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is TempLincNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): TempLincNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): TempLincNode;
     const Node: typeof TempLincNode;
     const Class: typeof TempLincNode;
     namespace Commands {
@@ -112,7 +112,7 @@ export declare namespace TempLinc {
         type Type = {
             ST: {
                 uom: UnitOfMeasure.Degree;
-                value: IntRange<-50, 150>;
+                value: number;
                 label: "Temperature";
                 name: "temperature";
             };

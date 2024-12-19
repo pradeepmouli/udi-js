@@ -1,1 +1,1 @@
-{"version":3,"file":"Error.d.ts","sourceRoot":"","sources":["../../../../../src/Definitions/Generic/Error.ts"],"names":[],"mappings":"AAAA,oBAAY,KAAK;IACb,IAAI,IAAI;IACR,KAAK,IAAI;CACZ"}
+{"version":3,"file":"Error.d.ts","sourceRoot":"","sources":["../../../../../src/Definitions/Generic/Error.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,SAAS,EAAE,MAAM,qBAAqB,CAAC;AAErD,oBAAY,KAAK;IACb,IAAI,IAAI;IACR,KAAK,IAAI;CACZ;AAED,yBAAiB,KAAK,CAAC;IACf,MAAM,OAAO,EAAG,SAAS,CAAC,OAAO,EAAC,KAAK,CAG7C,CAAA;IAEM,MAAM,KAAK,EAAG,SAAS,CAAC,KAAK,EAAC,MAAM,CAG1C,CAAA;CAMD"}

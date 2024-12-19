@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = RelayLampSwitchLed.Commands.Type;
 type Drivers = RelayLampSwitchLed.Drivers.Type;
@@ -22,7 +22,7 @@ declare class RelayLampSwitchLedNode extends Base<Drivers, Commands> implements 
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'RelayLampSwitchLED' | "RelayLampSwitchLED_ADV";
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     on(value?: (0 | 100)): Promise<any>;
     off(): Promise<any>;
     fastOff(): Promise<any>;
@@ -40,7 +40,7 @@ export declare namespace RelayLampSwitchLed {
     }
     function is(node: ISYNode<any, any, any, any>): node is RelayLampSwitchLedNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is RelayLampSwitchLedNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): RelayLampSwitchLedNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): RelayLampSwitchLedNode;
     const Node: typeof RelayLampSwitchLedNode;
     const Class: typeof RelayLampSwitchLedNode;
     namespace Commands {

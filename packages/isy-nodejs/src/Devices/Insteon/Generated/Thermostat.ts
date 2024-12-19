@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
@@ -30,7 +30,7 @@ class ThermostatNode extends Base<Drivers, Commands> implements Thermostat.Inter
 	static override nodeDefId = "Thermostat";
 	static override implements = ['Thermostat'];
 	declare readonly nodeDefId: 'Thermostat';
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.Insteon>) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Degree, label: "Temperature", name: "temperature" });
 		this.drivers.CLISPH = Driver.create("CLISPH", this, nodeInfo.state['CLISPH'], { uom: UnitOfMeasure.Degree, label: "Heat Setpoint", name: "heatSetpoint" });
@@ -51,7 +51,7 @@ class ThermostatNode extends Base<Drivers, Commands> implements Thermostat.Inter
 	async query() { return this.sendCommand("QUERY"); }
 	async setTime() { return this.sendCommand("SETTIME"); }
 	async writeChanges() { return this.sendCommand("WDU"); }
-	public get temperature(): IntRange<-50, 150> {
+	public get temperature(): number {
 		return this.drivers.ST?.value;
 	}
 	public get heatSetpoint(): IntRange<0, 120> {
@@ -88,7 +88,7 @@ export namespace Thermostat {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ThermostatNode {
 		return ['Thermostat'].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>) {
 		return new ThermostatNode(isy, nodeInfo);
 	}
 	export const Node = ThermostatNode;
@@ -153,7 +153,7 @@ export namespace Thermostat {
 		export type Type = {
 			ST: {
 				uom: UnitOfMeasure.Degree;
-				value: IntRange<-50, 150>;
+				value: number;
 				label: "Temperature";
 				name: "temperature";
 			};

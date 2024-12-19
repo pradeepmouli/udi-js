@@ -23,6 +23,7 @@ type ProgramOptions = {
 	dependencies: 'static' | 'plugin' | 'remote';
 	env: string;
 	requireAuth: boolean;
+	openSocket: boolean;
 };
 
 const format = winston.format;
@@ -68,11 +69,11 @@ let serverConfig: { logLevel: string; logPath: string; workingDir: string };
 let isy: ISY;
 let serverNode: ServerNode;
 let pluginEnv: typeof process.env & { PLUGIN_PATH: string };
-let options: ProgramOptions = { autoStart: false, dependencies: 'static', env: '.env', requireAuth: true };
+let options: ProgramOptions = { autoStart: false, dependencies: 'static', env: '.env', requireAuth: true, openSocket: false };
 let authenticated: Boolean = false;
 
 type Message =
-	| { type: 'command'; command: 'start' | 'stop' | 'update' }
+	| { type: 'command'; command: 'start' | 'stop' | 'update' | 'requestPairingCode' }
 	| ({ type: 'isyConfig' } & ISY.Config)
 	| ({ type: 'matterConfig' } & MatterServer.Config)
 	| ({ type: 'clientEnv' } & { env: typeof process.env & { PLUGIN_PATH: string } })
@@ -234,6 +235,9 @@ async function processMessage(line: string) {
 						logger.info('Matter bridge stop requested');
 						await stopBridgeServer();
 						break;
+					case 'requestPairingCode':
+						client.write(JSON.stringify({ pairingInfo: matterServer.getPairingCode() }));
+						break;
 				}
 				break;
 		}
@@ -358,7 +362,8 @@ program
 	.option('-a, --autoStart', 'Start matter bridge server on startup', false)
 	.option('-d, --dependencies', 'Load dependencies - static (from local node_modules), plugin (from plugin node_modules)', 'static')
 	.option('-e, --env', 'Path to environment file', '.env')
-	.option('-r, --requireAuth', 'Require authentication to start bridge server', true);
+	.option('-r, --requireAuth', 'Require authentication to start bridge server', true)
+	.option('-s, --openSocket', 'Open socket to receive requests from plugin/client', false);
 program.parse();
 options = program.opts<ProgramOptions>();
 
@@ -393,6 +398,8 @@ console.log(`Server config: ${logStringify(serverConfig)}`);
 if (options.autoStart) {
 	authenticated = true;
 	startBridgeServer();
+	if(options.openSocket)
+		startSocketServer();
 } else {
 	if (!options.requireAuth) {
 		authenticated = true;

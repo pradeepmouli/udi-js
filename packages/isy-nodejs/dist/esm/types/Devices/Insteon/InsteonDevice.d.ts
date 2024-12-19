@@ -31,7 +31,6 @@ export declare const InsteonLampDevice: <T extends Constructor<InsteonBaseDevice
         readonly flag: any;
         readonly isy: ISY;
         readonly nodeDefId: string;
-        baseName: any;
         commands: import("../../ISY.js").Command.ForAll<{}>;
         drivers: import("../../ISY.js").Driver.ForAll<{
             ST: import("../../ISY.js").Driver.Signature<import("../../ISY.js").UnitOfMeasure, any, import("../../ISY.js").UnitOfMeasure, "ST", "ST">;
@@ -113,7 +112,6 @@ export declare const KeypadDevice: <T extends Constructor<InsteonBaseDevice>>(IB
         readonly flag: any;
         readonly isy: ISY;
         readonly nodeDefId: string;
-        baseName: any;
         commands: import("../../ISY.js").Command.ForAll<{}>;
         drivers: import("../../ISY.js").Driver.ForAll<{
             ST: import("../../ISY.js").Driver.Signature<import("../../ISY.js").UnitOfMeasure, any, import("../../ISY.js").UnitOfMeasure, "ST", "ST">;

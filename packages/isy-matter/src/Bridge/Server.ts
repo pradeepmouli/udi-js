@@ -12,6 +12,7 @@ import '../Behaviors/Insteon/index.js';
 import { MappingRegistry } from '../Mappings/MappingRegistry.js';
 import { BehaviorRegistry } from '../Behaviors/BehaviorRegistry.js';
 import type { ISYNode } from 'isy-nodejs/ISYNode';
+import  'isy-nodejs/Utils';
 
 
 

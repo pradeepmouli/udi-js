@@ -45,7 +45,6 @@ export declare const MatterEndpoint: <P extends EndpointType & MutableEndpoint, 
         readonly flag: any;
         readonly isy: import("../ISY.js").ISY;
         readonly nodeDefId: string;
-        baseName: any;
         commands: import("../ISY.js").Command.ForAll<any>;
         drivers: import("../ISY.js").Driver.ForAll<any, false>;
         enabled: boolean;

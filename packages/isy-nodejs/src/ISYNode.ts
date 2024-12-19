@@ -45,8 +45,6 @@ export class ISYNode<
 	public static nodeDefId = 'Unknown';
 
 	public static implements: string[] = [];
-
-	public baseName: any;
 	public commands: Command.ForAll<C>;
 	//public readonly formatted: DriverValues<keyof D,string> = {};
 	//public readonly uom: { [x in Driver.Literal]?: UnitOfMeasure } = { ST: UnitOfMeasure.Boolean };
@@ -120,7 +118,7 @@ export class ISYNode<
 				return isy.logger;
 			};
 
-			this.label = `${this.folder} ${this.baseName}`;
+			this.label = `${this.folder} ${this.baseLabel}`;
 		} else {
 			this.label = this.baseLabel;
 			this.logger = (msg: any, level: keyof CliConfigSetLevels = 'debug', ...meta: any[]) => {

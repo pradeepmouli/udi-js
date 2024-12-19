@@ -1,0 +1,11 @@
+<nodeDefs>
+  <nodeDef id="CTL" nodeType="139" nls="CTL">
+    <sts>
+      <st id="ST" editor="online" /> <!-- Online -->
+	  </sts>
+    <cmds>
+      <sends />
+      <accepts />
+    </cmds>
+  </nodeDef>
+</nodeDefs>

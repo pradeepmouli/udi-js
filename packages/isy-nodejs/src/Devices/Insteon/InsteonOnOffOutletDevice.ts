@@ -6,7 +6,7 @@ import { InsteonRelayDevice } from './InsteonRelayDevice.js';
 import { CompositeDevice, CompositeOf } from '../CompositeDevice.js';
 import type { ISYDevice } from '../../ISYDevice.js';
 
-export class OnOffOutlet extends CompositeDevice.of({ top: RelayLamp.Node, bottom: RelayLamp.Node }, {top: 1, bottom: 2}) {
+export class OnOffOutlet extends CompositeDevice.of({ top: RelayLamp, bottom: RelayLamp }, {top: 1, bottom: 2}) {
 	constructor(isy: ISY, deviceNode: NodeInfo) {
 		super(isy, deviceNode);
 	}
@@ -21,5 +21,7 @@ export namespace OnOffOutlet {
 	}
 
 	export const Device = OnOffOutlet;
+
+	export const Class = OnOffOutlet;
 
 }

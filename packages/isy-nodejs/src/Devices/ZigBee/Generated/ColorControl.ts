@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import type { IntRange } from "type-fest";
 import { ZigBee } from "../../../Definitions/index.js";
@@ -26,14 +26,14 @@ class ColorControlNode extends Base<Drivers, Commands> implements ColorControl.I
 	static override nodeDefId = "COLOR_CONTROL";
 	static override implements = ['COLOR_CONTROL'];
 	declare readonly nodeDefId: 'COLOR_CONTROL';
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.ZigBee>) {
 		super(isy, nodeInfo);
 		this.drivers.GV2 = Driver.create("GV2", this, nodeInfo.state['GV2'], { uom: UnitOfMeasure.Kelvin, label: "Color Temperature K", name: "colorTemperatureK" });
 		this.drivers.GV3 = Driver.create("GV3", this, nodeInfo.state['GV3'], { uom: UnitOfMeasure.Unknown, label: "Color Temperature Mired", name: "colorTemperatureMired" });
 		this.drivers.GV4 = Driver.create("GV4", this, nodeInfo.state['GV4'], { uom: UnitOfMeasure.Index, label: "Preferred Units", name: "preferredUnits" });
 	}
 	async moveToTemperature(color: number, dur?: number) { return this.sendCommand("MOVETOCT", { COLOR: color, DUR: dur }); }
-	async moveTemperature(min?: number, max?: number, mode: ZigBee.Cmm, rate?: number) { return this.sendCommand("MOVECT", { MIN: min, MAX: max, MODE: mode, RATE: rate }); }
+	async moveTemperature(mode: ZigBee.Cmm, min?: number, max?: number, rate?: number) { return this.sendCommand("MOVECT", { MIN: min, MAX: max, MODE: mode, RATE: rate }); }
 	async stepTemperature(min?: number, max?: number, size?: number, mode?: ZigBee.Csm, dur?: number) { return this.sendCommand("STEPCT", { MIN: min, MAX: max, SIZE: size, MODE: mode, DUR: dur }); }
 	async updatePreferredUnits(value: ZigBee.Ctunit) { return this.sendCommand("UNITS", value); }
 	async stop() { return this.sendCommand("STOP"); }
@@ -60,7 +60,7 @@ export namespace ColorControl {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ColorControlNode {
 		return ['COLOR_CONTROL'].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.ZigBee>) {
 		return new ColorControlNode(isy, nodeInfo);
 	}
 	export const Node = ColorControlNode;
@@ -71,7 +71,7 @@ export namespace ColorControl {
 				label: "Move To Temperature";
 				name: "moveToTemperature";
 			};
-			MOVECT: ((MIN?: number, MAX?: number, MODE: ZigBee.Cmm, RATE?: number) => Promise<boolean>) & {
+			MOVECT: ((MODE: ZigBee.Cmm, MIN?: number, MAX?: number, RATE?: number) => Promise<boolean>) & {
 				label: "Move Temperature";
 				name: "moveTemperature";
 			};

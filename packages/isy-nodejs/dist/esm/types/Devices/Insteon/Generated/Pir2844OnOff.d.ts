@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = Pir2844OnOff.Commands.Type;
 type Drivers = Pir2844OnOff.Drivers.Type;
@@ -18,7 +18,7 @@ declare class Pir2844OnOffNode extends Base<Drivers, Commands> implements Pir284
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'PIR2844OnOff' | "PIR2844OnOff_ADV";
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     on(value?: (0 | 100)): Promise<any>;
     off(): Promise<any>;
     query(): Promise<any>;
@@ -32,7 +32,7 @@ export declare namespace Pir2844OnOff {
     }
     function is(node: ISYNode<any, any, any, any>): node is Pir2844OnOffNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is Pir2844OnOffNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): Pir2844OnOffNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): Pir2844OnOffNode;
     const Node: typeof Pir2844OnOffNode;
     const Class: typeof Pir2844OnOffNode;
     namespace Commands {

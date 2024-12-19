@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { UDI } from "../../../Definitions/index.js";
 import { NodeFactory } from "../../NodeFactory.js";
@@ -18,7 +18,7 @@ class TemperatureSensorNode extends Base<Drivers, Commands> implements Temperatu
 	static override nodeDefId = "EM3TempSensor";
 	static override implements = ['EM3TempSensor'];
 	declare readonly nodeDefId: 'EM3TempSensor';
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.UDI>) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Degree, label: "Temperature", name: "temperature" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
@@ -42,7 +42,7 @@ export namespace TemperatureSensor {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is TemperatureSensorNode {
 		return ['EM3TempSensor'].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.UDI>) {
 		return new TemperatureSensorNode(isy, nodeInfo);
 	}
 	export const Node = TemperatureSensorNode;

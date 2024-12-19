@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import type { IntRange } from "type-fest";
 import { ZWave } from "../../../Definitions/index.js";
 type Commands = DimmerSwitch.Commands.Type;
@@ -27,7 +27,7 @@ declare class DimmerSwitchNode extends Base<Drivers, Commands> implements Dimmer
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: '119';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.ZWave>);
     on(value?: number | ZWave.PercentOpt, rampRate?: number): Promise<any>;
     off(): Promise<any>;
     fastOn(): Promise<any>;
@@ -49,7 +49,7 @@ export declare namespace DimmerSwitch {
     }
     function is(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): DimmerSwitchNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.ZWave>): DimmerSwitchNode;
     const Node: typeof DimmerSwitchNode;
     const Class: typeof DimmerSwitchNode;
     namespace Commands {

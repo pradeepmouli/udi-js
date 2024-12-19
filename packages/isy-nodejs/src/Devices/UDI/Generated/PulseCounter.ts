@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { UDI } from "../../../Definitions/index.js";
 import { NodeFactory } from "../../NodeFactory.js";
@@ -18,7 +18,7 @@ class PulseCounterNode extends Base<Drivers, Commands> implements PulseCounter.I
 	static override nodeDefId = "EM3PulseCounter";
 	static override implements = ['EM3PulseCounter'];
 	declare readonly nodeDefId: 'EM3PulseCounter';
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.UDI>) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.PulseCount, label: "Status", name: "status" });
 		this.drivers.CPW = Driver.create("CPW", this, nodeInfo.state['CPW'], { uom: UnitOfMeasure.Watt, label: "Current Power", name: "currentPower" });
@@ -50,7 +50,7 @@ export namespace PulseCounter {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is PulseCounterNode {
 		return ['EM3PulseCounter'].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.UDI>) {
 		return new PulseCounterNode(isy, nodeInfo);
 	}
 	export const Node = PulseCounterNode;

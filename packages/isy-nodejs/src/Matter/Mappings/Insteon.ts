@@ -11,10 +11,10 @@ import  { ISYDevice } from '../../ISYDevice.js';
 import type { CompositeDevice } from '../../Devices/CompositeDevice.js';
 import type { BooleanState, BooleanStateCluster, Cluster } from '@project-chip/matter.js/cluster';
 
-export let map;
+
 	//Family: Family.Insteon,
 //@ts-ignore
-MappingRegistry.add({
+let map = add({Family: 'Insteon'}).add({
 	DoorWindowSensor: {
 		deviceType: ContactSensorDevice,
 		mapping: {
@@ -33,7 +33,7 @@ MappingRegistry.add({
 					onOff: { driver: 'status', converter: 'Percent.Boolean' },
 
 				},
-				commands: { on: 'DON' },
+				commands: { on: 'on' },
 
 			}
 		}
@@ -45,43 +45,42 @@ MappingRegistry.add({
 
 			onOff: {
 				attributes: {
-					onOff: { driver: 'ST', converter: 'Percent.Boolean' }
+					onOff: { driver: 'status', converter: 'Percent.Boolean' }
 				},
-				commands: { on: 'DON' }
+				commands: { on: 'on' }
 			},
 
 
 			levelControl: {
 				// @ts-ignore
 				attributes: {
-					currentLevel: { driver: 'ST', converter: 'Percent.LightingLevel' },
+					currentLevel: { driver: 'status', converter: 'Percent.LightingLevel' },
 					//startUpCurrentLevel: { driver: 'OL', converter: 'Percent.LightingLevel' },
-					onLevel: { driver: 'OL', converter: 'Percent.LightingLevel' }
+					onLevel: { driver: 'onLevel', converter: 'Percent.LightingLevel' }
 				},
-				commands: { moveToLevel: 'DON' }
+				commands: { moveToLevel: 'on' }
 			}
 		}
 	}}).add
 	({DimmerLampSwitch: {
 		deviceType: DimmableLightDevice,
-		// @ts-ignore
 		mapping: {
 
 			OnOff: {
 				attributes: {
-					onOff: { driver: 'ST', converter: 'Percent.Boolean' }
+					onOff: { driver: 'status', converter: 'Percent.Boolean' }
 				},
 				commands: { on: 'DON' }
 			},
 			LevelControl: {
 
 				attributes: {
-					currentLevel: { driver: 'ST', converter: 'Percent.LightingLevel' },
+					currentLevel: { driver: 'status', converter: 'Percent.LightingLevel' },
 					//startUpCurrentLevel: { driver: 'OL', converter: 'Percent.LightingLevel' },
-					onLevel: { driver: 'OL', converter: 'Percent.LightingLevel' }
+					onLevel: { driver: 'onLevel', converter: 'Percent.LightingLevel' }
 
 				},
-				commands: { setLevel: { command: 'DON' } }
+				commands: { setLevel: { command: 'on' } }
 			}
 		} as EndpointMapping<DimmableLightDevice, InstanceType<typeof Insteon.DimmerLamp.Node>>
 	}

@@ -155,7 +155,7 @@ export declare enum UnitOfMeasure {
 }
 export declare function toString(this: UnitOfMeasure): keyof typeof UnitOfMeasure;
 export declare namespace UnitOfMeasure {
-    export type ToType<X extends UnitOfMeasure> = TypeMap[X];
+    export type ToType<X extends UnitOfMeasure> = X extends keyof UnitOfMeasure ? TypeMap[X] : number;
     export type Standard = keyof typeof UnitOfMeasure;
     export type Matter = 'LightingLevel' | 'RampRate';
     type TypeMap = {
@@ -168,7 +168,10 @@ export declare namespace UnitOfMeasure {
         [UnitOfMeasure.URLForStreaming]: string;
         [UnitOfMeasure.UnixTimestamp]: number;
         [UnitOfMeasure.NTPDateTime]: Date;
-        [x: number]: any;
+        [UnitOfMeasure.Raw1ByteUnsignedValue]: IntRange<0, 255>;
+        [UnitOfMeasure.Celsius]: number;
+        [UnitOfMeasure.Fahrenheit]: number;
+        [UnitOfMeasure.Unknown]: any;
     };
     export {};
 }

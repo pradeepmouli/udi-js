@@ -4,12 +4,17 @@ import  { ISYNode } from '../ISYNode.js';
 import type { NodeDef } from '../Model/NodeDef.js';
 import { isDynamic, type NodeInfo } from '../Model/NodeInfo.js';
 import type { Constructor } from './Constructor.js';
-import type { IdentityOf, StringKeys } from '../Utils.js';
+import type { Factory, IdentityOf, StringKeys } from '../Utils.js';
 import { Family, type EnumLiteral } from '../Definitions/index.js';
+import type { Identity } from '@matter/general';
+import { ISYDeviceNode } from './ISYDeviceNode.js';
+import { GenericNode } from './GenericNode.js';
 
 
 
 export namespace NodeFactory {
+
+	export type NodeClassFactory<T extends ISYDeviceNode<any,any,any,any>> = Factory<T> & {implements: string[]} & {nodeDefId: string} & {Commands, Drivers};
 	export const registry: NodeClassRegistry = {};
 
 	export type NodeClass<T extends Family | keyof typeof Family> = T extends Family? typeof ISYNode<T, any, any, any> : T extends keyof typeof Family ? typeof ISYNode<typeof Family[T] , any, any, any> : never;
@@ -90,14 +95,14 @@ export namespace NodeFactory {
 		}
 
 		else {
-			var nd = getForNodeDefId(Family[node.family] as F, node.sgid);
+			var nd = getForNodeDefId(Family[node.family] as F, String(node.sgid));
 			if (nd) {
 				return Promise.resolve(nd);
 			}
 			let n = (await isy.sendRequest(
 				`zmatter/${node.family == Family.ZWave ? "zwave" : "zb"}/node/${node.address}/def/get?full=true`
 			)) as NodeDef;
-			let cls = ISYNode;
+			let cls = GenericNode;
 		    NodeFactory.register(cls,n.nls);
 			return cls;
 

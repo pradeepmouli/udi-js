@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = DimmerLampSwitch.Commands.Type;
@@ -29,7 +29,7 @@ declare class DimmerLampSwitchNode extends Base<Drivers, Commands> implements Di
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'DimmerLampSwitch' | "DimmerLampSwitch_ADV";
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     on(value?: number): Promise<any>;
     off(): Promise<any>;
     fastOff(): Promise<any>;
@@ -55,7 +55,7 @@ export declare namespace DimmerLampSwitch {
     }
     function is(node: ISYNode<any, any, any, any>): node is DimmerLampSwitchNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerLampSwitchNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): DimmerLampSwitchNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): DimmerLampSwitchNode;
     const Node: typeof DimmerLampSwitchNode;
     const Class: typeof DimmerLampSwitchNode;
     namespace Commands {

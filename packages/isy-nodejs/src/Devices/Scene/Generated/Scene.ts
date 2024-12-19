@@ -1,10 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
+import { Family } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Scene } from "../../../Definitions/index.js";
 import { NodeFactory } from "../../NodeFactory.js";
 
@@ -34,7 +35,7 @@ class SceneNode extends Base<Drivers, Commands> implements Scene.Interface {
 	static override nodeDefId = "InsteonDimmer";
 	static override implements = ['InsteonDimmer'];
 	declare readonly nodeDefId: 'InsteonDimmer';
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.Scene>) {
 		super(isy, nodeInfo);
 	}
 	async on(value?: number) { return this.sendCommand("DON", value); }
@@ -67,7 +68,7 @@ export namespace Scene {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is SceneNode {
 		return ['InsteonDimmer'].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.Scene>) {
 		return new SceneNode(isy, nodeInfo);
 	}
 	export const Node = SceneNode;

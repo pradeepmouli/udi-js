@@ -1,7 +1,7 @@
 import 'winston';
 import { RelayLamp } from './Generated/RelayLamp.js';
 import { CompositeDevice } from '../CompositeDevice.js';
-export class OnOffOutlet extends CompositeDevice.of({ top: RelayLamp.Node, bottom: RelayLamp.Node }, { top: 1, bottom: 2 }) {
+export class OnOffOutlet extends CompositeDevice.of({ top: RelayLamp, bottom: RelayLamp }, { top: 1, bottom: 2 }) {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
     }
@@ -16,5 +16,6 @@ export class OnOffOutlet extends CompositeDevice.of({ top: RelayLamp.Node, botto
     }
     OnOffOutlet.create = create;
     OnOffOutlet.Device = OnOffOutlet;
+    OnOffOutlet.Class = OnOffOutlet;
 })(OnOffOutlet || (OnOffOutlet = {}));
 //# sourceMappingURL=InsteonOnOffOutletDevice.js.map

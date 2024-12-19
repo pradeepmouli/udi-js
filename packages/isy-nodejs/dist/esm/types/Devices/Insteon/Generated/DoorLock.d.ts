@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = DoorLock.Commands.Type;
 type Drivers = DoorLock.Drivers.Type;
@@ -16,7 +16,7 @@ declare class DoorLockNode extends Base<Drivers, Commands> implements DoorLock.I
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'DoorLock';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     lock(): Promise<any>;
     unlock(): Promise<any>;
     writeChanges(): Promise<any>;
@@ -28,7 +28,7 @@ export declare namespace DoorLock {
     }
     function is(node: ISYNode<any, any, any, any>): node is DoorLockNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is DoorLockNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): DoorLockNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): DoorLockNode;
     const Node: typeof DoorLockNode;
     const Class: typeof DoorLockNode;
     namespace Commands {

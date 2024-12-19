@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = Ezio2x4Output.Commands.Type;
 type Drivers = Ezio2x4Output.Drivers.Type;
@@ -17,7 +17,7 @@ declare class Ezio2x4OutputNode extends Base<Drivers, Commands> implements Ezio2
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'EZIO2x4_Output';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     on(value?: (0 | 100)): Promise<any>;
     off(): Promise<any>;
     query(): Promise<any>;
@@ -30,7 +30,7 @@ export declare namespace Ezio2x4Output {
     }
     function is(node: ISYNode<any, any, any, any>): node is Ezio2x4OutputNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is Ezio2x4OutputNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): Ezio2x4OutputNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): Ezio2x4OutputNode;
     const Node: typeof Ezio2x4OutputNode;
     const Class: typeof Ezio2x4OutputNode;
     namespace Commands {

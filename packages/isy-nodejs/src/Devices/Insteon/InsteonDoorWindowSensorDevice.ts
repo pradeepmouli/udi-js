@@ -17,13 +17,13 @@ const nodes = {
 	lowBattery:  BinaryAlarm.Node
 }
 //@ts-ignore
-export class DoorWindowSensorDevice extends CompositeDevice.of({contactSensor: BinaryAlarm.Node, heartbeat: BinaryAlarm.Node, lowBattery: BinaryAlarm.Node}, {contactSensor: 1, heartbeat: 3, lowBattery: 4} )
+export class DoorWindowSensorDevice extends CompositeDevice.of({contactSensor: BinaryAlarm, heartbeat: BinaryAlarm, lowBattery: BinaryAlarm}, {contactSensor: 1, heartbeat: 3, lowBattery: 4} )
 {
 
 	constructor (isy: ISY, ...node: NodeInfo[]) {
 		super(isy, ...node);
 
-
+	
 
 	}
 
@@ -31,6 +31,8 @@ export class DoorWindowSensorDevice extends CompositeDevice.of({contactSensor: B
 
 export namespace DoorWindowSensor {
 	export class Device extends DoorWindowSensorDevice { }
+
+	export class Class extends DoorWindowSensorDevice { }
 
 	export const ContactSensor = BinaryAlarm;
 

@@ -1,22 +1,19 @@
-import { Family, Insteon } from '../../Definitions/Global/Families.js';
-import { ISY } from '../../ISY.js';
-import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
-import { NodeInfo } from '../../Model/NodeInfo.js';
-import { ISYDeviceNode } from '../ISYDeviceNode.js';
-import { ISYNode } from '../../ISYNode.js';
+import type { Merge } from '@matter/general';
 import 'winston';
 import type { Driver } from '../../Definitions/Global/Drivers.js';
-import type { Merge } from '@matter/general';
+import { Family, Insteon } from '../../Definitions/Global/Families.js';
+import { ISY } from '../../ISY.js';
+import { ISYNode } from '../../ISYNode.js';
+import { NodeInfo } from '../../Model/NodeInfo.js';
+import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
 import { DynamicNode } from '../DynamicNode.js';
+import { ISYDeviceNode } from '../ISYDeviceNode.js';
+import type { NodeDef } from '../../Model/NodeDef.js';
 
 // import { InsteonNLS } from './insteonfam'
-export class ZigBeeBaseDevice<D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures = {}> extends DynamicNode<Family.ZigBee,D,C,E > {
-
-	public async getNodeDef()
-	{
-		return this.isy.sendRequest(`zmatter/zb/node/${this.address}/def/get?full=true`)
+export class ZigBeeBase<D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures = {}> extends DynamicNode<Family.ZigBee, D, C, E> {
+	static override family: Family.ZigBee = Family.ZigBee;
+	public async getNodeDef(nodeDefId: string): Promise<NodeDef> {
+		return this.isy.sendRequest(`zmatter/zb/node/${this.address}/def/get`,{trailingSlash: false});
 	}
-
-
-
 }

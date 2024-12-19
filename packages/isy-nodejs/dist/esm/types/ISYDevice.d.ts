@@ -31,8 +31,8 @@ export declare namespace ISYDevice {
     function isDevice<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures>(device: ISYNode<T, D, C, E>): device is ISYDevice<T, D, C, E> & ISYNode<T, D, C, E>;
     function isNode<T extends Family, D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures>(device: ISYDevice<T, D, C, E>): device is ISYDevice<T, D, C, E> & ISYNode<T, D, C, E>;
     function isComposite<T extends Family, D extends Record<string, typeof ISYDeviceNode>, C, E>(device: ISYDevice<T, D, C, E>): device is ISYDevice<T, D, C, E> & CompositeDevice<T, any, any>;
-    type DriverNamesOf<T extends ISYDevice<any, any, any, any>> = T extends CompositeDevice<any, any, any> ? CompositeDevice.DriverNamesOf<T> : ISYNode.DriverNamesOf<T>;
-    type CommandNamesOf<T extends ISYDevice<any, any, any, any>> = T extends CompositeDevice<any, any, any> ? CompositeDevice.CommandNamesOf<T> : T extends ISYNode ? ISYNode.CommandNamesOf<T> : never;
+    type DriverNamesOf<T> = T extends CompositeDevice<any, any, any> ? CompositeDevice.DriverNamesOf<T> : ISYNode.DriverNamesOf<T>;
+    type CommandNamesOf<T> = T extends CompositeDevice<any, any, any> ? CompositeDevice.CommandNamesOf<T> : ISYNode.CommandNamesOf<T>;
     type Any = ISYDevice<any, any, any, any>;
     type EventNamesOf<T extends ISYDevice.Any | Factory<ISYDevice.Any>> = InstanceTypeOf<T> extends CompositeDevice<any, any, any> ? CompositeDevice.EventNamesOf<InstanceTypeOf<T>> : T extends ISYNode ? ISYNode.EventNamesOf<T> : never;
     type InstanceTypeOf<T> = T extends ISYDevice.Any ? T : T extends Factory<ISYDevice.Any> & {

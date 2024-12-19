@@ -15,7 +15,7 @@ import { EventType } from './Events/EventType.js';
 import type { Constructor } from 'type-fest';
 
 
-export type Factory<T extends object> =
+export interface Factory<T extends object>
 	{
 		create?: (...args: any[]) => T;
 		is?<K extends T>(obj: object): obj is T;
@@ -23,7 +23,7 @@ export type Factory<T extends object> =
 		Class: Constructor<T>;
 
 
-	} & {Node: Constructor<T>} | {Device: Constructor<T>};
+	}
 
 export function isFactory(obj: any): obj is Factory<any> {
 	return obj.Node !== undefined || obj.Device !== undefined || obj.class !== undefined;
@@ -34,7 +34,7 @@ export function getConstructor<T extends object>(obj: Factory<T> | Constructor<T
 		if('Node' in obj) {
 			return obj.Class;
 		}
-		return obj.Device;
+		return obj.Class;
 	}
 	return obj;
 }
@@ -42,6 +42,10 @@ export function getConstructor<T extends object>(obj: Factory<T> | Constructor<T
 
 export type ConstructorOf<T> = T extends Factory<infer U>  ? Constructor<U> : T extends Constructor<infer U> ? U : Constructor<T> ;
 
+
+export type InstanceOf<T> = T extends Factory<infer U> ? U : T extends Constructor<infer U> ? U : T;
+
+export type ExtractKeys<T,U> = keyof {[K in keyof T]: T[K] extends U ? K : never };
 
 export type StringKeys<T> = Extract<keyof T, string>;
 

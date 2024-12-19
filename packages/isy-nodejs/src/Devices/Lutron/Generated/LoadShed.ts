@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import { Lutron } from "../../../Definitions/index.js";
 import { NodeFactory } from "../../NodeFactory.js";
@@ -22,7 +22,7 @@ class LoadShedNode extends Base<Drivers, Commands> implements LoadShed.Interface
 	static override nodeDefId = "LUTLoadShed";
 	static override implements = ['LUTLoadShed'];
 	declare readonly nodeDefId: 'LUTLoadShed';
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.Lutron>) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
@@ -49,7 +49,7 @@ export namespace LoadShed {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is LoadShedNode {
 		return ['LUTLoadShed'].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.Lutron>) {
 		return new LoadShedNode(isy, nodeInfo);
 	}
 	export const Node = LoadShedNode;

@@ -798,7 +798,7 @@ export class ISY extends EventEmitter implements Disposable {
 								this.logger.warn('Device not currently supported: ' + JSON.stringify(nodeInfo) + ' /n It has been mapped to: ' + d.name);
 							}
 							try {
-								await newDevice.refreshNotes();
+								//await newDevice.refreshNotes();
 							} catch (e) {
 								this.logger.debug('No notes found.');
 							}
@@ -859,7 +859,7 @@ export class ISY extends EventEmitter implements Disposable {
 
 				const newScene = new ISYScene(this, scene);
 				try {
-					await newScene.refreshNotes();
+					//await newScene.refreshNotes();
 				} catch (e) {
 					this.logger.debug('No notes found.');
 				}

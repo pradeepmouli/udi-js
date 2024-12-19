@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import type { IntRange } from "type-fest";
 import { ZWave } from "../../../Definitions/index.js";
@@ -33,7 +33,7 @@ class DimmerSwitchNode extends Base<Drivers, Commands> implements DimmerSwitch.I
 	static override nodeDefId = "119";
 	static override implements = ['119'];
 	declare readonly nodeDefId: '119';
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.ZWave>) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Percent, label: "Status", name: "status" });
 		this.drivers.ERR = Driver.create("ERR", this, nodeInfo.state['ERR'], { uom: UnitOfMeasure.Index, label: "Responding", name: "responding" });
@@ -70,7 +70,7 @@ export namespace DimmerSwitch {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is DimmerSwitchNode {
 		return ['119'].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.ZWave>) {
 		return new DimmerSwitchNode(isy, nodeInfo);
 	}
 	export const Node = DimmerSwitchNode;

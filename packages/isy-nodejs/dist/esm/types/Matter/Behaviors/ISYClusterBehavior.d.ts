@@ -2,18 +2,18 @@ import type { ClusterBehavior } from '@project-chip/matter.js/behavior/cluster';
 import '@project-chip/matter.js/device';
 import type { Constructor } from '../../Devices/Constructor.js';
 import type { DriversOf, ISYNode } from '../../ISYNode.js';
-import type { ClusterMapping } from '../Mappings/MappingRegistry.js';
+import { type ClusterMapping } from '../Mappings/MappingRegistry.js';
 import { ISYBridgedDeviceBehavior } from './ISYBridgedDeviceBehavior.js';
 import { type Factory } from '../../Utils.js';
 import type { ISYDeviceNode } from '../../Devices/ISYDeviceNode.js';
 export type ClusterForBehavior<B> = B extends ClusterBehavior.Type<infer C, infer D, infer E> ? C : never;
 export type ConstructedType<B extends Constructor<any>> = B extends Constructor<infer C> ? C : never;
-export interface DeviceBehavior<P extends ISYDeviceNode<any, any, any, any>, T extends {
+export interface DeviceBehavior<P extends ISYDeviceNode.Any, T extends {
     cluster?: any;
 }> {
     device: P;
     bridgedDeviceBehavior: ISYBridgedDeviceBehavior<P>;
-    map: ClusterMapping<T, P>;
+    map: ClusterMapping<T["cluster"], P>;
     handlePropertyChange(chg: PropertyChange<P>): void;
 }
 export type PropertyChange<P extends ISYNode> = {

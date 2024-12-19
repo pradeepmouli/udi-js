@@ -2,7 +2,7 @@ import { ISYDeviceNode } from './ISYDeviceNode.js';
 export class DynamicNode extends ISYDeviceNode {
     constructor(isy, node) {
         super(isy, node);
-        this.getNodeDef().then((def) => {
+        this.getNodeDef(node.nodeDefId).then((def) => {
             for (let st in this.drivers) {
                 if (!(def.sts.st).find((s) => s.id === st)) {
                     delete this.drivers[st];

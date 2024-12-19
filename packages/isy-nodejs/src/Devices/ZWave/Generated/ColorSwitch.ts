@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import type { IntRange } from "type-fest";
 import { ZWave } from "../../../Definitions/index.js";
@@ -25,7 +25,7 @@ class ColorSwitchNode extends Base<Drivers, Commands> implements ColorSwitch.Int
 	static override nodeDefId = "186";
 	static override implements = ['186'];
 	declare readonly nodeDefId: '186';
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.ZWave>) {
 		super(isy, nodeInfo);
 		this.drivers.GV0 = Driver.create("GV0", this, nodeInfo.state['GV0'], { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Warm White", name: "warmWhite" });
 		this.drivers.GV2 = Driver.create("GV2", this, nodeInfo.state['GV2'], { uom: UnitOfMeasure.Raw1ByteUnsignedValue, label: "Red", name: "red" });
@@ -66,7 +66,7 @@ export namespace ColorSwitch {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is ColorSwitchNode {
 		return ['186'].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.ZWave>) {
 		return new ColorSwitchNode(isy, nodeInfo);
 	}
 	export const Node = ColorSwitchNode;

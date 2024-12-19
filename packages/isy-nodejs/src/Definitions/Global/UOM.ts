@@ -166,7 +166,7 @@ export function toString(this: UnitOfMeasure): keyof typeof UnitOfMeasure {
 
 //import { Converters } from "../../Converters.js";
 export namespace UnitOfMeasure {
-	export type ToType<X extends UnitOfMeasure> = TypeMap[X];
+	export type ToType<X extends UnitOfMeasure> = X extends keyof UnitOfMeasure ? TypeMap[X] : number;
 
 
 
@@ -185,12 +185,15 @@ export namespace UnitOfMeasure {
 		[UnitOfMeasure.URLForStreaming]: string;
 		[UnitOfMeasure.UnixTimestamp]: number;
 		[UnitOfMeasure.NTPDateTime]: Date;
+		[UnitOfMeasure.Raw1ByteUnsignedValue]: IntRange<0, 255>;
+		//[UnitOfMeasure.Raw1ByteSignedValue]: IntRange<-128, 127>;
+		[UnitOfMeasure.Celsius]: number;
+		[UnitOfMeasure.Fahrenheit]: number;
+		[UnitOfMeasure.Unknown]: any;
 
-		[x: number]: any
+	}
 
 
-
-	};
 
 
 

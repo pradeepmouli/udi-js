@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { UDI } from "../../../Definitions/index.js";
 type Commands = Main.Commands.Type;
 type Drivers = Main.Drivers.Type;
@@ -14,7 +14,7 @@ declare class MainNode extends Base<Drivers, Commands> implements Main.Interface
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'EM3Main';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.UDI>);
     query(): Promise<any>;
     get status(): number;
     get totalEnergy(): number;
@@ -25,7 +25,7 @@ export declare namespace Main {
     }
     function is(node: ISYNode<any, any, any, any>): node is MainNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is MainNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): MainNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.UDI>): MainNode;
     const Node: typeof MainNode;
     const Class: typeof MainNode;
     namespace Commands {

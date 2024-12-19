@@ -9,7 +9,7 @@ import type { ISYScene } from './ISYScene.js';
 import type { Factory } from './Utils.js';
 import type { InstanceOf } from 'ts-morph';
 import type { Constructor } from 'type-fest';
-
+import type { RelayLampSwitch } from './Devices/Insteon/Generated/RelayLampSwitch.js';
 export interface ISYDevice<T extends Family, D, C, E> extends ISYDeviceInfo {
 	// #region Properties (22)
 	address: string;
@@ -61,15 +61,19 @@ export namespace ISYDevice
 		return 'root' in device;
 	}
 
-	export type DriverNamesOf<T extends ISYDevice<any,any,any,any>> = T extends CompositeDevice<any,any,any> ? CompositeDevice.DriverNamesOf<T> : ISYNode.DriverNamesOf<T>;
+	export type DriverNamesOf<T> = T extends CompositeDevice<any,any,any> ? CompositeDevice.DriverNamesOf<T> : ISYNode.DriverNamesOf<T>;
 
-	export type CommandNamesOf<T extends ISYDevice<any,any,any,any>> = T extends CompositeDevice<any,any,any> ? CompositeDevice.CommandNamesOf<T> : T extends ISYNode ? ISYNode.CommandNamesOf<T> : never;
+	type test = CommandNamesOf<typeof RelayLampSwitch>
+
+	export type CommandNamesOf<T> = T extends CompositeDevice<any,any,any> ? CompositeDevice.CommandNamesOf<T> : ISYNode.CommandNamesOf<T>;
 
 	export type Any = ISYDevice<any,any,any,any>;
 
 	export type EventNamesOf<T extends ISYDevice.Any | Factory<ISYDevice.Any>> = InstanceTypeOf<T> extends CompositeDevice<any,any,any> ? CompositeDevice.EventNamesOf<InstanceTypeOf<T>> : T extends ISYNode ? ISYNode.EventNamesOf<T> : never;
 
 	export type InstanceTypeOf<T> = T extends ISYDevice.Any ? T : T extends Factory<ISYDevice.Any> & {Node: Constructor<ISYDevice.Any>} ? InstanceType<T['Node']> : T extends {Device: Constructor<ISYDevice.Any>} ? InstanceType<T['Device']> : never;
+
+
 
 }
 

@@ -5,7 +5,7 @@ import { Converter } from '../../Converters.js';
 import type { Constructor } from '../../Devices/Constructor.js';
 import type { DriversOf, ISYNode } from '../../ISYNode.js';
 
-import type { ClusterMapping } from '../Mappings/MappingRegistry.js';
+import { hasConverter, type ClusterMapping } from '../Mappings/MappingRegistry.js';
 import { ISYBridgedDeviceBehavior } from './ISYBridgedDeviceBehavior.js';
 import { isYieldExpression } from 'typescript';
 import { getConstructor, type ConstructorOf, type Factory } from '../../Utils.js';
@@ -19,14 +19,14 @@ export type ClusterForBehavior<B> = B extends ClusterBehavior.Type<infer C, infe
 export type ConstructedType<B extends Constructor<any>> = B extends Constructor<infer C> ? C : never;
 // <reference path="MatterDevice.js" />
 // @ts-ignore
-export interface DeviceBehavior<P extends ISYDeviceNode<any, any, any, any>, T extends { cluster? }> {
+export interface DeviceBehavior<P extends ISYDeviceNode.Any, T extends { cluster? }> {
 	device: P;
 
 
 	bridgedDeviceBehavior: ISYBridgedDeviceBehavior<P>;
 
 	//ts-ignore
-	map: ClusterMapping<T, P>;
+	map: ClusterMapping<T["cluster"], P>;
 
 	handlePropertyChange(chg: PropertyChange<P>): void;
 };
@@ -57,7 +57,7 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 		bridgedDeviceBehavior: ISYBridgedDeviceBehavior<P>;
 		///public map: ClusterMapping<ToClusterTypeByName<ClusterForBehavior<ConstructedType<typeof base>>["name"]>,ISYDeviceNode<any, any, any>>;
 
-		map: ClusterMapping<T, P>;
+		map: ClusterMapping<T["cluster"], P>;
 
 		override async initialize(_options?: {}) {
 			await super.initialize(_options);
@@ -72,6 +72,7 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 			this.map = behavior.mapForBehavior<T>(this as unknown as T);
 			for (const key2 in this.map.attributes) {
 				let val = this.map.attributes[key2];
+
 				let driverObj = null;
 				if (typeof val === 'string' || typeof val === 'symbol' || typeof val === 'number') {
 					driverObj = this._device.drivers[val] as Driver<any,any>;
@@ -79,11 +80,11 @@ export function ISYClusterBehavior<T extends Constructor<ClusterBehavior> & { cl
 					this.handlers[val] = (newValue, oldValue, formattedValue) => {
 						this.state[key2 as string] = newValue;
 					};
-				} else if (val.driver as ISYNode.DriverKeysOf<P>) {
+				} else if (hasConverter(val)) {
 					driverObj = this._device.drivers[val.driver as string] as Driver<any,any>;
 
 					let { driver, converter } = val;
-					const convFunc = Converter.get(converter)?.to;
+					const convFunc = Converter.get(converter as any)?.to;
 					if (!convFunc) throw new Error(`Converter ${converter} not found`);
 					this.state[key2 as string] = convFunc(this._device.drivers[driver as string].value);
 					this.handlers[val.driver as ISYNode.DriverKeysOf<P>] = (newValue, oldValue, formattedValue) => {

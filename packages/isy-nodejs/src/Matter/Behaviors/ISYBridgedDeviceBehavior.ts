@@ -59,8 +59,8 @@ export class ISYBridgedDeviceBehavior<N extends ISYDeviceNode<any, D, any, any>,
 		return this.internal.map;
 	}
 
-	mapForBehavior<B extends ClusterBehavior>(behavior: B): ClusterMapping<B, typeof this.internal.device> {
-		return this.map.mapping[behavior.cluster.name];
+	mapForBehavior<B extends ClusterBehavior>(behavior: B): ClusterMapping<B["cluster"], typeof this.internal.device> {
+		return this.map.mapping[behavior.cluster.name] as any;
 	}
 
 	handlePropertyChange(driver: string, newValue: any, oldValue: any, formattedValue: string) {

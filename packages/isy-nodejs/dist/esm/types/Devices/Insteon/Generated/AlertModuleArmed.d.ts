@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = AlertModuleArmed.Commands.Type;
 type Drivers = AlertModuleArmed.Drivers.Type;
@@ -18,7 +18,7 @@ declare class AlertModuleArmedNode extends Base<Drivers, Commands> implements Al
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'AlertModuleArmed';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     on(): Promise<any>;
     off(): Promise<any>;
     query(): Promise<any>;
@@ -32,7 +32,7 @@ export declare namespace AlertModuleArmed {
     }
     function is(node: ISYNode<any, any, any, any>): node is AlertModuleArmedNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is AlertModuleArmedNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): AlertModuleArmedNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): AlertModuleArmedNode;
     const Node: typeof AlertModuleArmedNode;
     const Class: typeof AlertModuleArmedNode;
     namespace Commands {

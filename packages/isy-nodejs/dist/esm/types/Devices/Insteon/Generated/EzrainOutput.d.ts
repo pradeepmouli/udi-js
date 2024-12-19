@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = EzrainOutput.Commands.Type;
 type Drivers = EzrainOutput.Drivers.Type;
@@ -18,7 +18,7 @@ declare class EzrainOutputNode extends Base<Drivers, Commands> implements Ezrain
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'EZRAIN_Output';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     on(value?: (0 | 100)): Promise<any>;
     off(): Promise<any>;
     query(): Promise<any>;
@@ -32,7 +32,7 @@ export declare namespace EzrainOutput {
     }
     function is(node: ISYNode<any, any, any, any>): node is EzrainOutputNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is EzrainOutputNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): EzrainOutputNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): EzrainOutputNode;
     const Node: typeof EzrainOutputNode;
     const Class: typeof EzrainOutputNode;
     namespace Commands {

@@ -229,16 +229,18 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 				let baseBehavior = deviceType;
 
 				let b = deviceType?.behaviors;
-
-				for (let s in b)
+				if(baseBehavior)
 				{
-					let behavior = deviceType.behaviors[s] as ClusterBehavior.Type;
-					if(behavior.cluster && behavior.cluster.name !== 'Unknown')
+					for (let s in b)
 					{
-						let b = BehaviorRegistry.get(device,behavior.cluster.name);
-						if(b)
+						let behavior = deviceType.behaviors[s] as ClusterBehavior.Type;
+						if(behavior.cluster && behavior.cluster.name !== 'Unknown')
 						{
-							baseBehavior = baseBehavior.with(b);
+							let b = BehaviorRegistry.get(device,behavior.cluster.name);
+							if(b)
+							{
+								baseBehavior = baseBehavior.with(b);
+							}
 						}
 					}
 				}

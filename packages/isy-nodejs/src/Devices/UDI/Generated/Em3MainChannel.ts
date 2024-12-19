@@ -1,11 +1,11 @@
 /* THIS FILE WAS AUTOMATICALLY GENERATED. DO NOT EDIT DIRECTLY. */
 
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Driver } from "../../../Definitions/Global/Drivers.js";
 import type { IntRange } from "type-fest";
 import { UDI } from "../../../Definitions/index.js";
@@ -19,7 +19,7 @@ class Em3MainChannelNode extends Base<Drivers, Commands> implements Em3MainChann
 	static override nodeDefId = "EM3MainChannel";
 	static override implements = ['EM3MainChannel'];
 	declare readonly nodeDefId: 'EM3MainChannel';
-	constructor (isy: ISY, nodeInfo: NodeInfo) {
+	constructor (isy: ISY, nodeInfo: NodeInfo<Family.UDI>) {
 		super(isy, nodeInfo);
 		this.drivers.ST = Driver.create("ST", this, nodeInfo.state['ST'], { uom: UnitOfMeasure.Watt, label: "Status", name: "status" });
 		this.drivers.TPW = Driver.create("TPW", this, nodeInfo.state['TPW'], { uom: UnitOfMeasure.KilowattsPerHour, label: "Total Energy", name: "totalEnergy" });
@@ -59,7 +59,7 @@ export namespace Em3MainChannel {
 	export function isImplementedBy(node: ISYNode<any, any, any, any>): node is Em3MainChannelNode {
 		return ['EM3MainChannel'].includes(node.nodeDefId);
 	}
-	export function create(isy: ISY, nodeInfo: NodeInfo) {
+	export function create(isy: ISY, nodeInfo: NodeInfo<Family.UDI>) {
 		return new Em3MainChannelNode(isy, nodeInfo);
 	}
 	export const Node = Em3MainChannelNode;

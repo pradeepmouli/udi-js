@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Lutron } from "../../../Definitions/index.js";
 type Commands = LoadShed.Commands.Type;
 type Drivers = LoadShed.Drivers.Type;
@@ -16,7 +16,7 @@ declare class LoadShedNode extends Base<Drivers, Commands> implements LoadShed.I
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'LUTLoadShed';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Lutron>);
     on(value?: (0 | 100)): Promise<any>;
     off(): Promise<any>;
     query(): Promise<any>;
@@ -28,7 +28,7 @@ export declare namespace LoadShed {
     }
     function is(node: ISYNode<any, any, any, any>): node is LoadShedNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is LoadShedNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): LoadShedNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Lutron>): LoadShedNode;
     const Node: typeof LoadShedNode;
     const Class: typeof LoadShedNode;
     namespace Commands {

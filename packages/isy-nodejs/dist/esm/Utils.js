@@ -5,14 +5,14 @@ import { existsSync } from 'fs';
 import { readFile } from 'fs/promises';
 import path from 'path';
 export function isFactory(obj) {
-    return obj.Node !== undefined || obj.Device !== undefined;
+    return obj.Node !== undefined || obj.Device !== undefined || obj.class !== undefined;
 }
 export function getConstructor(obj) {
     if (isFactory(obj)) {
         if ('Node' in obj) {
-            return obj.Node;
+            return obj.Class;
         }
-        return obj.Device;
+        return obj.Class;
     }
     return obj;
 }

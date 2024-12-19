@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = BinaryControl.Commands.Type;
 type Drivers = BinaryControl.Drivers.Type;
@@ -16,7 +16,7 @@ declare class BinaryControlNode extends Base<Drivers, Commands> implements Binar
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'BinaryControl' | "BinaryControl_ADV";
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     query(): Promise<any>;
     beep(value?: number): Promise<any>;
     writeChanges(): Promise<any>;
@@ -28,7 +28,7 @@ export declare namespace BinaryControl {
     }
     function is(node: ISYNode<any, any, any, any>): node is BinaryControlNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is BinaryControlNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): BinaryControlNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): BinaryControlNode;
     const Node: typeof BinaryControlNode;
     const Class: typeof BinaryControlNode;
     namespace Commands {

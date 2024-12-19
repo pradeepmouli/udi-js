@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import type { IntRange } from "type-fest";
 import { ZWave } from "../../../Definitions/index.js";
 type Commands = ColorSwitch.Commands.Type;
@@ -19,7 +19,7 @@ declare class ColorSwitchNode extends Base<Drivers, Commands> implements ColorSw
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: '186';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.ZWave>);
     set(warmWhite?: number, coldWhite?: number, red?: number, green?: number, blue?: number, duration?: number): Promise<any>;
     fadeUp(component: ZWave.ColorComponent, startLevel?: number, duration?: number): Promise<any>;
     fadeDown(component: ZWave.ColorComponent, startLevel?: number, duration?: number): Promise<any>;
@@ -36,7 +36,7 @@ export declare namespace ColorSwitch {
     }
     function is(node: ISYNode<any, any, any, any>): node is ColorSwitchNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is ColorSwitchNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): ColorSwitchNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.ZWave>): ColorSwitchNode;
     const Node: typeof ColorSwitchNode;
     const Class: typeof ColorSwitchNode;
     namespace Commands {

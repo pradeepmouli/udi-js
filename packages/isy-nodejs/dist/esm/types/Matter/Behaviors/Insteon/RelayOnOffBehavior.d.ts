@@ -38,7 +38,7 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
     _parentDevice: import("../../../ISYDevice.js").ISYDevice<import("../../../Definitions/index.js").Family.Insteon, any, any, any>;
     children: import("../../../ISYNode.js").ISYNode<any, any, any, any>[];
     addChild<K extends import("../../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-    "__#173@#parentNode": import("../../../ISYNode.js").ISYNode<any, any, any, any>;
+    "__#174@#parentNode": import("../../../ISYNode.js").ISYNode<any, any, any, any>;
     readonly address: string;
     readonly baseLabel: string;
     readonly flag: any;
@@ -49,9 +49,9 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
     events: import("@matter/general").Merge<import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
         on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
-        on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../../Definitions/Insteon/index.js").Error, oldValue: import("../../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-    } & {
         on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+    } & {
+        on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../../Definitions/Insteon/index.js").Error, oldValue: import("../../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
         on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
     } & {
@@ -150,7 +150,7 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
         _parentDevice: import("../../../ISYDevice.js").ISYDevice<import("../../../Definitions/index.js").Family.Insteon, any, any, any>;
         children: import("../../../ISYNode.js").ISYNode<any, any, any, any>[];
         addChild<K extends import("../../../ISYNode.js").ISYNode<any, any, any, any>>(childDevice: K): void;
-        "__#173@#parentNode": import("../../../ISYNode.js").ISYNode<any, any, any, any>;
+        "__#174@#parentNode": import("../../../ISYNode.js").ISYNode<any, any, any, any>;
         readonly address: string;
         readonly baseLabel: string;
         readonly flag: any;
@@ -161,9 +161,9 @@ declare const RelayOnOffBehavior_base: import("@matter/node").ClusterBehavior.Ty
         events: import("@matter/general").Merge<import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>, {
             on(eventName: "statusChanged" | "statusInitialized", listener: (driver: "ST", newValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, oldValue: import("../../../Definitions/Insteon/index.js").OnLevelRelay, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Percent) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
-            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../../Definitions/Insteon/index.js").Error, oldValue: import("../../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
-        } & {
             on(eventName: "beepTriggered", listener: (command: "BEEP") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
+        } & {
+            on(eventName: "respondingChanged" | "respondingInitialized", listener: (driver: "ERR", newValue: import("../../../Definitions/Insteon/index.js").Error, oldValue: import("../../../Definitions/Insteon/index.js").Error, formatted: string, uom: import("../../../Definitions/index.js").UnitOfMeasure.Index) => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {
             on(eventName: "fastOffTriggered", listener: (command: "DFOF") => void): import("../../../Definitions/Global/Events.js").Event.NodeEventEmitter</*elided*/ any>;
         } & {

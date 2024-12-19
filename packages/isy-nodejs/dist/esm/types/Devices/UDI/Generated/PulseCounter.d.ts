@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import { UDI } from "../../../Definitions/index.js";
 type Commands = PulseCounter.Commands.Type;
 type Drivers = PulseCounter.Drivers.Type;
@@ -12,7 +12,7 @@ declare class PulseCounterNode extends Base<Drivers, Commands> implements PulseC
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'EM3PulseCounter';
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.UDI>);
     get status(): number;
     get currentPower(): number;
     get totalEnergy(): number;
@@ -23,7 +23,7 @@ export declare namespace PulseCounter {
     }
     function is(node: ISYNode<any, any, any, any>): node is PulseCounterNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is PulseCounterNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): PulseCounterNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.UDI>): PulseCounterNode;
     const Node: typeof PulseCounterNode;
     const Class: typeof PulseCounterNode;
     namespace Commands {

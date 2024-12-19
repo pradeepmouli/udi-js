@@ -9,7 +9,7 @@ import { Insteon } from '../../../Devices/index.js';
 export class RelayOnOffBehavior extends ISYClusterBehavior(OnOffLightRequirements.OnOffServer, Insteon.RelayLamp) {
 	override async initialize(_options?: {}) {
 		await super.initialize(_options);
-
+		
 		//this.state.onOff = this.device.status;
 		//this.state.onOff = await this.device.state;
 	}

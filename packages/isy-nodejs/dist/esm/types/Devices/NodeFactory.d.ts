@@ -1,9 +1,18 @@
 import { ISY } from '../ISY.js';
 import { ISYNode } from '../ISYNode.js';
 import { type NodeInfo } from '../Model/NodeInfo.js';
-import type { StringKeys } from '../Utils.js';
+import type { Factory, StringKeys } from '../Utils.js';
 import { Family } from '../Definitions/index.js';
+import { ISYDeviceNode } from './ISYDeviceNode.js';
 export declare namespace NodeFactory {
+    type NodeClassFactory<T extends ISYDeviceNode<any, any, any, any>> = Factory<T> & {
+        implements: string[];
+    } & {
+        nodeDefId: string;
+    } & {
+        Commands: any;
+        Drivers: any;
+    };
     const registry: NodeClassRegistry;
     type NodeClass<T extends Family | keyof typeof Family> = T extends Family ? typeof ISYNode<T, any, any, any> : T extends keyof typeof Family ? typeof ISYNode<typeof Family[T], any, any, any> : never;
     const implementsRegistry: {

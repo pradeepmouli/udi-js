@@ -6,18 +6,19 @@ import type { PackageJson } from '@npmcli/package-json';
 import type { AxiosRequestConfig } from 'axios';
 import { EventType } from './Events/EventType.js';
 import type { Constructor } from 'type-fest';
-export type Factory<T extends object> = ({
+export interface Factory<T extends object> {
     create?: (...args: any[]) => T;
     is?<K extends T>(obj: object): obj is T;
     isImplementedBy?(obj: object): obj is T;
-} & {
-    Node: Constructor<T>;
-}) | {
-    Device: Constructor<T>;
-};
+    Class: Constructor<T>;
+}
 export declare function isFactory(obj: any): obj is Factory<any>;
 export declare function getConstructor<T extends object>(obj: Factory<T> | Constructor<T>): Constructor<T>;
 export type ConstructorOf<T> = T extends Factory<infer U> ? Constructor<U> : T extends Constructor<infer U> ? U : Constructor<T>;
+export type InstanceOf<T> = T extends Factory<infer U> ? U : T extends Constructor<infer U> ? U : T;
+export type ExtractKeys<T, U> = keyof {
+    [K in keyof T]: T[K] extends U ? K : never;
+};
 export type StringKeys<T> = Extract<keyof T, string>;
 export type PickOfType<T, U> = {
     [K in keyof T]: T[K] extends U ? any extends T[K] ? never : K : undefined;

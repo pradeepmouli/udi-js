@@ -1,9 +1,9 @@
-import { UnitOfMeasure } from "../../../Definitions/Global/index.js";
+import { Family, UnitOfMeasure } from "../../../Definitions/Global/index.js";
 import type { NodeInfo } from "../../../Model/NodeInfo.js";
 import { ISY } from "../../../ISY.js";
 import { ISYNode } from "../../../ISYNode.js";
-import { Base } from "../index.js";
 import { ISYDeviceNode } from "../../ISYDeviceNode.js";
+import { Base } from "../index.js";
 import type { IntRange } from "type-fest";
 import { Insteon } from "../../../Definitions/index.js";
 type Commands = KeypadDimmer.Commands.Type;
@@ -29,7 +29,7 @@ declare class KeypadDimmerNode extends Base<Drivers, Commands> implements Keypad
     static nodeDefId: string;
     static implements: string[];
     readonly nodeDefId: 'KeypadDimmer' | "KeypadDimmer_ADV";
-    constructor(isy: ISY, nodeInfo: NodeInfo);
+    constructor(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>);
     on(value?: number): Promise<any>;
     off(): Promise<any>;
     fastOff(): Promise<any>;
@@ -55,7 +55,7 @@ export declare namespace KeypadDimmer {
     }
     function is(node: ISYNode<any, any, any, any>): node is KeypadDimmerNode;
     function isImplementedBy(node: ISYNode<any, any, any, any>): node is KeypadDimmerNode;
-    function create(isy: ISY, nodeInfo: NodeInfo): KeypadDimmerNode;
+    function create(isy: ISY, nodeInfo: NodeInfo<Family.Insteon>): KeypadDimmerNode;
     const Node: typeof KeypadDimmerNode;
     const Class: typeof KeypadDimmerNode;
     namespace Commands {

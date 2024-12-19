@@ -2,7 +2,7 @@ import { BridgedDeviceBasicInformationBehavior } from '@matter/node/behaviors';
 import { DriverType } from '../../Definitions/Global/Drivers.js';
 import { Family } from '../../Definitions/index.js';
 import { NodeFactory } from '../../Devices/NodeFactory.js';
-import { Devices, Insteon } from '../../Devices/index.js';
+import { Devices as DevicesNS } from '../../Devices/index.js';
 import { ClusterType } from '../../Model/ClusterType.js';
 import { ISYBridgedDeviceBehavior } from '../Behaviors/ISYBridgedDeviceBehavior.js';
 import { ISYDevice } from '../../ISYDevice.js';
@@ -10,10 +10,28 @@ function addA(mapping1, mapping2) {
     return { deviceType: mapping1.deviceType, nodeType: mapping1.nodeType, mapping: { ...mapping1.mapping, ...mapping2.mapping } };
 }
 export function add(This, mapping) {
-    return { ...This, ...mapping };
+    let m = { ...This, ...mapping };
+    //@ts-ignore
+    let s = {
+        ...m,
+        add(mapping2) {
+            return add(m, mapping2);
+        }
+    };
+    return s;
 }
-// #endregion Type aliases (16)
-// #region Classes (1)
+export function hasConverter(mapping) {
+    return typeof mapping === 'object' && 'converter' in mapping;
+}
+function create(mapping) {
+    let mapping1 = {
+        ...mapping,
+        add(mapping2) {
+            return add(mapping1, mapping2);
+        }
+    };
+    return mapping1;
+}
 export class MappingRegistry {
     // #region Properties (1)
     static map = new Map();
@@ -24,8 +42,8 @@ export class MappingRegistry {
         let m = this.cache[device.address];
         if (!m) {
             if (ISYDevice.isNode(device)) {
-                if (MappingRegistry.map.has(device.family)) {
-                    let g = MappingRegistry.map.get(device.family);
+                if (MappingRegistry.map.has(Family[device.family])) {
+                    let g = MappingRegistry.map.get(Family[device.family]);
                     //let m: DeviceToClusterMap<T,MutableEndpoint>;
                     if (g.has(device.constructor.name)) {
                         m = g.get(device.constructor.name);
@@ -61,55 +79,74 @@ export class MappingRegistry {
                 return MappingRegistry.getMapping(device).mapping[m];
         }
     }
+    static add(mapping) {
+        MappingRegistry.register(mapping);
+        return MappingRegistry;
+    }
     //@ts-ignore
-    static register(map) {
+    static register(map, family) {
         if ('Family' in map) {
             let regMap;
+            let Devices = DevicesNS[map.Family];
             if (!MappingRegistry.map.has(map.Family)) {
                 MappingRegistry.map.set(map.Family, new Map());
             }
             regMap = MappingRegistry.map.get(map.Family);
             for (var key in map) {
-                if (key !== 'Family') {
+                if (key !== 'Family' && key !== 'add') {
                     let m = map[key];
                     m = { deviceType: m.deviceType.with(BridgedDeviceBasicInformationBehavior, ISYBridgedDeviceBehavior), mapping: m.mapping };
-                    for (var key2 in m.mapping.attributes) {
-                        let attribute = m.mapping.attributes[key2];
-                        for (var key3 in attribute[key3]) {
-                            let d = attribute[key3];
-                            if (typeof d === 'string') {
-                                m.mapping.attributes[key2][key3] = Insteon[key].Drivers[d];
-                            }
-                            else if (d.driver) {
-                                m.mapping.attributes[key2][key3].driver = Insteon[key].Drivers[d.driver];
+                    if (m.mapping != undefined) {
+                        for (var key1 in m.mapping) {
+                            for (var key2 in m.mapping[key1].attributes) {
+                                let attribute = m.mapping[key1].attributes[key2];
+                                {
+                                    let d = attribute;
+                                    try {
+                                        if (typeof d === 'string') {
+                                            m.mapping[key1].attributes[key2] = Devices[key]?.Drivers[d];
+                                        }
+                                        else if (hasConverter(m.mapping[key1].attributes[key2])) {
+                                            //@ts-ignore
+                                            m.mapping[key1].attributes[key2].driver = Devices[key].Drivers[d.driver];
+                                        }
+                                    }
+                                    catch {
+                                        console.log('Error', key, key1, key2, d);
+                                    }
+                                }
                             }
                         }
                     }
+                    console.log('Registering', JSON.stringify({ keys: [key, Devices[key]?.Class?.name, Devices[key]?.Class?.nodeDefId], mapping: m }));
                     regMap.set(key, m);
-                    regMap.set(Insteon[key]?.name, m);
-                    regMap.set(Insteon[key].nodeDefId, m);
-                    //TODO: This is a hack to allow for the Insteon devices to be registered by name
+                    regMap.set(Devices[key]?.Class?.name, m);
+                    regMap.set(Devices[key].Class?.nodeDefId, m);
                 }
             }
-        }
-        else {
-            let regMap;
+        } /*else {
+            let regMap: Map<string, DeviceToClusterMap<any, any>>;
             for (var key in map) {
                 const keys = key.split('.');
-                let x = Devices[keys[0]][keys[1]];
-                if (!MappingRegistry.map.has(x.family)) {
-                    MappingRegistry.map.set(x.family, new Map());
+                let x = DevicesNS[keys[0]][keys[1]] as typeof ISYNode<any, any, any, any>;
+                if (!MappingRegistry.map.has(Family[x.family] as keyof typeof Family)) {
+                    MappingRegistry.map.set(Family[x.family] as keyof typeof Family, new Map());
                 }
                 //{family, key} = key.split(".")[0]
-                regMap = MappingRegistry.map.get(x.family);
-                let m = map[key];
+
+                regMap = MappingRegistry.map.get(Family[x.family] as keyof typeof Family);
+                let m = map[key] as DeviceToClusterMap<ISYDevice.Any, MutableEndpoint>;
                 let deviceType = m.deviceType;
                 deviceType = deviceType.with(BridgedDeviceBasicInformationBehavior, ISYBridgedDeviceBehavior);
+
                 m = { deviceType: deviceType, mapping: m.mapping };
+
                 regMap.set(keys[1], m);
                 regMap.set(x.name, m);
             }
         }
+    }*/
+        // #endregion Public Static Methods (3)
     }
 }
 // #endregion Classes (1)

@@ -1,7 +1,7 @@
 import { ZWave } from '../../Definitions/index.js';
-import { ZWaveBaseDevice } from './ZWaveBaseDevice.js';
 import 'winston';
-export class ZwaveLockDevice extends ZWaveBaseDevice {
+import { ZWaveBase } from './ZWaveBase.js';
+export class ZwaveLockDevice extends ZWaveBase {
     constructor(isy, deviceNode) {
         super(isy, deviceNode);
     }

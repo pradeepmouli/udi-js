@@ -1,10 +1,12 @@
-import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
 import 'winston';
+import { Family } from '../../Definitions/Global/Families.js';
+import { byteToDegree, byteToPct, pctToByte } from '../../Utils.js';
 import { DynamicNode } from '../DynamicNode.js';
 // import { InsteonNLS } from './insteonfam'
-export class ZWaveBaseDevice extends DynamicNode {
-    async getNodeDef() {
-        return this.isy.sendRequest(`zmatter/zwave/node/${this.address}/def/get?full=true`);
+export class ZWaveBase extends DynamicNode {
+    static family = Family.ZWave;
+    async getNodeDef(nodeDefId) {
+        return this.isy.sendRequest(`zmatter/zwave/node/${this.address}/def/get`, { trailingSlash: false });
     }
     convertFrom(value, uom) {
         switch (uom) {
@@ -31,8 +33,5 @@ export class ZWaveBaseDevice extends DynamicNode {
                 return nuom;
         }
     }
-    async sendBeep(level = 100) {
-        return this.sendCommand;
-    }
 }
-//# sourceMappingURL=ZWaveBaseDevice.js.map
+//# sourceMappingURL=ZWaveBase.js.map

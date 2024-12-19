@@ -160,12 +160,14 @@ export async function createMatterServer(isy, config) {
                 let deviceType = MappingRegistry.getMapping(device)?.deviceType;
                 let baseBehavior = deviceType;
                 let b = deviceType?.behaviors;
-                for (let s in b) {
-                    let behavior = deviceType.behaviors[s];
-                    if (behavior.cluster && behavior.cluster.name !== 'Unknown') {
-                        let b = BehaviorRegistry.get(device, behavior.cluster.name);
-                        if (b) {
-                            baseBehavior = baseBehavior.with(b);
+                if (baseBehavior) {
+                    for (let s in b) {
+                        let behavior = deviceType.behaviors[s];
+                        if (behavior.cluster && behavior.cluster.name !== 'Unknown') {
+                            let b = BehaviorRegistry.get(device, behavior.cluster.name);
+                            if (b) {
+                                baseBehavior = baseBehavior.with(b);
+                            }
                         }
                     }
                 }

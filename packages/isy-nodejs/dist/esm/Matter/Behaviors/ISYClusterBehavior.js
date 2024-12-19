@@ -1,5 +1,6 @@
 import '@project-chip/matter.js/device';
 import { Converter } from '../../Converters.js';
+import { hasConverter } from '../Mappings/MappingRegistry.js';
 import { ISYBridgedDeviceBehavior } from './ISYBridgedDeviceBehavior.js';
 import { getConstructor } from '../../Utils.js';
 ;
@@ -32,7 +33,7 @@ export function ISYClusterBehavior(base, p) {
                         this.state[key2] = newValue;
                     };
                 }
-                else if (val.driver) {
+                else if (hasConverter(val)) {
                     driverObj = this._device.drivers[val.driver];
                     let { driver, converter } = val;
                     const convFunc = Converter.get(converter)?.to;

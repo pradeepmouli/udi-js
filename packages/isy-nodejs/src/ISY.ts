@@ -32,6 +32,7 @@ import { ISYError } from './ISYError.js';
 import type { Config } from './Model/Config.js';
 import { findPackageJson } from './Utils.js';
 import type { Family } from './Definitions/index.js';
+import type { SocketReadyState } from 'net';
 
 
 type InitStep = 'config' | 'loadNodes' | 'readFolders' | 'readDevices' | 'readScenes' | 'variables' | 'websocket' | 'refreshStatuses' | 'initialize';
@@ -392,9 +393,11 @@ export class ISY extends EventEmitter implements Disposable {
 				await that.#finishInitialize(false);
 			}
 		}
+
 	}
 
 	webSocketOptions: WebSocket.ClientOptions & ClientRequestArgs;
+
 
 	public async initializeWebSocket() {
 		try {
@@ -415,20 +418,15 @@ export class ISY extends EventEmitter implements Disposable {
 				}
 			}
 
-			/*headers: {
-					Origin: 'com.universal-devices.websockets.isy',
-					auth
-				},
+			let p = new Promise<WebSocket>((resolve, reject) => {
+				let webSocket = new WebSocket(`${address}`, ['ISYSUB'], this.webSocketOptions);
 
-				ping: 10*/
-			let p = new Promise<void>((resolve, reject) => {
-				this.webSocket = new WebSocket(`${address}`, ['ISYSUB'], this.webSocketOptions);
-				this.lastActivity = new Date();
+
 				//this.webSocket.onmessage = (event) => {this.handleWebSocketMessage()
-				this.webSocket
+				webSocket
 					.on('open', () => {
 						this.logger.info('Websocket connection open');
-						resolve();
+						resolve(webSocket);
 					})
 					.on('message', (data, b) => {
 						that.logger.silly(`Received message: ${Utils.logStringify(data, 1)}`);
@@ -436,11 +434,11 @@ export class ISY extends EventEmitter implements Disposable {
 					})
 					.on('error', (err: any, response: any) => {
 						that.logger.warn(`Websocket subscription error: ${err}`);
-						return reject(new ISYInitializationError('Websocket subscription error', 'websocket'));
+						reject(new ISYInitializationError('Websocket subscription error', 'websocket'));
 					})
 					.on('fail', (data: string, response: any) => {
 						that.logger.warn(`Websocket subscription failure: ${data}`);
-						return reject(new Error('Websocket subscription failure'));
+						reject(new Error('Websocket subscription failure'));
 					})
 					.on('abort', () => {
 						that.logger.warn('Websocket subscription aborted.');
@@ -448,11 +446,11 @@ export class ISY extends EventEmitter implements Disposable {
 					})
 					.on('timeout', (ms: string) => {
 						that.logger.warn(`Websocket subscription timed out after ${ms} milliseconds.`);
-						return reject(new Error('Timeout contacting ISY'));
+						reject(new Error('Timeout contacting ISY'));
 						//throw new Error('Timeout contacting ISY');
 					});
 			});
-			return p;
+			this.webSocket = await p;
 		} catch (e) {
 			throw new ISYInitializationError(e, 'websocket');
 		}

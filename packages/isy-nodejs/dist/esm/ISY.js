@@ -342,20 +342,13 @@ export class ISY extends EventEmitter {
                     this.logger.warn(`Error closing existing websocket: ${e.message}`);
                 }
             }
-            /*headers: {
-                    Origin: 'com.universal-devices.websockets.isy',
-                    auth
-                },
-
-                ping: 10*/
             let p = new Promise((resolve, reject) => {
-                this.webSocket = new WebSocket(`${address}`, ['ISYSUB'], this.webSocketOptions);
-                this.lastActivity = new Date();
+                let webSocket = new WebSocket(`${address}`, ['ISYSUB'], this.webSocketOptions);
                 //this.webSocket.onmessage = (event) => {this.handleWebSocketMessage()
-                this.webSocket
+                webSocket
                     .on('open', () => {
                     this.logger.info('Websocket connection open');
-                    resolve();
+                    resolve(webSocket);
                 })
                     .on('message', (data, b) => {
                     that.logger.silly(`Received message: ${Utils.logStringify(data, 1)}`);
@@ -363,11 +356,11 @@ export class ISY extends EventEmitter {
                 })
                     .on('error', (err, response) => {
                     that.logger.warn(`Websocket subscription error: ${err}`);
-                    return reject(new ISYInitializationError('Websocket subscription error', 'websocket'));
+                    reject(new ISYInitializationError('Websocket subscription error', 'websocket'));
                 })
                     .on('fail', (data, response) => {
                     that.logger.warn(`Websocket subscription failure: ${data}`);
-                    return reject(new Error('Websocket subscription failure'));
+                    reject(new Error('Websocket subscription failure'));
                 })
                     .on('abort', () => {
                     that.logger.warn('Websocket subscription aborted.');
@@ -375,11 +368,11 @@ export class ISY extends EventEmitter {
                 })
                     .on('timeout', (ms) => {
                     that.logger.warn(`Websocket subscription timed out after ${ms} milliseconds.`);
-                    return reject(new Error('Timeout contacting ISY'));
+                    reject(new Error('Timeout contacting ISY'));
                     //throw new Error('Timeout contacting ISY');
                 });
             });
-            return p;
+            this.webSocket = await p;
         }
         catch (e) {
             throw new ISYInitializationError(e, 'websocket');

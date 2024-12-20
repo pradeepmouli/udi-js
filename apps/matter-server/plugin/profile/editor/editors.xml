@@ -3,4 +3,7 @@
 	<editor id="online">
 		<range uom="25" subset="0,1" nls="ONLINE" />
 	</editor>
+	<editor id="bridge">
+		<range uom="25" subset="0,1" nls="BRIDGE" />
+	</editor>
 </editors>

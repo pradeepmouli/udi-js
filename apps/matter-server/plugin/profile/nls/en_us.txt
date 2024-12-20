@@ -1,0 +1,9 @@
+ND-CTL-NAME = Matter Controller
+ND-CTL-ICON = GenericCtl
+ST-CTL-ST-NAME = Plugin status
+ST-CTL-GV0-NAME = Matter bridge status
+
+ONLINE-0 = Offline
+ONLINE-1 = Online
+BRIDGE-0 = Inactive
+BRIDGE-1 = Active

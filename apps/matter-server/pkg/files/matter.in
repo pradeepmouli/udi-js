@@ -28,7 +28,7 @@ load_rc_config $name
 matter_chdir=${matter_homedir}
 pidfile=${matter_homedir}/matter_svc.pid
 
-udx_command="/usr/local/bin/node bin/server.js -a"
+udx_command="/usr/local/bin/node bin/server.js -s"
 
 #MUST BE BEFORE udx.rc
 #start_precmd=matter_start_precmd

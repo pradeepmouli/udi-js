@@ -25,5 +25,10 @@ apps/matter-server/bin/*
 apps/matter-server/pkg/build/*
 apps/matter-server/pkg/work/*
 apps/matter-server/pkg/distinfo
+apps/matter-server/plugin/logs/*
+apps/matter-server/plugin/*.cert
+apps/matter-server/plugin/*.key
+apps/matter-server/plugin/*.lock
+apps/matter-server/plugin/*.pid
 matter.tar.gz
 .idea

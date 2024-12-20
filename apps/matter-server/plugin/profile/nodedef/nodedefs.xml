@@ -1,0 +1,12 @@
+<nodeDefs>
+  <nodeDef id="CTL" nodeType="139" nls="CTL">
+    <sts>
+      <st id="ST" editor="online" /> <!-- Online -->
+      <st id="GV0" editor="bridge" /> <!-- Bridge is active? -->
+	  </sts>
+    <cmds>
+      <sends />
+      <accepts />
+    </cmds>
+  </nodeDef>
+</nodeDefs>

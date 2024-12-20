@@ -6,7 +6,7 @@ import { DynamicNode } from '../DynamicNode.js';
 export class ZWaveBase extends DynamicNode {
     static family = Family.ZWave;
     async getNodeDef(nodeDefId) {
-        return this.isy.sendRequest(`zmatter/zwave/node/${this.address}/def/get`, { trailingSlash: false });
+        return (await this.isy.sendRequest(`zmatter/zwave/node/${this.address}/def/get`, { trailingSlash: false })).nodeDef;
     }
     convertFrom(value, uom) {
         switch (uom) {

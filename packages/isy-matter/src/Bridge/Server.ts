@@ -12,6 +12,7 @@ import '../Behaviors/Insteon/index.js';
 import { MappingRegistry } from '../Mappings/MappingRegistry.js';
 import { BehaviorRegistry } from '../Behaviors/BehaviorRegistry.js';
 import type { ISYNode } from 'isy-nodejs/ISYNode';
+import  'isy-nodejs/Utils';
 
 
 
@@ -267,8 +268,8 @@ export async function createMatterServer(isy?: ISY, config?: Config): Promise<Se
 							vendorName: device instanceof DeviceNode ? device.manufacturer : isy.vendorName,
 							vendorId: VendorId(config.vendorId),
 
-							productName: device.productName.leftWithToken(32),
-							productLabel: device.model.leftWithToken(64),
+							productName: device.productName?.leftWithToken(32),
+							productLabel: device.model?.leftWithToken(64),
 
 							hardwareVersion: Number(device.version),
 							hardwareVersionString: `v.${device.version}`,

@@ -34,7 +34,6 @@ export declare class ISYNode<T extends Family = Family, D extends ISYNode.Driver
     static family: Family;
     static nodeDefId: string;
     static implements: string[];
-    baseName: any;
     commands: Command.ForAll<C>;
     drivers: Driver.ForAll<D>;
     enabled: boolean;
@@ -158,7 +157,6 @@ export declare namespace ISYNode {
             readonly flag: any;
             readonly isy: ISY;
             readonly nodeDefId: string;
-            baseName: any;
             enabled: boolean;
             events: Merge<Event.NodeEventEmitter</*elided*/ any>, {
                 on(eventName: any, listener: (driver: any, newValue: any, oldValue: any, formatted: string, uom: any) => void): Event.NodeEventEmitter</*elided*/ any>;

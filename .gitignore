@@ -13,6 +13,7 @@ CLI/resources/*
 **/*.log
 tools/codegen/codegen.log
 tools/codegen/defgen.log
+
 packages/isy-nodejs/dist/tsconfig.esm.tsbuildinfo
 packages/isy-nodejs/dist/tsconfig.cjs.tsbuildinfo
 apps/matter-server/bin/matter/

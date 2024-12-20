@@ -17,6 +17,7 @@ import { promisify } from 'util';
 import winston from 'winston';
 import { authenticate } from './authenticate.js';
 import './utils.js';
+import { start } from 'repl';
 
 type ProgramOptions = {
 	autoStart: boolean;
@@ -25,6 +26,15 @@ type ProgramOptions = {
 	requireAuth: boolean;
 	openSocket: boolean;
 };
+
+enum ServerState {
+	Stopped,
+	Starting,
+	Running,
+	Stopping
+}
+
+let bridgeServerState: ServerState = ServerState.Stopped;
 
 const format = winston.format;
 const myFormat = format.combine(
@@ -137,10 +147,10 @@ async function startSocketServer(): Promise<Server> {
 				return;
 			})
 			.on('end', () => {
-				logger.info('Client disconnected');
 				logger.remove(clientLogTransport);
-				client = null;
 				clientLogTransport = null;
+				logger.info('Client disconnected');
+				client = null;
 				authenticated = false;
 			});
 	});
@@ -247,6 +257,12 @@ async function processMessage(line: string) {
 }
 
 async function startBridgeServer() {
+
+	if(bridgeServerState === ServerState.Starting || bridgeServerState === ServerState.Running)
+	{
+		logger.warn('Bridge server already starting or running');
+		return;
+	}
 	if (!isyConfig || !matterConfig) {
 		logger.error('Missing configuration');
 		return;
@@ -259,11 +275,13 @@ async function startBridgeServer() {
 		logger.error('Already started');
 		return;
 	}
+	bridgeServerState = ServerState.Starting;
 	try {
 		isy = await loadISYInterface();
 		await isy.initialize();
 		logger.info('Connected to ISY');
 		serverNode = await loadBridgeServer();
+		bridgeServerState = ServerState.Running;
 		logger.info('Matter bridge server started');
 		logger.info('*'.repeat(80));
 		logger.info(`ISY firmware version: ${isy.firmwareVersion}`);
@@ -273,6 +291,7 @@ async function startBridgeServer() {
 		logger.info(`Matter api version: ${matterServer.version}`);
 		logger.info('*'.repeat(80));
 	} catch (e) {
+		bridgeServerState = ServerState.Stopped;
 		if (e instanceof Error) {
 			logger.error(`Error starting bridge server: ${e.message}`, e);
 		} else logger.error(`Error starting bridge server: ${e}`);
@@ -303,19 +322,25 @@ async function loadBridgeServer() {
 	matterServer = await import('isy-matter/Bridge/Server');
 	logger.info('Matter Bridge api loaded');
 	logger.info('Starting matter bridge server');
-	let s = await matterServer.create(isy, matterConfig as MatterServer.Config);
-	logger.info('Matter bridge server started');
-	return s;
+	return matterServer.create(isy, matterConfig as MatterServer.Config);
 }
 
 async function stopBridgeServer() {
+	const startState = bridgeServerState;
 	try {
-		if (!isy || !serverNode) {
+
+		if (!isy || !serverNode || startState === ServerState.Stopped) {
 			logger.warn('Matter bridge not started');
 			return;
 		}
+		if(startState === ServerState.Stopping)
+		{
+			logger.warn('Bridge server already stopping');
+			return;
+		}
+		bridgeServerState = ServerState.Stopping;
 		if (serverNode) {
-			logger.info('Stopping matter bridge');
+			logger.info('Stopping bridge server');
 			await serverNode.close();
 			serverNode = undefined;
 			logger.info('Matter bridge stopped');
@@ -326,8 +351,11 @@ async function stopBridgeServer() {
 			isy = undefined;
 			logger.info('Disconnected from ISY');
 		}
+		bridgeServerState = ServerState.Stopped;
 	} catch (e) {
 		logger.error(`Error stopping bridge server ${e.message}`, e);
+		bridgeServerState = startState;
+
 	}
 }
 
@@ -337,13 +365,15 @@ async function stopSocketServer() {
 			logger.info('Stopping socket server');
 			delete logger.transports[2];
 			clientLogTransport = null;
-			await promisify(client?.end)();
-			if (socketServer) await promisify(socketServer.close)();
+			if (client)
+				await promisify(client?.end)();
+			if (socketServer)
+				await promisify(socketServer.close)();
 			client = null;
 			logger.info('Socket server stopped');
 		}
 	} catch (e) {
-		logger.error(`Error stopping socket server ${e.message}`, e);
+		logger.error(`Error stopping socket server ${e.message}`);
 	}
 }
 
@@ -362,7 +392,7 @@ program
 	.option('-a, --autoStart', 'Start matter bridge server on startup', false)
 	.option('-d, --dependencies', 'Load dependencies - static (from local node_modules), plugin (from plugin node_modules)', 'static')
 	.option('-e, --env', 'Path to environment file', '.env')
-	.option('-r, --requireAuth', 'Require authentication to start bridge server', true)
+	.option('-r, --requireAuth', 'Require authentication to start bridge server', false)
 	.option('-s, --openSocket', 'Open socket to receive requests from plugin/client', false);
 program.parse();
 options = program.opts<ProgramOptions>();
@@ -370,6 +400,15 @@ options = program.opts<ProgramOptions>();
 let envPath = path.resolve(process.cwd(), options.env);
 
 let env = expand(config({ path: envPath }));
+
+if(options.autoStart)
+{
+	options.requireAuth = false; /* Since we are starting the bridge server immediately, nothing to authenticate */
+}
+else
+{
+	options.openSocket = true; /* If we are not auto starting, we need to open the socket to receive commands */
+}
 
 console.log(`Environment variables loaded from ${path}: ${logStringify(env)}`);
 
@@ -381,31 +420,40 @@ console.log(`Options: ${logStringify(options)}`);
 
 logger = createLogger();
 
-if (options.autoStart && !isyConfig.password && process.env.LOGNAME !== 'polyglot') {
-	logger.error('Auto start requires ISY password');
-	exit(1);
-}
-if (options.autoStart && (process.env.LOGNAME === 'polyglot' || process.env.USER === 'polyglot')) {
+if(process.env.LOGNAME === 'polyglot' || process.env.USER === 'polyglot')
+{
 	logger.info('Running as polyglot');
-	options.requireAuth = false;
 	isyConfig.socketPath = '/tmp/ns2isy182652';
+}
+else if(options.autoStart && !isyConfig.password)
+{
+	logger.error('Auto start requires ISY password to be configured or running as polyglot');
+	exit(1);
 }
 
 console.log(`ISY config: ${logStringify(isyConfig)}`);
 console.log(`Matter config: ${logStringify(matterConfig)}`);
 console.log(`Server config: ${logStringify(serverConfig)}`);
 
-if (options.autoStart) {
+if(!options.requireAuth)
+{
 	authenticated = true;
-	startBridgeServer();
-	if(options.openSocket)
-		startSocketServer();
-} else {
-	if (!options.requireAuth) {
-		authenticated = true;
-	}
-	startSocketServer();
 }
+
+if (options.openSocket) {
+	logger.info('Starting socket server');
+	await startSocketServer();
+}
+else
+{
+	logger.info('Running standalone');
+}
+
+if (options.autoStart) {
+	logger.info('Autostart enabled');
+	await startBridgeServer();
+}
+
 
 //main();
 //# sourceMappingURL=server.js.map

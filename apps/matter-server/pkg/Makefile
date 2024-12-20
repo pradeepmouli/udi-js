@@ -37,10 +37,8 @@ build-matter:
 	@echo "*** Cleaning build files ***"
 	@rm -rf build
 	@rm -f "files/${TAR_FILE}"
-
 	@echo "*** Compiling ***"
-	cd .. && npm run build
-
+	@cd ../../../ && lerna run build
 	@echo "*** Copying required files to build ***"
 	@mkdir -p build/bin
 	@cp -r ../bin/* build/bin/
@@ -64,4 +62,4 @@ do-install:
 	${MKDIR} ${STAGEDIR}${PREFIX}/etc/${PORTNAME}.d/files
 	${INSTALL_DATA} ${FILESDIR}/${TAR_FILE} ${STAGEDIR}${PREFIX}/etc/${PORTNAME}.d/files/${TAR_FILE}
 
-.include <bsd.port.mk>
+# .include <bsd.port.mk>

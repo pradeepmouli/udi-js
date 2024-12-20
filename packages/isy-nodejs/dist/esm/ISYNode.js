@@ -16,7 +16,6 @@ export class ISYNode {
     static family;
     static nodeDefId = 'Unknown';
     static implements = [];
-    baseName;
     commands;
     //public readonly formatted: DriverValues<keyof D,string> = {};
     //public readonly uom: { [x in Driver.Literal]?: UnitOfMeasure } = { ST: UnitOfMeasure.Boolean };
@@ -81,7 +80,7 @@ export class ISYNode {
                 isy.logger[level](`${this.folder} ${this.name} (${this.address}): ${msg}`, meta);
                 return isy.logger;
             };
-            this.label = `${this.folder} ${this.baseName}`;
+            this.label = `${this.folder} ${this.baseLabel}`;
         }
         else {
             this.label = this.baseLabel;

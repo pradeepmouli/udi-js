@@ -15,7 +15,7 @@ export class ZWaveBase<D extends ISYNode.DriverSignatures, C extends ISYNode.Com
 	static override family: Family.ZWave = Family.ZWave;
 
 	public async getNodeDef(nodeDefId: string): Promise<NodeDef> {
-		return this.isy.sendRequest(`zmatter/zwave/node/${this.address}/def/get`,{trailingSlash: false});
+		return (await this.isy.sendRequest<{nodeDef: NodeDef}>(`zmatter/zwave/node/${this.address}/def/get`,{trailingSlash: false})).nodeDef;
 	}
 
 	public override convertFrom(value: any, uom: number): any {

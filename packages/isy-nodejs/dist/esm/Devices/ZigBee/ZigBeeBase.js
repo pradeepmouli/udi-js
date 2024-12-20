@@ -5,7 +5,7 @@ import { DynamicNode } from '../DynamicNode.js';
 export class ZigBeeBase extends DynamicNode {
     static family = Family.ZigBee;
     async getNodeDef(nodeDefId) {
-        return this.isy.sendRequest(`zmatter/zb/node/${this.address}/def/get`, { trailingSlash: false });
+        return (await this.isy.sendRequest(`zmatter/zb/node/${this.address}/def/get`, { trailingSlash: false })).nodeDef;
     }
 }
 //# sourceMappingURL=ZigBeeBase.js.map

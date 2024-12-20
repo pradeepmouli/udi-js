@@ -14,6 +14,6 @@ import type { NodeDef } from '../../Model/NodeDef.js';
 export class ZigBeeBase<D extends ISYNode.DriverSignatures, C extends ISYNode.CommandSignatures, E extends ISYNode.EventSignatures = {}> extends DynamicNode<Family.ZigBee, D, C, E> {
 	static override family: Family.ZigBee = Family.ZigBee;
 	public async getNodeDef(nodeDefId: string): Promise<NodeDef> {
-		return this.isy.sendRequest(`zmatter/zb/node/${this.address}/def/get`,{trailingSlash: false});
+		return (await this.isy.sendRequest(`zmatter/zb/node/${this.address}/def/get`,{trailingSlash: false})).nodeDef;
 	}
 }

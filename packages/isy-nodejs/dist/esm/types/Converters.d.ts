@@ -4,11 +4,11 @@ import { Paths } from 'type-fest';
 declare const StandardConverters: {
     Boolean: {
         LevelFrom0To255: {
-            to: (value: boolean) => 0 | 255;
+            to: (value: boolean) => 255 | 0;
             from: (value: number) => boolean;
         };
         Percent: {
-            to: (value: boolean) => 0 | 100;
+            to: (value: boolean) => 100 | 0;
             from: (value: number) => boolean;
         };
     };

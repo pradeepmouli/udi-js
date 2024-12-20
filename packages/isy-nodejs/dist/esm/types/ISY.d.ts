@@ -94,14 +94,14 @@ export declare class ISY extends EventEmitter implements Disposable {
     sendGetVariable(id: any, type: any, handleResult: (arg0: number, arg1: number) => void): Promise<void>;
     sendISYCommand(path: string): Promise<any>;
     sendNodeCommand<P extends string | symbol, N extends ISYNode<any, any, any, any>>(node: N, command: string, parameters?: Record<P, string | number> | string | number): Promise<any>;
-    sendRequest(url: string, options?: {
+    sendRequest<T = any>(url: string, options?: {
         parserOptions?: ParserOptions;
         trailingSlash: boolean;
         requestLogLevel?: Utils.LogLevel;
         responseLogLevel?: Utils.LogLevel;
         errorLogLevel?: Utils.LogLevel;
         throwOnError?: boolean;
-    } & Utils.ISYRequestConfig): Promise<any>;
+    } & Utils.ISYRequestConfig): Promise<T>;
     sendSetVariable(id: any, type: any, value: any, handleResult: {
         (success: any): void;
         (arg0: boolean): void;

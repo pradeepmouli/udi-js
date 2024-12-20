@@ -588,7 +588,7 @@ export class ISY extends EventEmitter implements Disposable {
 		return this.sendRequest(uriToUse);
 	}
 
-	public async sendRequest(
+	public async sendRequest<T = any>(
 		url: string,
 		options: {
 			parserOptions?: ParserOptions;
@@ -598,7 +598,7 @@ export class ISY extends EventEmitter implements Disposable {
 			errorLogLevel?: Utils.LogLevel;
 			throwOnError?: boolean;
 		} & Utils.ISYRequestConfig = { trailingSlash: true }
-	): Promise<any> {
+	): Promise<T> {
 		const requestLogLevel = options.requestLogLevel ?? 'debug';
 		const responseLogLevel = options.responseLogLevel ?? 'silly';
 		const finalUrl = `${this.protocol}://${this.address}/rest/${url}${options.trailingSlash ? '/' : ''}`;

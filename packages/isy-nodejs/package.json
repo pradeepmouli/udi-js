@@ -46,7 +46,7 @@
         "@types/node": "18.19",
         "@types/xml2js": "",
         "@types/xmldoc": "",
-        "microdiff": "^1.4.0",
+        "microdiff": "^1.5.0",
         "mocha": "",
         "rimraf": "^6.0.1"
     },

@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "tsx": "^4.19.2",
-    "typescript-eslint": "^8.18.1"
+    "typescript-eslint": "^8.18.2"
   },
   "gitHead": "f80638d852ef427b9beb52c814ec6ecf3f618ef1"
 }
